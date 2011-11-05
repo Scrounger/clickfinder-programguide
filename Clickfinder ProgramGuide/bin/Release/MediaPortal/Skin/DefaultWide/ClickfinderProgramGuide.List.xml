@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<window>
+  <controls>
+
+
+
+      <control>
+        <description>BG listcontrol</description>
+        <posX>0</posX>
+        <posY>250</posY>
+        <type>image</type>
+        <id>0</id>
+        <width>800</width>
+        <height>460</height>
+        <texture>recentsummoverlaybg.png</texture>
+        <colordiffuse>EEFFFFFF</colordiffuse>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+      </control>
+
+    <control>
+      <type>listcontrol</type>
+      <id>10</id>
+      <onright>4</onright>
+      <onleft>40</onleft>
+      <posX>28</posX>
+      <posY>282</posY>
+      <width>742</width>
+      <height>425</height>
+      <font>mediastream12c</font>
+      <font2>mediastream10c</font2>
+      <font3>mediastream10c</font3>
+      <spinWidth>50</spinWidth>
+      <spinHeight>37</spinHeight>
+      <spinPosX>670</spinPosX>
+      <spinPosY>657</spinPosY>
+      <spinAlign>Right</spinAlign>
+      <spinColor>ff006698</spinColor>
+      <textureUp>arrow_round_up_nofocus.png</textureUp>
+      <textureDown>arrow_round_down_nofocus.png</textureDown>
+      <textureUpFocus>arrow_round_up_focus.png</textureUpFocus>
+      <textureDownFocus>arrow_round_down_focus.png</textureDownFocus>
+      <IconXOff>2</IconXOff>
+      <IconYOff>2</IconYOff>
+      <textXOff>0</textXOff>
+      <textYOff>0</textYOff>
+      <textXOff2>742</textXOff2>
+      <textYOff2>0</textYOff2>
+      <textXOff3>60</textXOff3>
+      <textYOff3>16</textYOff3>
+      <itemWidth>40</itemWidth>
+      <itemHeight>40</itemHeight>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+
+    
+  </controls>
+</window>

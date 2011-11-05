@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<window>
+  <controls>
+
+
+
+    <control>
+      <description>BG listcontrol</description>
+      <posX>0</posX>
+      <posY>60</posY>
+      <type>image</type>
+      <id>0</id>
+      <width>1280</width>
+      <height>440</height>
+      <texture>ClickfinderPG_BG.png</texture>
+      <colordiffuse>EEFFFFFF</colordiffuse>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+
+
+    <control>
+      <type>listcontrol</type>
+      <id>10</id>
+      <onright>4</onright>
+      <onleft>2</onleft>
+      <posX>28</posX>
+      <posY>104</posY>
+      <width>590</width>
+      <height>425</height>
+      <font>mediastream12c</font>
+      <font2>mediastream10c</font2>
+      <font3>mediastream10c</font3>
+      <spinWidth>20</spinWidth>
+      <spinHeight>20</spinHeight>
+      <spinPosX>574</spinPosX>
+      <spinPosY>456</spinPosY>
+      <spinAlign>Right</spinAlign>
+      <spinColor>ff006698</spinColor>
+      <textureUp>arrow_round_up_nofocus.png</textureUp>
+      <textureDown>arrow_round_down_nofocus.png</textureDown>
+      <textureUpFocus>arrow_round_up_focus.png</textureUpFocus>
+      <textureDownFocus>arrow_round_down_focus.png</textureDownFocus>
+      <textureHeight>58</textureHeight>
+      <IconXOff>4</IconXOff>
+      <IconYOff>4</IconYOff>
+      <textXOff>2</textXOff>
+      <textYOff>2</textYOff>
+      <textXOff2>590</textXOff2>
+      <textYOff2>30</textYOff2>
+      <textXOff3>64</textXOff3>
+      <textYOff3>30</textYOff3>
+      <itemWidth>50</itemWidth>
+      <itemHeight>50</itemHeight>
+
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+
+
+  </controls>
+</window>
