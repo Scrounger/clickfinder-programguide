@@ -304,7 +304,6 @@ Namespace OurPlugin
 
 
             While ClickfinderData.Read
-                MsgBox(ClickfinderData.Item("Titel"))
 
                 ctlTippImage.FileName = ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
                 GUIControl.ShowControl(GetID, ctlTippImage.GetID)
@@ -381,8 +380,9 @@ Namespace OurPlugin
 
                 While TvServerData.Read
 
-                    lItem.IconImage = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & TvServerData.Item("displayName").ToString & ".png")
+                    lItem.IconImage = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & Replace(TvServerData.Item("displayName").ToString, " HD", "") & ".png")
                     GUIControl.AddListItemControl(GetID, ctlList.GetID, lItem)
+                    Exit While
                 End While
                 CloseTvServerDB()
 
@@ -431,8 +431,9 @@ Namespace OurPlugin
                     ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where stationName = '" & ClickfinderData.Item("SenderKennung").ToString & "'")
 
                     While TvServerData.Read
-                        lItem.IconImage = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & TvServerData.Item("displayName").ToString & ".png")
+                        lItem.IconImage = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & Replace(TvServerData.Item("displayName").ToString, " HD", "") & ".png")
                         GUIControl.AddListItemControl(GetID, ctlList.GetID, lItem)
+                        Exit While
                     End While
                     CloseTvServerDB()
 
