@@ -63,16 +63,9 @@
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="Utils, Version=1.2.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\Utils.dll</HintPath>
-    </Reference>
-    <Reference Include="WindowPlugins, Version=1.2.1.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\plugins\Windows\WindowPlugins.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +131,15 @@
     <Content Include="MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\Clickfinder_R1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MediaPortal\Skin\StreamedMP\Media\hover_ClickfinderProgramGuide.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -173,7 +175,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="MediaPortal\Skin\DefaultWide\Media\" />
     <Folder Include="MPEI\Source\" />
     <Folder Include="Wiki\Screenshots\" />
   </ItemGroup>

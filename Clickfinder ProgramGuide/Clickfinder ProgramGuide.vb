@@ -7,10 +7,12 @@ Imports MediaPortal.Profile
 Imports MediaPortal.Configuration
 Imports MediaPortal.Utils
 Imports MediaPortal.Util
-Imports System.Globalization
+
 
 Imports MySql.Data
 Imports MySql.Data.MySqlClient
+Imports System.Threading
+
 
 
 Namespace OurPlugin
@@ -18,12 +20,15 @@ Namespace OurPlugin
         Inherits MediaPortal.GUI.Library.GUIWindow
         Implements MediaPortal.GUI.Library.ISetupForm
 
+        Public Delegate Sub D_Parallel()
+
 #Region "Skin Controls"
 
         <SkinControlAttribute(2)> Protected btnPrimeTime As GUIButtonControl = Nothing
         <SkinControlAttribute(3)> Protected btnLateTime As GUIButtonControl = Nothing
         <SkinControlAttribute(4)> Protected btnCommingTipps As GUIButtonControl = Nothing
 
+        <SkinControlAttribute(9)> Protected ctlProgressBar As GUIAnimation = Nothing
         <SkinControlAttribute(10)> Protected ctlList As GUIListControl = Nothing
 
         <SkinControlAttribute(20)> Protected ctlTippImage As GUIImage = Nothing
@@ -49,7 +54,15 @@ Namespace OurPlugin
         <SkinControlAttribute(41)> Protected ListDauer As GUIFadeLabel = Nothing
         <SkinControlAttribute(42)> Protected ListKurzKritik As GUIFadeLabel = Nothing
         <SkinControlAttribute(43)> Protected ListBewertungen As GUIFadeLabel = Nothing
+
+
+
+
 #End Region
+#Region "Variablen"
+        Public ListSQLString As String
+#End Region
+
 
         ' MP SettingMenu
 #Region "iSetupFormImplementation"
@@ -92,7 +105,7 @@ Namespace OurPlugin
         Public Function GetHome(ByRef strButtonText As String, ByRef strButtonImage As String, ByRef strButtonImageFocus As String, ByRef strPictureImage As String) As Boolean Implements MediaPortal.GUI.Library.ISetupForm.GetHome
             strButtonText = "Clickfinder ProgramGuide"
 
-            strButtonImage = String.Empty
+            strButtonImage = "ClickfinderPG_R3.png"
 
             strButtonImageFocus = String.Empty
 
@@ -112,8 +125,12 @@ Namespace OurPlugin
 #Region "GUI Actions"
         Protected Overrides Sub OnPageLoad()
             MyBase.OnPageLoad()
+
+            ctlProgressBar.Visible = False
+
+
             ShowTagesTipp()
-            ShowPrimeTime()
+            Button_PrimeTime()
 
         End Sub
         Public Overrides Sub OnAction(ByVal action As MediaPortal.GUI.Library.Action)
@@ -162,20 +179,47 @@ Namespace OurPlugin
 
 
         Private Sub Button_PrimeTime()
-            ShowPrimeTime()
+            Dim PrimeTimeSQL As String
+            Dim EndofDay As Date
+            Dim EndofDaySQL As String
+            Dim Rating As String
+
+
+            Rating = MPSettingRead("config", "ClickfinderRating")
+
+            EndofDay = Today.AddDays(1)
+
+            PrimeTimeSQL = "#" & Today.Year & "-" & Format(Today.Month, "00") & "-" & Format(Today.Day, "00") & " 20:15:00#"
+            EndofDaySQL = "#" & EndofDay.Year & "-" & Format(EndofDay.Month, "00") & "-" & Format(EndofDay.Day, "00") & " 00:00:00#"
+
+
+            StartFillListcontrol("Select * from Sendungen where (Beginn Between " & PrimeTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= " & Rating & " AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC, Titel")  'AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC"
 
         End Sub
 
         Private Sub Button_LateTime()
 
-            ShowLateTime()
+            Dim LateTimeSQL As String
+            Dim EndofDay As Date
 
+            Dim EndofDaySQL As String
+            Dim Rating As String
+
+
+            Rating = MPSettingRead("config", "ClickfinderRating")
+
+            EndofDay = Today.AddDays(1)
+
+            LateTimeSQL = "#" & Today.Year & "-" & Format(Today.Month, "00") & "-" & Format(Today.Day, "00") & " 22:00:00#"
+            EndofDaySQL = "#" & EndofDay.Year & "-" & Format(EndofDay.Month, "00") & "-" & Format(EndofDay.Day, "00") & " 02:00:00#"
+
+            StartFillListcontrol("Select * from Sendungen where (Beginn Between " & LateTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= " & Rating & " AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC, Titel ASC")
 
         End Sub
 
         Private Sub Button_CommingTipps()
 
-            ShowComingTipps()
+            StartFillListControlCommingNextTipps()
 
         End Sub
 
@@ -216,7 +260,13 @@ Namespace OurPlugin
 
 
             Catch ex As Exception
-                MsgBox("TV Movie ProgramGuide: Clickfinder DB:" & ex.Message)
+
+                If IO.File.Exists(ClickfinderPath & "\tvdaten.mdb") Then
+                    Log.Debug("Clickfinder ProgramGuide: (Clickfinder DB, read) " & ex.Message)
+                    MsgBox("Clickfinder ProgramGuide: (Clickfinder DB, read) " & ex.Message)
+                Else
+                    MPDialogNotify("Warnung ...", "Clickfinder Datenbank nicht gefunden !")
+                End If
 
                 CmdClickfinderDBRead.Dispose()
                 ConClickfinderDBRead.Close()
@@ -231,7 +281,8 @@ Namespace OurPlugin
                 ConClickfinderDBRead.Close()
 
             Catch ex As Exception
-                MsgBox("TV Movie ProgramGuide: Clickfinder DB:" & ex.Message)
+                Log.Debug("Clickfinder ProgramGuide: (Clickfinder DB, close) " & ex.Message)
+                MsgBox("Clickfinder ProgramGuide: (Clickfinder DB, close) " & ex.Message)
             End Try
         End Sub
 
@@ -257,7 +308,12 @@ Namespace OurPlugin
 
 
             Catch ex As Exception
-                MsgBox("TVServer DB: " & ex.Message)
+
+                MPDialogNotify("Warnung ...", "TV Server nicht gefunden")
+
+                Log.Debug("Clickfinder ProgramGuide: (TvServer DB, read) " & ex.Message)
+                MsgBox("Clickfinder ProgramGuide: (TvServer DB, read) " & ex.Message)
+
                 CmdTvServerDBRead.Dispose()
                 ConTvServerDBRead.Close()
             End Try
@@ -270,11 +326,152 @@ Namespace OurPlugin
                 CmdTvServerDBRead.Dispose()
                 ConTvServerDBRead.Close()
             Catch ex As Exception
-                MsgBox("TVServer DB: " & ex.Message)
+                Log.Debug("Clickfinder ProgramGuide: (TvServer DB, close) " & ex.Message)
+                MsgBox("Clickfinder ProgramGuide: (TvServer DB, close) " & ex.Message)
             End Try
 
         End Sub
 
+
+#End Region
+
+
+#Region "ListControl mit Daten füttern"
+
+        'List Controll mit Daten zur bestimmter Uhrzeit (SQLString) - paralelles Threating
+        Private Sub StartFillListControl(ByVal SQLString As String)
+
+            Dim ProgressBar, Fill_Listcontrol As Threading.Thread
+
+            ListSQLString = SQLString
+
+            ProgressBar = New Thread(AddressOf ShowProgressbar)
+            Fill_Listcontrol = New Thread(AddressOf FillListcontrol)
+
+            ProgressBar.Start()
+            Fill_Listcontrol.Start()
+        End Sub
+        Private Sub FillListControl()
+            ctlList.ListItems.Clear()
+
+            ReadClickfinderDB(ListSQLString)
+
+            While ClickfinderData.Read
+
+                Dim lItem As New GUIListItem
+                lItem.Label = ClickfinderData.Item("Titel")
+                lItem.Label2 = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
+                ":" & Format(CDate(ClickfinderData.Item("Beginn")).Minute, "00") & _
+                " - " & Format(CDate(ClickfinderData.Item("Ende")).Hour, "00") & _
+                ":" & Format(CDate(ClickfinderData.Item("Ende")).Minute, "00")
+                lItem.Label3 = ClickfinderData.Item("Genre").ToString
+                lItem.ItemId = ctlList.ListItems.Count - 1
+
+                ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where stationName = '" & ClickfinderData.Item("SenderKennung").ToString & "'")
+
+                While TvServerData.Read
+
+                    lItem.IconImage = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & TvServerData.Item("displayName").ToString & ".png")
+                    GUIControl.AddListItemControl(GetID, ctlList.GetID, lItem)
+                    Exit While
+                End While
+                CloseTvServerDB()
+
+
+            End While
+
+            CloseClickfinderDB()
+
+            ctlProgressBar.Visible = False
+
+        End Sub
+
+        'List Controll mit Daten der kommenden TagesTipps füllen - paralleles Threating
+        Private Sub StartFillListControlCommingNextTipps()
+            Dim ProgressBar, ShowCommingNextTipps As Threading.Thread
+
+            ProgressBar = New Thread(AddressOf ShowProgressbar)
+            ShowCommingNextTipps = New Thread(AddressOf FillListControlCommingNextTipps)
+
+            ProgressBar.Start()
+            ShowCommingNextTipps.Start()
+        End Sub
+        Private Sub FillListControlCommingNextTipps()
+            Dim LateTimeSQL As String
+            Dim EndofDay As Date
+            Dim Dauer As String
+            Dim EndofDaySQL As String
+            Dim Rating As String
+
+            ctlProgressBar.Visible = True
+            Application.DoEvents()
+
+
+            Rating = MPSettingRead("config", "ClickfinderRating")
+
+            EndofDay = Today.AddMonths(1)
+
+            LateTimeSQL = "#" & Today.Year & "-" & Format(Today.Month, "00") & "-" & Format(Today.Day, "00") & " 00:01:00#"
+            EndofDaySQL = "#" & EndofDay.Year & "-" & Format(EndofDay.Month, "00") & "-" & Format(EndofDay.Day, "00") & " 02:00:00#"
+
+            ctlList.ListItems.Clear()
+
+            ReadClickfinderDB("Select * from Sendungen where (Beginn Between " & LateTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung = 4 ORDER BY Beginn ASC")
+
+            While ClickfinderData.Read
+
+
+                Dauer = Replace(Replace(ClickfinderData.Item("Dauer"), " ", ""), "min", "")
+
+                '110 min
+                If CInt(Dauer) > 10 Or CInt(Dauer) < 240 Then
+
+                    Dim lItem As New GUIListItem
+                    Dim TagBezeichnung As String
+
+                    TagBezeichnung = CDate(ClickfinderData.Item("Beginn")).DayOfWeek
+
+                    Select Case TagBezeichnung
+                        Case Is = "0"
+                            TagBezeichnung = "Sonntag"
+                        Case Is = "1"
+                            TagBezeichnung = "Montag"
+                        Case Is = "2"
+                            TagBezeichnung = "Dienstag"
+                        Case Is = "3"
+                            TagBezeichnung = "Mittwoch"
+                        Case Is = "4"
+                            TagBezeichnung = "Donnerstag"
+                        Case Is = "5"
+                            TagBezeichnung = "Freitag"
+                        Case Is = "6"
+                            TagBezeichnung = "Samstag"
+                    End Select
+
+                    lItem.Label = ClickfinderData.Item("Titel")
+                    lItem.Label2 = TagBezeichnung & " " & Format(CDate(ClickfinderData.Item("Beginn")).Day, "00") & "." & Format(CDate(ClickfinderData.Item("Beginn")).Month, "00") & "." & CDate(ClickfinderData.Item("Beginn")).Year
+                    lItem.Label3 = ClickfinderData.Item("Genre").ToString
+                    'lItem.Label2 = SeriesReader.Item("ID")
+                    lItem.ItemId = ctlList.ListItems.Count - 1
+                    'lItem.Label2 = item.StartTime.Date
+                    'lItem.Path = Test
+                    lItem.IconImage = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & ClickfinderData.Item("SenderKennung").ToString & ".png")
+                    lItem.IsFolder = False
+                    GUIControl.AddListItemControl(GetID, ctlList.GetID, lItem)
+
+                End If
+
+            End While
+
+            CloseClickfinderDB()
+
+            ctlProgressBar.Visible = False
+        End Sub
+
+        'ProgresBar paralell anzeigen
+        Private Sub ShowProgressbar()
+            ctlProgressBar.Visible = True
+        End Sub
 
 #End Region
 
@@ -338,179 +535,6 @@ Namespace OurPlugin
 
         End Sub
 
-        Private Sub ShowPrimeTime()
-            Dim PrimeTimeSQL As String
-            Dim EndofDay As Date
-            Dim EndofDaySQL As String
-            Dim Rating As String
-
-
-            Rating = MPSettingRead("config", "ClickfinderRating")
-
-            EndofDay = Today.AddDays(1)
-
-            PrimeTimeSQL = "#" & Today.Year & "-" & Format(Today.Month, "00") & "-" & Format(Today.Day, "00") & " 20:15:00#"
-            EndofDaySQL = "#" & EndofDay.Year & "-" & Format(EndofDay.Month, "00") & "-" & Format(EndofDay.Day, "00") & " 00:00:00#"
-
-            ctlList.ListItems.Clear()
-
-            ReadClickfinderDB("Select * from Sendungen where (Beginn Between " & PrimeTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= " & Rating & " AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC")  'AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC"
-
-            While ClickfinderData.Read
-
-
-
-
-                Dim lItem As New GUIListItem
-                lItem.Label = ClickfinderData.Item("Titel")
-                lItem.Label2 = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
-                ":" & Format(CDate(ClickfinderData.Item("Beginn")).Minute, "00") & _
-                " - " & Format(CDate(ClickfinderData.Item("Ende")).Hour, "00") & _
-                ":" & Format(CDate(ClickfinderData.Item("Ende")).Minute, "00")
-
-                lItem.Label3 = ClickfinderData.Item("Genre").ToString
-                'lItem.Label2 = SeriesReader.Item("ID")
-                lItem.ItemId = ctlList.ListItems.Count - 1
-                'lItem.Label2 = item.StartTime.Date
-                'lItem.Path = Test
-
-                'TvServer SenderBezeichnung holen & Logo laden
-
-                ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where stationName = '" & ClickfinderData.Item("SenderKennung").ToString & "'")
-
-                While TvServerData.Read
-
-                    lItem.IconImage = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & Replace(TvServerData.Item("displayName").ToString, " HD", "") & ".png")
-                    GUIControl.AddListItemControl(GetID, ctlList.GetID, lItem)
-                    Exit While
-                End While
-                CloseTvServerDB()
-
-            End While
-
-            CloseClickfinderDB()
-        End Sub
-
-        Public Sub ShowLateTime()
-            Dim LateTimeSQL As String
-            Dim EndofDay As Date
-            Dim Dauer As String
-            Dim EndofDaySQL As String
-            Dim Rating As String
-
-
-            Rating = MPSettingRead("config", "ClickfinderRating")
-
-            EndofDay = Today.AddDays(1)
-
-            LateTimeSQL = "#" & Today.Year & "-" & Format(Today.Month, "00") & "-" & Format(Today.Day, "00") & " 22:00:00#"
-            EndofDaySQL = "#" & EndofDay.Year & "-" & Format(EndofDay.Month, "00") & "-" & Format(EndofDay.Day, "00") & " 02:00:00#"
-
-            ctlList.ListItems.Clear()
-
-            ReadClickfinderDB("Select * from Sendungen where (Beginn Between " & LateTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= " & Rating & " AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC")
-
-            While ClickfinderData.Read
-
-
-                Dauer = Replace(Replace(ClickfinderData.Item("Dauer"), " ", ""), "min", "")
-
-                '110 min
-                If CInt(Dauer) > 10 Or CInt(Dauer) < 240 Then
-
-                    Dim lItem As New GUIListItem
-                    lItem.Label = ClickfinderData.Item("Titel")
-                    lItem.Label2 = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
-                    ":" & Format(CDate(ClickfinderData.Item("Beginn")).Minute, "00") & _
-                    " - " & Format(CDate(ClickfinderData.Item("Ende")).Hour, "00") & _
-                    ":" & Format(CDate(ClickfinderData.Item("Ende")).Minute, "00")
-
-                    lItem.Label3 = ClickfinderData.Item("Genre").ToString
-                    lItem.ItemId = ctlList.ListItems.Count - 1
-
-                    ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where stationName = '" & ClickfinderData.Item("SenderKennung").ToString & "'")
-
-                    While TvServerData.Read
-                        lItem.IconImage = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & Replace(TvServerData.Item("displayName").ToString, " HD", "") & ".png")
-                        GUIControl.AddListItemControl(GetID, ctlList.GetID, lItem)
-                        Exit While
-                    End While
-                    CloseTvServerDB()
-
-                End If
-
-            End While
-
-            CloseClickfinderDB()
-        End Sub
-
-        Public Sub ShowComingTipps()
-            Dim LateTimeSQL As String
-            Dim EndofDay As Date
-            Dim Dauer As String
-            Dim EndofDaySQL As String
-            Dim Rating As String
-
-
-            Rating = MPSettingRead("config", "ClickfinderRating")
-
-            EndofDay = Today.AddMonths(1)
-
-            LateTimeSQL = "#" & Today.Year & "-" & Format(Today.Month, "00") & "-" & Format(Today.Day, "00") & " 00:01:00#"
-            EndofDaySQL = "#" & EndofDay.Year & "-" & Format(EndofDay.Month, "00") & "-" & Format(EndofDay.Day, "00") & " 02:00:00#"
-
-            ctlList.ListItems.Clear()
-
-            ReadClickfinderDB("Select * from Sendungen where (Beginn Between " & LateTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung = 4 ORDER BY Beginn ASC")
-
-            While ClickfinderData.Read
-
-
-                Dauer = Replace(Replace(ClickfinderData.Item("Dauer"), " ", ""), "min", "")
-
-                '110 min
-                If CInt(Dauer) > 10 Or CInt(Dauer) < 240 Then
-
-                    Dim lItem As New GUIListItem
-                    Dim TagBezeichnung As String
-
-                    TagBezeichnung = CDate(ClickfinderData.Item("Beginn")).DayOfWeek
-
-                    Select Case TagBezeichnung
-                        Case Is = "0"
-                            TagBezeichnung = "Sonntag"
-                        Case Is = "1"
-                            TagBezeichnung = "Montag"
-                        Case Is = "2"
-                            TagBezeichnung = "Dienstag"
-                        Case Is = "3"
-                            TagBezeichnung = "Mittwoch"
-                        Case Is = "4"
-                            TagBezeichnung = "Donnerstag"
-                        Case Is = "5"
-                            TagBezeichnung = "Freitag"
-                        Case Is = "6"
-                            TagBezeichnung = "Samstag"
-                    End Select
-
-                    lItem.Label = ClickfinderData.Item("Titel")
-                    lItem.Label2 = TagBezeichnung & " " & Format(CDate(ClickfinderData.Item("Beginn")).Day, "00") & "." & Format(CDate(ClickfinderData.Item("Beginn")).Month, "00") & "." & CDate(ClickfinderData.Item("Beginn")).Year
-                    lItem.Label3 = ClickfinderData.Item("Genre").ToString
-                    'lItem.Label2 = SeriesReader.Item("ID")
-                    lItem.ItemId = ctlList.ListItems.Count - 1
-                    'lItem.Label2 = item.StartTime.Date
-                    'lItem.Path = Test
-                    lItem.IconImage = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & ClickfinderData.Item("SenderKennung").ToString & ".png")
-                    lItem.IsFolder = False
-                    GUIControl.AddListItemControl(GetID, ctlList.GetID, lItem)
-
-                End If
-
-            End While
-
-            CloseClickfinderDB()
-
-        End Sub
 
         Private Sub ShowListItemDetails()
             Dim Titel As String
@@ -521,6 +545,9 @@ Namespace OurPlugin
             Dim Heute As Date
             Dim ClickfinderPath As String
             Dim RatingImage As String
+            Dim AktuelleZeit As Date
+
+
 
 
             Titel = Replace(ctlList.SelectedListItem.Label.ToString, "'", "''")
@@ -531,14 +558,24 @@ Namespace OurPlugin
 
             ClickfinderPath = MPSettingRead("config", "ClickfinderPath")
 
-            'Datum.Day +1 ab 0:00h
-            If ProofDate >= 0 And ProofDate <= 2 Then
-                Heute = Today.AddDays(1)
-                SQLDateString = "#" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00#"
-            Else
+            AktuelleZeit = Now
+
+
+            If AktuelleZeit.Hour >= 0 And AktuelleZeit.Hour <= 2 Then
+
                 Heute = Today
                 SQLDateString = "#" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00#"
+            Else
+                'Datum.Day +1 ab 0:00h
+                If ProofDate >= 0 And ProofDate <= 2 Then
+                    Heute = Today.AddDays(1)
+                    SQLDateString = "#" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00#"
+                Else
+                    Heute = Today
+                    SQLDateString = "#" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00#"
+                End If
             End If
+
 
             ReadClickfinderDB("Select * from Sendungen Inner Join SendungenDetails on Sendungen.Pos = SendungenDetails.Pos where Beginn = " & SQLDateString & " AND Titel = '" & Titel & "' and Genre = '" & Kategorie & "'")
 
@@ -558,6 +595,7 @@ Namespace OurPlugin
                 While TvServerData.Read
                     ListKanal.Label = TvServerData.Item("displayName")
                     GUIControl.ShowControl(GetID, ListKanal.GetID)
+                    Exit While
                 End While
                 CloseTvServerDB()
 
@@ -615,6 +653,31 @@ Namespace OurPlugin
 
         End Sub
 
+
+
+
+
+
+
+#End Region
+
+#Region "MediaPortal Funktionen / Dialogs"
+
+        'MediaPortal Dialoge
+        Private Sub MPDialogOK(ByVal Heading As String, ByVal StringLine1 As String, Optional ByVal StringLine2 As String = "", Optional ByVal StringLine3 As String = "")
+            Dim dlg As GUIDialogOK = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_OK, Integer)), GUIDialogOK)
+            dlg.SetHeading(Heading)
+            dlg.SetLine(1, StringLine1)
+            dlg.SetLine(2, StringLine2)
+            dlg.SetLine(3, StringLine3)
+            dlg.DoModal(GUIWindowManager.ActiveWindow)
+        End Sub
+        Private Sub MPDialogNotify(ByVal Heading As String, ByVal StringLine1 As String)
+            Dim dlg As GUIDialogNotify = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_NOTIFY, Integer)), GUIDialogNotify)
+            dlg.SetHeading(Heading)
+            dlg.SetText(StringLine1)
+            dlg.DoModal(GUIWindowManager.ActiveWindow)
+        End Sub
 #End Region
 
 
