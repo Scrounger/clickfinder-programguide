@@ -59,7 +59,8 @@ Namespace OurPlugin
         <SkinControlAttribute(43)> Protected ListBewertungen As GUIFadeLabel = Nothing
 
         <SkinControlAttribute(90)> Protected btnBack As GUIButtonControl = Nothing
-
+        '<SkinControlAttribute(91)> Protected btnRecord As GUIButtonControl = Nothing
+        '<SkinControlAttribute(92)> Protected btnRemember As GUIButtonControl = Nothing
 
 #End Region
 #Region "Variablen"
@@ -416,7 +417,7 @@ Namespace OurPlugin
             ReadClickfinderDB(ListSQLString)
 
             While ClickfinderData.Read
-
+                'MsgBox(ClickfinderData.Item("Titel"))
                 Dim lItem As New GUIListItem
                 lItem.Label = ClickfinderData.Item("Titel")
                 lItem.Label2 = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _

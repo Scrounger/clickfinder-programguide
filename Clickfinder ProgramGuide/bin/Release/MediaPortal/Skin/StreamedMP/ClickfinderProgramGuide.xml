@@ -162,7 +162,7 @@
 
 
     
-    <!--<import>ClickfinderProgramGuide.Tipp.xml</import>-->
+    <import>ClickfinderProgramGuide.Tipp.xml</import>
     <import>ClickfinderProgramGuide.Details.xml</import>
 
     <!-- ProgressBar Load Animation -->

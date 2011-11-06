@@ -15,7 +15,7 @@
       <filtered>yes</filtered>
       <centered>no</centered>
       <keepaspectratio>yes</keepaspectratio>
-      <visible>!control.isvisible(30)</visible>
+      <visible>yes</visible>
     </control>
 
     <control>
@@ -31,7 +31,7 @@
       <filtered>yes</filtered>
       <centered>no</centered>
       <keepaspectratio>yes</keepaspectratio>
-      <visible>!control.isvisible(30)</visible>
+      <visible>yes</visible>
     </control>
 
     <control>
@@ -44,7 +44,6 @@
       <font>mediastream12tc</font>
       <textcolor>ffffffff</textcolor>
       <disabledcolor>80ffffff</disabledcolor>
-      <visible>!control.isvisible(30)</visible>
     </control>
 
     <control>
@@ -58,7 +57,6 @@
       <font>mediastream12tc</font>
       <textcolor>ffffffff</textcolor>
       <wrapString> | </wrapString>
-      <visible>!control.isvisible(30)</visible>
     </control>
 
     <control>
@@ -72,7 +70,6 @@
       <font>mediastream10tc</font>
       <textcolor>ffffffff</textcolor>
       <wrapString> | </wrapString>
-      <visible>!control.isvisible(30)</visible>
     </control>
 
     <control>
@@ -88,7 +85,7 @@
       <filtered>yes</filtered>
       <centered>no</centered>
       <keepaspectratio>yes</keepaspectratio>
-      <visible>!control.isvisible(30)</visible>
+      <visible>yes</visible>
     </control>
 
     <control>
@@ -101,7 +98,6 @@
       <font>mediastream10tc</font>
       <textcolor>ffffffff</textcolor>
       <disabledcolor>80ffffff</disabledcolor>
-      <visible>!control.isvisible(30)</visible>
     </control>
 
     <control>
@@ -110,13 +106,12 @@
       <id>25</id>
       <posX>1240</posX>
       <posY>510</posY>
-      <width>400</width>
+<width>400</width>
       <label></label>
       <font>font12</font>
       <textcolor>ff909090</textcolor>
       <disabledcolor>80ffffff</disabledcolor>
-      <align>right</align>
-      <visible>!control.isvisible(30)</visible>
+<align>right</align>
     </control>
     <control>
       <description>TagesTipp Actors</description>
@@ -129,7 +124,6 @@
       <font>mediastream10tc</font>
       <textcolor>ffffffff</textcolor>
       <wrapString> | </wrapString>
-      <visible>!control.isvisible(30)</visible>
     </control>
 
     <control>
@@ -141,8 +135,8 @@
       <width>620</width>
       <height>200</height>
       <seperator>-------------------------------------------------------------------------------------------------------------------------------------------</seperator>
-      <font>font12</font>
-      <visible>!control.isvisible(30)</visible>
+<font>font12</font>
+      <visible>yes</visible>
     </control>
 
 
