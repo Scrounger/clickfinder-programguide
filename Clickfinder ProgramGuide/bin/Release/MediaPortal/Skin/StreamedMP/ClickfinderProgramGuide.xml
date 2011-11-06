@@ -33,41 +33,18 @@
       <texture>black.png</texture>
       <colordiffuse>90ffffff</colordiffuse>
     </control>
-    <control>
-      <description>Overlay Image</description>
-      <type>image</type>
-      <id>1</id>
-      <posX>0</posX>
-      <posY>500</posY>
-      <width>1280</width>
-      <height>220</height>
-      <texture>osdbackground1.png</texture>
-      <colordiffuse>a9ffffff</colordiffuse>
-    </control>
 
     <control>
-      <description>Overlay Topbar</description>
+      <id>1</id>
+      <description>Overlay Image</description>
       <type>image</type>
-      <id>0</id>
       <posX>0</posX>
       <posY>0</posY>
       <width>1280</width>
       <height>50</height>
       <texture>overlay_topbar.png</texture>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
     </control>
-
-    <control>
-      <id>1</id>
-      <description>Overlay Image</description>
-      <type>image</type>
-      <posX>0</posX>
-      <posY>0</posY>
-      <width>1281</width>
-      <height>720</height>
-      <texture>#header.BG.overlay</texture>
-    </control>
+    
     <!--<control>
       <id>1</id>
       <description>Overlay Image</description>
@@ -78,19 +55,7 @@
       <height>720</height>
       <texture>#header.BG.overlay</texture>
     </control>-->
-    <control>
-      <id>1</id>
-      <description>Top Title Background</description>
-      <type>image</type>
-      <posX>77</posX>
-      <posY>11</posY>
-      <width>437</width>
-      <height>35</height>
-      <texture>tvtitlebg.png</texture>
-      <animation effect="slide" start="-514,0" end="0,0" tween="quadratic" time="300" delay="0">WindowOpen</animation>
-      <animation effect="slide" start="0,0" end="-514,0" tween="quadratic" time="300" delay="0">WindowClose</animation>
-      <animation effect="fade" time="150">WindowClose</animation>
-    </control>
+
     <control>
       <id>1</id>
       <type>fadelabel</type>
@@ -106,7 +71,19 @@
       <animation effect="slide" start="0,0" end="-514,0" tween="quadratic" time="300" delay="0">WindowClose</animation>
       <animation effect="fade" time="150">WindowClose</animation>
     </control>
-
+    <control>
+      <description>Clickfinder Control Bar</description>
+      <posX>0</posX>
+      <posY>60</posY>
+      <type>image</type>
+      <id>0</id>
+      <width>1280</width>
+      <height>40</height>
+      <texture>ClickfinderBar.png</texture>
+      <colordiffuse>EEFFFFFF</colordiffuse>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
     <import>common.overlays.xml</import>
     <import>common.time.xml</import>  
         <import>ClickfinderProgramGuide.List.xml</import>
@@ -116,54 +93,77 @@
     <!-- ListItem -->
 
   
-
-
-
     <control>
-      <description>Try Me</description>
+      <description>20:15 Movies</description>
       <type>button</type>
       <id>2</id>
-      <posX>20</posX>
+      <posX>420</posX>
       <posY>60</posY>
-<width>120</width>
+      <width>120</width>
       <label>20:15</label>
       <onleft>4</onleft>
       <onright>3</onright>
       <onup></onup>
       <ondown>10</ondown>
     </control>
-
     <control>
-      <description>Or Me</description>
+      <description>20:15 Rest</description>
       <type>button</type>
       <id>3</id>
-      <posX>180</posX>
+      <posX>550</posX>
       <posY>60</posY>
-<width>120</width>
-      <label>22:00</label>
+      <width>120</width>
+      <label>Rest</label>
       <onleft>2</onleft>
       <onright>4</onright>
       <onup></onup>
       <ondown>10</ondown>
     </control>
+
     <control>
-      <description>Or Me</description>
+      <description>22:00 Movies</description>
       <type>button</type>
       <id>4</id>
-      <posX>340</posX>
+      <posX>670</posX>
       <posY>60</posY>
-<width>120</width>
-      <label>Tages Tipps</label>
+      <width>120</width>
+      <label>22:00</label>
       <onleft>3</onleft>
-      <onright>2</onright>
+      <onright>5</onright>
+      <onup></onup>
+      <ondown>10</ondown>
+    </control>
+    <control>
+      <description>22:00 Rest</description>
+      <type>button</type>
+      <id>5</id>
+      <posX>790</posX>
+      <posY>60</posY>
+      <width>120</width>
+      <label>Rest</label>
+      <onleft>4</onleft>
+      <onright>6</onright>
+      <onup></onup>
+      <ondown>10</ondown>
+    </control>
+    <control>
+      <description>Comming Next TagesTipps</description>
+      <type>button</type>
+      <id>6</id>
+      <posX>910</posX>
+      <posY>60</posY>
+      <width>120</width>
+      <label>Tages Tipps</label>
+      <onleft>5</onleft>
+      <onright>1</onright>
       <onup></onup>
       <ondown>10</ondown>
     </control>
 
 
     
-    <import>ClickfinderProgramGuide.Tipp.xml</import>
-    <import>ClickfinderProgramGuide.SelectedItem.xml</import>
+    <!--<import>ClickfinderProgramGuide.Tipp.xml</import>-->
+    <import>ClickfinderProgramGuide.Details.xml</import>
 
     <!-- ProgressBar Load Animation -->
     <control>

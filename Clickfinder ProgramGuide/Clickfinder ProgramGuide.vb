@@ -25,8 +25,11 @@ Namespace OurPlugin
 #Region "Skin Controls"
 
         <SkinControlAttribute(2)> Protected btnPrimeTime As GUIButtonControl = Nothing
-        <SkinControlAttribute(3)> Protected btnLateTime As GUIButtonControl = Nothing
-        <SkinControlAttribute(4)> Protected btnCommingTipps As GUIButtonControl = Nothing
+        <SkinControlAttribute(3)> Protected btnPrimeTimeRest As GUIButtonControl = Nothing
+        <SkinControlAttribute(4)> Protected btnLateTime As GUIButtonControl = Nothing
+        <SkinControlAttribute(5)> Protected btnLateTimeRest As GUIButtonControl = Nothing
+        <SkinControlAttribute(6)> Protected btnCommingTipps As GUIButtonControl = Nothing
+
 
         <SkinControlAttribute(9)> Protected ctlProgressBar As GUIAnimation = Nothing
         <SkinControlAttribute(10)> Protected ctlList As GUIListControl = Nothing
@@ -55,7 +58,7 @@ Namespace OurPlugin
         <SkinControlAttribute(42)> Protected ListKurzKritik As GUIFadeLabel = Nothing
         <SkinControlAttribute(43)> Protected ListBewertungen As GUIFadeLabel = Nothing
 
-
+        <SkinControlAttribute(90)> Protected btnBack As GUIButtonControl = Nothing
 
 
 #End Region
@@ -127,6 +130,7 @@ Namespace OurPlugin
             MyBase.OnPageLoad()
 
             ctlProgressBar.Visible = False
+            ListImage.Visible = False
 
 
             ShowTagesTipp()
@@ -146,11 +150,12 @@ Namespace OurPlugin
                 Or action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_END Then
 
                     If ctlList.IsFocused Then
-                        ShowListItemDetails()
+
                     End If
                 End If
-            End If
 
+
+            End If
 
         End Sub
 
@@ -162,17 +167,34 @@ Namespace OurPlugin
 
             MyBase.OnClicked(controlId, control, actionType)
 
+            If control Is ctlList Then
+                ListControlClick()
+
+
+            End If
+
             If control Is btnPrimeTime Then
                 Button_PrimeTime()
+            End If
+            If control Is btnPrimeTimeRest Then
+                Button_PrimeTimeRest()
             End If
             If control Is btnLateTime Then
                 Button_LateTime()
             End If
-            If control Is ctlList Then
-
+            If control Is btnLateTimeRest Then
+                Button_LateTimeRest()
             End If
+
+
             If control Is btnCommingTipps Then
                 Button_CommingTipps()
+            End If
+
+            If control Is btnBack Then
+                ListImage.Visible = False
+                ctlList.IsFocused = True
+                'btnLateTime.IsFocused = False
             End If
 
         End Sub
@@ -197,6 +219,24 @@ Namespace OurPlugin
 
         End Sub
 
+        Private Sub Button_PrimeTimeRest()
+            Dim PrimeTimeSQL As String
+            Dim EndofDay As Date
+            Dim EndofDaySQL As String
+            Dim Rating As String
+
+
+            Rating = MPSettingRead("config", "ClickfinderRating")
+
+            EndofDay = Today.AddDays(1)
+
+            PrimeTimeSQL = "#" & Today.Year & "-" & Format(Today.Month, "00") & "-" & Format(Today.Day, "00") & " 20:15:00#"
+            EndofDaySQL = "#" & EndofDay.Year & "-" & Format(EndofDay.Month, "00") & "-" & Format(EndofDay.Day, "00") & " 00:00:00#"
+
+
+            StartFillListControl("Select * from Sendungen where (Beginn Between " & PrimeTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= 5 AND Bewertung <=6 ORDER BY Beginn ASC, Bewertung DESC, Titel")  'AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC"
+
+        End Sub
         Private Sub Button_LateTime()
 
             Dim LateTimeSQL As String
@@ -216,12 +256,31 @@ Namespace OurPlugin
             StartFillListcontrol("Select * from Sendungen where (Beginn Between " & LateTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= " & Rating & " AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC, Titel ASC")
 
         End Sub
+        Private Sub Button_LateTimeRest()
 
+            Dim LateTimeSQL As String
+            Dim EndofDay As Date
+
+            Dim EndofDaySQL As String
+            Dim Rating As String
+
+
+            Rating = MPSettingRead("config", "ClickfinderRating")
+
+            EndofDay = Today.AddDays(1)
+
+            LateTimeSQL = "#" & Today.Year & "-" & Format(Today.Month, "00") & "-" & Format(Today.Day, "00") & " 22:00:00#"
+            EndofDaySQL = "#" & EndofDay.Year & "-" & Format(EndofDay.Month, "00") & "-" & Format(EndofDay.Day, "00") & " 02:00:00#"
+
+            StartFillListControl("Select * from Sendungen where (Beginn Between " & LateTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= 5 AND Bewertung <=6 ORDER BY Beginn ASC, Bewertung DESC, Titel ASC")
+
+        End Sub
         Private Sub Button_CommingTipps()
 
             StartFillListControlCommingNextTipps()
 
         End Sub
+
 
 #End Region
 
@@ -336,9 +395,9 @@ Namespace OurPlugin
 #End Region
 
 
-#Region "ListControl mit Daten füttern"
+#Region "ListControl"
 
-        'List Controll mit Daten zur bestimmter Uhrzeit (SQLString) - paralelles Threating
+        'ListControl mit Daten zur bestimmter Uhrzeit (SQLString) - paralelles Threating
         Private Sub StartFillListControl(ByVal SQLString As String)
 
             Dim ProgressBar, Fill_Listcontrol As Threading.Thread
@@ -346,7 +405,7 @@ Namespace OurPlugin
             ListSQLString = SQLString
 
             ProgressBar = New Thread(AddressOf ShowProgressbar)
-            Fill_Listcontrol = New Thread(AddressOf FillListcontrol)
+            Fill_Listcontrol = New Thread(AddressOf FillListControl)
 
             ProgressBar.Start()
             Fill_Listcontrol.Start()
@@ -386,7 +445,7 @@ Namespace OurPlugin
 
         End Sub
 
-        'List Controll mit Daten der kommenden TagesTipps füllen - paralleles Threating
+        'ListControl mit Daten der kommenden TagesTipps füllen - paralleles Threating
         Private Sub StartFillListControlCommingNextTipps()
             Dim ProgressBar, ShowCommingNextTipps As Threading.Thread
 
@@ -468,6 +527,134 @@ Namespace OurPlugin
             ctlProgressBar.Visible = False
         End Sub
 
+        'ListControl Click - Details anzeigen
+        Private Sub ListControlClick()
+            Dim Titel As String
+            Dim Kategorie As String
+            Dim StartTime As String
+            Dim ProofDate As Integer
+            Dim SQLDateString As String
+            Dim Heute As Date
+            Dim ClickfinderPath As String
+            Dim RatingImage As String
+            Dim AktuelleZeit As Date
+
+            ListImage.Visible = True
+            ctlList.IsFocused = False
+            btnBack.IsFocused = True
+
+            Titel = Replace(ctlList.SelectedListItem.Label.ToString, "'", "''")
+            Kategorie = ctlList.SelectedListItem.Label3.ToString
+            StartTime = Left(ctlList.SelectedListItem.Label2.ToString, InStr(ctlList.SelectedListItem.Label2.ToString, "-") - 2)
+            ProofDate = Left(StartTime, InStr(StartTime, ":") - 1)
+            RatingImage = Nothing
+
+            ClickfinderPath = MPSettingRead("config", "ClickfinderPath")
+
+            AktuelleZeit = Now
+
+
+            If AktuelleZeit.Hour >= 0 And AktuelleZeit.Hour <= 2 Then
+
+                Heute = Today
+                SQLDateString = "#" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00#"
+            Else
+                'Datum.Day +1 ab 0:00h
+                If ProofDate >= 0 And ProofDate <= 2 Then
+                    Heute = Today.AddDays(1)
+                    SQLDateString = "#" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00#"
+                Else
+                    Heute = Today
+                    SQLDateString = "#" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00#"
+                End If
+            End If
+
+
+            ReadClickfinderDB("Select * from Sendungen Inner Join SendungenDetails on Sendungen.Pos = SendungenDetails.Pos where Beginn = " & SQLDateString & " AND Titel = '" & Titel & "' and Genre = '" & Kategorie & "'")
+
+            While ClickfinderData.Read
+
+                ListImage.FileName = ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
+                'GUIControl.ShowControl(GetID, ListImage.GetID)
+
+                ListTitel.Label = ClickfinderData.Item("Titel")
+                GUIControl.ShowControl(GetID, ListTitel.GetID)
+
+                ListBeschreibung.Label = ClickfinderData.Item("Beschreibung")
+                GUIControl.ShowControl(GetID, ListBeschreibung.GetID)
+
+                ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where stationName = '" & ClickfinderData.Item("SenderKennung").ToString & "'")
+
+                While TvServerData.Read
+                    ListKanal.Label = TvServerData.Item("displayName")
+                    GUIControl.ShowControl(GetID, ListKanal.GetID)
+                    Exit While
+                End While
+                CloseTvServerDB()
+
+
+
+                ListZeit.Label = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
+                                    ":" & Format(CDate(ClickfinderData.Item("Beginn")).Minute, "00") & _
+                                    " - " & Format(CDate(ClickfinderData.Item("Ende")).Hour, "00") & _
+                                    ":" & Format(CDate(ClickfinderData.Item("Ende")).Minute, "00")
+                GUIControl.ShowControl(GetID, ListZeit.GetID)
+
+                ListGenre.Label = ClickfinderData.Item("Genre")
+                GUIControl.ShowControl(GetID, ListGenre.GetID)
+
+                ListActors.Label = ClickfinderData.Item("Darsteller")
+                GUIControl.ShowControl(GetID, ListActors.GetID)
+
+                ListOrgTitel.Label = ClickfinderData.Item("Originaltitel")
+                GUIControl.ShowControl(GetID, ListOrgTitel.GetID)
+
+                ListRegie.Label = ClickfinderData.Item("Regie")
+                GUIControl.ShowControl(GetID, ListRegie.GetID)
+
+                ListYearLand.Label = ClickfinderData.Item("Herstellungsland") & " " & ClickfinderData.Item("Herstellungsjahr")
+                GUIControl.ShowControl(GetID, ListYearLand.GetID)
+
+                ListDauer.Label = ClickfinderData.Item("Dauer")
+                GUIControl.ShowControl(GetID, ListDauer.GetID)
+
+                ListKurzKritik.Label = ClickfinderData.Item("Kurzkritik")
+                GUIControl.ShowControl(GetID, ListKurzKritik.GetID)
+
+                ListBewertungen.Label = Replace(ClickfinderData.Item("Bewertungen"), ";", " ")
+                GUIControl.ShowControl(GetID, ListBewertungen.GetID)
+
+                'Rating Image bereitstellen
+
+                Select Case ClickfinderData.Item("Bewertung")
+                    'Movie Rating
+                    Case Is = 4
+                        RatingImage = GUIGraphicsContext.Skin & "\Media\ClickfinderPG_R3.png"
+                    Case Is = 3
+                        RatingImage = GUIGraphicsContext.Skin & "\Media\ClickfinderPG_R3.png"
+                    Case Is = 2
+                        RatingImage = GUIGraphicsContext.Skin & "\Media\ClickfinderPG_R2.png"
+                    Case Is = 1
+                        RatingImage = GUIGraphicsContext.Skin & "\Media\ClickfinderPG_R1.png"
+                    Case Is = 0
+                        RatingImage = Nothing
+
+                        'Rest Rating
+                    Case Is = 5
+                        RatingImage = GUIGraphicsContext.Skin & "\Media\ClickfinderPG_R2.png"
+                    Case Is = 6
+                        RatingImage = GUIGraphicsContext.Skin & "\Media\ClickfinderPG_R3.png"
+                End Select
+
+                ListRatingImage.FileName = RatingImage
+                GUIControl.ShowControl(GetID, ListRatingImage.GetID)
+
+            End While
+
+            CloseClickfinderDB()
+
+        End Sub
+
         'ProgresBar paralell anzeigen
         Private Sub ShowProgressbar()
             ctlProgressBar.Visible = True
@@ -536,122 +723,7 @@ Namespace OurPlugin
         End Sub
 
 
-        Private Sub ShowListItemDetails()
-            Dim Titel As String
-            Dim Kategorie As String
-            Dim StartTime As String
-            Dim ProofDate As Integer
-            Dim SQLDateString As String
-            Dim Heute As Date
-            Dim ClickfinderPath As String
-            Dim RatingImage As String
-            Dim AktuelleZeit As Date
-
-
-
-
-            Titel = Replace(ctlList.SelectedListItem.Label.ToString, "'", "''")
-            Kategorie = ctlList.SelectedListItem.Label3.ToString
-            StartTime = Left(ctlList.SelectedListItem.Label2.ToString, InStr(ctlList.SelectedListItem.Label2.ToString, "-") - 2)
-            ProofDate = Left(StartTime, InStr(StartTime, ":") - 1)
-            RatingImage = Nothing
-
-            ClickfinderPath = MPSettingRead("config", "ClickfinderPath")
-
-            AktuelleZeit = Now
-
-
-            If AktuelleZeit.Hour >= 0 And AktuelleZeit.Hour <= 2 Then
-
-                Heute = Today
-                SQLDateString = "#" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00#"
-            Else
-                'Datum.Day +1 ab 0:00h
-                If ProofDate >= 0 And ProofDate <= 2 Then
-                    Heute = Today.AddDays(1)
-                    SQLDateString = "#" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00#"
-                Else
-                    Heute = Today
-                    SQLDateString = "#" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00#"
-                End If
-            End If
-
-
-            ReadClickfinderDB("Select * from Sendungen Inner Join SendungenDetails on Sendungen.Pos = SendungenDetails.Pos where Beginn = " & SQLDateString & " AND Titel = '" & Titel & "' and Genre = '" & Kategorie & "'")
-
-            While ClickfinderData.Read
-
-                ListImage.FileName = ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
-                GUIControl.ShowControl(GetID, ListImage.GetID)
-
-                ListTitel.Label = ClickfinderData.Item("Titel")
-                GUIControl.ShowControl(GetID, ListTitel.GetID)
-
-                ListBeschreibung.Label = ClickfinderData.Item("Beschreibung")
-                GUIControl.ShowControl(GetID, ListBeschreibung.GetID)
-
-                ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where stationName = '" & ClickfinderData.Item("SenderKennung").ToString & "'")
-
-                While TvServerData.Read
-                    ListKanal.Label = TvServerData.Item("displayName")
-                    GUIControl.ShowControl(GetID, ListKanal.GetID)
-                    Exit While
-                End While
-                CloseTvServerDB()
-
-
-
-                ListZeit.Label = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
-                                    ":" & Format(CDate(ClickfinderData.Item("Beginn")).Minute, "00") & _
-                                    " - " & Format(CDate(ClickfinderData.Item("Ende")).Hour, "00") & _
-                                    ":" & Format(CDate(ClickfinderData.Item("Ende")).Minute, "00")
-                GUIControl.ShowControl(GetID, ListZeit.GetID)
-
-                ListGenre.Label = ClickfinderData.Item("Genre")
-                GUIControl.ShowControl(GetID, ListGenre.GetID)
-
-                ListActors.Label = ClickfinderData.Item("Darsteller")
-                GUIControl.ShowControl(GetID, ListActors.GetID)
-
-                ListOrgTitel.Label = ClickfinderData.Item("Originaltitel")
-                GUIControl.ShowControl(GetID, ListOrgTitel.GetID)
-
-                ListRegie.Label = ClickfinderData.Item("Regie")
-                GUIControl.ShowControl(GetID, ListRegie.GetID)
-
-                ListYearLand.Label = ClickfinderData.Item("Herstellungsland") & " " & ClickfinderData.Item("Herstellungsjahr")
-                GUIControl.ShowControl(GetID, ListYearLand.GetID)
-
-                ListDauer.Label = ClickfinderData.Item("Dauer")
-                GUIControl.ShowControl(GetID, ListDauer.GetID)
-
-                ListKurzKritik.Label = ClickfinderData.Item("Kurzkritik")
-                GUIControl.ShowControl(GetID, ListKurzKritik.GetID)
-
-                ListBewertungen.Label = Replace(ClickfinderData.Item("Bewertungen"), ";", " ")
-                GUIControl.ShowControl(GetID, ListBewertungen.GetID)
-
-                'Rating Image bereitstellen
-
-                Select Case ClickfinderData.Item("Bewertung")
-                    Case Is = 3
-                        RatingImage = GUIGraphicsContext.Skin & "\Media\ClickfinderPG_R3.png"
-                    Case Is = 2
-                        RatingImage = GUIGraphicsContext.Skin & "\Media\ClickfinderPG_R2.png"
-                    Case Is = 1
-                        RatingImage = GUIGraphicsContext.Skin & "\Media\ClickfinderPG_R1.png"
-                    Case Is = 0
-                        RatingImage = Nothing
-                End Select
-
-                ListRatingImage.FileName = RatingImage
-                GUIControl.ShowControl(GetID, ListRatingImage.GetID)
-
-            End While
-
-            CloseClickfinderDB()
-
-        End Sub
+      
 
 
 
@@ -678,6 +750,7 @@ Namespace OurPlugin
             dlg.SetText(StringLine1)
             dlg.DoModal(GUIWindowManager.ActiveWindow)
         End Sub
+
 #End Region
 
 

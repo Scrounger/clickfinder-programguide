@@ -6,14 +6,30 @@
 
     <control>
       <description>BG listcontrol</description>
-      <posX>0</posX>
-      <posY>60</posY>
+      <posX>20</posX>
+      <posY>120</posY>
       <type>image</type>
       <id>0</id>
-      <width>1280</width>
-      <height>440</height>
+      <width>610</width>
+      <height>570</height>
       <texture>ClickfinderPG_BG.png</texture>
       <colordiffuse>EEFFFFFF</colordiffuse>
+      <visible>!control.isvisible(30)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>BG listcontrol</description>
+      <posX>650</posX>
+      <posY>120</posY>
+      <type>image</type>
+      <id>0</id>
+      <width>610</width>
+      <height>570</height>
+      <texture>ClickfinderPG_BG.png</texture>
+      <colordiffuse>EEFFFFFF</colordiffuse>
+      <visible>!control.isvisible(30)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
@@ -24,18 +40,18 @@
       <type>listcontrol</type>
       <id>10</id>
       <onright>4</onright>
-      <onleft>2</onleft>
+      <onleft>6</onleft>
       <posX>28</posX>
-      <posY>104</posY>
+      <posY>124</posY>
       <width>590</width>
-      <height>425</height>
+      <height>555</height>
       <font>mediastream12c</font>
       <font2>mediastream10c</font2>
       <font3>mediastream10c</font3>
-      <spinWidth>20</spinWidth>
-      <spinHeight>20</spinHeight>
-      <spinPosX>574</spinPosX>
-      <spinPosY>456</spinPosY>
+      <spinWidth>30</spinWidth>
+      <spinHeight>30</spinHeight>
+      <spinPosX>564</spinPosX>
+      <spinPosY>650</spinPosY>
       <spinAlign>Right</spinAlign>
       <spinColor>ff006698</spinColor>
       <textureUp>arrow_round_up_nofocus.png</textureUp>
@@ -47,13 +63,22 @@
       <IconYOff>4</IconYOff>
       <textXOff>2</textXOff>
       <textYOff>2</textYOff>
+      <font>mediastream12</font>
+      
       <textXOff2>590</textXOff2>
       <textYOff2>30</textYOff2>
+      <font2>mediastream10</font2>
+      <textcolor2>ff909090</textcolor2>
+      
       <textXOff3>64</textXOff3>
       <textYOff3>30</textYOff3>
+      <font3>mediastream10</font3>
+      <textcolor3>ff909090</textcolor3>
+      
       <itemWidth>50</itemWidth>
       <itemHeight>50</itemHeight>
-
+      <scrollOffset>2</scrollOffset>
+      <visible>!control.isvisible(30)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>

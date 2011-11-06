@@ -6,5 +6,6 @@
     <entry name="TVServerAddress">10.0.1.10</entry>
     <entry name="TVServerUser">root</entry>
     <entry name="TVServerPW">MediaPortal</entry>
+    <entry name="ChannelGroupID">2</entry>
   </section>
 </profile>

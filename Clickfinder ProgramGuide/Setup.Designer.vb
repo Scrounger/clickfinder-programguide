@@ -29,6 +29,7 @@ Partial Class Setup
         Me.Button1 = New System.Windows.Forms.Button
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
         Me.Label2 = New System.Windows.Forms.Label
+        Me.CBChannelGroup = New System.Windows.Forms.ComboBox
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -86,11 +87,21 @@ Partial Class Setup
         Me.Label2.TabIndex = 10
         Me.Label2.Text = "Clickfinder Program Guide Configuration"
         '
+        'CBChannelGroup
+        '
+        Me.CBChannelGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBChannelGroup.FormattingEnabled = True
+        Me.CBChannelGroup.Location = New System.Drawing.Point(242, 184)
+        Me.CBChannelGroup.Name = "CBChannelGroup"
+        Me.CBChannelGroup.Size = New System.Drawing.Size(193, 21)
+        Me.CBChannelGroup.TabIndex = 11
+        '
         'Setup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(562, 388)
+        Me.Controls.Add(Me.CBChannelGroup)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Button1)
@@ -111,4 +122,5 @@ Partial Class Setup
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents CBChannelGroup As System.Windows.Forms.ComboBox
 End Class

@@ -1,15 +1,26 @@
 ﻿Imports MediaPortal.Profile
 Imports MediaPortal.Configuration
+Imports MediaPortal.GUI.Library
 Imports MediaPortal.Util
 Imports MediaPortal.Utils
+Imports MySql.Data
+Imports MySql.Data.MySqlClient
+
+
 
 Public Class Setup
 
     Private Sub Setup_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Dim Rating As Integer
+        Dim i As Integer
+        Dim idGroup As String
+        Dim ChannelName As String
+
+        ChannelName = "Bitte wählen..."
 
         Me.tfClickfinderPath.Text = MPSettingRead("config", "ClickfinderPath")
         Rating = CInt(MPSettingRead("config", "ClickfinderRating"))
+        idGroup = MPSettingRead("config", "ChannelGroupID")
 
 
         Select Case Rating
@@ -22,6 +33,29 @@ Public Class Setup
             Case Is = 3
                 Me.cbRating.Text = Me.cbRating.Items.Item(3)
         End Select
+
+        ReadTvServerDB("Select * from channelgroup")
+        While TvServerData.Read
+
+            Me.CBChannelGroup.Items.Add(TvServerData.Item("groupName"))
+
+            If idGroup = TvServerData.Item("idGroup") Then
+                ChannelName = TvServerData.Item("groupName")
+            End If
+
+        End While
+
+        CloseTvServerDB()
+
+        For i = 0 To CBChannelGroup.Items.Count - 1
+            If InStr(CBChannelGroup.Items.Item(i), ChannelName) Then
+                CBChannelGroup.Text = CBChannelGroup.Items.Item(i)
+            End If
+
+        Next
+
+
+
     End Sub
 
     Public Sub MPSettingsWrite(ByVal section As String, ByVal entry As String, ByVal NewAttribute As String)
@@ -41,8 +75,64 @@ Public Class Setup
         MPSettingsWrite("config", "ClickfinderPath", tfClickfinderPath.Text.ToString)
         MPSettingsWrite("config", "ClickfinderRating", Me.cbRating.Text)
 
+        ReadTvServerDB("Select * from channelgroup Where groupName = '" & CBChannelGroup.Text & "'")
+        While TvServerData.Read
+            MPSettingsWrite("config", "ChannelGroupID", TvServerData.Item("idGroup"))
+        End While
+        CloseTvServerDB()
 
         Me.Close()
 
     End Sub
+
+#Region "TV Server DB"
+    Public ConTvServerDBRead As New MySqlConnection
+    Public CmdTvServerDBRead As New MySqlCommand
+    Public TvServerData As MySqlDataReader
+
+    Public Sub ReadTvServerDB(ByVal SQLString As String)
+        Dim TvServerAdress As String
+        Dim TvServerUser As String
+        Dim TvServerPW As String
+
+        TvServerAdress = MPSettingRead("config", "TVServerAddress")
+        TvServerUser = MPSettingRead("config", "TVServerUser")
+        TvServerPW = MPSettingRead("config", "TVServerPW")
+        Try
+
+            ConTvServerDBRead.ConnectionString = "server=" & TvServerAdress & ";uid=" & TvServerUser & ";pwd=" & TvServerPW & ";database=mptvdb;"
+            ConTvServerDBRead.Open()
+
+
+            CmdTvServerDBRead = ConTvServerDBRead.CreateCommand
+            CmdTvServerDBRead.CommandText = SQLString
+
+            TvServerData = CmdTvServerDBRead.ExecuteReader
+
+
+        Catch ex As Exception
+
+            Log.Debug("Clickfinder ProgramGuide: (Config: TvServer DB, read) " & ex.Message)
+            MsgBox("Clickfinder ProgramGuide: (Config: TvServer DB, read) " & ex.Message)
+
+            CmdTvServerDBRead.Dispose()
+            ConTvServerDBRead.Close()
+        End Try
+
+
+    End Sub
+    Public Sub CloseTvServerDB()
+
+        Try
+            CmdTvServerDBRead.Dispose()
+            ConTvServerDBRead.Close()
+        Catch ex As Exception
+            Log.Debug("Clickfinder ProgramGuide: (Config: TvServer DB, close) " & ex.Message)
+            MsgBox("Clickfinder ProgramGuide: (Config: TvServer DB, close) " & ex.Message)
+        End Try
+
+    End Sub
+
+
+#End Region
 End Class
