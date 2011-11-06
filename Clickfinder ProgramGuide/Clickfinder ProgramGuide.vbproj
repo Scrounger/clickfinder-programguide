@@ -152,6 +152,9 @@
     <Content Include="MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_BG.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_Sep.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MediaPortal\Skin\StreamedMP\Media\hover_ClickfinderProgramGuide.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

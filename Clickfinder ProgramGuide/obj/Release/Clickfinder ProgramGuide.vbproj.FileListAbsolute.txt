@@ -43,3 +43,4 @@ D:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickf
 D:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderDetailsBG.png
 D:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderBar.png
 D:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_BG.png
+D:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_Sep.png

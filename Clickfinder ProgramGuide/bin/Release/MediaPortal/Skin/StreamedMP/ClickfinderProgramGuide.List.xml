@@ -34,12 +34,70 @@
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
+    <control>
+      <description>Seperator Tipps #1</description>
+      <posX>650</posX>
+      <posY>234</posY>
+      <type>image</type>
+      <id>0</id>
+      <width>610</width>
+      <height>5</height>
+      <texture>ClickfinderPG_Sep.png</texture>
+      <colordiffuse>EEFFFFFF</colordiffuse>
+      <visible>!control.isvisible(30)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+    <control>
+      <description>Seperator Tipps #2</description>
+      <posX>650</posX>
+      <posY>348</posY>
+      <type>image</type>
+      <id>0</id>
+      <width>610</width>
+      <height>5</height>
+      <texture>ClickfinderPG_Sep.png</texture>
+      <colordiffuse>EEFFFFFF</colordiffuse>
+      <visible>!control.isvisible(30)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+    <control>
+      <description>Seperator Tipps #3</description>
+      <posX>650</posX>
+      <posY>462</posY>
+      <type>image</type>
+      <id>0</id>
+      <width>610</width>
+      <height>5</height>
+      <texture>ClickfinderPG_Sep.png</texture>
+      <colordiffuse>EEFFFFFF</colordiffuse>
+      <visible>!control.isvisible(30)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+    <control>
+      <description>Seperator Tipps #4</description>
+      <posX>650</posX>
+      <posY>576</posY>
+      <type>image</type>
+      <id>0</id>
+      <width>610</width>
+      <height>5</height>
+      <texture>ClickfinderPG_Sep.png</texture>
+      <colordiffuse>EEFFFFFF</colordiffuse>
+      <visible>!control.isvisible(30)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+
 
 
     <control>
       <type>listcontrol</type>
       <id>10</id>
-      <onright>4</onright>
+      <onright>7</onright>
       <onleft>6</onleft>
       <posX>28</posX>
       <posY>124</posY>
