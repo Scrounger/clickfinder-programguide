@@ -6,15 +6,16 @@
       <description>TagesTipp Image</description>
       <type>image</type>
       <id>20</id>
-      <posX>30</posX>
-      <posY>570</posY>
-      <width>210</width>
+      <posX>660</posX>
+      <posY>128</posY>
+      <width>130</width>
+      <height>100</height>
       <texture></texture>
       <colorkey>0</colorkey>
       <colordiffuse>ffffffff</colordiffuse>
       <filtered>yes</filtered>
       <centered>no</centered>
-      <keepaspectratio>yes</keepaspectratio>
+      <keepaspectratio>no</keepaspectratio>
       <visible>!control.isvisible(30)</visible>
     </control>
 
@@ -22,8 +23,8 @@
       <description>TagesTipp Star Image</description>
       <type>image</type>
       <id>1</id>
-      <posX>10</posX>
-      <posY>510</posY>
+      <posX>646</posX>
+      <posY>200</posY>
       <width>64</width>
       <texture>ClickfinderPG_R3.png</texture>
       <colorkey>0</colorkey>
@@ -38,26 +39,43 @@
       <description>TagesTipp Label</description>
       <type>label</type>
       <id>1</id>
-      <posX>60</posX>
-      <posY>522</posY>
+      <posX>666</posX>
+      <posY>216</posY>
       <label>Tages Tipp !</label>
-      <font>mediastream12tc</font>
+      <font>mediastream10tc</font>
       <textcolor>ffffffff</textcolor>
       <disabledcolor>80ffffff</disabledcolor>
       <visible>!control.isvisible(30)</visible>
     </control>
 
+
+
     <control>
       <description>TagesTipp Titel</description>
       <type>fadelabel</type>
       <id>21</id>
-      <posX>120</posX>
-      <posY>510</posY>
+      <posX>800</posX>
+      <posY>130</posY>
       <width>680</width>
       <align>left</align>
       <font>mediastream12tc</font>
       <textcolor>ffffffff</textcolor>
       <wrapString> | </wrapString>
+      <visible>!control.isvisible(30)</visible>
+    </control>
+
+    <control>
+      <description>TagesTipp Genre</description>
+      <type>label</type>
+      <id>25</id>
+      <posX>800</posX>
+      <posY>154</posY>
+      <width>400</width>
+      <label></label>
+      <font>mediastream10</font>
+      <textcolor>ff909090</textcolor>
+      <disabledcolor>80ffffff</disabledcolor>
+      <align>left</align>
       <visible>!control.isvisible(30)</visible>
     </control>
 
@@ -65,13 +83,28 @@
       <description>TagesTipp Kanal</description>
       <type>fadelabel</type>
       <id>23</id>
-      <posX>120</posX>
-      <posY>530</posY>
+      <posX>800</posX>
+      <posY>174</posY>
       <width>680</width>
       <align>left</align>
-      <font>mediastream10tc</font>
-      <textcolor>ffffffff</textcolor>
+      <font>mediastream10</font>
+      <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
+      <visible>!control.isvisible(30)</visible>
+    </control>
+
+
+    <control>
+      <description>TagesTipp Zeit</description>
+      <type>label</type>
+      <id>24</id>
+      <posX>1240</posX>
+      <posY>154</posY>
+      <align>right</align>
+      <label></label>
+      <font>mediastream10</font>
+      <textcolor>ff909090</textcolor>
+      <disabledcolor>80ffffff</disabledcolor>
       <visible>!control.isvisible(30)</visible>
     </control>
 
@@ -91,33 +124,9 @@
       <visible>!control.isvisible(30)</visible>
     </control>
 
-    <control>
-      <description>TagesTipp Zeit</description>
-      <type>label</type>
-      <id>24</id>
-      <posX>120</posX>
-      <posY>550</posY>
-      <label></label>
-      <font>mediastream10tc</font>
-      <textcolor>ffffffff</textcolor>
-      <disabledcolor>80ffffff</disabledcolor>
-      <visible>!control.isvisible(30)</visible>
-    </control>
 
-    <control>
-      <description>TagesTipp Genre</description>
-      <type>label</type>
-      <id>25</id>
-      <posX>1240</posX>
-      <posY>510</posY>
-      <width>400</width>
-      <label></label>
-      <font>font12</font>
-      <textcolor>ff909090</textcolor>
-      <disabledcolor>80ffffff</disabledcolor>
-      <align>right</align>
-      <visible>!control.isvisible(30)</visible>
-    </control>
+
+
     <control>
       <description>TagesTipp Actors</description>
       <type>fadelabel</type>
@@ -140,7 +149,9 @@
       <posY>560</posY>
       <width>620</width>
       <height>200</height>
-      <seperator>-------------------------------------------------------------------------------------------------------------------------------------------</seperator>
+
+
+      <seperator>------------------------------------------------------------------------------------------------------------------------------------------- </seperator>
       <font>font12</font>
       <visible>!control.isvisible(30)</visible>
     </control>

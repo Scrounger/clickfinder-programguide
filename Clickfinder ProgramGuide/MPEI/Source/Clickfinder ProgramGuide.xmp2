@@ -61,13 +61,6 @@
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_Btn.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{c63953d3-65d7-4073-8298-ab5cba20a64c}-ClickfinderPG_Btn.png</ZipFileName>
-              <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_Btn.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_R2.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{7c68ee23-ad9e-43ef-8fb2-8c36e5060724}-ClickfinderPG_R2.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_R2.png</DestinationFilename>
@@ -134,6 +127,48 @@
               <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderDetailsBG.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{a54a5815-e4de-4a08-a669-3ac7564777c4}-ClickfinderDetailsBG.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderDetailsBG.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\tmp\ClickfinderProgramGuide.Details.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{4aa2337f-4a2b-43b4-a270-9208a85859ba}-ClickfinderProgramGuide.Details.xml</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\tmp\ClickfinderProgramGuide.Details.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\tmp\ClickfinderProgramGuide.List.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{d54c0c3d-6c91-4e34-b802-5828db212e17}-ClickfinderProgramGuide.List.xml</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\tmp\ClickfinderProgramGuide.List.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\tmp\ClickfinderProgramGuide.SelectedItem.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{5748fab7-adfe-44e9-a34a-abb7702c958c}-ClickfinderProgramGuide.SelectedItem.xml</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\tmp\ClickfinderProgramGuide.SelectedItem.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\tmp\ClickfinderProgramGuide.Tipp.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{768c2fd0-55b4-44c7-a275-6642f68900c4}-ClickfinderProgramGuide.Tipp.xml</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\tmp\ClickfinderProgramGuide.Tipp.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\tmp\ClickfinderProgramGuide.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{e25673f0-8f36-4afe-8f5d-9f215fa79b69}-ClickfinderProgramGuide.xml</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\tmp\ClickfinderProgramGuide.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_Sep.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{3e63f097-2e04-47ef-a978-3071daeb2594}-ClickfinderPG_Sep.png</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_Sep.png</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -330,8 +365,8 @@ Click Next to continue or Cancel to exit Setup.</Value>
         </CompatibleVersion>
         <SubSystemsUsed>
           <Items>
-            <SubSystemItem Name="MP.SkinEngine" />
             <SubSystemItem Name="MP.Config" />
+            <SubSystemItem Name="MP.SkinEngine" />
           </Items>
         </SubSystemsUsed>
       </PluginDependencyItem>
@@ -348,7 +383,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>0</Minor>
       <Build>0</Build>
-      <Revision>2</Revision>
+      <Revision>4</Revision>
     </Version>
     <ExtensionDescription />
     <VersionDescription />
@@ -443,13 +478,6 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_Btn.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{c63953d3-65d7-4073-8298-ab5cba20a64c}-ClickfinderPG_Btn.png</ZipFileName>
-        <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_Btn.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_R2.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{7c68ee23-ad9e-43ef-8fb2-8c36e5060724}-ClickfinderPG_R2.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_R2.png</DestinationFilename>
@@ -516,6 +544,48 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderDetailsBG.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{a54a5815-e4de-4a08-a669-3ac7564777c4}-ClickfinderDetailsBG.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderDetailsBG.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\tmp\ClickfinderProgramGuide.Details.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{4aa2337f-4a2b-43b4-a270-9208a85859ba}-ClickfinderProgramGuide.Details.xml</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\tmp\ClickfinderProgramGuide.Details.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\tmp\ClickfinderProgramGuide.List.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{d54c0c3d-6c91-4e34-b802-5828db212e17}-ClickfinderProgramGuide.List.xml</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\tmp\ClickfinderProgramGuide.List.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\tmp\ClickfinderProgramGuide.SelectedItem.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{5748fab7-adfe-44e9-a34a-abb7702c958c}-ClickfinderProgramGuide.SelectedItem.xml</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\tmp\ClickfinderProgramGuide.SelectedItem.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\tmp\ClickfinderProgramGuide.Tipp.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{768c2fd0-55b4-44c7-a275-6642f68900c4}-ClickfinderProgramGuide.Tipp.xml</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\tmp\ClickfinderProgramGuide.Tipp.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\tmp\ClickfinderProgramGuide.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{e25673f0-8f36-4afe-8f5d-9f215fa79b69}-ClickfinderProgramGuide.xml</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\tmp\ClickfinderProgramGuide.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_Sep.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{3e63f097-2e04-47ef-a978-3071daeb2594}-ClickfinderPG_Sep.png</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_Sep.png</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
