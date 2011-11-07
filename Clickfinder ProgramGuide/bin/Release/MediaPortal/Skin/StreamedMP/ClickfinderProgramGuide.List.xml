@@ -97,8 +97,8 @@
     <control>
       <type>listcontrol</type>
       <id>10</id>
-      <onright>7</onright>
-      <onleft>6</onleft>
+      <onright>6</onright>
+      <onleft>2</onleft>
       <posX>28</posX>
       <posY>124</posY>
       <width>590</width>

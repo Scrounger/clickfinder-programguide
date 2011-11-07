@@ -375,6 +375,21 @@
     </control>
 
     <control>
+      <description>Remember</description>
+      <type>button</type>
+      <id>89</id>
+      <posX>400</posX>
+      <posY>645</posY>
+      <width>120</width>
+      <label>Erinnern</label>
+      <onleft>91</onleft>
+      <onright>90</onright>
+      <onup></onup>
+      <ondown></ondown>
+      <visible>control.isvisible(30)</visible>
+    </control>
+    
+    <control>
       <description>Back</description>
       <type>button</type>
       <id>90</id>
@@ -382,13 +397,26 @@
       <posY>645</posY>
       <width>120</width>
       <label>Zurück</label>
-      <onleft>90</onleft>
-      <onright>90</onright>
-      <onup>90</onup>
-      <ondown>90</ondown>
+      <onleft>89</onleft>
+      <onright>91</onright>
+      <onup></onup>
+      <ondown></ondown>
       <visible>control.isvisible(30)</visible>
     </control>
-
+    <control>
+      <description>Record</description>
+      <type>button</type>
+      <id>91</id>
+      <posX>760</posX>
+      <posY>645</posY>
+      <width>120</width>
+      <label>Aufnehmen</label>
+      <onleft>90</onleft>
+      <onright>89</onright>
+      <onup></onup>
+      <ondown></ondown>
+      <visible>control.isvisible(30)</visible>
+    </control>
 
   </controls>
 </window>

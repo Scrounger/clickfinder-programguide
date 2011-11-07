@@ -7,11 +7,17 @@ Imports MediaPortal.Profile
 Imports MediaPortal.Configuration
 Imports MediaPortal.Utils
 Imports MediaPortal.Util
+Imports TvDatabase
 
+
+Imports TvPlugin
 
 Imports MySql.Data
 Imports MySql.Data.MySqlClient
 Imports System.Threading
+
+Imports Action = MediaPortal.GUI.Library.Action
+
 
 
 
@@ -43,24 +49,25 @@ Namespace OurPlugin
         <SkinControlAttribute(26)> Protected ctlTippActors As GUIFadeLabel = Nothing
         <SkinControlAttribute(27)> Protected ctlTippKanalImage As GUIImage = Nothing
 
-        <SkinControlAttribute(30)> Protected ListImage As GUIImage = Nothing
-        <SkinControlAttribute(31)> Protected ListTitel As GUIFadeLabel = Nothing
-        <SkinControlAttribute(32)> Protected ListBeschreibung As GUITextScrollUpControl = Nothing
-        <SkinControlAttribute(33)> Protected ListKanal As GUIFadeLabel = Nothing
-        <SkinControlAttribute(34)> Protected ListZeit As GUIFadeLabel = Nothing
-        <SkinControlAttribute(35)> Protected ListGenre As GUIFadeLabel = Nothing
-        <SkinControlAttribute(36)> Protected ListActors As GUIFadeLabel = Nothing
-        <SkinControlAttribute(37)> Protected ListRatingImage As GUIImage = Nothing
-        <SkinControlAttribute(38)> Protected ListOrgTitel As GUIFadeLabel = Nothing
-        <SkinControlAttribute(39)> Protected ListRegie As GUIFadeLabel = Nothing
-        <SkinControlAttribute(40)> Protected ListYearLand As GUIFadeLabel = Nothing
-        <SkinControlAttribute(41)> Protected ListDauer As GUIFadeLabel = Nothing
-        <SkinControlAttribute(42)> Protected ListKurzKritik As GUIFadeLabel = Nothing
-        <SkinControlAttribute(43)> Protected ListBewertungen As GUIFadeLabel = Nothing
+        <SkinControlAttribute(30)> Protected DetailsImage As GUIImage = Nothing
+        <SkinControlAttribute(31)> Protected DetailsTitel As GUIFadeLabel = Nothing
+        <SkinControlAttribute(32)> Protected DetailsBeschreibung As GUITextScrollUpControl = Nothing
+        <SkinControlAttribute(33)> Protected DetailsKanal As GUIFadeLabel = Nothing
+        <SkinControlAttribute(34)> Protected DetailsZeit As GUIFadeLabel = Nothing
+        <SkinControlAttribute(35)> Protected DetailsGenre As GUIFadeLabel = Nothing
+        <SkinControlAttribute(36)> Protected DetailsActors As GUIFadeLabel = Nothing
+        <SkinControlAttribute(37)> Protected DetailsRatingImage As GUIImage = Nothing
+        <SkinControlAttribute(38)> Protected DetailsOrgTitel As GUIFadeLabel = Nothing
+        <SkinControlAttribute(39)> Protected DetailsRegie As GUIFadeLabel = Nothing
+        <SkinControlAttribute(40)> Protected DetailsYearLand As GUIFadeLabel = Nothing
+        <SkinControlAttribute(41)> Protected DetailsDauer As GUIFadeLabel = Nothing
+        <SkinControlAttribute(42)> Protected DetailsKurzKritik As GUIFadeLabel = Nothing
+        <SkinControlAttribute(43)> Protected DetailsBewertungen As GUIFadeLabel = Nothing
 
+        <SkinControlAttribute(89)> Protected btnRemember As GUIButtonControl = Nothing
         <SkinControlAttribute(90)> Protected btnBack As GUIButtonControl = Nothing
-        '<SkinControlAttribute(91)> Protected btnRecord As GUIButtonControl = Nothing
-        '<SkinControlAttribute(92)> Protected btnRemember As GUIButtonControl = Nothing
+        <SkinControlAttribute(91)> Protected btnRecord As GUIButtonControl = Nothing
+
 
 #End Region
 #Region "Variablen"
@@ -131,7 +138,7 @@ Namespace OurPlugin
             MyBase.OnPageLoad()
 
             ctlProgressBar.Visible = False
-            ListImage.Visible = False
+            DetailsImage.Visible = False
 
 
             ShowTagesTipp()
@@ -193,9 +200,21 @@ Namespace OurPlugin
             End If
 
             If control Is btnBack Then
-                ListImage.Visible = False
+                DetailsImage.Visible = False
                 ctlList.IsFocused = True
                 'btnLateTime.IsFocused = False
+            End If
+
+            If control Is btnRecord Then
+
+                Button_Record()
+
+            End If
+
+            If control Is btnRemember Then
+
+                Button_Remember()
+
             End If
 
         End Sub
@@ -216,7 +235,7 @@ Namespace OurPlugin
             EndofDaySQL = "#" & EndofDay.Year & "-" & Format(EndofDay.Month, "00") & "-" & Format(EndofDay.Day, "00") & " 00:00:00#"
 
 
-            StartFillListcontrol("Select * from Sendungen where (Beginn Between " & PrimeTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= " & Rating & " AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC, Titel")  'AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC"
+            StartFillListControl("Select * from Sendungen where (Beginn Between " & PrimeTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= " & Rating & " AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC, Titel")  'AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC"
 
         End Sub
 
@@ -238,6 +257,8 @@ Namespace OurPlugin
             StartFillListControl("Select * from Sendungen where (Beginn Between " & PrimeTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= 5 AND Bewertung <=6 ORDER BY Beginn ASC, Bewertung DESC, Titel")  'AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC"
 
         End Sub
+
+
         Private Sub Button_LateTime()
 
             Dim LateTimeSQL As String
@@ -254,9 +275,12 @@ Namespace OurPlugin
             LateTimeSQL = "#" & Today.Year & "-" & Format(Today.Month, "00") & "-" & Format(Today.Day, "00") & " 22:00:00#"
             EndofDaySQL = "#" & EndofDay.Year & "-" & Format(EndofDay.Month, "00") & "-" & Format(EndofDay.Day, "00") & " 02:00:00#"
 
-            StartFillListcontrol("Select * from Sendungen where (Beginn Between " & LateTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= " & Rating & " AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC, Titel ASC")
+            StartFillListControl("Select * from Sendungen where (Beginn Between " & LateTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= " & Rating & " AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC, Titel ASC")
+
 
         End Sub
+
+
         Private Sub Button_LateTimeRest()
 
             Dim LateTimeSQL As String
@@ -279,6 +303,117 @@ Namespace OurPlugin
         Private Sub Button_CommingTipps()
 
             StartFillListControlCommingNextTipps()
+
+        End Sub
+
+        Private Sub Button_Record()
+
+            Dim Titel As String
+
+            Dim StartTime As String
+            Dim ProofDate As Integer
+            Dim SQLDateString As String
+            Dim Heute As Date
+            Dim AktuelleZeit As Date
+
+            DetailsImage.Visible = True
+            ctlList.IsFocused = False
+            btnBack.IsFocused = True
+
+            Titel = Replace(ctlList.SelectedListItem.Label.ToString, "'", "''")
+
+            StartTime = Left(ctlList.SelectedListItem.Label2.ToString, InStr(ctlList.SelectedListItem.Label2.ToString, "-") - 2)
+            ProofDate = Left(StartTime, InStr(StartTime, ":") - 1)
+
+            AktuelleZeit = Now
+
+
+            If AktuelleZeit.Hour >= 0 And AktuelleZeit.Hour <= 2 Then
+
+                Heute = Today
+                SQLDateString = "'" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00'"
+            Else
+                'Datum.Day +1 ab 0:00h
+                If ProofDate >= 0 And ProofDate <= 2 Then
+                    Heute = Today.AddDays(1)
+                    SQLDateString = "'" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00'"
+                Else
+                    Heute = Today
+                    SQLDateString = "'" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00'"
+                End If
+            End If
+
+            ReadTvServerDB("SELECT * from program INNER JOIN channel ON program.idChannel = channel.idChannel where displayName = '" & DetailsKanal.Label & "' AND title = '" & Titel & "' AND startTime =" & SQLDateString)
+            While TvServerData.Read
+
+                LoadTVProgramInfo(TvServerData.Item("idChannel"), TvServerData.Item("startTime"), TvServerData.Item("endTime"), TvServerData.Item("title"))
+                Exit While
+            End While
+
+            CloseTvServerDB()
+
+
+            btnRecord.IsFocused = False
+            btnBack.IsFocused = True
+
+        End Sub
+        Private Sub Button_Remember()
+
+            Dim Titel As String
+
+            Dim StartTime As String
+            Dim ProofDate As Integer
+            Dim SQLDateString As String
+            Dim Heute As Date
+            Dim AktuelleZeit As Date
+
+            DetailsImage.Visible = True
+            ctlList.IsFocused = False
+            btnBack.IsFocused = True
+
+            Titel = Replace(ctlList.SelectedListItem.Label.ToString, "'", "''")
+
+            StartTime = Left(ctlList.SelectedListItem.Label2.ToString, InStr(ctlList.SelectedListItem.Label2.ToString, "-") - 2)
+            ProofDate = Left(StartTime, InStr(StartTime, ":") - 1)
+
+            AktuelleZeit = Now
+
+
+            If AktuelleZeit.Hour >= 0 And AktuelleZeit.Hour <= 2 Then
+
+                Heute = Today
+                SQLDateString = "'" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00'"
+            Else
+                'Datum.Day +1 ab 0:00h
+                If ProofDate >= 0 And ProofDate <= 2 Then
+                    Heute = Today.AddDays(1)
+                    SQLDateString = "'" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00'"
+                Else
+                    Heute = Today
+                    SQLDateString = "'" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00'"
+                End If
+            End If
+
+
+
+
+            ReadTvServerDB("SELECT * from program INNER JOIN channel ON program.idChannel = channel.idChannel where displayName = '" & DetailsKanal.Label & "' AND title = '" & Titel & "' AND startTime =" & SQLDateString)
+
+            If TvServerData.HasRows = True Then
+                While TvServerData.Read
+
+                    SetNotify(TvServerData.Item("idChannel"), TvServerData.Item("startTime"), TvServerData.Item("endTime"), TvServerData.Item("title"))
+                    Exit While
+                End While
+
+            Else
+                MsgBox("nix da")
+            End If
+
+            CloseTvServerDB()
+
+            btnRemember.IsFocused = False
+            btnBack.IsFocused = True
 
         End Sub
 
@@ -412,6 +547,9 @@ Namespace OurPlugin
             Fill_Listcontrol.Start()
         End Sub
         Private Sub FillListControl()
+
+
+
             ctlList.ListItems.Clear()
 
             ReadClickfinderDB(ListSQLString)
@@ -540,7 +678,7 @@ Namespace OurPlugin
             Dim RatingImage As String
             Dim AktuelleZeit As Date
 
-            ListImage.Visible = True
+            DetailsImage.Visible = True
             ctlList.IsFocused = False
             btnBack.IsFocused = True
 
@@ -575,55 +713,55 @@ Namespace OurPlugin
 
             While ClickfinderData.Read
 
-                ListImage.FileName = ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
-                'GUIControl.ShowControl(GetID, ListImage.GetID)
+                DetailsImage.FileName = ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
+                'GUIControl.ShowControl(GetID, DetailsImage.GetID)
 
-                ListTitel.Label = ClickfinderData.Item("Titel")
-                GUIControl.ShowControl(GetID, ListTitel.GetID)
+                DetailsTitel.Label = ClickfinderData.Item("Titel")
+                GUIControl.ShowControl(GetID, DetailsTitel.GetID)
 
-                ListBeschreibung.Label = ClickfinderData.Item("Beschreibung")
-                GUIControl.ShowControl(GetID, ListBeschreibung.GetID)
+                DetailsBeschreibung.Label = ClickfinderData.Item("Beschreibung")
+                GUIControl.ShowControl(GetID, DetailsBeschreibung.GetID)
 
                 ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where stationName = '" & ClickfinderData.Item("SenderKennung").ToString & "'")
 
                 While TvServerData.Read
-                    ListKanal.Label = TvServerData.Item("displayName")
-                    GUIControl.ShowControl(GetID, ListKanal.GetID)
+                    DetailsKanal.Label = TvServerData.Item("displayName")
+                    GUIControl.ShowControl(GetID, DetailsKanal.GetID)
                     Exit While
                 End While
                 CloseTvServerDB()
 
 
 
-                ListZeit.Label = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
+                DetailsZeit.Label = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
                                     ":" & Format(CDate(ClickfinderData.Item("Beginn")).Minute, "00") & _
                                     " - " & Format(CDate(ClickfinderData.Item("Ende")).Hour, "00") & _
                                     ":" & Format(CDate(ClickfinderData.Item("Ende")).Minute, "00")
-                GUIControl.ShowControl(GetID, ListZeit.GetID)
+                GUIControl.ShowControl(GetID, DetailsZeit.GetID)
 
-                ListGenre.Label = ClickfinderData.Item("Genre")
-                GUIControl.ShowControl(GetID, ListGenre.GetID)
+                DetailsGenre.Label = ClickfinderData.Item("Genre")
+                GUIControl.ShowControl(GetID, DetailsGenre.GetID)
 
-                ListActors.Label = ClickfinderData.Item("Darsteller")
-                GUIControl.ShowControl(GetID, ListActors.GetID)
+                DetailsActors.Label = ClickfinderData.Item("Darsteller")
+                GUIControl.ShowControl(GetID, DetailsActors.GetID)
 
-                ListOrgTitel.Label = ClickfinderData.Item("Originaltitel")
-                GUIControl.ShowControl(GetID, ListOrgTitel.GetID)
+                DetailsOrgTitel.Label = ClickfinderData.Item("Originaltitel")
+                GUIControl.ShowControl(GetID, DetailsOrgTitel.GetID)
 
-                ListRegie.Label = ClickfinderData.Item("Regie")
-                GUIControl.ShowControl(GetID, ListRegie.GetID)
+                DetailsRegie.Label = ClickfinderData.Item("Regie")
+                GUIControl.ShowControl(GetID, DetailsRegie.GetID)
 
-                ListYearLand.Label = ClickfinderData.Item("Herstellungsland") & " " & ClickfinderData.Item("Herstellungsjahr")
-                GUIControl.ShowControl(GetID, ListYearLand.GetID)
+                DetailsYearLand.Label = ClickfinderData.Item("Herstellungsland") & " " & ClickfinderData.Item("Herstellungsjahr")
+                GUIControl.ShowControl(GetID, DetailsYearLand.GetID)
 
-                ListDauer.Label = ClickfinderData.Item("Dauer")
-                GUIControl.ShowControl(GetID, ListDauer.GetID)
+                DetailsDauer.Label = ClickfinderData.Item("Dauer")
+                GUIControl.ShowControl(GetID, DetailsDauer.GetID)
 
-                ListKurzKritik.Label = ClickfinderData.Item("Kurzkritik")
-                GUIControl.ShowControl(GetID, ListKurzKritik.GetID)
+                DetailsKurzKritik.Label = ClickfinderData.Item("Kurzkritik")
+                GUIControl.ShowControl(GetID, DetailsKurzKritik.GetID)
 
-                ListBewertungen.Label = Replace(ClickfinderData.Item("Bewertungen"), ";", " ")
-                GUIControl.ShowControl(GetID, ListBewertungen.GetID)
+                DetailsBewertungen.Label = Replace(ClickfinderData.Item("Bewertungen"), ";", " ")
+                GUIControl.ShowControl(GetID, DetailsBewertungen.GetID)
 
                 'Rating Image bereitstellen
 
@@ -647,8 +785,8 @@ Namespace OurPlugin
                         RatingImage = GUIGraphicsContext.Skin & "\Media\ClickfinderPG_R3.png"
                 End Select
 
-                ListRatingImage.FileName = RatingImage
-                GUIControl.ShowControl(GetID, ListRatingImage.GetID)
+                DetailsRatingImage.FileName = RatingImage
+                GUIControl.ShowControl(GetID, DetailsRatingImage.GetID)
 
             End While
 
@@ -724,7 +862,7 @@ Namespace OurPlugin
         End Sub
 
 
-      
+
 
 
 
@@ -752,6 +890,35 @@ Namespace OurPlugin
             dlg.DoModal(GUIWindowManager.ActiveWindow)
         End Sub
 
+        Private Sub LoadTVProgramInfo(ByVal idChannel As Integer, ByVal StartTime As Date, ByVal EndTime As Date, ByVal Titel As String)
+
+
+            Dim Sendung = New Program(idChannel, StartTime, EndTime, Titel, String.Empty, String.Empty, _
+                                Program.ProgramState.None, DateTime.MinValue, String.Empty, String.Empty, String.Empty, String.Empty, _
+                                -1, String.Empty, -1)
+
+            If Sendung Is Nothing Then
+                Return
+            End If
+
+            TvPlugin.TVProgramInfo.CurrentProgram = Sendung
+            GUIWindowManager.ActivateWindow(CInt(Window.WINDOW_TV_PROGRAM_INFO))
+
+        End Sub
+
+        Private Sub SetNotify(ByVal idChannel As Integer, ByVal StartTime As Date, ByVal EndTime As Date, ByVal Titel As String)
+
+            Dim Kanal As Channel = Channel.Retrieve(idChannel)
+
+            Dim Erinnerung As Program = Program.RetrieveByTitleTimesAndChannel(Titel, StartTime, EndTime, idChannel)
+            Erinnerung.Notify = True
+            Erinnerung.Persist()
+            TvNotifyManager.OnNotifiesChanged()
+
+            MPDialogOK("Erinnerung:", Titel, StartTime & " - " & EndTime, Kanal.DisplayName)
+
+
+        End Sub
 #End Region
 
 
