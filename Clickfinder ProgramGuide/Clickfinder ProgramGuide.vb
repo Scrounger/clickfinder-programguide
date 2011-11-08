@@ -10,6 +10,7 @@ Imports MediaPortal.Util
 Imports TvDatabase
 
 
+
 Imports TvPlugin
 
 Imports MySql.Data
@@ -17,6 +18,7 @@ Imports MySql.Data.MySqlClient
 Imports System.Threading
 
 Imports Action = MediaPortal.GUI.Library.Action
+Imports Gentle.Framework
 
 
 
@@ -64,9 +66,17 @@ Namespace OurPlugin
         <SkinControlAttribute(42)> Protected DetailsKurzKritik As GUIFadeLabel = Nothing
         <SkinControlAttribute(43)> Protected DetailsBewertungen As GUIFadeLabel = Nothing
 
-        <SkinControlAttribute(60)> Protected FavTitel1 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(50)> Protected FavTitel1 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(51)> Protected FavImage1 As GUIImage = Nothing
 
-        <SkinControlAttribute(70)> Protected FavTitel2 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(60)> Protected FavTitel2 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(61)> Protected FavImage2 As GUIImage = Nothing
+
+        <SkinControlAttribute(70)> Protected FavTitel3 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(71)> Protected FavImage3 As GUIImage = Nothing
+
+        <SkinControlAttribute(80)> Protected FavTitel4 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(81)> Protected FavImage4 As GUIImage = Nothing
 
         <SkinControlAttribute(89)> Protected btnRemember As GUIButtonControl = Nothing
         <SkinControlAttribute(90)> Protected btnBack As GUIButtonControl = Nothing
@@ -661,7 +671,10 @@ Namespace OurPlugin
             Dim _lastTitel As String
             Dim _FavCounter As Integer
             Dim _Bewertung As Integer
+            Dim _inFav As Boolean = False
+            Dim ClickfinderPath As String
 
+            ClickfinderPath = MPSettingRead("config", "ClickfinderPath")
             _lastTitel = Nothing
 
             _FavCounter = 1
@@ -680,71 +693,77 @@ Namespace OurPlugin
                 _Bewertung = CInt(ClickfinderData.Item("Bewertung"))
 
 
-                ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where stationName = '" & _MappingName & "'")
-
-                While TvServerData.Read
-
-                    _idChannel = TvServerData.Item("idChannel")
-
-                    Dim Sendung = TvDatabase.Program.RetrieveByTitleTimesAndChannel(_Titel, _StartZeit, _EndZeit, _idChannel)
-                    'Dim groupMap = TvDatabase.GroupMap.Retrieve(Sendung.IdChannel)
+                Dim _TVMovieMapping = TvDatabase.TvMovieMapping.ListAll
 
 
-                    'MsgBox(groupMap.IdGroup & " = " & _idChannel)
+                For i = 0 To _TVMovieMapping.Count - 1
 
+                    If _TVMovieMapping.Item(i).StationName = _MappingName Then
 
-                    'If _idChannel = groupMap.IdGroup Then
-                    '    'MsgBox(Channel.Retrieve(Sendung.IdChannel,).DisplayName & " " & Sendung.Title)
+                        _idChannel = _TVMovieMapping.Item(i).IdChannel
 
-                    'Else
-                    If Not Sendung.Title = _lastTitel Then
+                        Dim Sendung = TvDatabase.Program.RetrieveByTitleTimesAndChannel(_Titel, _StartZeit, _EndZeit, _idChannel)
 
-                        Dim lItem As New GUIListItem
+                        Dim _GroupMap = TvDatabase.GroupMap.ListAll
 
-                        lItem.Label = Sendung.Title.ToString
-                        lItem.Label2 = Format(CDate(Sendung.StartTime).Hour, "00") & _
-                        ":" & Format(CDate(Sendung.StartTime).Minute, "00") & _
-                        " - " & Format(CDate(Sendung.EndTime).Hour, "00") & _
-                        ":" & Format(CDate(Sendung.EndTime).Minute, "00")
-                        lItem.Label3 = _Genre
-                        lItem.ItemId = ctlList.ListItems.Count - 1
-                        lItem.IconImage = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & Channel.Retrieve(_idChannel).DisplayName & ".png")
-                        GUIControl.AddListItemControl(GetID, ctlList.GetID, lItem)
+                        For d = 0 To _GroupMap.Count - 1
+                            If _GroupMap.Item(d).IdChannel = CInt(_idChannel) _
+                            And _GroupMap.Item(d).IdGroup = CInt(MPSettingRead("config", "ChannelGroupID")) _
+                            And Not Sendung.Title = ctlTippTitel.Label Then
+                                _inFav = True
+                                Exit For
+                            End If
+                        Next
+
+                        If _inFav = True And _FavCounter <= 4 Then
+
+                            Select Case _FavCounter
+                                Case Is = 1
+                                    FavTitel1.Label = Sendung.Title
+                                    GUIControl.ShowControl(GetID, FavTitel1.GetID)
+                                    FavImage1.FileName = ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
+                                    GUIControl.ShowControl(GetID, FavImage1.GetID)
+                                Case Is = 2
+                                    FavTitel2.Label = Sendung.Title
+                                    GUIControl.ShowControl(GetID, FavTitel2.GetID)
+                                    FavImage2.FileName = ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
+                                    GUIControl.ShowControl(GetID, FavImage2.GetID)
+                                Case Is = 3
+                                    FavTitel3.Label = Sendung.Title
+                                    GUIControl.ShowControl(GetID, FavTitel3.GetID)
+                                    FavImage3.FileName = ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
+                                    GUIControl.ShowControl(GetID, FavImage3.GetID)
+                                Case Is = 4
+                                    FavTitel4.Label = Sendung.Title
+                                    GUIControl.ShowControl(GetID, FavTitel4.GetID)
+                                    FavImage4.FileName = ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
+                                    GUIControl.ShowControl(GetID, FavImage4.GetID)
+                            End Select
+
+                            _FavCounter = _FavCounter + 1
+
+                        ElseIf Not Sendung.Title = _lastTitel Then
+
+                            Dim lItem As New GUIListItem
+
+                            lItem.Label = Sendung.Title.ToString
+                            lItem.Label2 = Format(CDate(Sendung.StartTime).Hour, "00") & _
+                            ":" & Format(CDate(Sendung.StartTime).Minute, "00") & _
+                            " - " & Format(CDate(Sendung.EndTime).Hour, "00") & _
+                            ":" & Format(CDate(Sendung.EndTime).Minute, "00")
+                            lItem.Label3 = _Genre
+                            lItem.ItemId = ctlList.ListItems.Count - 1
+                            lItem.IconImage = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & Channel.Retrieve(_idChannel).DisplayName & ".png")
+                            GUIControl.AddListItemControl(GetID, ctlList.GetID, lItem)
+                        End If
+
+                        _lastTitel = Sendung.Title
+                        _inFav = False
+
                     End If
+                Next
 
-
-
-                    _lastTitel = Sendung.Title
-                End While
-
-                '("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where stationName = '" & ClickfinderData.Item("SenderKennung").ToString & "'")
-
-
-                'MsgBox(ClickfinderData.Item("Titel"))
-                'Dim lItem As New GUIListItem
-                'lItem.Label = ClickfinderData.Item("Titel")
-                'lItem.Label2 = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
-                '":" & Format(CDate(ClickfinderData.Item("Beginn")).Minute, "00") & _
-                '" - " & Format(CDate(ClickfinderData.Item("Ende")).Hour, "00") & _
-                '":" & Format(CDate(ClickfinderData.Item("Ende")).Minute, "00")
-                'lItem.Label3 = ClickfinderData.Item("Genre").ToString
-                'lItem.ItemId = ctlList.ListItems.Count - 1
-
-                'ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where stationName = '" & ClickfinderData.Item("SenderKennung").ToString & "'")
-
-                'While TvServerData.Read
-
-                '    lItem.IconImage = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & TvServerData.Item("displayName").ToString & ".png")
-                '    GUIControl.AddListItemControl(GetID, ctlList.GetID, lItem)
-                '    Exit While
-                'End While
-                'CloseTvServerDB()
-
-
-                CloseTvServerDB()
             End While
-
-
 
             CloseClickfinderDB()
 
@@ -972,7 +991,7 @@ Namespace OurPlugin
 #Region "Functions and Subs"
 
         'Funktion um Daten aus der ClickfinderPGConfig.xml abzufragen
-        
+
 
         'Parameter des Tagestipps anzeigen
         Private Sub ShowTagesTipp()

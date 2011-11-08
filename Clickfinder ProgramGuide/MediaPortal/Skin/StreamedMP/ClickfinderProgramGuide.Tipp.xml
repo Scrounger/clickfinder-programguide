@@ -2,7 +2,7 @@
 <window>
   <controls>
 
-<!--TagesTipp Clickfinder-->
+    <!--TagesTipp Clickfinder-->
     <control>
       <description>TagesTipp Image</description>
       <type>image</type>
@@ -133,7 +133,7 @@
       <type>fadelabel</type>
       <id>26</id>
       <posX>120</posX>
-      <posY>570</posY>
+      <posY>10</posY>
       <width>680</width>
       <align>left</align>
       <font>mediastream10tc</font>
@@ -147,7 +147,7 @@
       <type>textboxscrollup</type>
       <id>22</id>
       <posX>650</posX>
-      <posY>560</posY>
+      <posY>710</posY>
       <width>620</width>
       <height>200</height>
 
@@ -161,10 +161,10 @@
     <control>
       <description>FavoritenTipp1 Titel</description>
       <type>fadelabel</type>
-      <id>60</id>
+      <id>50</id>
       <posX>800</posX>
-      <posY>240</posY>
-      <width>680</width>
+      <posY>244</posY>
+      <width>460</width>
       <align>left</align>
       <label>#FavoritenTipp1 Titel</label>
       <font>mediastream12tc</font>
@@ -173,19 +173,117 @@
       <visible>!control.isvisible(30)</visible>
     </control>
 
+    <control>
+      <description>FavoritenTipp1 Image</description>
+      <type>image</type>
+      <id>51</id>
+      <posX>660</posX>
+      <posY>244</posY>
+      <width>130</width>
+      <height>100</height>
+      <texture></texture>
+      <colorkey>0</colorkey>
+      <colordiffuse>ffffffff</colordiffuse>
+      <filtered>yes</filtered>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>!control.isvisible(30)</visible>
+    </control>
+
     <!--FavoritenTipp2-->
     <control>
       <description>FavoritenTipp2 Titel</description>
       <type>fadelabel</type>
-      <id>70</id>
+      <id>60</id>
       <posX>800</posX>
-      <posY>340</posY>
-      <width>680</width>
+      <posY>358</posY>
+      <width>460</width>
       <align>left</align>
       <label>#FavoritenTipp2 Titel</label>
       <font>mediastream12tc</font>
       <textcolor>ffffffff</textcolor>
       <wrapString> | </wrapString>
+      <visible>!control.isvisible(30)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp2 Image</description>
+      <type>image</type>
+      <id>61</id>
+      <posX>660</posX>
+      <posY>358</posY>
+      <width>130</width>
+      <height>100</height>
+      <texture></texture>
+      <colorkey>0</colorkey>
+      <colordiffuse>ffffffff</colordiffuse>
+      <filtered>yes</filtered>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>!control.isvisible(30)</visible>
+    </control>
+
+    <!--FavoritenTipp3-->
+    <control>
+      <description>FavoritenTipp3 Titel</description>
+      <type>fadelabel</type>
+      <id>70</id>
+      <posX>800</posX>
+      <posY>472</posY>
+      <width>460</width>
+      <align>left</align>
+      <label>#FavoritenTipp2 Titel</label>
+      <font>mediastream12tc</font>
+      <textcolor>ffffffff</textcolor>
+      <wrapString> | </wrapString>
+      <visible>!control.isvisible(30)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp3 Image</description>
+      <type>image</type>
+      <id>71</id>
+      <posX>660</posX>
+      <posY>472</posY>
+      <width>130</width>
+      <height>100</height>
+      <texture></texture>
+      <colorkey>0</colorkey>
+      <colordiffuse>ffffffff</colordiffuse>
+      <filtered>yes</filtered>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>!control.isvisible(30)</visible>
+    </control>
+
+
+    <!--FavoritenTipp4-->
+    <control>
+      <description>FavoritenTipp4 Titel</description>
+      <type>fadelabel</type>
+      <id>80</id>
+      <posX>800</posX>
+      <posY>586</posY>
+      <width>460</width>
+      <align>left</align>
+      <label>#FavoritenTipp2 Titel</label>
+      <font>mediastream12tc</font>
+      <textcolor>ffffffff</textcolor>
+      <wrapString> | </wrapString>
+      <visible>!control.isvisible(30)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp4 Image</description>
+      <type>image</type>
+      <id>81</id>
+      <posX>660</posX>
+      <posY>586</posY>
+      <width>130</width>
+      <height>100</height>
+      <texture></texture>
+      <colorkey>0</colorkey>
+      <colordiffuse>ffffffff</colordiffuse>
+      <filtered>yes</filtered>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
       <visible>!control.isvisible(30)</visible>
     </control>
 
