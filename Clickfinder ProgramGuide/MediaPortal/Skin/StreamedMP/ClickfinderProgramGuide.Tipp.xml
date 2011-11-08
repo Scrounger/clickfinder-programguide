@@ -2,6 +2,7 @@
 <window>
   <controls>
 
+<!--TagesTipp Clickfinder-->
     <control>
       <description>TagesTipp Image</description>
       <type>image</type>
@@ -156,9 +157,37 @@
       <visible>!control.isvisible(30)</visible>
     </control>
 
+    <!--FavoritenTipp1-->
+    <control>
+      <description>FavoritenTipp1 Titel</description>
+      <type>fadelabel</type>
+      <id>60</id>
+      <posX>800</posX>
+      <posY>240</posY>
+      <width>680</width>
+      <align>left</align>
+      <label>#FavoritenTipp1 Titel</label>
+      <font>mediastream12tc</font>
+      <textcolor>ffffffff</textcolor>
+      <wrapString> | </wrapString>
+      <visible>!control.isvisible(30)</visible>
+    </control>
 
-
-
+    <!--FavoritenTipp2-->
+    <control>
+      <description>FavoritenTipp2 Titel</description>
+      <type>fadelabel</type>
+      <id>70</id>
+      <posX>800</posX>
+      <posY>340</posY>
+      <width>680</width>
+      <align>left</align>
+      <label>#FavoritenTipp2 Titel</label>
+      <font>mediastream12tc</font>
+      <textcolor>ffffffff</textcolor>
+      <wrapString> | </wrapString>
+      <visible>!control.isvisible(30)</visible>
+    </control>
 
   </controls>
 </window>

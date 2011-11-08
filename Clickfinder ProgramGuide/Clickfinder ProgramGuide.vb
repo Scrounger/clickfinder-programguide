@@ -64,6 +64,10 @@ Namespace OurPlugin
         <SkinControlAttribute(42)> Protected DetailsKurzKritik As GUIFadeLabel = Nothing
         <SkinControlAttribute(43)> Protected DetailsBewertungen As GUIFadeLabel = Nothing
 
+        <SkinControlAttribute(60)> Protected FavTitel1 As GUIFadeLabel = Nothing
+
+        <SkinControlAttribute(70)> Protected FavTitel2 As GUIFadeLabel = Nothing
+
         <SkinControlAttribute(89)> Protected btnRemember As GUIButtonControl = Nothing
         <SkinControlAttribute(90)> Protected btnBack As GUIButtonControl = Nothing
         <SkinControlAttribute(91)> Protected btnRecord As GUIButtonControl = Nothing
@@ -235,7 +239,7 @@ Namespace OurPlugin
             EndofDaySQL = "#" & EndofDay.Year & "-" & Format(EndofDay.Month, "00") & "-" & Format(EndofDay.Day, "00") & " 00:00:00#"
 
 
-            StartFillListControl("Select * from Sendungen where (Beginn Between " & PrimeTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= " & Rating & " AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC, Titel")  'AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC"
+            StartFillListControl_new("Select * from Sendungen where (Beginn Between " & PrimeTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= " & Rating & " AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC, Titel")  'AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC"
 
         End Sub
 
@@ -275,7 +279,7 @@ Namespace OurPlugin
             LateTimeSQL = "#" & Today.Year & "-" & Format(Today.Month, "00") & "-" & Format(Today.Day, "00") & " 22:00:00#"
             EndofDaySQL = "#" & EndofDay.Year & "-" & Format(EndofDay.Month, "00") & "-" & Format(EndofDay.Day, "00") & " 02:00:00#"
 
-            StartFillListControl("Select * from Sendungen where (Beginn Between " & LateTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= " & Rating & " AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC, Titel ASC")
+            StartFillListControl_new("Select * from Sendungen where (Beginn Between " & LateTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= " & Rating & " AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC, Titel ASC")
 
 
         End Sub
@@ -431,6 +435,11 @@ Namespace OurPlugin
         Public CmdTvServerDBRead As New MySqlCommand
         Public TvServerData As MySqlDataReader
 
+        'MP - TVServer Datenbank Variablen  - MYSql
+        Public ConTvServerDBRead2 As New MySqlConnection
+        Public CmdTvServerDBRead2 As New MySqlCommand
+        Public TvServerData2 As MySqlDataReader
+
         Public Count As Long
 
 
@@ -527,6 +536,51 @@ Namespace OurPlugin
 
         End Sub
 
+        Public Sub ReadTvServerDB2(ByVal SQLString As String)
+            Dim TvServerAdress As String
+            Dim TvServerUser As String
+            Dim TvServerPW As String
+
+            TvServerAdress = MPSettingRead("config", "TVServerAddress")
+            TvServerUser = MPSettingRead("config", "TVServerUser")
+            TvServerPW = MPSettingRead("config", "TVServerPW")
+            Try
+
+                ConTvServerDBRead2.ConnectionString = "server=" & TvServerAdress & ";uid=" & TvServerUser & ";pwd=" & TvServerPW & ";database=mptvdb;"
+                ConTvServerDBRead2.Open()
+
+
+                CmdTvServerDBRead2 = ConTvServerDBRead2.CreateCommand
+                CmdTvServerDBRead2.CommandText = SQLString
+
+                TvServerData2 = CmdTvServerDBRead.ExecuteReader
+
+
+            Catch ex As Exception
+
+                MPDialogNotify("Warnung ...", "TV Server nicht gefunden")
+
+                Log.Debug("Clickfinder ProgramGuide: (TvServer DB, read) " & ex.Message)
+                MsgBox("Clickfinder ProgramGuide: (TvServer DB, read) " & ex.Message)
+
+                CmdTvServerDBRead2.Dispose()
+                ConTvServerDBRead2.Close()
+            End Try
+
+
+        End Sub
+        Public Sub CloseTvServerDB2()
+
+            Try
+                CmdTvServerDBRead2.Dispose()
+                ConTvServerDBRead2.Close()
+            Catch ex As Exception
+                Log.Debug("Clickfinder ProgramGuide: (TvServer DB, close) " & ex.Message)
+                MsgBox("Clickfinder ProgramGuide: (TvServer DB, close) " & ex.Message)
+            End Try
+
+        End Sub
+
 
 #End Region
 
@@ -577,6 +631,120 @@ Namespace OurPlugin
 
 
             End While
+
+            CloseClickfinderDB()
+
+            ctlProgressBar.Visible = False
+
+        End Sub
+
+        Private Sub StartFillListControl_new(ByVal SQLString As String)
+
+            Dim ProgressBar, Fill_Listcontrol2 As Threading.Thread
+
+            ListSQLString = SQLString
+
+            ProgressBar = New Thread(AddressOf ShowProgressbar)
+            Fill_Listcontrol2 = New Thread(AddressOf FillListControl_new)
+
+            ProgressBar.Start()
+            Fill_Listcontrol2.Start()
+        End Sub
+        Private Sub FillListControl_new()
+
+            Dim _MappingName As String
+            Dim _idChannel As String
+            Dim _StartZeit As Date
+            Dim _EndZeit As Date
+            Dim _Titel As String
+            Dim _Genre As String
+            Dim _lastTitel As String
+            Dim _FavCounter As Integer
+            Dim _Bewertung As Integer
+
+            _lastTitel = Nothing
+
+            _FavCounter = 1
+
+            ctlList.ListItems.Clear()
+
+            ReadClickfinderDB(ListSQLString)
+
+            While ClickfinderData.Read
+
+                _MappingName = ClickfinderData.Item("SenderKennung")
+                _StartZeit = CDate(ClickfinderData.Item("Beginn"))
+                _EndZeit = CDate(ClickfinderData.Item("Ende"))
+                _Titel = ClickfinderData.Item("Titel")
+                _Genre = ClickfinderData.Item("Genre")
+                _Bewertung = CInt(ClickfinderData.Item("Bewertung"))
+
+
+                ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where stationName = '" & _MappingName & "'")
+
+                While TvServerData.Read
+
+                    _idChannel = TvServerData.Item("idChannel")
+
+                    Dim Sendung = TvDatabase.Program.RetrieveByTitleTimesAndChannel(_Titel, _StartZeit, _EndZeit, _idChannel)
+                    'Dim groupMap = TvDatabase.GroupMap.Retrieve(Sendung.IdChannel)
+
+
+                    'MsgBox(groupMap.IdGroup & " = " & _idChannel)
+
+
+                    'If _idChannel = groupMap.IdGroup Then
+                    '    'MsgBox(Channel.Retrieve(Sendung.IdChannel,).DisplayName & " " & Sendung.Title)
+
+                    'Else
+                    If Not Sendung.Title = _lastTitel Then
+
+                        Dim lItem As New GUIListItem
+
+                        lItem.Label = Sendung.Title.ToString
+                        lItem.Label2 = Format(CDate(Sendung.StartTime).Hour, "00") & _
+                        ":" & Format(CDate(Sendung.StartTime).Minute, "00") & _
+                        " - " & Format(CDate(Sendung.EndTime).Hour, "00") & _
+                        ":" & Format(CDate(Sendung.EndTime).Minute, "00")
+                        lItem.Label3 = _Genre
+                        lItem.ItemId = ctlList.ListItems.Count - 1
+                        lItem.IconImage = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & Channel.Retrieve(_idChannel).DisplayName & ".png")
+                        GUIControl.AddListItemControl(GetID, ctlList.GetID, lItem)
+                    End If
+
+
+
+                    _lastTitel = Sendung.Title
+                End While
+
+                '("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where stationName = '" & ClickfinderData.Item("SenderKennung").ToString & "'")
+
+
+                'MsgBox(ClickfinderData.Item("Titel"))
+                'Dim lItem As New GUIListItem
+                'lItem.Label = ClickfinderData.Item("Titel")
+                'lItem.Label2 = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
+                '":" & Format(CDate(ClickfinderData.Item("Beginn")).Minute, "00") & _
+                '" - " & Format(CDate(ClickfinderData.Item("Ende")).Hour, "00") & _
+                '":" & Format(CDate(ClickfinderData.Item("Ende")).Minute, "00")
+                'lItem.Label3 = ClickfinderData.Item("Genre").ToString
+                'lItem.ItemId = ctlList.ListItems.Count - 1
+
+                'ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where stationName = '" & ClickfinderData.Item("SenderKennung").ToString & "'")
+
+                'While TvServerData.Read
+
+                '    lItem.IconImage = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & TvServerData.Item("displayName").ToString & ".png")
+                '    GUIControl.AddListItemControl(GetID, ctlList.GetID, lItem)
+                '    Exit While
+                'End While
+                'CloseTvServerDB()
+
+
+                CloseTvServerDB()
+            End While
+
+
 
             CloseClickfinderDB()
 
@@ -804,11 +972,7 @@ Namespace OurPlugin
 #Region "Functions and Subs"
 
         'Funktion um Daten aus der ClickfinderPGConfig.xml abzufragen
-        Public Function MPSettingRead(ByVal section As String, ByVal entry As String) As String
-            Using xmlReader As New Settings(Config.GetFile(Config.Dir.Config, "ClickfinderPGConfig.xml"))
-                MPSettingRead = xmlReader.GetValue(section, entry)
-            End Using
-        End Function
+        
 
         'Parameter des Tagestipps anzeigen
         Private Sub ShowTagesTipp()
@@ -861,7 +1025,9 @@ Namespace OurPlugin
 
         End Sub
 
-
+        Private Function MySQLDateTOstring(ByVal Datum As Date) As String
+            MySQLDateTOstring = "'" & Datum.Year & "-" & Format(Datum.Month, "00") & "-" & Format(Datum.Day, "00") & " " & Format(Datum.Hour, "00") & ":" & Format(Datum.Minute, "00") & ":00'"
+        End Function
 
 
 
@@ -873,6 +1039,13 @@ Namespace OurPlugin
 #End Region
 
 #Region "MediaPortal Funktionen / Dialogs"
+
+        'xml Setting Datei lesen
+        Public Function MPSettingRead(ByVal section As String, ByVal entry As String) As String
+            Using xmlReader As New Settings(Config.GetFile(Config.Dir.Config, "ClickfinderPGConfig.xml"))
+                MPSettingRead = xmlReader.GetValue(section, entry)
+            End Using
+        End Function
 
         'MediaPortal Dialoge
         Private Sub MPDialogOK(ByVal Heading As String, ByVal StringLine1 As String, Optional ByVal StringLine2 As String = "", Optional ByVal StringLine3 As String = "")
