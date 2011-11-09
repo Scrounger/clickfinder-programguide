@@ -9,7 +9,7 @@ Imports MediaPortal.Utils
 Imports MediaPortal.Util
 Imports TvDatabase
 
-
+Imports Gentle.Common
 
 Imports TvPlugin
 
@@ -19,6 +19,7 @@ Imports System.Threading
 
 Imports Action = MediaPortal.GUI.Library.Action
 Imports Gentle.Framework
+Imports System.Drawing
 
 
 
@@ -27,6 +28,8 @@ Namespace OurPlugin
     Public Class Class1
         Inherits MediaPortal.GUI.Library.GUIWindow
         Implements MediaPortal.GUI.Library.ISetupForm
+
+
 
         Public Delegate Sub D_Parallel()
 
@@ -42,14 +45,14 @@ Namespace OurPlugin
         <SkinControlAttribute(9)> Protected ctlProgressBar As GUIAnimation = Nothing
         <SkinControlAttribute(10)> Protected ctlList As GUIListControl = Nothing
 
-        <SkinControlAttribute(20)> Protected ctlTippImage As GUIImage = Nothing
-        <SkinControlAttribute(21)> Protected ctlTippTitel As GUIFadeLabel = Nothing
-        <SkinControlAttribute(22)> Protected ctlTippBeschreibung As GUITextScrollUpControl = Nothing
-        <SkinControlAttribute(23)> Protected ctlTippKanal As GUIFadeLabel = Nothing
-        <SkinControlAttribute(24)> Protected ctlTippZeit As GUILabelControl = Nothing
-        <SkinControlAttribute(25)> Protected ctlTippGenre As GUILabelControl = Nothing
-        <SkinControlAttribute(26)> Protected ctlTippActors As GUIFadeLabel = Nothing
-        <SkinControlAttribute(27)> Protected ctlTippKanalImage As GUIImage = Nothing
+        <SkinControlAttribute(20)> Protected FavImage0 As GUIImage = Nothing
+        <SkinControlAttribute(21)> Protected FavTitel0 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(22)> Protected FavKanal0 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(23)> Protected FavGenre0 As GUILabelControl = Nothing
+        <SkinControlAttribute(24)> Protected FavZeit0 As GUILabelControl = Nothing
+        <SkinControlAttribute(25)> Protected FavBewertung0 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(26)> Protected FavKritik0 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(27)> Protected FavRatingImage0 As GUIImage = Nothing
 
         <SkinControlAttribute(30)> Protected DetailsImage As GUIImage = Nothing
         <SkinControlAttribute(31)> Protected DetailsTitel As GUIFadeLabel = Nothing
@@ -68,15 +71,40 @@ Namespace OurPlugin
 
         <SkinControlAttribute(50)> Protected FavTitel1 As GUIFadeLabel = Nothing
         <SkinControlAttribute(51)> Protected FavImage1 As GUIImage = Nothing
+        <SkinControlAttribute(52)> Protected FavKanal1 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(53)> Protected FavGenre1 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(54)> Protected FavZeit1 As GUILabelControl = Nothing
+        <SkinControlAttribute(55)> Protected FavBewertung1 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(56)> Protected FavKritik1 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(57)> Protected FavRatingImage1 As GUIImage = Nothing
 
         <SkinControlAttribute(60)> Protected FavTitel2 As GUIFadeLabel = Nothing
         <SkinControlAttribute(61)> Protected FavImage2 As GUIImage = Nothing
+        <SkinControlAttribute(62)> Protected FavKanal2 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(63)> Protected FavGenre2 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(64)> Protected FavZeit2 As GUILabelControl = Nothing
+        <SkinControlAttribute(65)> Protected FavBewertung2 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(66)> Protected FavKritik2 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(67)> Protected FavRatingImage2 As GUIImage = Nothing
+
 
         <SkinControlAttribute(70)> Protected FavTitel3 As GUIFadeLabel = Nothing
         <SkinControlAttribute(71)> Protected FavImage3 As GUIImage = Nothing
+        <SkinControlAttribute(72)> Protected FavKanal3 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(73)> Protected FavGenre3 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(74)> Protected FavZeit3 As GUILabelControl = Nothing
+        <SkinControlAttribute(75)> Protected FavBewertung3 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(76)> Protected FavKritik3 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(77)> Protected FavRatingImage3 As GUIImage = Nothing
 
         <SkinControlAttribute(80)> Protected FavTitel4 As GUIFadeLabel = Nothing
         <SkinControlAttribute(81)> Protected FavImage4 As GUIImage = Nothing
+        <SkinControlAttribute(82)> Protected FavKanal4 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(83)> Protected FavGenre4 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(84)> Protected FavZeit4 As GUILabelControl = Nothing
+        <SkinControlAttribute(85)> Protected FavBewertung4 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(86)> Protected FavKritik4 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(87)> Protected FavRatingImage4 As GUIImage = Nothing
 
         <SkinControlAttribute(89)> Protected btnRemember As GUIButtonControl = Nothing
         <SkinControlAttribute(90)> Protected btnBack As GUIButtonControl = Nothing
@@ -155,7 +183,7 @@ Namespace OurPlugin
             DetailsImage.Visible = False
 
 
-            ShowTagesTipp()
+
             Button_PrimeTime()
 
         End Sub
@@ -671,13 +699,16 @@ Namespace OurPlugin
             Dim _lastTitel As String
             Dim _FavCounter As Integer
             Dim _Bewertung As Integer
+            Dim _BewertungStr As String
+            Dim _Kritik As String
             Dim _inFav As Boolean = False
-            Dim ClickfinderPath As String
+            Dim _ClickfinderPath As String
 
-            ClickfinderPath = MPSettingRead("config", "ClickfinderPath")
+
+            _ClickfinderPath = MPSettingRead("config", "ClickfinderPath")
             _lastTitel = Nothing
 
-            _FavCounter = 1
+            _FavCounter = 0
 
             ctlList.ListItems.Clear()
 
@@ -691,8 +722,8 @@ Namespace OurPlugin
                 _Titel = ClickfinderData.Item("Titel")
                 _Genre = ClickfinderData.Item("Genre")
                 _Bewertung = CInt(ClickfinderData.Item("Bewertung"))
-
-
+                _BewertungStr = Replace(ClickfinderData.Item("Bewertungen"), ";", " ")
+                _Kritik = ClickfinderData.Item("Kurzkritik")
                 Dim _TVMovieMapping = TvDatabase.TvMovieMapping.ListAll
 
 
@@ -709,7 +740,7 @@ Namespace OurPlugin
                         For d = 0 To _GroupMap.Count - 1
                             If _GroupMap.Item(d).IdChannel = CInt(_idChannel) _
                             And _GroupMap.Item(d).IdGroup = CInt(MPSettingRead("config", "ChannelGroupID")) _
-                            And Not Sendung.Title = ctlTippTitel.Label Then
+                            Then
                                 _inFav = True
                                 Exit For
                             End If
@@ -718,26 +749,113 @@ Namespace OurPlugin
                         If _inFav = True And _FavCounter <= 4 Then
 
                             Select Case _FavCounter
+
+                                Case Is = 0
+                                    FavImage0.FileName = _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
+                                    GUIControl.ShowControl(GetID, FavImage0.GetID)
+
+                                    FavTitel0.Label = ClickfinderData.Item("Titel")
+                                    GUIControl.ShowControl(GetID, FavTitel0.GetID)
+
+                                    FavKanal0.Label = ClickfinderData.Item("SenderKennung")
+                                    GUIControl.ShowControl(GetID, FavKanal0.GetID)
+
+                                    FavZeit0.Label = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
+                                        ":" & Format(CDate(ClickfinderData.Item("Beginn")).Minute, "00") & _
+                                        " - " & Format(CDate(ClickfinderData.Item("Ende")).Hour, "00") & _
+                                        ":" & Format(CDate(ClickfinderData.Item("Ende")).Minute, "00")
+                                    GUIControl.ShowControl(GetID, FavZeit0.GetID)
+
+                                    FavGenre0.Label = ClickfinderData.Item("Genre")
+                                    GUIControl.ShowControl(GetID, FavGenre0.GetID)
+
+                                    FavBewertung0.Label = ClickfinderData.Item("Bewertungen")
+                                    GUIControl.ShowControl(GetID, FavBewertung0.GetID)
+                                    FavKritik0.Label = ClickfinderData.Item("KurzKritik")
+                                    GUIControl.ShowControl(GetID, FavKritik0.GetID)
+                                    FavRatingImage0.FileName = (Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+                                    GUIControl.ShowControl(GetID, FavRatingImage0.GetID)
+
                                 Case Is = 1
                                     FavTitel1.Label = Sendung.Title
                                     GUIControl.ShowControl(GetID, FavTitel1.GetID)
-                                    FavImage1.FileName = ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
+                                    FavImage1.FileName = _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
                                     GUIControl.ShowControl(GetID, FavImage1.GetID)
+                                    FavKanal1.Label = TvDatabase.Channel.Retrieve(_idChannel).DisplayName
+                                    GUIControl.ShowControl(GetID, FavKanal1.GetID)
+                                    FavGenre1.Label = _Genre
+                                    GUIControl.ShowControl(GetID, FavGenre1.GetID)
+                                    FavZeit1.Label = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
+                                                        ":" & Format(CDate(ClickfinderData.Item("Beginn")).Minute, "00") & _
+                                                        " - " & Format(CDate(ClickfinderData.Item("Ende")).Hour, "00") & _
+                                                        ":" & Format(CDate(ClickfinderData.Item("Ende")).Minute, "00")
+                                    GUIControl.ShowControl(GetID, FavZeit1.GetID)
+                                    FavBewertung1.Label = _BewertungStr
+                                    GUIControl.ShowControl(GetID, FavBewertung1.GetID)
+                                    FavKritik1.Label = _Kritik
+                                    GUIControl.ShowControl(GetID, FavKritik1.GetID)
+                                    FavRatingImage1.FileName = (Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+                                    GUIControl.ShowControl(GetID, FavRatingImage1.GetID)
                                 Case Is = 2
                                     FavTitel2.Label = Sendung.Title
                                     GUIControl.ShowControl(GetID, FavTitel2.GetID)
-                                    FavImage2.FileName = ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
+                                    FavImage2.FileName = _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
                                     GUIControl.ShowControl(GetID, FavImage2.GetID)
+                                    FavKanal2.Label = TvDatabase.Channel.Retrieve(_idChannel).DisplayName
+                                    GUIControl.ShowControl(GetID, FavKanal2.GetID)
+                                    FavGenre2.Label = _Genre
+                                    GUIControl.ShowControl(GetID, FavGenre2.GetID)
+                                    FavZeit2.Label = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
+                                                        ":" & Format(CDate(ClickfinderData.Item("Beginn")).Minute, "00") & _
+                                                        " - " & Format(CDate(ClickfinderData.Item("Ende")).Hour, "00") & _
+                                                        ":" & Format(CDate(ClickfinderData.Item("Ende")).Minute, "00")
+                                    GUIControl.ShowControl(GetID, FavZeit2.GetID)
+                                    FavBewertung2.Label = _BewertungStr
+                                    GUIControl.ShowControl(GetID, FavBewertung2.GetID)
+                                    FavKritik2.Label = _Kritik
+                                    GUIControl.ShowControl(GetID, FavKritik2.GetID)
+                                    FavRatingImage2.FileName = (Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+                                    GUIControl.ShowControl(GetID, FavRatingImage2.GetID)
                                 Case Is = 3
                                     FavTitel3.Label = Sendung.Title
                                     GUIControl.ShowControl(GetID, FavTitel3.GetID)
-                                    FavImage3.FileName = ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
+                                    FavImage3.FileName = _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
                                     GUIControl.ShowControl(GetID, FavImage3.GetID)
+                                    FavKanal3.Label = TvDatabase.Channel.Retrieve(_idChannel).DisplayName
+                                    GUIControl.ShowControl(GetID, FavKanal3.GetID)
+                                    FavGenre3.Label = _Genre
+                                    GUIControl.ShowControl(GetID, FavGenre3.GetID)
+                                    FavZeit3.Label = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
+                                                        ":" & Format(CDate(ClickfinderData.Item("Beginn")).Minute, "00") & _
+                                                        " - " & Format(CDate(ClickfinderData.Item("Ende")).Hour, "00") & _
+                                                        ":" & Format(CDate(ClickfinderData.Item("Ende")).Minute, "00")
+                                    GUIControl.ShowControl(GetID, FavZeit3.GetID)
+                                    FavBewertung3.Label = _BewertungStr
+                                    GUIControl.ShowControl(GetID, FavBewertung3.GetID)
+                                    FavKritik3.Label = _Kritik
+                                    GUIControl.ShowControl(GetID, FavKritik3.GetID)
+                                    FavRatingImage3.FileName = (Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+                                    GUIControl.ShowControl(GetID, FavRatingImage3.GetID)
                                 Case Is = 4
                                     FavTitel4.Label = Sendung.Title
                                     GUIControl.ShowControl(GetID, FavTitel4.GetID)
-                                    FavImage4.FileName = ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
+                                    FavImage4.FileName = _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
                                     GUIControl.ShowControl(GetID, FavImage4.GetID)
+                                    FavKanal4.Label = TvDatabase.Channel.Retrieve(_idChannel).DisplayName
+                                    GUIControl.ShowControl(GetID, FavKanal4.GetID)
+                                    FavGenre4.Label = _Genre
+                                    GUIControl.ShowControl(GetID, FavGenre4.GetID)
+                                    FavZeit4.Label = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
+                                                        ":" & Format(CDate(ClickfinderData.Item("Beginn")).Minute, "00") & _
+                                                        " - " & Format(CDate(ClickfinderData.Item("Ende")).Hour, "00") & _
+                                                        ":" & Format(CDate(ClickfinderData.Item("Ende")).Minute, "00")
+                                    GUIControl.ShowControl(GetID, FavZeit4.GetID)
+                                    FavBewertung4.Label = _BewertungStr
+                                    GUIControl.ShowControl(GetID, FavBewertung4.GetID)
+                                    FavKritik4.Label = _Kritik
+                                    GUIControl.ShowControl(GetID, FavKritik4.GetID)
+                                    FavRatingImage4.FileName = (Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+                                    GUIControl.ShowControl(GetID, FavRatingImage4.GetID)
                             End Select
 
                             _FavCounter = _FavCounter + 1
@@ -990,60 +1108,6 @@ Namespace OurPlugin
 
 #Region "Functions and Subs"
 
-        'Funktion um Daten aus der ClickfinderPGConfig.xml abzufragen
-
-
-        'Parameter des Tagestipps anzeigen
-        Private Sub ShowTagesTipp()
-            Dim DayStart As String
-            Dim DayEnd As String
-            Dim ClickfinderPath As String
-
-
-            DayStart = "#" & Today.Year & "-" & Format(Today.Month, "00") & "-" & Format(Today.Day, "00") & " 00:01:00#"
-            DayEnd = "#" & Today.Year & "-" & Format(Today.Month, "00") & "-" & Format(Today.Day, "00") & " 23:59:00#"
-
-            ClickfinderPath = MPSettingRead("config", "ClickfinderPath")
-
-
-            ReadClickfinderDB("Select * from Sendungen Inner Join SendungenDetails on Sendungen.Pos = SendungenDetails.Pos where (Beginn Between " & DayStart & " AND " & DayEnd & ") AND Bewertung = 4 ORDER BY Beginn")
-
-
-            While ClickfinderData.Read
-
-                ctlTippImage.FileName = ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
-                GUIControl.ShowControl(GetID, ctlTippImage.GetID)
-
-                ctlTippTitel.Label = ClickfinderData.Item("Titel")
-                GUIControl.ShowControl(GetID, ctlTippTitel.GetID)
-
-                ctlTippBeschreibung.Label = ClickfinderData.Item("Beschreibung")
-                GUIControl.ShowControl(GetID, ctlTippBeschreibung.GetID)
-
-                ctlTippKanal.Label = ClickfinderData.Item("SenderKennung")
-                GUIControl.ShowControl(GetID, ctlTippKanal.GetID)
-
-                ctlTippZeit.Label = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
-                    ":" & Format(CDate(ClickfinderData.Item("Beginn")).Minute, "00") & _
-                    " - " & Format(CDate(ClickfinderData.Item("Ende")).Hour, "00") & _
-                    ":" & Format(CDate(ClickfinderData.Item("Ende")).Minute, "00")
-                GUIControl.ShowControl(GetID, ctlTippZeit.GetID)
-
-                ctlTippGenre.Label = ClickfinderData.Item("Genre")
-                GUIControl.ShowControl(GetID, ctlTippGenre.GetID)
-
-                ctlTippActors.Label = ClickfinderData.Item("Darsteller")
-                GUIControl.ShowControl(GetID, ctlTippActors.GetID)
-
-                ctlTippKanalImage.FileName = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & ClickfinderData.Item("SenderKennung").ToString & ".png")
-                GUIControl.ShowControl(GetID, ctlTippKanalImage.GetID)
-
-            End While
-
-            CloseClickfinderDB()
-
-        End Sub
-
         Private Function MySQLDateTOstring(ByVal Datum As Date) As String
             MySQLDateTOstring = "'" & Datum.Year & "-" & Format(Datum.Month, "00") & "-" & Format(Datum.Day, "00") & " " & Format(Datum.Hour, "00") & ":" & Format(Datum.Minute, "00") & ":00'"
         End Function
@@ -1113,10 +1177,54 @@ Namespace OurPlugin
         End Sub
 #End Region
 
+        Public Shared Function ListByNameStartsWith(ByVal idChannel As Integer) As IList
+            Dim sb As SqlBuilder = New SqlBuilder(StatementType.Select, GetType(GroupMap))
+            ' note: the partialName parameter must also contain the %'s for the LIKE query!
+            sb.AddConstraint([Operator].Like, "idGroup", idChannel)
+            ' passing true indicates that we'd like a list of elements, i.e. that no primary key
+            ' constraints from the type being retrieved should be added to the statement
+            Dim stmt As SqlStatement = sb.GetStatement(True)
+            ' execute the statement/query and create a collection of User instances from the result
+            Return ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute)
+        End Function
+
+        'Public Sub test()
+        '    Dim idGroup As String
+
+        '    Try
+
+        '        Dim SQL As SqlBuilder
+
+        '        SQL.SetStatementType(StatementType.Select)
+        '        SQL.SetTable(GetType(GroupMap))
 
 
 
 
+        '    Catch ex As Exception
+        '        MsgBox(ex.Message)
+        '    End Try
+
+        'End Sub
+
+        'Public Shared Function ListByNameStartsWith(ByVal partialName As String) As IList
+
+        '    Try
+
+        '        Dim sb As SqlBuilder = New SqlBuilder(StatementType.Select, GetType(GroupMap))
+        '        ' note: the partialName parameter must also contain the %'s for the LIKE query!
+        '        sb.AddConstraint([Operator].Like, "idGroup", partialName)
+        '        ' passing true indicates that we'd like a list of elements, i.e. that no primary key
+        '        ' constraints from the type being retrieved should be added to the statement
+        '        Dim stmt As SqlStatement = sb.GetStatement(StatementType.Select)
+        '        ' execute the statement/query and create a collection of User instances from the result
+
+        '        ListByNameStartsWith = (ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute))
+
+        '    Catch ex As Exception
+        '        MsgBox(ex.Message)
+        '    End Try
+        'End Function
 
 
     End Class
