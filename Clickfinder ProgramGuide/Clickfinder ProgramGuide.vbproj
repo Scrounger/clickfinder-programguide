@@ -56,6 +56,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\Gentle.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="Gentle.Provider.MySQL, Version=1.5.0.29111, Culture=neutral, PublicKeyToken=80b5de62e27be49b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\Gentle.Provider.MySQL.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=5.1.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\MySql.Data.dll</HintPath>
@@ -171,6 +175,9 @@
     <Content Include="MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_Sep.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="MediaPortal\Skin\StreamedMP\Media\Clickfinder_Loading.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MediaPortal\Skin\StreamedMP\Media\hover_ClickfinderProgramGuide.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -204,10 +211,16 @@
     <Content Include="MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R3.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="MediaPortal\thumbs\ClickfinderPG\Clickfinder_R1.png">
+    <Content Include="MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R6.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

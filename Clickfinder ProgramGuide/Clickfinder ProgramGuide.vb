@@ -10,7 +10,7 @@ Imports MediaPortal.Util
 Imports TvDatabase
 
 Imports Gentle.Common
-
+Imports Gentle.Provider.MySQL
 Imports TvPlugin
 
 Imports MySql.Data
@@ -48,7 +48,7 @@ Namespace OurPlugin
         <SkinControlAttribute(20)> Protected FavImage0 As GUIImage = Nothing
         <SkinControlAttribute(21)> Protected FavTitel0 As GUIFadeLabel = Nothing
         <SkinControlAttribute(22)> Protected FavKanal0 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(23)> Protected FavGenre0 As GUILabelControl = Nothing
+        <SkinControlAttribute(23)> Protected FavGenre0 As GUIFadeLabel = Nothing
         <SkinControlAttribute(24)> Protected FavZeit0 As GUILabelControl = Nothing
         <SkinControlAttribute(25)> Protected FavBewertung0 As GUIFadeLabel = Nothing
         <SkinControlAttribute(26)> Protected FavKritik0 As GUIFadeLabel = Nothing
@@ -114,6 +114,8 @@ Namespace OurPlugin
 #End Region
 #Region "Variablen"
         Public ListSQLString As String
+        Public LiveCorrection As Boolean = False
+        Public WdhCorrection As Boolean = False
 #End Region
 
 
@@ -182,8 +184,12 @@ Namespace OurPlugin
             ctlProgressBar.Visible = False
             DetailsImage.Visible = False
 
+            ClickfinderCorrection()
 
 
+            GUIWindowManager.IsOsdVisible = False
+
+            ClickfinderCorrection()
             Button_PrimeTime()
 
         End Sub
@@ -277,18 +283,13 @@ Namespace OurPlugin
             EndofDaySQL = "#" & EndofDay.Year & "-" & Format(EndofDay.Month, "00") & "-" & Format(EndofDay.Day, "00") & " 00:00:00#"
 
 
-            StartFillListControl_new("Select * from Sendungen where (Beginn Between " & PrimeTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= " & Rating & " AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC, Titel")  'AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC"
+            StartFillListControl("Select * from Sendungen where (Beginn Between " & PrimeTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= " & Rating & " AND Bewertung <= 4 ORDER BY Beginn ASC, Bewertung DESC, Titel")  'AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC"
 
         End Sub
-
         Private Sub Button_PrimeTimeRest()
             Dim PrimeTimeSQL As String
             Dim EndofDay As Date
             Dim EndofDaySQL As String
-            Dim Rating As String
-
-
-            Rating = MPSettingRead("config", "ClickfinderRating")
 
             EndofDay = Today.AddDays(1)
 
@@ -296,10 +297,9 @@ Namespace OurPlugin
             EndofDaySQL = "#" & EndofDay.Year & "-" & Format(EndofDay.Month, "00") & "-" & Format(EndofDay.Day, "00") & " 00:00:00#"
 
 
-            StartFillListControl("Select * from Sendungen where (Beginn Between " & PrimeTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= 5 AND Bewertung <=6 ORDER BY Beginn ASC, Bewertung DESC, Titel")  'AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC"
+            StartFillListControl("Select * from Sendungen where (Beginn Between " & PrimeTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= 5 AND Bewertung <= 6 ORDER BY Beginn ASC, Bewertung DESC, Titel")  'AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC"
 
         End Sub
-
 
         Private Sub Button_LateTime()
 
@@ -317,22 +317,17 @@ Namespace OurPlugin
             LateTimeSQL = "#" & Today.Year & "-" & Format(Today.Month, "00") & "-" & Format(Today.Day, "00") & " 22:00:00#"
             EndofDaySQL = "#" & EndofDay.Year & "-" & Format(EndofDay.Month, "00") & "-" & Format(EndofDay.Day, "00") & " 02:00:00#"
 
-            StartFillListControl_new("Select * from Sendungen where (Beginn Between " & LateTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= " & Rating & " AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC, Titel ASC")
+            StartFillListControl("Select * from Sendungen where (Beginn Between " & LateTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= " & Rating & " AND Bewertung <=4 ORDER BY Beginn ASC, Bewertung DESC, Titel ASC")
 
 
         End Sub
-
-
         Private Sub Button_LateTimeRest()
 
             Dim LateTimeSQL As String
             Dim EndofDay As Date
 
             Dim EndofDaySQL As String
-            Dim Rating As String
 
-
-            Rating = MPSettingRead("config", "ClickfinderRating")
 
             EndofDay = Today.AddDays(1)
 
@@ -342,6 +337,7 @@ Namespace OurPlugin
             StartFillListControl("Select * from Sendungen where (Beginn Between " & LateTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung >= 5 AND Bewertung <=6 ORDER BY Beginn ASC, Bewertung DESC, Titel ASC")
 
         End Sub
+
         Private Sub Button_CommingTipps()
 
             StartFillListControlCommingNextTipps()
@@ -462,249 +458,48 @@ Namespace OurPlugin
 
 #End Region
 
-#Region "TV Movie and TVServer Database Access"
 
-        Public ConClickfinderDBRead As New OleDb.OleDbConnection
-        Public CmdClickfinderDBRead As New OleDb.OleDbCommand
-        Public ClickfinderData As OleDb.OleDbDataReader
-
-        'MP - TVServer Datenbank Variablen  - MYSql
-        Public ConTvServerDBRead As New MySqlConnection
-        Public CmdTvServerDBRead As New MySqlCommand
-        Public TvServerData As MySqlDataReader
-
-        'MP - TVServer Datenbank Variablen  - MYSql
-        Public ConTvServerDBRead2 As New MySqlConnection
-        Public CmdTvServerDBRead2 As New MySqlCommand
-        Public TvServerData2 As MySqlDataReader
-
-        Public Count As Long
-
-
-        Public Sub ReadClickfinderDB(ByVal SQLString As String)
-            Dim ClickfinderPath As String
-
-            Log.Debug("TV Movie ProgramGuide: Open TV Movie Clickfinder Database")
-
-            ClickfinderPath = MPSettingRead("config", "ClickfinderPath")
-
-
-            Try
-                ConClickfinderDBRead.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;" & "Data Source=" & ClickfinderPath & "\tvdaten.mdb"
-                ConClickfinderDBRead.Open()
-                'Provider=Microsoft.Jet.OLEDB.4.0;
-                'Provider=Microsoft.ACE.OLEDB.12.0;
-
-                CmdClickfinderDBRead = ConClickfinderDBRead.CreateCommand
-                CmdClickfinderDBRead.CommandText = SQLString
-
-                ClickfinderData = CmdClickfinderDBRead.ExecuteReader
-
-
-            Catch ex As Exception
-
-                If IO.File.Exists(ClickfinderPath & "\tvdaten.mdb") Then
-                    Log.Debug("Clickfinder ProgramGuide: (Clickfinder DB, read) " & ex.Message)
-                    MsgBox("Clickfinder ProgramGuide: (Clickfinder DB, read) " & ex.Message)
-                Else
-                    MPDialogNotify("Warnung ...", "Clickfinder Datenbank nicht gefunden !")
-                End If
-
-                CmdClickfinderDBRead.Dispose()
-                ConClickfinderDBRead.Close()
-
-            End Try
-        End Sub
-
-        Public Sub CloseClickfinderDB()
-
-            Try
-                CmdClickfinderDBRead.Dispose()
-                ConClickfinderDBRead.Close()
-
-            Catch ex As Exception
-                Log.Debug("Clickfinder ProgramGuide: (Clickfinder DB, close) " & ex.Message)
-                MsgBox("Clickfinder ProgramGuide: (Clickfinder DB, close) " & ex.Message)
-            End Try
-        End Sub
-
-
-        Public Sub ReadTvServerDB(ByVal SQLString As String)
-            Dim TvServerAdress As String
-            Dim TvServerUser As String
-            Dim TvServerPW As String
-
-            TvServerAdress = MPSettingRead("config", "TVServerAddress")
-            TvServerUser = MPSettingRead("config", "TVServerUser")
-            TvServerPW = MPSettingRead("config", "TVServerPW")
-            Try
-
-                ConTvServerDBRead.ConnectionString = "server=" & TvServerAdress & ";uid=" & TvServerUser & ";pwd=" & TvServerPW & ";database=mptvdb;"
-                ConTvServerDBRead.Open()
-
-
-                CmdTvServerDBRead = ConTvServerDBRead.CreateCommand
-                CmdTvServerDBRead.CommandText = SQLString
-
-                TvServerData = CmdTvServerDBRead.ExecuteReader
-
-
-            Catch ex As Exception
-
-                MPDialogNotify("Warnung ...", "TV Server nicht gefunden")
-
-                Log.Debug("Clickfinder ProgramGuide: (TvServer DB, read) " & ex.Message)
-                MsgBox("Clickfinder ProgramGuide: (TvServer DB, read) " & ex.Message)
-
-                CmdTvServerDBRead.Dispose()
-                ConTvServerDBRead.Close()
-            End Try
-
-
-        End Sub
-        Public Sub CloseTvServerDB()
-
-            Try
-                CmdTvServerDBRead.Dispose()
-                ConTvServerDBRead.Close()
-            Catch ex As Exception
-                Log.Debug("Clickfinder ProgramGuide: (TvServer DB, close) " & ex.Message)
-                MsgBox("Clickfinder ProgramGuide: (TvServer DB, close) " & ex.Message)
-            End Try
-
-        End Sub
-
-        Public Sub ReadTvServerDB2(ByVal SQLString As String)
-            Dim TvServerAdress As String
-            Dim TvServerUser As String
-            Dim TvServerPW As String
-
-            TvServerAdress = MPSettingRead("config", "TVServerAddress")
-            TvServerUser = MPSettingRead("config", "TVServerUser")
-            TvServerPW = MPSettingRead("config", "TVServerPW")
-            Try
-
-                ConTvServerDBRead2.ConnectionString = "server=" & TvServerAdress & ";uid=" & TvServerUser & ";pwd=" & TvServerPW & ";database=mptvdb;"
-                ConTvServerDBRead2.Open()
-
-
-                CmdTvServerDBRead2 = ConTvServerDBRead2.CreateCommand
-                CmdTvServerDBRead2.CommandText = SQLString
-
-                TvServerData2 = CmdTvServerDBRead.ExecuteReader
-
-
-            Catch ex As Exception
-
-                MPDialogNotify("Warnung ...", "TV Server nicht gefunden")
-
-                Log.Debug("Clickfinder ProgramGuide: (TvServer DB, read) " & ex.Message)
-                MsgBox("Clickfinder ProgramGuide: (TvServer DB, read) " & ex.Message)
-
-                CmdTvServerDBRead2.Dispose()
-                ConTvServerDBRead2.Close()
-            End Try
-
-
-        End Sub
-        Public Sub CloseTvServerDB2()
-
-            Try
-                CmdTvServerDBRead2.Dispose()
-                ConTvServerDBRead2.Close()
-            Catch ex As Exception
-                Log.Debug("Clickfinder ProgramGuide: (TvServer DB, close) " & ex.Message)
-                MsgBox("Clickfinder ProgramGuide: (TvServer DB, close) " & ex.Message)
-            End Try
-
-        End Sub
-
-
-#End Region
 
 
 #Region "ListControl"
 
         'ListControl mit Daten zur bestimmter Uhrzeit (SQLString) - paralelles Threating
+
         Private Sub StartFillListControl(ByVal SQLString As String)
-
-            Dim ProgressBar, Fill_Listcontrol As Threading.Thread
-
-            ListSQLString = SQLString
-
-            ProgressBar = New Thread(AddressOf ShowProgressbar)
-            Fill_Listcontrol = New Thread(AddressOf FillListControl)
-
-            ProgressBar.Start()
-            Fill_Listcontrol.Start()
-        End Sub
-        Private Sub FillListControl()
-
-
-
-            ctlList.ListItems.Clear()
-
-            ReadClickfinderDB(ListSQLString)
-
-            While ClickfinderData.Read
-                'MsgBox(ClickfinderData.Item("Titel"))
-                Dim lItem As New GUIListItem
-                lItem.Label = ClickfinderData.Item("Titel")
-                lItem.Label2 = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
-                ":" & Format(CDate(ClickfinderData.Item("Beginn")).Minute, "00") & _
-                " - " & Format(CDate(ClickfinderData.Item("Ende")).Hour, "00") & _
-                ":" & Format(CDate(ClickfinderData.Item("Ende")).Minute, "00")
-                lItem.Label3 = ClickfinderData.Item("Genre").ToString
-                lItem.ItemId = ctlList.ListItems.Count - 1
-
-                ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where stationName = '" & ClickfinderData.Item("SenderKennung").ToString & "'")
-
-                While TvServerData.Read
-
-                    lItem.IconImage = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & TvServerData.Item("displayName").ToString & ".png")
-                    GUIControl.AddListItemControl(GetID, ctlList.GetID, lItem)
-                    Exit While
-                End While
-                CloseTvServerDB()
-
-
-            End While
-
-            CloseClickfinderDB()
-
-            ctlProgressBar.Visible = False
-
-        End Sub
-
-        Private Sub StartFillListControl_new(ByVal SQLString As String)
 
             Dim ProgressBar, Fill_Listcontrol2 As Threading.Thread
 
+
             ListSQLString = SQLString
 
             ProgressBar = New Thread(AddressOf ShowProgressbar)
-            Fill_Listcontrol2 = New Thread(AddressOf FillListControl_new)
+            Fill_Listcontrol2 = New Thread(AddressOf FillListControl)
 
             ProgressBar.Start()
             Fill_Listcontrol2.Start()
-        End Sub
-        Private Sub FillListControl_new()
 
-            Dim _MappingName As String
-            Dim _idChannel As String
-            Dim _StartZeit As Date
-            Dim _EndZeit As Date
+        End Sub
+        Private Sub FillListControl()
             Dim _Titel As String
             Dim _Genre As String
-            Dim _lastTitel As String
-            Dim _FavCounter As Integer
+            Dim _idChannel As String
+            Dim _ClickfinderPath As String
             Dim _Bewertung As Integer
             Dim _BewertungStr As String
             Dim _Kritik As String
+            Dim _MappingName As String
+            Dim _idGroup As String
+            Dim _StartZeit As Date
+            Dim _EndZeit As Date
+
+            Dim _lastTitel As String
+            Dim _FavCounter As Integer
+
             Dim _inFav As Boolean = False
-            Dim _ClickfinderPath As String
 
+            Log.Debug("Clickfinder ProgramGuide: [FillListControl]: Start")
 
+            _idGroup = MPSettingRead("config", "ChannelGroupID")
             _ClickfinderPath = MPSettingRead("config", "ClickfinderPath")
             _lastTitel = Nothing
 
@@ -712,178 +507,148 @@ Namespace OurPlugin
 
             ctlList.ListItems.Clear()
 
+
+            'Clickfinder Datenbank öffnen & Daten einlesen
             ReadClickfinderDB(ListSQLString)
 
             While ClickfinderData.Read
 
                 _MappingName = ClickfinderData.Item("SenderKennung")
                 _StartZeit = CDate(ClickfinderData.Item("Beginn"))
-                _EndZeit = CDate(ClickfinderData.Item("Ende"))
-                _Titel = ClickfinderData.Item("Titel")
                 _Genre = ClickfinderData.Item("Genre")
                 _Bewertung = CInt(ClickfinderData.Item("Bewertung"))
                 _BewertungStr = Replace(ClickfinderData.Item("Bewertungen"), ";", " ")
                 _Kritik = ClickfinderData.Item("Kurzkritik")
-                Dim _TVMovieMapping = TvDatabase.TvMovieMapping.ListAll
+                _EndZeit = CDate(ClickfinderData.Item("Ende"))
+
+                ' Clickfinder Titel Korrektur bei "Append (Live) / (Whd.)
+                If LiveCorrection = True And ClickfinderData.Item("KzLive") = "true" Then
+                    _Titel = ClickfinderData.Item("Titel") & " (LIVE)"
+                ElseIf WdhCorrection = True And ClickfinderData.Item("KzWiederholung") = "true" Then
+                    _Titel = ClickfinderData.Item("Titel") & " (Wdh.)"
+                Else
+                    _Titel = ClickfinderData.Item("Titel")
+                End If
 
 
-                For i = 0 To _TVMovieMapping.Count - 1
+                'Dim _TVMovieMapping = TvDatabase.TvMovieMapping.ListAll
+                'For i = 0 To _TVMovieMapping.Count - 1
+                '    If _TVMovieMapping.Item(i).StationName = _MappingName Then
 
-                    If _TVMovieMapping.Item(i).StationName = _MappingName Then
 
-                        _idChannel = _TVMovieMapping.Item(i).IdChannel
+                'Tv Server öffnen und TVMovieMapping idChannel ermitteln
+                ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where stationName = '" & ClickfinderData.Item("SenderKennung").ToString & "'")
 
-                        Dim Sendung = TvDatabase.Program.RetrieveByTitleTimesAndChannel(_Titel, _StartZeit, _EndZeit, _idChannel)
+                While TvServerData.Read
+                    _idChannel = TvServerData.Item("idChannel")
 
-                        Dim _GroupMap = TvDatabase.GroupMap.ListAll
+                    'Program in der TV Server Program DB suchen
+                    Dim Sendung As Program = TvDatabase.Program.RetrieveByTitleTimesAndChannel(_Titel, _StartZeit, _EndZeit, _idChannel)
 
-                        For d = 0 To _GroupMap.Count - 1
-                            If _GroupMap.Item(d).IdChannel = CInt(_idChannel) _
-                            And _GroupMap.Item(d).IdGroup = CInt(MPSettingRead("config", "ChannelGroupID")) _
-                            Then
-                                _inFav = True
-                                Exit For
-                            End If
-                        Next
 
-                        If _inFav = True And _FavCounter <= 4 Then
-
-                            Select Case _FavCounter
-
-                                Case Is = 0
-                                    FavImage0.FileName = _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
-                                    GUIControl.ShowControl(GetID, FavImage0.GetID)
-
-                                    FavTitel0.Label = ClickfinderData.Item("Titel")
-                                    GUIControl.ShowControl(GetID, FavTitel0.GetID)
-
-                                    FavKanal0.Label = ClickfinderData.Item("SenderKennung")
-                                    GUIControl.ShowControl(GetID, FavKanal0.GetID)
-
-                                    FavZeit0.Label = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
-                                        ":" & Format(CDate(ClickfinderData.Item("Beginn")).Minute, "00") & _
-                                        " - " & Format(CDate(ClickfinderData.Item("Ende")).Hour, "00") & _
-                                        ":" & Format(CDate(ClickfinderData.Item("Ende")).Minute, "00")
-                                    GUIControl.ShowControl(GetID, FavZeit0.GetID)
-
-                                    FavGenre0.Label = ClickfinderData.Item("Genre")
-                                    GUIControl.ShowControl(GetID, FavGenre0.GetID)
-
-                                    FavBewertung0.Label = ClickfinderData.Item("Bewertungen")
-                                    GUIControl.ShowControl(GetID, FavBewertung0.GetID)
-                                    FavKritik0.Label = ClickfinderData.Item("KurzKritik")
-                                    GUIControl.ShowControl(GetID, FavKritik0.GetID)
-                                    FavRatingImage0.FileName = (Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
-                                    GUIControl.ShowControl(GetID, FavRatingImage0.GetID)
-
-                                Case Is = 1
-                                    FavTitel1.Label = Sendung.Title
-                                    GUIControl.ShowControl(GetID, FavTitel1.GetID)
-                                    FavImage1.FileName = _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
-                                    GUIControl.ShowControl(GetID, FavImage1.GetID)
-                                    FavKanal1.Label = TvDatabase.Channel.Retrieve(_idChannel).DisplayName
-                                    GUIControl.ShowControl(GetID, FavKanal1.GetID)
-                                    FavGenre1.Label = _Genre
-                                    GUIControl.ShowControl(GetID, FavGenre1.GetID)
-                                    FavZeit1.Label = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
-                                                        ":" & Format(CDate(ClickfinderData.Item("Beginn")).Minute, "00") & _
-                                                        " - " & Format(CDate(ClickfinderData.Item("Ende")).Hour, "00") & _
-                                                        ":" & Format(CDate(ClickfinderData.Item("Ende")).Minute, "00")
-                                    GUIControl.ShowControl(GetID, FavZeit1.GetID)
-                                    FavBewertung1.Label = _BewertungStr
-                                    GUIControl.ShowControl(GetID, FavBewertung1.GetID)
-                                    FavKritik1.Label = _Kritik
-                                    GUIControl.ShowControl(GetID, FavKritik1.GetID)
-                                    FavRatingImage1.FileName = (Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
-                                    GUIControl.ShowControl(GetID, FavRatingImage1.GetID)
-                                Case Is = 2
-                                    FavTitel2.Label = Sendung.Title
-                                    GUIControl.ShowControl(GetID, FavTitel2.GetID)
-                                    FavImage2.FileName = _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
-                                    GUIControl.ShowControl(GetID, FavImage2.GetID)
-                                    FavKanal2.Label = TvDatabase.Channel.Retrieve(_idChannel).DisplayName
-                                    GUIControl.ShowControl(GetID, FavKanal2.GetID)
-                                    FavGenre2.Label = _Genre
-                                    GUIControl.ShowControl(GetID, FavGenre2.GetID)
-                                    FavZeit2.Label = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
-                                                        ":" & Format(CDate(ClickfinderData.Item("Beginn")).Minute, "00") & _
-                                                        " - " & Format(CDate(ClickfinderData.Item("Ende")).Hour, "00") & _
-                                                        ":" & Format(CDate(ClickfinderData.Item("Ende")).Minute, "00")
-                                    GUIControl.ShowControl(GetID, FavZeit2.GetID)
-                                    FavBewertung2.Label = _BewertungStr
-                                    GUIControl.ShowControl(GetID, FavBewertung2.GetID)
-                                    FavKritik2.Label = _Kritik
-                                    GUIControl.ShowControl(GetID, FavKritik2.GetID)
-                                    FavRatingImage2.FileName = (Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
-                                    GUIControl.ShowControl(GetID, FavRatingImage2.GetID)
-                                Case Is = 3
-                                    FavTitel3.Label = Sendung.Title
-                                    GUIControl.ShowControl(GetID, FavTitel3.GetID)
-                                    FavImage3.FileName = _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
-                                    GUIControl.ShowControl(GetID, FavImage3.GetID)
-                                    FavKanal3.Label = TvDatabase.Channel.Retrieve(_idChannel).DisplayName
-                                    GUIControl.ShowControl(GetID, FavKanal3.GetID)
-                                    FavGenre3.Label = _Genre
-                                    GUIControl.ShowControl(GetID, FavGenre3.GetID)
-                                    FavZeit3.Label = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
-                                                        ":" & Format(CDate(ClickfinderData.Item("Beginn")).Minute, "00") & _
-                                                        " - " & Format(CDate(ClickfinderData.Item("Ende")).Hour, "00") & _
-                                                        ":" & Format(CDate(ClickfinderData.Item("Ende")).Minute, "00")
-                                    GUIControl.ShowControl(GetID, FavZeit3.GetID)
-                                    FavBewertung3.Label = _BewertungStr
-                                    GUIControl.ShowControl(GetID, FavBewertung3.GetID)
-                                    FavKritik3.Label = _Kritik
-                                    GUIControl.ShowControl(GetID, FavKritik3.GetID)
-                                    FavRatingImage3.FileName = (Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
-                                    GUIControl.ShowControl(GetID, FavRatingImage3.GetID)
-                                Case Is = 4
-                                    FavTitel4.Label = Sendung.Title
-                                    GUIControl.ShowControl(GetID, FavTitel4.GetID)
-                                    FavImage4.FileName = _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
-                                    GUIControl.ShowControl(GetID, FavImage4.GetID)
-                                    FavKanal4.Label = TvDatabase.Channel.Retrieve(_idChannel).DisplayName
-                                    GUIControl.ShowControl(GetID, FavKanal4.GetID)
-                                    FavGenre4.Label = _Genre
-                                    GUIControl.ShowControl(GetID, FavGenre4.GetID)
-                                    FavZeit4.Label = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
-                                                        ":" & Format(CDate(ClickfinderData.Item("Beginn")).Minute, "00") & _
-                                                        " - " & Format(CDate(ClickfinderData.Item("Ende")).Hour, "00") & _
-                                                        ":" & Format(CDate(ClickfinderData.Item("Ende")).Minute, "00")
-                                    GUIControl.ShowControl(GetID, FavZeit4.GetID)
-                                    FavBewertung4.Label = _BewertungStr
-                                    GUIControl.ShowControl(GetID, FavBewertung4.GetID)
-                                    FavKritik4.Label = _Kritik
-                                    GUIControl.ShowControl(GetID, FavKritik4.GetID)
-                                    FavRatingImage4.FileName = (Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
-                                    GUIControl.ShowControl(GetID, FavRatingImage4.GetID)
-                            End Select
-
-                            _FavCounter = _FavCounter + 1
-
-                        ElseIf Not Sendung.Title = _lastTitel Then
-
-                            Dim lItem As New GUIListItem
-
-                            lItem.Label = Sendung.Title.ToString
-                            lItem.Label2 = Format(CDate(Sendung.StartTime).Hour, "00") & _
-                            ":" & Format(CDate(Sendung.StartTime).Minute, "00") & _
-                            " - " & Format(CDate(Sendung.EndTime).Hour, "00") & _
-                            ":" & Format(CDate(Sendung.EndTime).Minute, "00")
-                            lItem.Label3 = _Genre
-                            lItem.ItemId = ctlList.ListItems.Count - 1
-                            lItem.IconImage = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & Channel.Retrieve(_idChannel).DisplayName & ".png")
-                            GUIControl.AddListItemControl(GetID, ctlList.GetID, lItem)
+                    'TVServer GroupMap DB öffen und prüfen ob in FavoritenGruppe 
+                    Dim _GroupMap = TvDatabase.GroupMap.ListAll
+                    For d = 0 To _GroupMap.Count - 1
+                        If _GroupMap.Item(d).IdChannel = CInt(_idChannel) And _GroupMap.Item(d).IdGroup = CInt(_idGroup) Then
+                            _inFav = True
+                            Exit For
                         End If
+                    Next
 
-                        _lastTitel = Sendung.Title
-                        _inFav = False
 
+                    'Falls Ja: Detailview erstellen
+                    If _inFav = True And _FavCounter <= 4 Then
+
+                        Select Case _FavCounter
+
+                            Case Is = 0
+
+                                ClearFavInfo()
+
+                                FillFavInfo(FavImage0, _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname"), _
+                                           FavTitel0, Sendung.Title.ToString, _
+                                           FavKanal0, _idChannel, _
+                                           FavZeit0, ClickfinderData.Item("Beginn"), ClickfinderData.Item("Ende"), _
+                                           FavGenre0, _Genre, _
+                                           FavBewertung0, _BewertungStr, _
+                                           FavKritik0, _Kritik, _
+                                           FavRatingImage0, Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+
+                            Case Is = 1
+                                FillFavInfo(FavImage1, _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname"), _
+                                           FavTitel1, Sendung.Title.ToString, _
+                                           FavKanal1, _idChannel, _
+                                           FavZeit1, ClickfinderData.Item("Beginn"), ClickfinderData.Item("Ende"), _
+                                           FavGenre1, _Genre, _
+                                           FavBewertung1, _BewertungStr, _
+                                           FavKritik1, _Kritik, _
+                                           FavRatingImage1, Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+
+                            Case Is = 2
+                                FillFavInfo(FavImage2, _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname"), _
+                                           FavTitel2, Sendung.Title.ToString, _
+                                           FavKanal2, _idChannel, _
+                                           FavZeit2, ClickfinderData.Item("Beginn"), ClickfinderData.Item("Ende"), _
+                                           FavGenre2, _Genre, _
+                                           FavBewertung2, _BewertungStr, _
+                                           FavKritik2, _Kritik, _
+                                           FavRatingImage2, Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+
+                            Case Is = 3
+                                FillFavInfo(FavImage3, _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname"), _
+                                           FavTitel3, Sendung.Title.ToString, _
+                                           FavKanal3, _idChannel, _
+                                           FavZeit3, ClickfinderData.Item("Beginn"), ClickfinderData.Item("Ende"), _
+                                           FavGenre3, _Genre, _
+                                           FavBewertung3, _BewertungStr, _
+                                           FavKritik3, _Kritik, _
+                                           FavRatingImage3, Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+
+                            Case Is = 4
+                                FillFavInfo(FavImage4, _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname"), _
+                                           FavTitel4, Sendung.Title.ToString, _
+                                           FavKanal4, _idChannel, _
+                                           FavZeit4, ClickfinderData.Item("Beginn"), ClickfinderData.Item("Ende"), _
+                                           FavGenre4, _Genre, _
+                                           FavBewertung4, _BewertungStr, _
+                                           FavKritik4, _Kritik, _
+                                           FavRatingImage4, Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+                            Case Else
+
+
+                        End Select
+
+                        _FavCounter = _FavCounter + 1
+
+                    ElseIf Not Sendung.Title = _lastTitel Then
+
+
+                        Dim lItem As New GUIListItem
+
+                        lItem.Label = Sendung.Title.ToString
+                        lItem.Label2 = Format(CDate(Sendung.StartTime).Hour, "00") & _
+                        ":" & Format(CDate(Sendung.StartTime).Minute, "00") & _
+                        " - " & Format(CDate(Sendung.EndTime).Hour, "00") & _
+                        ":" & Format(CDate(Sendung.EndTime).Minute, "00")
+                        lItem.Label3 = _Genre
+                        lItem.ItemId = ctlList.ListItems.Count - 1
+                        lItem.IconImage = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & Channel.Retrieve(_idChannel).DisplayName & ".png")
+                        GUIControl.AddListItemControl(GetID, ctlList.GetID, lItem)
                     End If
-                Next
+                    'End If
 
+                    _lastTitel = Sendung.Title
+                    _inFav = False
+
+                    '    End If
+                    'Next
+
+                End While
+                CloseTvServerDB()
             End While
-
             CloseClickfinderDB()
+
+
 
             ctlProgressBar.Visible = False
 
@@ -998,20 +763,18 @@ Namespace OurPlugin
             AktuelleZeit = Now
 
 
-            If AktuelleZeit.Hour >= 0 And AktuelleZeit.Hour <= 2 Then
 
-                Heute = Today
+
+
+            'Datum.Day +1 ab 0:00h
+            If ProofDate >= 0 And ProofDate <= 2 Then
+                Heute = Today.AddDays(1)
                 SQLDateString = "#" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00#"
             Else
-                'Datum.Day +1 ab 0:00h
-                If ProofDate >= 0 And ProofDate <= 2 Then
-                    Heute = Today.AddDays(1)
-                    SQLDateString = "#" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00#"
-                Else
-                    Heute = Today
-                    SQLDateString = "#" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00#"
-                End If
+                Heute = Today
+                SQLDateString = "#" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00#"
             End If
+
 
 
             ReadClickfinderDB("Select * from Sendungen Inner Join SendungenDetails on Sendungen.Pos = SendungenDetails.Pos where Beginn = " & SQLDateString & " AND Titel = '" & Titel & "' and Genre = '" & Kategorie & "'")
@@ -1112,11 +875,286 @@ Namespace OurPlugin
             MySQLDateTOstring = "'" & Datum.Year & "-" & Format(Datum.Month, "00") & "-" & Format(Datum.Day, "00") & " " & Format(Datum.Hour, "00") & ":" & Format(Datum.Minute, "00") & ":00'"
         End Function
 
+        Private Sub ClickfinderCorrection()
+            Dim _idChannel As String
+            Dim _StartZeit As Date
+            Dim _EndZeit As Date
+            Dim _StartZeitSQL As String
+            Dim _EndZeitSQL As String
+            Dim _Titel As String
+
+
+            Try
+                ReadClickfinderDB("SELECT * FROM Sendungen WHERE (KzLive = true AND KzWiederholung = true) OR KzLive = true OR KzWiederholung = true")
+
+                While ClickfinderData.Read
+
+                    _Titel = ClickfinderData.Item("Titel")
+                    _StartZeit = CDate(ClickfinderData.Item("Beginn"))
+                    _EndZeit = CDate(ClickfinderData.Item("Ende"))
+
+                    _StartZeitSQL = MySQLDateTOstring(_StartZeit)
+
+                    _EndZeitSQL = MySQLDateTOstring(_EndZeit)
+
+
+
+                    ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where stationName = '" & ClickfinderData.Item("SenderKennung").ToString & "'")
+                    While TvServerData.Read
+
+                        _idChannel = TvServerData.Item("idChannel")
+
+                        Exit While
+                    End While
+                    CloseTvServerDB()
+
+                    ReadTvServerDB("SELECT * FROM program WHERE idChannel = '" & _idChannel & "' AND startTime = " & _StartZeitSQL & " AND endTime = " & _EndZeitSQL)
+                    While TvServerData.Read
+
+                        If InStr(TvServerData.Item("title"), "(LIVE)") > 0 Then
+                            LiveCorrection = True
+                            Log.Info("Clickfinder ProgramGuide: [ClickfinderCorrection]: LIVE = true")
+                        ElseIf InStr(TvServerData.Item("title"), "(Wdh.)") > 0 Then
+                            WdhCorrection = True
+                            Log.Info("Clickfinder ProgramGuide: [ClickfinderCorrection]: Wdh. = true")
+                        Else
+                            Log.Info("Clickfinder ProgramGuide: [ClickfinderCorrection]: nothing")
+                        End If
+                        Exit While
+                    End While
+                    CloseTvServerDB()
+
+                    Exit While
+                End While
+                CloseClickfinderDB()
+
+            Catch ex As Exception
+                Log.Debug("Clickfinder ProgramGuide: [ClickfinderCorrection]: " & ex.Message)
+            End Try
+
+        End Sub
+        Private Sub FillFavInfo(ByVal FavImage As GUIImage, ByVal FavImagePath As String, _
+                                        ByVal FavTitel As GUIFadeLabel, ByVal _Titel As String, _
+                                        ByVal FavKanal As GUIFadeLabel, ByVal _idchannel As String, _
+                                        ByVal FavZeit As GUILabelControl, ByVal ClickfinderStartZeit As String, ByVal ClickfinderEndZeit As String, _
+                                        ByVal FavGenre As GUIFadeLabel, ByVal _Genre As String, _
+                                        ByVal FavBewertung As GUIFadeLabel, ByVal _BewertungStr As String, _
+                                        ByVal FavKritik As GUIFadeLabel, ByVal _Kritik As String, _
+                                        ByVal FavRatingImage As GUIImage, ByVal FavRatingImagePath As String)
+            Try
+                FavImage.FileName = FavImagePath
+                GUIControl.ShowControl(GetID, FavImage.GetID)
+
+                FavTitel.Label = ClickfinderData.Item("Titel")
+                GUIControl.ShowControl(GetID, FavTitel.GetID)
+
+                FavKanal.Label = TvDatabase.Channel.Retrieve(_idchannel).DisplayName
+                GUIControl.ShowControl(GetID, FavKanal0.GetID)
+
+                If Not ClickfinderStartZeit = "" And Not ClickfinderEndZeit = "" Then
+                    FavZeit.Label = Format(CDate(ClickfinderStartZeit).Hour, "00") & _
+                                            ":" & Format(CDate(ClickfinderStartZeit).Minute, "00") & _
+                                            " - " & Format(CDate(ClickfinderEndZeit).Hour, "00") & _
+                                            ":" & Format(CDate(ClickfinderEndZeit).Minute, "00")
+                    GUIControl.ShowControl(GetID, FavZeit.GetID)
+                End If
+
+
+                FavGenre.Label = ClickfinderData.Item("Genre")
+                GUIControl.ShowControl(GetID, FavGenre.GetID)
+
+                FavBewertung.Label = _BewertungStr
+                GUIControl.ShowControl(GetID, FavBewertung.GetID)
+
+                FavKritik.Label = _Kritik
+                GUIControl.ShowControl(GetID, FavKritik.GetID)
+
+                FavRatingImage.FileName = FavRatingImagePath
+                GUIControl.ShowControl(GetID, FavRatingImage.GetID)
+
+            Catch ex As Exception
+                MsgBox(ex.Message)
+            End Try
+
+        End Sub
+
+        Private Sub ClearFavInfo()
+
+
+
+
+            'FillFavInfo(FavImage0, Nothing, FavTitel0, "", FavKanal0, "", FavZeit0, CDate(Now), CDate(Now), FavGenre0, "", _
+            '            'FavBewertung0, "", FavKritik0, "", FavRatingImage0, Nothing)
+
+            'FillFavInfo(FavImage1, "", FavTitel1, "", FavKanal1, "", FavZeit1, "", "", FavGenre1, "", _
+            '            FavBewertung1, "", FavKritik1, "", FavRatingImage1, "")
+
+            'FillFavInfo(FavImage2, "", FavTitel2, "", FavKanal2, "", FavZeit2, "", "", FavGenre2, "", _
+            '            FavBewertung2, "", FavKritik2, "", FavRatingImage2, "")
+
+            'FillFavInfo(FavImage3, "", FavTitel3, "", FavKanal3, "", FavZeit3, "", "", FavGenre3, "", _
+            '            FavBewertung3, "", FavKritik3, "", FavRatingImage3, "")
+
+            'FillFavInfo(FavImage4, "", FavTitel4, "", FavKanal4, "", FavZeit4, "", "", FavGenre4, "", _
+            '            FavBewertung4, "", FavKritik4, "", FavRatingImage4, "")
+
+        End Sub
 
 
 
 
 
+
+#End Region
+
+
+#Region "TV Movie and TVServer Database Access"
+
+        Public ConClickfinderDBRead As New OleDb.OleDbConnection
+        Public CmdClickfinderDBRead As New OleDb.OleDbCommand
+        Public ClickfinderData As OleDb.OleDbDataReader
+
+        'MP - TVServer Datenbank Variablen  - MYSql
+        Public ConTvServerDBRead As New MySqlConnection
+        Public CmdTvServerDBRead As New MySqlCommand
+        Public TvServerData As MySqlDataReader
+
+        'MP - TVServer Datenbank Variablen  - MYSql
+        Public ConTvServerDBRead2 As New MySqlConnection
+        Public CmdTvServerDBRead2 As New MySqlCommand
+        Public TvServerData2 As Long
+
+        Public Count As Long
+
+
+
+        Public Sub ReadClickfinderDB(ByVal SQLString As String)
+            Dim ClickfinderPath As String
+
+            Log.Debug("TV Movie ProgramGuide: Open TV Movie Clickfinder Database")
+
+            ClickfinderPath = MPSettingRead("config", "ClickfinderPath")
+
+
+            Try
+                ConClickfinderDBRead.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;" & "Data Source=" & ClickfinderPath & "\tvdaten.mdb"
+                ConClickfinderDBRead.Open()
+                'Provider=Microsoft.Jet.OLEDB.4.0;
+                'Provider=Microsoft.ACE.OLEDB.12.0;
+
+                CmdClickfinderDBRead = ConClickfinderDBRead.CreateCommand
+                CmdClickfinderDBRead.CommandText = SQLString
+
+                ClickfinderData = CmdClickfinderDBRead.ExecuteReader
+
+
+            Catch ex As Exception
+
+                If IO.File.Exists(ClickfinderPath & "\tvdaten.mdb") Then
+                    Log.Debug("Clickfinder ProgramGuide: (Clickfinder DB, read) " & ex.Message)
+                    MsgBox("Clickfinder ProgramGuide: (Clickfinder DB, read) " & ex.Message)
+                Else
+                    MPDialogNotify("Warnung ...", "Clickfinder Datenbank nicht gefunden !")
+                End If
+
+                CmdClickfinderDBRead.Dispose()
+                ConClickfinderDBRead.Close()
+
+            End Try
+        End Sub
+
+        Public Sub CloseClickfinderDB()
+
+            Try
+                CmdClickfinderDBRead.Dispose()
+                ConClickfinderDBRead.Close()
+
+            Catch ex As Exception
+                Log.Debug("Clickfinder ProgramGuide: (Clickfinder DB, close) " & ex.Message)
+                MsgBox("Clickfinder ProgramGuide: (Clickfinder DB, close) " & ex.Message)
+            End Try
+        End Sub
+
+
+        Public Sub ReadTvServerDB(ByVal SQLString As String)
+
+
+
+            Try
+
+                ConTvServerDBRead.ConnectionString = Left(Replace(Gentle.Framework.GentleSettings.DefaultProviderConnectionString, " ", ""), InStr(Gentle.Framework.GentleSettings.DefaultProviderConnectionString, "charset=utf8") - 3)
+                ConTvServerDBRead.Open()
+
+
+                CmdTvServerDBRead = ConTvServerDBRead.CreateCommand
+                CmdTvServerDBRead.CommandText = SQLString
+
+                TvServerData = CmdTvServerDBRead.ExecuteReader
+
+
+            Catch ex As Exception
+
+                MPDialogNotify("Warnung ...", "TV Server nicht gefunden")
+
+                Log.Debug("Clickfinder ProgramGuide: [TvServer DB, read] " & ex.Message)
+                MsgBox("Clickfinder ProgramGuide: (TvServer DB, read) " & ex.Message)
+
+                CmdTvServerDBRead.Dispose()
+                ConTvServerDBRead.Close()
+            End Try
+
+
+        End Sub
+        Public Sub CloseTvServerDB()
+
+            Try
+                CmdTvServerDBRead.Dispose()
+                ConTvServerDBRead.Close()
+            Catch ex As Exception
+                Log.Debug("Clickfinder ProgramGuide: (TvServer DB, close) " & ex.Message)
+                MsgBox("Clickfinder ProgramGuide: (TvServer DB, close) " & ex.Message)
+            End Try
+
+        End Sub
+
+        Public Sub ReadTvServerDB2(ByVal SQLString As String)
+
+            Try
+
+                ConTvServerDBRead2.ConnectionString = Left(Replace(Gentle.Framework.GentleSettings.DefaultProviderConnectionString, " ", ""), InStr(Gentle.Framework.GentleSettings.DefaultProviderConnectionString, "charset=utf8") - 3)
+                ConTvServerDBRead2.Open()
+
+
+                CmdTvServerDBRead2 = ConTvServerDBRead2.CreateCommand
+                CmdTvServerDBRead2.CommandText = SQLString
+
+                TvServerData2 = CmdTvServerDBRead2.ExecuteScalar
+
+
+            Catch ex As Exception
+
+                MPDialogNotify("Warnung ...", "TV Server nicht gefunden")
+
+                Log.Debug("Clickfinder ProgramGuide: (TvServer DB, read) " & ex.Message)
+                MsgBox("Clickfinder ProgramGuide: (TvServer DB, read) " & ex.Message)
+
+                CmdTvServerDBRead2.Dispose()
+                ConTvServerDBRead2.Close()
+            End Try
+
+
+        End Sub
+        Public Sub CloseTvServerDB2()
+
+            Try
+                CmdTvServerDBRead2.Dispose()
+                ConTvServerDBRead2.Close()
+            Catch ex As Exception
+                Log.Debug("Clickfinder ProgramGuide: (TvServer DB, close) " & ex.Message)
+                MsgBox("Clickfinder ProgramGuide: (TvServer DB, close) " & ex.Message)
+            End Try
+
+        End Sub
 
 
 #End Region
@@ -1177,16 +1215,25 @@ Namespace OurPlugin
         End Sub
 #End Region
 
+        
+
+ 
         Public Shared Function ListByNameStartsWith(ByVal idChannel As Integer) As IList
             Dim sb As SqlBuilder = New SqlBuilder(StatementType.Select, GetType(GroupMap))
             ' note: the partialName parameter must also contain the %'s for the LIKE query!
             sb.AddConstraint([Operator].Like, "idGroup", idChannel)
             ' passing true indicates that we'd like a list of elements, i.e. that no primary key
             ' constraints from the type being retrieved should be added to the statement
-            Dim stmt As SqlStatement = sb.GetStatement(True)
+            Dim stmt As SqlStatement = sb.GetStatement(StatementType.Select)
             ' execute the statement/query and create a collection of User instances from the result
             Return ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute)
         End Function
+
+
+
+
+
+
 
         'Public Sub test()
         '    Dim idGroup As String

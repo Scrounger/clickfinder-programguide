@@ -52,5 +52,9 @@ D:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickf
 D:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\WindowPlugins.dll
 D:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R2.png
 D:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R3.png
-D:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\thumbs\ClickfinderPG\Clickfinder_R1.png
 D:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R4.png
+D:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\Gentle.Provider.MySQL.dll
+D:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder_Loading.png
+D:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R5.png
+D:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R6.png
+D:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R1.png

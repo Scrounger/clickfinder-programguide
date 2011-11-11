@@ -1,10 +1,15 @@
-﻿Imports MediaPortal.Profile
+﻿Imports System
+Imports System.IO
+
+Imports MediaPortal.Profile
 Imports MediaPortal.Configuration
 Imports MediaPortal.GUI.Library
 Imports MediaPortal.Util
 Imports MediaPortal.Utils
 Imports MySql.Data
 Imports MySql.Data.MySqlClient
+
+Imports Gentle.Framework
 
 
 
@@ -91,16 +96,10 @@ Public Class Setup
     Public TvServerData As MySqlDataReader
 
     Public Sub ReadTvServerDB(ByVal SQLString As String)
-        Dim TvServerAdress As String
-        Dim TvServerUser As String
-        Dim TvServerPW As String
 
-        TvServerAdress = MPSettingRead("config", "TVServerAddress")
-        TvServerUser = MPSettingRead("config", "TVServerUser")
-        TvServerPW = MPSettingRead("config", "TVServerPW")
         Try
 
-            ConTvServerDBRead.ConnectionString = "server=" & TvServerAdress & ";uid=" & TvServerUser & ";pwd=" & TvServerPW & ";database=mptvdb;"
+            ConTvServerDBRead.ConnectionString = LeftCut(Replace(Gentle.Framework.GentleSettings.DefaultProviderConnectionString, " ", ""), InStr(Gentle.Framework.GentleSettings.DefaultProviderConnectionString, "charset=utf8") - 3)
             ConTvServerDBRead.Open()
 
 
@@ -133,6 +132,13 @@ Public Class Setup
 
     End Sub
 
+    Public Function LeftCut(ByVal sText As String, _
+  ByVal nLen As Integer) As String
 
+        If nLen > sText.Length Then nLen = sText.Length
+        Return (sText.Substring(0, nLen))
+    End Function
 #End Region
+
+
 End Class

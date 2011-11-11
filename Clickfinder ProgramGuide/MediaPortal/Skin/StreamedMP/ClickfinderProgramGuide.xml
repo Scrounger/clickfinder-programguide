@@ -242,14 +242,45 @@ delay="0">WindowClose</animation>
 
     <!-- ProgressBar Load Animation -->
     <control>
+      <id>1</id>
+      <description>Animation BG Image</description>
+      <type>image</type>
+      <posX>490</posX>
+      <posY>285</posY>
+      <width>300</width>
+      <height>150</height>
+      <texture>Clickfinder_Loading.png</texture>
+      <visible>control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>Animation Label</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>490</posX>
+      <posY>325</posY>
+      <width>300</width>
+      <align>center</align>
+      <label>Bitte warten...</label>
+      <font>mediastream10</font>
+      <textcolor>ffffffff</textcolor>
+      <wrapString> | </wrapString>
+      <visible>control.isvisible(9)</visible>
+    </control>
+    <control>
       <id>9</id>
       <type>animation</type>
       <visible>false</visible>
-      <posX>550</posX>
-      <posY>16</posY>
-      <width>157</width>
+      <posX>500</posX>
+      <posY>355</posY>
+      <width>280</width>
       <height>24</height>
-      <textures>common.waiting.1.png;common.waiting.2.png;common.waiting.3.png;common.waiting.4.png;common.waiting.5.png;common.waiting.6.png;common.waiting.7.png;common.waiting.8.png</textures>
+
+
+      <textures>
+        common.waiting.1.png;common.waiting.2.png;common.waiting.3.png;common.waiting.4.png;common.waiting.5.png;
+
+        common.waiting.6.png;common.waiting.7.png;common.waiting.8.png
+      </textures>
       <Duration>0:0:01.5</Duration>
     </control>
 

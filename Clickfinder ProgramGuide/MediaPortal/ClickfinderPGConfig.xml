@@ -3,9 +3,6 @@
   <section name="config">
     <entry name="ClickfinderPath">\\MEDIASTATION\TV Movie\TV Movie ClickFinder</entry>
     <entry name="ClickfinderRating">1</entry>
-    <entry name="TVServerAddress">10.0.1.10</entry>
-    <entry name="TVServerUser">root</entry>
-    <entry name="TVServerPW">MediaPortal</entry>
     <entry name="ChannelGroupID">2</entry>
   </section>
 </profile>
