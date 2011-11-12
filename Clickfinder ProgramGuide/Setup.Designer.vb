@@ -30,6 +30,14 @@ Partial Class Setup
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
         Me.Label2 = New System.Windows.Forms.Label
         Me.CBChannelGroup = New System.Windows.Forms.ComboBox
+        Me.Label3 = New System.Windows.Forms.Label
+        Me.Label4 = New System.Windows.Forms.Label
+        Me.CBPrimeTimeHour = New System.Windows.Forms.ComboBox
+        Me.CBPrimeTimeMinute = New System.Windows.Forms.ComboBox
+        Me.CBLateTimeMinute = New System.Windows.Forms.ComboBox
+        Me.CBLateTimeHour = New System.Windows.Forms.ComboBox
+        Me.Label5 = New System.Windows.Forms.Label
+        Me.Label6 = New System.Windows.Forms.Label
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -38,7 +46,7 @@ Partial Class Setup
         Me.cbRating.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbRating.FormattingEnabled = True
         Me.cbRating.Items.AddRange(New Object() {"0", "1", "2", "3"})
-        Me.cbRating.Location = New System.Drawing.Point(15, 114)
+        Me.cbRating.Location = New System.Drawing.Point(148, 110)
         Me.cbRating.Name = "cbRating"
         Me.cbRating.Size = New System.Drawing.Size(79, 21)
         Me.cbRating.TabIndex = 5
@@ -61,16 +69,16 @@ Partial Class Setup
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(148, 274)
+        Me.Button1.Location = New System.Drawing.Point(389, 351)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(222, 32)
         Me.Button1.TabIndex = 8
-        Me.Button1.Text = "Button1"
+        Me.Button1.Text = "speichern"
         Me.Button1.UseVisualStyleBackColor = True
         '
         'PictureBox1
         '
-        Me.PictureBox1.Image = Global.Clickfinder_ProgramGuide.My.Resources.Resources.ClickfinderPG_R3
+        Me.PictureBox1.Image = Global.ClickfinderProgramGuide.My.Resources.Resources.SetupIcon
         Me.PictureBox1.Location = New System.Drawing.Point(12, 12)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(50, 50)
@@ -91,16 +99,98 @@ Partial Class Setup
         '
         Me.CBChannelGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CBChannelGroup.FormattingEnabled = True
-        Me.CBChannelGroup.Location = New System.Drawing.Point(242, 184)
+        Me.CBChannelGroup.Location = New System.Drawing.Point(389, 289)
         Me.CBChannelGroup.Name = "CBChannelGroup"
         Me.CBChannelGroup.Size = New System.Drawing.Size(193, 21)
         Me.CBChannelGroup.TabIndex = 11
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(115, 217)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(59, 13)
+        Me.Label3.TabIndex = 12
+        Me.Label3.Text = "PrimeTime:"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(115, 253)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(54, 13)
+        Me.Label4.TabIndex = 13
+        Me.Label4.Text = "LateTime:"
+        '
+        'CBPrimeTimeHour
+        '
+        Me.CBPrimeTimeHour.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBPrimeTimeHour.FormattingEnabled = True
+        Me.CBPrimeTimeHour.Location = New System.Drawing.Point(180, 214)
+        Me.CBPrimeTimeHour.Name = "CBPrimeTimeHour"
+        Me.CBPrimeTimeHour.Size = New System.Drawing.Size(37, 21)
+        Me.CBPrimeTimeHour.TabIndex = 14
+        '
+        'CBPrimeTimeMinute
+        '
+        Me.CBPrimeTimeMinute.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBPrimeTimeMinute.FormattingEnabled = True
+        Me.CBPrimeTimeMinute.Location = New System.Drawing.Point(240, 214)
+        Me.CBPrimeTimeMinute.Name = "CBPrimeTimeMinute"
+        Me.CBPrimeTimeMinute.Size = New System.Drawing.Size(37, 21)
+        Me.CBPrimeTimeMinute.TabIndex = 15
+        '
+        'CBLateTimeMinute
+        '
+        Me.CBLateTimeMinute.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBLateTimeMinute.FormattingEnabled = True
+        Me.CBLateTimeMinute.Location = New System.Drawing.Point(240, 245)
+        Me.CBLateTimeMinute.Name = "CBLateTimeMinute"
+        Me.CBLateTimeMinute.Size = New System.Drawing.Size(37, 21)
+        Me.CBLateTimeMinute.TabIndex = 17
+        '
+        'CBLateTimeHour
+        '
+        Me.CBLateTimeHour.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBLateTimeHour.FormattingEnabled = True
+        Me.CBLateTimeHour.Location = New System.Drawing.Point(180, 245)
+        Me.CBLateTimeHour.Name = "CBLateTimeHour"
+        Me.CBLateTimeHour.Size = New System.Drawing.Size(37, 21)
+        Me.CBLateTimeHour.TabIndex = 16
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(223, 217)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(11, 13)
+        Me.Label5.TabIndex = 18
+        Me.Label5.Text = ":"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(223, 248)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(11, 13)
+        Me.Label6.TabIndex = 19
+        Me.Label6.Text = ":"
         '
         'Setup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(562, 388)
+        Me.ClientSize = New System.Drawing.Size(760, 483)
+        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.CBLateTimeMinute)
+        Me.Controls.Add(Me.CBLateTimeHour)
+        Me.Controls.Add(Me.CBPrimeTimeMinute)
+        Me.Controls.Add(Me.CBPrimeTimeHour)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.CBChannelGroup)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.PictureBox1)
@@ -123,4 +213,12 @@ Partial Class Setup
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents CBChannelGroup As System.Windows.Forms.ComboBox
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents CBPrimeTimeHour As System.Windows.Forms.ComboBox
+    Friend WithEvents CBPrimeTimeMinute As System.Windows.Forms.ComboBox
+    Friend WithEvents CBLateTimeMinute As System.Windows.Forms.ComboBox
+    Friend WithEvents CBLateTimeHour As System.Windows.Forms.ComboBox
+    Friend WithEvents Label5 As System.Windows.Forms.Label
+    Friend WithEvents Label6 As System.Windows.Forms.Label
 End Class

@@ -4,5 +4,9 @@
     <entry name="ClickfinderPath">\\MEDIASTATION\TV Movie\TV Movie ClickFinder</entry>
     <entry name="ClickfinderRating">1</entry>
     <entry name="ChannelGroupID">2</entry>
+    <entry name="PrimeTimeHour">20</entry>
+    <entry name="PrimeTimeMinute">15</entry>
+    <entry name="LateTimeHour">22</entry>
+    <entry name="LateTimeMinute">00</entry>
   </section>
 </profile>

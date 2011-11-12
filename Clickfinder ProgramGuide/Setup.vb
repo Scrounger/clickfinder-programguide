@@ -59,6 +59,30 @@ Public Class Setup
 
         Next
 
+        For i = 0 To 24
+            CBPrimeTimeHour.Items.Add(Format(i, "00"))
+            CBLateTimeHour.Items.Add(Format(i, "00"))
+        Next
+        For i = 0 To 59
+            CBPrimeTimeMinute.Items.Add(Format(i, "00"))
+            CBLateTimeMinute.Items.Add(Format(i, "00"))
+        Next
+
+        For i = 0 To CBPrimeTimeHour.Items.Count - 1
+            If CBPrimeTimeHour.Items.Item(i) = MPSettingRead("config", "PrimeTimeHour") Then CBPrimeTimeHour.Text = MPSettingRead("config", "PrimeTimeHour")
+        Next
+
+        For i = 0 To CBPrimeTimeMinute.Items.Count - 1
+            If CBPrimeTimeMinute.Items.Item(i) = MPSettingRead("config", "PrimeTimeMinute") Then CBPrimeTimeMinute.Text = MPSettingRead("config", "PrimeTimeMinute")
+        Next
+
+        For i = 0 To CBLateTimeHour.Items.Count - 1
+            If CBLateTimeHour.Items.Item(i) = MPSettingRead("config", "LateTimeHour") Then CBLateTimeHour.Text = MPSettingRead("config", "LateTimeHour")
+        Next
+        For i = 0 To CBLateTimeMinute.Items.Count - 1
+            If CBLateTimeMinute.Items.Item(i) = MPSettingRead("config", "LateTimeMinute") Then CBLateTimeMinute.Text = MPSettingRead("config", "LateTimeMinute")
+        Next
+
 
 
     End Sub
@@ -79,6 +103,10 @@ Public Class Setup
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         MPSettingsWrite("config", "ClickfinderPath", tfClickfinderPath.Text.ToString)
         MPSettingsWrite("config", "ClickfinderRating", Me.cbRating.Text)
+        MPSettingsWrite("config", "PrimeTimeHour", Me.CBPrimeTimeHour.Text)
+        MPSettingsWrite("config", "PrimeTimeMinute", Me.CBPrimeTimeMinute.Text)
+        MPSettingsWrite("config", "LateTimeHour", Me.CBLateTimeHour.Text)
+        MPSettingsWrite("config", "LateTimeMinute", Me.CBLateTimeMinute.Text)
 
         ReadTvServerDB("Select * from channelgroup Where groupName = '" & CBChannelGroup.Text & "'")
         While TvServerData.Read

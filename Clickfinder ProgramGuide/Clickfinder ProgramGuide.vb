@@ -24,10 +24,11 @@ Imports System.Drawing
 
 
 
-Namespace OurPlugin
+Namespace ClickfinderProgramGuide
+    <PluginIcons("ClickfinderProgramGuide.Config.png", "ClickfinderProgramGuide.Config_disable.png")> _
     Public Class Class1
-        Inherits MediaPortal.GUI.Library.GUIWindow
-        Implements MediaPortal.GUI.Library.ISetupForm
+        Inherits GUIWindow
+        Implements ISetupForm
 
 
 
@@ -120,6 +121,11 @@ Namespace OurPlugin
         Public CurrentQuery As String
         Public _ZeitQueryHour As Double
         Public _ZeitQueryMinute As Double
+        Public _RespectInFavGroup As Boolean
+        Public _SettingPrimeTimeHour As Double = CDbl(MPSettingRead("config", "PrimeTimeHour"))
+        Public _SettingPrimeTimeMinute As Double = CDbl(MPSettingRead("config", "PrimeTimeMinute"))
+        Public _SettingLateTimeHour As Double = CDbl(MPSettingRead("config", "LateTimeHour"))
+        Public _SettingLateTimeMinute As Double = CDbl(MPSettingRead("config", "LateTimeMinute"))
 
 #End Region
 
@@ -165,11 +171,11 @@ Namespace OurPlugin
         Public Function GetHome(ByRef strButtonText As String, ByRef strButtonImage As String, ByRef strButtonImageFocus As String, ByRef strPictureImage As String) As Boolean Implements MediaPortal.GUI.Library.ISetupForm.GetHome
             strButtonText = "Clickfinder ProgramGuide"
 
-            strButtonImage = "ClickfinderPG_R3.png"
+            strButtonImage = String.Empty
 
             strButtonImageFocus = String.Empty
 
-            strPictureImage = String.Empty
+            strPictureImage = "Config.png"
 
             Return True
         End Function
@@ -238,16 +244,16 @@ Namespace OurPlugin
             End If
 
             If control Is btnPrimeTime Then
-                _ZeitQueryHour = 20
-                _ZeitQueryMinute = 15
+                _ZeitQueryHour = _SettingPrimeTimeHour
+                _ZeitQueryMinute = _SettingPrimeTimeMinute
                 CurrentQuery = "PrimeTime"
 
                 ShowCategories()
             End If
 
             If control Is btnLateTime Then
-                _ZeitQueryHour = 22
-                _ZeitQueryMinute = 0
+                _ZeitQueryHour = _SettingLateTimeHour
+                _ZeitQueryMinute = _SettingLateTimeMinute
                 CurrentQuery = "LateTime"
 
                 ShowCategories()
@@ -410,7 +416,7 @@ Namespace OurPlugin
 
             Dim _ProgressBar As New Thread(AddressOf ShowProgressbar)
             Dim _Threat As New Thread(AddressOf ShowTipps)
-
+            _RespectInFavGroup = False
             _TippsSQLString = SQLQueryAccess(_ZeitQueryHour, _ZeitQueryMinute, "AND Bewertung >= 3 AND Bewertung <= 4 AND KzFilm = true", "Beginn ASC, Bewertung DESC, Titel")
             _ProgressBar.Start()
             _Threat.Start()
@@ -448,6 +454,7 @@ Namespace OurPlugin
 
             Try
 
+                _RespectInFavGroup = True
 
                 Log.Debug("Clickfinder ProgramGuide: [FillListControl] Start")
 
@@ -634,6 +641,8 @@ Namespace OurPlugin
 
             Dim _inFav As Boolean = False
 
+            ClearFavInfo()
+
             'Einstellungen aus ClickfinderPGConfig.xml laden & Variablen übergeben / definieren
             _idGroup = MPSettingRead("config", "ChannelGroupID")
             _ClickfinderPath = MPSettingRead("config", "ClickfinderPath")
@@ -672,11 +681,11 @@ Namespace OurPlugin
 
                     'Prüfen ob Sendung in der TV DB vorhanden ist - Ja ->
                     If ProgramFoundinTvDb(_Titel, _idChannel, _StartZeit, _EndZeit) = True Then
-
                         Dim Sendung As Program = TvDatabase.Program.RetrieveByTitleTimesAndChannel(_Titel, _StartZeit, _EndZeit, _idChannel)
 
 
-                        If Not Sendung.Title = _lastTitel Then
+
+                        If Not Sendung.Title = _lastTitel And _RespectInFavGroup = True And ChannelFoundInFavGroup(_idChannel) = True Then
                             Select Case _TippsCounter
                                 Case Is = 0
 
@@ -738,6 +747,70 @@ Namespace OurPlugin
                                     Exit Sub
                             End Select
                             _TippsCounter = _TippsCounter + 1
+
+                        ElseIf Not Sendung.Title = _lastTitel And _RespectInFavGroup = False Then
+                            Select Case _TippsCounter
+                                Case Is = 0
+
+                                    FillFavInfo(FavImage0, _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname"), _
+                                               FavTitel0, Sendung.Title.ToString, _
+                                               FavKanal0, _idChannel, _
+                                               FavZeit0, ClickfinderData.Item("Beginn"), ClickfinderData.Item("Ende"), _
+                                               FavGenre0, _Genre, _
+                                               FavBewertung0, _BewertungStr, _
+                                               FavKritik0, _Kritik, _
+                                               FavRatingImage0, Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+
+                                Case Is = 1
+
+                                    FillFavInfo(FavImage1, _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname"), _
+                                               FavTitel1, Sendung.Title.ToString, _
+                                               FavKanal1, _idChannel, _
+                                               FavZeit1, ClickfinderData.Item("Beginn"), ClickfinderData.Item("Ende"), _
+                                               FavGenre1, _Genre, _
+                                               FavBewertung1, _BewertungStr, _
+                                               FavKritik1, _Kritik, _
+                                               FavRatingImage1, Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+
+                                Case Is = 2
+
+                                    FillFavInfo(FavImage2, _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname"), _
+                                               FavTitel2, Sendung.Title.ToString, _
+                                               FavKanal2, _idChannel, _
+                                               FavZeit2, ClickfinderData.Item("Beginn"), ClickfinderData.Item("Ende"), _
+                                               FavGenre2, _Genre, _
+                                               FavBewertung2, _BewertungStr, _
+                                               FavKritik2, _Kritik, _
+                                               FavRatingImage2, Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+
+                                Case Is = 3
+
+                                    FillFavInfo(FavImage3, _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname"), _
+                                               FavTitel3, Sendung.Title.ToString, _
+                                               FavKanal3, _idChannel, _
+                                               FavZeit3, ClickfinderData.Item("Beginn"), ClickfinderData.Item("Ende"), _
+                                               FavGenre3, _Genre, _
+                                               FavBewertung3, _BewertungStr, _
+                                               FavKritik3, _Kritik, _
+                                               FavRatingImage3, Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+
+                                Case Is = 4
+
+                                    FillFavInfo(FavImage4, _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname"), _
+                                               FavTitel4, Sendung.Title.ToString, _
+                                               FavKanal4, _idChannel, _
+                                               FavZeit4, ClickfinderData.Item("Beginn"), ClickfinderData.Item("Ende"), _
+                                               FavGenre4, _Genre, _
+                                               FavBewertung4, _BewertungStr, _
+                                               FavKritik4, _Kritik, _
+                                               FavRatingImage4, Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+                                Case Is = 5
+                                    CloseTvServerDB()
+                                    CloseClickfinderDB()
+                                    Exit Sub
+                            End Select
+                            _TippsCounter = _TippsCounter + 1
+
                         End If
                         _lastTitel = Sendung.Title
                     End If
@@ -760,7 +833,7 @@ Namespace OurPlugin
 
         'ListControl mit Daten zur bestimmter Uhrzeit (SQLString) - paralelles Threating
 
- 
+
 
 
         'ListControl mit Daten der kommenden TagesTipps füllen - paralleles Threating
@@ -852,6 +925,7 @@ Namespace OurPlugin
             Dim _Threat As New Thread(AddressOf ShowSelectedCategorieItems)
 
             _Rating = MPSettingRead("config", "ClickfinderRating")
+            _RespectInFavGroup = True
 
 
             Select Case ctlList.SelectedListItem.Label.ToString
@@ -906,7 +980,7 @@ Namespace OurPlugin
                             Case Is = "PrimeTime"
                                 _ListSQLString = SQLQueryAccess(_ZeitQueryHour, _ZeitQueryMinute, "AND Bewertung >= 5 AND Bewertung <= 6", "Beginn ASC, Bewertung DESC, Titel")
                                 _ProgressBar.Start()
-                                _Threat.Start()                                
+                                _Threat.Start()
                             Case Is = "LateTime"
                                 _ListSQLString = SQLQueryAccess(_ZeitQueryHour, _ZeitQueryMinute, "AND Bewertung >= 5 AND Bewertung <= 6", "Beginn ASC, Bewertung DESC, Titel")
                                 _ProgressBar.Start()
@@ -925,7 +999,7 @@ Namespace OurPlugin
                             Case Is = "Now"
                                 _ListSQLString = SQLQueryAccess(_ZeitQueryHour, _ZeitQueryMinute, "AND Keywords LIKE '%Serie%'", "Beginn ASC, Bewertung DESC, Titel")
                                 _ProgressBar.Start()
-                                _Threat.Start()                                
+                                _Threat.Start()
                             Case Is = "PrimeTime"
                                 _ListSQLString = SQLQueryAccess(_ZeitQueryHour, _ZeitQueryMinute, "AND Keywords LIKE '%Serie%'", "Beginn ASC, Bewertung DESC, Titel")
                                 _ProgressBar.Start()
@@ -933,7 +1007,7 @@ Namespace OurPlugin
                             Case Is = "LateTime"
                                 _ListSQLString = SQLQueryAccess(_ZeitQueryHour, _ZeitQueryMinute, "AND Keywords LIKE '%Serie%'", "Beginn ASC, Bewertung DESC, Titel")
                                 _ProgressBar.Start()
-                                _Threat.Start()                                
+                                _Threat.Start()
                         End Select
                     Catch ex As Exception
                         Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
@@ -952,7 +1026,7 @@ Namespace OurPlugin
                             Case Is = "PrimeTime"
                                 _ListSQLString = SQLQueryAccess(_ZeitQueryHour, _ZeitQueryMinute, "AND (Keywords LIKE '%Dokumentation%' OR Keywords LIKE '%Report%' OR Keywords LIKE '%Reportage%')", "Beginn ASC, Bewertung DESC, Titel")
                                 _ProgressBar.Start()
-                                _Threat.Start()                                
+                                _Threat.Start()
                             Case Is = "LateTime"
                                 _ListSQLString = SQLQueryAccess(_ZeitQueryHour, _ZeitQueryMinute, "AND (Keywords LIKE '%Dokumentation%' OR Keywords LIKE '%Report%' OR Keywords LIKE '%Reportage%')", "Beginn ASC, Bewertung DESC, Titel")
                                 _ProgressBar.Start()
@@ -1413,6 +1487,44 @@ Namespace OurPlugin
 
         End Function
 
+        Private Function ChannelFoundInFavGroup(ByVal _idchannel As String) As Boolean
+            'MP - TVServer Datenbank Variablen  - MYSql
+            Dim Con As New MySqlConnection
+            Dim Cmd As New MySqlCommand
+            Dim DataCount As Long
+            Dim _SQLString As String
+            Dim _idGroup As String
+
+            _idGroup = MPSettingRead("config", "ChannelGroupID")
+            _SQLString = ("SELECT COUNT(*) FROM groupMap WHERE idChannel = " & _idchannel & " AND idGroup = " & _idGroup)
+
+            Try
+
+                Con.ConnectionString = Left(Replace(Gentle.Framework.GentleSettings.DefaultProviderConnectionString, " ", ""), InStr(Gentle.Framework.GentleSettings.DefaultProviderConnectionString, "charset=utf8") - 3)
+                Con.Open()
+
+
+                Cmd = Con.CreateCommand
+                Cmd.CommandText = _SQLString
+
+                DataCount = CLng(Cmd.ExecuteScalar)
+
+
+                If DataCount > 0 Then
+                    ChannelFoundInFavGroup = True
+                Else
+                    ChannelFoundInFavGroup = False
+                End If
+
+                Cmd.Dispose()
+                Con.Close()
+
+            Catch ex As Exception
+                Log.Error("Clickfinder ProgramGuide: [ChannelFoundInFavGroup] " & ex.Message)
+            End Try
+
+        End Function
+
         Private Function DateTOMySQLstring(ByVal Datum As Date) As String
             DateTOMySQLstring = "'" & Datum.Year & "-" & Format(Datum.Month, "00") & "-" & Format(Datum.Day, "00") & " " & Format(Datum.Hour, "00") & ":" & Format(Datum.Minute, "00") & ":00'"
         End Function
@@ -1435,6 +1547,9 @@ Namespace OurPlugin
             SQLQueryAccess = "Select * from Sendungen where (Beginn Between " & DateToAccessSQLstring(_StartZeit) & " AND " & DateToAccessSQLstring(_EndZeit) & ") " & AppendWhereSQLCmd & OrderBySQLCmd
 
         End Function
+
+
+
 
 #End Region
 

@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C7E9768C-8B93-4B4A-8C78-A9F369E002D2}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Clickfinder_ProgramGuide</RootNamespace>
+    <RootNamespace>ClickfinderProgramGuide</RootNamespace>
     <AssemblyName>ClickfinderProgramGuide</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
@@ -124,7 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
-      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <Generator>PublicVbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
@@ -208,9 +208,9 @@
     <Content Include="MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R3.png">
+    <EmbeddedResource Include="ConfigIcons\Config.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
     <Content Include="MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -223,6 +223,7 @@
     <Content Include="MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R6.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="ConfigIcons\Config_disable.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MPEI\Source\" />
