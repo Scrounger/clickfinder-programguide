@@ -44,7 +44,7 @@
       <height>5</height>
       <texture>ClickfinderPG_Sep.png</texture>
       <colordiffuse>EEFFFFFF</colordiffuse>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+control.isvisible(50)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
@@ -58,7 +58,7 @@
       <height>5</height>
       <texture>ClickfinderPG_Sep.png</texture>
       <colordiffuse>EEFFFFFF</colordiffuse>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+control.isvisible(60)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
@@ -72,7 +72,7 @@
       <height>5</height>
       <texture>ClickfinderPG_Sep.png</texture>
       <colordiffuse>EEFFFFFF</colordiffuse>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+control.isvisible(70)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
@@ -86,7 +86,7 @@
       <height>5</height>
       <texture>ClickfinderPG_Sep.png</texture>
       <colordiffuse>EEFFFFFF</colordiffuse>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+control.isvisible(80)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
@@ -136,6 +136,8 @@
       <itemWidth>50</itemWidth>
       <itemHeight>50</itemHeight>
       <scrollOffset>2</scrollOffset>
+      <scrollbarXOff>0</scrollbarXOff>
+      <scrollbarwidth>15</scrollbarwidth>
       <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>

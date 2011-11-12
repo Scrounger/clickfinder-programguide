@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<profile>
+  <section name="config">
+    <entry name="ClickfinderPath">\\MEDIASTATION\TV Movie\TV Movie ClickFinder</entry>
+    <entry name="ClickfinderRating">1</entry>
+    <entry name="ChannelGroupID">2</entry>
+  </section>
+</profile>

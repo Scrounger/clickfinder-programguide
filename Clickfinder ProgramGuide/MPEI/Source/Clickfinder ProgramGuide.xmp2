@@ -209,13 +209,6 @@
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Clickfinder_R1.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{066945a9-edb6-4cb3-9c1d-a495629a3613}-Clickfinder_R1.png</ZipFileName>
-              <DestinationFilename>%Thumbs%\ClickfinderPG\Clickfinder_R1.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R5.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{642cb135-1e31-403b-a481-439eaa7140a0}-ClickfinderPG_R5.png</ZipFileName>
               <DestinationFilename>%Thumbs%\ClickfinderPG\ClickfinderPG_R5.png</DestinationFilename>
@@ -226,6 +219,13 @@
               <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R6.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{3cf550fb-fb37-4823-939b-669a9e138d82}-ClickfinderPG_R6.png</ZipFileName>
               <DestinationFilename>%Thumbs%\ClickfinderPG\ClickfinderPG_R6.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R1.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{9c76ed9f-dea7-4f64-b927-1fa03ad14882}-ClickfinderPG_R1.png</ZipFileName>
+              <DestinationFilename>%Thumbs%\ClickfinderPG\ClickfinderPG_R1.png</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -394,8 +394,8 @@ Click Next to continue or Cancel to exit Setup.</Value>
         </CompatibleVersion>
         <SubSystemsUsed>
           <Items>
-            <SubSystemItem Name="MP.Config" />
             <SubSystemItem Name="MP.SkinEngine" />
+            <SubSystemItem Name="MP.Config" />
           </Items>
         </SubSystemsUsed>
       </PluginDependencyItem>
@@ -412,13 +412,13 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>0</Minor>
       <Build>1</Build>
-      <Revision>2</Revision>
+      <Revision>4</Revision>
     </Version>
     <ExtensionDescription />
     <VersionDescription />
     <DevelopmentStatus>Beta</DevelopmentStatus>
     <OnlineLocation />
-    <ReleaseDate>2011-11-10T15:57:29</ReleaseDate>
+    <ReleaseDate>2011-11-12T15:57:29</ReleaseDate>
     <Tags />
     <Location>D:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPEI\Clickfinder ProgramGuide.mpe1</Location>
     <Params>
@@ -626,13 +626,6 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Clickfinder_R1.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{066945a9-edb6-4cb3-9c1d-a495629a3613}-Clickfinder_R1.png</ZipFileName>
-        <DestinationFilename>%Thumbs%\ClickfinderPG\Clickfinder_R1.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R5.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{642cb135-1e31-403b-a481-439eaa7140a0}-ClickfinderPG_R5.png</ZipFileName>
         <DestinationFilename>%Thumbs%\ClickfinderPG\ClickfinderPG_R5.png</DestinationFilename>
@@ -643,6 +636,13 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R6.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{3cf550fb-fb37-4823-939b-669a9e138d82}-ClickfinderPG_R6.png</ZipFileName>
         <DestinationFilename>%Thumbs%\ClickfinderPG\ClickfinderPG_R6.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R1.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{9c76ed9f-dea7-4f64-b927-1fa03ad14882}-ClickfinderPG_R1.png</ZipFileName>
+        <DestinationFilename>%Thumbs%\ClickfinderPG\ClickfinderPG_R1.png</DestinationFilename>
       </FileItem>
     </Items>
   </UniqueFileList>
