@@ -8,5 +8,6 @@
     <entry name="PrimeTimeMinute">15</entry>
     <entry name="LateTimeHour">22</entry>
     <entry name="LateTimeMinute">00</entry>
+    <entry name="DelayNow">00</entry>
   </section>
 </profile>

@@ -66,7 +66,9 @@ Public Class Setup
         For i = 0 To 59
             CBPrimeTimeMinute.Items.Add(Format(i, "00"))
             CBLateTimeMinute.Items.Add(Format(i, "00"))
+            CBDelayNow.Items.Add(Format(i, "00"))
         Next
+
 
         For i = 0 To CBPrimeTimeHour.Items.Count - 1
             If CBPrimeTimeHour.Items.Item(i) = MPSettingRead("config", "PrimeTimeHour") Then CBPrimeTimeHour.Text = MPSettingRead("config", "PrimeTimeHour")
@@ -81,6 +83,9 @@ Public Class Setup
         Next
         For i = 0 To CBLateTimeMinute.Items.Count - 1
             If CBLateTimeMinute.Items.Item(i) = MPSettingRead("config", "LateTimeMinute") Then CBLateTimeMinute.Text = MPSettingRead("config", "LateTimeMinute")
+        Next
+        For i = 0 To CBDelayNow.Items.Count - 1
+            If CBDelayNow.Items.Item(i) = MPSettingRead("config", "DelayNow") Then CBDelayNow.Text = MPSettingRead("config", "DelayNow")
         Next
 
 
@@ -107,6 +112,7 @@ Public Class Setup
         MPSettingsWrite("config", "PrimeTimeMinute", Me.CBPrimeTimeMinute.Text)
         MPSettingsWrite("config", "LateTimeHour", Me.CBLateTimeHour.Text)
         MPSettingsWrite("config", "LateTimeMinute", Me.CBLateTimeMinute.Text)
+        MPSettingsWrite("config", "DelayNow", Me.CBDelayNow.Text)
 
         ReadTvServerDB("Select * from channelgroup Where groupName = '" & CBChannelGroup.Text & "'")
         While TvServerData.Read

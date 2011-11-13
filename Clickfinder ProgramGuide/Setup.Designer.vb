@@ -38,6 +38,11 @@ Partial Class Setup
         Me.CBLateTimeHour = New System.Windows.Forms.ComboBox
         Me.Label5 = New System.Windows.Forms.Label
         Me.Label6 = New System.Windows.Forms.Label
+        Me.CBDelayNow = New System.Windows.Forms.ComboBox
+        Me.Label7 = New System.Windows.Forms.Label
+        Me.Label8 = New System.Windows.Forms.Label
+        Me.CBMinTime = New System.Windows.Forms.ComboBox
+        Me.Label9 = New System.Windows.Forms.Label
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -178,11 +183,62 @@ Partial Class Setup
         Me.Label6.TabIndex = 19
         Me.Label6.Text = ":"
         '
+        'CBDelayNow
+        '
+        Me.CBDelayNow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBDelayNow.FormattingEnabled = True
+        Me.CBDelayNow.Location = New System.Drawing.Point(180, 187)
+        Me.CBDelayNow.Name = "CBDelayNow"
+        Me.CBDelayNow.Size = New System.Drawing.Size(37, 21)
+        Me.CBDelayNow.TabIndex = 20
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(115, 190)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(32, 13)
+        Me.Label7.TabIndex = 21
+        Me.Label7.Text = "Jetzt:"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(168, 190)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(11, 13)
+        Me.Label8.TabIndex = 22
+        Me.Label8.Text = "-"
+        '
+        'CBMinTime
+        '
+        Me.CBMinTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBMinTime.FormattingEnabled = True
+        Me.CBMinTime.Location = New System.Drawing.Point(207, 332)
+        Me.CBMinTime.Name = "CBMinTime"
+        Me.CBMinTime.Size = New System.Drawing.Size(37, 21)
+        Me.CBMinTime.TabIndex = 23
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(115, 335)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(86, 13)
+        Me.Label9.TabIndex = 24
+        Me.Label9.Text = "mindest Laufzeit:"
+        '
         'Setup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(760, 483)
+        Me.Controls.Add(Me.Label9)
+        Me.Controls.Add(Me.CBMinTime)
+        Me.Controls.Add(Me.Label8)
+        Me.Controls.Add(Me.Label7)
+        Me.Controls.Add(Me.CBDelayNow)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.CBLateTimeMinute)
@@ -221,4 +277,9 @@ Partial Class Setup
     Friend WithEvents CBLateTimeHour As System.Windows.Forms.ComboBox
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents Label6 As System.Windows.Forms.Label
+    Friend WithEvents CBDelayNow As System.Windows.Forms.ComboBox
+    Friend WithEvents Label7 As System.Windows.Forms.Label
+    Friend WithEvents Label8 As System.Windows.Forms.Label
+    Friend WithEvents CBMinTime As System.Windows.Forms.ComboBox
+    Friend WithEvents Label9 As System.Windows.Forms.Label
 End Class
