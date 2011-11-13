@@ -46,14 +46,7 @@ Namespace ClickfinderProgramGuide
         <SkinControlAttribute(9)> Protected ctlProgressBar As GUIAnimation = Nothing
         <SkinControlAttribute(10)> Protected ctlList As GUIListControl = Nothing
 
-        <SkinControlAttribute(20)> Protected FavImage0 As GUIImage = Nothing
-        <SkinControlAttribute(21)> Protected FavTitel0 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(22)> Protected FavKanal0 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(23)> Protected FavGenre0 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(24)> Protected FavZeit0 As GUILabelControl = Nothing
-        <SkinControlAttribute(25)> Protected FavBewertung0 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(26)> Protected FavKritik0 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(27)> Protected FavRatingImage0 As GUIImage = Nothing
+
 
         <SkinControlAttribute(30)> Protected DetailsImage As GUIImage = Nothing
         <SkinControlAttribute(31)> Protected DetailsTitel As GUIFadeLabel = Nothing
@@ -70,46 +63,60 @@ Namespace ClickfinderProgramGuide
         <SkinControlAttribute(42)> Protected DetailsKurzKritik As GUIFadeLabel = Nothing
         <SkinControlAttribute(43)> Protected DetailsBewertungen As GUIFadeLabel = Nothing
 
-        <SkinControlAttribute(50)> Protected FavTitel1 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(51)> Protected FavImage1 As GUIImage = Nothing
-        <SkinControlAttribute(52)> Protected FavKanal1 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(53)> Protected FavGenre1 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(54)> Protected FavZeit1 As GUILabelControl = Nothing
-        <SkinControlAttribute(55)> Protected FavBewertung1 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(56)> Protected FavKritik1 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(57)> Protected FavRatingImage1 As GUIImage = Nothing
 
-        <SkinControlAttribute(60)> Protected FavTitel2 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(61)> Protected FavImage2 As GUIImage = Nothing
-        <SkinControlAttribute(62)> Protected FavKanal2 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(63)> Protected FavGenre2 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(64)> Protected FavZeit2 As GUILabelControl = Nothing
-        <SkinControlAttribute(65)> Protected FavBewertung2 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(66)> Protected FavKritik2 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(67)> Protected FavRatingImage2 As GUIImage = Nothing
-
-
-        <SkinControlAttribute(70)> Protected FavTitel3 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(71)> Protected FavImage3 As GUIImage = Nothing
-        <SkinControlAttribute(72)> Protected FavKanal3 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(73)> Protected FavGenre3 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(74)> Protected FavZeit3 As GUILabelControl = Nothing
-        <SkinControlAttribute(75)> Protected FavBewertung3 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(76)> Protected FavKritik3 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(77)> Protected FavRatingImage3 As GUIImage = Nothing
-
-        <SkinControlAttribute(80)> Protected FavTitel4 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(81)> Protected FavImage4 As GUIImage = Nothing
-        <SkinControlAttribute(82)> Protected FavKanal4 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(83)> Protected FavGenre4 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(84)> Protected FavZeit4 As GUILabelControl = Nothing
-        <SkinControlAttribute(85)> Protected FavBewertung4 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(86)> Protected FavKritik4 As GUIFadeLabel = Nothing
-        <SkinControlAttribute(87)> Protected FavRatingImage4 As GUIImage = Nothing
 
         <SkinControlAttribute(89)> Protected btnRemember As GUIButtonControl = Nothing
         <SkinControlAttribute(90)> Protected btnBack As GUIButtonControl = Nothing
         <SkinControlAttribute(91)> Protected btnRecord As GUIButtonControl = Nothing
+
+
+
+        <SkinControlAttribute(110)> Protected FavTitel0 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(111)> Protected FavImage0 As GUIImage = Nothing
+        <SkinControlAttribute(112)> Protected FavKanal0 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(113)> Protected FavGenre0 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(114)> Protected FavZeit0 As GUILabelControl = Nothing
+        <SkinControlAttribute(115)> Protected FavBewertung0 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(116)> Protected FavKritik0 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(117)> Protected FavRatingImage0 As GUIImage = Nothing
+
+        <SkinControlAttribute(120)> Protected FavTitel1 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(121)> Protected FavImage1 As GUIImage = Nothing
+        <SkinControlAttribute(122)> Protected FavKanal1 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(123)> Protected FavGenre1 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(124)> Protected FavZeit1 As GUILabelControl = Nothing
+        <SkinControlAttribute(125)> Protected FavBewertung1 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(126)> Protected FavKritik1 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(127)> Protected FavRatingImage1 As GUIImage = Nothing
+
+        <SkinControlAttribute(130)> Protected FavTitel2 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(131)> Protected FavImage2 As GUIImage = Nothing
+        <SkinControlAttribute(132)> Protected FavKanal2 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(133)> Protected FavGenre2 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(134)> Protected FavZeit2 As GUILabelControl = Nothing
+        <SkinControlAttribute(135)> Protected FavBewertung2 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(136)> Protected FavKritik2 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(137)> Protected FavRatingImage2 As GUIImage = Nothing
+
+
+        <SkinControlAttribute(140)> Protected FavTitel3 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(141)> Protected FavImage3 As GUIImage = Nothing
+        <SkinControlAttribute(142)> Protected FavKanal3 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(143)> Protected FavGenre3 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(144)> Protected FavZeit3 As GUILabelControl = Nothing
+        <SkinControlAttribute(145)> Protected FavBewertung3 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(146)> Protected FavKritik3 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(147)> Protected FavRatingImage3 As GUIImage = Nothing
+
+        <SkinControlAttribute(150)> Protected FavTitel4 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(151)> Protected FavImage4 As GUIImage = Nothing
+        <SkinControlAttribute(152)> Protected FavKanal4 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(153)> Protected FavGenre4 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(154)> Protected FavZeit4 As GUILabelControl = Nothing
+        <SkinControlAttribute(155)> Protected FavBewertung4 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(156)> Protected FavKritik4 As GUIFadeLabel = Nothing
+        <SkinControlAttribute(157)> Protected FavRatingImage4 As GUIImage = Nothing
+
 
 
 #End Region
@@ -198,9 +205,6 @@ Namespace ClickfinderProgramGuide
             ClickfinderCorrection()
 
         End Sub
-
-
-
         Public Overrides Sub OnAction(ByVal action As MediaPortal.GUI.Library.Action)
             MyBase.OnAction(action)
 
@@ -222,8 +226,6 @@ Namespace ClickfinderProgramGuide
             End If
 
         End Sub
-
-
         Protected Overrides Sub OnClicked(ByVal controlId As Integer, _
                                           ByVal control As GUIControl, _
                                           ByVal actionType As  _
@@ -260,7 +262,8 @@ Namespace ClickfinderProgramGuide
             End If
             If control Is btnLateTimeRest Then
 
-
+                GUIFadeLabel.SetControlLabel(GetID, 102, "Funktioniert")
+                GUIFadeLabel.ShowControl(GetID, 102)
 
             End If
 
@@ -696,7 +699,7 @@ Namespace ClickfinderProgramGuide
                                                FavGenre0, _Genre, _
                                                FavBewertung0, _BewertungStr, _
                                                FavKritik0, _Kritik, _
-                                               FavRatingImage0, Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+                                               FavRatingImage0, "ClickfinderPG_R" & CStr(_Bewertung) & ".png")
 
                                 Case Is = 1
 
@@ -707,7 +710,7 @@ Namespace ClickfinderProgramGuide
                                                FavGenre1, _Genre, _
                                                FavBewertung1, _BewertungStr, _
                                                FavKritik1, _Kritik, _
-                                               FavRatingImage1, Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+                                               FavRatingImage1, "ClickfinderPG_R" & CStr(_Bewertung) & ".png")
 
                                 Case Is = 2
 
@@ -718,7 +721,7 @@ Namespace ClickfinderProgramGuide
                                                FavGenre2, _Genre, _
                                                FavBewertung2, _BewertungStr, _
                                                FavKritik2, _Kritik, _
-                                               FavRatingImage2, Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+                                               FavRatingImage2, "ClickfinderPG_R" & CStr(_Bewertung) & ".png")
 
                                 Case Is = 3
 
@@ -729,7 +732,7 @@ Namespace ClickfinderProgramGuide
                                                FavGenre3, _Genre, _
                                                FavBewertung3, _BewertungStr, _
                                                FavKritik3, _Kritik, _
-                                               FavRatingImage3, Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+                                               FavRatingImage3, "ClickfinderPG_R" & CStr(_Bewertung) & ".png")
 
                                 Case Is = 4
 
@@ -740,7 +743,7 @@ Namespace ClickfinderProgramGuide
                                                FavGenre4, _Genre, _
                                                FavBewertung4, _BewertungStr, _
                                                FavKritik4, _Kritik, _
-                                               FavRatingImage4, Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+                                               FavRatingImage4, "ClickfinderPG_R" & CStr(_Bewertung) & ".png")
                                 Case Is = 5
                                     CloseTvServerDB()
                                     CloseClickfinderDB()
@@ -759,7 +762,7 @@ Namespace ClickfinderProgramGuide
                                                FavGenre0, _Genre, _
                                                FavBewertung0, _BewertungStr, _
                                                FavKritik0, _Kritik, _
-                                               FavRatingImage0, Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+                                               FavRatingImage0, "ClickfinderPG_R" & CStr(_Bewertung) & ".png")
 
                                 Case Is = 1
 
@@ -770,7 +773,7 @@ Namespace ClickfinderProgramGuide
                                                FavGenre1, _Genre, _
                                                FavBewertung1, _BewertungStr, _
                                                FavKritik1, _Kritik, _
-                                               FavRatingImage1, Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+                                               FavRatingImage1, "ClickfinderPG_R" & CStr(_Bewertung) & ".png")
 
                                 Case Is = 2
 
@@ -781,7 +784,7 @@ Namespace ClickfinderProgramGuide
                                                FavGenre2, _Genre, _
                                                FavBewertung2, _BewertungStr, _
                                                FavKritik2, _Kritik, _
-                                               FavRatingImage2, Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+                                               FavRatingImage2, "ClickfinderPG_R" & CStr(_Bewertung) & ".png")
 
                                 Case Is = 3
 
@@ -792,7 +795,7 @@ Namespace ClickfinderProgramGuide
                                                FavGenre3, _Genre, _
                                                FavBewertung3, _BewertungStr, _
                                                FavKritik3, _Kritik, _
-                                               FavRatingImage3, Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+                                               FavRatingImage3, "ClickfinderPG_R" & CStr(_Bewertung) & ".png")
 
                                 Case Is = 4
 
@@ -803,7 +806,7 @@ Namespace ClickfinderProgramGuide
                                                FavGenre4, _Genre, _
                                                FavBewertung4, _BewertungStr, _
                                                FavKritik4, _Kritik, _
-                                               FavRatingImage4, Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\ClickfinderPG_R" & CStr(_Bewertung) & ".png"))
+                                               FavRatingImage4, "ClickfinderPG_R" & CStr(_Bewertung) & ".png")
                                 Case Is = 5
                                     CloseTvServerDB()
                                     CloseClickfinderDB()
@@ -811,10 +814,10 @@ Namespace ClickfinderProgramGuide
                             End Select
                             _TippsCounter = _TippsCounter + 1
 
+
                         End If
                         _lastTitel = Sendung.Title
                     End If
-
 
                     ctlProgressBar.Visible = False
 
@@ -1319,15 +1322,12 @@ Namespace ClickfinderProgramGuide
             'For i = 60 To 67
             '    GUIControl.HideControl(GetID, i)
             'Next
-            For i = 70 To 77
-                GUIControl.HideControl(GetID, i)
-            Next
-            For i = 80 To 87
-                GUIControl.HideControl(GetID, i)
-            Next
-
-
-
+            'For i = 70 To 77
+            '    GUIControl.HideControl(GetID, i)
+            'Next
+            'For i = 80 To 87
+            '    GUIControl.HideControl(GetID, i)
+            'Next
 
         End Sub
 

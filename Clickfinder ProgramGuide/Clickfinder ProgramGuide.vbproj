@@ -209,7 +209,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="ConfigIcons\Config.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

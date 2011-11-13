@@ -4,6 +4,7 @@
   <Groups>
     <Items>
       <GroupItem Name="Skin Files">
+        <ParentGroup />
         <DisplayName>Skin Files</DisplayName>
         <DefaulChecked>true</DefaulChecked>
         <Description>Skin Files</Description>
@@ -180,6 +181,7 @@
         </Files>
       </GroupItem>
       <GroupItem Name="Thumb Files">
+        <ParentGroup />
         <DisplayName>Thumb Files</DisplayName>
         <DefaulChecked>true</DefaulChecked>
         <Description>Thumb Files</Description>
@@ -405,7 +407,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>0</Minor>
       <Build>1</Build>
-      <Revision>6</Revision>
+      <Revision>7</Revision>
     </Version>
     <ExtensionDescription />
     <VersionDescription />
