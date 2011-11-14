@@ -151,13 +151,22 @@
     <Content Include="MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R3.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="MediaPortal\Skin\DefaultWide\Media\Clickfinder_R1.png">
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R6.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MediaPortal\Skin\StreamedMP\ClickfinderProgramGuide.Details.xml">
@@ -231,6 +240,7 @@
     <Content Include="MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R6.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="MPSnippset.txt" />
     <EmbeddedResource Include="ConfigIcons\Config_disable.png" />
   </ItemGroup>
   <ItemGroup>

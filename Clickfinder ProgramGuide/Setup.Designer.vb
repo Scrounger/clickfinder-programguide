@@ -43,6 +43,10 @@ Partial Class Setup
         Me.Label8 = New System.Windows.Forms.Label
         Me.CBMinTime = New System.Windows.Forms.ComboBox
         Me.Label9 = New System.Windows.Forms.Label
+        Me.CKIgnoreSeries = New System.Windows.Forms.CheckBox
+        Me.BtnCreateLogos = New System.Windows.Forms.Button
+        Me.Button2 = New System.Windows.Forms.Button
+        Me.ProgressBar1 = New System.Windows.Forms.ProgressBar
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -74,7 +78,7 @@ Partial Class Setup
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(389, 351)
+        Me.Button1.Location = New System.Drawing.Point(464, 238)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(222, 32)
         Me.Button1.TabIndex = 8
@@ -104,7 +108,7 @@ Partial Class Setup
         '
         Me.CBChannelGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CBChannelGroup.FormattingEnabled = True
-        Me.CBChannelGroup.Location = New System.Drawing.Point(389, 289)
+        Me.CBChannelGroup.Location = New System.Drawing.Point(464, 143)
         Me.CBChannelGroup.Name = "CBChannelGroup"
         Me.CBChannelGroup.Size = New System.Drawing.Size(193, 21)
         Me.CBChannelGroup.TabIndex = 11
@@ -229,11 +233,50 @@ Partial Class Setup
         Me.Label9.TabIndex = 24
         Me.Label9.Text = "mindest Laufzeit:"
         '
+        'CKIgnoreSeries
+        '
+        Me.CKIgnoreSeries.AutoSize = True
+        Me.CKIgnoreSeries.Location = New System.Drawing.Point(250, 336)
+        Me.CKIgnoreSeries.Name = "CKIgnoreSeries"
+        Me.CKIgnoreSeries.Size = New System.Drawing.Size(122, 17)
+        Me.CKIgnoreSeries.TabIndex = 25
+        Me.CKIgnoreSeries.Text = "bei Serien ignorieren"
+        Me.CKIgnoreSeries.UseVisualStyleBackColor = True
+        '
+        'BtnCreateLogos
+        '
+        Me.BtnCreateLogos.Location = New System.Drawing.Point(486, 354)
+        Me.BtnCreateLogos.Name = "BtnCreateLogos"
+        Me.BtnCreateLogos.Size = New System.Drawing.Size(170, 39)
+        Me.BtnCreateLogos.TabIndex = 26
+        Me.BtnCreateLogos.Text = "TV Rating Logos erstellen"
+        Me.BtnCreateLogos.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(313, 416)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.TabIndex = 27
+        Me.Button2.Text = "Button2"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'ProgressBar1
+        '
+        Me.ProgressBar1.Location = New System.Drawing.Point(334, 283)
+        Me.ProgressBar1.Name = "ProgressBar1"
+        Me.ProgressBar1.Size = New System.Drawing.Size(106, 19)
+        Me.ProgressBar1.TabIndex = 28
+        '
         'Setup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(760, 483)
+        Me.Controls.Add(Me.ProgressBar1)
+        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.BtnCreateLogos)
+        Me.Controls.Add(Me.CKIgnoreSeries)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.CBMinTime)
         Me.Controls.Add(Me.Label8)
@@ -282,4 +325,8 @@ Partial Class Setup
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents CBMinTime As System.Windows.Forms.ComboBox
     Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents CKIgnoreSeries As System.Windows.Forms.CheckBox
+    Friend WithEvents BtnCreateLogos As System.Windows.Forms.Button
+    Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents ProgressBar1 As System.Windows.Forms.ProgressBar
 End Class

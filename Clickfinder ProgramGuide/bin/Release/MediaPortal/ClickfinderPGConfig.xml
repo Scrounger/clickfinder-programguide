@@ -9,5 +9,7 @@
     <entry name="LateTimeHour">22</entry>
     <entry name="LateTimeMinute">00</entry>
     <entry name="DelayNow">00</entry>
+    <entry name="MinTime">00</entry>
+    <entry name="IgnoreMinTimeSeries">true</entry>
   </section>
 </profile>

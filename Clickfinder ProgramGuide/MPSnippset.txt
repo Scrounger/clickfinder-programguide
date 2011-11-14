@@ -1,0 +1,9 @@
+﻿
+Datenbank Tv Server alle abfragen
+
+Dim _TVMovieMapping = TvDatabase.TvMovieMapping.ListAll
+For i = 0 To _TVMovieMapping.Count - 1
+If _TVMovieMapping.Item(i).StationName = _MappingName Then
+end if
+next
+                        

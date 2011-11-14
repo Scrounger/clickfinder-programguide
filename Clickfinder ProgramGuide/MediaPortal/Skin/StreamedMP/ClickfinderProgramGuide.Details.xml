@@ -370,7 +370,6 @@
       <height>124</height>
       <seperator>-------------------------------------------------------------------------------------------------------------------------------------------</seperator>
       <font>font12</font>
-      <visible>yes</visible>
       <visible>control.isvisible(30)</visible>
     </control>
 

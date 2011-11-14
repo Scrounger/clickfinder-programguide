@@ -10,10 +10,13 @@ Imports MySql.Data
 Imports MySql.Data.MySqlClient
 
 Imports Gentle.Framework
+Imports System.Drawing
+Imports System.Threading
 
 
 
 Public Class Setup
+
 
     Private Sub Setup_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Dim Rating As Integer
@@ -67,6 +70,7 @@ Public Class Setup
             CBPrimeTimeMinute.Items.Add(Format(i, "00"))
             CBLateTimeMinute.Items.Add(Format(i, "00"))
             CBDelayNow.Items.Add(Format(i, "00"))
+            CBMinTime.Items.Add(Format(i, "00"))
         Next
 
 
@@ -87,7 +91,15 @@ Public Class Setup
         For i = 0 To CBDelayNow.Items.Count - 1
             If CBDelayNow.Items.Item(i) = MPSettingRead("config", "DelayNow") Then CBDelayNow.Text = MPSettingRead("config", "DelayNow")
         Next
+        For i = 0 To CBDelayNow.Items.Count - 1
+            If CBMinTime.Items.Item(i) = MPSettingRead("config", "MinTime") Then CBMinTime.Text = MPSettingRead("config", "MinTime")
+        Next
 
+        If MPSettingRead("config", "IgnoreMinTimeSeries") = "true" Then
+            CKIgnoreSeries.CheckState = Windows.Forms.CheckState.Checked
+        Else
+            CKIgnoreSeries.CheckState = Windows.Forms.CheckState.Unchecked
+        End If
 
 
     End Sub
@@ -113,6 +125,13 @@ Public Class Setup
         MPSettingsWrite("config", "LateTimeHour", Me.CBLateTimeHour.Text)
         MPSettingsWrite("config", "LateTimeMinute", Me.CBLateTimeMinute.Text)
         MPSettingsWrite("config", "DelayNow", Me.CBDelayNow.Text)
+        MPSettingsWrite("config", "MinTime", Me.CBMinTime.Text)
+
+        If CKIgnoreSeries.CheckState = Windows.Forms.CheckState.Checked Then
+            MPSettingsWrite("config", "IgnoreMinTimeSeries", "true")
+        Else
+            MPSettingsWrite("config", "IgnoreMinTimeSeries", "false")
+        End If
 
         ReadTvServerDB("Select * from channelgroup Where groupName = '" & CBChannelGroup.Text & "'")
         While TvServerData.Read
@@ -175,4 +194,107 @@ Public Class Setup
 #End Region
 
 
+    Private Sub BtnCreateLogos_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnCreateLogos.Click
+
+
+        ' Verzeichnis, dessen Dateien ermittelt werden sollen
+        Dim TVLogoPath As String = Config.GetFile(Config.Dir.Thumbs, "tv\logos")
+        'MsgBox("TVLogoPath: " & TVLogoPath)
+
+        ' ggf. abschließenden Backslash entfernen
+        If TVLogoPath.EndsWith("\") And TVLogoPath.Length > 3 Then
+            TVLogoPath = TVLogoPath.Substring(0, TVLogoPath.Length - 1)
+        End If
+
+        ' Directory-Object erstellen
+        Dim oDir As New System.IO.DirectoryInfo(TVLogoPath)
+
+        ' alle Dateien des Ordners
+        Dim oFiles As System.IO.FileInfo() = oDir.GetFiles()
+
+        ' Datei-Array durchlaufen
+        Dim oFile As System.IO.FileInfo
+        'MsgBox("Directory Exist? " & Directory.Exists(Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\tv\logos")))
+        If Not Directory.Exists(Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\tv\logos")) Then
+            Directory.CreateDirectory(Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\tv\logos"))
+        End If
+        'MsgBox("RatingImage: " & Config.GetFile(Config.Dir.Skin, "DefaultWide\Media\ClickfinderPG_R3.png"))
+
+
+        For i = 0 To 6
+
+            For Each oFile In oFiles
+                'msgbox(oFile.FullName)
+
+                If Not i = 0 Then
+                    Dim TVLogo As Image = Bitmap.FromFile(oFile.FullName)
+                    Dim RatingImg As Image = Bitmap.FromFile(Config.GetFile(Config.Dir.Skin, "DefaultWide\Media\ClickfinderPG_R" & i & ".png"))
+                    Dim b As New Bitmap(210, 210)
+                    Dim g As Graphics = Graphics.FromImage(b)
+                    g.DrawImage(TVLogo, 10, 0, 200, 200)
+                    g.DrawImage(RatingImg, 0, 146, 64, 64)
+                    b.Save(Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\tv\logos\") & Path.GetFileNameWithoutExtension(oFile.FullName) & "_" & i & ".png")
+                Else
+                    Dim TVLogo As Image = Bitmap.FromFile(oFile.FullName)
+                    Dim b As New Bitmap(200, 200)
+                    Dim g As Graphics = Graphics.FromImage(b)
+                    g.DrawImage(TVLogo, 0, 0, 200, 200)
+                    b.Save(Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\tv\logos\") & Path.GetFileNameWithoutExtension(oFile.FullName) & "_" & i & ".png")
+
+                End If
+
+
+
+
+
+
+            Next
+        Next
+
+
+
+        'MsgBox("Output: " & Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\tv\logos\") & Path.GetFileNameWithoutExtension(oFile.FullName) & "_3.png")
+        'For Each oFile In oFiles
+        '    'msgbox(oFile.FullName)
+        '    Dim img1 As Image = Bitmap.FromFile(oFile.FullName)
+        '    Dim img2 As Image = Bitmap.FromFile("C:\Stuff\ImageAssembling\TestOrdner\ClickfinderPG_R2.png")
+        '    Dim b As New Bitmap(210, 210)
+        '    Dim g As Graphics = Graphics.FromImage(b)
+        '    g.DrawImage(img1, 10, 0, 200, 200)
+        '    g.DrawImage(img2, 0, 146, 64, 64)
+
+        '    If Not Directory.Exists("C:\Stuff\ImageAssembling\TestOrdner\thumbs\Clickfinder\tv\logos") Then
+        '        Directory.CreateDirectory("C:\Stuff\ImageAssembling\TestOrdner\thumbs\Clickfinder\tv\logos")
+        '    End If
+
+        '    b.Save("C:\Stuff\ImageAssembling\TestOrdner\thumbs\Clickfinder\tv\logos\" & Path.GetFileNameWithoutExtension(oFile.FullName) & "_2.png")
+        'Next
+
+        'For Each oFile In oFiles
+        '    'msgbox(oFile.FullName)
+        '    Dim img1 As Image = Bitmap.FromFile(oFile.FullName)
+        '    Dim img2 As Image = Bitmap.FromFile("C:\Stuff\ImageAssembling\TestOrdner\ClickfinderPG_R1.png")
+        '    Dim b As New Bitmap(210, 210)
+        '    Dim g As Graphics = Graphics.FromImage(b)
+        '    g.DrawImage(img1, 10, 0, 200, 200)
+        '    g.DrawImage(img2, 0, 146, 64, 64)
+
+        '    If Not Directory.Exists("C:\Stuff\ImageAssembling\TestOrdner\thumbs\Clickfinder\tv\logos") Then
+        '        Directory.CreateDirectory("C:\Stuff\ImageAssembling\TestOrdner\thumbs\Clickfinder\tv\logos")
+        '    End If
+
+        '    b.Save("C:\Stuff\ImageAssembling\TestOrdner\thumbs\Clickfinder\tv\logos\" & Path.GetFileNameWithoutExtension(oFile.FullName) & "_1.png")
+        'Next
+
+    End Sub
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+
+    End Sub
+
+    Private Sub ShowProgressBar()
+        ProgressBar1.Visible = True
+        ProgressBar1.Style = Windows.Forms.ProgressBarStyle.Marquee
+
+    End Sub
 End Class
