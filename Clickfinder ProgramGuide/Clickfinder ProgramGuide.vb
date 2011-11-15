@@ -128,8 +128,9 @@ Namespace ClickfinderProgramGuide
         Private _ZeitQueryHour As Double
         Private _ZeitQueryMinute As Double
         Private _RespectInFavGroup As Boolean
+        Private _useRatingTvLogos As String = MPSettingRead("config", "useRatingTvLogos")
         Private _SettingIgnoreMinTimeSeries As String = MPSettingRead("config", "IgnoreMinTimeSeries")
-        Private _SettingDelayNow As Double = CDbl(MPSettingRead("config", "DelayNow"))
+        Private _SettingDelayNow As Double = CInt(MPSettingRead("config", "DelayNow"))
         Private _SettingPrimeTimeHour As Double = CDbl(MPSettingRead("config", "PrimeTimeHour"))
         Private _SettingPrimeTimeMinute As Double = CDbl(MPSettingRead("config", "PrimeTimeMinute"))
         Private _SettingLateTimeHour As Double = CDbl(MPSettingRead("config", "LateTimeHour"))
@@ -225,7 +226,7 @@ Namespace ClickfinderProgramGuide
             _GuiImage.Add(151, FavImage4)
             _GuiImage.Add(157, FavRatingImage4)
 
-            GUIImage.RefreshControl(GetID, 117)
+
 
 
 
@@ -301,7 +302,7 @@ Namespace ClickfinderProgramGuide
             If control Is btnBack Then
                 DetailsImage.Visible = False
                 ctlList.IsFocused = True
-                btnLateTime.IsFocused = False
+                'btnLateTime.IsFocused = False
             End If
 
             If control Is btnRecord Then
@@ -330,9 +331,13 @@ Namespace ClickfinderProgramGuide
         End Sub
 
         Private Sub Button_Now()
-            _ZeitQueryHour = Now.Hour
-            _ZeitQueryMinute = Now.AddMinutes(_SettingDelayNow).Minute
+            Dim t As DateTime = DateTime.Now.Subtract(New System.TimeSpan(0, _SettingDelayNow, 0))
+
+            _ZeitQueryHour = t.Hour
+            _ZeitQueryMinute = t.Minute
             CurrentQuery = "Now"
+
+
 
             ShowCategories()
         End Sub
@@ -500,7 +505,7 @@ Namespace ClickfinderProgramGuide
             Dim _inFav As Boolean = False
             Dim _MinTime As String
             Dim _SettingMinTime As Integer = CInt(MPSettingRead("config", "MinTime"))
-
+            Dim _TvLogo As String
 
             Try
 
@@ -589,13 +594,22 @@ Namespace ClickfinderProgramGuide
 
                                 ElseIf Not Sendung.Title = _lastTitel Then
 
+                                    If _useRatingTvLogos = "true" Then
+
+                                        _TvLogo = Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\tv\logos\") & Channel.Retrieve(_idChannel).DisplayName & "_" & _Bewertung & ".png"
+                                    Else
+                                        _TvLogo = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & Channel.Retrieve(_idChannel).DisplayName & ".png")
+                                    End If
+
+
+
                                     AddListControlItem(Sendung.Title.ToString, _
                                                         Format(CDate(Sendung.StartTime).Hour, "00") & _
                                                         ":" & Format(CDate(Sendung.StartTime).Minute, "00") & _
                                                         " - " & Format(CDate(Sendung.EndTime).Hour, "00") & _
                                                         ":" & Format(CDate(Sendung.EndTime).Minute, "00"), _
                                                         _Genre, _
-                                                        Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & Channel.Retrieve(_idChannel).DisplayName & ".png"))
+                                                        _TvLogo)
                                 End If
 
 

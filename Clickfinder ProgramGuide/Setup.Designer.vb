@@ -47,6 +47,7 @@ Partial Class Setup
         Me.BtnCreateLogos = New System.Windows.Forms.Button
         Me.Button2 = New System.Windows.Forms.Button
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar
+        Me.CKRatingTVLogos = New System.Windows.Forms.CheckBox
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -263,16 +264,29 @@ Partial Class Setup
         '
         'ProgressBar1
         '
-        Me.ProgressBar1.Location = New System.Drawing.Point(334, 283)
+        Me.ProgressBar1.Location = New System.Drawing.Point(486, 399)
         Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(106, 19)
+        Me.ProgressBar1.Size = New System.Drawing.Size(170, 19)
+        Me.ProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous
         Me.ProgressBar1.TabIndex = 28
+        Me.ProgressBar1.Visible = False
+        '
+        'CKRatingTVLogos
+        '
+        Me.CKRatingTVLogos.AutoSize = True
+        Me.CKRatingTVLogos.Location = New System.Drawing.Point(486, 437)
+        Me.CKRatingTVLogos.Name = "CKRatingTVLogos"
+        Me.CKRatingTVLogos.Size = New System.Drawing.Size(162, 17)
+        Me.CKRatingTVLogos.TabIndex = 29
+        Me.CKRatingTVLogos.Text = "TV Rating Logos verwenden" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.CKRatingTVLogos.UseVisualStyleBackColor = True
         '
         'Setup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(760, 483)
+        Me.Controls.Add(Me.CKRatingTVLogos)
         Me.Controls.Add(Me.ProgressBar1)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.BtnCreateLogos)
@@ -329,4 +343,5 @@ Partial Class Setup
     Friend WithEvents BtnCreateLogos As System.Windows.Forms.Button
     Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents ProgressBar1 As System.Windows.Forms.ProgressBar
+    Friend WithEvents CKRatingTVLogos As System.Windows.Forms.CheckBox
 End Class

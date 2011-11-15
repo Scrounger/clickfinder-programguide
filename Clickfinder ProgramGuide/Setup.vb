@@ -101,6 +101,12 @@ Public Class Setup
             CKIgnoreSeries.CheckState = Windows.Forms.CheckState.Unchecked
         End If
 
+        If MPSettingRead("config", "useRatingTvLogos") = "true" Then
+            CKRatingTVLogos.CheckState = Windows.Forms.CheckState.Checked
+        Else
+            CKRatingTVLogos.CheckState = Windows.Forms.CheckState.Unchecked
+        End If
+
 
     End Sub
 
@@ -131,6 +137,12 @@ Public Class Setup
             MPSettingsWrite("config", "IgnoreMinTimeSeries", "true")
         Else
             MPSettingsWrite("config", "IgnoreMinTimeSeries", "false")
+        End If
+
+        If CKRatingTVLogos.CheckState = Windows.Forms.CheckState.Checked Then
+            MPSettingsWrite("config", "useRatingTvLogos", "true")
+        Else
+            MPSettingsWrite("config", "useRatingTvLogos", "false")
         End If
 
         ReadTvServerDB("Select * from channelgroup Where groupName = '" & CBChannelGroup.Text & "'")
@@ -196,6 +208,7 @@ Public Class Setup
 
     Private Sub BtnCreateLogos_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnCreateLogos.Click
 
+        ProgressBar1.Visible = True
 
         ' Verzeichnis, dessen Dateien ermittelt werden sollen
         Dim TVLogoPath As String = Config.GetFile(Config.Dir.Thumbs, "tv\logos")
@@ -220,19 +233,21 @@ Public Class Setup
         End If
         'MsgBox("RatingImage: " & Config.GetFile(Config.Dir.Skin, "DefaultWide\Media\ClickfinderPG_R3.png"))
 
-
+        ProgressBar1.Maximum = oFiles.Length * 7
+        ProgressBar1.Step = 1
         For i = 0 To 6
+
 
             For Each oFile In oFiles
                 'msgbox(oFile.FullName)
-
+                ProgressBar1.PerformStep()
                 If Not i = 0 Then
                     Dim TVLogo As Image = Bitmap.FromFile(oFile.FullName)
                     Dim RatingImg As Image = Bitmap.FromFile(Config.GetFile(Config.Dir.Skin, "DefaultWide\Media\ClickfinderPG_R" & i & ".png"))
-                    Dim b As New Bitmap(210, 210)
+                    Dim b As New Bitmap(200, 200)
                     Dim g As Graphics = Graphics.FromImage(b)
-                    g.DrawImage(TVLogo, 10, 0, 200, 200)
-                    g.DrawImage(RatingImg, 0, 146, 64, 64)
+                    g.DrawImage(TVLogo, 10, 0, 190, 190)
+                    g.DrawImage(RatingImg, 0, 130, 70, 70)
                     b.Save(Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\tv\logos\") & Path.GetFileNameWithoutExtension(oFile.FullName) & "_" & i & ".png")
                 Else
                     Dim TVLogo As Image = Bitmap.FromFile(oFile.FullName)
@@ -251,7 +266,9 @@ Public Class Setup
             Next
         Next
 
+        ProgressBar1.Visible = False
 
+        CKRatingTVLogos.CheckState = Windows.Forms.CheckState.Checked
 
         'MsgBox("Output: " & Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\tv\logos\") & Path.GetFileNameWithoutExtension(oFile.FullName) & "_3.png")
         'For Each oFile In oFiles
