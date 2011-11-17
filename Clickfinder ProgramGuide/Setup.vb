@@ -176,11 +176,12 @@ Public Class Setup
 
         Catch ex As Exception
 
-            Log.Debug("Clickfinder ProgramGuide: (Config: TvServer DB, read) " & ex.Message)
-            MsgBox("Clickfinder ProgramGuide: (Config: TvServer DB, read) " & ex.Message)
+            Log.Error("Clickfinder ProgramGuide: (Config: TvServer DB, read) " & ex.Message)
+            MsgBox("Der TV Server wurde nicht gefunden!" & vbNewLine & "Bitte überprüfen Sie die Einstellungen in der Gentle.config Datei")
 
             CmdTvServerDBRead.Dispose()
             ConTvServerDBRead.Close()
+
         End Try
 
 
@@ -191,7 +192,7 @@ Public Class Setup
             CmdTvServerDBRead.Dispose()
             ConTvServerDBRead.Close()
         Catch ex As Exception
-            Log.Debug("Clickfinder ProgramGuide: (Config: TvServer DB, close) " & ex.Message)
+            Log.Error("Clickfinder ProgramGuide: (Config: TvServer DB, close) " & ex.Message)
             MsgBox("Clickfinder ProgramGuide: (Config: TvServer DB, close) " & ex.Message)
         End Try
 
@@ -305,7 +306,7 @@ Public Class Setup
 
     End Sub
 
-    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
     End Sub
 
