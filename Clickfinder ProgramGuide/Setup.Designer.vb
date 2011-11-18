@@ -135,9 +135,9 @@ Partial Class Setup
         Me.Label3.Location = New System.Drawing.Point(43, 73)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(80, 16)
+        Me.Label3.Size = New System.Drawing.Size(85, 16)
         Me.Label3.TabIndex = 12
-        Me.Label3.Text = "PrimeTime:"
+        Me.Label3.Text = "Prime Time:"
         '
         'Label4
         '
@@ -146,9 +146,9 @@ Partial Class Setup
         Me.Label4.Location = New System.Drawing.Point(43, 113)
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(74, 16)
+        Me.Label4.Size = New System.Drawing.Size(79, 16)
         Me.Label4.TabIndex = 13
-        Me.Label4.Text = "LateTime:"
+        Me.Label4.Text = "Late Time:"
         '
         'CBPrimeTimeHour
         '
