@@ -4,7 +4,7 @@
   <allowoverlay>no</allowoverlay>
   <define>#header.label:Clickfinder Program Guide</define>
   <define>#header.hover:hover_ClickfinderProgramGuide.png</define>
-  <define>#header.BG.colordiffuse:ffffffff</define>
+  <!--<define>#header.BG.colordiffuse:ffffffff</define>-->
   <!-- <define>#header.BG.overlay:osdbackground1.png</define> -->
   <controls>
 
@@ -45,17 +45,16 @@
       <texture>overlay_topbar.png</texture>
     </control>
 
-    <!--<control>
+    <control>
       <id>1</id>
-      <description>Overlay Image</description>
+      <description>Top Title Background</description>
       <type>image</type>
-      <posX>0</posX>
-      <posY>0</posY>
-      <width>1281</width>
-      <height>720</height>
-      <texture>#header.BG.overlay</texture>
-    </control>-->
-
+      <posX>77</posX>
+      <posY>11</posY>
+      <width>437</width>
+      <height>35</height>
+      <texture>tvtitlebg.png</texture>
+    </control>
     <control>
       <id>1</id>
       <type>fadelabel</type>
@@ -67,13 +66,6 @@
       <align>right</align>
       <visible>yes</visible>
       <label>#header.label</label>
-      <animation effect="slide" start="-514,0" end="0,0" tween="quadratic" time="300"
-
-delay="0">WindowOpen</animation>
-      <animation effect="slide" start="0,0" end="-514,0" tween="quadratic" time="300"
-
-delay="0">WindowClose</animation>
-      <animation effect="fade" time="150">WindowClose</animation>
     </control>
     <control>
       <description>Clickfinder Control Bar</description>
@@ -88,7 +80,7 @@ delay="0">WindowClose</animation>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
-    <import>common.overlays.xml</import>
+
     <import>common.time.xml</import>
     <import>ClickfinderProgramGuide.List.xml</import>
 
@@ -142,12 +134,12 @@ delay="0">WindowClose</animation>
         <ondown>10</ondown>
       </control>
       <control>
-        <description>22:00 Rest</description>
+        <description>Preview</description>
         <type>button</type>
         <id>5</id>
         <width>180</width>
         <textalign>center</textalign>
-        <label>Rest</label>
+        <label>Vorschau</label>
         <onleft>4</onleft>
         <onright>6</onright>
         <onup></onup>

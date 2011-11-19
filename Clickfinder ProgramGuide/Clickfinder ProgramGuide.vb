@@ -39,7 +39,7 @@ Namespace ClickfinderProgramGuide
         <SkinControlAttribute(2)> Protected btnNow As GUIButtonControl = Nothing
         <SkinControlAttribute(3)> Protected btnPrimeTime As GUIButtonControl = Nothing
         <SkinControlAttribute(4)> Protected btnLateTime As GUIButtonControl = Nothing
-        <SkinControlAttribute(5)> Protected btnLateTimeRest As GUIButtonControl = Nothing
+        <SkinControlAttribute(5)> Protected btnPreview As GUIButtonControl = Nothing
         <SkinControlAttribute(6)> Protected btnCommingTipps As GUIButtonControl = Nothing
 
 
@@ -126,12 +126,14 @@ Namespace ClickfinderProgramGuide
 
 #End Region
 #Region "Variablen"
-        Private _ShowSQLString As String
+        Public _ShowSQLString As String
+        Public _CurrentCategorie As String
+        Public _CurrentQuery As String
         Private _TippButtonFocus As Boolean
         Private _TippButtonFocusID As Integer
         Private LiveCorrection As Boolean = False
         Private WdhCorrection As Boolean = False
-        Private CurrentQuery As String
+
         Private _ZeitQueryStart As Date
         Private _ZeitQueryEnde As Date
         Private _RespectInFavGroup As Boolean
@@ -143,8 +145,7 @@ Namespace ClickfinderProgramGuide
         Private _SettingLateTimeHour As Double = CDbl(MPSettingRead("config", "LateTimeHour"))
         Private _SettingLateTimeMinute As Double = CDbl(MPSettingRead("config", "LateTimeMinute"))
         Private _GuiImage As Dictionary(Of Integer, GUIImage) = New Dictionary(Of Integer, GUIImage)
-        Private _GuiButton As Dictionary(Of Integer, GUIButtonControl) = New Dictionary(Of Integer, GUIButtonControl)
-        Private _CurrentCategorie As String
+        Private _GuiButton As Dictionary(Of Integer, GUIButtonControl) = New Dictionary(Of Integer, GUIButtonControl)    
         Const _idStartCounter As Integer = 110
         Const _idStoppCounter As Integer = 160
         Private _TippClickfinderSendungID0 As Long
@@ -221,38 +222,49 @@ Namespace ClickfinderProgramGuide
             MyBase.OnPageLoad()
             GUIWindowManager.NeedRefresh()
 
+            Dictonary()
 
             ctlProgressBar.Visibility = Windows.Visibility.Hidden
             DetailsImage.Visibility = Windows.Visibility.Hidden
             btnNow.IsFocused = True
 
-            'Dictionary füllen für später variable Zuweisung der Tipp ImagePaths          
-            _GuiImage.Add(111, FavImage0)
-            _GuiImage.Add(117, FavRatingImage0)
-            _GuiImage.Add(121, FavImage1)
-            _GuiImage.Add(127, FavRatingImage1)
-            _GuiImage.Add(131, FavImage2)
-            _GuiImage.Add(137, FavRatingImage2)
-            _GuiImage.Add(141, FavImage3)
-            _GuiImage.Add(147, FavRatingImage3)
-            _GuiImage.Add(151, FavImage4)
-            _GuiImage.Add(157, FavRatingImage4)
 
-            _GuiButton.Add(100, btnTipp0)
-            _GuiButton.Add(101, btnTipp1)
-            _GuiButton.Add(102, btnTipp2)
-            _GuiButton.Add(103, btnTipp3)
-            _GuiButton.Add(104, btnTipp4)
-
-            _TippClickfinderSendungID.Add(110, _TippClickfinderSendungID0)
-            _TippClickfinderSendungID.Add(120, _TippClickfinderSendungID1)
-            _TippClickfinderSendungID.Add(130, _TippClickfinderSendungID2)
-            _TippClickfinderSendungID.Add(140, _TippClickfinderSendungID3)
-            _TippClickfinderSendungID.Add(150, _TippClickfinderSendungID4)
 
             ClickfinderCorrection()
+            btnNow.IsFocused = False
+            If _ShowSQLString = "" Then
+                Button_Now()
+                btnNow.IsFocused = True
+            ElseIf _CurrentCategorie = "" Then
+                ShowCategories()
+                Select Case _CurrentQuery
+                    Case Is = "Now"
+                        btnNow.IsFocused = True
+                    Case Is = "PrimeTime"
+                        btnPrimeTime.IsFocused = True
+                    Case Is = "LateTime"
+                        btnLateTime.IsFocused = True
+                    Case Is = "Preview"
+                        btnPreview.IsFocused = True
+                End Select
+            Else
+                Dim _ProgressBar As New Thread(AddressOf ShowProgressbar)
+                Dim _Threat As New Thread(AddressOf ShowSelectedCategorieItems)
+                ShowTipps()
+                _ProgressBar.Start()
+                _Threat.Start()
+                Select Case _CurrentQuery
+                    Case Is = "Now"
+                        btnNow.IsFocused = True
+                    Case Is = "PrimeTime"
+                        btnPrimeTime.IsFocused = True
+                    Case Is = "LateTime"
+                        btnLateTime.IsFocused = True
+                    Case Is = "Preview"
+                        btnPreview.IsFocused = True
+                End Select
+            End If
 
-            Button_Now()
 
         End Sub
         Public Overrides Sub OnAction(ByVal action As MediaPortal.GUI.Library.Action)
@@ -275,6 +287,22 @@ Namespace ClickfinderProgramGuide
 
             End If
 
+        End Sub
+        
+
+        Protected Overrides Sub OnPageDestroy(ByVal new_windowId As Integer)
+            MyBase.OnPageDestroy(new_windowId)
+            _GuiImage.Clear()
+            _GuiButton.Clear()
+            _TippClickfinderSendungID.Clear()
+
+            Log.Debug("Clickfinder ProgramGuide: [OnPageDestroy]: _currentCategorie" & _CurrentCategorie & " - SQLString: " & _ShowSQLString)
+            'GUIWindowManager.ResetAllControls()
+
+
+        End Sub
+        Protected Overrides Sub Finalize()
+            MyBase.Finalize()
         End Sub
         Protected Overrides Sub OnClicked(ByVal controlId As Integer, _
                                           ByVal control As GUIControl, _
@@ -300,17 +328,9 @@ Namespace ClickfinderProgramGuide
 
                 Button_LateTime()
             End If
-            If control Is btnLateTimeRest Then
+            If control Is btnPreview Then
 
-                'ClearTipps()
-
-                ReadClickfinderDB("Select * from Sendungen Inner Join SendungenDetails on Sendungen.Pos = SendungenDetails.Pos where Sendungen.Pos = 915574")
-                While ClickfinderData.Read
-
-                    MsgBox(ClickfinderData.Item("Titel"))
-                End While
-                CloseClickfinderDB()
-
+                Button_Preview()
             End If
 
 
@@ -380,46 +400,46 @@ Namespace ClickfinderProgramGuide
             End If
 
         End Sub
-
-        Protected Overrides Sub OnPageDestroy(ByVal new_windowId As Integer)
-            MyBase.OnPageDestroy(new_windowId)
-            _GuiImage.Clear()
-            _GuiButton.Clear()
-            _TippClickfinderSendungID.Clear()
-            'GUIWindowManager.ResetAllControls()
-
-
-        End Sub
-        Protected Overrides Sub Finalize()
-            MyBase.Finalize()
-        End Sub
-
 #End Region
 
-#Region "Button Control Events"
+#Region "Click Events"
+
         Private Sub Button_Now()
             Dim t As DateTime = DateTime.Now.Subtract(New System.TimeSpan(0, _SettingDelayNow, 0))
 
             _ZeitQueryStart = Today.AddHours(t.Hour).AddMinutes(t.Minute)
             _ZeitQueryEnde = _ZeitQueryStart.AddHours(4)
-            CurrentQuery = "Now"
+            _CurrentQuery = "Now"
 
             ShowCategories()
         End Sub
+
         Private Sub Button_PrimeTime()
             _ZeitQueryStart = Today.AddHours(_SettingPrimeTimeHour).AddMinutes(_SettingPrimeTimeMinute)
             _ZeitQueryEnde = _ZeitQueryStart.AddHours(4)
-            CurrentQuery = "PrimeTime"
+            _CurrentQuery = "PrimeTime"
+
 
             ShowCategories()
         End Sub
         Private Sub Button_LateTime()
             _ZeitQueryStart = Today.AddHours(_SettingLateTimeHour).AddMinutes(_SettingLateTimeMinute)
             _ZeitQueryEnde = _ZeitQueryStart.AddHours(4)
-            CurrentQuery = "LateTime"
+            _CurrentQuery = "LateTime"
+
 
             ShowCategories()
         End Sub
+
+        Private Sub Button_Preview()
+            _ZeitQueryStart = Today
+            _ZeitQueryEnde = _ZeitQueryStart.AddDays(20)
+            _CurrentQuery = "Preview"
+
+
+            ShowCategories()
+        End Sub
+
 
         Private Sub Button_CommingTipps()
 
@@ -483,65 +503,234 @@ Namespace ClickfinderProgramGuide
 
         End Sub
         Private Sub Button_Remember()
+            Dim _ClickfinderChannelName As String
+            Dim _idChannel As Integer
+            Dim _StartZeit As String
+            Dim _EndZeit As String
+            Dim _Titel As String
 
-            Dim Titel As String
-
-            Dim StartTime As String
-            Dim ProofDate As Integer
-            Dim SQLDateString As String
-            Dim Heute As Date
-            Dim AktuelleZeit As Date
-
-            DetailsImage.Visible = True
-            ctlList.IsFocused = False
-            btnBack.IsFocused = True
-
-            Titel = Replace(ctlList.SelectedListItem.Label.ToString, "'", "''")
-
-            StartTime = Left(ctlList.SelectedListItem.Label2.ToString, InStr(ctlList.SelectedListItem.Label2.ToString, "-") - 2)
-            ProofDate = Left(StartTime, InStr(StartTime, ":") - 1)
-
-            AktuelleZeit = Now
-
-
-            If AktuelleZeit.Hour >= 0 And AktuelleZeit.Hour <= 2 Then
-
-                Heute = Today
-                SQLDateString = "'" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00'"
-            Else
-                'Datum.Day +1 ab 0:00h
-                If ProofDate >= 0 And ProofDate <= 2 Then
-                    Heute = Today.AddDays(1)
-                    SQLDateString = "'" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00'"
-                Else
-                    Heute = Today
-                    SQLDateString = "'" & Heute.Year & "-" & Format(Heute.Month, "00") & "-" & Format(Heute.Day, "00") & " " & StartTime & ":00'"
-                End If
-            End If
+            Try
 
 
 
+                DetailsImage.Visible = True
+                ctlList.IsFocused = False
+                btnBack.IsFocused = True
 
-            ReadTvServerDB("SELECT * from program INNER JOIN channel ON program.idChannel = channel.idChannel where displayName = '" & DetailsKanal.Label & "' AND title = '" & Titel & "' AND startTime =" & SQLDateString)
+                ReadClickfinderDB("SELECT * FROM Sendungen WHERE SendungID = '" & _ShowItemDetailsClickfinderSendungId & "'")
 
-            If TvServerData.HasRows = True Then
-                While TvServerData.Read
 
-                    SetNotify(TvServerData.Item("idChannel"), TvServerData.Item("startTime"), TvServerData.Item("endTime"), TvServerData.Item("title"))
+                While ClickfinderData.Read
+                    _ClickfinderChannelName = ClickfinderData.Item("SenderKennung")
+                    _Titel = ClickfinderData.Item("Titel")
+                    _StartZeit = CDate(ClickfinderData.Item("Beginn"))
+                    _EndZeit = CDate(ClickfinderData.Item("Ende"))
+
+                    ReadTvServerDB("SELECT * FROM channel WHERE displayName = '" & DetailsKanal.Label & "'")
+                    While TvServerData.Read
+                        _idChannel = CInt(TvServerData.Item("idChannel"))
+                    End While
+                    CloseTvServerDB()
+
+
+                    If LiveCorrection = True And ClickfinderData.Item("KzLive") = "true" Then
+                        _Titel = ClickfinderData.Item("Titel") & " (LIVE)"
+                    ElseIf WdhCorrection = True And ClickfinderData.Item("KzWiederholung") = "true" Then
+                        _Titel = ClickfinderData.Item("Titel") & " (Wdh.)"
+                    Else
+                        _Titel = ClickfinderData.Item("Titel")
+                    End If
+
+                    btnRemember.IsFocused = False
+                    btnBack.IsFocused = True
+
+                    SetNotify(_idChannel, _StartZeit, _EndZeit, _Titel)
+
                     Exit While
                 End While
 
-            Else
-                MsgBox("nix da")
-            End If
 
-            CloseTvServerDB()
+                CloseClickfinderDB()
 
-            btnRemember.IsFocused = False
-            btnBack.IsFocused = True
+              
+
+            Catch ex As Exception
+                Log.Error("Clickfinder ProgramGuide: [Button_Remember]: " & ex.Message)
+            End Try
 
         End Sub
 
+        'ListControl Click Action
+        Private Sub ListControlClick()
+            Dim _Rating As String
+            Dim _ProgressBar As New Thread(AddressOf ShowProgressbar)
+            Dim _Threat As New Thread(AddressOf ShowSelectedCategorieItems)
+
+            Dim i As Integer
+
+            _Rating = MPSettingRead("config", "ClickfinderRating")
+            _RespectInFavGroup = True
+
+
+            Select Case ctlList.SelectedListItem.Label.ToString
+
+                Case ".."
+                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowCategories")
+                    Try
+                        'Dim _Threat As New Thread(AddressOf ClearFavInfo)
+                        If ctlProgressBar.IsVisible = False Then
+                            _CurrentCategorie = ""
+                            ctlList.Clear()
+                            ShowCategories()
+                        End If
+                    Catch ex As Exception
+                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowCategories: " & ex.Message)
+                    End Try
+
+
+                Case "Movies"
+                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & _CurrentQuery.ToString)
+                    Try
+                        ctlList.Clear()
+                        _CurrentCategorie = "Movies"
+                        Select Case _CurrentQuery.ToString
+                            Case Is = "Now"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= " & _Rating & " AND Bewertung <= 4", "Beginn ASC, Bewertung DESC, Titel")
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                            Case Is = "PrimeTime"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= " & _Rating & " AND Bewertung <= 4", "Beginn ASC, Bewertung DESC, Titel")
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                            Case Is = "LateTime"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= " & _Rating & " AND Bewertung <= 4", "Beginn ASC, Bewertung DESC, Titel")
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                            Case Is = "Preview"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung = 4", "Beginn ASC, Bewertung DESC, Titel")
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                        End Select
+                    Catch ex As Exception
+                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
+                    End Try
+
+
+                Case "Sendungen"
+                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & _CurrentQuery.ToString)
+                    Try
+                        ctlList.Clear()
+                        _CurrentCategorie = "Sendungen"
+                        Select Case _CurrentQuery.ToString
+                            Case Is = "Now"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= 5 AND Bewertung <= 6", "Beginn ASC, Bewertung DESC, Titel")
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                            Case Is = "PrimeTime"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= 5 AND Bewertung <= 6", "Beginn ASC, Bewertung DESC, Titel")
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                            Case Is = "LateTime"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= 5 AND Bewertung <= 6", "Beginn ASC, Bewertung DESC, Titel")
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                        End Select
+                    Catch ex As Exception
+                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
+                    End Try
+
+                Case "Serien"
+                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & _CurrentQuery.ToString)
+                    Try
+                        ctlList.Clear()
+                        _CurrentCategorie = "Serien"
+                        Select Case _CurrentQuery.ToString
+                            Case Is = "Now"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Serie%'", "Beginn ASC, Bewertung DESC, Titel")
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                            Case Is = "PrimeTime"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Serie%'", "Beginn ASC, Bewertung DESC, Titel")
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                            Case Is = "LateTime"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Serie%'", "Beginn ASC, Bewertung DESC, Titel")
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                        End Select
+                    Catch ex As Exception
+                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
+                    End Try
+
+                Case "Dokumentationen"
+                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & _CurrentQuery.ToString)
+                    Try
+                        ctlList.Clear()
+                        _CurrentCategorie = "Dokumentationen"
+                        Select Case _CurrentQuery.ToString
+                            Case Is = "Now"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Keywords LIKE '%Dokumentation%' OR Keywords LIKE '%Report%' OR Keywords LIKE '%Reportage%')", "Beginn ASC, Bewertung DESC, Titel")
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                            Case Is = "PrimeTime"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Keywords LIKE '%Dokumentation%' OR Keywords LIKE '%Report%' OR Keywords LIKE '%Reportage%')", "Beginn ASC, Bewertung DESC, Titel")
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                            Case Is = "LateTime"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Keywords LIKE '%Dokumentation%' OR Keywords LIKE '%Report%' OR Keywords LIKE '%Reportage%')", "Beginn ASC, Bewertung DESC, Titel")
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                        End Select
+                    Catch ex As Exception
+                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
+                    End Try
+
+                Case "Sport"
+                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & _CurrentQuery.ToString)
+                    Try
+                        ctlList.Clear()
+                        _CurrentCategorie = "Sport"
+                        Select Case _CurrentQuery.ToString
+                            Case Is = "Now"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Sport%'", "Beginn ASC, Bewertung DESC, Titel")
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                            Case Is = "PrimeTime"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Sport%'", "Beginn ASC, Bewertung DESC, Titel")
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                            Case Is = "LateTime"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Sport%'", "Beginn ASC, Bewertung DESC, Titel")
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                        End Select
+                    Catch ex As Exception
+                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
+                    End Try
+
+                Case Else
+                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowItemDetails: " & ctlList.SelectedListItem.Label & " " & ctlList.SelectedListItem.Label3 & " " & ctlList.SelectedListItem.Label2 & " " & ctlList.SelectedListItem.Icon.FileName & " - true")
+                    ShowItemDetails(ctlList.SelectedListItem.ItemId, ctlList.SelectedListItem.Icon.FileName, True)
+
+            End Select
+
+        End Sub
 
 #End Region
 
@@ -553,8 +742,15 @@ Namespace ClickfinderProgramGuide
             Dim _Threat As New Thread(AddressOf ShowTipps)
 
             Try
+                Log.Debug("Clickfinder ProgramGuide: [ShowCategories]: _CurrentQuery" & _CurrentQuery)
+                _CurrentCategorie = ""
                 _RespectInFavGroup = False
-                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= 3 AND Bewertung <= 4 AND KzFilm = true", "Beginn ASC, Bewertung DESC, Titel")
+
+                If _CurrentQuery = "Preview" Then
+                    _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung = 4", "Beginn ASC, Bewertung DESC, Titel")
+                Else
+                    _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= 3 AND Bewertung <= 4 AND KzFilm = true", "Beginn ASC, Bewertung DESC, Titel")
+                End If
 
                 _ProgressBar.Start()
                 _Threat.Start()
@@ -684,10 +880,7 @@ Namespace ClickfinderProgramGuide
                                         End If
 
                                         AddListControlItem(ClickfinderData.Item("SendungID"), Sendung.Title.ToString, _
-                                                            Format(CDate(Sendung.StartTime).Hour, "00") & _
-                                                            ":" & Format(CDate(Sendung.StartTime).Minute, "00") & _
-                                                            " - " & Format(CDate(Sendung.EndTime).Hour, "00") & _
-                                                            ":" & Format(CDate(Sendung.EndTime).Minute, "00"), _
+                                                           FormatTimeLabel(_StartZeit, _EndZeit), _
                                                             _Genre, _
                                                             _TvLogo)
 
@@ -1045,171 +1238,7 @@ Namespace ClickfinderProgramGuide
             ctlProgressBar.Visible = False
         End Sub
 
-        'ListControl Click Action
-        Private Sub ListControlClick()
-            Dim _Rating As String
-            Dim _ProgressBar As New Thread(AddressOf ShowProgressbar)
-            Dim _Threat As New Thread(AddressOf ShowSelectedCategorieItems)
 
-            Dim i As Integer
-
-            _Rating = MPSettingRead("config", "ClickfinderRating")
-            _RespectInFavGroup = True
-
-
-            Select Case ctlList.SelectedListItem.Label.ToString
-
-                Case ".."
-                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowCategories")
-                    Try
-                        'Dim _Threat As New Thread(AddressOf ClearFavInfo)
-                        If ctlProgressBar.IsVisible = False Then
-                            ctlList.Clear()
-                            ShowCategories()
-                        End If
-                    Catch ex As Exception
-                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowCategories: " & ex.Message)
-                    End Try
-
-
-                Case "Movies"
-                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & CurrentQuery.ToString)
-                    Try
-                        ctlList.Clear()
-                        _CurrentCategorie = "Movies"
-                        Select Case CurrentQuery.ToString
-                            Case Is = "Now"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= " & _Rating & " AND Bewertung <= 4", "Beginn ASC, Bewertung DESC, Titel")
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "PrimeTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= " & _Rating & " AND Bewertung <= 4", "Beginn ASC, Bewertung DESC, Titel")
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "LateTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= " & _Rating & " AND Bewertung <= 4", "Beginn ASC, Bewertung DESC, Titel")
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                        End Select
-                    Catch ex As Exception
-                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
-                    End Try
-
-
-                Case "Sendungen"
-                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & CurrentQuery.ToString)
-                    Try
-                        ctlList.Clear()
-                        _CurrentCategorie = "Sendungen"
-                        Select Case CurrentQuery.ToString
-                            Case Is = "Now"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= 5 AND Bewertung <= 6", "Beginn ASC, Bewertung DESC, Titel")
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "PrimeTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= 5 AND Bewertung <= 6", "Beginn ASC, Bewertung DESC, Titel")
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "LateTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= 5 AND Bewertung <= 6", "Beginn ASC, Bewertung DESC, Titel")
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                        End Select
-                    Catch ex As Exception
-                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
-                    End Try
-
-                Case "Serien"
-                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & CurrentQuery.ToString)
-                    Try
-                        ctlList.Clear()
-                        _CurrentCategorie = "Serien"
-                        Select Case CurrentQuery.ToString
-                            Case Is = "Now"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Serie%'", "Beginn ASC, Bewertung DESC, Titel")
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "PrimeTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Serie%'", "Beginn ASC, Bewertung DESC, Titel")
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "LateTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Serie%'", "Beginn ASC, Bewertung DESC, Titel")
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                        End Select
-                    Catch ex As Exception
-                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
-                    End Try
-
-                Case "Dokumentationen"
-                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & CurrentQuery.ToString)
-                    Try
-                        ctlList.Clear()
-                        _CurrentCategorie = "Dokumentationen"
-                        Select Case CurrentQuery.ToString
-                            Case Is = "Now"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Keywords LIKE '%Dokumentation%' OR Keywords LIKE '%Report%' OR Keywords LIKE '%Reportage%')", "Beginn ASC, Bewertung DESC, Titel")
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "PrimeTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Keywords LIKE '%Dokumentation%' OR Keywords LIKE '%Report%' OR Keywords LIKE '%Reportage%')", "Beginn ASC, Bewertung DESC, Titel")
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "LateTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Keywords LIKE '%Dokumentation%' OR Keywords LIKE '%Report%' OR Keywords LIKE '%Reportage%')", "Beginn ASC, Bewertung DESC, Titel")
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                        End Select
-                    Catch ex As Exception
-                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
-                    End Try
-
-                Case "Sport"
-                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & CurrentQuery.ToString)
-                    Try
-                        ctlList.Clear()
-                        _CurrentCategorie = "Sport"
-                        Select Case CurrentQuery.ToString
-                            Case Is = "Now"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Sport%'", "Beginn ASC, Bewertung DESC, Titel")
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "PrimeTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Sport%'", "Beginn ASC, Bewertung DESC, Titel")
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "LateTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Sport%'", "Beginn ASC, Bewertung DESC, Titel")
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                        End Select
-                    Catch ex As Exception
-                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
-                    End Try
-
-                Case Else
-                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowItemDetails: " & ctlList.SelectedListItem.Label & " " & ctlList.SelectedListItem.Label3 & " " & ctlList.SelectedListItem.Label2 & " " & ctlList.SelectedListItem.Icon.FileName & " - true")
-                    ShowItemDetails(ctlList.SelectedListItem.ItemId, ctlList.SelectedListItem.Icon.FileName, True)
-
-            End Select
-
-        End Sub
 
         'ProgresBar paralell anzeigen
         Private Sub ShowProgressbar()
@@ -1283,6 +1312,7 @@ Namespace ClickfinderProgramGuide
             ByVal _channelName As String, ByVal _StartZeit As Date, ByVal _EndZeit As Date, ByVal _Genre As String, ByVal _BewertungStr As String, _
             ByVal _Kritik As String, ByVal _FavRatingImagePath As String)
 
+
             Dim _Bilddatei As String
 
             _Bilddatei = _FavImagePath
@@ -1313,15 +1343,8 @@ Namespace ClickfinderProgramGuide
                 GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 3, _Genre)
 
                 'Titel Zeit Labels
-                If _StartZeit = Nothing And _EndZeit = Nothing Then
-                    GUILabelControl.SetControlLabel(GetID, StartIdofGroup + 4, "")
-                Else
-                    GUILabelControl.SetControlLabel(GetID, StartIdofGroup + 4, _
-                                                    Format(_StartZeit.Hour, "00") & _
-                                                    ":" & Format(_StartZeit.Minute, "00") & _
-                                                    " - " & Format(_EndZeit.Hour, "00") & _
-                                                    ":" & Format(_EndZeit.Minute, "00"))
-                End If
+                GUILabelControl.SetControlLabel(GetID, StartIdofGroup + 4, FormatTimeLabel(_StartZeit, _EndZeit))
+
 
                 'Titel Bewertung Labels
                 GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 5, _BewertungStr)
@@ -1339,6 +1362,7 @@ Namespace ClickfinderProgramGuide
             End Try
 
         End Sub
+
         Private Sub ClearTipps()
 
             Dim _TippsCounter As Integer
@@ -1358,7 +1382,30 @@ Namespace ClickfinderProgramGuide
             End Try
 
         End Sub
+        Private Function FormatTimeLabel(ByVal _StartZeit As Date, ByVal _EndZeit As Date)
 
+            If _StartZeit = Nothing And _EndZeit = Nothing Then
+                FormatTimeLabel = ""
+            Else
+
+                If _CurrentQuery = "Preview" Then
+                    Dim oCulture As New System.Globalization.CultureInfo("de-DE")
+                    Dim oFormatInfo As System.Globalization.DateTimeFormatInfo = oCulture.DateTimeFormat
+
+
+                    FormatTimeLabel = oFormatInfo.GetDayName(_StartZeit.DayOfWeek) & _
+                                                " " & Format(_StartZeit.Hour, "00") & _
+                                                ":" & Format(_StartZeit.Minute, "00")
+
+                Else
+                    FormatTimeLabel = Format(_StartZeit.Hour, "00") & _
+                            ":" & Format(_StartZeit.Minute, "00") & _
+                            " - " & Format(_EndZeit.Hour, "00") & _
+                            ":" & Format(_EndZeit.Minute, "00")
+                End If
+            End If
+
+        End Function
         Public Function UseSportLogos(ByVal _Titel As String, ByVal _channelname As String) As String
             Dim _BildDatei As String
 
@@ -1378,6 +1425,33 @@ Namespace ClickfinderProgramGuide
             UseSportLogos = _BildDatei
 
         End Function
+
+        Private Sub Dictonary()
+            'Dictionary füllen für später variable Zuweisung der Tipp ImagePaths          
+            _GuiImage.Add(111, FavImage0)
+            _GuiImage.Add(117, FavRatingImage0)
+            _GuiImage.Add(121, FavImage1)
+            _GuiImage.Add(127, FavRatingImage1)
+            _GuiImage.Add(131, FavImage2)
+            _GuiImage.Add(137, FavRatingImage2)
+            _GuiImage.Add(141, FavImage3)
+            _GuiImage.Add(147, FavRatingImage3)
+            _GuiImage.Add(151, FavImage4)
+            _GuiImage.Add(157, FavRatingImage4)
+
+            _GuiButton.Add(100, btnTipp0)
+            _GuiButton.Add(101, btnTipp1)
+            _GuiButton.Add(102, btnTipp2)
+            _GuiButton.Add(103, btnTipp3)
+            _GuiButton.Add(104, btnTipp4)
+
+            _TippClickfinderSendungID.Add(110, _TippClickfinderSendungID0)
+            _TippClickfinderSendungID.Add(120, _TippClickfinderSendungID1)
+            _TippClickfinderSendungID.Add(130, _TippClickfinderSendungID2)
+            _TippClickfinderSendungID.Add(140, _TippClickfinderSendungID3)
+            _TippClickfinderSendungID.Add(150, _TippClickfinderSendungID4)
+
+        End Sub
 #End Region
 
 
@@ -1589,6 +1663,7 @@ Namespace ClickfinderProgramGuide
 #End Region
 
 #Region "MediaPortal Funktionen / Dialogs"
+
 
         'xml Setting Datei lesen
         Public Function MPSettingRead(ByVal section As String, ByVal entry As String) As String
