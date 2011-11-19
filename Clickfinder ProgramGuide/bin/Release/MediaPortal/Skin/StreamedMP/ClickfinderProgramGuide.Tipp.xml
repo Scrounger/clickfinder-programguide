@@ -51,7 +51,7 @@
         <id>113</id>
         <posX>800</posX>
         <posY>154</posY>
-        <width>400</width>
+        <width>460</width>
         <label></label>
         <font>mediastream10</font>
         <textcolor>ff909090</textcolor>
@@ -64,7 +64,7 @@
         <type>label</type>
         <id>114</id>
         <posX>1240</posX>
-        <posY>154</posY>
+        <posY>174</posY>
         <align>right</align>
         <label></label>
         <font>mediastream10</font>
@@ -165,7 +165,7 @@
       <id>123</id>
       <posX>800</posX>
       <posY>268</posY>
-      <width>400</width>
+      <width>460</width>
       <label></label>
       <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
@@ -178,7 +178,7 @@
       <type>label</type>
       <id>124</id>
       <posX>1240</posX>
-      <posY>268</posY>
+      <posY>288</posY>
       <align>right</align>
       <label></label>
       <font>mediastream10</font>
@@ -279,7 +279,7 @@
       <id>133</id>
       <posX>800</posX>
       <posY>382</posY>
-      <width>400</width>
+      <width>460</width>
       <label></label>
       <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
@@ -292,7 +292,7 @@
       <type>label</type>
       <id>134</id>
       <posX>1240</posX>
-      <posY>382</posY>
+      <posY>402</posY>
       <align>right</align>
       <label></label>
       <font>mediastream10</font>
@@ -394,7 +394,7 @@
       <id>143</id>
       <posX>800</posX>
       <posY>496</posY>
-      <width>400</width>
+      <width>460</width>
       <label></label>
       <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
@@ -407,7 +407,7 @@
       <type>label</type>
       <id>144</id>
       <posX>1240</posX>
-      <posY>496</posY>
+      <posY>516</posY>
       <align>right</align>
       <label></label>
       <font>mediastream10</font>
@@ -510,7 +510,7 @@
       <id>153</id>
       <posX>800</posX>
       <posY>610</posY>
-      <width>400</width>
+      <width>460</width>
       <label></label>
       <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
@@ -523,7 +523,7 @@
       <type>label</type>
       <id>154</id>
       <posX>1240</posX>
-      <posY>610</posY>
+      <posY>630</posY>
       <align>right</align>
       <label></label>
       <font>mediastream10</font>

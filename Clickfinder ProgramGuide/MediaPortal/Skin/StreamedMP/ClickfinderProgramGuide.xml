@@ -4,7 +4,7 @@
   <allowoverlay>no</allowoverlay>
   <define>#header.label:Clickfinder Program Guide</define>
   <define>#header.hover:hover_ClickfinderProgramGuide.png</define>
-  <!--<define>#header.BG.colordiffuse:ffffffff</define>-->
+  <define>#header.BG.colordiffuse:ffffffff</define>
   <!-- <define>#header.BG.overlay:osdbackground1.png</define> -->
   <controls>
 
@@ -17,11 +17,11 @@
       <posY>0</posY>
       <width>1280</width>
       <height>720</height>
-      <texture>#header.hover</texture>
-      <!--<colordiffuse>#header.BG.colordiffuse</colordiffuse>-->
+      <texture>hover_ClickfinderProgramGuide.png</texture>
+      <colordiffuse>#header.BG.colordiffuse</colordiffuse>
       <!--<animation effect="fade" time="300">WindowOpen</animation>-->
     </control>
-
+    
     <control>
       <description>Overlay Image</description>
       <type>image</type>
@@ -31,7 +31,11 @@
       <width>1280</width>
       <height>720</height>
       <texture>black.png</texture>
+      <colordiffuse>90ffffff</colordiffuse>
     </control>
+
+
+
 
     <control>
       <id>1</id>

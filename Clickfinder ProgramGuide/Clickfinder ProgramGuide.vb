@@ -869,7 +869,7 @@ Namespace ClickfinderProgramGuide
             Dim _StartZeit As Date
             Dim _EndZeit As Date
             Dim _ChannelName As String
-
+            Dim _EpisodenName As String
             Dim _lastTitel As String
             Dim _FavCounter As Integer
 
@@ -917,6 +917,7 @@ Namespace ClickfinderProgramGuide
                         _Kritik = ClickfinderData.Item("Kurzkritik")
                         _StartZeit = CDate(ClickfinderData.Item("Beginn"))
                         _EndZeit = CDate(ClickfinderData.Item("Ende"))
+                        _EpisodenName = ClickfinderData.Item("Originaltitel")
 
                         ' Clickfinder Titel Korrektur bei "Append (Live) / (Whd.)
                         If LiveCorrection = True And ClickfinderData.Item("KzLive") = "true" Then
@@ -965,6 +966,8 @@ Namespace ClickfinderProgramGuide
                                             _TvLogo = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & Channel.Retrieve(_idChannel).DisplayName & ".png")
                                         End If
 
+                                        If _CurrentCategorie = "Serien" Then _Genre = _EpisodenName
+
                                         AddListControlItem(ClickfinderData.Item("SendungID"), Sendung.Title.ToString, _
                                                            FormatTimeLabel(_StartZeit, _EndZeit), _
                                                             _Genre, _
@@ -1010,6 +1013,7 @@ Namespace ClickfinderProgramGuide
             Dim _BildDatei As String
             Dim _MinTime As String
             Dim _SettingMinTime As Integer = CInt(MPSettingRead("config", "MinTime"))
+            Dim _EpisodenName As String
 
             _TippsCounter = _idStartCounter
 
@@ -1053,6 +1057,8 @@ Namespace ClickfinderProgramGuide
                         _StartZeit = CDate(ClickfinderData.Item("Beginn"))
                         _EndZeit = CDate(ClickfinderData.Item("Ende"))
                         _BildDatei = _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
+                        _EpisodenName = ClickfinderData.Item("Originaltitel")
+
 
                         ' Clickfinder Titel Korrektur bei "Append (Live) / (Whd.)
                         If LiveCorrection = True And ClickfinderData.Item("KzLive") = "true" Then
@@ -1091,9 +1097,9 @@ Namespace ClickfinderProgramGuide
                                         Exit Sub
                                     Else
                                         _TippClickfinderSendungID(_TippsCounter) = CLng(ClickfinderData.Item("SendungID"))
-                                        FillTipps(_TippsCounter, _Titel, _BildDatei, _ChannelName, _StartZeit, _
+                                        FillTipps(_TippsCounter, Sendung.Title, _BildDatei, _ChannelName, _StartZeit, _
                                                   _EndZeit, _Genre, _BewertungStr, _Kritik, _
-                                                  "ClickfinderPG_R" & CStr(_Bewertung) & ".png")
+                                                  "ClickfinderPG_R" & CStr(_Bewertung) & ".png", _EpisodenName)
 
                                     End If
 
@@ -1108,9 +1114,9 @@ Namespace ClickfinderProgramGuide
                                         Exit Sub
                                     Else
                                         _TippClickfinderSendungID(_TippsCounter) = CLng(ClickfinderData.Item("SendungID"))
-                                        FillTipps(_TippsCounter, _Titel, _BildDatei, _ChannelName, _StartZeit, _
+                                        FillTipps(_TippsCounter, Sendung.Title, _BildDatei, _ChannelName, _StartZeit, _
                                                   _EndZeit, _Genre, _BewertungStr, _Kritik, _
-                                                  "ClickfinderPG_R" & CStr(_Bewertung) & ".png")
+                                                  "ClickfinderPG_R" & CStr(_Bewertung) & ".png", _EpisodenName)
 
                                     End If
 
@@ -1149,6 +1155,8 @@ Namespace ClickfinderProgramGuide
             _ShowItemDetailsClickfinderSendungId = ClickfinderSendungID
 
             Try
+
+                'ClearDetails()
 
                 'MsgBox(ClickfinderPosID)
                 'Detail Info's zeigen - GUIWindow
@@ -1396,7 +1404,7 @@ Namespace ClickfinderProgramGuide
         End Sub
         Private Sub FillTipps(ByVal StartIdofGroup As Integer, ByVal _Titel As String, ByVal _FavImagePath As String, _
             ByVal _channelName As String, ByVal _StartZeit As Date, ByVal _EndZeit As Date, ByVal _Genre As String, ByVal _BewertungStr As String, _
-            ByVal _Kritik As String, ByVal _FavRatingImagePath As String)
+            ByVal _Kritik As String, ByVal _FavRatingImagePath As String, ByVal _EpisodenName As String)
 
 
             Dim _Bilddatei As String
@@ -1404,10 +1412,10 @@ Namespace ClickfinderProgramGuide
             _Bilddatei = _FavImagePath
 
             Try
-                'Titel Tipp Labels
+                'Titel
                 GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup, _Titel)
 
-                'Titel Tipp Image
+                'Image
                 If _FavImagePath = "" Then
                     _GuiImage(StartIdofGroup + 1).KeepAspectRatio = True
                     _GuiImage(StartIdofGroup + 1).Centered = True
@@ -1422,26 +1430,43 @@ Namespace ClickfinderProgramGuide
 
                 _GuiImage(StartIdofGroup + 1).SetFileName(_Bilddatei)
 
-                'Titel Kanal Labels
+                'Kanal 
                 GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 2, _channelName)
 
-                'Titel Genre Labels
+                'Genre
                 GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 3, _Genre)
 
-                'Titel Zeit Labels
+                'Zeit 
                 GUILabelControl.SetControlLabel(GetID, StartIdofGroup + 4, FormatTimeLabel(_StartZeit, _EndZeit))
 
 
-                'Titel Bewertung Labels
-                GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 5, _BewertungStr)
+                'Wenn keine Bewertung vorhanden ist, Genre = EpisodenName, Kanal = Genre, Bewertung = Kanal
+                If _BewertungStr = "" Then
 
-                'Titel Kritik Labels
-                GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 6, _Kritik)
+                    If _EpisodenName = "" Then
+                        GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 2, _channelName)
+                        GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 3, _Genre)
+                        GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 5, "")
+                    Else
+                        GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 2, _Genre)
+                        GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 3, _EpisodenName)
+                        GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 5, _channelName)
+                    End If
 
-                'Titel Rating Image Path
-                _GuiImage(StartIdofGroup + 7).SetFileName(_FavRatingImagePath)
+                Else
+                    GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 2, _channelName)
+                    GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 3, _Genre)
+                    GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 5, _BewertungStr)
+                End If
 
-                Log.Debug("Clickfinder ProgramGuide: [FillTipps]: " & _Titel & " " & _FavImagePath & " " & _channelName & " " & _Genre & " " & _StartZeit & " " & _EndZeit & " " & _BewertungStr & " " & _Kritik & " " & _FavRatingImagePath)
+
+                    'Kritik 
+                    GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 6, _Kritik)
+
+                    'Rating Image Path
+                    _GuiImage(StartIdofGroup + 7).SetFileName(_FavRatingImagePath)
+
+                    Log.Debug("Clickfinder ProgramGuide: [FillTipps]: " & _Titel & " " & _FavImagePath & " " & _channelName & " " & _Genre & " " & _StartZeit & " " & _EndZeit & " " & _BewertungStr & " " & _Kritik & " " & _FavRatingImagePath)
 
             Catch ex As Exception
                 Log.Error("Clickfinder ProgramGuide: [FillTipps]: " & ex.Message)
@@ -1458,7 +1483,7 @@ Namespace ClickfinderProgramGuide
             Try
 
                 Do
-                    FillTipps(_TippsCounter, Nothing, "", Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, "")
+                    FillTipps(_TippsCounter, Nothing, "", Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, "", "")
 
                     _TippsCounter = _TippsCounter + 10
                 Loop Until _TippsCounter = _idStoppCounter
@@ -1511,6 +1536,27 @@ Namespace ClickfinderProgramGuide
             UseSportLogos = _BildDatei
 
         End Function
+        Private Sub ClearDetails()
+
+            DetailsTitel.Label = ""
+            DetailsBeschreibung.Label = ""
+            DetailsKanal.Label = ""
+
+
+            DetailsZeit.Label = ""
+
+            DetailsGenre.Label = ""
+            DetailsActors.Label = ""
+            DetailsOrgTitel.Label = ""
+            DetailsRegie.Label = ""
+            DetailsYearLand.Label = ClickfinderData.Item("Herstellungsland") & " " & ClickfinderData.Item("Herstellungsjahr")
+            DetailsDauer.Label = ""
+            DetailsKurzKritik.Label = ""
+            DetailsBewertungen.Label = ""
+
+            DetailsImage.FileName = ""
+            DetailsRatingImage.FileName = ""
+        End Sub
 
         Private Sub Dictonary()
             'Dictionary füllen für später variable Zuweisung der Tipp ImagePaths          
