@@ -220,6 +220,104 @@
               <ZipFileName>Installer{CopyFile}\{839bdab9-348a-4a18-9f6b-75813bf04d2a}-ClickfinderPG_TvSeries.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_TvSeries.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.Details.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{85c51d11-539a-46ea-b3a4-d6cc62b230bc}-ClickfinderProgramGuide.Details.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\ClickfinderProgramGuide.Details.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.SelectedItem.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{689689d0-eae3-4792-a0f9-c43128ca38a6}-ClickfinderProgramGuide.SelectedItem.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\ClickfinderProgramGuide.SelectedItem.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.Tipp.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{14ea3f89-c430-4680-867f-46b859d03cf2}-ClickfinderProgramGuide.Tipp.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\ClickfinderProgramGuide.Tipp.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderBar.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{31ca4114-394a-4002-bf87-67da530d331c}-ClickfinderBar.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderBar.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderDetailsBG.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{810ed2a7-5eb3-4ca6-b0b3-0d6e039cf285}-ClickfinderDetailsBG.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderDetailsBG.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_BG.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{27cbfd2e-2d9b-4b6e-8f02-481875774aa7}-ClickfinderPG_BG.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_BG.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Doku.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{40c6391c-ff1d-4c65-8829-6727974fde60}-ClickfinderPG_Doku.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_Doku.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Movies.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{d4f381e5-4dcd-4e4d-bb35-690f44cfd443}-ClickfinderPG_Movies.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_Movies.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Sendungen.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{68ac2308-afb9-48f9-9a34-f2c27b92fea2}-ClickfinderPG_Sendungen.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_Sendungen.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Sep.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{4db5d1d1-79dc-4ba0-ac05-6604e9ca3dc1}-ClickfinderPG_Sep.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_Sep.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Sport.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{7a7645b9-1998-4029-9de3-82316c98e78e}-ClickfinderPG_Sport.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_Sport.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_TvSeries.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{04bd1edb-bcf8-4ecb-91d7-51be1107b34b}-ClickfinderPG_TvSeries.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_TvSeries.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder_Loading.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{0b07d582-2f81-42bc-befe-d831a26bf338}-Clickfinder_Loading.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder_Loading.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\hover_ClickfinderProgramGuide.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{dd7a0462-f194-4d86-ba09-ff4cfe54e2f9}-hover_ClickfinderProgramGuide.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\hover_ClickfinderProgramGuide.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -483,8 +581,8 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Version>
       <Major>0</Major>
       <Minor>0</Minor>
-      <Build>2</Build>
-      <Revision>9</Revision>
+      <Build>3</Build>
+      <Revision>0</Revision>
     </Version>
     <ExtensionDescription />
     <VersionDescription />
@@ -736,6 +834,104 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_TvSeries.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{839bdab9-348a-4a18-9f6b-75813bf04d2a}-ClickfinderPG_TvSeries.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_TvSeries.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.Details.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{85c51d11-539a-46ea-b3a4-d6cc62b230bc}-ClickfinderProgramGuide.Details.xml</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\ClickfinderProgramGuide.Details.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.SelectedItem.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{689689d0-eae3-4792-a0f9-c43128ca38a6}-ClickfinderProgramGuide.SelectedItem.xml</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\ClickfinderProgramGuide.SelectedItem.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.Tipp.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{14ea3f89-c430-4680-867f-46b859d03cf2}-ClickfinderProgramGuide.Tipp.xml</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\ClickfinderProgramGuide.Tipp.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderBar.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{31ca4114-394a-4002-bf87-67da530d331c}-ClickfinderBar.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderBar.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderDetailsBG.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{810ed2a7-5eb3-4ca6-b0b3-0d6e039cf285}-ClickfinderDetailsBG.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderDetailsBG.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_BG.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{27cbfd2e-2d9b-4b6e-8f02-481875774aa7}-ClickfinderPG_BG.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_BG.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Doku.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{40c6391c-ff1d-4c65-8829-6727974fde60}-ClickfinderPG_Doku.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_Doku.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Movies.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{d4f381e5-4dcd-4e4d-bb35-690f44cfd443}-ClickfinderPG_Movies.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_Movies.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Sendungen.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{68ac2308-afb9-48f9-9a34-f2c27b92fea2}-ClickfinderPG_Sendungen.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_Sendungen.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Sep.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{4db5d1d1-79dc-4ba0-ac05-6604e9ca3dc1}-ClickfinderPG_Sep.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_Sep.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Sport.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{7a7645b9-1998-4029-9de3-82316c98e78e}-ClickfinderPG_Sport.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_Sport.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_TvSeries.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{04bd1edb-bcf8-4ecb-91d7-51be1107b34b}-ClickfinderPG_TvSeries.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_TvSeries.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder_Loading.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{0b07d582-2f81-42bc-befe-d831a26bf338}-Clickfinder_Loading.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder_Loading.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\hover_ClickfinderProgramGuide.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{dd7a0462-f194-4d86-ba09-ff4cfe54e2f9}-hover_ClickfinderProgramGuide.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\hover_ClickfinderProgramGuide.png</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />

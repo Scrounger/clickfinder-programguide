@@ -1,0 +1,577 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<window>
+  <controls>
+
+    <!--FavoritenTipp1-->
+    <control>
+      <description>FavoritenTipp0 Titel</description>
+      <type>fadelabel</type>
+      <id>110</id>
+      <posX>800</posX>
+      <posY>130</posY>
+      <width>460</width>
+      <align>left</align>
+      <font>font10</font>
+      <textcolor>ffffffff</textcolor>
+      <wrapString> | </wrapString>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+      <control>
+        <description>FavoritenTipp0 Image</description>
+        <type>image</type>
+        <id>111</id>
+        <posX>660</posX>
+        <posY>128</posY>
+        <width>130</width>
+        <height>100</height>
+        <texture></texture>
+        <colorkey>0</colorkey>
+        <filtered>yes</filtered>
+        <centered>no</centered>
+        <keepaspectratio>no</keepaspectratio>
+        <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      </control>
+
+      <control>
+        <description>FavoritenTipp0 Kanal</description>
+        <type>fadelabel</type>
+        <id>112</id>
+        <posX>800</posX>
+        <posY>174</posY>
+        <width>680</width>
+        <align>left</align>
+        <font>font9</font>
+        <textcolor>ff909090</textcolor>
+        <wrapString> | </wrapString>
+        <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      </control>
+      <control>
+        <description>FavoritenTipp0 Genre</description>
+        <type>fadelabel</type>
+        <id>113</id>
+        <posX>800</posX>
+        <posY>154</posY>
+        <width>400</width>
+        <label></label>
+        <font>font9</font>
+        <textcolor>ff909090</textcolor>
+        <disabledcolor>80ffffff</disabledcolor>
+        <align>left</align>
+        <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      </control>
+      <control>
+        <description>FavoritenTipp0 Zeit</description>
+        <type>label</type>
+        <id>114</id>
+        <posX>1240</posX>
+        <posY>154</posY>
+        <align>right</align>
+        <label></label>
+        <font>font9</font>
+        <textcolor>ff909090</textcolor>
+        <disabledcolor>80ffffff</disabledcolor>
+        <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      </control>
+      <control>
+        <description>FavoritenTipp0 BewertungString</description>
+        <type>fadelabel</type>
+        <id>115</id>
+        <posX>800</posX>
+        <posY>194</posY>
+        <width>400</width>
+        <label></label>
+        <font>font9</font>
+        <textcolor>ff909090</textcolor>
+        <disabledcolor>80ffffff</disabledcolor>
+        <align>left</align>
+        <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      </control>
+      <control>
+        <description>FavoritenTipp0 Kritik</description>
+        <type>fadelabel</type>
+        <id>116</id>
+        <posX>800</posX>
+        <posY>214</posY>
+        <width>400</width>
+        <label></label>
+        <font>font9</font>
+        <textcolor>ff909090</textcolor>
+        <disabledcolor>80ffffff</disabledcolor>
+        <align>left</align>
+        <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      </control>
+      <control>
+        <description>FavoritenTipp0 RatingImage</description>
+        <type>image</type>
+        <id>117</id>
+        <posX>650</posX>
+        <posY>200</posY>
+        <width>48</width>
+        <height>48</height>
+        <texture></texture>
+        <colorkey>0</colorkey>
+        <centered>no</centered>
+        <keepaspectratio>no</keepaspectratio>
+        <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      </control>
+    
+    
+    <!--FavoritenTipp1-->
+    <control>
+      <description>FavoritenTipp1 Titel</description>
+      <type>fadelabel</type>
+      <id>120</id>
+      <posX>800</posX>
+      <posY>244</posY>
+      <width>460</width>
+      <align>left</align>
+      <label>#FavoritenTipp1 Titel</label>
+      <font>font10</font>
+      <textcolor>ffffffff</textcolor>
+      <wrapString> | </wrapString>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp1 Image</description>
+      <type>image</type>
+      <id>121</id>
+      <posX>660</posX>
+      <posY>244</posY>
+      <width>130</width>
+      <height>100</height>
+      <texture></texture>
+      <colorkey>0</colorkey>
+      <filtered>yes</filtered>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp1 Kanal</description>
+      <type>fadelabel</type>
+      <id>122</id>
+      <posX>800</posX>
+      <posY>288</posY>
+      <width>680</width>
+      <align>left</align>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp1 Genre</description>
+      <type>fadelabel</type>
+      <id>123</id>
+      <posX>800</posX>
+      <posY>268</posY>
+      <width>400</width>
+      <label></label>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <disabledcolor>80ffffff</disabledcolor>
+      <align>left</align>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp1 Zeit</description>
+      <type>label</type>
+      <id>124</id>
+      <posX>1240</posX>
+      <posY>268</posY>
+      <align>right</align>
+      <label></label>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <disabledcolor>80ffffff</disabledcolor>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp1 BewertungString</description>
+      <type>fadelabel</type>
+      <id>125</id>
+      <posX>800</posX>
+      <posY>308</posY>
+      <width>460</width>
+      <label></label>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <disabledcolor>80ffffff</disabledcolor>
+      <align>left</align>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp1 Kritik</description>
+      <type>fadelabel</type>
+      <id>126</id>
+      <posX>800</posX>
+      <posY>328</posY>
+      <width>460</width>
+      <label></label>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <disabledcolor>80ffffff</disabledcolor>
+      <align>left</align>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp1 RatingImage</description>
+      <type>image</type>
+      <id>127</id>
+      <posX>650</posX>
+      <posY>314</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture></texture>
+      <colorkey>0</colorkey>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+
+
+    <!--FavoritenTipp2-->
+    <control>
+      <description>FavoritenTipp2 Titel</description>
+      <type>fadelabel</type>
+      <id>130</id>
+      <posX>800</posX>
+      <posY>358</posY>
+      <width>460</width>
+      <align>left</align>
+      <label>#FavoritenTipp2 Titel</label>
+      <font>font10</font>
+      <textcolor>ffffffff</textcolor>
+      <wrapString> | </wrapString>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp2 Image</description>
+      <type>image</type>
+      <id>131</id>
+      <posX>660</posX>
+      <posY>358</posY>
+      <width>130</width>
+      <height>100</height>
+      <texture></texture>
+      <colorkey>0</colorkey>
+      <filtered>yes</filtered>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp2 Kanal</description>
+      <type>fadelabel</type>
+      <id>132</id>
+      <posX>800</posX>
+      <posY>402</posY>
+      <width>680</width>
+      <align>left</align>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp2 Genre</description>
+      <type>fadelabel</type>
+      <id>133</id>
+      <posX>800</posX>
+      <posY>382</posY>
+      <width>400</width>
+      <label></label>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <disabledcolor>80ffffff</disabledcolor>
+      <align>left</align>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp2 Zeit</description>
+      <type>label</type>
+      <id>134</id>
+      <posX>1240</posX>
+      <posY>382</posY>
+      <align>right</align>
+      <label></label>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <disabledcolor>80ffffff</disabledcolor>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp2 BewertungString</description>
+      <type>fadelabel</type>
+      <id>135</id>
+      <posX>800</posX>
+      <posY>422</posY>
+      <width>460</width>
+      <label></label>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <disabledcolor>80ffffff</disabledcolor>
+      <align>left</align>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp2 Kritik</description>
+      <type>fadelabel</type>
+      <id>136</id>
+      <posX>800</posX>
+      <posY>442</posY>
+      <width>460</width>
+      <label></label>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <disabledcolor>80ffffff</disabledcolor>
+      <align>left</align>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp2 RatingImage</description>
+      <type>image</type>
+      <id>137</id>
+      <posX>650</posX>
+      <posY>428</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture></texture>
+      <colorkey>0</colorkey>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>   
+    
+    
+    
+    <!--FavoritenTipp3-->
+    <control>
+      <description>FavoritenTipp3 Titel</description>
+      <type>fadelabel</type>
+      <id>140</id>
+      <posX>800</posX>
+      <posY>472</posY>
+      <width>460</width>
+      <align>left</align>
+      <label>#FavoritenTipp2 Titel</label>
+      <font>font10</font>
+      <textcolor>ffffffff</textcolor>
+      <wrapString> | </wrapString>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp3 Image</description>
+      <type>image</type>
+      <id>141</id>
+      <posX>660</posX>
+      <posY>472</posY>
+      <width>130</width>
+      <height>100</height>
+      <texture></texture>
+      <colorkey>0</colorkey>
+      <filtered>yes</filtered>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp3 Kanal</description>
+      <type>fadelabel</type>
+      <id>142</id>
+      <posX>800</posX>
+      <posY>516</posY>
+      <width>680</width>
+      <align>left</align>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp3 Genre</description>
+      <type>fadelabel</type>
+      <id>143</id>
+      <posX>800</posX>
+      <posY>496</posY>
+      <width>400</width>
+      <label></label>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <disabledcolor>80ffffff</disabledcolor>
+      <align>left</align>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp3 Zeit</description>
+      <type>label</type>
+      <id>144</id>
+      <posX>1240</posX>
+      <posY>496</posY>
+      <align>right</align>
+      <label></label>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <disabledcolor>80ffffff</disabledcolor>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp3 BewertungString</description>
+      <type>fadelabel</type>
+      <id>145</id>
+      <posX>800</posX>
+      <posY>536</posY>
+      <width>460</width>
+      <label></label>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <disabledcolor>80ffffff</disabledcolor>
+      <align>left</align>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp3 Kritik</description>
+      <type>fadelabel</type>
+      <id>146</id>
+      <posX>800</posX>
+      <posY>556</posY>
+      <width>460</width>
+      <label></label>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <disabledcolor>80ffffff</disabledcolor>
+      <align>left</align>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp3 RatingImage</description>
+      <type>image</type>
+      <id>147</id>
+      <posX>650</posX>
+      <posY>542</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture></texture>
+      <colorkey>0</colorkey>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+
+
+
+
+    <!--FavoritenTipp4-->
+    <control>
+      <description>FavoritenTipp4 Titel</description>
+      <type>fadelabel</type>
+      <id>150</id>
+      <posX>800</posX>
+      <posY>586</posY>
+      <width>460</width>
+      <align>left</align>
+      <label>#FavoritenTipp2 Titel</label>
+      <font>font10</font>
+      <textcolor>ffffffff</textcolor>
+      <wrapString> | </wrapString>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp4 Image</description>
+      <type>image</type>
+      <id>151</id>
+      <posX>660</posX>
+      <posY>586</posY>
+      <width>130</width>
+      <height>100</height>
+      <texture></texture>
+      <colorkey>0</colorkey>
+      <filtered>yes</filtered>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp4 Kanal</description>
+      <type>fadelabel</type>
+      <id>152</id>
+      <posX>800</posX>
+      <posY>630</posY>
+      <width>680</width>
+      <align>left</align>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp4 Genre</description>
+      <type>fadelabel</type>
+      <id>153</id>
+      <posX>800</posX>
+      <posY>610</posY>
+      <width>400</width>
+      <label></label>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <disabledcolor>80ffffff</disabledcolor>
+      <align>left</align>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp4 Zeit</description>
+      <type>label</type>
+      <id>154</id>
+      <posX>1240</posX>
+      <posY>610</posY>
+      <align>right</align>
+      <label></label>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <disabledcolor>80ffffff</disabledcolor>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp4 BewertungString</description>
+      <type>fadelabel</type>
+      <id>155</id>
+      <posX>800</posX>
+      <posY>650</posY>
+      <width>460</width>
+      <label></label>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <disabledcolor>80ffffff</disabledcolor>
+      <align>left</align>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp4 Kritik</description>
+      <type>fadelabel</type>
+      <id>156</id>
+      <posX>800</posX>
+      <posY>670</posY>
+      <width>460</width>
+      <label></label>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <disabledcolor>80ffffff</disabledcolor>
+      <align>left</align>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp3 RatingImage</description>
+      <type>image</type>
+      <id>157</id>
+      <posX>650</posX>
+      <posY>656</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture></texture>
+      <colorkey>0</colorkey>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+    </control>
+  </controls>
+</window>

@@ -13,7 +13,6 @@
       <height>200</height>
       <texture></texture>
       <colorkey>0</colorkey>
-      <colordiffuse>ffffffff</colordiffuse>
       <filtered>yes</filtered>
       <centered>no</centered>
       <keepaspectratio>yes</keepaspectratio>
@@ -29,7 +28,6 @@
       <width>48</width>
       <texture></texture>
       <colorkey>0</colorkey>
-      <colordiffuse>ffffffff</colordiffuse>
       <filtered>yes</filtered>
       <centered>no</centered>
       <keepaspectratio>yes</keepaspectratio>

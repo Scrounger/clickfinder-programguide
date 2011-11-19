@@ -26,7 +26,6 @@
         <height>100</height>
         <texture></texture>
         <colorkey>0</colorkey>
-        <colordiffuse>ffffffff</colordiffuse>
         <filtered>yes</filtered>
         <centered>no</centered>
         <keepaspectratio>no</keepaspectratio>
@@ -111,7 +110,6 @@
         <height>48</height>
         <texture></texture>
         <colorkey>0</colorkey>
-        <colordiffuse>ffffffff</colordiffuse>
         <centered>no</centered>
         <keepaspectratio>no</keepaspectratio>
         <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
@@ -143,7 +141,6 @@
       <height>100</height>
       <texture></texture>
       <colorkey>0</colorkey>
-      <colordiffuse>ffffffff</colordiffuse>
       <filtered>yes</filtered>
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
@@ -227,7 +224,6 @@
       <height>48</height>
       <texture></texture>
       <colorkey>0</colorkey>
-      <colordiffuse>ffffffff</colordiffuse>
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
       <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
@@ -259,7 +255,6 @@
       <height>100</height>
       <texture></texture>
       <colorkey>0</colorkey>
-      <colordiffuse>ffffffff</colordiffuse>
       <filtered>yes</filtered>
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
@@ -343,7 +338,6 @@
       <height>48</height>
       <texture></texture>
       <colorkey>0</colorkey>
-      <colordiffuse>ffffffff</colordiffuse>
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
       <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
@@ -376,7 +370,6 @@
       <height>100</height>
       <texture></texture>
       <colorkey>0</colorkey>
-      <colordiffuse>ffffffff</colordiffuse>
       <filtered>yes</filtered>
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
@@ -460,7 +453,6 @@
       <height>48</height>
       <texture></texture>
       <colorkey>0</colorkey>
-      <colordiffuse>ffffffff</colordiffuse>
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
       <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
@@ -494,7 +486,6 @@
       <height>100</height>
       <texture></texture>
       <colorkey>0</colorkey>
-      <colordiffuse>ffffffff</colordiffuse>
       <filtered>yes</filtered>
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
@@ -578,7 +569,6 @@
       <height>48</height>
       <texture></texture>
       <colorkey>0</colorkey>
-      <colordiffuse>ffffffff</colordiffuse>
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
       <visible>!control.isvisible(30)+!control.isvisible(9)</visible>

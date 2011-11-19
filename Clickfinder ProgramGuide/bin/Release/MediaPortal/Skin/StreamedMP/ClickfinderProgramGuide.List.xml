@@ -13,7 +13,6 @@
       <width>610</width>
       <height>570</height>
       <texture>ClickfinderPG_BG.png</texture>
-      <colordiffuse>EEFFFFFF</colordiffuse>
       <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
@@ -28,7 +27,6 @@
       <width>610</width>
       <height>570</height>
       <texture>ClickfinderPG_BG.png</texture>
-      <colordiffuse>EEFFFFFF</colordiffuse>
       <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
@@ -43,7 +41,6 @@
       <width>610</width>
       <height>5</height>
       <texture>ClickfinderPG_Sep.png</texture>
-      <colordiffuse>EEFFFFFF</colordiffuse>
       <visible>!control.isvisible(30)+!control.isvisible(9)+control.hastext(110)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
@@ -57,7 +54,6 @@
       <width>610</width>
       <height>5</height>
       <texture>ClickfinderPG_Sep.png</texture>
-      <colordiffuse>EEFFFFFF</colordiffuse>
       <visible>!control.isvisible(30)+!control.isvisible(9)+control.hastext(120)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
@@ -71,7 +67,6 @@
       <width>610</width>
       <height>5</height>
       <texture>ClickfinderPG_Sep.png</texture>
-      <colordiffuse>EEFFFFFF</colordiffuse>
       <visible>!control.isvisible(30)+!control.isvisible(9)+control.hastext(130)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
@@ -85,7 +80,6 @@
       <width>610</width>
       <height>5</height>
       <texture>ClickfinderPG_Sep.png</texture>
-      <colordiffuse>EEFFFFFF</colordiffuse>
       <visible>!control.isvisible(30)+!control.isvisible(9)+control.hastext(140)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
@@ -103,9 +97,6 @@
       <posY>124</posY>
       <width>590</width>
       <height>600</height>
-      <font>mediastream12c</font>
-      <font2>mediastream10c</font2>
-      <font3>mediastream10c</font3>
       <spinWidth>30</spinWidth>
       <spinHeight>30</spinHeight>
       <spinPosX>564</spinPosX>

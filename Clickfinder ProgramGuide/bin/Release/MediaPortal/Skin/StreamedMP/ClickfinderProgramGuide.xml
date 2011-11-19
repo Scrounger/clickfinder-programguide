@@ -19,7 +19,7 @@
       <height>720</height>
       <texture>#header.hover</texture>
       <!--<colordiffuse>#header.BG.colordiffuse</colordiffuse>-->
-      <animation effect="fade" time="300">WindowOpen</animation>
+      <!--<animation effect="fade" time="300">WindowOpen</animation>-->
     </control>
 
     <control>
@@ -31,7 +31,6 @@
       <width>1280</width>
       <height>720</height>
       <texture>black.png</texture>
-      <colordiffuse>90ffffff</colordiffuse>
     </control>
 
     <control>
@@ -76,9 +75,6 @@
       <width>1280</width>
       <height>40</height>
       <texture>ClickfinderBar.png</texture>
-      <colordiffuse>EEFFFFFF</colordiffuse>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <import>common.time.xml</import>

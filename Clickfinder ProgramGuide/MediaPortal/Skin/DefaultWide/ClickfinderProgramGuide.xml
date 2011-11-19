@@ -3,229 +3,287 @@
   <defaultcontrol>2</defaultcontrol>
   <allowoverlay>no</allowoverlay>
   <define>#header.label:Clickfinder Program Guide</define>
-  <define>#header.hover:ClickfinderProgramGuide.png</define>
+  <define>#header.hover:hover_ClickfinderProgramGuide.png</define>
+  <!--<define>#header.BG.colordiffuse:ffffffff</define>-->
+  <!-- <define>#header.BG.overlay:osdbackground1.png</define> -->
   <controls>
 
+    <!-- Background & StreamedMP Layout -->
     <control>
-      <description>TagesTipp Image</description>
+      <id>1</id>
+      <description>Background Image</description>
       <type>image</type>
-      <id>20</id>
-      <posX>28</posX>
-      <posY>28</posY>
-      <width>210</width>
-      <height>160</height>
-      <colordiffuse>40ffffff</colordiffuse>
+      <posX>0</posX>
+      <posY>0</posY>
+      <width>1280</width>
+      <height>720</height>
+      <texture>#header.hover</texture>
+      <!--<colordiffuse>#header.BG.colordiffuse</colordiffuse>-->
+      <!--<animation effect="fade" time="300">WindowOpen</animation>-->
     </control>
 
     <control>
-      <description>TagesTipp Titel</description>
+      <description>Overlay Image</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>0</posX>
+      <posY>0</posY>
+      <width>1280</width>
+      <height>720</height>
+      <texture>black.png</texture>
+    </control>
+
+    <control>
+      <id>1</id>
+      <description>Overlay Image</description>
+      <type>image</type>
+      <posX>0</posX>
+      <posY>0</posY>
+      <width>1280</width>
+      <height>50</height>
+      <texture>overlay_topbar.png</texture>
+    </control>
+
+    <control>
+      <id>1</id>
+      <description>Top Title Background</description>
+      <type>image</type>
+      <posX>77</posX>
+      <posY>11</posY>
+      <width>437</width>
+      <height>35</height>
+      <texture>tvtitlebg.png</texture>
+    </control>
+    <control>
+      <id>1</id>
       <type>fadelabel</type>
-      <id>21</id>
-      <posX>552</posX>
-      <posY>40</posY>
-      <width>680</width>
+      <description>Top Title</description>
+      <posX>493</posX>
+      <posY>13</posY>
+      <width>350</width>
       <font>font10</font>
-      <textcolor>FFB2D4F5</textcolor>
+      <align>right</align>
+      <visible>yes</visible>
+      <label>#header.label</label>
     </control>
-
     <control>
-      <description>TagesTipp Kanal</description>
-      <type>fadelabel</type>
-      <id>23</id>
-      <posX>552</posX>
+      <description>Clickfinder Control Bar</description>
+      <posX>0</posX>
       <posY>60</posY>
-      <width>680</width>
-      <font>font9</font>
-      <textcolor>FFB2D4F5</textcolor>
-    </control>
-
-    <control>
-      <description>TagesTipp Zeit</description>
-      <type>label</type>
-      <id>24</id>
-      <posX>552</posX>
-      <posY>80</posY>
-      <width>680</width>
-      <font>font9</font>
-      <textcolor>FFB2D4F5</textcolor>
-    </control>
-
-
-    <control>
-      <description>TagesTipp Kategorie</description>
-      <type>label</type>
-      <id>25</id>
-      <posX>552</posX>
-      <posY>100</posY>
-      <width>680</width>
-      <font>font9</font>
-      <textcolor>FFB2D4F5</textcolor>
-    </control>
-
-    <control>
-      <description>TagesTipp Actors</description>
-      <type>fadelabel</type>
-      <id>26</id>
-      <posX>552</posX>
-      <posY>120</posY>
-      <width>680</width>
-      <font>font9</font>
-      <textcolor>FFB2D4F5</textcolor>
-    </control>
-
-    <control>
-      <description>TagesTipp Beschreibung</description>
-      <type>textboxscrollup</type>
-      <id>22</id>
-      <posX>300</posX>
-      <posY>100</posY>
-      <width>693</width>
-      <height>137</height>
-      <seperator>-----------</seperator>
-      <textalign>left</textalign>
-      <font>font10</font>
-      <textcolor>white</textcolor>
-      <scrollStartDelaySec>8</scrollStartDelaySec>
-      <spaceBetweenItems>2</spaceBetweenItems>
-      <shadowAngle>45</shadowAngle>
-      <shadowDistance>1</shadowDistance>
-      <shadowColor>ff000000</shadowColor>
-    </control>
-
-
-
-
-
-	<!-- ListItem -->
-
-    <control>
-      <description>ListItem Image</description>
       <type>image</type>
-      <id>30</id>
-      <posX>780</posX>
-      <posY>320</posY>
-      <width>105</width>
-      <height>80</height>
-      <colordiffuse>40ffffff</colordiffuse>
+      <id>0</id>
+      <width>1280</width>
+      <height>40</height>
+      <texture>ClickfinderBar.png</texture>
     </control>
 
+    <import>common.time.xml</import>
+    <import>ClickfinderProgramGuide.List.xml</import>
+
+
+
+    <!-- ListItem -->
+
     <control>
-      <description>ListItem Titel</description>
-      <type>fadelabel</type>
-      <id>31</id>
-      <posX>780</posX>
-      <posY>400</posY>
-      <width>680</width>
-      <font>font9</font>
-      <textcolor>FFB2D4F5</textcolor>
+      <type>group</type>
+      <description>group element</description>
+      <posX>20</posX>
+      <posY>64</posY>
+
+      <layout>Stacklayout(20,Horizontal)</layout>
+
+
+      <control>
+        <description>Now</description>
+        <type>button</type>
+        <id>2</id>
+        <width>180</width>
+        <textalign>center</textalign>
+        <label>Jetzt</label>
+        <onleft>6</onleft>
+        <onright>3</onright>
+        <onup></onup>
+        <ondown>10</ondown>
+      </control>
+      <control>
+        <description>20:15</description>
+        <type>button</type>
+        <id>3</id>
+        <width>180</width>
+        <textalign>center</textalign>
+        <label>20:15</label>
+        <onleft>2</onleft>
+        <onright>4</onright>
+        <onup></onup>
+        <ondown>10</ondown>
+      </control>
+      <control>
+        <description>22:00 Movies</description>
+        <type>button</type>
+        <id>4</id>
+        <width>180</width>
+        <textalign>center</textalign>
+        <label>22:00</label>
+        <onleft>3</onleft>
+        <onright>5</onright>
+        <onup></onup>
+        <ondown>10</ondown>
+      </control>
+      <control>
+        <description>Preview</description>
+        <type>button</type>
+        <id>5</id>
+        <width>180</width>
+        <textalign>center</textalign>
+        <label>Vorschau</label>
+        <onleft>4</onleft>
+        <onright>6</onright>
+        <onup></onup>
+        <ondown>100</ondown>
+      </control>
+      <control>
+        <description>Comming Next TagesTipps</description>
+        <type>button</type>
+        <id>6</id>
+        <width>180</width>
+        <textalign>center</textalign>
+        <label>Tages Tipps</label>
+        <onleft>5</onleft>
+        <onright>2</onright>
+        <onup></onup>
+        <ondown>100</ondown>
+      </control>
     </control>
 
+      <control>
+          <description>Tipp0 Button</description>
+          <type>button</type>
+          <id>100</id>
+          <posX>660</posX>
+          <posY>126</posY>
+          <width>610</width>
+          <height>110</height>
+          <label></label>
+          <onleft>10</onleft>
+          <onright>6</onright>
+        <onup>104</onup>
+          <ondown>101</ondown>
+        <visible>!control.isvisible(30)+!control.isvisible(9)+control.hastext(110)</visible>
+        </control>
+
+      
+    
+    
     <control>
-      <description>ListItem Kanal</description>
-      <type>fadelabel</type>
-      <id>33</id>
-      <posX>780</posX>
-      <posY>420</posY>
-      <width>680</width>
-      <font>font9</font>
-      <textcolor>FFB2D4F5</textcolor>
-    </control>
-
-    <control>
-      <description>ListItem Zeit</description>
-      <type>fadelabel</type>
-      <id>34</id>
-      <posX>780</posX>
-      <posY>440</posY>
-      <width>680</width>
-      <font>font9</font>
-      <textcolor>FFB2D4F5</textcolor>
-    </control>
-
-    <control>
-      <description>ListItem Kategorie</description>
-      <type>fadelabel</type>
-      <id>35</id>
-      <posX>780</posX>
-      <posY>460</posY>
-      <width>680</width>
-      <font>font9</font>
-      <textcolor>FFB2D4F5</textcolor>
-    </control>
-
-    <control>
-      <description>TagesTipp Actors</description>
-      <type>fadelabel</type>
-      <id>36</id>
-      <posX>780</posX>
-      <posY>480</posY>
-      <width>680</width>
-      <font>font9</font>
-      <textcolor>FFB2D4F5</textcolor>
-    </control>
-
-  <control>
-    <description>default textboxscrollup</description>
-    <type>textboxscrollup</type>
-    <id>32</id>
-    <posX>780</posX>
-    <posY>567</posY>
-    <width>693</width>
-    <height>137</height>
-    <seperator>-------</seperator>
-    <textalign>left</textalign>
-    <font>font10</font>
-    <textcolor>white</textcolor>
-    <scrollStartDelaySec>8</scrollStartDelaySec>
-    <spaceBetweenItems>2</spaceBetweenItems>
-    <shadowAngle>45</shadowAngle>
-    <shadowDistance>1</shadowDistance>
-    <shadowColor>ff000000</shadowColor>
-  </control>
-
-
-
-
-
-
-    <control>
-      <description>Try Me</description>
+      <description>Tipp1 Button</description>
       <type>button</type>
-      <id>2</id>
-      <posX>60</posX>
-      <posY>97</posY>
-      <label>20:15</label>
-      <onleft>2</onleft>
-      <onright>10</onright>
-      <onup>2</onup>
-      <ondown>3</ondown>
+      <id>101</id>
+      <posX>660</posX>
+      <posY>240</posY>
+      <width>610</width>
+      <height>110</height>
+      <label></label>
+      <onleft>10</onleft>
+      <onright>6</onright>
+      <onup>100</onup>
+      <ondown>102</ondown>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+control.hastext(120)</visible>
+    </control>
+    <control>
+      <description>Tipp2 Button</description>
+      <type>button</type>
+      <id>102</id>
+      <posX>660</posX>
+      <posY>354</posY>
+      <width>610</width>
+      <height>110</height>
+      <label></label>
+      <onleft>10</onleft>
+      <onright>6</onright>
+      <onup>101</onup>
+      <ondown>103</ondown>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+control.hastext(130)</visible>
+    </control>
+    <control>
+      <description>Tipp3 Button</description>
+      <type>button</type>
+      <id>103</id>
+      <posX>660</posX>
+      <posY>468</posY>
+      <width>610</width>
+      <height>110</height>
+      <label></label>
+      <onleft>10</onleft>
+      <onright>6</onright>
+      <onup>102</onup>
+      <ondown>104</ondown>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+control.hastext(140)</visible>
+    </control>
+    <control>
+      <description>Tipp4 Button</description>
+      <type>button</type>
+      <id>104</id>
+      <posX>660</posX>
+      <posY>582</posY>
+      <width>610</width>
+      <height>110</height>
+      <label></label>
+      <onleft>10</onleft>
+      <onright>6</onright>
+      <onup>103</onup>
+      <ondown>100</ondown>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+control.hastext(150)</visible>
     </control>
 
+
+
+    <import>ClickfinderProgramGuide.Tipp.xml</import>
+    <import>ClickfinderProgramGuide.Details.xml</import>
+
+    <!-- ProgressBar Load Animation -->
     <control>
-      <description>Or Me</description>
-      <type>button</type>
-      <id>3</id>
-      <posX>60</posX>
-      <posY>131</posY>
-      <label>22:00</label>
-      <onleft>2</onleft>
-      <onright>10</onright>
-      <onup>2</onup>
-      <ondown>4</ondown>
+      <id>1</id>
+      <description>Animation BG Image</description>
+      <type>image</type>
+      <posX>490</posX>
+      <posY>285</posY>
+      <width>300</width>
+      <height>150</height>
+      <texture>Clickfinder_Loading.png</texture>
+      <visible>control.isvisible(9)</visible>
     </control>
     <control>
-      <description>Or Me</description>
-      <type>button</type>
-      <id>4</id>
-      <posX>60</posX>
-      <posY>165</posY>
-      <label>Tages Tipps</label>
-      <onleft>2</onleft>
-      <onright>10</onright>
-      <onup>3</onup>
-      <ondown>2</ondown>
+      <description>Animation Label</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>490</posX>
+      <posY>325</posY>
+      <width>300</width>
+      <align>center</align>
+      <label>Bitte warten...</label>
+      <font>font10</font>
+      <textcolor>ffffffff</textcolor>
+      <wrapString> | </wrapString>
+      <visible>control.isvisible(9)</visible>
     </control>
-<import>ClickfinderProgramGuide.List.xml</import>
+    <control>
+      <id>9</id>
+      <type>animation</type>
+      <visible>false</visible>
+      <posX>500</posX>
+      <posY>355</posY>
+      <width>280</width>
+      <height>24</height>
+
+
+      <textures>
+        common.waiting.1.png;common.waiting.2.png;common.waiting.3.png;common.waiting.4.png;common.waiting.5.png;
+
+        common.waiting.6.png;common.waiting.7.png;common.waiting.8.png
+      </textures>
+      <Duration>0:0:01.5</Duration>
+    </control>
+
   </controls>
 </window>
 

@@ -145,10 +145,34 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.Details.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.List.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.SelectedItem.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.Tipp.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderBar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderDetailsBG.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_BG.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Doku.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Movies.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R1.png">
@@ -167,6 +191,24 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R6.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Sendungen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Sep.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Sport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_TvSeries.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\Clickfinder_Loading.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\hover_ClickfinderProgramGuide.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MediaPortal\Skin\StreamedMP\ClickfinderProgramGuide.Details.xml">
