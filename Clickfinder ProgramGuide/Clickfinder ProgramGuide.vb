@@ -756,11 +756,11 @@ Namespace ClickfinderProgramGuide
                 _Threat.Start()
 
                 ctlList.ListItems.Clear()
-                AddListControlItem(ctlList.ListItems.Count - 1, "Movies")
-                AddListControlItem(ctlList.ListItems.Count - 1, "Sendungen")
-                AddListControlItem(ctlList.ListItems.Count - 1, "Serien")
-                AddListControlItem(ctlList.ListItems.Count - 1, "Dokumentationen")
-                AddListControlItem(ctlList.ListItems.Count - 1, "Sport")
+                AddListControlItem(ctlList.ListItems.Count - 1, "Movies", , , "ClickfinderPG_Movies.png")
+                AddListControlItem(ctlList.ListItems.Count - 1, "Sendungen", , , "ClickfinderPG_Sendungen.png")
+                AddListControlItem(ctlList.ListItems.Count - 1, "Serien", , , "ClickfinderPG_TvSeries.png")
+                AddListControlItem(ctlList.ListItems.Count - 1, "Dokumentationen", , , "ClickfinderPG_Doku.png")
+                AddListControlItem(ctlList.ListItems.Count - 1, "Sport", , , "ClickfinderPG_Sport.png")
                 'AddListControlItem("Bundesliga")
                 'AddListControlItem("ChampionsLeague")
 
