@@ -443,7 +443,7 @@ Namespace ClickfinderProgramGuide
 
         Private Sub Button_CommingTipps()
 
-            StartFillListControlCommingNextTipps()
+            'StartFillListControlCommingNextTipps()
 
         End Sub
 
@@ -566,7 +566,6 @@ Namespace ClickfinderProgramGuide
             Dim _ProgressBar As New Thread(AddressOf ShowProgressbar)
             Dim _Threat As New Thread(AddressOf ShowSelectedCategorieItems)
 
-            Dim i As Integer
 
             _Rating = MPSettingRead("config", "ClickfinderRating")
             _RespectInFavGroup = True
@@ -595,17 +594,48 @@ Namespace ClickfinderProgramGuide
                         _CurrentCategorie = "Movies"
                         Select Case _CurrentQuery.ToString
                             Case Is = "Now"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= " & _Rating & " AND Bewertung <= 4", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= " & _Rating & " AND Bewertung <= 4", "Beginn ASC, Bewertung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
                             Case Is = "PrimeTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= " & _Rating & " AND Bewertung <= 4", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= " & _Rating & " AND Bewertung <= 4", "Beginn ASC, Bewertung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
                             Case Is = "LateTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= " & _Rating & " AND Bewertung <= 4", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= " & _Rating & " AND Bewertung <= 4", "Beginn ASC, Bewertung DESC")
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                            Case Is = "Preview"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung = 4", "Beginn ASC, Bewertung DESC")
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                        End Select
+                    Catch ex As Exception
+                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
+                    End Try
+
+                Case "Sky Cinema"
+                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & _CurrentQuery.ToString)
+                    Try
+                        ctlList.Clear()
+                        _CurrentCategorie = "Sky Cinema"
+                        Select Case _CurrentQuery.ToString
+                            Case Is = "Now"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= " & _Rating & " AND Bewertung <= 4 AND (SenderKennung LIKE '%SKY Cinema%' OR SenderKennung LIKE '%SKY Action%' OR SenderKennung LIKE '%MGM%' OR SenderKennung LIKE '%Disney Cinemagic%' OR SenderKennung LIKE '%SKY Comedy%' OR SenderKennung LIKE '%SKY Emotion%' OR SenderKennung LIKE '%SKY Nostalgie%')", "Beginn ASC, Bewertung DESC, SenderKennung DESC")
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                            Case Is = "PrimeTime"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= " & _Rating & " AND Bewertung <= 4 AND (SenderKennung LIKE '%SKY Cinema%' OR SenderKennung LIKE '%SKY Action%' OR SenderKennung LIKE '%MGM%' OR SenderKennung LIKE '%Disney Cinemagic%' OR SenderKennung LIKE '%SKY Comedy%' OR SenderKennung LIKE '%SKY Emotion%' OR SenderKennung LIKE '%SKY Nostalgie%')", "Beginn ASC, Bewertung DESC, SenderKennung DESC")
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                            Case Is = "LateTime"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= " & _Rating & " AND Bewertung <= 4 AND (SenderKennung LIKE '%SKY Cinema%' OR SenderKennung LIKE '%SKY Action%' OR SenderKennung LIKE '%MGM%' OR SenderKennung LIKE '%Disney Cinemagic%' OR SenderKennung LIKE '%SKY Comedy%' OR SenderKennung LIKE '%SKY Emotion%' OR SenderKennung LIKE '%SKY Nostalgie%')", "Beginn ASC, Bewertung DESC, SenderKennung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
@@ -627,17 +657,17 @@ Namespace ClickfinderProgramGuide
                         _CurrentCategorie = "Sendungen"
                         Select Case _CurrentQuery.ToString
                             Case Is = "Now"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= 5 AND Bewertung <= 6", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= 5 AND Bewertung <= 6", "Beginn ASC, Bewertung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
                             Case Is = "PrimeTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= 5 AND Bewertung <= 6", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= 5 AND Bewertung <= 6", "Beginn ASC, Bewertung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
                             Case Is = "LateTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= 5 AND Bewertung <= 6", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= 5 AND Bewertung <= 6", "Beginn ASC, Bewertung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
@@ -654,17 +684,17 @@ Namespace ClickfinderProgramGuide
                         _CurrentCategorie = "HDTV"
                         Select Case _CurrentQuery.ToString
                             Case Is = "Now"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (KzHDTV = -1 OR SenderKennung LIKE '%HD%')", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (KzHDTV = -1 OR SenderKennung LIKE '%HD%')", "Beginn ASC, Bewertung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
                             Case Is = "PrimeTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (KzHDTV = -1 OR SenderKennung LIKE '%HD%')", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (KzHDTV = -1 OR SenderKennung LIKE '%HD%')", "Beginn ASC, Bewertung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
                             Case Is = "LateTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (KzHDTV = -1 OR SenderKennung LIKE '%HD%')", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (KzHDTV = -1 OR SenderKennung LIKE '%HD%')", "Beginn ASC, Bewertung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
@@ -681,17 +711,17 @@ Namespace ClickfinderProgramGuide
                         _CurrentCategorie = "Serien"
                         Select Case _CurrentQuery.ToString
                             Case Is = "Now"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Serie%'", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Serie%'", "Beginn ASC, Bewertung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
                             Case Is = "PrimeTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Serie%'", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Serie%'", "Beginn ASC, Bewertung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
                             Case Is = "LateTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Serie%'", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Serie%'", "Beginn ASC, Bewertung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
@@ -707,17 +737,17 @@ Namespace ClickfinderProgramGuide
                         _CurrentCategorie = "Dokumentationen"
                         Select Case _CurrentQuery.ToString
                             Case Is = "Now"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Genre LIKE '%Doku%')", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Genre LIKE '%Doku%')", "Beginn ASC, Bewertung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
                             Case Is = "PrimeTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Genre LIKE '%Doku%')", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Genre LIKE '%Doku%')", "Beginn ASC, Bewertung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
                             Case Is = "LateTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Genre LIKE '%Doku%')", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Genre LIKE '%Doku%')", "Beginn ASC, Bewertung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
@@ -733,17 +763,17 @@ Namespace ClickfinderProgramGuide
                         _CurrentCategorie = "Reportagen"
                         Select Case _CurrentQuery.ToString
                             Case Is = "Now"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Genre LIKE '%Report%')", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Genre LIKE '%Report%')", "Beginn ASC, Bewertung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
                             Case Is = "PrimeTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Genre LIKE '%Report%')", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Genre LIKE '%Report%')", "Beginn ASC, Bewertung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
                             Case Is = "LateTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Genre LIKE '%Report%')", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Genre LIKE '%Report%')", "Beginn ASC, Bewertung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
@@ -759,17 +789,17 @@ Namespace ClickfinderProgramGuide
                         _CurrentCategorie = "Magazine"
                         Select Case _CurrentQuery.ToString
                             Case Is = "Now"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Genre LIKE '%Magazin%')", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Genre LIKE '%Magazin%')", "Beginn ASC, Bewertung DESC,")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
                             Case Is = "PrimeTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Genre LIKE '%Magazin%')", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Genre LIKE '%Magazin%')", "Beginn ASC, Bewertung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
                             Case Is = "LateTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Genre LIKE '%Magazin%')", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND (Genre LIKE '%Magazin%')", "Beginn ASC, Bewertung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
@@ -785,17 +815,17 @@ Namespace ClickfinderProgramGuide
                         _CurrentCategorie = "Sport"
                         Select Case _CurrentQuery.ToString
                             Case Is = "Now"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Sport%'", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Sport%'", "Beginn ASC, Bewertung DESC, SenderKennung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
                             Case Is = "PrimeTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Sport%'", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Sport%'", "Beginn ASC, Bewertung DESC, SenderKennung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
                             Case Is = "LateTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Sport%'", "Beginn ASC, Bewertung DESC, Titel")
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Keywords LIKE '%Sport%'", "Beginn ASC, Bewertung DESC, SenderKennung DESC")
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
@@ -835,6 +865,7 @@ Namespace ClickfinderProgramGuide
                 Else
                     _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= 3 AND Bewertung <= 4 AND KzFilm = true", "Beginn ASC, Bewertung DESC, Titel")
                     AddListControlItem(ctlList.ListItems.Count - 1, "Movies", , , "ClickfinderPG_Movies.png")
+                    AddListControlItem(ctlList.ListItems.Count - 1, "Sky Cinema")
                     AddListControlItem(ctlList.ListItems.Count - 1, "Sendungen", , , "ClickfinderPG_Sendungen.png")
                     AddListControlItem(ctlList.ListItems.Count - 1, "HDTV")
                     AddListControlItem(ctlList.ListItems.Count - 1, "Serien", , , "ClickfinderPG_TvSeries.png")
@@ -844,8 +875,7 @@ Namespace ClickfinderProgramGuide
                     AddListControlItem(ctlList.ListItems.Count - 1, "Sport", , , "ClickfinderPG_Sport.png")
                 End If
 
-                _ProgressBar.Start()
-                _Threat.Start()
+                ShowTipps()
 
                 'AddListControlItem("Bundesliga")
                 'AddListControlItem("ChampionsLeague")
@@ -872,6 +902,9 @@ Namespace ClickfinderProgramGuide
             Dim _EpisodenName As String
             Dim _lastTitel As String
             Dim _FavCounter As Integer
+
+            Dim _SeriesNum As String
+            Dim _EpisodeNum As String
 
             Dim _inFav As Boolean = False
             Dim _MinTime As String
@@ -942,6 +975,8 @@ Namespace ClickfinderProgramGuide
                             If ProgramFoundinTvDb(_Titel, _idChannel, _StartZeit, _EndZeit) = True Then
                                 Dim Sendung As Program = TvDatabase.Program.RetrieveByTitleTimesAndChannel(_Titel, _StartZeit, _EndZeit, _idChannel)
 
+                                _SeriesNum = Sendung.SeriesNum
+                                _EpisodeNum = Sendung.EpisodeNum
 
                                 'angeziegte Tipps und doppelte Einträge abfangen
                                 Select Case Sendung.Title
@@ -966,7 +1001,13 @@ Namespace ClickfinderProgramGuide
                                             _TvLogo = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & Channel.Retrieve(_idChannel).DisplayName & ".png")
                                         End If
 
-                                        If _CurrentCategorie = "Serien" Then _Genre = _EpisodenName
+                                        If _CurrentCategorie = "Serien" Then
+                                            _Genre = _EpisodenName
+                                            If Not _SeriesNum = "" Or Not _EpisodeNum = "" Then
+                                                _Genre = "S" & Format(CInt(_SeriesNum), "00") & "E" & Format(CInt(_EpisodeNum), "00") & " - " & _EpisodenName
+                                            End If
+                                        End If
+
 
                                         AddListControlItem(ClickfinderData.Item("SendungID"), Sendung.Title.ToString, _
                                                            FormatTimeLabel(_StartZeit, _EndZeit), _
@@ -1014,6 +1055,8 @@ Namespace ClickfinderProgramGuide
             Dim _MinTime As String
             Dim _SettingMinTime As Integer = CInt(MPSettingRead("config", "MinTime"))
             Dim _EpisodenName As String
+            Dim _SeriesNum As String
+            Dim _EpisodeNum As String
 
             _TippsCounter = _idStartCounter
 
@@ -1082,10 +1125,13 @@ Namespace ClickfinderProgramGuide
                             _idChannel = TvServerData.Item("idChannel")
                             _ChannelName = TvServerData.Item("displayName")
 
+
                             'Prüfen ob Sendung in der TV DB vorhanden ist - Ja ->
                             If ProgramFoundinTvDb(_Titel, _idChannel, _StartZeit, _EndZeit) = True Then
                                 Dim Sendung As Program = TvDatabase.Program.RetrieveByTitleTimesAndChannel(_Titel, _StartZeit, _EndZeit, _idChannel)
 
+                                _SeriesNum = Sendung.SeriesNum
+                                _EpisodeNum = Sendung.EpisodeNum
 
 
                                 If Not Sendung.Title = _lastTitel And _RespectInFavGroup = True And ChannelFoundInFavGroup(_idChannel) = True Then
@@ -1094,12 +1140,13 @@ Namespace ClickfinderProgramGuide
                                     If _TippsCounter >= _idStoppCounter Then
                                         CloseTvServerDB()
                                         CloseClickfinderDB()
+                                        'ctlProgressBar.Visible = False
                                         Exit Sub
                                     Else
                                         _TippClickfinderSendungID(_TippsCounter) = CLng(ClickfinderData.Item("SendungID"))
                                         FillTipps(_TippsCounter, Sendung.Title, _BildDatei, _ChannelName, _StartZeit, _
                                                   _EndZeit, _Genre, _BewertungStr, _Kritik, _
-                                                  "ClickfinderPG_R" & CStr(_Bewertung) & ".png", _EpisodenName)
+                                                  "ClickfinderPG_R" & CStr(_Bewertung) & ".png", _EpisodenName, _SeriesNum, _EpisodeNum)
 
                                     End If
 
@@ -1116,7 +1163,7 @@ Namespace ClickfinderProgramGuide
                                         _TippClickfinderSendungID(_TippsCounter) = CLng(ClickfinderData.Item("SendungID"))
                                         FillTipps(_TippsCounter, Sendung.Title, _BildDatei, _ChannelName, _StartZeit, _
                                                   _EndZeit, _Genre, _BewertungStr, _Kritik, _
-                                                  "ClickfinderPG_R" & CStr(_Bewertung) & ".png", _EpisodenName)
+                                                  "ClickfinderPG_R" & CStr(_Bewertung) & ".png", _EpisodenName, _SeriesNum, _EpisodeNum)
 
                                     End If
 
@@ -1252,85 +1299,6 @@ Namespace ClickfinderProgramGuide
 #Region "ListControl Funktionen"
 
         'ListControl mit Daten der kommenden TagesTipps füllen - paralleles Threating
-        Private Sub StartFillListControlCommingNextTipps()
-            Dim ProgressBar, ShowCommingNextTipps As Threading.Thread
-
-            ProgressBar = New Thread(AddressOf ShowProgressbar)
-            ShowCommingNextTipps = New Thread(AddressOf FillListControlCommingNextTipps)
-
-            ProgressBar.Start()
-            ShowCommingNextTipps.Start()
-        End Sub
-        Private Sub FillListControlCommingNextTipps()
-            Dim LateTimeSQL As String
-            Dim EndofDay As Date
-            Dim Dauer As String
-            Dim EndofDaySQL As String
-            Dim Rating As String
-
-            ctlProgressBar.Visible = True
-
-
-            Rating = MPSettingRead("config", "ClickfinderRating")
-
-            EndofDay = Today.AddMonths(1)
-
-            LateTimeSQL = "#" & Today.Year & "-" & Format(Today.Month, "00") & "-" & Format(Today.Day, "00") & " 00:01:00#"
-            EndofDaySQL = "#" & EndofDay.Year & "-" & Format(EndofDay.Month, "00") & "-" & Format(EndofDay.Day, "00") & " 02:00:00#"
-
-            ctlList.ListItems.Clear()
-
-            ReadClickfinderDB("Select * from Sendungen where (Beginn Between " & LateTimeSQL & " AND " & EndofDaySQL & ") AND Bewertung = 4 ORDER BY Beginn ASC")
-
-            While ClickfinderData.Read
-
-
-                Dauer = Replace(Replace(ClickfinderData.Item("Dauer"), " ", ""), "min", "")
-
-                '110 min
-                If CInt(Dauer) > 10 Or CInt(Dauer) < 240 Then
-
-                    Dim lItem As New GUIListItem
-                    Dim TagBezeichnung As String
-
-                    TagBezeichnung = CDate(ClickfinderData.Item("Beginn")).DayOfWeek
-
-                    Select Case TagBezeichnung
-                        Case Is = "0"
-                            TagBezeichnung = "Sonntag"
-                        Case Is = "1"
-                            TagBezeichnung = "Montag"
-                        Case Is = "2"
-                            TagBezeichnung = "Dienstag"
-                        Case Is = "3"
-                            TagBezeichnung = "Mittwoch"
-                        Case Is = "4"
-                            TagBezeichnung = "Donnerstag"
-                        Case Is = "5"
-                            TagBezeichnung = "Freitag"
-                        Case Is = "6"
-                            TagBezeichnung = "Samstag"
-                    End Select
-
-                    lItem.Label = ClickfinderData.Item("Titel")
-                    lItem.Label2 = TagBezeichnung & " " & Format(CDate(ClickfinderData.Item("Beginn")).Day, "00") & "." & Format(CDate(ClickfinderData.Item("Beginn")).Month, "00") & "." & CDate(ClickfinderData.Item("Beginn")).Year
-                    lItem.Label3 = ClickfinderData.Item("Genre").ToString
-                    'lItem.Label2 = SeriesReader.Item("ID")
-                    lItem.ItemId = ctlList.ListItems.Count - 1
-                    'lItem.Label2 = item.StartTime.Date
-                    'lItem.Path = Test
-                    lItem.IconImage = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & ClickfinderData.Item("SenderKennung").ToString & ".png")
-                    lItem.IsFolder = False
-                    GUIControl.AddListItemControl(GetID, ctlList.GetID, lItem)
-
-                End If
-
-            End While
-
-            CloseClickfinderDB()
-
-            ctlProgressBar.Visible = False
-        End Sub
 
 
 
@@ -1404,7 +1372,7 @@ Namespace ClickfinderProgramGuide
         End Sub
         Private Sub FillTipps(ByVal StartIdofGroup As Integer, ByVal _Titel As String, ByVal _FavImagePath As String, _
             ByVal _channelName As String, ByVal _StartZeit As Date, ByVal _EndZeit As Date, ByVal _Genre As String, ByVal _BewertungStr As String, _
-            ByVal _Kritik As String, ByVal _FavRatingImagePath As String, ByVal _EpisodenName As String)
+            ByVal _Kritik As String, ByVal _FavRatingImagePath As String, ByVal _EpisodenName As String, ByVal _SeriesNum As String, ByVal _EpisodeNum As String)
 
 
             Dim _Bilddatei As String
@@ -1439,6 +1407,9 @@ Namespace ClickfinderProgramGuide
                 'Zeit 
                 GUILabelControl.SetControlLabel(GetID, StartIdofGroup + 4, FormatTimeLabel(_StartZeit, _EndZeit))
 
+                If Not _SeriesNum = "" Or Not _EpisodeNum = "" Then
+                    _EpisodenName = "S" & Format(CInt(_SeriesNum), "00") & "E" & Format(CInt(_EpisodeNum), "00") & " - " & _EpisodenName
+                End If
 
                 'Wenn keine Bewertung vorhanden ist, Genre = EpisodenName, Kanal = Genre, Bewertung = Kanal
                 If _BewertungStr = "" Then
@@ -1460,13 +1431,13 @@ Namespace ClickfinderProgramGuide
                 End If
 
 
-                    'Kritik 
-                    GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 6, _Kritik)
+                'Kritik 
+                GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 6, _Kritik)
 
-                    'Rating Image Path
-                    _GuiImage(StartIdofGroup + 7).SetFileName(_FavRatingImagePath)
+                'Rating Image Path
+                _GuiImage(StartIdofGroup + 7).SetFileName(_FavRatingImagePath)
 
-                    Log.Debug("Clickfinder ProgramGuide: [FillTipps]: " & _Titel & " " & _FavImagePath & " " & _channelName & " " & _Genre & " " & _StartZeit & " " & _EndZeit & " " & _BewertungStr & " " & _Kritik & " " & _FavRatingImagePath)
+                Log.Debug("Clickfinder ProgramGuide: [FillTipps]: " & _Titel & " " & _FavImagePath & " " & _channelName & " " & _Genre & " " & _StartZeit & " " & _EndZeit & " " & _BewertungStr & " " & _Kritik & " " & _FavRatingImagePath)
 
             Catch ex As Exception
                 Log.Error("Clickfinder ProgramGuide: [FillTipps]: " & ex.Message)
@@ -1483,7 +1454,7 @@ Namespace ClickfinderProgramGuide
             Try
 
                 Do
-                    FillTipps(_TippsCounter, Nothing, "", Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, "", "")
+                    FillTipps(_TippsCounter, Nothing, "", Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, "", "", "", "")
 
                     _TippsCounter = _TippsCounter + 10
                 Loop Until _TippsCounter = _idStoppCounter
