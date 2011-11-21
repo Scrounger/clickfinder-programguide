@@ -442,10 +442,48 @@ Namespace ClickfinderProgramGuide
 
 
         Private Sub Button_CommingTipps()
+            Dim _ProgressBar As New Thread(AddressOf ShowProgressbar)
+            Dim _Threat As New Thread(AddressOf CreateClickfinderRatingTable)
 
-            'StartFillListControlCommingNextTipps()
+            _ProgressBar.Start()
+            _Threat.Start()
+
+            'Dim sb As New SqlBuilder(StatementType.[Select], GetType(Program))
+            'sb.AddConstraint([Operator].GreaterThan, "starRating", CInt(0))
+            'sb.AddConstraint([Operator].LessThanOrEquals, "starRating", CInt(10))
+            'Dim stmt As SqlStatement = sb.GetStatement(True)
+            'Dim apps As IList = ObjectFactory.GetCollection(GetType(Program), stmt.Execute())
+
+            'MsgBox(apps.Count - 1)
+
+            'For i = 0 To apps.Count - 1
+            '    Dim _program As Program = apps.Item(i)
+            '    Dim bla As Channel = Channel.Retrieve(_program.IdChannel)
+
+            '    MsgBox(bla.DisplayName)
+
+            'Next
+
+
+            'Dim sb As New SqlBuilder(StatementType.[Select], GetType(GroupMap))
+            'sb.AddConstraint([Operator].Equals, "idGroup", CInt(2))
+            'Dim stmt As SqlStatement = sb.GetStatement(True)
+            'Dim apps As IList = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
+
+
+
+            'For I = 0 To apps.Count - 1
+            '    Dim bla As GroupMap = apps.Item(I)
+            '    Dim ChannelName As Channel = Channel.Retrieve(bla.IdChannel)
+
+            '    MsgBox(ChannelName.DisplayName)
+            '    'MsgBox(bla.IdChannel)
+
+            'Next
+
 
         End Sub
+
 
         Private Sub Button_Record()
             Dim _ClickfinderChannelName As String
@@ -552,7 +590,7 @@ Namespace ClickfinderProgramGuide
 
                 CloseClickfinderDB()
 
-              
+
 
             Catch ex As Exception
                 Log.Error("Clickfinder ProgramGuide: [Button_Remember]: " & ex.Message)
@@ -1589,7 +1627,6 @@ Namespace ClickfinderProgramGuide
                 ConClickfinderDBRead.Open()
                 'Provider=Microsoft.Jet.OLEDB.4.0;
                 'Provider=Microsoft.ACE.OLEDB.12.0;
-
                 CmdClickfinderDBRead = ConClickfinderDBRead.CreateCommand
                 CmdClickfinderDBRead.CommandText = SQLString
 
@@ -1753,15 +1790,147 @@ Namespace ClickfinderProgramGuide
 
             'Umwandeln von Start- & EndZeit in Access Date SQL String
 
+            If Not OrderBySQLCmd = "" Then OrderBySQLCmd = " ORDER BY " & OrderBySQLCmd
 
-            OrderBySQLCmd = " ORDER BY " & OrderBySQLCmd
-
-            SQLQueryAccess = "Select * from Sendungen where (Beginn Between " & DateToAccessSQLstring(_StartZeit) & " AND " & DateToAccessSQLstring(_EndZeit) & ") " & AppendWhereSQLCmd & OrderBySQLCmd
+            SQLQueryAccess = "Select * from Sendungen Inner Join SendungenDetails on Sendungen.Pos = SendungenDetails.Pos WHERE (Beginn Between " & DateToAccessSQLstring(_StartZeit) & " AND " & DateToAccessSQLstring(_EndZeit) & ") " & AppendWhereSQLCmd & OrderBySQLCmd
 
         End Function
 
+        Private Sub CreateClickfinderRatingTable()
+
+            Dim _StartZeit As Date = Today
+            Dim _EndZeit As Date = Today.AddDays(1)
+            Dim _ClickfinderPath As String = MPSettingRead("config", "ClickfinderPath")
+            Dim _NewColumn As String = "Rating"
+            Dim _BewertungenStrNumber As String
+            Dim _Rating As Integer
 
 
+            If DoesFieldExist("SendungenDetails", _NewColumn, "Select * FROM SendungenDetails") = False Then
+
+                Try
+                    Dim dbConn As New OleDb.OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;" & "Data Source=" & _ClickfinderPath & "\tvdaten.mdb")
+                    dbConn.Open()
+
+                    Dim dbCmd As New OleDb.OleDbCommand("ALTER TABLE SendungenDetails ADD COLUMN " & _NewColumn & " int DEFAULT 0", dbConn)
+                    dbCmd.ExecuteNonQuery()
+
+                    Log.Info("Clickfinder ProgramGuide: [CreateClickfinderRatingTable]: RatingField in SendungenDetails created")
+
+                    dbCmd.Dispose()
+                    dbConn.Close()
+
+                Catch ex As Exception
+                    MsgBox(ex.Message)
+                    Log.Error("Clickfinder ProgramGuide: [CreateClickfinderRatingTable]: " & ex.Message)
+                End Try
+            End If
+
+
+            Try
+
+                ReadClickfinderDB(SQLQueryAccess(_StartZeit, _EndZeit, "AND Bewertung >= 1 AND Bewertungen LIKE '%Spann%'"))
+                While ClickfinderData.Read
+
+                    _BewertungenStrNumber = Replace(Replace(Replace(Replace(Replace(Replace(Replace(ClickfinderData.Item("Bewertungen"), ";", " "), "Spaß=", ""), "Action=", ""), "Erotik=", ""), "Spannung=", ""), "Gefühl=", ""), "Anspruch=", "")
+                    _Rating = 0
+
+                    For i = 1 To _BewertungenStrNumber.Length
+                        If IsNumeric(Mid$(_BewertungenStrNumber, i, 1)) Then
+                            _Rating = _Rating + CInt(Mid$(_BewertungenStrNumber, i, 1))
+
+                        End If
+
+                    Next
+
+                    'MsgBox(_Rating)
+                    If CInt(ClickfinderData.Item("Bewertung")) >= 1 And CInt(ClickfinderData.Item("Bewertung")) <= 4 Then
+                        _Rating = _Rating + CInt(ClickfinderData.Item("Bewertung"))
+                    ElseIf ClickfinderData.Item("Bewertung") = 5 Then
+                        _Rating = _Rating + 0
+                    ElseIf ClickfinderData.Item("Bewertung") = 6 Then
+                        _Rating = _Rating + 1
+                    End If
+
+
+                    If Not CInt(ClickfinderData.Item("Sendungen.Pos")) = _Rating Then
+                        DBWrite("UPDATE SendungenDetails SET Rating = '" & _Rating & "' WHERE Pos = " & ClickfinderData.Item("Sendungen.Pos"))
+                    End If
+
+                End While
+                CloseClickfinderDB()
+
+
+            Catch ex As Exception
+                MsgBox("Error: " & ex.Message)
+            End Try
+
+
+
+            ctlProgressBar.Visible = False
+
+        End Sub
+
+        Public Sub DBWrite(ByVal SQLString As String)
+            Dim _ClickfinderPath As String = MPSettingRead("config", "ClickfinderPath")
+
+            'Connection zur DB herstellen
+            Dim dbConn As New OleDb.OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;" & "Data Source=" & _ClickfinderPath & "\tvdaten.mdb")
+            Dim dbCmd As New OleDb.OleDbCommand
+
+
+            dbCmd.Connection = dbConn
+
+            Try
+                'Reader mit SQL Anfrage füllen
+                dbConn.Open()
+                dbCmd.CommandText = SQLString
+                dbCmd.ExecuteNonQuery()
+                dbConn.Close()
+
+            Catch ex As Exception
+                MsgBox(ex.Message, MsgBoxStyle.Critical, "Fehler...")
+            End Try
+        End Sub
+
+        Public Function DoesFieldExist(ByVal tblName As String, _
+                               ByVal fldName As String, _
+                               ByVal cnnStr As String) As Boolean
+
+            Try
+
+                Dim _ClickfinderPath As String = MPSettingRead("config", "ClickfinderPath")
+                Dim dbConn As New OleDb.OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;" & "Data Source=" & _ClickfinderPath & "\tvdaten.mdb")
+                dbConn.Open()
+                Dim dbTbl As New DataTable
+
+                Dim strSql As String = "Select TOP 1 * from " & tblName
+                Dim dbAdapater As New OleDb.OleDbDataAdapter(strSql, dbConn)
+                dbAdapater.Fill(dbTbl)
+
+                ' Get the index of the field name
+                Dim i As Integer = dbTbl.Columns.IndexOf(fldName)
+
+                If i = -1 Then
+                    'Field is missing
+                    DoesFieldExist = False
+
+                Else
+                    'Field is there
+                    DoesFieldExist = True
+                End If
+
+                Log.Info("Clickfinder ProgramGuide: [DoesFieldExist]: SendungenDetails - RatingField = " & DoesFieldExist)
+
+                dbTbl.Dispose()
+                dbConn.Close()
+                dbConn.Dispose()
+
+            Catch ex As Exception
+                Log.Error("Clickfinder ProgramGuide: [DoesFieldExist]: " & ex.Message)
+            End Try
+
+        End Function
 
 #End Region
 
@@ -1836,16 +2005,18 @@ Namespace ClickfinderProgramGuide
 #End Region
 
 
-        'Public Shared Function ListByNameStartsWith(ByVal idChannel As Integer) As IList
-        '    Dim sb As SqlBuilder = New SqlBuilder(StatementType.Select, GetType(GroupMap))
-        '    ' note: the partialName parameter must also contain the %'s for the LIKE query!
-        '    sb.AddConstraint([Operator].Like, "idGroup", idChannel)
-        '    ' passing true indicates that we'd like a list of elements, i.e. that no primary key
-        '    ' constraints from the type being retrieved should be added to the statement
-        '    Dim stmt As SqlStatement = sb.GetStatement(StatementType.Select)
-        '    ' execute the statement/query and create a collection of User instances from the result
-        '    Return ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute)
-        'End Function
+        Public Shared Function ListByNameStartsWith(ByVal DisplayName As String) As IList
+
+
+            Dim sb As SqlBuilder = New SqlBuilder(StatementType.Select, GetType(Channel))
+            ' note: the partialName parameter must also contain the %'s for the LIKE query!
+            sb.AddConstraint([Operator].Like, "displayName", DisplayName)
+            ' passing true indicates that we'd like a list of elements, i.e. that no primary key
+            ' constraints from the type being retrieved should be added to the statement
+            Dim stmt As SqlStatement = sb.GetStatement(StatementType.Select)
+            ' execute the statement/query and create a collection of User instances from the result
+            Return ObjectFactory.GetCollection(GetType(Channel), stmt.Execute)
+        End Function
 
 
 

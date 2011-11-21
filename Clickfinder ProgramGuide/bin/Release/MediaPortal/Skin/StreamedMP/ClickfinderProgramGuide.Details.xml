@@ -37,12 +37,13 @@
     </control>
     
     <control>
-      <description>ListItem Image</description>
+      <description>Detail Image</description>
       <type>image</type>
       <id>30</id>
-      <posX>660</posX>
-      <posY>110</posY>
-      <height>200</height>
+      <posX>110</posX>
+      <posY>140</posY>
+      <width>216</width>
+      <height>160</height>
       <texture></texture>
       <colorkey>0</colorkey>
       <filtered>yes</filtered>
@@ -52,11 +53,11 @@
     </control>
 
     <control>
-      <description>ListRatingItem Image</description>
+      <description>Detail Rating Image</description>
       <type>image</type>
       <id>37</id>
-      <posX>784</posX>
-      <posY>192</posY>
+      <posX>90</posX>
+      <posY>270</posY>
       <width>48</width>
       <texture></texture>
       <colorkey>0</colorkey>
@@ -70,11 +71,11 @@
 
 
     <control>
-      <description>ListItem Titel</description>
+      <description>Detail Titel</description>
       <type>fadelabel</type>
       <id>31</id>
-      <posX>820</posX>
-      <posY>110</posY>
+      <posX>336</posX>
+      <posY>140</posY>
       <width>430</width>
       <align>left</align>
       <font>mediastream12tc</font>
@@ -87,8 +88,8 @@
       <description>ListItem org. Titel</description>
       <type>fadelabel</type>
       <id>38</id>
-      <posX>820</posX>
-      <posY>130</posY>
+      <posX>336</posX>
+      <posY>150</posY>
       <width>680</width>
       <align>left</align>
       <font>font12</font>
