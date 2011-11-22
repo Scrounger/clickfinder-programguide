@@ -50,6 +50,7 @@ Partial Class Setup
         Me.Label10 = New System.Windows.Forms.Label
         Me.Label11 = New System.Windows.Forms.Label
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
+        Me.CBUpdateInterval = New System.Windows.Forms.ComboBox
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -362,12 +363,25 @@ Partial Class Setup
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Filter Einstellungen"
         '
+        'CBUpdateInterval
+        '
+        Me.CBUpdateInterval.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBUpdateInterval.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CBUpdateInterval.FormattingEnabled = True
+        Me.CBUpdateInterval.Items.AddRange(New Object() {"1", "2", "5", "7", "10"})
+        Me.CBUpdateInterval.Location = New System.Drawing.Point(266, 506)
+        Me.CBUpdateInterval.Margin = New System.Windows.Forms.Padding(4)
+        Me.CBUpdateInterval.Name = "CBUpdateInterval"
+        Me.CBUpdateInterval.Size = New System.Drawing.Size(54, 24)
+        Me.CBUpdateInterval.TabIndex = 33
+        '
         'Setup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(580, 560)
+        Me.Controls.Add(Me.CBUpdateInterval)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.Label10)
@@ -420,4 +434,5 @@ Partial Class Setup
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents CBUpdateInterval As System.Windows.Forms.ComboBox
 End Class

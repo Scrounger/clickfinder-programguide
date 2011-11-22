@@ -29,7 +29,7 @@ Public Class Setup
         Me.tfClickfinderPath.Text = MPSettingRead("config", "ClickfinderPath")
         Rating = CInt(MPSettingRead("config", "ClickfinderRating"))
         idGroup = MPSettingRead("config", "ChannelGroupID")
-
+        MPSettingsWrite("Save", "LastUpdate", "01.01.2011")
 
         Select Case Rating
             Case Is = 0
@@ -95,6 +95,10 @@ Public Class Setup
             If CBMinTime.Items.Item(i) = MPSettingRead("config", "MinTime") Then CBMinTime.Text = MPSettingRead("config", "MinTime")
         Next
 
+        For i = 0 To CBUpdateInterval.Items.Count - 1
+            If CBUpdateInterval.Items.Item(i) = MPSettingRead("config", "UpdateInterval") Then CBUpdateInterval.Text = MPSettingRead("config", "UpdateInterval")
+        Next
+
         If MPSettingRead("config", "IgnoreMinTimeSeries") = "true" Then
             CKIgnoreSeries.CheckState = Windows.Forms.CheckState.Checked
         Else
@@ -132,6 +136,7 @@ Public Class Setup
         MPSettingsWrite("config", "LateTimeMinute", Me.CBLateTimeMinute.Text)
         MPSettingsWrite("config", "DelayNow", Me.CBDelayNow.Text)
         MPSettingsWrite("config", "MinTime", Me.CBMinTime.Text)
+        MPSettingsWrite("config", "UpdateInterval", Me.CBUpdateInterval.Text)
 
         If CKIgnoreSeries.CheckState = Windows.Forms.CheckState.Checked Then
             MPSettingsWrite("config", "IgnoreMinTimeSeries", "true")

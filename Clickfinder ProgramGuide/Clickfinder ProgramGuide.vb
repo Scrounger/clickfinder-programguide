@@ -1798,73 +1798,81 @@ Namespace ClickfinderProgramGuide
 
         Private Sub CreateClickfinderRatingTable()
 
-            Dim _StartZeit As Date = Today
-            Dim _EndZeit As Date = Today.AddDays(1)
+
             Dim _ClickfinderPath As String = MPSettingRead("config", "ClickfinderPath")
             Dim _NewColumn As String = "Rating"
             Dim _BewertungenStrNumber As String
             Dim _Rating As Integer
+            Dim _LastUpdate As Date = CDate(MPSettingRead("Save", "LastUpdate"))
+            Dim _UpdateInterval As Double = CDbl(MPSettingRead("config", "UpdateInterval"))
+
+            Dim _StartZeit As Date = Today
+            Dim _EndZeit As Date = Today.AddDays(_UpdateInterval)
+
+            If _LastUpdate.AddDays(_UpdateInterval) < Now Then
 
 
-            If DoesFieldExist("SendungenDetails", _NewColumn, "Select * FROM SendungenDetails") = False Then
+
+                If DoesFieldExist("SendungenDetails", _NewColumn, "Select * FROM SendungenDetails") = False Then
+
+                    Try
+                        Dim dbConn As New OleDb.OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;" & "Data Source=" & _ClickfinderPath & "\tvdaten.mdb")
+                        dbConn.Open()
+
+                        Dim dbCmd As New OleDb.OleDbCommand("ALTER TABLE SendungenDetails ADD COLUMN " & _NewColumn & " int DEFAULT 0", dbConn)
+                        dbCmd.ExecuteNonQuery()
+
+                        Log.Info("Clickfinder ProgramGuide: [CreateClickfinderRatingTable]: RatingField in SendungenDetails created")
+
+                        dbCmd.Dispose()
+                        dbConn.Close()
+
+                    Catch ex As Exception
+                        MsgBox(ex.Message)
+                        Log.Error("Clickfinder ProgramGuide: [CreateClickfinderRatingTable]: " & ex.Message)
+                    End Try
+                End If
+
 
                 Try
-                    Dim dbConn As New OleDb.OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;" & "Data Source=" & _ClickfinderPath & "\tvdaten.mdb")
-                    dbConn.Open()
 
-                    Dim dbCmd As New OleDb.OleDbCommand("ALTER TABLE SendungenDetails ADD COLUMN " & _NewColumn & " int DEFAULT 0", dbConn)
-                    dbCmd.ExecuteNonQuery()
+                    ReadClickfinderDB(SQLQueryAccess(_StartZeit, _EndZeit, "AND Bewertung >= 1 AND Bewertungen LIKE '%Spann%'"))
+                    While ClickfinderData.Read
 
-                    Log.Info("Clickfinder ProgramGuide: [CreateClickfinderRatingTable]: RatingField in SendungenDetails created")
+                        _BewertungenStrNumber = Replace(Replace(Replace(Replace(Replace(Replace(Replace(ClickfinderData.Item("Bewertungen"), ";", " "), "Spaß=", ""), "Action=", ""), "Erotik=", ""), "Spannung=", ""), "Gefühl=", ""), "Anspruch=", "")
+                        _Rating = 0
 
-                    dbCmd.Dispose()
-                    dbConn.Close()
+                        For i = 1 To _BewertungenStrNumber.Length
+                            If IsNumeric(Mid$(_BewertungenStrNumber, i, 1)) Then
+                                _Rating = _Rating + CInt(Mid$(_BewertungenStrNumber, i, 1))
 
-                Catch ex As Exception
-                    MsgBox(ex.Message)
-                    Log.Error("Clickfinder ProgramGuide: [CreateClickfinderRatingTable]: " & ex.Message)
-                End Try
-            End If
+                            End If
 
+                        Next
 
-            Try
-
-                ReadClickfinderDB(SQLQueryAccess(_StartZeit, _EndZeit, "AND Bewertung >= 1 AND Bewertungen LIKE '%Spann%'"))
-                While ClickfinderData.Read
-
-                    _BewertungenStrNumber = Replace(Replace(Replace(Replace(Replace(Replace(Replace(ClickfinderData.Item("Bewertungen"), ";", " "), "Spaß=", ""), "Action=", ""), "Erotik=", ""), "Spannung=", ""), "Gefühl=", ""), "Anspruch=", "")
-                    _Rating = 0
-
-                    For i = 1 To _BewertungenStrNumber.Length
-                        If IsNumeric(Mid$(_BewertungenStrNumber, i, 1)) Then
-                            _Rating = _Rating + CInt(Mid$(_BewertungenStrNumber, i, 1))
-
+                        'MsgBox(_Rating)
+                        If CInt(ClickfinderData.Item("Bewertung")) >= 1 And CInt(ClickfinderData.Item("Bewertung")) <= 4 Then
+                            _Rating = _Rating + CInt(ClickfinderData.Item("Bewertung"))
+                        ElseIf ClickfinderData.Item("Bewertung") = 5 Then
+                            _Rating = _Rating + 0
+                        ElseIf ClickfinderData.Item("Bewertung") = 6 Then
+                            _Rating = _Rating + 1
                         End If
 
-                    Next
 
-                    'MsgBox(_Rating)
-                    If CInt(ClickfinderData.Item("Bewertung")) >= 1 And CInt(ClickfinderData.Item("Bewertung")) <= 4 Then
-                        _Rating = _Rating + CInt(ClickfinderData.Item("Bewertung"))
-                    ElseIf ClickfinderData.Item("Bewertung") = 5 Then
-                        _Rating = _Rating + 0
-                    ElseIf ClickfinderData.Item("Bewertung") = 6 Then
-                        _Rating = _Rating + 1
-                    End If
+                        If Not CInt(ClickfinderData.Item("Sendungen.Pos")) = _Rating Then
+                            DBWrite("UPDATE SendungenDetails SET Rating = '" & _Rating & "' WHERE Pos = " & ClickfinderData.Item("Sendungen.Pos"))
+                        End If
 
+                    End While
+                    CloseClickfinderDB()
 
-                    If Not CInt(ClickfinderData.Item("Sendungen.Pos")) = _Rating Then
-                        DBWrite("UPDATE SendungenDetails SET Rating = '" & _Rating & "' WHERE Pos = " & ClickfinderData.Item("Sendungen.Pos"))
-                    End If
+                    MPSettingsWrite("Save", "LastUpdate", Now)
 
-                End While
-                CloseClickfinderDB()
-
-
-            Catch ex As Exception
-                MsgBox("Error: " & ex.Message)
-            End Try
-
+                Catch ex As Exception
+                    MsgBox("Error: " & ex.Message)
+                End Try
+            End If
 
 
             ctlProgressBar.Visible = False
@@ -1944,6 +1952,12 @@ Namespace ClickfinderProgramGuide
             End Using
         End Function
 
+        Public Sub MPSettingsWrite(ByVal section As String, ByVal entry As String, ByVal NewAttribute As String)
+            Using xmlReader As New Settings(Config.GetFile(Config.Dir.Config, "ClickfinderPGConfig.xml"))
+                xmlReader.SetValue(section, entry, NewAttribute)
+            End Using
+
+        End Sub
         'MediaPortal Dialoge
 
         Private Sub AddListControlItem(ByVal SendungID As String, ByVal Label As String, Optional ByVal label2 As String = "", Optional ByVal label3 As String = "", Optional ByVal ImagePath As String = "")

@@ -582,13 +582,13 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>0</Minor>
       <Build>3</Build>
-      <Revision>3</Revision>
+      <Revision>4</Revision>
     </Version>
     <ExtensionDescription />
     <VersionDescription />
     <DevelopmentStatus>Beta</DevelopmentStatus>
     <OnlineLocation />
-    <ReleaseDate>2011-11-19T15:57:29</ReleaseDate>
+    <ReleaseDate>2011-11-23T15:57:29</ReleaseDate>
     <Tags />
     <Location>D:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPEI\Clickfinder ProgramGuide.mpe1</Location>
     <Params>

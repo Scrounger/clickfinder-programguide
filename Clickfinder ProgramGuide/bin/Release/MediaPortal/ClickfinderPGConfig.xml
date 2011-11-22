@@ -12,6 +12,9 @@
     <entry name="MinTime">00</entry>
     <entry name="IgnoreMinTimeSeries">true</entry>
     <entry name="useRatingTvLogos">true</entry>
+    <entry name="UpdateInterval">1</entry>
   </section>
-    
+  <section name="Save">
+    <entry name="LastUpdate">01.01.2011</entry>
+  </section>
 </profile>
