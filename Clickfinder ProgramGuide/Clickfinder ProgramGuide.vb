@@ -1839,10 +1839,7 @@ Namespace ClickfinderProgramGuide
             Dim _EndZeit As Date = Today.AddDays(_UpdateInterval)
 
 
-
-            
-
-            If _LastUpdate.AddDays(_UpdateInterval) < Now Then
+            If _LastUpdate.AddDays(_UpdateInterval) < Now.Subtract(New System.TimeSpan(4, 5, 0)) Then
                 ctlImportProgress.IsVisible = True
                 ctlImportProgress.Percentage = 0
 
