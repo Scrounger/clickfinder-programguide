@@ -17,4 +17,41 @@
   <section name="Save">
     <entry name="LastUpdate">01.01.2011</entry>
   </section>
+  <section name="Movies">
+    <entry name="Where">KzFilm = true</entry>
+    <entry name="PreviewWhere">Bewertung >= 4 AND KzFilm = true</entry>
+    <entry name="OrderBy">Beginn ASC, Rating DESC, SenderKennung DESC</entry>
+  </section>
+  <section name="Sky Cinema">
+    <entry name="Where">KzFilm = true AND (SenderKennung LIKE '%SKY Cinema%' OR SenderKennung LIKE '%SKY Action%' OR SenderKennung LIKE '%MGM%' OR SenderKennung LIKE '%Disney Cinemagic%' OR SenderKennung LIKE '%SKY Comedy%' OR SenderKennung LIKE '%SKY Emotion%' OR SenderKennung LIKE '%SKY Nostalgie%')</entry>
+    <entry name="PreviewWhere">Bewertung >= 4 AND KzFilm = true AND (SenderKennung LIKE '%SKY Cinema%' OR SenderKennung LIKE '%SKY Action%' OR SenderKennung LIKE '%MGM%' OR SenderKennung LIKE '%Disney Cinemagic%' OR SenderKennung LIKE '%SKY Comedy%' OR SenderKennung LIKE '%SKY Emotion%' OR SenderKennung LIKE '%SKY Nostalgie%')</entry>
+    <entry name="OrderBy">Beginn ASC, Rating DESC, SenderKennung DESC</entry>
+  </section>
+  <section name="HDTV">
+    <entry name="Where">(KzHDTV = -1 OR SenderKennung LIKE '%HD%')</entry>
+    <entry name="OrderBy">Beginn ASC, Rating DESC, Bewertung DESC, SenderKennung DESC</entry>
+  </section>
+  <section name="Serien">
+    <entry name="Where">Keywords LIKE '%Serie%'</entry>
+    <entry name="OrderBy">Beginn ASC, Rating DESC, Bewertung DESC, SenderKennung DESC</entry>
+  </section>
+  <section name="Dokumentationen">
+    <entry name="Where">Genre LIKE '%Doku%'</entry>
+    <entry name="OrderBy">Beginn ASC, Rating DESC, Bewertung DESC, SenderKennung DESC</entry>
+  </section>
+  <section name="Reportagen">
+    <entry name="Where">Genre LIKE '%Report%'</entry>
+    <entry name="OrderBy">Beginn ASC, Rating DESC, Bewertung DESC, SenderKennung DESC</entry>
+  </section>
+  <section name="Magazine">
+    <entry name="Where">Genre LIKE '%Magazin%'</entry>
+    <entry name="OrderBy">Beginn ASC, Rating DESC, Bewertung DESC, SenderKennung DESC</entry>
+  </section>
+  <section name="Sport">
+    <entry name="Where">Keywords LIKE '%Sport%'</entry>
+    <entry name="OrderBy">Beginn ASC, Rating DESC, Bewertung DESC, SenderKennung DESC</entry>
+  </section>
 </profile>
+
+
+
