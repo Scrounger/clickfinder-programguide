@@ -45,6 +45,8 @@ Namespace ClickfinderProgramGuide
 
         <SkinControlAttribute(9)> Protected ctlProgressBar As GUIAnimation = Nothing
         <SkinControlAttribute(10)> Protected ctlList As GUIListControl = Nothing
+        <SkinControlAttribute(11)> Protected ctlImportProgress As GUIProgressControl = Nothing
+
 
 
 
@@ -222,6 +224,8 @@ Namespace ClickfinderProgramGuide
             MyBase.OnPageLoad()
             GUIWindowManager.NeedRefresh()
 
+
+
             Dictonary()
 
             ctlProgressBar.Visibility = Windows.Visibility.Hidden
@@ -231,10 +235,17 @@ Namespace ClickfinderProgramGuide
 
 
             ClickfinderCorrection()
-            btnNow.IsFocused = False
+            'btnNow.IsFocused = False
+
+            'Screen wird das erste Mal geladen
             If _ShowSQLString = "" Then
-                Button_Now()
+
                 btnNow.IsFocused = True
+
+
+
+                Button_Now()
+                'Screen wird erneut geladen
             ElseIf _CurrentCategorie = "" Then
                 ShowCategories()
                 Select Case _CurrentQuery
@@ -411,7 +422,11 @@ Namespace ClickfinderProgramGuide
             _ZeitQueryEnde = _ZeitQueryStart.AddHours(4)
             _CurrentQuery = "Now"
 
+
+
             ShowCategories()
+
+
         End Sub
 
         Private Sub Button_PrimeTime()
@@ -442,11 +457,18 @@ Namespace ClickfinderProgramGuide
 
 
         Private Sub Button_CommingTipps()
-            Dim _ProgressBar As New Thread(AddressOf ShowProgressbar)
-            Dim _Threat As New Thread(AddressOf CreateClickfinderRatingTable)
 
-            _ProgressBar.Start()
-            _Threat.Start()
+            Dim _Threat1 As New Thread(AddressOf ShowProgressbar)
+            Dim _Threat2 As New Thread(AddressOf CreateClickfinderRatingTable)
+
+            _Threat1.Start()
+            _Threat2.Start()
+
+
+
+
+            '_Threat2.Join()
+
 
             'Dim sb As New SqlBuilder(StatementType.[Select], GetType(Program))
             'sb.AddConstraint([Operator].GreaterThan, "starRating", CInt(0))
@@ -913,10 +935,14 @@ Namespace ClickfinderProgramGuide
                     AddListControlItem(ctlList.ListItems.Count - 1, "Sport", , , "ClickfinderPG_Sport.png")
                 End If
 
-                ShowTipps()
+
 
                 'AddListControlItem("Bundesliga")
                 'AddListControlItem("ChampionsLeague")
+
+                'Clickfinder Rating prüfen ob vorhanden und anschließend Tipps anzeigen
+                Dim _Threat2 As New Thread(AddressOf CreateClickfinderRatingTable)
+                _Threat2.Start()
 
             Catch ex As Exception
                 Log.Error("Clickfinder ProgramGuide: [ShowCategories]: " & ex.Message)
@@ -1343,6 +1369,9 @@ Namespace ClickfinderProgramGuide
         'ProgresBar paralell anzeigen
         Private Sub ShowProgressbar()
             ctlProgressBar.Visible = True
+        End Sub
+        Private Sub ShowImportProgressbar()
+            ctlImportProgress.Visible = True
         End Sub
 
 #End Region
@@ -1805,12 +1834,17 @@ Namespace ClickfinderProgramGuide
             Dim _Rating As Integer
             Dim _LastUpdate As Date = CDate(MPSettingRead("Save", "LastUpdate"))
             Dim _UpdateInterval As Double = CDbl(MPSettingRead("config", "UpdateInterval"))
-
+            Dim _Counter As Integer = 0
             Dim _StartZeit As Date = Today
             Dim _EndZeit As Date = Today.AddDays(_UpdateInterval)
 
-            If _LastUpdate.AddDays(_UpdateInterval) < Now Then
 
+
+            
+
+            If _LastUpdate.AddDays(_UpdateInterval) < Now Then
+                ctlImportProgress.IsVisible = True
+                ctlImportProgress.Percentage = 0
 
 
                 If DoesFieldExist("SendungenDetails", _NewColumn, "Select * FROM SendungenDetails") = False Then
@@ -1835,9 +1869,32 @@ Namespace ClickfinderProgramGuide
 
 
                 Try
+                    Log.Info("Clickfinder ProgramGuide: [CreateClickfinderRatingTable]: Start Calculate & write Ratings")
 
-                    ReadClickfinderDB(SQLQueryAccess(_StartZeit, _EndZeit, "AND Bewertung >= 1 AND Bewertungen LIKE '%Spann%'"))
+                    Dim _SQLString As String = SQLQueryAccess(_StartZeit, _EndZeit, "AND Bewertung >= 1 AND Bewertungen LIKE '%Spann%'")
+
+                    Dim Con As New OleDb.OleDbConnection
+                    Dim Cmd As New OleDb.OleDbCommand
+                    Dim DataCount As Long
+
+                    Con.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;" & "Data Source=" & _ClickfinderPath & "\tvdaten.mdb"
+                    Con.Open()
+
+                    Cmd = Con.CreateCommand
+                    Cmd.CommandText = Replace(_SQLString, "Select *", "SELECT Count (*) As Anzahl")
+                    DataCount = CLng(Cmd.ExecuteScalar)
+
+                    Cmd.Dispose()
+                    Con.Close()
+
+
+
+
+                    ReadClickfinderDB(_SQLString)
                     While ClickfinderData.Read
+                        _Counter = _Counter + 1
+
+                        ctlImportProgress.Percentage = _Counter / DataCount * 100
 
                         _BewertungenStrNumber = Replace(Replace(Replace(Replace(Replace(Replace(Replace(ClickfinderData.Item("Bewertungen"), ";", " "), "Spaß=", ""), "Action=", ""), "Erotik=", ""), "Spannung=", ""), "Gefühl=", ""), "Anspruch=", "")
                         _Rating = 0
@@ -1869,13 +1926,18 @@ Namespace ClickfinderProgramGuide
 
                     MPSettingsWrite("Save", "LastUpdate", Now)
 
+                    Log.Info("Clickfinder ProgramGuide: [CreateClickfinderRatingTable]: Calculate & write Ratings - success")
+
                 Catch ex As Exception
-                    MsgBox("Error: " & ex.Message)
+                    Log.Error("Clickfinder ProgramGuide: [CreateClickfinderRatingTable]: " & ex.Message)
                 End Try
+                ctlImportProgress.Visible = False
+                ShowTipps()
+            Else
+                ShowTipps()
             End If
 
 
-            ctlProgressBar.Visible = False
 
         End Sub
 
