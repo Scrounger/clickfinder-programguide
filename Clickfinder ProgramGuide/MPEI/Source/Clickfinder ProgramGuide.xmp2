@@ -581,8 +581,8 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Version>
       <Major>0</Major>
       <Minor>0</Minor>
-      <Build>3</Build>
-      <Revision>9</Revision>
+      <Build>4</Build>
+      <Revision>0</Revision>
     </Version>
     <ExtensionDescription />
     <VersionDescription />
