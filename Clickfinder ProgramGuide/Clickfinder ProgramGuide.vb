@@ -133,8 +133,8 @@ Namespace ClickfinderProgramGuide
         Public _CurrentQuery As String
         Private _TippButtonFocus As Boolean
         Private _TippButtonFocusID As Integer
-        Private LiveCorrection As Boolean = False
-        Private WdhCorrection As Boolean = False
+        Private LiveCorrection As Boolean = CBool(MPSettingRead("config", "LiveCorrection"))
+        Private WdhCorrection As Boolean = CBool(MPSettingRead("config", "WdhCorrection"))
 
         Private _ZeitQueryStart As Date
         Private _ZeitQueryEnde As Date
@@ -233,9 +233,10 @@ Namespace ClickfinderProgramGuide
             btnNow.IsFocused = True
 
 
+            'MsgBox(LiveCorrection & " " & WdhCorrection)
 
-            ClickfinderCorrection()
             'btnNow.IsFocused = False
+
 
             'Screen wird das erste Mal geladen
             If _ShowSQLString = "" Then
@@ -725,6 +726,41 @@ Namespace ClickfinderProgramGuide
                         Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
                     End Try
 
+                Case "Sky Dokumentationen"
+                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & _CurrentQuery.ToString)
+                    Try
+                        ctlList.Clear()
+                        _CurrentCategorie = "Sky Dokumentationen"
+
+                        _SQLWhereAdd = "AND " & MPSettingRead(_CurrentCategorie, "Where")
+                        _SQLWhereAddPreview = "AND " & MPSettingRead(_CurrentCategorie, "PreviewWhere")
+                        _SQLOrderBy = MPSettingRead(_CurrentCategorie, "OrderBy")
+
+                        Select Case _CurrentQuery.ToString
+                            Case Is = "Now"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                            Case Is = "PrimeTime"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                            Case Is = "LateTime"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                            Case Is = "Preview"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAddPreview, _SQLOrderBy)
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                        End Select
+                    Catch ex As Exception
+                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
+                    End Try
 
 
 
@@ -800,8 +836,6 @@ Namespace ClickfinderProgramGuide
                         _SQLWhereAdd = "AND " & MPSettingRead(_CurrentCategorie, "Where")
                         _SQLOrderBy = MPSettingRead(_CurrentCategorie, "OrderBy")
 
-                        ctlList.Clear()
-                        _CurrentCategorie = "Dokumentationen"
                         Select Case _CurrentQuery.ToString
                             Case Is = "Now"
                                 _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
@@ -888,8 +922,6 @@ Namespace ClickfinderProgramGuide
                 Case "Sport"
                     Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & _CurrentQuery.ToString)
 
- 
-
                     Try
                         ctlList.Clear()
                         _CurrentCategorie = "Sport"
@@ -910,6 +942,27 @@ Namespace ClickfinderProgramGuide
                                 _Threat.Start()
                             Case Is = "LateTime"
                                 _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
+                                ShowTipps()
+                                _ProgressBar.Start()
+                                _Threat.Start()
+                        End Select
+                    Catch ex As Exception
+                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
+                    End Try
+
+                Case "Fußball LIVE"
+                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & _CurrentQuery.ToString)
+
+                    Try
+                        ctlList.Clear()
+                        _CurrentCategorie = "Fußball LIVE"
+
+                        _SQLWhereAddPreview = "AND " & MPSettingRead(_CurrentCategorie, "PreviewWhere")
+                        _SQLOrderBy = MPSettingRead(_CurrentCategorie, "OrderBy")
+
+                        Select Case _CurrentQuery.ToString
+                            Case Is = "Preview"
+                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAddPreview, _SQLOrderBy)
                                 ShowTipps()
                                 _ProgressBar.Start()
                                 _Threat.Start()
@@ -946,11 +999,14 @@ Namespace ClickfinderProgramGuide
                     _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung = 4", "Beginn ASC, Bewertung DESC, Titel")
                     AddListControlItem(ctlList.ListItems.Count - 1, "Movies", , , "ClickfinderPG_Movies.png")
                     AddListControlItem(ctlList.ListItems.Count - 1, "Sky Cinema")
+                    AddListControlItem(ctlList.ListItems.Count - 1, "Sky Dokumentationen")
+                    AddListControlItem(ctlList.ListItems.Count - 1, "Fußball LIVE")
 
                 Else
                     _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND KzFilm = true", "Beginn ASC, SendungenDetails.Rating DESC, Titel")
                     AddListControlItem(ctlList.ListItems.Count - 1, "Movies", , , "ClickfinderPG_Movies.png")
                     AddListControlItem(ctlList.ListItems.Count - 1, "Sky Cinema")
+                    AddListControlItem(ctlList.ListItems.Count - 1, "Sky Dokumentationen")
                     AddListControlItem(ctlList.ListItems.Count - 1, "HDTV")
                     AddListControlItem(ctlList.ListItems.Count - 1, "Serien", , , "ClickfinderPG_TvSeries.png")
                     AddListControlItem(ctlList.ListItems.Count - 1, "Dokumentationen", , , "ClickfinderPG_Doku.png")
@@ -1050,6 +1106,7 @@ Namespace ClickfinderProgramGuide
                         End If
 
 
+
                         'Tv Server öffnen und TVMovieMapping idChannel ermitteln
                         ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where stationName = '" & ClickfinderData.Item("SenderKennung").ToString & "'")
 
@@ -1083,18 +1140,21 @@ Namespace ClickfinderProgramGuide
                                     Case Else
 
                                         If _useRatingTvLogos = "true" Then
-
                                             _TvLogo = Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\tv\logos\") & Channel.Retrieve(_idChannel).DisplayName & "_" & _Bewertung & ".png"
                                         Else
                                             _TvLogo = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & Channel.Retrieve(_idChannel).DisplayName & ".png")
                                         End If
 
-                                        If _CurrentCategorie = "Serien" Then
-                                            _Genre = _EpisodenName
-                                            If Not _SeriesNum = "" Or Not _EpisodeNum = "" Then
-                                                _Genre = "S" & Format(CInt(_SeriesNum), "00") & "E" & Format(CInt(_EpisodeNum), "00") & " - " & _EpisodenName
-                                            End If
-                                        End If
+                                        Select Case _CurrentCategorie
+
+                                            Case Is = "Serien"
+                                                _Genre = _EpisodenName
+                                                If Not _SeriesNum = "" Or Not _EpisodeNum = "" Then
+                                                    _Genre = "S" & Format(CInt(_SeriesNum), "00") & "E" & Format(CInt(_EpisodeNum), "00") & " - " & _EpisodenName
+                                                End If
+                                            Case Is = "Fußball LIVE"
+                                                _Genre = _EpisodenName
+                                        End Select
 
 
                                         AddListControlItem(ClickfinderData.Item("SendungID"), Sendung.Title.ToString, _
@@ -1104,7 +1164,7 @@ Namespace ClickfinderProgramGuide
 
                                 End Select
 
-                                _lastTitel = Sendung.Title
+                                        _lastTitel = Sendung.Title
 
 
                             End If
@@ -1199,6 +1259,8 @@ Namespace ClickfinderProgramGuide
                         Else
                             _Titel = ClickfinderData.Item("Titel")
                         End If
+
+                        'MsgBox(_Titel)
 
                         If ClickfinderData.Item("KzBilddateiHeruntergeladen") = True Then
                             _BildDatei = _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
@@ -1403,64 +1465,7 @@ Namespace ClickfinderProgramGuide
 #Region "Functions and Subs"
         ' Log + Error Handling - fertig
 
-        Private Sub ClickfinderCorrection()
-            Dim _idChannel As String
-            Dim _StartZeit As Date
-            Dim _EndZeit As Date
-            Dim _StartZeitSQL As String
-            Dim _EndZeitSQL As String
-            Dim _Titel As String
 
-
-            Try
-                ReadClickfinderDB("SELECT * FROM Sendungen WHERE (KzLive = true AND KzWiederholung = true) OR KzLive = true OR KzWiederholung = true")
-
-                While ClickfinderData.Read
-
-                    _Titel = ClickfinderData.Item("Titel")
-                    _StartZeit = CDate(ClickfinderData.Item("Beginn"))
-                    _EndZeit = CDate(ClickfinderData.Item("Ende"))
-
-                    _StartZeitSQL = DateTOMySQLstring(_StartZeit)
-
-                    _EndZeitSQL = DateTOMySQLstring(_EndZeit)
-
-
-
-                    ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where stationName = '" & ClickfinderData.Item("SenderKennung").ToString & "'")
-                    While TvServerData.Read
-
-                        _idChannel = TvServerData.Item("idChannel")
-
-                        Exit While
-                    End While
-                    CloseTvServerDB()
-
-                    ReadTvServerDB("SELECT * FROM program WHERE idChannel = '" & _idChannel & "' AND startTime = " & _StartZeitSQL & " AND endTime = " & _EndZeitSQL)
-                    While TvServerData.Read
-
-                        If InStr(TvServerData.Item("title"), "(LIVE)") > 0 Then
-                            LiveCorrection = True
-                            Log.Info("Clickfinder ProgramGuide: [ClickfinderCorrection]: LIVE = true")
-                        ElseIf InStr(TvServerData.Item("title"), "(Wdh.)") > 0 Then
-                            WdhCorrection = True
-                            Log.Info("Clickfinder ProgramGuide: [ClickfinderCorrection]: Wdh. = true")
-                        Else
-                            Log.Info("Clickfinder ProgramGuide: [ClickfinderCorrection]: nothing")
-                        End If
-                        Exit While
-                    End While
-                    CloseTvServerDB()
-
-                    Exit While
-                End While
-                CloseClickfinderDB()
-
-            Catch ex As Exception
-                Log.Error("Clickfinder ProgramGuide: [ClickfinderCorrection]: " & ex.Message)
-            End Try
-
-        End Sub
         Private Sub FillTipps(ByVal StartIdofGroup As Integer, ByVal _Titel As String, ByVal _FavImagePath As String, _
             ByVal _channelName As String, ByVal _StartZeit As Date, ByVal _EndZeit As Date, ByVal _Genre As String, ByVal _BewertungStr As String, _
             ByVal _Kritik As String, ByVal _FavRatingImagePath As String, ByVal _EpisodenName As String, ByVal _SeriesNum As String, ByVal _EpisodeNum As String)

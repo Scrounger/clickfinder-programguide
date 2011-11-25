@@ -2,10 +2,6 @@
   <id>165654465</id>
   <defaultcontrol>2</defaultcontrol>
   <allowoverlay>no</allowoverlay>
-  <define>#header.label:Clickfinder Program Guide</define>
-  <define>#header.hover:hover_ClickfinderProgramGuide.png</define>
-  <!--<define>#header.BG.colordiffuse:ffffffff</define>-->
-  <!-- <define>#header.BG.overlay:osdbackground1.png</define> -->
   <controls>
 
     <!-- Background & StreamedMP Layout -->
@@ -17,11 +13,9 @@
       <posY>0</posY>
       <width>1280</width>
       <height>720</height>
-      <texture>#header.hover</texture>
-      <!--<colordiffuse>#header.BG.colordiffuse</colordiffuse>-->
-      <!--<animation effect="fade" time="300">WindowOpen</animation>-->
+      <texture>hover_ClickfinderProgramGuide.png</texture>
     </control>
-
+    
     <control>
       <description>Overlay Image</description>
       <type>image</type>
@@ -31,7 +25,11 @@
       <width>1280</width>
       <height>720</height>
       <texture>black.png</texture>
+      <colordiffuse>90ffffff</colordiffuse>
     </control>
+
+
+
 
     <control>
       <id>1</id>
@@ -40,32 +38,10 @@
       <posX>0</posX>
       <posY>0</posY>
       <width>1280</width>
-      <height>50</height>
-      <texture>overlay_topbar.png</texture>
+      <height>720</height>
+      <texture>filmstrip_overlay.png</texture>
     </control>
-
-    <control>
-      <id>1</id>
-      <description>Top Title Background</description>
-      <type>image</type>
-      <posX>77</posX>
-      <posY>11</posY>
-      <width>437</width>
-      <height>35</height>
-      <texture>tvtitlebg.png</texture>
-    </control>
-    <control>
-      <id>1</id>
-      <type>fadelabel</type>
-      <description>Top Title</description>
-      <posX>493</posX>
-      <posY>13</posY>
-      <width>350</width>
-      <font>font10</font>
-      <align>right</align>
-      <visible>yes</visible>
-      <label>#header.label</label>
-    </control>
+    
     <control>
       <description>Clickfinder Control Bar</description>
       <posX>0</posX>
@@ -76,7 +52,7 @@
       <height>40</height>
       <texture>ClickfinderBar.png</texture>
     </control>
-
+    
     <import>common.time.xml</import>
     <import>ClickfinderProgramGuide.List.xml</import>
 
@@ -168,7 +144,7 @@
           <onright>6</onright>
         <onup>104</onup>
           <ondown>101</ondown>
-        <visible>!control.isvisible(30)+!control.isvisible(9)+control.hastext(110)</visible>
+        <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(110)</visible>
         </control>
 
       
@@ -187,7 +163,7 @@
       <onright>6</onright>
       <onup>100</onup>
       <ondown>102</ondown>
-      <visible>!control.isvisible(30)+!control.isvisible(9)+control.hastext(120)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(120)</visible>
     </control>
     <control>
       <description>Tipp2 Button</description>
@@ -202,7 +178,7 @@
       <onright>6</onright>
       <onup>101</onup>
       <ondown>103</ondown>
-      <visible>!control.isvisible(30)+!control.isvisible(9)+control.hastext(130)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(130)</visible>
     </control>
     <control>
       <description>Tipp3 Button</description>
@@ -217,7 +193,7 @@
       <onright>6</onright>
       <onup>102</onup>
       <ondown>104</ondown>
-      <visible>!control.isvisible(30)+!control.isvisible(9)+control.hastext(140)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(140)</visible>
     </control>
     <control>
       <description>Tipp4 Button</description>
@@ -232,7 +208,7 @@
       <onright>6</onright>
       <onup>103</onup>
       <ondown>100</ondown>
-      <visible>!control.isvisible(30)+!control.isvisible(9)+control.hastext(150)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(150)</visible>
     </control>
 
 
@@ -250,7 +226,7 @@
       <width>300</width>
       <height>150</height>
       <texture>Clickfinder_Loading.png</texture>
-      <visible>control.isvisible(9)</visible>
+      <visible>control.isvisible(9)|control.isvisible(11)</visible>
     </control>
     <control>
       <description>Animation Label</description>
@@ -264,7 +240,7 @@
       <font>font10</font>
       <textcolor>ffffffff</textcolor>
       <wrapString> | </wrapString>
-      <visible>control.isvisible(9)</visible>
+      <visible>control.isvisible(9)|control.isvisible(11)</visible>
     </control>
     <control>
       <id>9</id>
@@ -283,6 +259,21 @@
       </textures>
       <Duration>0:0:01.5</Duration>
     </control>
+    <control>
+      <id>11</id>
+      <description>SavingProgressbar</description>
+      <type>progress</type>
+      <posX>500</posX>
+      <posY>355</posY>
+      <width>280</width>
+      <height>32</height>
+      <texturebg>osdprogressbackv.png</texturebg>
+      <lefttexture>osdprogressleft.png</lefttexture>
+      <midtexture>osdprogressmid.png</midtexture>
+      <righttexture>osdprogressright.png</righttexture>
+      <visible>false</visible>
+    </control>
+
 
   </controls>
 </window>

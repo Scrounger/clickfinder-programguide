@@ -45,7 +45,7 @@
       <posY>110</posY>
       <width>430</width>
       <align>left</align>
-      <font>font10</font>
+      <font>font12</font>
       <textcolor>ffffffff</textcolor>
       <wrapString> | </wrapString>
       <visible>control.isvisible(30)</visible>      
@@ -73,7 +73,7 @@
       <width>70</width>
 <label>Dauer:</label>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ffffffff</textcolor>
     </control>
 
@@ -85,7 +85,7 @@
       <posY>160</posY>
       <width>120</width>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
     </control>
@@ -99,7 +99,7 @@
       <width>50</width>
 <label>Jahr:</label>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ffffffff</textcolor>
     </control>
 
@@ -111,7 +111,7 @@
       <posY>160</posY>
       <width>680</width>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
     </control>
@@ -126,7 +126,7 @@
       <width>70</width>
 <label>Uhrzeit:</label>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ffffffff</textcolor>
     </control>
 
@@ -138,7 +138,7 @@
       <posY>180</posY>
       <width>150</width>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
     </control>
@@ -153,7 +153,7 @@
       <width>70</width>
 <label>Sender:</label>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ffffffff</textcolor>
     </control>
 
@@ -165,7 +165,7 @@
       <posY>180</posY>
       <width>300</width>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
     </control>
@@ -179,7 +179,7 @@
       <width>100</width>
 <label>Genre:</label>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ffffffff</textcolor>
     </control>
 
@@ -191,7 +191,7 @@
       <posY>224</posY>
       <width>460</width>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
     </control>
@@ -205,7 +205,7 @@
       <width>100</width>
 <label>Regie:</label>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ffffffff</textcolor>
     </control>
 
@@ -217,7 +217,7 @@
       <posY>246</posY>
       <width>460</width>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
     </control>
@@ -231,7 +231,7 @@
       <width>100</width>
 <label>Schauspieler:</label>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ffffffff</textcolor>
     </control>
 
@@ -243,7 +243,7 @@
       <posY>270</posY>
       <width>460</width>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
     </control>
@@ -258,7 +258,7 @@
       <width>100</width>
 <label>Bewertung:</label>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ffffffff</textcolor>
     </control>
 
@@ -270,7 +270,7 @@
       <posY>292</posY>
       <width>460</width>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
     </control>
@@ -284,7 +284,7 @@
       <width>100</width>
 <label>Kritik:</label>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ffffffff</textcolor>
     </control>
 
@@ -296,7 +296,7 @@
       <posY>316</posY>
       <width>460</width>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
     </control>

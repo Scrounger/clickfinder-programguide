@@ -112,6 +112,21 @@ Public Class Setup
         End If
 
 
+        If MPSettingRead("config", "LiveCorrection") = "true" Then
+            CBLiveCorrection.CheckState = Windows.Forms.CheckState.Checked
+        Else
+            CBLiveCorrection.CheckState = Windows.Forms.CheckState.Unchecked
+        End If
+
+        If MPSettingRead("config", "WdhCorrection") = "true" Then
+            CBWdhCorretcion.CheckState = Windows.Forms.CheckState.Checked
+        Else
+            CBWdhCorretcion.CheckState = Windows.Forms.CheckState.Unchecked
+        End If
+
+        CBLiveCorrection.CheckState = CBool(MPSettingRead("config", "LiveCorrection"))
+        CBWdhCorretcion.CheckState = CBool(MPSettingRead("config", "WdhCorrection"))
+
     End Sub
 
     Public Sub MPSettingsWrite(ByVal section As String, ByVal entry As String, ByVal NewAttribute As String)
@@ -148,6 +163,18 @@ Public Class Setup
             MPSettingsWrite("config", "useRatingTvLogos", "true")
         Else
             MPSettingsWrite("config", "useRatingTvLogos", "false")
+        End If
+
+        If CBLiveCorrection.CheckState = Windows.Forms.CheckState.Checked Then
+            MPSettingsWrite("config", "LiveCorrection", "true")
+        Else
+            MPSettingsWrite("config", "LiveCorrection", "false")
+        End If
+
+        If CBWdhCorretcion.CheckState = Windows.Forms.CheckState.Checked Then
+            MPSettingsWrite("config", "WdhCorrection", "true")
+        Else
+            MPSettingsWrite("config", "WdhCorrection", "false")
         End If
 
         ReadTvServerDB("Select * from channelgroup Where groupName = '" & CBChannelGroup.Text & "'")
@@ -320,4 +347,65 @@ Public Class Setup
         ProgressBar1.Style = Windows.Forms.ProgressBarStyle.Marquee
 
     End Sub
+
+    'Private Sub ClickfinderCorrection()
+
+    '    LiveCorrection = ClickfinderCorrectionFunction("KzLive", " (LIVE)")
+    '    WdhCorrection = ClickfinderCorrectionFunction("KzLive", " (Wdh.)")
+    '    MsgBox(LiveCorrection, WdhCorrection)
+
+    'End Sub
+
+    'Private Function ClickfinderCorrectionFunction(ByVal _SQLWhereString As String, ByVal _ProofSting As String) As Boolean
+    '    Dim _idChannel As String
+    '    Dim _StartZeit As Date
+    '    Dim _EndZeit As Date
+    '    Dim _StartZeitSQL As String
+    '    Dim _EndZeitSQL As String
+    '    Dim _Titel As String
+
+
+
+    '    Try
+    '        ReadClickfinderDB("SELECT Titel, Beginn, Ende, SenderKennung FROM Sendungen WHERE " & _SQLWhereString & " = true")
+
+    '        While ClickfinderData.Read
+
+    '            _Titel = ClickfinderData.Item("Titel")
+    '            _StartZeit = CDate(ClickfinderData.Item("Beginn"))
+    '            _EndZeit = CDate(ClickfinderData.Item("Ende"))
+
+    '            _StartZeitSQL = DateTOMySQLstring(_StartZeit)
+
+    '            _EndZeitSQL = DateTOMySQLstring(_EndZeit)
+
+
+
+    '            ReadTvServerDB("Select * from tvmoviemapping WHERE stationName = '" & ClickfinderData.Item("SenderKennung").ToString & "'")
+    '            While TvServerData.Read
+
+    '                _idChannel = TvServerData.Item("idChannel")
+
+    '                Exit While
+    '            End While
+    '            CloseTvServerDB()
+
+    '            If ProgramFoundinTvDb(_Titel & _ProofSting, _idChannel, _StartZeit, _EndZeit) = True Then
+    '                ClickfinderCorrectionFunction = True
+    '                Exit While
+    '                Log.Info("Clickfinder ProgramGuide: [ClickfinderCorrection]: " & _ProofSting & " = true")
+    '            End If
+
+
+    '            Log.Debug("Clickfinder ProgramGuide: [ClickfinderCorrection]: nothing")
+
+    '        End While
+    '        CloseClickfinderDB()
+
+    '    Catch ex As Exception
+    '        Log.Error("Clickfinder ProgramGuide: [ClickfinderCorrection]: " & ex.Message)
+    '    End Try
+
+    'End Function
+
 End Class

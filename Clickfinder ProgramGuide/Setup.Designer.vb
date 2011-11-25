@@ -51,6 +51,8 @@ Partial Class Setup
         Me.Label11 = New System.Windows.Forms.Label
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.CBUpdateInterval = New System.Windows.Forms.ComboBox
+        Me.CBLiveCorrection = New System.Windows.Forms.CheckBox
+        Me.CBWdhCorretcion = New System.Windows.Forms.CheckBox
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -375,12 +377,38 @@ Partial Class Setup
         Me.CBUpdateInterval.Size = New System.Drawing.Size(54, 24)
         Me.CBUpdateInterval.TabIndex = 33
         '
+        'CBLiveCorrection
+        '
+        Me.CBLiveCorrection.AutoSize = True
+        Me.CBLiveCorrection.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CBLiveCorrection.Location = New System.Drawing.Point(59, 478)
+        Me.CBLiveCorrection.Margin = New System.Windows.Forms.Padding(4)
+        Me.CBLiveCorrection.Name = "CBLiveCorrection"
+        Me.CBLiveCorrection.Size = New System.Drawing.Size(113, 20)
+        Me.CBLiveCorrection.TabIndex = 34
+        Me.CBLiveCorrection.Text = "Titel + (Live)"
+        Me.CBLiveCorrection.UseVisualStyleBackColor = True
+        '
+        'CBWdhCorretcion
+        '
+        Me.CBWdhCorretcion.AutoSize = True
+        Me.CBWdhCorretcion.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CBWdhCorretcion.Location = New System.Drawing.Point(59, 510)
+        Me.CBWdhCorretcion.Margin = New System.Windows.Forms.Padding(4)
+        Me.CBWdhCorretcion.Name = "CBWdhCorretcion"
+        Me.CBWdhCorretcion.Size = New System.Drawing.Size(121, 20)
+        Me.CBWdhCorretcion.TabIndex = 35
+        Me.CBWdhCorretcion.Text = "Titel + (Wdh.)"
+        Me.CBWdhCorretcion.UseVisualStyleBackColor = True
+        '
         'Setup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(580, 560)
+        Me.Controls.Add(Me.CBWdhCorretcion)
+        Me.Controls.Add(Me.CBLiveCorrection)
         Me.Controls.Add(Me.CBUpdateInterval)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Label11)
@@ -435,4 +463,6 @@ Partial Class Setup
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents CBUpdateInterval As System.Windows.Forms.ComboBox
+    Friend WithEvents CBLiveCorrection As System.Windows.Forms.CheckBox
+    Friend WithEvents CBWdhCorretcion As System.Windows.Forms.CheckBox
 End Class

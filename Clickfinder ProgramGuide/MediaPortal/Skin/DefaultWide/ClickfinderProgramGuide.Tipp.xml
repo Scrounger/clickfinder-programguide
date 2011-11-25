@@ -11,10 +11,10 @@
       <posY>130</posY>
       <width>460</width>
       <align>left</align>
-      <font>font10</font>
+      <font>font12</font>
       <textcolor>ffffffff</textcolor>
       <wrapString> | </wrapString>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
       <control>
         <description>FavoritenTipp0 Image</description>
@@ -29,7 +29,7 @@
         <filtered>yes</filtered>
         <centered>no</centered>
         <keepaspectratio>no</keepaspectratio>
-        <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
       </control>
 
       <control>
@@ -40,10 +40,10 @@
         <posY>174</posY>
         <width>680</width>
         <align>left</align>
-        <font>font9</font>
+        <font>font10</font>
         <textcolor>ff909090</textcolor>
         <wrapString> | </wrapString>
-        <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
       </control>
       <control>
         <description>FavoritenTipp0 Genre</description>
@@ -51,26 +51,26 @@
         <id>113</id>
         <posX>800</posX>
         <posY>154</posY>
-        <width>400</width>
+        <width>460</width>
         <label></label>
-        <font>font9</font>
+        <font>font10</font>
         <textcolor>ff909090</textcolor>
         <disabledcolor>80ffffff</disabledcolor>
         <align>left</align>
-        <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
       </control>
       <control>
         <description>FavoritenTipp0 Zeit</description>
         <type>label</type>
         <id>114</id>
         <posX>1240</posX>
-        <posY>154</posY>
+        <posY>174</posY>
         <align>right</align>
         <label></label>
-        <font>font9</font>
+        <font>font10</font>
         <textcolor>ff909090</textcolor>
         <disabledcolor>80ffffff</disabledcolor>
-        <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
       </control>
       <control>
         <description>FavoritenTipp0 BewertungString</description>
@@ -80,11 +80,11 @@
         <posY>194</posY>
         <width>400</width>
         <label></label>
-        <font>font9</font>
+        <font>font10</font>
         <textcolor>ff909090</textcolor>
         <disabledcolor>80ffffff</disabledcolor>
         <align>left</align>
-        <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
       </control>
       <control>
         <description>FavoritenTipp0 Kritik</description>
@@ -94,11 +94,11 @@
         <posY>214</posY>
         <width>400</width>
         <label></label>
-        <font>font9</font>
+        <font>font10</font>
         <textcolor>ff909090</textcolor>
         <disabledcolor>80ffffff</disabledcolor>
         <align>left</align>
-        <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
       </control>
       <control>
         <description>FavoritenTipp0 RatingImage</description>
@@ -112,7 +112,7 @@
         <colorkey>0</colorkey>
         <centered>no</centered>
         <keepaspectratio>no</keepaspectratio>
-        <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
       </control>
     
     
@@ -126,10 +126,10 @@
       <width>460</width>
       <align>left</align>
       <label>#FavoritenTipp1 Titel</label>
-      <font>font10</font>
+      <font>font12</font>
       <textcolor>ffffffff</textcolor>
       <wrapString> | </wrapString>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp1 Image</description>
@@ -144,7 +144,7 @@
       <filtered>yes</filtered>
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp1 Kanal</description>
@@ -154,10 +154,10 @@
       <posY>288</posY>
       <width>680</width>
       <align>left</align>
-      <font>font9</font>
+      <font>font10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp1 Genre</description>
@@ -165,26 +165,26 @@
       <id>123</id>
       <posX>800</posX>
       <posY>268</posY>
-      <width>400</width>
+      <width>460</width>
       <label></label>
-      <font>font9</font>
+      <font>font10</font>
       <textcolor>ff909090</textcolor>
       <disabledcolor>80ffffff</disabledcolor>
       <align>left</align>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp1 Zeit</description>
       <type>label</type>
       <id>124</id>
       <posX>1240</posX>
-      <posY>268</posY>
+      <posY>288</posY>
       <align>right</align>
       <label></label>
-      <font>font9</font>
+      <font>font10</font>
       <textcolor>ff909090</textcolor>
       <disabledcolor>80ffffff</disabledcolor>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp1 BewertungString</description>
@@ -194,11 +194,11 @@
       <posY>308</posY>
       <width>460</width>
       <label></label>
-      <font>font9</font>
+      <font>font10</font>
       <textcolor>ff909090</textcolor>
       <disabledcolor>80ffffff</disabledcolor>
       <align>left</align>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp1 Kritik</description>
@@ -208,11 +208,11 @@
       <posY>328</posY>
       <width>460</width>
       <label></label>
-      <font>font9</font>
+      <font>font10</font>
       <textcolor>ff909090</textcolor>
       <disabledcolor>80ffffff</disabledcolor>
       <align>left</align>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp1 RatingImage</description>
@@ -226,7 +226,7 @@
       <colorkey>0</colorkey>
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
 
 
@@ -240,10 +240,10 @@
       <width>460</width>
       <align>left</align>
       <label>#FavoritenTipp2 Titel</label>
-      <font>font10</font>
+      <font>font12</font>
       <textcolor>ffffffff</textcolor>
       <wrapString> | </wrapString>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp2 Image</description>
@@ -258,7 +258,7 @@
       <filtered>yes</filtered>
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp2 Kanal</description>
@@ -268,10 +268,10 @@
       <posY>402</posY>
       <width>680</width>
       <align>left</align>
-      <font>font9</font>
+      <font>font10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp2 Genre</description>
@@ -279,26 +279,26 @@
       <id>133</id>
       <posX>800</posX>
       <posY>382</posY>
-      <width>400</width>
+      <width>460</width>
       <label></label>
-      <font>font9</font>
+      <font>font10</font>
       <textcolor>ff909090</textcolor>
       <disabledcolor>80ffffff</disabledcolor>
       <align>left</align>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp2 Zeit</description>
       <type>label</type>
       <id>134</id>
       <posX>1240</posX>
-      <posY>382</posY>
+      <posY>402</posY>
       <align>right</align>
       <label></label>
-      <font>font9</font>
+      <font>font10</font>
       <textcolor>ff909090</textcolor>
       <disabledcolor>80ffffff</disabledcolor>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp2 BewertungString</description>
@@ -308,11 +308,11 @@
       <posY>422</posY>
       <width>460</width>
       <label></label>
-      <font>font9</font>
+      <font>font10</font>
       <textcolor>ff909090</textcolor>
       <disabledcolor>80ffffff</disabledcolor>
       <align>left</align>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp2 Kritik</description>
@@ -322,11 +322,11 @@
       <posY>442</posY>
       <width>460</width>
       <label></label>
-      <font>font9</font>
+      <font>font10</font>
       <textcolor>ff909090</textcolor>
       <disabledcolor>80ffffff</disabledcolor>
       <align>left</align>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp2 RatingImage</description>
@@ -340,7 +340,7 @@
       <colorkey>0</colorkey>
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>   
     
     
@@ -355,10 +355,10 @@
       <width>460</width>
       <align>left</align>
       <label>#FavoritenTipp2 Titel</label>
-      <font>font10</font>
+      <font>font12</font>
       <textcolor>ffffffff</textcolor>
       <wrapString> | </wrapString>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp3 Image</description>
@@ -373,7 +373,7 @@
       <filtered>yes</filtered>
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp3 Kanal</description>
@@ -383,10 +383,10 @@
       <posY>516</posY>
       <width>680</width>
       <align>left</align>
-      <font>font9</font>
+      <font>font10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp3 Genre</description>
@@ -394,26 +394,26 @@
       <id>143</id>
       <posX>800</posX>
       <posY>496</posY>
-      <width>400</width>
+      <width>460</width>
       <label></label>
-      <font>font9</font>
+      <font>font10</font>
       <textcolor>ff909090</textcolor>
       <disabledcolor>80ffffff</disabledcolor>
       <align>left</align>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp3 Zeit</description>
       <type>label</type>
       <id>144</id>
       <posX>1240</posX>
-      <posY>496</posY>
+      <posY>516</posY>
       <align>right</align>
       <label></label>
-      <font>font9</font>
+      <font>font10</font>
       <textcolor>ff909090</textcolor>
       <disabledcolor>80ffffff</disabledcolor>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp3 BewertungString</description>
@@ -423,11 +423,11 @@
       <posY>536</posY>
       <width>460</width>
       <label></label>
-      <font>font9</font>
+      <font>font10</font>
       <textcolor>ff909090</textcolor>
       <disabledcolor>80ffffff</disabledcolor>
       <align>left</align>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp3 Kritik</description>
@@ -437,11 +437,11 @@
       <posY>556</posY>
       <width>460</width>
       <label></label>
-      <font>font9</font>
+      <font>font10</font>
       <textcolor>ff909090</textcolor>
       <disabledcolor>80ffffff</disabledcolor>
       <align>left</align>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp3 RatingImage</description>
@@ -455,7 +455,7 @@
       <colorkey>0</colorkey>
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
 
 
@@ -471,10 +471,10 @@
       <width>460</width>
       <align>left</align>
       <label>#FavoritenTipp2 Titel</label>
-      <font>font10</font>
+      <font>font12</font>
       <textcolor>ffffffff</textcolor>
       <wrapString> | </wrapString>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp4 Image</description>
@@ -489,7 +489,7 @@
       <filtered>yes</filtered>
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp4 Kanal</description>
@@ -499,10 +499,10 @@
       <posY>630</posY>
       <width>680</width>
       <align>left</align>
-      <font>font9</font>
+      <font>font10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp4 Genre</description>
@@ -510,26 +510,26 @@
       <id>153</id>
       <posX>800</posX>
       <posY>610</posY>
-      <width>400</width>
+      <width>460</width>
       <label></label>
-      <font>font9</font>
+      <font>font10</font>
       <textcolor>ff909090</textcolor>
       <disabledcolor>80ffffff</disabledcolor>
       <align>left</align>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp4 Zeit</description>
       <type>label</type>
       <id>154</id>
       <posX>1240</posX>
-      <posY>610</posY>
+      <posY>630</posY>
       <align>right</align>
       <label></label>
-      <font>font9</font>
+      <font>font10</font>
       <textcolor>ff909090</textcolor>
       <disabledcolor>80ffffff</disabledcolor>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp4 BewertungString</description>
@@ -539,11 +539,11 @@
       <posY>650</posY>
       <width>460</width>
       <label></label>
-      <font>font9</font>
+      <font>font10</font>
       <textcolor>ff909090</textcolor>
       <disabledcolor>80ffffff</disabledcolor>
       <align>left</align>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp4 Kritik</description>
@@ -553,11 +553,11 @@
       <posY>670</posY>
       <width>460</width>
       <label></label>
-      <font>font9</font>
+      <font>font10</font>
       <textcolor>ff909090</textcolor>
       <disabledcolor>80ffffff</disabledcolor>
       <align>left</align>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
       <description>FavoritenTipp3 RatingImage</description>
@@ -571,7 +571,7 @@
       <colorkey>0</colorkey>
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
   </controls>
 </window>

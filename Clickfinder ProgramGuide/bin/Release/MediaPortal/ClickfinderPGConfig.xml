@@ -13,6 +13,9 @@
     <entry name="IgnoreMinTimeSeries">true</entry>
     <entry name="useRatingTvLogos">true</entry>
     <entry name="UpdateInterval">1</entry>
+    <entry name="LiveCorrection">true</entry>
+    <entry name="WdhCorrection">false</entry>
+    
   </section>
   <section name="Save">
     <entry name="LastUpdate">01.01.2011</entry>
@@ -26,6 +29,11 @@
     <entry name="Where">KzFilm = true AND (SenderKennung LIKE '%SKY Cinema%' OR SenderKennung LIKE '%SKY Action%' OR SenderKennung LIKE '%MGM%' OR SenderKennung LIKE '%Disney Cinemagic%' OR SenderKennung LIKE '%SKY Comedy%' OR SenderKennung LIKE '%SKY Emotion%' OR SenderKennung LIKE '%SKY Nostalgie%')</entry>
     <entry name="PreviewWhere">Bewertung >= 4 AND KzFilm = true AND (SenderKennung LIKE '%SKY Cinema%' OR SenderKennung LIKE '%SKY Action%' OR SenderKennung LIKE '%MGM%' OR SenderKennung LIKE '%Disney Cinemagic%' OR SenderKennung LIKE '%SKY Comedy%' OR SenderKennung LIKE '%SKY Emotion%' OR SenderKennung LIKE '%SKY Nostalgie%')</entry>
     <entry name="OrderBy">Beginn ASC, Rating DESC, SenderKennung DESC</entry>
+  </section>
+  <section name="Sky Dokumentationen">
+    <entry name="Where">(SenderKennung LIKE '%Discovery%' OR SenderKennung LIKE '%History%' OR SenderKennung LIKE '%National Geographic%' OR SenderKennung LIKE '%Spiegel Geschichte%' OR SenderKennung LIKE '%MOTORVISION TV%' OR SenderKennung LIKE '%The Biography Channel%')</entry>
+    <entry name="PreviewWhere">Bewertung >= 1 AND (SenderKennung LIKE '%Discovery%' OR SenderKennung LIKE '%History%' OR SenderKennung LIKE '%National Geographic%' OR SenderKennung LIKE '%Spiegel Geschichte%' OR SenderKennung LIKE '%MOTORVISION TV%' OR SenderKennung LIKE '%The Biography Channel%')</entry>
+    <entry name="OrderBy">Beginn ASC, Rating DESC, Bewertung DESC, SenderKennung DESC</entry>
   </section>
   <section name="HDTV">
     <entry name="Where">(KzHDTV = -1 OR SenderKennung LIKE '%HD%')</entry>
@@ -49,6 +57,10 @@
   </section>
   <section name="Sport">
     <entry name="Where">Keywords LIKE '%Sport%'</entry>
+    <entry name="OrderBy">Beginn ASC, Rating DESC, Bewertung DESC, SenderKennung DESC</entry>
+  </section>
+  <section name="Fußball LIVE">
+    <entry name="PreviewWhere">Keywords LIKE '%Fußball%' AND KzLive = true</entry>
     <entry name="OrderBy">Beginn ASC, Rating DESC, Bewertung DESC, SenderKennung DESC</entry>
   </section>
 </profile>
