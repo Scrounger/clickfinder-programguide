@@ -112,16 +112,16 @@
       <IconYOff>4</IconYOff>
       <textXOff>2</textXOff>
       <textYOff>2</textYOff>
-      <font>font12</font>
+      <font>font10</font>
       <textcolor>ffffffff</textcolor>      
       <textXOff2>590</textXOff2>
       <textYOff2>30</textYOff2>
-      <font2>font10</font2>
+      <font2>font9</font2>
       <textcolor2>ff909090</textcolor2>
       
       <textXOff3>64</textXOff3>
       <textYOff3>30</textYOff3>
-      <font3>font10</font3>
+      <font3>font9</font3>
       <textcolor3>ff909090</textcolor3>
       
       <itemWidth>50</itemWidth>
@@ -130,8 +130,6 @@
       <scrollbarXOff>0</scrollbarXOff>
       <scrollbarwidth>15</scrollbarwidth>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
 

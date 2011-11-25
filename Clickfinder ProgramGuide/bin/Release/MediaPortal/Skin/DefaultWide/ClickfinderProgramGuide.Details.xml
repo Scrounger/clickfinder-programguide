@@ -78,7 +78,7 @@
       <posY>140</posY>
       <width>430</width>
       <align>left</align>
-      <font>font12</font>
+      <font>font10</font>
       <textcolor>ffffffff</textcolor>
       <wrapString> | </wrapString>
       <visible>control.isvisible(30)</visible>      
@@ -92,7 +92,7 @@
       <posY>150</posY>
       <width>680</width>
       <align>left</align>
-      <font>font12</font>
+      <font>font10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
       <visible>control.isvisible(30)</visible>
@@ -107,7 +107,7 @@
       <width>70</width>
 <label>Dauer:</label>
       <align>left</align>
-      <font>font10</font>
+      <font>font9</font>
       <textcolor>ffffffff</textcolor>
       <visible>control.isvisible(30)</visible>
     </control>
@@ -120,7 +120,7 @@
       <posY>160</posY>
       <width>120</width>
       <align>left</align>
-      <font>font10</font>
+      <font>font9</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
       <visible>control.isvisible(30)</visible>
@@ -135,7 +135,7 @@
       <width>50</width>
 <label>Jahr:</label>
       <align>left</align>
-      <font>font10</font>
+      <font>font9</font>
       <textcolor>ffffffff</textcolor>
       <visible>control.isvisible(30)</visible>
     </control>
@@ -148,7 +148,7 @@
       <posY>160</posY>
       <width>680</width>
       <align>left</align>
-      <font>font10</font>
+      <font>font9</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
      <visible>control.isvisible(30)</visible>
@@ -164,7 +164,7 @@
       <width>70</width>
 <label>Uhrzeit:</label>
       <align>left</align>
-      <font>font10</font>
+      <font>font9</font>
       <textcolor>ffffffff</textcolor>
       <visible>control.isvisible(30)</visible>
     </control>
@@ -177,7 +177,7 @@
       <posY>180</posY>
       <width>150</width>
       <align>left</align>
-      <font>font10</font>
+      <font>font9</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
       <visible>control.isvisible(30)</visible>
@@ -193,7 +193,7 @@
       <width>70</width>
 <label>Sender:</label>
       <align>left</align>
-      <font>font10</font>
+      <font>font9</font>
       <visible>control.isvisible(30)</visible>
     </control>
 
@@ -205,7 +205,7 @@
       <posY>180</posY>
       <width>300</width>
       <align>left</align>
-      <font>font10</font>
+      <font>font9</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
       <visible>control.isvisible(30)</visible>
@@ -220,7 +220,7 @@
       <width>100</width>
 <label>Genre:</label>
       <align>left</align>
-      <font>font10</font>
+      <font>font9</font>
       <textcolor>ffffffff</textcolor>
       <visible>control.isvisible(30)</visible>
     </control>
@@ -233,7 +233,7 @@
       <posY>224</posY>
       <width>460</width>
       <align>left</align>
-      <font>font10</font>
+      <font>font9</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
       <visible>control.isvisible(30)</visible>
@@ -248,7 +248,7 @@
       <width>100</width>
 <label>Regie:</label>
       <align>left</align>
-      <font>font10</font>
+      <font>font9</font>
       <textcolor>ffffffff</textcolor>
       <visible>control.isvisible(30)</visible>
     </control>
@@ -261,7 +261,7 @@
       <posY>246</posY>
       <width>460</width>
       <align>left</align>
-      <font>font10</font>
+      <font>font9</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
       <visible>control.isvisible(30)</visible>
@@ -276,7 +276,7 @@
       <width>100</width>
 <label>Schauspieler:</label>
       <align>left</align>
-      <font>font10</font>
+      <font>font9</font>
       <textcolor>ffffffff</textcolor>
       <visible>control.isvisible(30)</visible>
     </control>
@@ -289,7 +289,7 @@
       <posY>270</posY>
       <width>460</width>
       <align>left</align>
-      <font>font10</font>
+      <font>font9</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
       <visible>control.isvisible(30)</visible>
@@ -305,7 +305,7 @@
       <width>100</width>
 <label>Bewertung:</label>
       <align>left</align>
-      <font>font10</font>
+      <font>font9</font>
       <textcolor>ffffffff</textcolor>
       <visible>control.isvisible(30)</visible>
     </control>
@@ -318,7 +318,7 @@
       <posY>292</posY>
       <width>460</width>
       <align>left</align>
-      <font>font10</font>
+      <font>font9</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
       <visible>control.isvisible(30)</visible>
@@ -333,7 +333,7 @@
       <width>100</width>
 <label>Kritik:</label>
       <align>left</align>
-      <font>font10</font>
+      <font>font9</font>
       <textcolor>ffffffff</textcolor>
       <visible>control.isvisible(30)</visible>
     </control>
@@ -346,7 +346,7 @@
       <posY>316</posY>
       <width>460</width>
       <align>left</align>
-      <font>font10</font>
+      <font>font9</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
       <visible>control.isvisible(30)</visible>
@@ -366,7 +366,7 @@
       <width>580</width>
       <height>124</height>
       <seperator>-------------------------------------------------------------------------------------------------------------------------------------------</seperator>
-      <font>font12</font>
+      <font>font10</font>
       <visible>control.isvisible(30)</visible>
     </control>
 

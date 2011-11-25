@@ -237,7 +237,7 @@
       <width>300</width>
       <align>center</align>
       <label>Bitte warten...</label>
-      <font>font10</font>
+      <font>font9</font>
       <textcolor>ffffffff</textcolor>
       <wrapString> | </wrapString>
       <visible>control.isvisible(9)|control.isvisible(11)</visible>
@@ -246,10 +246,10 @@
       <id>9</id>
       <type>animation</type>
       <visible>false</visible>
-      <posX>500</posX>
-      <posY>355</posY>
-      <width>280</width>
-      <height>24</height>
+      <posX>600</posX>
+      <posY>344</posY>
+      <width>70</width>
+      <height>70</height>
 
 
       <textures>
@@ -267,10 +267,6 @@
       <posY>355</posY>
       <width>280</width>
       <height>32</height>
-      <texturebg>osdprogressbackv.png</texturebg>
-      <lefttexture>osdprogressleft.png</lefttexture>
-      <midtexture>osdprogressmid.png</midtexture>
-      <righttexture>osdprogressright.png</righttexture>
       <visible>false</visible>
     </control>
 

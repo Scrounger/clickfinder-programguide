@@ -45,7 +45,7 @@
       <posY>110</posY>
       <width>430</width>
       <align>left</align>
-      <font>font12</font>
+      <font>font10</font>
       <textcolor>ffffffff</textcolor>
       <wrapString> | </wrapString>
       <visible>control.isvisible(30)</visible>      
@@ -59,7 +59,7 @@
       <posY>130</posY>
       <width>680</width>
       <align>left</align>
-      <font>font12</font>
+      <font>font10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
     </control>
@@ -316,7 +316,7 @@
       <height>124</height>
       <seperator>-------------------------------------------------------------------------------------------------------------------------------------------</seperator>
 
-      <font>font12</font>
+      <font>font10</font>
       <visible>yes</visible>
     </control>
 
