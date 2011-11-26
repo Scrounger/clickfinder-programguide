@@ -471,38 +471,7 @@ Namespace ClickfinderProgramGuide
             '_Threat2.Join()
 
 
-            'Dim sb As New SqlBuilder(StatementType.[Select], GetType(Program))
-            'sb.AddConstraint([Operator].GreaterThan, "starRating", CInt(0))
-            'sb.AddConstraint([Operator].LessThanOrEquals, "starRating", CInt(10))
-            'Dim stmt As SqlStatement = sb.GetStatement(True)
-            'Dim apps As IList = ObjectFactory.GetCollection(GetType(Program), stmt.Execute())
 
-            'MsgBox(apps.Count - 1)
-
-            'For i = 0 To apps.Count - 1
-            '    Dim _program As Program = apps.Item(i)
-            '    Dim bla As Channel = Channel.Retrieve(_program.IdChannel)
-
-            '    MsgBox(bla.DisplayName)
-
-            'Next
-
-
-            'Dim sb As New SqlBuilder(StatementType.[Select], GetType(GroupMap))
-            'sb.AddConstraint([Operator].Equals, "idGroup", CInt(2))
-            'Dim stmt As SqlStatement = sb.GetStatement(True)
-            'Dim apps As IList = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
-
-
-
-            'For I = 0 To apps.Count - 1
-            '    Dim bla As GroupMap = apps.Item(I)
-            '    Dim ChannelName As Channel = Channel.Retrieve(bla.IdChannel)
-
-            '    MsgBox(ChannelName.DisplayName)
-            '    'MsgBox(bla.IdChannel)
-
-            'Next
 
 
         End Sub
@@ -1290,7 +1259,7 @@ Namespace ClickfinderProgramGuide
                                     If _TippsCounter >= _idStoppCounter Then
                                         CloseTvServerDB()
                                         CloseClickfinderDB()
-                                        'ctlProgressBar.Visible = False
+                                        ctlProgressBar.Visible = False
                                         Exit Sub
                                     Else
                                         _TippClickfinderSendungID(_TippsCounter) = CLng(ClickfinderData.Item("SendungID"))
@@ -1308,6 +1277,7 @@ Namespace ClickfinderProgramGuide
                                     If _TippsCounter >= _idStoppCounter Then
                                         CloseTvServerDB()
                                         CloseClickfinderDB()
+                                        ctlProgressBar.Visible = False
                                         Exit Sub
                                     Else
                                         _TippClickfinderSendungID(_TippsCounter) = CLng(ClickfinderData.Item("SendungID"))

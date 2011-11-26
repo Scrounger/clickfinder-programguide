@@ -124,9 +124,6 @@ Public Class Setup
             CBWdhCorretcion.CheckState = Windows.Forms.CheckState.Unchecked
         End If
 
-        CBLiveCorrection.CheckState = CBool(MPSettingRead("config", "LiveCorrection"))
-        CBWdhCorretcion.CheckState = CBool(MPSettingRead("config", "WdhCorrection"))
-
     End Sub
 
     Public Sub MPSettingsWrite(ByVal section As String, ByVal entry As String, ByVal NewAttribute As String)
