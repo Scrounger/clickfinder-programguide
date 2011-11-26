@@ -3,7 +3,7 @@
   <defaultcontrol>2</defaultcontrol>
   <allowoverlay>no</allowoverlay>
   <define>#header.label:Clickfinder Program Guide</define>
-  <define>#header.hover:hover_extensions.png</define>
+  <define>#header.hover:hover_ClickfinderProgramGuide.png</define>
   <define>#header.BG.colordiffuse:ffffffff</define>
   <!-- <define>#header.BG.overlay:osdbackground1.png</define> -->
   <controls>
@@ -17,11 +17,11 @@
       <posY>0</posY>
       <width>1280</width>
       <height>720</height>
-      <texture>#header.hover</texture>
-      <!--<colordiffuse>#header.BG.colordiffuse</colordiffuse>-->
-      <animation effect="fade" time="300">WindowOpen</animation>
+      <texture>hover_ClickfinderProgramGuide.png</texture>
+      <colordiffuse>#header.BG.colordiffuse</colordiffuse>
+      <!--<animation effect="fade" time="300">WindowOpen</animation>-->
     </control>
-
+    
     <control>
       <description>Overlay Image</description>
       <type>image</type>
@@ -34,6 +34,9 @@
       <colordiffuse>90ffffff</colordiffuse>
     </control>
 
+
+
+
     <control>
       <id>1</id>
       <description>Overlay Image</description>
@@ -45,17 +48,16 @@
       <texture>overlay_topbar.png</texture>
     </control>
 
-    <!--<control>
+    <control>
       <id>1</id>
-      <description>Overlay Image</description>
+      <description>Top Title Background</description>
       <type>image</type>
-      <posX>0</posX>
-      <posY>0</posY>
-      <width>1281</width>
-      <height>720</height>
-      <texture>#header.BG.overlay</texture>
-    </control>-->
-
+      <posX>77</posX>
+      <posY>11</posY>
+      <width>437</width>
+      <height>35</height>
+      <texture>tvtitlebg.png</texture>
+    </control>
     <control>
       <id>1</id>
       <type>fadelabel</type>
@@ -67,13 +69,6 @@
       <align>right</align>
       <visible>yes</visible>
       <label>#header.label</label>
-      <animation effect="slide" start="-514,0" end="0,0" tween="quadratic" time="300"
-
-delay="0">WindowOpen</animation>
-      <animation effect="slide" start="0,0" end="-514,0" tween="quadratic" time="300"
-
-delay="0">WindowClose</animation>
-      <animation effect="fade" time="150">WindowClose</animation>
     </control>
     <control>
       <description>Clickfinder Control Bar</description>
@@ -84,11 +79,8 @@ delay="0">WindowClose</animation>
       <width>1280</width>
       <height>40</height>
       <texture>ClickfinderBar.png</texture>
-      <colordiffuse>EEFFFFFF</colordiffuse>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
     </control>
-    <import>common.overlays.xml</import>
+
     <import>common.time.xml</import>
     <import>ClickfinderProgramGuide.List.xml</import>
 
@@ -142,12 +134,12 @@ delay="0">WindowClose</animation>
         <ondown>10</ondown>
       </control>
       <control>
-        <description>22:00 Rest</description>
+        <description>Preview</description>
         <type>button</type>
         <id>5</id>
         <width>180</width>
         <textalign>center</textalign>
-        <label>Rest</label>
+        <label>Vorschau</label>
         <onleft>4</onleft>
         <onright>6</onright>
         <onup></onup>
@@ -178,8 +170,9 @@ delay="0">WindowClose</animation>
           <label></label>
           <onleft>10</onleft>
           <onright>6</onright>
-          <onup>104</onup>
+        <onup>104</onup>
           <ondown>101</ondown>
+        <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(110)</visible>
         </control>
 
       
@@ -198,6 +191,7 @@ delay="0">WindowClose</animation>
       <onright>6</onright>
       <onup>100</onup>
       <ondown>102</ondown>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(120)</visible>
     </control>
     <control>
       <description>Tipp2 Button</description>
@@ -212,6 +206,7 @@ delay="0">WindowClose</animation>
       <onright>6</onright>
       <onup>101</onup>
       <ondown>103</ondown>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(130)</visible>
     </control>
     <control>
       <description>Tipp3 Button</description>
@@ -226,6 +221,7 @@ delay="0">WindowClose</animation>
       <onright>6</onright>
       <onup>102</onup>
       <ondown>104</ondown>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(140)</visible>
     </control>
     <control>
       <description>Tipp4 Button</description>
@@ -240,6 +236,7 @@ delay="0">WindowClose</animation>
       <onright>6</onright>
       <onup>103</onup>
       <ondown>100</ondown>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(150)</visible>
     </control>
 
 
@@ -257,7 +254,7 @@ delay="0">WindowClose</animation>
       <width>300</width>
       <height>150</height>
       <texture>Clickfinder_Loading.png</texture>
-      <visible>control.isvisible(9)</visible>
+      <visible>control.isvisible(9)|control.isvisible(11)</visible>
     </control>
     <control>
       <description>Animation Label</description>
@@ -271,7 +268,7 @@ delay="0">WindowClose</animation>
       <font>mediastream10</font>
       <textcolor>ffffffff</textcolor>
       <wrapString> | </wrapString>
-      <visible>control.isvisible(9)</visible>
+      <visible>control.isvisible(9)|control.isvisible(11)</visible>
     </control>
     <control>
       <id>9</id>
@@ -290,6 +287,21 @@ delay="0">WindowClose</animation>
       </textures>
       <Duration>0:0:01.5</Duration>
     </control>
+    <control>
+      <id>11</id>
+      <description>SavingProgressbar</description>
+      <type>progress</type>
+      <posX>500</posX>
+      <posY>355</posY>
+      <width>280</width>
+      <height>32</height>
+      <texturebg>osdprogressbackv.png</texturebg>
+      <lefttexture>osdprogressleft.png</lefttexture>
+      <midtexture>osdprogressmid.png</midtexture>
+      <righttexture>osdprogressright.png</righttexture>
+      <visible>false</visible>
+    </control>
+
 
   </controls>
 </window>

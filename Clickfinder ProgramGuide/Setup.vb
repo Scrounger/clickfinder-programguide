@@ -17,12 +17,43 @@ Imports System.Threading
 
 Public Class Setup
 
+    Private SettingSQLWhere As String
+    Private _TagesCategories As Dictionary(Of String, String) = New Dictionary(Of String, String)
+    Private _VorschauCategories As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String)
+
+
 
     Private Sub Setup_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Dim Rating As Integer
         Dim i As Integer
         Dim idGroup As String
         Dim ChannelName As String
+
+        _TagesCategories.Clear()
+        _VorschauCategories.Clear()
+
+
+        _TagesCategories.Add(0, "Movies")
+        _TagesCategories.Add(1, "Sky Cinema")
+        _TagesCategories.Add(2, "Sky Dokumentationen")
+        _TagesCategories.Add(3, "HDTV")
+        _TagesCategories.Add(4, "Serien")
+        _TagesCategories.Add(5, "Dokumentationen")
+        _TagesCategories.Add(6, "Reportagen")
+        _TagesCategories.Add(7, "Magazine")
+        _TagesCategories.Add(8, "Sport")
+
+        _VorschauCategories.Add(0, "Movies")
+        _VorschauCategories.Add(1, "Sky Cinema")
+        _VorschauCategories.Add(2, "Sky Dokumentationen")
+        _VorschauCategories.Add(3, "Fußball LIVE")
+
+
+        For i = 0 To _TagesCategories.Count - 1
+            lvTagesKategorien.Items.Add(_TagesCategories.Item(i).ToString)
+
+        Next
+
 
         ChannelName = "Bitte wählen..."
 
@@ -123,6 +154,10 @@ Public Class Setup
         Else
             CBWdhCorretcion.CheckState = Windows.Forms.CheckState.Unchecked
         End If
+
+
+        rbHeute.Select()
+
 
     End Sub
 
@@ -404,5 +439,104 @@ Public Class Setup
     '    End Try
 
     'End Function
+
+    Private Sub ComboBox1_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CBCategorie.SelectedIndexChanged
+      
+
+
+
+        tfWhere.Text = MPSettingRead(CBCategorie.SelectedItem.ToString, SettingSQLWhere)
+        tfOrderBy.Text = MPSettingRead(CBCategorie.SelectedItem.ToString, "OrderBy")
+
+        tfWhere.Enabled = False
+        tfOrderBy.Enabled = False
+        btSave.Enabled = False
+
+        Dim tmp As String = Replace(Replace(Replace(Replace(Replace(Replace("SELECT * FROM Sendungen INNER JOIN SendungenDetails ON Sendungen.Pos = SendungenDetails.Pos WHERE (Beginn Between #StartTime AND #EndTime) AND " & MPSettingRead(CBCategorie.SelectedItem.ToString, SettingSQLWhere) & " ORDERBY " & MPSettingRead(CBCategorie.SelectedItem.ToString, "OrderBy"), _
+                                "INNER JOIN", vbNewLine & "INNER JOIN"), _
+                                "WHERE", vbNewLine & vbNewLine & "WHERE"), _
+                                "AND", vbNewLine & "AND"), _
+                                "OR", vbNewLine & "OR"), _
+                                "ORDERBY", vbNewLine & "ORDERBY"), _
+                                "ON", vbNewLine & "ON")
+
+        tfSQL.Text = tmp
+
+    End Sub
+
+    Private Sub Button2_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+        tfWhere.Enabled = True
+        tfOrderBy.Enabled = True
+        btSave.Enabled = True
+    End Sub
+
+    Private Sub btSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btSave.Click
+        MPSettingsWrite(CBCategorie.SelectedItem.ToString, SettingSQLWhere, tfWhere.Text)
+        MPSettingsWrite(CBCategorie.SelectedItem.ToString, "OrderBy", tfOrderBy.Text)
+        tfWhere.Enabled = False
+        tfOrderBy.Enabled = False
+        btSave.Enabled = False
+
+        tfOrderBy.Text = ""
+        tfSQL.Text = ""
+        tfWhere.Text = ""
+    End Sub
+
+    Private Sub rbHeute_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbHeute.CheckedChanged
+        SettingSQLWhere = "Where"
+
+        CBCategorie.Items.Clear()
+
+        For i = 0 To _TagesCategories.Count - 1
+            CBCategorie.Items.Add(_TagesCategories.Item(i).ToString)
+        Next
+
+        tfOrderBy.Text = ""
+        tfSQL.Text = ""
+        tfWhere.Text = ""
+
+
+
+    End Sub
+
+    Private Sub rbVorschau_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbVorschau.CheckedChanged
+        SettingSQLWhere = "PreviewWhere"
+
+        CBCategorie.Items.Clear()
+
+        For i = 0 To _VorschauCategories.Count - 1
+            CBCategorie.Items.Add(_VorschauCategories.Item(i).ToString)
+        Next
+
+        tfOrderBy.Text = ""
+        tfSQL.Text = ""
+        tfWhere.Text = ""
+
+    End Sub
+
+    Private Sub tfWhere_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles tfWhere.LostFocus
+        Dim tmp As String = Replace(Replace(Replace(Replace(Replace(Replace("SELECT * FROM Sendungen INNER JOIN SendungenDetails ON Sendungen.Pos = SendungenDetails.Pos WHERE (Beginn Between #StartTime AND #EndTime) AND " & tfWhere.Text & " ORDERBY " & tfOrderBy.Text, _
+                        "INNER JOIN", vbNewLine & "INNER JOIN"), _
+                        "WHERE", vbNewLine & vbNewLine & "WHERE"), _
+                        "AND", vbNewLine & "AND"), _
+                        "OR", vbNewLine & "OR"), _
+                        "ORDERBY", vbNewLine & "ORDERBY"), _
+                        "ON", vbNewLine & "ON")
+
+        tfSQL.Text = tmp
+    End Sub
+    Private Sub tfOrderBy_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles tfOrderBy.LostFocus
+        Dim tmp As String = Replace(Replace(Replace(Replace(Replace(Replace("SELECT * FROM Sendungen INNER JOIN SendungenDetails ON Sendungen.Pos = SendungenDetails.Pos WHERE (Beginn Between #StartTime AND #EndTime) AND " & tfWhere.Text & " ORDERBY " & tfOrderBy.Text, _
+                "INNER JOIN", vbNewLine & "INNER JOIN"), _
+                "WHERE", vbNewLine & vbNewLine & "WHERE"), _
+                "AND", vbNewLine & "AND"), _
+                "OR", vbNewLine & "OR"), _
+                "ORDERBY", vbNewLine & "ORDERBY"), _
+                "ON", vbNewLine & "ON")
+
+        tfSQL.Text = tmp
+
+    End Sub
+
 
 End Class

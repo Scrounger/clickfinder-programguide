@@ -1,0 +1,418 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<window>
+  <controls>
+
+
+
+    <control>
+      <description>Details BG Image</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>100</posX>
+      <posY>130</posY>
+      <width>1080</width>
+      <height>480</height>
+      <texture></texture>
+      <colorkey>0</colorkey>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <texture>ClickfinderDetailsBG.png</texture>
+      <visible>control.isvisible(30)</visible>
+    </control>
+
+    <control>
+      <description>Details Bar BG Image</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>0</posX>
+      <posY>640</posY>
+      <width>1280</width>
+      <height>40</height>
+      <texture></texture>
+      <colorkey>0</colorkey>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <texture>ClickfinderBar.png</texture>
+      <visible>control.isvisible(30)</visible>
+    </control>
+    
+    <control>
+      <description>Detail Image</description>
+      <type>image</type>
+      <id>30</id>
+      <posX>110</posX>
+      <posY>140</posY>
+      <width>216</width>
+      <height>160</height>
+      <texture></texture>
+      <colorkey>0</colorkey>
+      <filtered>yes</filtered>
+      <centered>no</centered>
+      <keepaspectratio>yes</keepaspectratio>
+      <visible>yes</visible>
+    </control>
+
+    <control>
+      <description>Detail Rating Image</description>
+      <type>image</type>
+      <id>37</id>
+      <posX>90</posX>
+      <posY>270</posY>
+      <width>48</width>
+      <texture></texture>
+      <colorkey>0</colorkey>
+      <filtered>yes</filtered>
+      <centered>no</centered>
+      <keepaspectratio>yes</keepaspectratio>
+      <visible>control.isvisible(30)</visible>
+    </control>
+
+
+
+
+    <control>
+      <description>Detail Titel</description>
+      <type>fadelabel</type>
+      <id>31</id>
+      <posX>336</posX>
+      <posY>140</posY>
+      <width>430</width>
+      <align>left</align>
+      <font>font10</font>
+      <textcolor>ffffffff</textcolor>
+      <wrapString> | </wrapString>
+      <visible>control.isvisible(30)</visible>      
+    </control>
+
+    <control>
+      <description>ListItem org. Titel</description>
+      <type>fadelabel</type>
+      <id>38</id>
+      <posX>336</posX>
+      <posY>150</posY>
+      <width>680</width>
+      <align>left</align>
+      <font>font10</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+      <visible>control.isvisible(30)</visible>
+    </control>
+
+    <control>
+      <description>Label Dauer</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>820</posX>
+      <posY>160</posY>
+      <width>70</width>
+<label>Dauer:</label>
+      <align>left</align>
+      <font>font9</font>
+      <textcolor>ffffffff</textcolor>
+      <visible>control.isvisible(30)</visible>
+    </control>
+
+    <control>
+      <description>ListItem Dauer</description>
+      <type>fadelabel</type>
+      <id>41</id>
+      <posX>890</posX>
+      <posY>160</posY>
+      <width>120</width>
+      <align>left</align>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+      <visible>control.isvisible(30)</visible>
+    </control>
+
+    <control>
+      <description>Label Jahr</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>1020</posX>
+      <posY>160</posY>
+      <width>50</width>
+<label>Jahr:</label>
+      <align>left</align>
+      <font>font9</font>
+      <textcolor>ffffffff</textcolor>
+      <visible>control.isvisible(30)</visible>
+    </control>
+
+   <control>
+      <description>ListItem YearLand</description>
+      <type>fadelabel</type>
+      <id>40</id>
+      <posX>1090</posX>
+      <posY>160</posY>
+      <width>680</width>
+      <align>left</align>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+     <visible>control.isvisible(30)</visible>
+    </control>
+
+
+    <control>
+      <description>Label Zeit</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>820</posX>
+      <posY>180</posY>
+      <width>70</width>
+<label>Uhrzeit:</label>
+      <align>left</align>
+      <font>font9</font>
+      <textcolor>ffffffff</textcolor>
+      <visible>control.isvisible(30)</visible>
+    </control>
+
+    <control>
+      <description>ListItem Zeit</description>
+      <type>fadelabel</type>
+      <id>34</id>
+      <posX>890</posX>
+      <posY>180</posY>
+      <width>150</width>
+      <align>left</align>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+      <visible>control.isvisible(30)</visible>
+    </control>
+
+
+    <control>
+      <description>Label Kanal</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>1020</posX>
+      <posY>180</posY>
+      <width>70</width>
+<label>Sender:</label>
+      <align>left</align>
+      <font>font9</font>
+      <visible>control.isvisible(30)</visible>
+    </control>
+
+    <control>
+      <description>ListItem Kanal</description>
+      <type>fadelabel</type>
+      <id>33</id>
+      <posX>1090</posX>
+      <posY>180</posY>
+      <width>300</width>
+      <align>left</align>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+      <visible>control.isvisible(30)</visible>
+    </control>
+
+    <control>
+      <description>Label Genre</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>664</posX>
+      <posY>224</posY>
+      <width>100</width>
+<label>Genre:</label>
+      <align>left</align>
+      <font>font9</font>
+      <textcolor>ffffffff</textcolor>
+      <visible>control.isvisible(30)</visible>
+    </control>
+
+    <control>
+      <description>ListItem Genre</description>
+      <type>fadelabel</type>
+      <id>35</id>
+      <posX>774</posX>
+      <posY>224</posY>
+      <width>460</width>
+      <align>left</align>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+      <visible>control.isvisible(30)</visible>
+    </control>
+
+    <control>
+      <description>Label Regie</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>664</posX>
+      <posY>246</posY>
+      <width>100</width>
+<label>Regie:</label>
+      <align>left</align>
+      <font>font9</font>
+      <textcolor>ffffffff</textcolor>
+      <visible>control.isvisible(30)</visible>
+    </control>
+
+    <control>
+      <description>ListItem Regie</description>
+      <type>fadelabel</type>
+      <id>39</id>
+      <posX>774</posX>
+      <posY>246</posY>
+      <width>460</width>
+      <align>left</align>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+      <visible>control.isvisible(30)</visible>
+    </control>
+
+    <control>
+      <description>Label Schauspieler</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>664</posX>
+      <posY>270</posY>
+      <width>100</width>
+<label>Schauspieler:</label>
+      <align>left</align>
+      <font>font9</font>
+      <textcolor>ffffffff</textcolor>
+      <visible>control.isvisible(30)</visible>
+    </control>
+
+    <control>
+      <description>ListItem Actors</description>
+      <type>fadelabel</type>
+      <id>36</id>
+      <posX>774</posX>
+      <posY>270</posY>
+      <width>460</width>
+      <align>left</align>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+      <visible>control.isvisible(30)</visible>
+    </control>
+
+
+    <control>
+      <description>Label Bewertung</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>664</posX>
+      <posY>292</posY>
+      <width>100</width>
+<label>Bewertung:</label>
+      <align>left</align>
+      <font>font9</font>
+      <textcolor>ffffffff</textcolor>
+      <visible>control.isvisible(30)</visible>
+    </control>
+
+    <control>
+      <description>ListItem Bewertungen</description>
+      <type>fadelabel</type>
+      <id>43</id>
+      <posX>774</posX>
+      <posY>292</posY>
+      <width>460</width>
+      <align>left</align>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+      <visible>control.isvisible(30)</visible>
+    </control>
+
+    <control>
+      <description>Label KurzKritik</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>664</posX>
+      <posY>316</posY>
+      <width>100</width>
+<label>Kritik:</label>
+      <align>left</align>
+      <font>font9</font>
+      <textcolor>ffffffff</textcolor>
+      <visible>control.isvisible(30)</visible>
+    </control>
+
+    <control>
+      <description>ListItem Kurzkritik</description>
+      <type>fadelabel</type>
+      <id>42</id>
+      <posX>774</posX>
+      <posY>316</posY>
+      <width>460</width>
+      <align>left</align>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+      <visible>control.isvisible(30)</visible>
+    </control>
+
+
+
+
+
+
+    <control>
+      <description>default textboxscrollup</description>
+      <type>textboxscrollup</type>
+      <id>32</id>
+      <posX>664</posX>
+      <posY>346</posY>
+      <width>580</width>
+      <height>124</height>
+      <seperator>-------------------------------------------------------------------------------------------------------------------------------------------</seperator>
+      <font>font10</font>
+      <visible>control.isvisible(30)</visible>
+    </control>
+
+    <control>
+      <description>Remember</description>
+      <type>button</type>
+      <id>89</id>
+      <posX>400</posX>
+      <posY>645</posY>
+      <width>120</width>
+      <label>Erinnern</label>
+      <onleft>91</onleft>
+      <onright>90</onright>
+      <onup></onup>
+      <ondown></ondown>
+      <visible>control.isvisible(30)</visible>
+    </control>
+    
+    <control>
+      <description>Back</description>
+      <type>button</type>
+      <id>90</id>
+      <posX>580</posX>
+      <posY>645</posY>
+      <width>120</width>
+      <label>Zurück</label>
+      <onleft>89</onleft>
+      <onright>91</onright>
+      <onup></onup>
+      <ondown></ondown>
+      <visible>control.isvisible(30)</visible>
+    </control>
+    <control>
+      <description>Record</description>
+      <type>button</type>
+      <id>91</id>
+      <posX>760</posX>
+      <posY>645</posY>
+      <width>120</width>
+      <label>Aufnehmen</label>
+      <onleft>90</onleft>
+      <onright>89</onright>
+      <onup></onup>
+      <ondown></ondown>
+      <visible>control.isvisible(30)</visible>
+    </control>
+
+  </controls>
+</window>

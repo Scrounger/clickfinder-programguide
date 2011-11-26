@@ -13,8 +13,7 @@
       <width>610</width>
       <height>570</height>
       <texture>ClickfinderPG_BG.png</texture>
-      <colordiffuse>EEFFFFFF</colordiffuse>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
@@ -28,8 +27,7 @@
       <width>610</width>
       <height>570</height>
       <texture>ClickfinderPG_BG.png</texture>
-      <colordiffuse>EEFFFFFF</colordiffuse>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
@@ -43,8 +41,7 @@
       <width>610</width>
       <height>5</height>
       <texture>ClickfinderPG_Sep.png</texture>
-      <colordiffuse>EEFFFFFF</colordiffuse>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
@@ -57,8 +54,7 @@
       <width>610</width>
       <height>5</height>
       <texture>ClickfinderPG_Sep.png</texture>
-      <colordiffuse>EEFFFFFF</colordiffuse>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
@@ -71,8 +67,7 @@
       <width>610</width>
       <height>5</height>
       <texture>ClickfinderPG_Sep.png</texture>
-      <colordiffuse>EEFFFFFF</colordiffuse>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
@@ -85,8 +80,7 @@
       <width>610</width>
       <height>5</height>
       <texture>ClickfinderPG_Sep.png</texture>
-      <colordiffuse>EEFFFFFF</colordiffuse>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
@@ -103,9 +97,6 @@
       <posY>124</posY>
       <width>590</width>
       <height>600</height>
-      <font>mediastream12c</font>
-      <font2>mediastream10c</font2>
-      <font3>mediastream10c</font3>
       <spinWidth>30</spinWidth>
       <spinHeight>30</spinHeight>
       <spinPosX>564</spinPosX>
@@ -138,7 +129,7 @@
       <scrollOffset>2</scrollOffset>
       <scrollbarXOff>0</scrollbarXOff>
       <scrollbarwidth>15</scrollbarwidth>
-      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
