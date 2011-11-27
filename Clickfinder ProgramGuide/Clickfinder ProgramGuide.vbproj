@@ -141,6 +141,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Grafiken\arrow Down 48.png" />
+    <None Include="Grafiken\arrow UP 48.png" />
     <Content Include="MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.Details.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -27,7 +27,6 @@ Partial Class Setup
         Me.tfClickfinderPath = New System.Windows.Forms.TextBox
         Me.Label1 = New System.Windows.Forms.Label
         Me.Button1 = New System.Windows.Forms.Button
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox
         Me.Label2 = New System.Windows.Forms.Label
         Me.CBChannelGroup = New System.Windows.Forms.ComboBox
         Me.Label3 = New System.Windows.Forms.Label
@@ -58,7 +57,20 @@ Partial Class Setup
         Me.Label12 = New System.Windows.Forms.Label
         Me.TabPage2 = New System.Windows.Forms.TabPage
         Me.TabPage3 = New System.Windows.Forms.TabPage
+        Me.TabPage5 = New System.Windows.Forms.TabPage
+        Me.btVorschauDown = New System.Windows.Forms.Button
+        Me.btVorschauUp = New System.Windows.Forms.Button
+        Me.btTagesDown = New System.Windows.Forms.Button
+        Me.lvVorschauCategorieChoosen = New System.Windows.Forms.ListView
+        Me.ColumnHeader4 = New System.Windows.Forms.ColumnHeader
+        Me.lvVorschauKategorien = New System.Windows.Forms.ListView
+        Me.ColumnHeader3 = New System.Windows.Forms.ColumnHeader
+        Me.lvTagesCategorieChoosen = New System.Windows.Forms.ListView
+        Me.ColumnHeader2 = New System.Windows.Forms.ColumnHeader
+        Me.lvTagesKategorien = New System.Windows.Forms.ListView
+        Me.ColumnHeader1 = New System.Windows.Forms.ColumnHeader
         Me.TabPage4 = New System.Windows.Forms.TabPage
+        Me.Label18 = New System.Windows.Forms.Label
         Me.rbVorschau = New System.Windows.Forms.RadioButton
         Me.rbHeute = New System.Windows.Forms.RadioButton
         Me.btSave = New System.Windows.Forms.Button
@@ -71,17 +83,18 @@ Partial Class Setup
         Me.Label15 = New System.Windows.Forms.Label
         Me.tfWhere = New System.Windows.Forms.TextBox
         Me.Label14 = New System.Windows.Forms.Label
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.TabPage5 = New System.Windows.Forms.TabPage
-        Me.lvTagesKategorien = New System.Windows.Forms.ListView
-        Me.ColumnHeader1 = New System.Windows.Forms.ColumnHeader
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.btTagesUp = New System.Windows.Forms.Button
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox
+        Me.Label19 = New System.Windows.Forms.Label
+        Me.Label20 = New System.Windows.Forms.Label
+        Me.Label21 = New System.Windows.Forms.Label
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
-        Me.TabPage4.SuspendLayout()
         Me.TabPage5.SuspendLayout()
+        Me.TabPage4.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'cbRating
@@ -125,16 +138,6 @@ Partial Class Setup
         Me.Button1.TabIndex = 8
         Me.Button1.Text = "speichern"
         Me.Button1.UseVisualStyleBackColor = True
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Image = Global.ClickfinderProgramGuide.My.Resources.Resources.SetupIcon
-        Me.PictureBox1.Location = New System.Drawing.Point(3, 4)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(75, 62)
-        Me.PictureBox1.TabIndex = 9
-        Me.PictureBox1.TabStop = False
         '
         'Label2
         '
@@ -498,6 +501,117 @@ Partial Class Setup
         Me.TabPage3.Text = "Logos"
         Me.TabPage3.UseVisualStyleBackColor = True
         '
+        'TabPage5
+        '
+        Me.TabPage5.Controls.Add(Me.Label21)
+        Me.TabPage5.Controls.Add(Me.Label20)
+        Me.TabPage5.Controls.Add(Me.Label19)
+        Me.TabPage5.Controls.Add(Me.btVorschauDown)
+        Me.TabPage5.Controls.Add(Me.btVorschauUp)
+        Me.TabPage5.Controls.Add(Me.btTagesDown)
+        Me.TabPage5.Controls.Add(Me.btTagesUp)
+        Me.TabPage5.Controls.Add(Me.lvVorschauCategorieChoosen)
+        Me.TabPage5.Controls.Add(Me.lvVorschauKategorien)
+        Me.TabPage5.Controls.Add(Me.lvTagesCategorieChoosen)
+        Me.TabPage5.Controls.Add(Me.lvTagesKategorien)
+        Me.TabPage5.Location = New System.Drawing.Point(4, 25)
+        Me.TabPage5.Name = "TabPage5"
+        Me.TabPage5.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage5.Size = New System.Drawing.Size(596, 423)
+        Me.TabPage5.TabIndex = 4
+        Me.TabPage5.Text = "Kategorien"
+        Me.TabPage5.UseVisualStyleBackColor = True
+        '
+        'btVorschauDown
+        '
+        Me.btVorschauDown.BackgroundImage = Global.ClickfinderProgramGuide.My.Resources.Resources.arrow_Down_48
+        Me.btVorschauDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.btVorschauDown.Location = New System.Drawing.Point(525, 305)
+        Me.btVorschauDown.Name = "btVorschauDown"
+        Me.btVorschauDown.Size = New System.Drawing.Size(31, 41)
+        Me.btVorschauDown.TabIndex = 7
+        Me.btVorschauDown.UseVisualStyleBackColor = True
+        '
+        'btVorschauUp
+        '
+        Me.btVorschauUp.BackgroundImage = CType(resources.GetObject("btVorschauUp.BackgroundImage"), System.Drawing.Image)
+        Me.btVorschauUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.btVorschauUp.Location = New System.Drawing.Point(525, 258)
+        Me.btVorschauUp.Name = "btVorschauUp"
+        Me.btVorschauUp.Size = New System.Drawing.Size(31, 41)
+        Me.btVorschauUp.TabIndex = 6
+        Me.btVorschauUp.UseVisualStyleBackColor = True
+        '
+        'btTagesDown
+        '
+        Me.btTagesDown.BackgroundImage = Global.ClickfinderProgramGuide.My.Resources.Resources.arrow_Down_48
+        Me.btTagesDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.btTagesDown.Location = New System.Drawing.Point(525, 114)
+        Me.btTagesDown.Name = "btTagesDown"
+        Me.btTagesDown.Size = New System.Drawing.Size(31, 41)
+        Me.btTagesDown.TabIndex = 5
+        Me.btTagesDown.UseVisualStyleBackColor = True
+        '
+        'lvVorschauCategorieChoosen
+        '
+        Me.lvVorschauCategorieChoosen.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader4})
+        Me.lvVorschauCategorieChoosen.Location = New System.Drawing.Point(341, 231)
+        Me.lvVorschauCategorieChoosen.Name = "lvVorschauCategorieChoosen"
+        Me.lvVorschauCategorieChoosen.Size = New System.Drawing.Size(178, 143)
+        Me.lvVorschauCategorieChoosen.TabIndex = 3
+        Me.lvVorschauCategorieChoosen.UseCompatibleStateImageBehavior = False
+        Me.lvVorschauCategorieChoosen.View = System.Windows.Forms.View.Details
+        '
+        'ColumnHeader4
+        '
+        Me.ColumnHeader4.Text = "gewählte Kategorien"
+        Me.ColumnHeader4.Width = 156
+        '
+        'lvVorschauKategorien
+        '
+        Me.lvVorschauKategorien.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader3})
+        Me.lvVorschauKategorien.Location = New System.Drawing.Point(57, 231)
+        Me.lvVorschauKategorien.Name = "lvVorschauKategorien"
+        Me.lvVorschauKategorien.Size = New System.Drawing.Size(178, 143)
+        Me.lvVorschauKategorien.TabIndex = 2
+        Me.lvVorschauKategorien.UseCompatibleStateImageBehavior = False
+        Me.lvVorschauKategorien.View = System.Windows.Forms.View.Details
+        '
+        'ColumnHeader3
+        '
+        Me.ColumnHeader3.Text = "Kategorie"
+        Me.ColumnHeader3.Width = 156
+        '
+        'lvTagesCategorieChoosen
+        '
+        Me.lvTagesCategorieChoosen.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader2})
+        Me.lvTagesCategorieChoosen.Location = New System.Drawing.Point(341, 43)
+        Me.lvTagesCategorieChoosen.Name = "lvTagesCategorieChoosen"
+        Me.lvTagesCategorieChoosen.Size = New System.Drawing.Size(178, 143)
+        Me.lvTagesCategorieChoosen.TabIndex = 1
+        Me.lvTagesCategorieChoosen.UseCompatibleStateImageBehavior = False
+        Me.lvTagesCategorieChoosen.View = System.Windows.Forms.View.Details
+        '
+        'ColumnHeader2
+        '
+        Me.ColumnHeader2.Text = "gewählte Kategorien"
+        Me.ColumnHeader2.Width = 156
+        '
+        'lvTagesKategorien
+        '
+        Me.lvTagesKategorien.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1})
+        Me.lvTagesKategorien.Location = New System.Drawing.Point(57, 43)
+        Me.lvTagesKategorien.Name = "lvTagesKategorien"
+        Me.lvTagesKategorien.Size = New System.Drawing.Size(178, 143)
+        Me.lvTagesKategorien.TabIndex = 0
+        Me.lvTagesKategorien.UseCompatibleStateImageBehavior = False
+        Me.lvTagesKategorien.View = System.Windows.Forms.View.Details
+        '
+        'ColumnHeader1
+        '
+        Me.ColumnHeader1.Text = "Kategorien"
+        Me.ColumnHeader1.Width = 156
+        '
         'TabPage4
         '
         Me.TabPage4.Controls.Add(Me.Label18)
@@ -520,6 +634,16 @@ Partial Class Setup
         Me.TabPage4.TabIndex = 3
         Me.TabPage4.Text = "SQL Strings"
         Me.TabPage4.UseVisualStyleBackColor = True
+        '
+        'Label18
+        '
+        Me.Label18.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label18.Location = New System.Drawing.Point(15, 18)
+        Me.Label18.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(552, 101)
+        Me.Label18.TabIndex = 53
+        Me.Label18.Text = resources.GetString("Label18.Text")
         '
         'rbVorschau
         '
@@ -646,41 +770,58 @@ Partial Class Setup
         Me.Label14.TabIndex = 38
         Me.Label14.Text = "Where:"
         '
-        'Label18
+        'btTagesUp
         '
-        Me.Label18.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.Location = New System.Drawing.Point(15, 18)
-        Me.Label18.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(552, 81)
-        Me.Label18.TabIndex = 53
-        Me.Label18.Text = resources.GetString("Label18.Text")
+        Me.btTagesUp.BackgroundImage = CType(resources.GetObject("btTagesUp.BackgroundImage"), System.Drawing.Image)
+        Me.btTagesUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.btTagesUp.Location = New System.Drawing.Point(525, 67)
+        Me.btTagesUp.Name = "btTagesUp"
+        Me.btTagesUp.Size = New System.Drawing.Size(31, 41)
+        Me.btTagesUp.TabIndex = 4
+        Me.btTagesUp.UseVisualStyleBackColor = True
         '
-        'TabPage5
+        'PictureBox1
         '
-        Me.TabPage5.Controls.Add(Me.lvTagesKategorien)
-        Me.TabPage5.Location = New System.Drawing.Point(4, 25)
-        Me.TabPage5.Name = "TabPage5"
-        Me.TabPage5.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage5.Size = New System.Drawing.Size(596, 423)
-        Me.TabPage5.TabIndex = 4
-        Me.TabPage5.Text = "Kategorien"
-        Me.TabPage5.UseVisualStyleBackColor = True
+        Me.PictureBox1.Image = Global.ClickfinderProgramGuide.My.Resources.Resources.SetupIcon
+        Me.PictureBox1.Location = New System.Drawing.Point(3, 4)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(75, 62)
+        Me.PictureBox1.TabIndex = 9
+        Me.PictureBox1.TabStop = False
         '
-        'lvTagesKategorien
+        'Label19
         '
-        Me.lvTagesKategorien.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1})
-        Me.lvTagesKategorien.Location = New System.Drawing.Point(211, 116)
-        Me.lvTagesKategorien.Name = "lvTagesKategorien"
-        Me.lvTagesKategorien.Size = New System.Drawing.Size(272, 180)
-        Me.lvTagesKategorien.TabIndex = 0
-        Me.lvTagesKategorien.UseCompatibleStateImageBehavior = False
-        Me.lvTagesKategorien.View = System.Windows.Forms.View.Details
+        Me.Label19.AutoSize = True
+        Me.Label19.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label19.Location = New System.Drawing.Point(16, 18)
+        Me.Label19.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(349, 16)
+        Me.Label19.TabIndex = 31
+        Me.Label19.Text = "angezeigte Kategorien in den Ansichten des Tages:"
         '
-        'ColumnHeader1
+        'Label20
         '
-        Me.ColumnHeader1.Text = "Kategorie"
-        Me.ColumnHeader1.Width = 196
+        Me.Label20.AutoSize = True
+        Me.Label20.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label20.Location = New System.Drawing.Point(16, 206)
+        Me.Label20.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(326, 16)
+        Me.Label20.TabIndex = 32
+        Me.Label20.Text = "angezeigte Kategorien in den Ansicht Vorschau:"
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label21.Location = New System.Drawing.Point(127, 396)
+        Me.Label21.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(334, 13)
+        Me.Label21.TabIndex = 33
+        Me.Label21.Text = "(DoppelKlick auf Eintrag zum Hinzufügen oder Entfernen)"
         '
         'Setup
         '
@@ -697,7 +838,6 @@ Partial Class Setup
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "Setup"
         Me.Text = "Clickfinder Program Guide Configuration"
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
@@ -705,9 +845,11 @@ Partial Class Setup
         Me.TabPage2.PerformLayout()
         Me.TabPage3.ResumeLayout(False)
         Me.TabPage3.PerformLayout()
+        Me.TabPage5.ResumeLayout(False)
+        Me.TabPage5.PerformLayout()
         Me.TabPage4.ResumeLayout(False)
         Me.TabPage4.PerformLayout()
-        Me.TabPage5.ResumeLayout(False)
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -764,4 +906,17 @@ Partial Class Setup
     Friend WithEvents TabPage5 As System.Windows.Forms.TabPage
     Friend WithEvents lvTagesKategorien As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents lvTagesCategorieChoosen As System.Windows.Forms.ListView
+    Friend WithEvents ColumnHeader2 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents lvVorschauCategorieChoosen As System.Windows.Forms.ListView
+    Friend WithEvents ColumnHeader4 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents lvVorschauKategorien As System.Windows.Forms.ListView
+    Friend WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents btTagesDown As System.Windows.Forms.Button
+    Friend WithEvents btTagesUp As System.Windows.Forms.Button
+    Friend WithEvents btVorschauDown As System.Windows.Forms.Button
+    Friend WithEvents btVorschauUp As System.Windows.Forms.Button
+    Friend WithEvents Label20 As System.Windows.Forms.Label
+    Friend WithEvents Label19 As System.Windows.Forms.Label
+    Friend WithEvents Label21 As System.Windows.Forms.Label
 End Class

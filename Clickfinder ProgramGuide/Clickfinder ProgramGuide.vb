@@ -599,16 +599,46 @@ Namespace ClickfinderProgramGuide
             Dim _SQLWhereAdd As String
             Dim _SQLWhereAddPreview As String
             Dim _SQLOrderBy As String
+            Dim _Categorie As String = Nothing
+            Dim _Log As String = Nothing
 
+            'Dictionary mit allen Kategorien füllen
+            Dim _AvailableCategories As Dictionary(Of String, String) = New Dictionary(Of String, String)
+            _AvailableCategories.Clear()
 
+            'AvailableTagesCategories Array durchlaufen und Kategorie an Dictionary übergeben
+            Dim str_AvailableTagesCategories() As String = MPSettingRead("config", "AvailableTagesCategories").ToString.Split(CChar(";"))
+            For i = 0 To str_AvailableTagesCategories.Length - 1
+                If Not str_AvailableTagesCategories(i) = "" Then
+                    _AvailableCategories.Add(str_AvailableTagesCategories(i), str_AvailableTagesCategories(i))
+                    _Log = _Log & str_AvailableTagesCategories(i) & "; "
+                End If
+            Next
+
+            'AvailableVorschauCategories Array durchlaufen und Kategorie an Dictionary übergebe, sofern nicht schon vorhanden
+            Dim str_AvailableVorschauCategories() As String = MPSettingRead("config", "AvailableVorschauCategories").ToString.Split(CChar(";"))
+            For i = 0 To str_AvailableVorschauCategories.Length - 1
+                If _AvailableCategories.ContainsValue(str_AvailableVorschauCategories(i)) = False Then
+                    _AvailableCategories.Add(str_AvailableVorschauCategories(i), str_AvailableVorschauCategories(i))
+                    _Log = _Log & str_AvailableVorschauCategories(i) & "; "
+                End If
+            Next
+
+            Log.Debug("Clickfinder ProgramGuide: [ListControlClick] - Available Categories: " & _Log)
 
             _Rating = MPSettingRead("config", "ClickfinderRating")
             _RespectInFavGroup = True
 
+            'Sofern Categorie vorhanden im Dicitionary -> Categorie Items anzeigen
+            If _AvailableCategories.ContainsValue(ctlList.SelectedListItem.Label.ToString) = True Then
+                _Categorie = ctlList.SelectedListItem.Label.ToString
+            End If
 
-            Select Case ctlList.SelectedListItem.Label.ToString
 
+            'Aufruf der Fkt. beim click auf ein ListConrtol Item
+                Select Case ctlList.SelectedListItem.Label.ToString
                 Case ".."
+                    'Listcontrol Item = .. -> eine Ebende zurück in der Listcontrol
                     Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowCategories")
                     Try
                         'Dim _Threat As New Thread(AddressOf ClearFavInfo)
@@ -622,14 +652,15 @@ Namespace ClickfinderProgramGuide
                     End Try
 
 
-                Case "Movies"
+                Case Is = _Categorie
+                    'Listcontrol Item = Categorie: Categorie Items anzeigen
                     Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & _CurrentQuery.ToString)
                     Try
+                        _CurrentCategorie = _AvailableCategories.Item(ctlList.SelectedListItem.Label.ToString)
                         ctlList.Clear()
-                        _CurrentCategorie = "Movies"
 
-                        _SQLWhereAdd = "AND Bewertung >= " & _Rating & " AND " & MPSettingRead(_CurrentCategorie, "Where")
-                        _SQLWhereAddPreview = "AND " & MPSettingRead(_CurrentCategorie, "PreviewWhere")
+                        _SQLWhereAdd = Replace(MPSettingRead(_CurrentCategorie, "Where"), "Bewertung >= #Rating#", "Bewertung >= " & _Rating)
+                        _SQLWhereAddPreview = Replace(MPSettingRead(_CurrentCategorie, "PreviewWhere"), "Bewertung >= #Rating#", "Bewertung >= " & _Rating)
                         _SQLOrderBy = MPSettingRead(_CurrentCategorie, "OrderBy")
 
                         Select Case _CurrentQuery.ToString
@@ -658,292 +689,11 @@ Namespace ClickfinderProgramGuide
                         Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
                     End Try
 
-                Case "Sky Cinema"
-                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & _CurrentQuery.ToString)
-                    Try
-                        ctlList.Clear()
-                        _CurrentCategorie = "Sky Cinema"
-
-                        _SQLWhereAdd = "AND Bewertung >= " & _Rating & " AND " & MPSettingRead(_CurrentCategorie, "Where")
-                        _SQLWhereAddPreview = "AND " & MPSettingRead(_CurrentCategorie, "PreviewWhere")
-                        _SQLOrderBy = MPSettingRead(_CurrentCategorie, "OrderBy")
-
-
-                        Select Case _CurrentQuery.ToString
-                            Case Is = "Now"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "PrimeTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "LateTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "Preview"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAddPreview, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                        End Select
-                    Catch ex As Exception
-                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
-                    End Try
-
-                Case "Sky Dokumentationen"
-                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & _CurrentQuery.ToString)
-                    Try
-                        ctlList.Clear()
-                        _CurrentCategorie = "Sky Dokumentationen"
-
-                        _SQLWhereAdd = "AND " & MPSettingRead(_CurrentCategorie, "Where")
-                        _SQLWhereAddPreview = "AND " & MPSettingRead(_CurrentCategorie, "PreviewWhere")
-                        _SQLOrderBy = MPSettingRead(_CurrentCategorie, "OrderBy")
-
-                        Select Case _CurrentQuery.ToString
-                            Case Is = "Now"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "PrimeTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "LateTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "Preview"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAddPreview, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                        End Select
-                    Catch ex As Exception
-                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
-                    End Try
-
-
-
-                Case "HDTV"
-                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & _CurrentQuery.ToString)
-                    Try
-                        ctlList.Clear()
-                        _CurrentCategorie = "HDTV"
-
-                        _SQLWhereAdd = "AND " & MPSettingRead(_CurrentCategorie, "Where")
-                        _SQLOrderBy = MPSettingRead(_CurrentCategorie, "OrderBy")
-
-
-                        Select Case _CurrentQuery.ToString
-                            Case Is = "Now"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "PrimeTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "LateTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                        End Select
-                    Catch ex As Exception
-                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
-                    End Try
-
-
-                Case "Serien"
-                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & _CurrentQuery.ToString)
-                    Try
-                        ctlList.Clear()
-                        _CurrentCategorie = "Serien"
-
-                        _SQLWhereAdd = "AND " & MPSettingRead(_CurrentCategorie, "Where")
-                        _SQLOrderBy = MPSettingRead(_CurrentCategorie, "OrderBy")
-
-
-                        Select Case _CurrentQuery.ToString
-                            Case Is = "Now"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "PrimeTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "LateTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                        End Select
-                    Catch ex As Exception
-                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
-                    End Try
-
-                Case "Dokumentationen"
-                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & _CurrentQuery.ToString)
-                    Try
-                        ctlList.Clear()
-                        _CurrentCategorie = "Dokumentationen"
-
-                        _SQLWhereAdd = "AND " & MPSettingRead(_CurrentCategorie, "Where")
-                        _SQLOrderBy = MPSettingRead(_CurrentCategorie, "OrderBy")
-
-                        Select Case _CurrentQuery.ToString
-                            Case Is = "Now"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "PrimeTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "LateTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                        End Select
-                    Catch ex As Exception
-                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
-                    End Try
-
-                Case "Reportagen"
-                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & _CurrentQuery.ToString)
-                    Try
-                        ctlList.Clear()
-                        _CurrentCategorie = "Reportagen"
-
-                        _SQLWhereAdd = "AND " & MPSettingRead(_CurrentCategorie, "Where")
-                        _SQLOrderBy = MPSettingRead(_CurrentCategorie, "OrderBy")
-
-
-                        Select Case _CurrentQuery.ToString
-                            Case Is = "Now"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "PrimeTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "LateTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                        End Select
-                    Catch ex As Exception
-                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
-                    End Try
-
-                Case "Magazine"
-                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & _CurrentQuery.ToString)
-                    Try
-                        ctlList.Clear()
-                        _CurrentCategorie = "Magazine"
-
-                        _SQLWhereAdd = "AND " & MPSettingRead(_CurrentCategorie, "Where")
-                        _SQLOrderBy = MPSettingRead(_CurrentCategorie, "OrderBy")
-
-
-                        Select Case _CurrentQuery.ToString
-                            Case Is = "Now"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "PrimeTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "LateTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                        End Select
-                    Catch ex As Exception
-                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
-                    End Try
-
-                Case "Sport"
-                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & _CurrentQuery.ToString)
-
-                    Try
-                        ctlList.Clear()
-                        _CurrentCategorie = "Sport"
-
-                        _SQLWhereAdd = "AND " & MPSettingRead(_CurrentCategorie, "Where")
-                        _SQLOrderBy = MPSettingRead(_CurrentCategorie, "OrderBy")
-
-                        Select Case _CurrentQuery.ToString
-                            Case Is = "Now"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "PrimeTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                            Case Is = "LateTime"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAdd, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                        End Select
-                    Catch ex As Exception
-                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
-                    End Try
-
-                Case "Fußball LIVE"
-                    Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & _CurrentQuery.ToString)
-
-                    Try
-                        ctlList.Clear()
-                        _CurrentCategorie = "Fußball LIVE"
-
-                        _SQLWhereAddPreview = "AND " & MPSettingRead(_CurrentCategorie, "PreviewWhere")
-                        _SQLOrderBy = MPSettingRead(_CurrentCategorie, "OrderBy")
-
-                        Select Case _CurrentQuery.ToString
-                            Case Is = "Preview"
-                                _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, _SQLWhereAddPreview, _SQLOrderBy)
-                                ShowTipps()
-                                _ProgressBar.Start()
-                                _Threat.Start()
-                        End Select
-                    Catch ex As Exception
-                        Log.Error("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ex.Message)
-                    End Try
 
                 Case Else
+                    'Listcontrol Item = Sendung: Details der Sendung anzeigen
                     Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowItemDetails: " & ctlList.SelectedListItem.Label & " " & ctlList.SelectedListItem.Label3 & " " & ctlList.SelectedListItem.Label2 & " " & ctlList.SelectedListItem.Icon.FileName & " - true")
                     ShowItemDetails(ctlList.SelectedListItem.ItemId, ctlList.SelectedListItem.Icon.FileName, True)
-
             End Select
 
         End Sub
@@ -966,22 +716,28 @@ Namespace ClickfinderProgramGuide
 
                 If _CurrentQuery = "Preview" Then
                     _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung = 4", "Beginn ASC, Bewertung DESC, Titel")
-                    AddListControlItem(ctlList.ListItems.Count - 1, "Movies", , , "ClickfinderPG_Movies.png")
-                    AddListControlItem(ctlList.ListItems.Count - 1, "Sky Cinema")
-                    AddListControlItem(ctlList.ListItems.Count - 1, "Sky Dokumentationen")
-                    AddListControlItem(ctlList.ListItems.Count - 1, "Fußball LIVE")
+
+                    'Gewählte Kategorien aus ClickfinderPGConfig.xml lesen und in Array packen
+                    Dim str_VisiblePreviewCategories() As String = MPSettingRead("config", "VisibleVorschauCategories").ToString.Split(CChar(";"))
+                    'Array durchlaufen und Kategorie an ListControlübergeben
+                    For i = 0 To str_VisiblePreviewCategories.Length - 1
+                        If Not str_VisiblePreviewCategories(i) = "" Then
+                            AddListControlItem(ctlList.ListItems.Count - 1, str_VisiblePreviewCategories(i), , , "ClickfinderPG_" & str_VisiblePreviewCategories(i) & ".png")
+                        End If
+                    Next
 
                 Else
                     _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND KzFilm = true", "Beginn ASC, SendungenDetails.Rating DESC, Titel")
-                    AddListControlItem(ctlList.ListItems.Count - 1, "Movies", , , "ClickfinderPG_Movies.png")
-                    AddListControlItem(ctlList.ListItems.Count - 1, "Sky Cinema")
-                    AddListControlItem(ctlList.ListItems.Count - 1, "Sky Dokumentationen")
-                    AddListControlItem(ctlList.ListItems.Count - 1, "HDTV")
-                    AddListControlItem(ctlList.ListItems.Count - 1, "Serien", , , "ClickfinderPG_TvSeries.png")
-                    AddListControlItem(ctlList.ListItems.Count - 1, "Dokumentationen", , , "ClickfinderPG_Doku.png")
-                    AddListControlItem(ctlList.ListItems.Count - 1, "Reportagen")
-                    AddListControlItem(ctlList.ListItems.Count - 1, "Magazine")
-                    AddListControlItem(ctlList.ListItems.Count - 1, "Sport", , , "ClickfinderPG_Sport.png")
+
+                    'Gewählte Kategorien aus ClickfinderPGConfig.xml lesen und in Array packen
+                    Dim str_VisibleTagesCategories() As String = MPSettingRead("config", "VisibleTagesCategories").ToString.Split(CChar(";"))
+                    'Array durchlaufen und Kategorie an ListControlübergeben
+                    For i = 0 To str_VisibleTagesCategories.Length - 1
+                        If Not str_VisibleTagesCategories(i) = "" Then
+                            AddListControlItem(ctlList.ListItems.Count - 1, str_VisibleTagesCategories(i), , , "ClickfinderPG_" & str_VisibleTagesCategories(i) & ".png")
+                        End If
+                    Next
+
                 End If
 
 

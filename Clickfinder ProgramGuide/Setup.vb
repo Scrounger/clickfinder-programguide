@@ -12,14 +12,15 @@ Imports MySql.Data.MySqlClient
 Imports Gentle.Framework
 Imports System.Drawing
 Imports System.Threading
+Imports System.Windows.Forms
 
 
 
 Public Class Setup
 
     Private SettingSQLWhere As String
-    Private _TagesCategories As Dictionary(Of String, String) = New Dictionary(Of String, String)
-    Private _VorschauCategories As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String)
+    Private _AvailableTagesCategories As Dictionary(Of String, String) = New Dictionary(Of String, String)
+    Private _AvailableVorschauCategories As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String)
 
 
 
@@ -29,29 +30,52 @@ Public Class Setup
         Dim idGroup As String
         Dim ChannelName As String
 
-        _TagesCategories.Clear()
-        _VorschauCategories.Clear()
+        _AvailableTagesCategories.Clear()
+        _AvailableVorschauCategories.Clear()
+
+        'Available Tages Kategorien aus ClickfinderPGConfig.xml lesen und in Array packen
+        Dim str_AvailableTagesCategories() As String = MPSettingRead("config", "AvailableTagesCategories").ToString.Split(CChar(";"))
+        'Array durchlaufen und Kategorie übergeben
+        For i = 0 To str_AvailableTagesCategories.Length - 1
+            If Not str_AvailableTagesCategories(i) = "" Then
+                _AvailableTagesCategories.Add(i, str_AvailableTagesCategories(i))
+            End If
+        Next
+
+        'Available Vorschau Kategorien aus ClickfinderPGConfig.xml lesen und in Array packen
+        Dim str_AvailableVorschauCategories() As String = MPSettingRead("config", "AvailableVorschauCategories").ToString.Split(CChar(";"))
+        'Array durchlaufen und Kategorie übergeben
+        For i = 0 To str_AvailableVorschauCategories.Length - 1
+            If Not str_AvailableVorschauCategories(i) = "" Then
+                _AvailableVorschauCategories.Add(i, str_AvailableVorschauCategories(i))
+            End If
+        Next
+
+        'Gewählte Tages Kategorien aus ClickfinderPGConfig.xml lesen und in Array packen
+        Dim str_VisibleTagesCategories() As String = MPSettingRead("config", "VisibleTagesCategories").ToString.Split(CChar(";"))
+        'Array durchlaufen und Kategorie übergeben
+        For i = 0 To str_VisibleTagesCategories.Length - 1
+            If Not str_VisibleTagesCategories(i) = "" Then
+                lvTagesCategorieChoosen.Items.Add(str_VisibleTagesCategories(i))
+            End If
+        Next
+
+        'Gewählte Vorschau Kategorien aus ClickfinderPGConfig.xml lesen und in Array packen
+        Dim str_VisibleVorschauCategories() As String = MPSettingRead("config", "VisibleVorschauCategories").ToString.Split(CChar(";"))
+        'Array durchlaufen und Kategorie übergeben
+        For i = 0 To str_VisibleVorschauCategories.Length - 1
+            If Not str_VisibleVorschauCategories(i) = "" Then
+                lvVorschauCategorieChoosen.Items.Add(str_VisibleVorschauCategories(i))
+            End If
+        Next
 
 
-        _TagesCategories.Add(0, "Movies")
-        _TagesCategories.Add(1, "Sky Cinema")
-        _TagesCategories.Add(2, "Sky Dokumentationen")
-        _TagesCategories.Add(3, "HDTV")
-        _TagesCategories.Add(4, "Serien")
-        _TagesCategories.Add(5, "Dokumentationen")
-        _TagesCategories.Add(6, "Reportagen")
-        _TagesCategories.Add(7, "Magazine")
-        _TagesCategories.Add(8, "Sport")
+        For i = 0 To _AvailableTagesCategories.Count - 1
+            lvTagesKategorien.Items.Add(_AvailableTagesCategories.Item(i).ToString)
+        Next
 
-        _VorschauCategories.Add(0, "Movies")
-        _VorschauCategories.Add(1, "Sky Cinema")
-        _VorschauCategories.Add(2, "Sky Dokumentationen")
-        _VorschauCategories.Add(3, "Fußball LIVE")
-
-
-        For i = 0 To _TagesCategories.Count - 1
-            lvTagesKategorien.Items.Add(_TagesCategories.Item(i).ToString)
-
+        For i = 0 To _AvailableVorschauCategories.Count - 1
+            lvVorschauKategorien.Items.Add(_AvailableVorschauCategories.Item(i).ToString)
         Next
 
 
@@ -175,6 +199,14 @@ Public Class Setup
     End Function
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+
+        Dim _VisibleTagesCategories As String
+        Dim _VisibleVorschauCategories As String
+
+        _VisibleTagesCategories = Nothing
+        _VisibleVorschauCategories = Nothing
+
+
         MPSettingsWrite("config", "ClickfinderPath", tfClickfinderPath.Text.ToString)
         MPSettingsWrite("config", "ClickfinderRating", Me.cbRating.Text)
         MPSettingsWrite("config", "PrimeTimeHour", Me.CBPrimeTimeHour.Text)
@@ -214,6 +246,19 @@ Public Class Setup
             MPSettingsWrite("config", "ChannelGroupID", TvServerData.Item("idGroup"))
         End While
         CloseTvServerDB()
+
+
+        For i = 0 To lvTagesCategorieChoosen.Items.Count - 1
+            _VisibleTagesCategories = _VisibleTagesCategories & lvTagesCategorieChoosen.Items(i).Text & ";"
+        Next
+        MPSettingsWrite("config", "VisibleTagesCategories", _VisibleTagesCategories)
+
+
+        For i = 0 To lvVorschauCategorieChoosen.Items.Count - 1
+            _VisibleVorschauCategories = _VisibleVorschauCategories & lvVorschauCategorieChoosen.Items(i).Text & ";"
+        Next
+        MPSettingsWrite("config", "VisibleVorschauCategories", _VisibleVorschauCategories)
+
 
         Me.Close()
 
@@ -441,7 +486,7 @@ Public Class Setup
     'End Function
 
     Private Sub ComboBox1_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CBCategorie.SelectedIndexChanged
-      
+
 
 
 
@@ -452,7 +497,7 @@ Public Class Setup
         tfOrderBy.Enabled = False
         btSave.Enabled = False
 
-        Dim tmp As String = Replace(Replace(Replace(Replace(Replace(Replace("SELECT * FROM Sendungen INNER JOIN SendungenDetails ON Sendungen.Pos = SendungenDetails.Pos WHERE (Beginn Between #StartTime AND #EndTime) AND " & MPSettingRead(CBCategorie.SelectedItem.ToString, SettingSQLWhere) & " ORDERBY " & MPSettingRead(CBCategorie.SelectedItem.ToString, "OrderBy"), _
+        Dim tmp As String = Replace(Replace(Replace(Replace(Replace(Replace("SELECT * FROM Sendungen INNER JOIN SendungenDetails ON Sendungen.Pos = SendungenDetails.Pos WHERE (Beginn Between #StartTime# AND #EndTime#) " & MPSettingRead(CBCategorie.SelectedItem.ToString, SettingSQLWhere) & " ORDERBY " & MPSettingRead(CBCategorie.SelectedItem.ToString, "OrderBy"), _
                                 "INNER JOIN", vbNewLine & "INNER JOIN"), _
                                 "WHERE", vbNewLine & vbNewLine & "WHERE"), _
                                 "AND", vbNewLine & "AND"), _
@@ -487,8 +532,8 @@ Public Class Setup
 
         CBCategorie.Items.Clear()
 
-        For i = 0 To _TagesCategories.Count - 1
-            CBCategorie.Items.Add(_TagesCategories.Item(i).ToString)
+        For i = 0 To _AvailableTagesCategories.Count - 1
+            CBCategorie.Items.Add(_AvailableTagesCategories.Item(i).ToString)
         Next
 
         tfOrderBy.Text = ""
@@ -504,8 +549,8 @@ Public Class Setup
 
         CBCategorie.Items.Clear()
 
-        For i = 0 To _VorschauCategories.Count - 1
-            CBCategorie.Items.Add(_VorschauCategories.Item(i).ToString)
+        For i = 0 To _AvailableVorschauCategories.Count - 1
+            CBCategorie.Items.Add(_AvailableVorschauCategories.Item(i).ToString)
         Next
 
         tfOrderBy.Text = ""
@@ -515,7 +560,7 @@ Public Class Setup
     End Sub
 
     Private Sub tfWhere_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles tfWhere.LostFocus
-        Dim tmp As String = Replace(Replace(Replace(Replace(Replace(Replace("SELECT * FROM Sendungen INNER JOIN SendungenDetails ON Sendungen.Pos = SendungenDetails.Pos WHERE (Beginn Between #StartTime AND #EndTime) AND " & tfWhere.Text & " ORDERBY " & tfOrderBy.Text, _
+        Dim tmp As String = Replace(Replace(Replace(Replace(Replace(Replace("SELECT * FROM Sendungen INNER JOIN SendungenDetails ON Sendungen.Pos = SendungenDetails.Pos WHERE (Beginn Between #StartTime# AND #EndTime#) " & tfWhere.Text & " ORDERBY " & tfOrderBy.Text, _
                         "INNER JOIN", vbNewLine & "INNER JOIN"), _
                         "WHERE", vbNewLine & vbNewLine & "WHERE"), _
                         "AND", vbNewLine & "AND"), _
@@ -526,7 +571,7 @@ Public Class Setup
         tfSQL.Text = tmp
     End Sub
     Private Sub tfOrderBy_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles tfOrderBy.LostFocus
-        Dim tmp As String = Replace(Replace(Replace(Replace(Replace(Replace("SELECT * FROM Sendungen INNER JOIN SendungenDetails ON Sendungen.Pos = SendungenDetails.Pos WHERE (Beginn Between #StartTime AND #EndTime) AND " & tfWhere.Text & " ORDERBY " & tfOrderBy.Text, _
+        Dim tmp As String = Replace(Replace(Replace(Replace(Replace(Replace("SELECT * FROM Sendungen INNER JOIN SendungenDetails ON Sendungen.Pos = SendungenDetails.Pos WHERE (Beginn Between #StartTime# AND #EndTime#) " & tfWhere.Text & " ORDERBY " & tfOrderBy.Text, _
                 "INNER JOIN", vbNewLine & "INNER JOIN"), _
                 "WHERE", vbNewLine & vbNewLine & "WHERE"), _
                 "AND", vbNewLine & "AND"), _
@@ -538,5 +583,88 @@ Public Class Setup
 
     End Sub
 
+    Private Sub lvTagesKategorien_MouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles lvTagesKategorien.MouseDoubleClick
 
+
+
+        For i = 0 To lvTagesCategorieChoosen.Items.Count - 1
+            If lvTagesCategorieChoosen.Items(i).Text = lvTagesKategorien.SelectedItems.Item(0).Text Then
+                MsgBox("Kategorie schon vorhanden!", MsgBoxStyle.Information, "Keine doppelten Einträge zulässig")
+                Exit Sub
+            End If
+        Next
+
+        lvTagesCategorieChoosen.Items.Add(lvTagesKategorien.SelectedItems.Item(0).Text)
+
+
+    End Sub
+
+    Private Sub lvTagesCategorieChoosen_MouseDoubleClick1(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles lvTagesCategorieChoosen.MouseDoubleClick
+        lvTagesCategorieChoosen.SelectedItems.Item(0).Remove()
+    End Sub
+
+    Private Sub lvVorschauKategorien_MouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles lvVorschauKategorien.MouseDoubleClick
+
+        For i = 0 To lvVorschauCategorieChoosen.Items.Count - 1
+            If lvVorschauCategorieChoosen.Items(i).Text = lvVorschauKategorien.SelectedItems.Item(0).Text Then
+                MsgBox("Kategorie schon vorhanden!", MsgBoxStyle.Information, "Keine doppelten Einträge zulässig")
+                Exit Sub
+            End If
+        Next
+
+        lvVorschauCategorieChoosen.Items.Add(lvVorschauKategorien.SelectedItems.Item(0).Text)
+
+    End Sub
+
+    Private Sub lvVorschauCategorieChoosen_MouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles lvVorschauCategorieChoosen.MouseDoubleClick
+        lvVorschauCategorieChoosen.SelectedItems.Item(0).Remove()
+    End Sub
+
+    
+    Private Sub MoveSelectedLVWItems(ByVal LVW As ListView, Optional ByVal Down As Boolean = False)
+        Dim OldItem As ListViewItem
+        Dim OldPos As Integer
+        Dim i As Integer
+        If LVW.SelectedItems.Count > 0 Then
+            LVW.Sorting = SortOrder.None
+            If Down = True Then
+                If LVW.SelectedItems(LVW.SelectedItems.Count - 1).Index < LVW.Items.Count - 1 Then
+                    For i = LVW.SelectedItems.Count - 1 To 0 Step -1
+                        OldItem = LVW.Items(LVW.SelectedItems(i).Index + 1)
+                        OldPos = LVW.Items(LVW.SelectedItems(i).Index).Index
+                        LVW.Items(OldPos + 1) = LVW.SelectedItems(i).Clone
+                        LVW.Items(OldPos) = OldItem
+                        LVW.Items(OldPos + 1).Selected = True
+                    Next
+                End If
+            Else
+                If LVW.SelectedItems(0).Index > 0 Then
+                    For i = 0 To LVW.SelectedItems.Count - 1
+                        OldItem = LVW.Items(LVW.SelectedItems(i).Index - 1)
+                        OldPos = LVW.Items(LVW.SelectedItems(i).Index).Index
+                        LVW.Items(OldPos - 1) = LVW.SelectedItems(i).Clone
+                        LVW.Items(OldPos) = OldItem
+                        LVW.Items(OldPos - 1).Selected = True
+                    Next
+                End If
+            End If
+            LVW.Focus()
+        End If
+    End Sub
+
+    Private Sub btTagesUp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btTagesUp.Click
+        MoveSelectedLVWItems(lvTagesCategorieChoosen)
+    End Sub
+
+    Private Sub btTagesDown_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btTagesDown.Click
+        MoveSelectedLVWItems(lvTagesCategorieChoosen, True)
+    End Sub
+
+    Private Sub btVorschauUp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btVorschauUp.Click
+        MoveSelectedLVWItems(lvVorschauCategorieChoosen)
+    End Sub
+
+    Private Sub btVorschauDown_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btVorschauDown.Click
+        MoveSelectedLVWItems(lvVorschauCategorieChoosen, True)
+    End Sub
 End Class
