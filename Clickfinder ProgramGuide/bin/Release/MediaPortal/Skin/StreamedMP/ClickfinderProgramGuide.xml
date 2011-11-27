@@ -128,24 +128,24 @@
       <animation effect="fade" time="250">WindowClose</animation>
       <control>
         <type>image</type>
-        <posX>0</posX>
+        <posX>1002</posX>
         <posY>0</posY>
         <width>278</width>
         <height>720</height>
-        <texture>hiddenmenu_left.png</texture>
+        <texture>hiddenmenu_right.png</texture>
         <visible>!control.hasfocus(10)+!control.isvisible(9)+!control.isvisible(11)+!control.isvisible(30)</visible>     
-        <animation effect="slide" time="100" start="-300,0">visible</animation>
-        <animation effect="slide" time="0" end="-300,0">hidden</animation>
+        <animation effect="slide" time="100" start="300,0">visible</animation>
+        <animation effect="slide" time="0" end="300,0">hidden</animation>
       </control>      
       <control>
         <type>group</type>
         <description>group element</description>
-        <posX>10</posX>
+        <posX>1012</posX>
         <posY>130</posY>
         <layout>Stacklayout(Vertical,50,false)</layout>
         <visible>!control.hasfocus(10)+!control.isvisible(9)+!control.isvisible(11)+!control.isvisible(30)</visible>
-        <animation effect="slide" time="100" start="-300,0">visible</animation>
-        <animation effect="slide" time="0" end="-300,0">hidden</animation>
+        <animation effect="slide" time="100" start="300,0">visible</animation>
+        <animation effect="slide" time="0" end="300,0">hidden</animation>
         <control>
         <description>Now</description>
         <type>button</type>
