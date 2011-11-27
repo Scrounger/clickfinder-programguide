@@ -347,7 +347,6 @@ Namespace ClickfinderProgramGuide
             End If
 
 
-
             If control Is btnBack Then
 
                 If _TippButtonFocus = True Then
@@ -357,6 +356,7 @@ Namespace ClickfinderProgramGuide
                     _TippButtonFocus = False
                 Else
                     DetailsImage.Visible = False
+                    btnBack.IsFocused = False
                     ctlList.IsFocused = True
                     'btnLateTime.IsFocused = False
                 End If
@@ -971,8 +971,6 @@ Namespace ClickfinderProgramGuide
 
                 While ClickfinderData.Read
 
-
-
                     _MinTime = Replace(ClickfinderData.Item("Dauer"), " min", "")
 
                     If CInt(_MinTime) >= _SettingMinTime Then
@@ -1064,7 +1062,7 @@ Namespace ClickfinderProgramGuide
 
                             End If
 
-                            ctlProgressBar.Visible = False
+
 
                         End While
                         CloseTvServerDB()
@@ -1073,6 +1071,8 @@ Namespace ClickfinderProgramGuide
 
                 End While
                 CloseClickfinderDB()
+                ctlProgressBar.Visible = False
+
             Catch ex As Exception
                 Log.Error("Clickfinder ProgramGuide: [ShowTipps]: " & ex.Message)
             End Try
@@ -1669,15 +1669,6 @@ Namespace ClickfinderProgramGuide
 
                         Next
 
-                        'MsgBox(_Rating)
-                        'If CInt(ClickfinderData.Item("Bewertung")) >= 1 And CInt(ClickfinderData.Item("Bewertung")) <= 4 Then
-                        '    _Rating = _Rating + CInt(ClickfinderData.Item("Bewertung"))
-                        'ElseIf ClickfinderData.Item("Bewertung") = 5 Then
-                        '    _Rating = _Rating + 0
-                        'End If
-
-
-
                         If Not CInt(ClickfinderData.Item("Sendungen.Pos")) = _Rating Then
                             DBWrite("UPDATE SendungenDetails SET Rating = '" & _Rating & "' WHERE Pos = " & ClickfinderData.Item("Sendungen.Pos"))
                         End If
@@ -1693,6 +1684,7 @@ Namespace ClickfinderProgramGuide
                     Log.Error("Clickfinder ProgramGuide: [CreateClickfinderRatingTable]: " & ex.Message)
                 End Try
 
+                ctlProgressBar.Visible = True
                 ctlImportProgress.Visible = False
             End If
 

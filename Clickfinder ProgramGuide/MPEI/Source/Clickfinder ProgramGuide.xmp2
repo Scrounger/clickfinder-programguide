@@ -693,8 +693,8 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Version>
       <Major>0</Major>
       <Minor>0</Minor>
-      <Build>4</Build>
-      <Revision>8</Revision>
+      <Build>5</Build>
+      <Revision>1</Revision>
     </Version>
     <ExtensionDescription />
     <VersionDescription />
@@ -1242,6 +1242,9 @@ Click Next to continue or Cancel to exit Setup.</Value>
       </FolderGroup>
     </FolderGroups>
     <ProjectFilename>Clickfinder ProgramGuide.xmp2</ProjectFilename>
+    <UpdatePath1 />
+    <UpdatePath2 />
+    <UpdatePath3 />
   </ProjectSettings>
   <IsSkin>false</IsSkin>
 </PackageClass>

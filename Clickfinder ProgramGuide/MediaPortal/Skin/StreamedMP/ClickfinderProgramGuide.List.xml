@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <window>
   <controls>
+
+
+
     <control>
       <description>BG listcontrol</description>
       <posX>20</posX>
@@ -14,6 +17,7 @@
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
+
     <control>
       <description>BG listcontrol</description>
       <posX>650</posX>
@@ -27,6 +31,7 @@
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
+
     <control>
       <description>Seperator Tipps #1</description>
       <posX>650</posX>
@@ -79,6 +84,10 @@
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
+
+
+
+
     <control>
       <type>listcontrol</type>
       <id>10</id>
@@ -108,11 +117,13 @@
       <textXOff2>590</textXOff2>
       <textYOff2>30</textYOff2>
       <font2>mediastream10</font2>
-      <textcolor2>ff909090</textcolor2> 
+      <textcolor2>ff909090</textcolor2>
+      
       <textXOff3>64</textXOff3>
       <textYOff3>30</textYOff3>
       <font3>mediastream10</font3>
-      <textcolor3>ff909090</textcolor3>      
+      <textcolor3>ff909090</textcolor3>
+      
       <itemWidth>50</itemWidth>
       <itemHeight>50</itemHeight>
       <scrollOffset>2</scrollOffset>
@@ -122,5 +133,8 @@
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
+
+
+
   </controls>
 </window>

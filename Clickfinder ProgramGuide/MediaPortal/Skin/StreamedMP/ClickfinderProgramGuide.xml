@@ -34,9 +34,6 @@
       <colordiffuse>90ffffff</colordiffuse>
     </control>
 
-
-
-
     <control>
       <id>1</id>
       <description>Overlay Image</description>
@@ -79,6 +76,8 @@
       <width>1280</width>
       <height>40</height>
       <texture>ClickfinderBar.png</texture>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <import>common.time.xml</import>
@@ -95,6 +94,8 @@
       <height>100</height>
       <texture></texture>
       <visible>!control.isvisible(9)+!control.isvisible(11)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <!--SubKategorie Label-->
@@ -109,6 +110,8 @@
       <align>left</align>
       <label></label>
       <visible>!control.isvisible(9)+!control.isvisible(11)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
     
     <!-- ActionGroup -->
@@ -209,6 +212,8 @@
           <onup>104</onup>
           <ondown>101</ondown>
           <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(110)</visible>
+        <animation effect="fade" time="500">WindowOpen</animation>
+        <animation effect="fade" time="500">WindowClose</animation>
         </control>
 
 
@@ -228,6 +233,8 @@
       <onup>100</onup>
       <ondown>102</ondown>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(120)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
     <control>
       <description>Tipp2 Button</description>
@@ -243,6 +250,8 @@
       <onup>101</onup>
       <ondown>103</ondown>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(130)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>      
     </control>
     <control>
       <description>Tipp3 Button</description>
@@ -258,6 +267,8 @@
       <onup>102</onup>
       <ondown>104</ondown>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(140)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
     <control>
       <description>Tipp4 Button</description>
@@ -273,6 +284,8 @@
       <onup>103</onup>
       <ondown>100</ondown>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(150)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
 
