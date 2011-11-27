@@ -57,68 +57,120 @@
     <import>ClickfinderProgramGuide.List.xml</import>
 
 
-
-    <!-- ListItem -->
-
+    <!--Kategorie Image-->
     <control>
-      <type>group</type>
-      <description>group element</description>
+      <type>image</type>
+      <id>20</id>
       <posX>20</posX>
-      <posY>64</posY>
+      <posY>16</posY>
+      <width>100</width>
+      <height>100</height>
+      <texture></texture>
+      <visible>!control.isvisible(9)+!control.isvisible(11)+!control.isvisible(30)</visible>
+    </control>
 
-      <layout>Stacklayout(20,Horizontal)</layout>
+    <!--SubKategorie Label-->
+    <control>
+      <id>21</id>
+      <type>fadelabel</type>
+      <description>Selected Categorie Image</description>
+      <posX>142</posX>
+      <posY>66</posY>
+      <width>700</width>
+      <font>mediastream12tc</font>
+      <align>left</align>
+      <label></label>
+      <visible>!control.isvisible(9)+!control.isvisible(11)</visible>
+    </control>
 
-
+    <!-- ActionGroup -->
+    <control>
+      <type>actiongroup</type>
+      <description>action menu</description>
+      <defaultcontrol>2</defaultcontrol>
+      <onexit>10</onexit>
+      <buttonX>1232</buttonX>
+      <buttonY>50</buttonY>
+      <buttonwidth>48</buttonwidth>
+      <buttonheight>144</buttonheight>
+      <textureFocus>#StreamedMP.ActionMenu.Image</textureFocus>
+      <textureNoFocus>#StreamedMP.ActionMenu.Image</textureNoFocus>
+      <dimColor>00ffffff</dimColor>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
       <control>
-        <description>Now</description>
-        <type>button</type>
-        <id>2</id>
-        <width>180</width>
-        <textalign>center</textalign>
-        <label>Jetzt</label>
-        <onleft>5</onleft>
-        <onright>3</onright>
-        <onup></onup>
-        <ondown>10</ondown>
+        <type>image</type>
+        <posX>0</posX>
+        <posY>150</posY>
+        <width>263</width>
+        <height>473</height>
+        <texture>Backslide.png</texture>
+        <visible>!control.hasfocus(10)+!control.isvisible(9)+!control.isvisible(11)+!control.isvisible(30)</visible>
+        <animation effect="slide" time="100" start="-300,0">visible</animation>
+        <animation effect="slide" time="0" end="-300,0">hidden</animation>
       </control>
       <control>
-        <description>20:15</description>
-        <type>button</type>
-        <id>3</id>
-        <width>180</width>
-        <textalign>center</textalign>
-        <label>20:15</label>
-        <onleft>2</onleft>
-        <onright>4</onright>
-        <onup></onup>
-        <ondown>10</ondown>
-      </control>
-      <control>
-        <description>22:00 Movies</description>
-        <type>button</type>
-        <id>4</id>
-        <width>180</width>
-        <textalign>center</textalign>
-        <label>22:00</label>
-        <onleft>3</onleft>
-        <onright>5</onright>
-        <onup></onup>
-        <ondown>10</ondown>
-      </control>
-      <control>
-        <description>Preview</description>
-        <type>button</type>
-        <id>5</id>
-        <width>180</width>
-        <textalign>center</textalign>
-        <label>Vorschau</label>
-        <onleft>4</onleft>
-        <onright>2</onright>
-        <onup></onup>
-        <ondown>10</ondown>
+        <type>group</type>
+        <description>group element</description>
+        <posX>0</posX>
+        <posY>160</posY>
+        <layout>Stacklayout(Vertical,50,false)</layout>
+        <visible>!control.hasfocus(10)+!control.isvisible(9)+!control.isvisible(11)+!control.isvisible(30)</visible>
+        <animation effect="slide" time="100" start="-300,0">visible</animation>
+        <animation effect="slide" time="0" end="-300,0">hidden</animation>
+        <control>
+          <description>Now</description>
+          <type>button</type>
+          <id>2</id>
+          <width>263</width>
+          <textalign>center</textalign>
+          <label>Jetzt</label>
+          <font>font10</font>
+          <onup>5</onup>
+          <ondown>3</ondown>
+          <onright>10</onright>
+        </control>
+        <control>
+          <description>20:15</description>
+          <type>button</type>
+          <id>3</id>
+          <width>263</width>
+          <textalign>center</textalign>
+          <label>PrimeTime</label>
+          <font>font10</font>
+          <onup>2</onup>
+          <ondown>4</ondown>
+          <onright>10</onright>
+        </control>
+        <control>
+          <description>22:00 Movies</description>
+          <type>button</type>
+          <id>4</id>
+          <width>263</width>
+          <textalign>center</textalign>
+          <label>LateTime</label>
+          <font>font10</font>
+          <onup>3</onup>
+          <ondown>5</ondown>
+          <onright>10</onright>
+        </control>
+        <control>
+          <description>Preview</description>
+          <type>button</type>
+          <id>5</id>
+          <width>263</width>
+          <textalign>center</textalign>
+          <label>Vorschau</label>
+          <font>font10</font>
+          <onup>4</onup>
+          <ondown>2</ondown>
+          <onright>10</onright>
+        </control>
       </control>
     </control>
 
+
+    <!-- Tipp Buttons -->
       <control>
           <description>Tipp0 Button</description>
           <type>button</type>
@@ -129,7 +181,7 @@
           <height>104</height>
           <label></label>
           <onleft>10</onleft>
-          <onright>6</onright>
+          <onright>2</onright>
         <onup>104</onup>
           <ondown>101</ondown>
         <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(110)</visible>
@@ -148,7 +200,7 @@
       <height>104</height>
       <label></label>
       <onleft>10</onleft>
-      <onright>6</onright>
+      <onright>2</onright>
       <onup>100</onup>
       <ondown>102</ondown>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(120)</visible>
@@ -163,7 +215,7 @@
       <height>104</height>
       <label></label>
       <onleft>10</onleft>
-      <onright>6</onright>
+      <onright>2</onright>
       <onup>101</onup>
       <ondown>103</ondown>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(130)</visible>
@@ -178,7 +230,7 @@
       <height>104</height>
       <label></label>
       <onleft>10</onleft>
-      <onright>6</onright>
+      <onright>2</onright>
       <onup>102</onup>
       <ondown>104</ondown>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(140)</visible>
@@ -193,7 +245,7 @@
       <height>104</height>
       <label></label>
       <onleft>10</onleft>
-      <onright>6</onright>
+      <onright>2</onright>
       <onup>103</onup>
       <ondown>100</ondown>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(150)</visible>

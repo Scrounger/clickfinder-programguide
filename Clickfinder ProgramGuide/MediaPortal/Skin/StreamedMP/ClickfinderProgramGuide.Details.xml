@@ -380,8 +380,8 @@
       <label>Erinnern</label>
       <onleft>91</onleft>
       <onright>90</onright>
-      <onup></onup>
-      <ondown></ondown>
+      <onup>89</onup>
+      <ondown>89</ondown>
       <visible>control.isvisible(30)</visible>
     </control>
     
@@ -395,8 +395,8 @@
       <label>Zurück</label>
       <onleft>89</onleft>
       <onright>91</onright>
-      <onup></onup>
-      <ondown></ondown>
+      <onup>90</onup>
+      <ondown>90</ondown>
       <visible>control.isvisible(30)</visible>
     </control>
     <control>
@@ -409,8 +409,8 @@
       <label>Aufnehmen</label>
       <onleft>90</onleft>
       <onright>89</onright>
-      <onup></onup>
-      <ondown></ondown>
+      <onup>91</onup>
+      <ondown>91</ondown>
       <visible>control.isvisible(30)</visible>
     </control>
 

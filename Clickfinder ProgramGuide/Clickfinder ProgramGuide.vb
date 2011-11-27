@@ -47,7 +47,8 @@ Namespace ClickfinderProgramGuide
         <SkinControlAttribute(11)> Protected ctlImportProgress As GUIProgressControl = Nothing
 
 
-
+        <SkinControlAttribute(20)> Protected AnsichtImage As GUIImage = Nothing
+        <SkinControlAttribute(21)> Protected SelectedCategorieLabel As GUIFadeLabel = Nothing
 
         <SkinControlAttribute(30)> Protected DetailsImage As GUIImage = Nothing
         <SkinControlAttribute(31)> Protected DetailsTitel As GUIFadeLabel = Nothing
@@ -275,7 +276,8 @@ Namespace ClickfinderProgramGuide
                         btnPreview.IsFocused = True
                 End Select
             End If
-
+            SelectedCategorieLabel.Label = _CurrentCategorie
+            AnsichtImage.FileName = "Clickfinder\Categories\" & _CurrentQuery & ".png"
 
         End Sub
         Public Overrides Sub OnAction(ByVal action As MediaPortal.GUI.Library.Action)
@@ -639,7 +641,7 @@ Namespace ClickfinderProgramGuide
                     Try
                         'Dim _Threat As New Thread(AddressOf ClearFavInfo)
                         If ctlProgressBar.IsVisible = False Then
-                            _CurrentCategorie = ""
+                            _CurrentCategorie = ""                            
                             ctlList.Clear()
                             ShowCategories()
                         End If
@@ -653,6 +655,7 @@ Namespace ClickfinderProgramGuide
                     Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & _CurrentQuery.ToString)
                     Try
                         _CurrentCategorie = _AvailableCategories.Item(ctlList.SelectedListItem.Label.ToString)
+                        SelectedCategorieLabel.Label = _CurrentCategorie
                         ctlList.Clear()
 
                         _SQLWhereAdd = Replace(MPSettingRead(_CurrentCategorie, "Where"), "Bewertung >= #Rating#", "Bewertung >= " & _Rating)
@@ -744,6 +747,16 @@ Namespace ClickfinderProgramGuide
                 'Clickfinder Rating prüfen ob vorhanden und anschließend Tipps anzeigen
                 Dim _Threat2 As New Thread(AddressOf CreateClickfinderRatingTable)
                 _Threat2.Start()
+
+                SelectedCategorieLabel.Label = _CurrentCategorie
+                AnsichtImage.FileName = "Clickfinder\Categories\" & _CurrentQuery & ".png"
+
+                ctlList.Focus = True
+                btnNow.Focus = False
+                btnPrimeTime.Focus = False
+                btnLateTime.Focus = False
+                btnPreview.Focus = False
+
 
             Catch ex As Exception
                 Log.Error("Clickfinder ProgramGuide: [ShowCategories]: " & ex.Message)
@@ -899,7 +912,10 @@ Namespace ClickfinderProgramGuide
 
 
 
+
                 ctlProgressBar.Visible = False
+
+                ctlList.Focus = True
             Catch ex As Exception
                 Log.Error("Clickfinder ProgramGuide: [ShowSelectedCategorieItems]: " & ex.Message)
             End Try
