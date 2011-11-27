@@ -16,9 +16,9 @@
     <entry name="LiveCorrection">true</entry>
     <entry name="WdhCorrection">false</entry>
     <entry name="VisibleTagesCategories">Movies;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;</entry>
-    <entry name="VisibleVorschauCategories">Movies;Serien;Dokumentationen;Sport;Fußball LIVE;Sky Cinema;Sky Dokumentationen;</entry>   
+    <entry name="VisibleVorschauCategories">Movies;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;Fußball LIVE;</entry>   
     <entry name="AvailableTagesCategories">Movies;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;</entry>
-    <entry name="AvailableVorschauCategories">Movies;Serien;Dokumentationen;Sport;Fußball LIVE;Sky Cinema;Sky Dokumentationen;</entry>
+    <entry name="AvailableVorschauCategories">Movies;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;Fußball LIVE;</entry>
   </section>
   <section name="Save">
     <entry name="LastUpdate">01.01.2011</entry>
@@ -40,6 +40,7 @@
   </section>
   <section name="HDTV">
     <entry name="Where">AND (KzHDTV = -1 OR SenderKennung LIKE '%HD%')</entry>
+    <entry name="PreviewWhere">AND Bewertung >= 3 AND (KzHDTV = -1 OR SenderKennung LIKE '%HD%')</entry>
     <entry name="OrderBy">Beginn ASC, Rating DESC, Bewertung DESC, SenderKennung DESC</entry>
   </section>
   <section name="Serien">
@@ -54,10 +55,12 @@
   </section>
   <section name="Reportagen">
     <entry name="Where">AND Genre LIKE '%Report%'</entry>
+    <entry name="PreviewWhere">AND Bewertung >= 1 AND Genre LIKE '%Report%'</entry>
     <entry name="OrderBy">Beginn ASC, Rating DESC, Bewertung DESC, SenderKennung DESC</entry>
   </section>
   <section name="Magazine">
     <entry name="Where">AND Genre LIKE '%Magazin%'</entry>
+    <entry name="PreviewWhere">AND Bewertung >= 1 AND Genre LIKE '%Magazin%'</entry>
     <entry name="OrderBy">Beginn ASC, Rating DESC, Bewertung DESC, SenderKennung DESC</entry>
   </section>
   <section name="Sport">

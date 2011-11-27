@@ -167,12 +167,6 @@
     <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_BG.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Doku.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Movies.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -191,16 +185,34 @@
     <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R6.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Sendungen.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Sep.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Sport.png">
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Serien.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_TvSeries.png">
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Sport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Dokumentationen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\HDTV.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Magazine.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Movies.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Reportagen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Sky Cinema.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Sky Dokumentationen.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MediaPortal\Skin\DefaultWide\Media\Clickfinder_Loading.png">
@@ -236,10 +248,10 @@
     <Content Include="MediaPortal\Skin\StreamedMP\Media\Clickfinder_Loading.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_Doku.png">
+    <Content Include="MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Dokumentationen.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_Sendungen.png">
+    <Content Include="MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\HDTV.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MediaPortal\Skin\StreamedMP\Media\hover_ClickfinderProgramGuide.png">
@@ -269,13 +281,25 @@
     <Content Include="MediaPortal\ClickfinderPGConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_TvSeries.png">
+    <Content Include="MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Serien.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_Sport.png">
+    <Content Include="MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Sport.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_Movies.png">
+    <Content Include="MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Movies.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Magazine.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Reportagen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Sky Cinema.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Sky Dokumentationen.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R2.png">

@@ -40,7 +40,6 @@ Namespace ClickfinderProgramGuide
         <SkinControlAttribute(3)> Protected btnPrimeTime As GUIButtonControl = Nothing
         <SkinControlAttribute(4)> Protected btnLateTime As GUIButtonControl = Nothing
         <SkinControlAttribute(5)> Protected btnPreview As GUIButtonControl = Nothing
-        <SkinControlAttribute(6)> Protected btnCommingTipps As GUIButtonControl = Nothing
 
 
         <SkinControlAttribute(9)> Protected ctlProgressBar As GUIAnimation = Nothing
@@ -346,9 +345,6 @@ Namespace ClickfinderProgramGuide
             End If
 
 
-            If control Is btnCommingTipps Then
-                Button_CommingTipps()
-            End If
 
             If control Is btnBack Then
 
@@ -722,7 +718,7 @@ Namespace ClickfinderProgramGuide
                     'Array durchlaufen und Kategorie an ListControlübergeben
                     For i = 0 To str_VisiblePreviewCategories.Length - 1
                         If Not str_VisiblePreviewCategories(i) = "" Then
-                            AddListControlItem(ctlList.ListItems.Count - 1, str_VisiblePreviewCategories(i), , , "ClickfinderPG_" & str_VisiblePreviewCategories(i) & ".png")
+                            AddListControlItem(ctlList.ListItems.Count - 1, str_VisiblePreviewCategories(i), , , "Clickfinder\Categories\" & str_VisiblePreviewCategories(i) & ".png")
                         End If
                     Next
 
@@ -734,7 +730,7 @@ Namespace ClickfinderProgramGuide
                     'Array durchlaufen und Kategorie an ListControlübergeben
                     For i = 0 To str_VisibleTagesCategories.Length - 1
                         If Not str_VisibleTagesCategories(i) = "" Then
-                            AddListControlItem(ctlList.ListItems.Count - 1, str_VisibleTagesCategories(i), , , "ClickfinderPG_" & str_VisibleTagesCategories(i) & ".png")
+                            AddListControlItem(ctlList.ListItems.Count - 1, str_VisibleTagesCategories(i), , , "Clickfinder\Categories\" & str_VisibleTagesCategories(i) & ".png")
                         End If
                     Next
 
@@ -1447,7 +1443,6 @@ Namespace ClickfinderProgramGuide
         Public Sub ReadTvServerDB(ByVal SQLString As String)
 
 
-
             Try
 
                 ConTvServerDBRead.ConnectionString = Left(Replace(Gentle.Framework.GentleSettings.DefaultProviderConnectionString, " ", ""), InStr(Gentle.Framework.GentleSettings.DefaultProviderConnectionString, "charset=utf8") - 3)
@@ -1469,7 +1464,6 @@ Namespace ClickfinderProgramGuide
                 CmdTvServerDBRead.Dispose()
                 ConTvServerDBRead.Close()
             End Try
-
 
         End Sub
         Public Sub CloseTvServerDB()
