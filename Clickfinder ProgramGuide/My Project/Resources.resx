@@ -118,13 +118,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="SetupIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_R3.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="History_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\History_2.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="arrow UP 48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Grafiken\arrow UP 48.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Das Erste HD_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Das Erste HD_3.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="arrow Down 48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Grafiken\arrow Down 48.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="arrow UP 48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Grafiken\arrow UP 48.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="SetupIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_R3.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProSieben_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProSieben_1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Phoenix_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Phoenix_1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -33,6 +33,9 @@ Public Class Setup
         _AvailableTagesCategories.Clear()
         _AvailableVorschauCategories.Clear()
 
+
+
+
         'Available Tages Kategorien aus ClickfinderPGConfig.xml lesen und in Array packen
         Dim str_AvailableTagesCategories() As String = MPSettingRead("config", "AvailableTagesCategories").ToString.Split(CChar(";"))
         'Array durchlaufen und Kategorie übergeben
@@ -368,16 +371,11 @@ Public Class Setup
 
                 End If
 
-
-
-
-
-
             Next
         Next
 
         ProgressBar1.Visible = False
-
+        ProgressBar1.Value = 0
         CKRatingTVLogos.CheckState = Windows.Forms.CheckState.Checked
 
         'MsgBox("Output: " & Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\tv\logos\") & Path.GetFileNameWithoutExtension(oFile.FullName) & "_3.png")
@@ -666,5 +664,9 @@ Public Class Setup
 
     Private Sub btVorschauDown_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btVorschauDown.Click
         MoveSelectedLVWItems(lvVorschauCategorieChoosen, True)
+    End Sub
+
+    Private Sub LinkLabel1_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
+        System.Diagnostics.Process.Start("https://code.google.com/p/clickfinder-programguide/wiki/Setup")
     End Sub
 End Class

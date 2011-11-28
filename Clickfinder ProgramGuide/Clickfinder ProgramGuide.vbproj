@@ -343,6 +343,10 @@
     <Content Include="MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R6.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Phoenix_1.png" />
+    <None Include="Resources\ProSieben_1.png" />
+    <None Include="Resources\History_2.png" />
+    <None Include="Resources\Das Erste HD_3.png" />
     <None Include="MPSnippset.txt" />
     <EmbeddedResource Include="ConfigIcons\Config_disable.png" />
   </ItemGroup>

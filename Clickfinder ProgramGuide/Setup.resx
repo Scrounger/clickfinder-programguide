@@ -117,6 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Label22.Text" xml:space="preserve">
+    <value>Über den Button könnt ihr euch Logos mit Rating-Stars erstellen, die dann in der Listcontrol angeziegt werden.
+Dazu werden eure TVLogos aus dem "thumbs" Ordner nach "thumbs\ClickfinderPG" kopiert und für jedes Rating ein eigenes Logo erstellt.
+Solltet ihr eure TVLogos updaten, dann müsst ihr die Funktion erneut ausführen.</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btVorschauUp.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

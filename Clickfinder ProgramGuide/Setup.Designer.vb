@@ -56,11 +56,21 @@ Partial Class Setup
         Me.Label13 = New System.Windows.Forms.Label
         Me.Label12 = New System.Windows.Forms.Label
         Me.TabPage2 = New System.Windows.Forms.TabPage
+        Me.Label23 = New System.Windows.Forms.Label
         Me.TabPage3 = New System.Windows.Forms.TabPage
+        Me.PictureBox5 = New System.Windows.Forms.PictureBox
+        Me.PictureBox4 = New System.Windows.Forms.PictureBox
+        Me.PictureBox3 = New System.Windows.Forms.PictureBox
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox
+        Me.Label22 = New System.Windows.Forms.Label
         Me.TabPage5 = New System.Windows.Forms.TabPage
+        Me.Label21 = New System.Windows.Forms.Label
+        Me.Label20 = New System.Windows.Forms.Label
+        Me.Label19 = New System.Windows.Forms.Label
         Me.btVorschauDown = New System.Windows.Forms.Button
         Me.btVorschauUp = New System.Windows.Forms.Button
         Me.btTagesDown = New System.Windows.Forms.Button
+        Me.btTagesUp = New System.Windows.Forms.Button
         Me.lvVorschauCategorieChoosen = New System.Windows.Forms.ListView
         Me.ColumnHeader4 = New System.Windows.Forms.ColumnHeader
         Me.lvVorschauKategorien = New System.Windows.Forms.ListView
@@ -83,15 +93,16 @@ Partial Class Setup
         Me.Label15 = New System.Windows.Forms.Label
         Me.tfWhere = New System.Windows.Forms.TextBox
         Me.Label14 = New System.Windows.Forms.Label
-        Me.btTagesUp = New System.Windows.Forms.Button
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.Label20 = New System.Windows.Forms.Label
-        Me.Label21 = New System.Windows.Forms.Label
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
+        CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage5.SuspendLayout()
         Me.TabPage4.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -103,7 +114,7 @@ Partial Class Setup
         Me.cbRating.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbRating.FormattingEnabled = True
         Me.cbRating.Items.AddRange(New Object() {"0", "1", "2", "3"})
-        Me.cbRating.Location = New System.Drawing.Point(154, 11)
+        Me.cbRating.Location = New System.Drawing.Point(184, 73)
         Me.cbRating.Margin = New System.Windows.Forms.Padding(4)
         Me.cbRating.Name = "cbRating"
         Me.cbRating.Size = New System.Drawing.Size(33, 24)
@@ -111,7 +122,7 @@ Partial Class Setup
         '
         'tfClickfinderPath
         '
-        Me.tfClickfinderPath.Location = New System.Drawing.Point(237, 21)
+        Me.tfClickfinderPath.Location = New System.Drawing.Point(246, 24)
         Me.tfClickfinderPath.Margin = New System.Windows.Forms.Padding(4)
         Me.tfClickfinderPath.Name = "tfClickfinderPath"
         Me.tfClickfinderPath.Size = New System.Drawing.Size(326, 23)
@@ -121,7 +132,7 @@ Partial Class Setup
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(15, 24)
+        Me.Label1.Location = New System.Drawing.Point(24, 27)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(182, 16)
@@ -155,7 +166,7 @@ Partial Class Setup
         Me.CBChannelGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CBChannelGroup.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CBChannelGroup.FormattingEnabled = True
-        Me.CBChannelGroup.Location = New System.Drawing.Point(237, 57)
+        Me.CBChannelGroup.Location = New System.Drawing.Point(246, 60)
         Me.CBChannelGroup.Margin = New System.Windows.Forms.Padding(4)
         Me.CBChannelGroup.Name = "CBChannelGroup"
         Me.CBChannelGroup.Size = New System.Drawing.Size(326, 24)
@@ -165,7 +176,7 @@ Partial Class Setup
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(9, 95)
+        Me.Label3.Location = New System.Drawing.Point(32, 162)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(85, 16)
@@ -176,7 +187,7 @@ Partial Class Setup
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(9, 135)
+        Me.Label4.Location = New System.Drawing.Point(32, 202)
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(79, 16)
@@ -188,7 +199,7 @@ Partial Class Setup
         Me.CBPrimeTimeHour.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CBPrimeTimeHour.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CBPrimeTimeHour.FormattingEnabled = True
-        Me.CBPrimeTimeHour.Location = New System.Drawing.Point(154, 92)
+        Me.CBPrimeTimeHour.Location = New System.Drawing.Point(184, 159)
         Me.CBPrimeTimeHour.Margin = New System.Windows.Forms.Padding(4)
         Me.CBPrimeTimeHour.Name = "CBPrimeTimeHour"
         Me.CBPrimeTimeHour.Size = New System.Drawing.Size(54, 24)
@@ -199,7 +210,7 @@ Partial Class Setup
         Me.CBPrimeTimeMinute.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CBPrimeTimeMinute.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CBPrimeTimeMinute.FormattingEnabled = True
-        Me.CBPrimeTimeMinute.Location = New System.Drawing.Point(227, 92)
+        Me.CBPrimeTimeMinute.Location = New System.Drawing.Point(257, 159)
         Me.CBPrimeTimeMinute.Margin = New System.Windows.Forms.Padding(4)
         Me.CBPrimeTimeMinute.Name = "CBPrimeTimeMinute"
         Me.CBPrimeTimeMinute.Size = New System.Drawing.Size(54, 24)
@@ -210,7 +221,7 @@ Partial Class Setup
         Me.CBLateTimeMinute.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CBLateTimeMinute.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CBLateTimeMinute.FormattingEnabled = True
-        Me.CBLateTimeMinute.Location = New System.Drawing.Point(227, 132)
+        Me.CBLateTimeMinute.Location = New System.Drawing.Point(257, 199)
         Me.CBLateTimeMinute.Margin = New System.Windows.Forms.Padding(4)
         Me.CBLateTimeMinute.Name = "CBLateTimeMinute"
         Me.CBLateTimeMinute.Size = New System.Drawing.Size(54, 24)
@@ -221,7 +232,7 @@ Partial Class Setup
         Me.CBLateTimeHour.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CBLateTimeHour.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CBLateTimeHour.FormattingEnabled = True
-        Me.CBLateTimeHour.Location = New System.Drawing.Point(154, 132)
+        Me.CBLateTimeHour.Location = New System.Drawing.Point(184, 199)
         Me.CBLateTimeHour.Margin = New System.Windows.Forms.Padding(4)
         Me.CBLateTimeHour.Name = "CBLateTimeHour"
         Me.CBLateTimeHour.Size = New System.Drawing.Size(54, 24)
@@ -231,7 +242,7 @@ Partial Class Setup
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(211, 95)
+        Me.Label5.Location = New System.Drawing.Point(241, 162)
         Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(13, 16)
@@ -242,7 +253,7 @@ Partial Class Setup
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(211, 135)
+        Me.Label6.Location = New System.Drawing.Point(241, 202)
         Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(13, 16)
@@ -254,7 +265,7 @@ Partial Class Setup
         Me.CBDelayNow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CBDelayNow.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CBDelayNow.FormattingEnabled = True
-        Me.CBDelayNow.Location = New System.Drawing.Point(154, 52)
+        Me.CBDelayNow.Location = New System.Drawing.Point(184, 119)
         Me.CBDelayNow.Margin = New System.Windows.Forms.Padding(4)
         Me.CBDelayNow.Name = "CBDelayNow"
         Me.CBDelayNow.Size = New System.Drawing.Size(54, 24)
@@ -264,7 +275,7 @@ Partial Class Setup
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(9, 55)
+        Me.Label7.Location = New System.Drawing.Point(32, 122)
         Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(47, 16)
@@ -275,7 +286,7 @@ Partial Class Setup
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(139, 55)
+        Me.Label8.Location = New System.Drawing.Point(169, 122)
         Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(15, 16)
@@ -287,7 +298,7 @@ Partial Class Setup
         Me.CBMinTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CBMinTime.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CBMinTime.FormattingEnabled = True
-        Me.CBMinTime.Location = New System.Drawing.Point(154, 172)
+        Me.CBMinTime.Location = New System.Drawing.Point(184, 239)
         Me.CBMinTime.Margin = New System.Windows.Forms.Padding(4)
         Me.CBMinTime.Name = "CBMinTime"
         Me.CBMinTime.Size = New System.Drawing.Size(54, 24)
@@ -297,7 +308,7 @@ Partial Class Setup
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(9, 175)
+        Me.Label9.Location = New System.Drawing.Point(32, 242)
         Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(122, 16)
@@ -308,7 +319,7 @@ Partial Class Setup
         '
         Me.CKIgnoreSeries.AutoSize = True
         Me.CKIgnoreSeries.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CKIgnoreSeries.Location = New System.Drawing.Point(227, 174)
+        Me.CKIgnoreSeries.Location = New System.Drawing.Point(257, 241)
         Me.CKIgnoreSeries.Margin = New System.Windows.Forms.Padding(4)
         Me.CKIgnoreSeries.Name = "CKIgnoreSeries"
         Me.CKIgnoreSeries.Size = New System.Drawing.Size(161, 20)
@@ -319,20 +330,20 @@ Partial Class Setup
         'BtnCreateLogos
         '
         Me.BtnCreateLogos.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnCreateLogos.Location = New System.Drawing.Point(179, 41)
+        Me.BtnCreateLogos.Location = New System.Drawing.Point(322, 236)
         Me.BtnCreateLogos.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnCreateLogos.Name = "BtnCreateLogos"
-        Me.BtnCreateLogos.Size = New System.Drawing.Size(255, 48)
+        Me.BtnCreateLogos.Size = New System.Drawing.Size(249, 48)
         Me.BtnCreateLogos.TabIndex = 26
         Me.BtnCreateLogos.Text = "TV Rating Logos erstellen"
         Me.BtnCreateLogos.UseVisualStyleBackColor = True
         '
         'ProgressBar1
         '
-        Me.ProgressBar1.Location = New System.Drawing.Point(82, 107)
+        Me.ProgressBar1.Location = New System.Drawing.Point(24, 251)
         Me.ProgressBar1.Margin = New System.Windows.Forms.Padding(4)
         Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(284, 23)
+        Me.ProgressBar1.Size = New System.Drawing.Size(249, 23)
         Me.ProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous
         Me.ProgressBar1.TabIndex = 28
         Me.ProgressBar1.Visible = False
@@ -341,7 +352,7 @@ Partial Class Setup
         '
         Me.CKRatingTVLogos.AutoSize = True
         Me.CKRatingTVLogos.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CKRatingTVLogos.Location = New System.Drawing.Point(318, 138)
+        Me.CKRatingTVLogos.Location = New System.Drawing.Point(343, 292)
         Me.CKRatingTVLogos.Margin = New System.Windows.Forms.Padding(4)
         Me.CKRatingTVLogos.Name = "CKRatingTVLogos"
         Me.CKRatingTVLogos.Size = New System.Drawing.Size(211, 20)
@@ -353,7 +364,7 @@ Partial Class Setup
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(9, 14)
+        Me.Label10.Location = New System.Drawing.Point(32, 81)
         Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(144, 16)
@@ -364,7 +375,7 @@ Partial Class Setup
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(15, 60)
+        Me.Label11.Location = New System.Drawing.Point(24, 63)
         Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(198, 16)
@@ -376,8 +387,8 @@ Partial Class Setup
         Me.CBUpdateInterval.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CBUpdateInterval.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CBUpdateInterval.FormattingEnabled = True
-        Me.CBUpdateInterval.Items.AddRange(New Object() {"1", "2", "5", "7", "10"})
-        Me.CBUpdateInterval.Location = New System.Drawing.Point(358, 98)
+        Me.CBUpdateInterval.Items.AddRange(New Object() {"1", "2", "5", "7", "10", "14"})
+        Me.CBUpdateInterval.Location = New System.Drawing.Point(373, 99)
         Me.CBUpdateInterval.Margin = New System.Windows.Forms.Padding(4)
         Me.CBUpdateInterval.Name = "CBUpdateInterval"
         Me.CBUpdateInterval.Size = New System.Drawing.Size(54, 24)
@@ -387,7 +398,7 @@ Partial Class Setup
         '
         Me.CBLiveCorrection.AutoSize = True
         Me.CBLiveCorrection.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CBLiveCorrection.Location = New System.Drawing.Point(18, 98)
+        Me.CBLiveCorrection.Location = New System.Drawing.Point(27, 105)
         Me.CBLiveCorrection.Margin = New System.Windows.Forms.Padding(4)
         Me.CBLiveCorrection.Name = "CBLiveCorrection"
         Me.CBLiveCorrection.Size = New System.Drawing.Size(113, 20)
@@ -399,7 +410,7 @@ Partial Class Setup
         '
         Me.CBWdhCorretcion.AutoSize = True
         Me.CBWdhCorretcion.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CBWdhCorretcion.Location = New System.Drawing.Point(18, 130)
+        Me.CBWdhCorretcion.Location = New System.Drawing.Point(27, 137)
         Me.CBWdhCorretcion.Margin = New System.Windows.Forms.Padding(4)
         Me.CBWdhCorretcion.Name = "CBWdhCorretcion"
         Me.CBWdhCorretcion.Size = New System.Drawing.Size(121, 20)
@@ -444,7 +455,7 @@ Partial Class Setup
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(420, 101)
+        Me.Label13.Location = New System.Drawing.Point(435, 105)
         Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(41, 16)
@@ -455,15 +466,16 @@ Partial Class Setup
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(239, 101)
+        Me.Label12.Location = New System.Drawing.Point(248, 104)
         Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(111, 16)
+        Me.Label12.Size = New System.Drawing.Size(117, 16)
         Me.Label12.TabIndex = 36
-        Me.Label12.Text = "Update Interval"
+        Me.Label12.Text = "Update Interval:"
         '
         'TabPage2
         '
+        Me.TabPage2.Controls.Add(Me.Label23)
         Me.TabPage2.Controls.Add(Me.CBDelayNow)
         Me.TabPage2.Controls.Add(Me.Label3)
         Me.TabPage2.Controls.Add(Me.Label10)
@@ -488,11 +500,27 @@ Partial Class Setup
         Me.TabPage2.Text = "Filter"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
+        'Label23
+        '
+        Me.Label23.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label23.Location = New System.Drawing.Point(17, 26)
+        Me.Label23.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(552, 39)
+        Me.Label23.TabIndex = 55
+        Me.Label23.Text = "Mit den verschiedenen Filtereinstellungen könnt ihr die Suchergebnisse eingrenzen" & _
+            " und die Zugriffsgeschwindigkeit steigern"
+        '
         'TabPage3
         '
+        Me.TabPage3.Controls.Add(Me.PictureBox5)
+        Me.TabPage3.Controls.Add(Me.PictureBox4)
+        Me.TabPage3.Controls.Add(Me.PictureBox3)
+        Me.TabPage3.Controls.Add(Me.PictureBox2)
         Me.TabPage3.Controls.Add(Me.ProgressBar1)
         Me.TabPage3.Controls.Add(Me.CKRatingTVLogos)
         Me.TabPage3.Controls.Add(Me.BtnCreateLogos)
+        Me.TabPage3.Controls.Add(Me.Label22)
         Me.TabPage3.Location = New System.Drawing.Point(4, 25)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
@@ -500,6 +528,56 @@ Partial Class Setup
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Logos"
         Me.TabPage3.UseVisualStyleBackColor = True
+        '
+        'PictureBox5
+        '
+        Me.PictureBox5.BackgroundImage = Global.ClickfinderProgramGuide.My.Resources.Resources.Phoenix_1
+        Me.PictureBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox5.Location = New System.Drawing.Point(322, 18)
+        Me.PictureBox5.Name = "PictureBox5"
+        Me.PictureBox5.Size = New System.Drawing.Size(100, 100)
+        Me.PictureBox5.TabIndex = 58
+        Me.PictureBox5.TabStop = False
+        '
+        'PictureBox4
+        '
+        Me.PictureBox4.BackgroundImage = Global.ClickfinderProgramGuide.My.Resources.Resources.ProSieben_1
+        Me.PictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox4.Location = New System.Drawing.Point(471, 18)
+        Me.PictureBox4.Name = "PictureBox4"
+        Me.PictureBox4.Size = New System.Drawing.Size(100, 100)
+        Me.PictureBox4.TabIndex = 57
+        Me.PictureBox4.TabStop = False
+        '
+        'PictureBox3
+        '
+        Me.PictureBox3.BackgroundImage = Global.ClickfinderProgramGuide.My.Resources.Resources.History_2
+        Me.PictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox3.Location = New System.Drawing.Point(173, 18)
+        Me.PictureBox3.Name = "PictureBox3"
+        Me.PictureBox3.Size = New System.Drawing.Size(100, 100)
+        Me.PictureBox3.TabIndex = 56
+        Me.PictureBox3.TabStop = False
+        '
+        'PictureBox2
+        '
+        Me.PictureBox2.BackgroundImage = Global.ClickfinderProgramGuide.My.Resources.Resources.Das_Erste_HD_3
+        Me.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox2.Location = New System.Drawing.Point(24, 18)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(100, 100)
+        Me.PictureBox2.TabIndex = 55
+        Me.PictureBox2.TabStop = False
+        '
+        'Label22
+        '
+        Me.Label22.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label22.Location = New System.Drawing.Point(21, 136)
+        Me.Label22.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(552, 101)
+        Me.Label22.TabIndex = 54
+        Me.Label22.Text = resources.GetString("Label22.Text")
         '
         'TabPage5
         '
@@ -521,6 +599,39 @@ Partial Class Setup
         Me.TabPage5.TabIndex = 4
         Me.TabPage5.Text = "Kategorien"
         Me.TabPage5.UseVisualStyleBackColor = True
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label21.Location = New System.Drawing.Point(127, 396)
+        Me.Label21.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(334, 13)
+        Me.Label21.TabIndex = 33
+        Me.Label21.Text = "(DoppelKlick auf Eintrag zum Hinzufügen oder Entfernen)"
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label20.Location = New System.Drawing.Point(16, 206)
+        Me.Label20.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(323, 16)
+        Me.Label20.TabIndex = 32
+        Me.Label20.Text = "angezeigte Kategorien in der Ansicht Vorschau:"
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label19.Location = New System.Drawing.Point(16, 18)
+        Me.Label19.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(349, 16)
+        Me.Label19.TabIndex = 31
+        Me.Label19.Text = "angezeigte Kategorien in den Ansichten des Tages:"
         '
         'btVorschauDown
         '
@@ -551,6 +662,16 @@ Partial Class Setup
         Me.btTagesDown.Size = New System.Drawing.Size(31, 41)
         Me.btTagesDown.TabIndex = 5
         Me.btTagesDown.UseVisualStyleBackColor = True
+        '
+        'btTagesUp
+        '
+        Me.btTagesUp.BackgroundImage = CType(resources.GetObject("btTagesUp.BackgroundImage"), System.Drawing.Image)
+        Me.btTagesUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.btTagesUp.Location = New System.Drawing.Point(525, 67)
+        Me.btTagesUp.Name = "btTagesUp"
+        Me.btTagesUp.Size = New System.Drawing.Size(31, 41)
+        Me.btTagesUp.TabIndex = 4
+        Me.btTagesUp.UseVisualStyleBackColor = True
         '
         'lvVorschauCategorieChoosen
         '
@@ -770,16 +891,6 @@ Partial Class Setup
         Me.Label14.TabIndex = 38
         Me.Label14.Text = "Where:"
         '
-        'btTagesUp
-        '
-        Me.btTagesUp.BackgroundImage = CType(resources.GetObject("btTagesUp.BackgroundImage"), System.Drawing.Image)
-        Me.btTagesUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.btTagesUp.Location = New System.Drawing.Point(525, 67)
-        Me.btTagesUp.Name = "btTagesUp"
-        Me.btTagesUp.Size = New System.Drawing.Size(31, 41)
-        Me.btTagesUp.TabIndex = 4
-        Me.btTagesUp.UseVisualStyleBackColor = True
-        '
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.ClickfinderProgramGuide.My.Resources.Resources.SetupIcon
@@ -790,38 +901,17 @@ Partial Class Setup
         Me.PictureBox1.TabIndex = 9
         Me.PictureBox1.TabStop = False
         '
-        'Label19
+        'LinkLabel1
         '
-        Me.Label19.AutoSize = True
-        Me.Label19.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label19.Location = New System.Drawing.Point(16, 18)
-        Me.Label19.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(349, 16)
-        Me.Label19.TabIndex = 31
-        Me.Label19.Text = "angezeigte Kategorien in den Ansichten des Tages:"
-        '
-        'Label20
-        '
-        Me.Label20.AutoSize = True
-        Me.Label20.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label20.Location = New System.Drawing.Point(16, 206)
-        Me.Label20.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(326, 16)
-        Me.Label20.TabIndex = 32
-        Me.Label20.Text = "angezeigte Kategorien in den Ansicht Vorschau:"
-        '
-        'Label21
-        '
-        Me.Label21.AutoSize = True
-        Me.Label21.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label21.Location = New System.Drawing.Point(127, 396)
-        Me.Label21.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(334, 13)
-        Me.Label21.TabIndex = 33
-        Me.Label21.Text = "(DoppelKlick auf Eintrag zum Hinzufügen oder Entfernen)"
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LinkLabel1.Location = New System.Drawing.Point(13, 565)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(194, 14)
+        Me.LinkLabel1.TabIndex = 38
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Tag = ""
+        Me.LinkLabel1.Text = "Ausführliche Anleitung im Wiki"
         '
         'Setup
         '
@@ -829,6 +919,7 @@ Partial Class Setup
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(621, 605)
+        Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.PictureBox1)
@@ -845,6 +936,10 @@ Partial Class Setup
         Me.TabPage2.PerformLayout()
         Me.TabPage3.ResumeLayout(False)
         Me.TabPage3.PerformLayout()
+        CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage5.ResumeLayout(False)
         Me.TabPage5.PerformLayout()
         Me.TabPage4.ResumeLayout(False)
@@ -919,4 +1014,11 @@ Partial Class Setup
     Friend WithEvents Label20 As System.Windows.Forms.Label
     Friend WithEvents Label19 As System.Windows.Forms.Label
     Friend WithEvents Label21 As System.Windows.Forms.Label
+    Friend WithEvents Label22 As System.Windows.Forms.Label
+    Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
+    Friend WithEvents PictureBox3 As System.Windows.Forms.PictureBox
+    Friend WithEvents PictureBox4 As System.Windows.Forms.PictureBox
+    Friend WithEvents PictureBox5 As System.Windows.Forms.PictureBox
+    Friend WithEvents Label23 As System.Windows.Forms.Label
+    Friend WithEvents LinkLabel1 As System.Windows.Forms.LinkLabel
 End Class
