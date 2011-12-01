@@ -132,7 +132,7 @@ Namespace ClickfinderProgramGuide
         Public _CurrentCategorie As String
         Public _CurrentQuery As String
         Public _CurrentDetailsSendungId As String
-        Public _CurrentDetailsSendungName As String
+        Public _CurrentDetailsSendungChannelName As String
         Public _CurrentDetailsImageIsPath As Boolean
 
         Private _TippButtonFocus As Boolean
@@ -160,6 +160,12 @@ Namespace ClickfinderProgramGuide
         Private _TippClickfinderSendungID3 As Long
         Private _TippClickfinderSendungID4 As Long
         Private _TippClickfinderSendungID As Dictionary(Of Integer, Long) = New Dictionary(Of Integer, Long)
+        Private _TippClickfinderSendungChannelName0 As String
+        Private _TippClickfinderSendungChannelName1 As String
+        Private _TippClickfinderSendungChannelName2 As String
+        Private _TippClickfinderSendungChannelName3 As String
+        Private _TippClickfinderSendungChannelName4 As String
+        Private _TippClickfinderSendungChannelName As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String)
 
 
 #End Region
@@ -261,7 +267,7 @@ Namespace ClickfinderProgramGuide
 
 
                 If Not _CurrentDetailsSendungId = Nothing Then
-                    ShowItemDetails(_CurrentDetailsSendungId, _CurrentDetailsSendungName, _CurrentDetailsImageIsPath)
+                    ShowItemDetails(_CurrentDetailsSendungId, _CurrentDetailsSendungChannelName, _CurrentDetailsImageIsPath)
 
                     ShowCategories()
                     btnNow.IsFocused = False
@@ -306,7 +312,7 @@ Namespace ClickfinderProgramGuide
 
                 If Not _CurrentDetailsSendungId = Nothing Then
                     _Threat.Join()
-                    ShowItemDetails(_CurrentDetailsSendungId, _CurrentDetailsSendungName, _CurrentDetailsImageIsPath)
+                    ShowItemDetails(_CurrentDetailsSendungId, _CurrentDetailsSendungChannelName, _CurrentDetailsImageIsPath)
                 End If
 
             End If
@@ -343,6 +349,7 @@ Namespace ClickfinderProgramGuide
             _GuiImage.Clear()
             _GuiButton.Clear()
             _TippClickfinderSendungID.Clear()
+            _TippClickfinderSendungChannelName.Clear()
 
             Log.Debug("Clickfinder ProgramGuide: [OnPageDestroy]: _currentCategorie" & _CurrentCategorie & " - SQLString: " & _ShowSQLString)
             'GUIWindowManager.ResetAllControls()
@@ -397,7 +404,7 @@ Namespace ClickfinderProgramGuide
                 End If
 
                 _CurrentDetailsSendungId = Nothing
-                _CurrentDetailsSendungName = Nothing
+                _CurrentDetailsSendungChannelName = Nothing
 
             End If
 
@@ -417,35 +424,35 @@ Namespace ClickfinderProgramGuide
                 Log.Debug("Clickfinder ProgramGuide: [btnTipp0] Call ShowItemDetails: " & FavKanal0.Label & " - " & _TippClickfinderSendungID(110))
                 _TippButtonFocusID = btnTipp0.GetID
                 _TippButtonFocus = True
-                ShowItemDetails(_TippClickfinderSendungID(110), FavKanal0.Label)
+                ShowItemDetails(_TippClickfinderSendungID(110), _TippClickfinderSendungChannelName(110))
             End If
 
             If control Is btnTipp1 Then
                 Log.Debug("Clickfinder ProgramGuide: [btnTipp1] Call ShowItemDetails: " & FavKanal1.Label & " - " & _TippClickfinderSendungID(120))
                 _TippButtonFocusID = btnTipp1.GetID
                 _TippButtonFocus = True
-                ShowItemDetails(_TippClickfinderSendungID(120), FavKanal1.Label)
+                ShowItemDetails(_TippClickfinderSendungID(120), _TippClickfinderSendungChannelName(120))
             End If
 
             If control Is btnTipp2 Then
                 Log.Debug("Clickfinder ProgramGuide: [btnTipp2] Call ShowItemDetails: " & FavKanal2.Label & " - " & _TippClickfinderSendungID(130))
                 _TippButtonFocusID = btnTipp2.GetID
                 _TippButtonFocus = True
-                ShowItemDetails(_TippClickfinderSendungID(130), FavKanal2.Label)
+                ShowItemDetails(_TippClickfinderSendungID(130), _TippClickfinderSendungChannelName(130))
             End If
 
             If control Is btnTipp3 Then
                 Log.Debug("Clickfinder ProgramGuide: [btnTipp3] Call ShowItemDetails: " & FavKanal3.Label & " - " & _TippClickfinderSendungID(140))
                 _TippButtonFocusID = btnTipp3.GetID
                 _TippButtonFocus = True
-                ShowItemDetails(_TippClickfinderSendungID(140), FavKanal3.Label)
+                ShowItemDetails(_TippClickfinderSendungID(140), _TippClickfinderSendungChannelName(140))
             End If
 
             If control Is btnTipp4 Then
                 Log.Debug("Clickfinder ProgramGuide: [btnTipp4] Call ShowItemDetails: " & FavKanal4.Label & " - " & _TippClickfinderSendungID(150))
                 _TippButtonFocusID = btnTipp4.GetID
                 _TippButtonFocus = True
-                ShowItemDetails(_TippClickfinderSendungID(150), FavKanal4.Label)
+                ShowItemDetails(_TippClickfinderSendungID(150), _TippClickfinderSendungChannelName(150))
             End If
 
         End Sub
@@ -1068,6 +1075,7 @@ Namespace ClickfinderProgramGuide
                                         Exit Sub
                                     Else
                                         _TippClickfinderSendungID(_TippsCounter) = CLng(ClickfinderData.Item("SendungID"))
+                                        _TippClickfinderSendungChannelName(_TippsCounter) = _ChannelName
                                         FillTipps(_TippsCounter, Sendung.Title, _BildDatei, _ChannelName, _StartZeit, _
                                                   _EndZeit, _Genre, _BewertungStr, _Kritik, _
                                                   "ClickfinderPG_R" & CStr(_Bewertung) & ".png", _EpisodenName, _SeriesNum, _EpisodeNum)
@@ -1086,6 +1094,7 @@ Namespace ClickfinderProgramGuide
                                         Exit Sub
                                     Else
                                         _TippClickfinderSendungID(_TippsCounter) = CLng(ClickfinderData.Item("SendungID"))
+                                        _TippClickfinderSendungChannelName(_TippsCounter) = _ChannelName
                                         FillTipps(_TippsCounter, Sendung.Title, _BildDatei, _ChannelName, _StartZeit, _
                                                   _EndZeit, _Genre, _BewertungStr, _Kritik, _
                                                   "ClickfinderPG_R" & CStr(_Bewertung) & ".png", _EpisodenName, _SeriesNum, _EpisodeNum)
@@ -1097,7 +1106,6 @@ Namespace ClickfinderProgramGuide
 
                                 End If
                                 _lastTitel = Sendung.Title
-
 
                             End If
 
@@ -1120,14 +1128,13 @@ Namespace ClickfinderProgramGuide
         Private Sub ShowItemDetails(ByVal ClickfinderSendungID As String, ByVal ChannelName As String, Optional ByVal ChannelNameIsImagePath As Boolean = False)
 
             Dim _Titel As String
-            Dim _ClickfinderPath As String
+            Dim _ClickfinderPath As String = MPSettingRead("config", "ClickfinderPath")
             Dim _ChannelName As String
-            Dim _ClickfinderChannelName As String
             Dim _BildDatei As String
             Dim _Bewertung As Integer
 
             _CurrentDetailsSendungId = ClickfinderSendungID
-            _CurrentDetailsSendungName = ChannelName
+            _CurrentDetailsSendungChannelName = ChannelName
             _CurrentDetailsImageIsPath = ChannelNameIsImagePath
 
             Try
@@ -1146,7 +1153,6 @@ Namespace ClickfinderProgramGuide
                 btnBack.IsFocused = True
 
                 _ChannelName = ChannelName
-                _ClickfinderPath = MPSettingRead("config", "ClickfinderPath")
 
                 If ChannelNameIsImagePath = True Then
                     'ChannelName aus Logo extrahieren - wird benötigt um das Clickfinder Mapping im Tv Server zu ermitteln
@@ -1157,13 +1163,15 @@ Namespace ClickfinderProgramGuide
                     End If
                 End If
 
-                'TV Movie Mapping ChannelName aus TV Server DB lesen
-                ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where displayName = '" & _ChannelName & "'")
-                While TvServerData.Read
-                    _ClickfinderChannelName = TvServerData.Item("stationName")
-                    _ChannelName = TvServerData.Item("displayName")
-                End While
-                CloseTvServerDB()
+                ''TV Movie Mapping ChannelName aus TV Server DB lesen
+                'If ChannelNameIsImagePath = False Then
+                '    ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where displayName = '" & _ChannelName & "'")
+                '    While TvServerData.Read
+                '        _ClickfinderChannelName = TvServerData.Item("stationName")
+                '        _ChannelName = TvServerData.Item("displayName")
+                '    End While
+                '    CloseTvServerDB()
+                'End If
 
 
                 ReadClickfinderDB("Select * from Sendungen Inner Join SendungenDetails on Sendungen.Pos = SendungenDetails.Pos where SendungID = '" & ClickfinderSendungID & "'")
@@ -1172,10 +1180,15 @@ Namespace ClickfinderProgramGuide
 
                     _Titel = ClickfinderData.Item("Titel")
 
-                    'MsgBox(_Titel)
 
                     DetailsTitel.Label = ClickfinderData.Item("Titel")
-                    DetailsBeschreibung.Label = ClickfinderData.Item("KurzBeschreibung") & vbNewLine & vbNewLine & Replace(ClickfinderData.Item("Beschreibung"), "<br><br>", vbNewLine)
+
+                    If ClickfinderData.Item("KurzBeschreibung") = "" Then
+                        DetailsBeschreibung.Label = Replace(ClickfinderData.Item("Beschreibung"), "<br><br>", vbNewLine)
+                    Else
+                        DetailsBeschreibung.Label = Replace(ClickfinderData.Item("KurzBeschreibung"), "HDTV", "") & vbNewLine & vbNewLine & Replace(ClickfinderData.Item("Beschreibung"), "<br><br>", vbNewLine)
+                    End If
+
                     DetailsKanal.Label = _ChannelName
                     _Bewertung = CInt(ClickfinderData.Item("Bewertung"))
 
@@ -1216,6 +1229,9 @@ Namespace ClickfinderProgramGuide
             Catch ex As Exception
                 Log.Error("Clickfinder ProgramGuide: [ShowItemDetails]: " & ex.Message)
             End Try
+
+
+
 
         End Sub
 
@@ -1428,6 +1444,12 @@ Namespace ClickfinderProgramGuide
             _TippClickfinderSendungID.Add(130, _TippClickfinderSendungID2)
             _TippClickfinderSendungID.Add(140, _TippClickfinderSendungID3)
             _TippClickfinderSendungID.Add(150, _TippClickfinderSendungID4)
+
+            _TippClickfinderSendungChannelName.Add(110, _TippClickfinderSendungChannelName0)
+            _TippClickfinderSendungChannelName.Add(120, _TippClickfinderSendungChannelName1)
+            _TippClickfinderSendungChannelName.Add(130, _TippClickfinderSendungChannelName2)
+            _TippClickfinderSendungChannelName.Add(140, _TippClickfinderSendungChannelName3)
+            _TippClickfinderSendungChannelName.Add(150, _TippClickfinderSendungChannelName4)
 
         End Sub
 #End Region
