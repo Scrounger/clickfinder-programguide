@@ -437,6 +437,13 @@
               <ZipFileName>Installer{CopyFile}\{4346ee80-3170-4266-9f6f-8a51aeb9a6ae}-ClickfinderPG_SepHor.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_SepHor.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_SepHor.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{2b6de7e0-0b8b-4b29-9752-acece4768cf2}-ClickfinderPG_SepHor.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_SepHor.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -701,7 +708,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>0</Minor>
       <Build>5</Build>
-      <Revision>4</Revision>
+      <Revision>5</Revision>
     </Version>
     <ExtensionDescription />
     <VersionDescription />
@@ -1170,6 +1177,13 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_SepHor.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{4346ee80-3170-4266-9f6f-8a51aeb9a6ae}-ClickfinderPG_SepHor.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_SepHor.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_SepHor.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{2b6de7e0-0b8b-4b29-9752-acece4768cf2}-ClickfinderPG_SepHor.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_SepHor.png</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />

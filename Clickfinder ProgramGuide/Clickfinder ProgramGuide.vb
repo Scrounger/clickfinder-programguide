@@ -131,6 +131,10 @@ Namespace ClickfinderProgramGuide
         Public _ShowSQLString As String
         Public _CurrentCategorie As String
         Public _CurrentQuery As String
+        Public _CurrentDetailsSendungId As String
+        Public _CurrentDetailsSendungName As String
+        Public _CurrentDetailsImageIsPath As Boolean
+
         Private _TippButtonFocus As Boolean
         Private _TippButtonFocusID As Integer
         Private LiveCorrection As Boolean = CBool(MPSettingRead("config", "LiveCorrection"))
@@ -156,7 +160,7 @@ Namespace ClickfinderProgramGuide
         Private _TippClickfinderSendungID3 As Long
         Private _TippClickfinderSendungID4 As Long
         Private _TippClickfinderSendungID As Dictionary(Of Integer, Long) = New Dictionary(Of Integer, Long)
-        Private _ShowItemDetailsClickfinderSendungId As String
+
 
 #End Region
 
@@ -253,14 +257,38 @@ Namespace ClickfinderProgramGuide
                 Button_Now()
                 'Screen wird erneut geladen
             ElseIf _CurrentCategorie = "" Then
-                ShowCategories()
 
-                btnNow.IsFocused = False
-                btnPrimeTime.IsFocused = False
-                btnLateTime.IsFocused = False
-                btnPreview.IsFocused = False
 
-                ctlList.IsFocused = True
+
+                If Not _CurrentDetailsSendungId = Nothing Then
+                    ShowItemDetails(_CurrentDetailsSendungId, _CurrentDetailsSendungName, _CurrentDetailsImageIsPath)
+
+                    ShowCategories()
+                    btnNow.IsFocused = False
+                    btnPrimeTime.IsFocused = False
+                    btnLateTime.IsFocused = False
+                    btnPreview.IsFocused = False
+                    ctlList.IsFocused = False
+
+                    btnBack.IsFocused = True
+                Else
+                    ShowCategories()
+
+                    btnNow.IsFocused = False
+                    btnPrimeTime.IsFocused = False
+                    btnLateTime.IsFocused = False
+                    btnPreview.IsFocused = False
+
+                    ctlList.IsFocused = True
+                End If
+
+
+
+
+
+
+
+
             Else
                 Dim _ProgressBar As New Thread(AddressOf ShowProgressbar)
                 Dim _Threat As New Thread(AddressOf ShowSelectedCategorieItems)
@@ -274,9 +302,17 @@ Namespace ClickfinderProgramGuide
                 btnPreview.IsFocused = False
 
                 ctlList.IsFocused = True
+
+
+                If Not _CurrentDetailsSendungId = Nothing Then
+                    _Threat.Join()
+                    ShowItemDetails(_CurrentDetailsSendungId, _CurrentDetailsSendungName, _CurrentDetailsImageIsPath)
+                End If
+
             End If
             SelectedCategorieLabel.Label = _CurrentCategorie
             AnsichtImage.FileName = "Clickfinder\Categories\" & _CurrentQuery & ".png"
+
 
         End Sub
         Public Overrides Sub OnAction(ByVal action As MediaPortal.GUI.Library.Action)
@@ -359,6 +395,10 @@ Namespace ClickfinderProgramGuide
                     ctlList.IsFocused = True
                     'btnLateTime.IsFocused = False
                 End If
+
+                _CurrentDetailsSendungId = Nothing
+                _CurrentDetailsSendungName = Nothing
+
             End If
 
             If control Is btnRecord Then
@@ -489,7 +529,7 @@ Namespace ClickfinderProgramGuide
                 ctlList.IsFocused = False
                 btnBack.IsFocused = True
 
-                ReadClickfinderDB("SELECT * FROM Sendungen WHERE SendungID = '" & _ShowItemDetailsClickfinderSendungId & "'")
+                ReadClickfinderDB("SELECT * FROM Sendungen WHERE SendungID = '" & _CurrentDetailsSendungId & "'")
 
 
                 While ClickfinderData.Read
@@ -544,7 +584,7 @@ Namespace ClickfinderProgramGuide
                 ctlList.IsFocused = False
                 btnBack.IsFocused = True
 
-                ReadClickfinderDB("SELECT * FROM Sendungen WHERE SendungID = '" & _ShowItemDetailsClickfinderSendungId & "'")
+                ReadClickfinderDB("SELECT * FROM Sendungen WHERE SendungID = '" & _CurrentDetailsSendungId & "'")
 
 
                 While ClickfinderData.Read
@@ -1086,7 +1126,9 @@ Namespace ClickfinderProgramGuide
             Dim _BildDatei As String
             Dim _Bewertung As Integer
 
-            _ShowItemDetailsClickfinderSendungId = ClickfinderSendungID
+            _CurrentDetailsSendungId = ClickfinderSendungID
+            _CurrentDetailsSendungName = ChannelName
+            _CurrentDetailsImageIsPath = ChannelNameIsImagePath
 
             Try
 

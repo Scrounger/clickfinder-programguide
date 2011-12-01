@@ -18,6 +18,27 @@
       <keepaspectratio>no</keepaspectratio>
       <texture>ClickfinderDetailsBG.png</texture>
       <visible>control.isvisible(30)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+
+    <control>
+      <description>Seporator Image</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>335</posX>
+      <posY>130</posY>
+      <width>5</width>
+      <height>480</height>
+      <texture></texture>
+      <colorkey>0</colorkey>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <texture>ClickfinderPG_SepHor.png</texture>
+      <visible>control.isvisible(30)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <control>
@@ -34,8 +55,49 @@
       <keepaspectratio>no</keepaspectratio>
       <texture>ClickfinderBar.png</texture>
       <visible>control.isvisible(30)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
-    
+
+
+
+
+
+
+    <control>
+      <description>Detail Titel</description>
+      <type>fadelabel</type>
+      <id>31</id>
+      <posX>350</posX>
+      <posY>140</posY>
+      <width>840</width>
+      <align>left</align>
+      <font>mediastream12tc</font>
+      <textcolor>ffffffff</textcolor>
+      <wrapString> | </wrapString>
+      <visible>control.isvisible(30)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Detail org. Titel</description>
+      <type>fadelabel</type>
+      <id>38</id>
+      <posX>350</posX>
+      <posY>160</posY>
+      <width>640</width>
+      <align>left</align>
+      <font>font12</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+      <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+
+    <!--links vom Separator-->
     <control>
       <description>Detail Image</description>
       <type>image</type>
@@ -50,6 +112,8 @@
       <centered>no</centered>
       <keepaspectratio>yes</keepaspectratio>
       <visible>yes</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <control>
@@ -57,7 +121,7 @@
       <type>image</type>
       <id>37</id>
       <posX>90</posX>
-      <posY>270</posY>
+      <posY>274</posY>
       <width>48</width>
       <texture></texture>
       <colorkey>0</colorkey>
@@ -65,66 +129,108 @@
       <centered>no</centered>
       <keepaspectratio>yes</keepaspectratio>
       <visible>control.isvisible(30)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
-
-
-
     <control>
-      <description>Detail Titel</description>
-      <type>fadelabel</type>
-      <id>31</id>
-      <posX>336</posX>
-      <posY>140</posY>
-      <width>430</width>
+      <description>Label Zeit</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>110</posX>
+      <posY>320</posY>
+      <width>70</width>
+      <label>Uhrzeit:</label>
       <align>left</align>
-      <font>font10</font>
+      <font>mediastream10</font>
       <textcolor>ffffffff</textcolor>
-      <wrapString> | </wrapString>
-      <visible>control.isvisible(30)</visible>      
+      <visible>control.isvisible(30)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <control>
-      <description>ListItem org. Titel</description>
+      <description>ListItem Zeit</description>
       <type>fadelabel</type>
-      <id>38</id>
-      <posX>336</posX>
-      <posY>150</posY>
-      <width>680</width>
-      <align>left</align>
-      <font>font10</font>
+      <id>34</id>
+      <posX>326</posX>
+      <posY>320</posY>
+      <width>150</width>
+      <align>right</align>
+      <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
       <visible>control.isvisible(30)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <control>
       <description>Label Dauer</description>
       <type>label</type>
       <id>1</id>
-      <posX>820</posX>
-      <posY>160</posY>
+      <posX>110</posX>
+      <posY>344</posY>
       <width>70</width>
-<label>Dauer:</label>
+      <label>Dauer:</label>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ffffffff</textcolor>
       <visible>control.isvisible(30)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <control>
-      <description>ListItem Dauer</description>
+      <description>Detail Dauer</description>
       <type>fadelabel</type>
       <id>41</id>
-      <posX>890</posX>
-      <posY>160</posY>
+      <posX>326</posX>
+      <posY>344</posY>
       <width>120</width>
-      <align>left</align>
-      <font>font9</font>
+      <align>right</align>
+      <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
       <visible>control.isvisible(30)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
+
+    <control>
+      <description>Label Kanal</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>110</posX>
+      <posY>368</posY>
+      <width>70</width>
+      <label>Sender:</label>
+      <align>left</align>
+      <font>mediastream10</font>
+      <visible>control.isvisible(30)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>ListItem Kanal</description>
+      <type>fadelabel</type>
+      <id>33</id>
+      <posX>326</posX>
+      <posY>368</posY>
+      <width>300</width>
+      <align>right</align>
+      <font>mediastream10</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+      <visible>control.isvisible(30)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+
+
+
 
     <control>
       <description>Label Jahr</description>
@@ -133,14 +239,16 @@
       <posX>1020</posX>
       <posY>160</posY>
       <width>50</width>
-<label>Jahr:</label>
+      <label>Jahr:</label>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ffffffff</textcolor>
-      <visible>control.isvisible(30)</visible>
+      <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
-   <control>
+    <control>
       <description>ListItem YearLand</description>
       <type>fadelabel</type>
       <id>40</id>
@@ -148,68 +256,19 @@
       <posY>160</posY>
       <width>680</width>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
-     <visible>control.isvisible(30)</visible>
+      <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
 
-    <control>
-      <description>Label Zeit</description>
-      <type>label</type>
-      <id>1</id>
-      <posX>820</posX>
-      <posY>180</posY>
-      <width>70</width>
-<label>Uhrzeit:</label>
-      <align>left</align>
-      <font>font9</font>
-      <textcolor>ffffffff</textcolor>
-      <visible>control.isvisible(30)</visible>
-    </control>
-
-    <control>
-      <description>ListItem Zeit</description>
-      <type>fadelabel</type>
-      <id>34</id>
-      <posX>890</posX>
-      <posY>180</posY>
-      <width>150</width>
-      <align>left</align>
-      <font>font9</font>
-      <textcolor>ff909090</textcolor>
-      <wrapString> | </wrapString>
-      <visible>control.isvisible(30)</visible>
-    </control>
 
 
-    <control>
-      <description>Label Kanal</description>
-      <type>label</type>
-      <id>1</id>
-      <posX>1020</posX>
-      <posY>180</posY>
-      <width>70</width>
-<label>Sender:</label>
-      <align>left</align>
-      <font>font9</font>
-      <visible>control.isvisible(30)</visible>
-    </control>
 
-    <control>
-      <description>ListItem Kanal</description>
-      <type>fadelabel</type>
-      <id>33</id>
-      <posX>1090</posX>
-      <posY>180</posY>
-      <width>300</width>
-      <align>left</align>
-      <font>font9</font>
-      <textcolor>ff909090</textcolor>
-      <wrapString> | </wrapString>
-      <visible>control.isvisible(30)</visible>
-    </control>
+
 
     <control>
       <description>Label Genre</description>
@@ -218,11 +277,13 @@
       <posX>664</posX>
       <posY>224</posY>
       <width>100</width>
-<label>Genre:</label>
+      <label>Genre:</label>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ffffffff</textcolor>
-      <visible>control.isvisible(30)</visible>
+      <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <control>
@@ -233,10 +294,12 @@
       <posY>224</posY>
       <width>460</width>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
-      <visible>control.isvisible(30)</visible>
+      <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <control>
@@ -246,11 +309,13 @@
       <posX>664</posX>
       <posY>246</posY>
       <width>100</width>
-<label>Regie:</label>
+      <label>Regie:</label>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ffffffff</textcolor>
-      <visible>control.isvisible(30)</visible>
+      <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <control>
@@ -261,10 +326,12 @@
       <posY>246</posY>
       <width>460</width>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
-      <visible>control.isvisible(30)</visible>
+      <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <control>
@@ -274,11 +341,13 @@
       <posX>664</posX>
       <posY>270</posY>
       <width>100</width>
-<label>Schauspieler:</label>
+      <label>Schauspieler:</label>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ffffffff</textcolor>
-      <visible>control.isvisible(30)</visible>
+      <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <control>
@@ -289,10 +358,12 @@
       <posY>270</posY>
       <width>460</width>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
-      <visible>control.isvisible(30)</visible>
+      <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
 
@@ -303,11 +374,13 @@
       <posX>664</posX>
       <posY>292</posY>
       <width>100</width>
-<label>Bewertung:</label>
+      <label>Bewertung:</label>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ffffffff</textcolor>
-      <visible>control.isvisible(30)</visible>
+      <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <control>
@@ -318,10 +391,12 @@
       <posY>292</posY>
       <width>460</width>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
-      <visible>control.isvisible(30)</visible>
+      <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <control>
@@ -331,11 +406,13 @@
       <posX>664</posX>
       <posY>316</posY>
       <width>100</width>
-<label>Kritik:</label>
+      <label>Kritik:</label>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ffffffff</textcolor>
-      <visible>control.isvisible(30)</visible>
+      <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <control>
@@ -346,10 +423,12 @@
       <posY>316</posY>
       <width>460</width>
       <align>left</align>
-      <font>font9</font>
+      <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
       <wrapString> | </wrapString>
-      <visible>control.isvisible(30)</visible>
+      <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
 
@@ -361,13 +440,15 @@
       <description>default textboxscrollup</description>
       <type>textboxscrollup</type>
       <id>32</id>
-      <posX>664</posX>
+      <posX>350</posX>
       <posY>346</posY>
-      <width>580</width>
-      <height>124</height>
+      <width>840</width>
+      <height>250</height>
       <seperator>-------------------------------------------------------------------------------------------------------------------------------------------</seperator>
-      <font>font10</font>
-      <visible>control.isvisible(30)</visible>
+      <font>font12</font>
+      <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <control>
@@ -382,7 +463,9 @@
       <onright>90</onright>
       <onup>89</onup>
       <ondown>89</ondown>
-      <visible>control.isvisible(30)</visible>
+      <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <control>
@@ -397,7 +480,9 @@
       <onright>91</onright>
       <onup>90</onup>
       <ondown>90</ondown>
-      <visible>control.isvisible(30)</visible>
+      <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
     <control>
       <description>Record</description>
@@ -411,7 +496,9 @@
       <onright>89</onright>
       <onup>91</onup>
       <ondown>91</ondown>
-      <visible>control.isvisible(30)</visible>
+      <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
   </controls>
