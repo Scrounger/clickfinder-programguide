@@ -8,8 +8,8 @@
     <entry name="PrimeTimeMinute">15</entry>
     <entry name="LateTimeHour">22</entry>
     <entry name="LateTimeMinute">00</entry>
-    <entry name="DelayNow">00</entry>
-    <entry name="MinTime">00</entry>
+    <entry name="DelayNow">30</entry>
+    <entry name="MinTime">40</entry>
     <entry name="IgnoreMinTimeSeries">true</entry>
     <entry name="useRatingTvLogos">true</entry>
     <entry name="UpdateInterval">1</entry>

@@ -241,7 +241,12 @@ Namespace ClickfinderProgramGuide
             'Screen wird das erste Mal geladen
             If _ShowSQLString = "" Then
 
-                btnNow.IsFocused = True
+                btnNow.IsFocused = False
+                btnPrimeTime.IsFocused = False
+                btnLateTime.IsFocused = False
+                btnPreview.IsFocused = False
+
+                ctlList.IsFocused = True
 
 
 
@@ -249,32 +254,26 @@ Namespace ClickfinderProgramGuide
                 'Screen wird erneut geladen
             ElseIf _CurrentCategorie = "" Then
                 ShowCategories()
-                Select Case _CurrentQuery
-                    Case Is = "Now"
-                        btnNow.IsFocused = True
-                    Case Is = "PrimeTime"
-                        btnPrimeTime.IsFocused = True
-                    Case Is = "LateTime"
-                        btnLateTime.IsFocused = True
-                    Case Is = "Preview"
-                        btnPreview.IsFocused = True
-                End Select
+
+                btnNow.IsFocused = False
+                btnPrimeTime.IsFocused = False
+                btnLateTime.IsFocused = False
+                btnPreview.IsFocused = False
+
+                ctlList.IsFocused = True
             Else
                 Dim _ProgressBar As New Thread(AddressOf ShowProgressbar)
                 Dim _Threat As New Thread(AddressOf ShowSelectedCategorieItems)
                 ShowTipps()
                 _ProgressBar.Start()
                 _Threat.Start()
-                Select Case _CurrentQuery
-                    Case Is = "Now"
-                        btnNow.IsFocused = True
-                    Case Is = "PrimeTime"
-                        btnPrimeTime.IsFocused = True
-                    Case Is = "LateTime"
-                        btnLateTime.IsFocused = True
-                    Case Is = "Preview"
-                        btnPreview.IsFocused = True
-                End Select
+
+                btnNow.IsFocused = False
+                btnPrimeTime.IsFocused = False
+                btnLateTime.IsFocused = False
+                btnPreview.IsFocused = False
+
+                ctlList.IsFocused = True
             End If
             SelectedCategorieLabel.Label = _CurrentCategorie
             AnsichtImage.FileName = "Clickfinder\Categories\" & _CurrentQuery & ".png"
@@ -1134,7 +1133,7 @@ Namespace ClickfinderProgramGuide
                     'MsgBox(_Titel)
 
                     DetailsTitel.Label = ClickfinderData.Item("Titel")
-                    DetailsBeschreibung.Label = ClickfinderData.Item("Beschreibung")
+                    DetailsBeschreibung.Label = ClickfinderData.Item("KurzBeschreibung") & vbNewLine & vbNewLine & Replace(ClickfinderData.Item("Beschreibung"), "<br><br>", vbNewLine)
                     DetailsKanal.Label = _ChannelName
                     _Bewertung = CInt(ClickfinderData.Item("Bewertung"))
 
