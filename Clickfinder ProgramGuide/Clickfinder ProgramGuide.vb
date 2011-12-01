@@ -391,6 +391,7 @@ Namespace ClickfinderProgramGuide
 
             If control Is btnBack Then
 
+
                 If _TippButtonFocus = True Then
                     DetailsImage.Visible = False
                     btnBack.IsFocused = False
@@ -1137,57 +1138,61 @@ Namespace ClickfinderProgramGuide
             _CurrentDetailsSendungChannelName = ChannelName
             _CurrentDetailsImageIsPath = ChannelNameIsImagePath
 
-            Try
 
-                'ClearDetails()
 
-                'MsgBox(ClickfinderPosID)
-                'Detail Info's zeigen - GUIWindow
-                DetailsImage.Visible = True
-                ctlList.IsFocused = False
-                btnTipp0.Focus = False
-                btnTipp1.Focus = False
-                btnTipp2.Focus = False
-                btnTipp3.Focus = False
-                btnTipp4.Focus = False
-                btnBack.IsFocused = True
+            ClearDetails()
 
-                _ChannelName = ChannelName
+            'MsgBox(ClickfinderPosID)
+            'Detail Info's zeigen - GUIWindow
+            DetailsImage.Visible = True
+            ctlList.IsFocused = False
+            btnTipp0.Focus = False
+            btnTipp1.Focus = False
+            btnTipp2.Focus = False
+            btnTipp3.Focus = False
+            btnTipp4.Focus = False
+            btnBack.IsFocused = True
 
-                If ChannelNameIsImagePath = True Then
-                    'ChannelName aus Logo extrahieren - wird benötigt um das Clickfinder Mapping im Tv Server zu ermitteln
-                    If _useRatingTvLogos = "true" Then
-                        _ChannelName = Replace(Left(_ChannelName, InStr(_ChannelName, "_") - 1), Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\tv\logos\"), "")
-                    Else
-                        _ChannelName = Replace(Replace(_ChannelName, ".png", ""), Config.GetFile(Config.Dir.Thumbs, "tv\logos\"), "")
-                    End If
+            _ChannelName = ChannelName
+
+            If ChannelNameIsImagePath = True Then
+                'ChannelName aus Logo extrahieren - wird benötigt um das Clickfinder Mapping im Tv Server zu ermitteln
+                If _useRatingTvLogos = "true" Then
+                    _ChannelName = Replace(Left(_ChannelName, InStr(_ChannelName, "_") - 1), Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\tv\logos\"), "")
+                Else
+                    _ChannelName = Replace(Replace(_ChannelName, ".png", ""), Config.GetFile(Config.Dir.Thumbs, "tv\logos\"), "")
                 End If
+            End If
 
-                ''TV Movie Mapping ChannelName aus TV Server DB lesen
-                'If ChannelNameIsImagePath = False Then
-                '    ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where displayName = '" & _ChannelName & "'")
-                '    While TvServerData.Read
-                '        _ClickfinderChannelName = TvServerData.Item("stationName")
-                '        _ChannelName = TvServerData.Item("displayName")
-                '    End While
-                '    CloseTvServerDB()
-                'End If
+            ''TV Movie Mapping ChannelName aus TV Server DB lesen
+            'If ChannelNameIsImagePath = False Then
+            '    ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where displayName = '" & _ChannelName & "'")
+            '    While TvServerData.Read
+            '        _ClickfinderChannelName = TvServerData.Item("stationName")
+            '        _ChannelName = TvServerData.Item("displayName")
+            '    End While
+            '    CloseTvServerDB()
+            'End If
 
 
-                ReadClickfinderDB("Select * from Sendungen Inner Join SendungenDetails on Sendungen.Pos = SendungenDetails.Pos where SendungID = '" & ClickfinderSendungID & "'")
+            ReadClickfinderDB("Select * from Sendungen Inner Join SendungenDetails on Sendungen.Pos = SendungenDetails.Pos where Sendungen.SendungID = '" & ClickfinderSendungID & "'")
 
-                While ClickfinderData.Read
+            While ClickfinderData.Read
+                Try
 
                     _Titel = ClickfinderData.Item("Titel")
 
 
                     DetailsTitel.Label = ClickfinderData.Item("Titel")
 
-                    If ClickfinderData.Item("KurzBeschreibung") = "" Then
-                        DetailsBeschreibung.Label = Replace(ClickfinderData.Item("Beschreibung"), "<br><br>", vbNewLine)
-                    Else
-                        DetailsBeschreibung.Label = Replace(ClickfinderData.Item("KurzBeschreibung"), "HDTV", "") & vbNewLine & vbNewLine & Replace(ClickfinderData.Item("Beschreibung"), "<br><br>", vbNewLine)
+                    If Not ClickfinderData.Item("Beschreibung") = "" Then
+                        If ClickfinderData.Item("KurzBeschreibung") = "" Or ClickfinderData.Item("KurzBeschreibung") = "HDTV" Then
+                            DetailsBeschreibung.Label = Replace(ClickfinderData.Item("Beschreibung"), "<br><br>", vbNewLine)
+                        Else
+                            DetailsBeschreibung.Label = Replace(ClickfinderData.Item("KurzBeschreibung"), "HDTV,", "") & vbNewLine & vbNewLine & Replace(ClickfinderData.Item("Beschreibung"), "<br><br>", vbNewLine)
+                        End If
                     End If
+
 
                     DetailsKanal.Label = _ChannelName
                     _Bewertung = CInt(ClickfinderData.Item("Bewertung"))
@@ -1221,14 +1226,15 @@ Namespace ClickfinderProgramGuide
 
                     DetailsImage.FileName = _BildDatei
                     DetailsRatingImage.FileName = "ClickfinderPG_R" & CStr(_Bewertung) & ".png"
+                Catch ex As Exception
+                    Log.Error("Clickfinder ProgramGuide: [ShowItemDetails]: " & ex.Message)
+                End Try
 
-                End While
+            End While
 
-                CloseClickfinderDB()
+            CloseClickfinderDB()
 
-            Catch ex As Exception
-                Log.Error("Clickfinder ProgramGuide: [ShowItemDetails]: " & ex.Message)
-            End Try
+
 
 
 
@@ -1411,7 +1417,7 @@ Namespace ClickfinderProgramGuide
             DetailsActors.Label = ""
             DetailsOrgTitel.Label = ""
             DetailsRegie.Label = ""
-            DetailsYearLand.Label = ClickfinderData.Item("Herstellungsland") & " " & ClickfinderData.Item("Herstellungsjahr")
+            DetailsYearLand.Label = ""
             DetailsDauer.Label = ""
             DetailsKurzKritik.Label = ""
             DetailsBewertungen.Label = ""
@@ -1509,6 +1515,8 @@ Namespace ClickfinderProgramGuide
         Public Sub CloseClickfinderDB()
 
             Try
+                Log.Debug("TV Movie ProgramGuide: Close TV Movie Clickfinder Database")
+
                 CmdClickfinderDBRead.Dispose()
                 ConClickfinderDBRead.Close()
 
@@ -1523,6 +1531,7 @@ Namespace ClickfinderProgramGuide
 
 
             Try
+                Log.Debug("TV Movie ProgramGuide: Open TV Server Database")
 
                 ConTvServerDBRead.ConnectionString = Left(Replace(Gentle.Framework.GentleSettings.DefaultProviderConnectionString, " ", ""), InStr(Gentle.Framework.GentleSettings.DefaultProviderConnectionString, "charset=utf8") - 3)
                 ConTvServerDBRead.Open()
@@ -1548,6 +1557,8 @@ Namespace ClickfinderProgramGuide
         Public Sub CloseTvServerDB()
 
             Try
+                Log.Debug("TV Movie ProgramGuide: Close TV Server Database")
+
                 CmdTvServerDBRead.Dispose()
                 ConTvServerDBRead.Close()
             Catch ex As Exception
