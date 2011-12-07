@@ -10,7 +10,6 @@ Imports MediaPortal.Util
 Imports TvDatabase
 
 Imports Gentle.Common
-Imports Gentle.Provider.MySQL
 Imports TvPlugin
 
 Imports MySql.Data
@@ -66,7 +65,7 @@ Namespace ClickfinderProgramGuide
         <SkinControlAttribute(43)> Protected DetailsBewertungen As GUIFadeLabel = Nothing
 
 
-
+        <SkinControlAttribute(88)> Protected btnTheTvDb As GUIButtonControl = Nothing
         <SkinControlAttribute(89)> Protected btnRemember As GUIButtonControl = Nothing
         <SkinControlAttribute(90)> Protected btnBack As GUIButtonControl = Nothing
         <SkinControlAttribute(91)> Protected btnRecord As GUIButtonControl = Nothing
@@ -166,7 +165,7 @@ Namespace ClickfinderProgramGuide
         Private _TippClickfinderSendungChannelName3 As String
         Private _TippClickfinderSendungChannelName4 As String
         Private _TippClickfinderSendungChannelName As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String)
-
+        Private MyTVDB As clsTheTVdb = New clsTheTVdb("de")
 
 #End Region
 
@@ -228,6 +227,7 @@ Namespace ClickfinderProgramGuide
 
 
 #End Region
+
 
 #Region "GUI Events"
         Protected Overrides Sub OnPageLoad()
@@ -350,6 +350,10 @@ Namespace ClickfinderProgramGuide
             _GuiButton.Clear()
             _TippClickfinderSendungID.Clear()
             _TippClickfinderSendungChannelName.Clear()
+            MyTVDB.TheTVdbHandler.ClearCache()
+            MyTVDB.TheTVdbHandler.CloseCache()
+
+            Directory.Delete(Config.GetFolder(Config.Dir.Cache) & "\ClickfinderPG", True)
 
             Log.Debug("Clickfinder ProgramGuide: [OnPageDestroy]: _currentCategorie" & _CurrentCategorie & " - SQLString: " & _ShowSQLString)
             'GUIWindowManager.ResetAllControls()
@@ -418,6 +422,19 @@ Namespace ClickfinderProgramGuide
             If control Is btnRemember Then
 
                 Button_Remember()
+
+            End If
+
+            If control Is btnTheTvDb Then
+
+
+                Dim _ProgressBar As New Thread(AddressOf ShowProgressbar)
+                Dim _Threat As New Thread(AddressOf ShowTheTvDBDetails)
+
+                _ProgressBar.Start()
+
+                _Threat.Start()
+
 
             End If
 
@@ -682,13 +699,13 @@ Namespace ClickfinderProgramGuide
 
             'Aufruf der Fkt. beim click auf ein ListConrtol Item
                 Select Case ctlList.SelectedListItem.Label.ToString
-                Case ".."
+                Case ""
                     'Listcontrol Item = .. -> eine Ebende zurück in der Listcontrol
                     Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowCategories")
                     Try
                         'Dim _Threat As New Thread(AddressOf ClearFavInfo)
                         If ctlProgressBar.IsVisible = False Then
-                            _CurrentCategorie = ""                            
+                            _CurrentCategorie = ""
                             ctlList.Clear()
                             ShowCategories()
                         End If
@@ -835,6 +852,8 @@ Namespace ClickfinderProgramGuide
             Dim _MinTime As String
             Dim _SettingMinTime As Integer = CInt(MPSettingRead("config", "MinTime"))
             Dim _TvLogo As String
+            Dim _Rating As Integer
+            Dim _ListItemInfoLabel As String
 
 
 
@@ -858,7 +877,7 @@ Namespace ClickfinderProgramGuide
 
                 'MsgBox("Categorie: " & _CurrentCategorie & " " & _SettingIgnoreMinTimeSeries & " " & _SettingMinTime)
 
-                AddListControlItem(ctlList.ListItems.Count - 1, "..", , , "defaultFolderBack.png")
+                AddListControlItem(ctlList.ListItems.Count - 1, "", , , "defaultFolderBack.png")
 
                 'Clickfinder Datenbank öffnen & Daten einlesen
                 ReadClickfinderDB(_ShowSQLString)
@@ -876,7 +895,7 @@ Namespace ClickfinderProgramGuide
                         _StartZeit = CDate(ClickfinderData.Item("Beginn"))
                         _EndZeit = CDate(ClickfinderData.Item("Ende"))
                         _EpisodenName = ClickfinderData.Item("Originaltitel")
-
+                        _Rating = CInt(ClickfinderData.Item("Rating"))
                         ' Clickfinder Titel Korrektur bei "Append (Live) / (Whd.)
                         If LiveCorrection = True And ClickfinderData.Item("KzLive") = "true" Then
                             _Titel = ClickfinderData.Item("Titel") & " (LIVE)"
@@ -926,21 +945,40 @@ Namespace ClickfinderProgramGuide
                                             _TvLogo = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & Channel.Retrieve(_idChannel).DisplayName & ".png")
                                         End If
 
+                                        'ListItemInfoLabel formatieren
                                         Select Case _CurrentCategorie
 
                                             Case Is = "Serien"
-                                                _Genre = _EpisodenName
+                                                _ListItemInfoLabel = _EpisodenName
                                                 If Not _SeriesNum = "" Or Not _EpisodeNum = "" Then
-                                                    _Genre = "S" & Format(CInt(_SeriesNum), "00") & "E" & Format(CInt(_EpisodeNum), "00") & " - " & _EpisodenName
+                                                    _ListItemInfoLabel = "Folge: " & _EpisodenName _
+                                                    & vbNewLine & "Staffel " & _SeriesNum _
+                                                     & ", Episode " & _EpisodeNum
+                                                Else
+                                                    _ListItemInfoLabel = _EpisodenName _
+                                                    & vbNewLine & _Genre
                                                 End If
+
                                             Case Is = "Fußball LIVE"
-                                                _Genre = _EpisodenName
+                                                _ListItemInfoLabel = _EpisodenName
+
+                                            Case Else
+                                                If _Rating > 0 Then
+                                                    _ListItemInfoLabel = _Genre _
+                                                                & vbNewLine & "Bewertung: " & CStr(_Rating) _
+                                                                & vbNewLine & _Kritik
+                                                ElseIf Not _EpisodenName = "" Then
+                                                    _ListItemInfoLabel = _EpisodenName _
+                                                                        & vbNewLine & _Genre
+                                                Else
+                                                    _ListItemInfoLabel = _Genre
+                                                End If
                                         End Select
 
 
                                         AddListControlItem(ClickfinderData.Item("SendungID"), Sendung.Title.ToString, _
                                                            FormatTimeLabel(_StartZeit, _EndZeit), _
-                                                            _Genre, _
+                                                            _ListItemInfoLabel, _
                                                             _TvLogo)
 
                                 End Select
@@ -1240,7 +1278,94 @@ Namespace ClickfinderProgramGuide
 
 
         End Sub
+        Private Sub ShowTheTvDBDetails()
+            Dim _EpisodeFound As Boolean = False
+            Dim _SeriesID As Integer = 0
+            Dim _SeriesName As String = DetailsTitel.Label
+            Dim _EpisodeName As String = DetailsOrgTitel.Label
 
+            'Serie suchen und in Liste packen
+            Dim _SearchSeriesResult As List(Of TvdbLib.Data.TvdbSearchResult) _
+                    = MyTVDB.TheTVdbHandler.SearchSeries(_SeriesName)
+
+
+
+            Dim dlg As GUIDialogMenu = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_MENU, Integer)), GUIDialogMenu)
+            Dim bla As GUIListItem = New GUIListItem
+
+
+            'SerienId auf TheTvDB suchen mit SerienName
+            If _SearchSeriesResult.Count > 0 Then
+                For i = 0 To _SearchSeriesResult.Count - 1
+
+                    bla.Label = _SearchSeriesResult(i).SeriesName.ToString
+                    dlg.Add(bla)
+                    'If UCase(_SearchSeriesResult(i).SeriesName) = UCase(_SeriesName) Then
+                    '    _SeriesID = _SearchSeriesResult(i).Id
+                    '    Exit For
+                    'End If
+                Next
+
+                dlg.DoModal(GetID)
+
+
+
+                ''kompletten Serien Inhalt laden, sofern SeriesId gefunden
+                'If _SeriesID > 0 Then
+                '    Dim _Serie As TvdbLib.Data.TvdbSeries = MyTVDB.TheTVdbHandler.GetFullSeries(_SeriesID, MyTVDB.DBLanguage, True)
+
+                '    If _Serie.Episodes.Count > 0 Then
+                '        For i = 0 To _Serie.Episodes.Count - 1
+                '            If UCase(_Serie.Episodes(i).EpisodeName) = UCase(_EpisodeName) Then
+                '                _EpisodeFound = True
+
+                '                Dim _SeasonID As Integer = _Serie.Episodes(i).SeasonNumber
+
+
+                '                '_Serie.Episodes(i).Banner.LoadThumb()
+
+                '                '_Serie.PosterBanners(0).LoadThumb()
+
+                '                DetailsOrgTitel.Label = _Serie.Episodes(i).EpisodeName _
+                '                & " (Staffel " & _Serie.Episodes(i).SeasonNumber _
+                '                & ", Episode " & _Serie.Episodes(i).EpisodeNumber _
+                '                & ")"
+
+                '                DetailsGenre.Label = Replace(_Serie.GenreString, "|", "")
+                '                DetailsYearLand.Label = _Serie.Episodes(i).FirstAired
+                '                DetailsRegie.Label = Replace(_Serie.Episodes(i).DirectorsString, "|", "")
+
+
+
+                '                'MsgBox(Config.GetFile(Config.Dir.Cache, "ClickfinderPG\" & _SeasonID & "\" & Replace(Replace(_Serie.PosterBanners(0).ThumbPath, "_cache", "thumb"), "/", "_")))
+                '                DetailsImage.KeepAspectRatio = True
+                '                DetailsImage.Centered = True
+                '                _Serie.PosterBanners(0).LoadThumb()
+                '                DetailsImage.FileName = Config.GetFile(Config.Dir.Cache, "ClickfinderPG\" & _SeriesID.ToString & "\" & Replace(Replace(_Serie.PosterBanners(0).ThumbPath, "_cache", "thumb"), "/", "_"))
+
+
+                '            End If
+                '        Next
+
+                '    End If
+                'End If
+
+                'If _EpisodeFound = False Then
+                '    MPDialogOK("Information", "Episode nicht gefunden!")
+                'End If
+
+            Else
+                MPDialogOK("Information", "Serie nicht gefunden!")
+            End If
+
+
+
+
+
+
+            ctlProgressBar.Visible = False
+
+        End Sub
 
 
 #End Region
@@ -1872,6 +1997,11 @@ Namespace ClickfinderProgramGuide
             dlg.SetHeading(Heading)
             dlg.SetText(StringLine1)
             dlg.DoModal(GUIWindowManager.ActiveWindow)
+        End Sub
+
+        Private Sub MPDialogMenu()
+
+
         End Sub
 
         Private Sub LoadTVProgramInfo(ByVal idChannel As Integer, ByVal StartTime As Date, ByVal EndTime As Date, ByVal Titel As String)
