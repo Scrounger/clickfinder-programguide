@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <window>
   <controls>
-
-
-
     <control>
       <description>BG listcontrol</description>
       <posX>20</posX>
@@ -17,7 +14,6 @@
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
-
     <control>
       <description>BG listcontrol</description>
       <posX>650</posX>
@@ -31,7 +27,6 @@
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
-
     <control>
       <description>Seperator Tipps #1</description>
       <posX>650</posX>
@@ -41,7 +36,7 @@
       <width>610</width>
       <height>5</height>
       <texture>ClickfinderPG_Sep.png</texture>
-      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(110)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
@@ -54,7 +49,7 @@
       <width>610</width>
       <height>5</height>
       <texture>ClickfinderPG_Sep.png</texture>
-      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(120)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
@@ -67,7 +62,7 @@
       <width>610</width>
       <height>5</height>
       <texture>ClickfinderPG_Sep.png</texture>
-      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(130)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
@@ -80,54 +75,10 @@
       <width>610</width>
       <height>5</height>
       <texture>ClickfinderPG_Sep.png</texture>
-      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.hastext(140)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
-
-
-    <!--<control>
-      <description>listcontrol</description>
-      <type>listcontrol</type>
-      <id>10</id>
-      <posX>28</posX>
-      <posY>124</posY>
-      <width>590</width>
-      <height>600</height>
-      <scrollOffset>2</scrollOffset>
-      <textXOff>2</textXOff>
-      <textYOff>2</textYOff>
-      <textXOff2>590</textXOff2>
-      <textYOff2>30</textYOff2>
-      <textXOff3>590</textXOff3>
-      <textYOff3>30</textYOff3>
-      <PinIconWidth>35</PinIconWidth>
-      <PinIconHeight>25</PinIconHeight>
-      <PinIconXOff>747</PinIconXOff>
-      <PinIconYOff>6</PinIconYOff>
-      <textureHeight>58</textureHeight>
-      <itemWidth>50</itemWidth>
-      <itemHeight>50</itemHeight>
-      <IconXOff>4</IconXOff>
-      <IconYOff>4</IconYOff>
-      <keepaspectratio>yes</keepaspectratio>
-      <font>font10</font>
-      <font2>font10</font2>
-      <textcolor>ffffffff</textcolor>
-      <textcolor2>ff909090</textcolor2>
-      <textcolor3>ff909090</textcolor3>
-      <selectedColor>80000000</selectedColor>
-      <selectedColor2>ffffffff</selectedColor2>
-      <spinWidth>30</spinWidth>
-      <spinHeight>30</spinHeight>
-      <spinPosX>564</spinPosX>
-      <spinPosY>650</spinPosY>
-      <onleft>2</onleft>
-      <onright>100</onright>
-      <spaceBetweenItems>0</spaceBetweenItems>
-      <unfocusedAlpha>160</unfocusedAlpha>
-    </control>-->
-
     <control>
       <type>listcontrol</type>
       <id>10</id>
@@ -149,7 +100,7 @@
       <textureDownFocus>page_down_focus.png</textureDownFocus>
       <textureFocus>list_sub_focus.png</textureFocus>
       <textureNoFocus>list_sub_nofocus.png</textureNoFocus>
-      <textureHeight>58</textureHeight>
+      <textureHeight>90</textureHeight>
       <IconXOff>4</IconXOff>
       <IconYOff>4</IconYOff>
       <textXOff>2</textXOff>
@@ -160,21 +111,16 @@
       <textYOff2>30</textYOff2>
       <font2>font10</font2>
       <textcolor2>ff909090</textcolor2>
-      
-      <textXOff3>64</textXOff3>
+      <textXOff3>96</textXOff3>
       <textYOff3>30</textYOff3>
       <font3>font10</font3>
       <textcolor3>ff909090</textcolor3>
-      
-      <itemWidth>50</itemWidth>
-      <itemHeight>50</itemHeight>
+      <itemWidth>82</itemWidth>
+      <itemHeight>82</itemHeight>
       <scrollOffset>2</scrollOffset>
       <scrollbarXOff>0</scrollbarXOff>
       <scrollbarwidth>15</scrollbarwidth>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
-
-
-
   </controls>
 </window>

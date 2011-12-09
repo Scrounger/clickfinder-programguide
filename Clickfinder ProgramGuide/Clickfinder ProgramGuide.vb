@@ -234,6 +234,9 @@ Namespace ClickfinderProgramGuide
             MyBase.OnPageLoad()
             GUIWindowManager.NeedRefresh()
 
+            Log.Debug("")
+            Log.Debug("Clickfinder ProgramGuide: [OnPageLoad]: Load -----------")
+            Log.Debug("")
 
 
             Dictonary()
@@ -250,6 +253,7 @@ Namespace ClickfinderProgramGuide
 
             'Screen wird das erste Mal geladen
             If _ShowSQLString = "" Then
+ 
 
                 btnNow.IsFocused = False
                 btnPrimeTime.IsFocused = False
@@ -439,35 +443,45 @@ Namespace ClickfinderProgramGuide
             End If
 
             If control Is btnTipp0 Then
+                Log.Debug("")
                 Log.Debug("Clickfinder ProgramGuide: [btnTipp0] Call ShowItemDetails: " & FavKanal0.Label & " - " & _TippClickfinderSendungID(110))
+                Log.Debug("")
                 _TippButtonFocusID = btnTipp0.GetID
                 _TippButtonFocus = True
                 ShowItemDetails(_TippClickfinderSendungID(110), _TippClickfinderSendungChannelName(110))
             End If
 
             If control Is btnTipp1 Then
+                Log.Debug("")
                 Log.Debug("Clickfinder ProgramGuide: [btnTipp1] Call ShowItemDetails: " & FavKanal1.Label & " - " & _TippClickfinderSendungID(120))
+                Log.Debug("")
                 _TippButtonFocusID = btnTipp1.GetID
                 _TippButtonFocus = True
                 ShowItemDetails(_TippClickfinderSendungID(120), _TippClickfinderSendungChannelName(120))
             End If
 
             If control Is btnTipp2 Then
+                Log.Debug("")
                 Log.Debug("Clickfinder ProgramGuide: [btnTipp2] Call ShowItemDetails: " & FavKanal2.Label & " - " & _TippClickfinderSendungID(130))
+                Log.Debug("")
                 _TippButtonFocusID = btnTipp2.GetID
                 _TippButtonFocus = True
                 ShowItemDetails(_TippClickfinderSendungID(130), _TippClickfinderSendungChannelName(130))
             End If
 
             If control Is btnTipp3 Then
+                Log.Debug("")
                 Log.Debug("Clickfinder ProgramGuide: [btnTipp3] Call ShowItemDetails: " & FavKanal3.Label & " - " & _TippClickfinderSendungID(140))
+                Log.Debug("")
                 _TippButtonFocusID = btnTipp3.GetID
                 _TippButtonFocus = True
                 ShowItemDetails(_TippClickfinderSendungID(140), _TippClickfinderSendungChannelName(140))
             End If
 
             If control Is btnTipp4 Then
+                Log.Debug("")
                 Log.Debug("Clickfinder ProgramGuide: [btnTipp4] Call ShowItemDetails: " & FavKanal4.Label & " - " & _TippClickfinderSendungID(150))
+                Log.Debug("")
                 _TippButtonFocusID = btnTipp4.GetID
                 _TippButtonFocus = True
                 ShowItemDetails(_TippClickfinderSendungID(150), _TippClickfinderSendungChannelName(150))
@@ -479,7 +493,9 @@ Namespace ClickfinderProgramGuide
 #Region "Click Events"
 
         Private Sub Button_Now()
+            Log.Debug("")
             Log.Debug("Clickfinder ProgramGuide: [Button_Now]: Clicked")
+            Log.Debug("")
 
             Dim t As DateTime = DateTime.Now.Subtract(New System.TimeSpan(0, _SettingDelayNow, 0))
 
@@ -496,7 +512,9 @@ Namespace ClickfinderProgramGuide
         End Sub
 
         Private Sub Button_PrimeTime()
+            Log.Debug("")
             Log.Debug("Clickfinder ProgramGuide: [Button_PrimeTime]: Clicked")
+            Log.Debug("")
             _ZeitQueryStart = Today.AddHours(_SettingPrimeTimeHour).AddMinutes(_SettingPrimeTimeMinute)
             _ZeitQueryEnde = _ZeitQueryStart.AddHours(4)
             _CurrentQuery = "PrimeTime"
@@ -505,7 +523,9 @@ Namespace ClickfinderProgramGuide
             ShowCategories()
         End Sub
         Private Sub Button_LateTime()
+            Log.Debug("")
             Log.Debug("Clickfinder ProgramGuide: [Button_LateTime]: Clicked")
+            Log.Debug("")
             _ZeitQueryStart = Today.AddHours(_SettingLateTimeHour).AddMinutes(_SettingLateTimeMinute)
             _ZeitQueryEnde = _ZeitQueryStart.AddHours(4)
             _CurrentQuery = "LateTime"
@@ -515,7 +535,9 @@ Namespace ClickfinderProgramGuide
         End Sub
 
         Private Sub Button_Preview()
+            Log.Debug("")
             Log.Debug("Clickfinder ProgramGuide: [Button_Preview]: Clicked")
+            Log.Debug("")
 
             _ZeitQueryStart = Today
             _ZeitQueryEnde = _ZeitQueryStart.AddDays(20)
@@ -554,9 +576,9 @@ Namespace ClickfinderProgramGuide
             Dim _Titel As String
 
             Try
-
+                Log.Debug("")
                 Log.Debug("Clickfinder ProgramGuide: [Button_Record]: Clicked")
-
+                Log.Debug("")
 
                 DetailsImage.Visible = True
                 ctlList.IsFocused = False
@@ -610,9 +632,9 @@ Namespace ClickfinderProgramGuide
             Dim _Titel As String
 
             Try
-
+                Log.Debug("")
                 Log.Debug("Clickfinder ProgramGuide: [Button_Remember]: Clicked")
-
+                Log.Debug("")
 
                 DetailsImage.Visible = True
                 ctlList.IsFocused = False
@@ -691,11 +713,11 @@ Namespace ClickfinderProgramGuide
             For i = 0 To str_AvailableVorschauCategories.Length - 1
                 If _AvailableCategories.ContainsValue(str_AvailableVorschauCategories(i)) = False Then
                     _AvailableCategories.Add(str_AvailableVorschauCategories(i), str_AvailableVorschauCategories(i))
-                    _Log = _Log & str_AvailableVorschauCategories(i) & "; "
+                    '_Log = _Log & str_AvailableVorschauCategories(i) & "; "
                 End If
             Next
 
-            Log.Debug("Clickfinder ProgramGuide: [ListControlClick] - Available Categories: " & _Log)
+            'Log.Debug("Clickfinder ProgramGuide: [ListControlClick] - Available Categories: " & _Log)
 
             _Rating = MPSettingRead("config", "ClickfinderRating")
             _RespectInFavGroup = True
@@ -710,7 +732,9 @@ Namespace ClickfinderProgramGuide
                 Select Case ctlList.SelectedListItem.Label.ToString
                 Case ""
                     'Listcontrol Item = .. -> eine Ebende zurück in der Listcontrol
+                    Log.Debug("")
                     Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowCategories")
+                    Log.Debug("")
                     Try
                         'Dim _Threat As New Thread(AddressOf ClearFavInfo)
                         If ctlProgressBar.IsVisible = False Then
@@ -725,7 +749,9 @@ Namespace ClickfinderProgramGuide
 
                 Case Is = _Categorie
                     'Listcontrol Item = Categorie: Categorie Items anzeigen
+                    Log.Debug("")
                     Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowSelectedCategorieItems: " & ctlList.SelectedListItem.Label.ToString & " - " & _CurrentQuery.ToString)
+                    Log.Debug("")
                     Try
                         _CurrentCategorie = _AvailableCategories.Item(ctlList.SelectedListItem.Label.ToString)
                         SelectedCategorieLabel.Label = _CurrentCategorie
@@ -764,7 +790,9 @@ Namespace ClickfinderProgramGuide
 
                 Case Else
                     'Listcontrol Item = Sendung: Details der Sendung anzeigen
+                    Log.Debug("")
                     Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowItemDetails: " & ctlList.SelectedListItem.Label & " " & ctlList.SelectedListItem.Label3 & " " & ctlList.SelectedListItem.Label2 & " " & ctlList.SelectedListItem.Icon.FileName & " - true")
+                    Log.Debug("")
                     ShowItemDetails(ctlList.SelectedListItem.ItemId, ctlList.SelectedListItem.Icon.FileName, True)
             End Select
 
@@ -781,6 +809,8 @@ Namespace ClickfinderProgramGuide
 
             Try
                 Log.Debug("Clickfinder ProgramGuide: [ShowCategories]: _CurrentQuery" & _CurrentQuery)
+                Log.Debug("")
+
                 _CurrentCategorie = ""
                 _RespectInFavGroup = False
                 ctlList.ListItems.Clear()
@@ -794,8 +824,9 @@ Namespace ClickfinderProgramGuide
                     'Array durchlaufen und Kategorie an ListControlübergeben
                     For i = 0 To str_VisiblePreviewCategories.Length - 1
                         If Not str_VisiblePreviewCategories(i) = "" Then
-                            AddListControlItem(ctlList.ListItems.Count - 1, str_VisiblePreviewCategories(i), , , "Clickfinder\Categories\" & str_VisiblePreviewCategories(i) & ".png")
                             Log.Debug("Clickfinder ProgramGuide: [ShowCategories]: Add PreviewCategorie: " & str_VisiblePreviewCategories(i))
+                            AddListControlItem(ctlList.ListItems.Count - 1, str_VisiblePreviewCategories(i), , , "Clickfinder\Categories\" & str_VisiblePreviewCategories(i) & ".png")
+                            Log.Debug("")
                         End If
                     Next
 
@@ -807,8 +838,9 @@ Namespace ClickfinderProgramGuide
                     'Array durchlaufen und Kategorie an ListControlübergeben
                     For i = 0 To str_VisibleTagesCategories.Length - 1
                         If Not str_VisibleTagesCategories(i) = "" Then
-                            AddListControlItem(ctlList.ListItems.Count - 1, str_VisibleTagesCategories(i), , , "Clickfinder\Categories\" & str_VisibleTagesCategories(i) & ".png")
                             Log.Debug("Clickfinder ProgramGuide: [ShowCategories]: Add Categorie: " & str_VisibleTagesCategories(i))
+                            AddListControlItem(ctlList.ListItems.Count - 1, str_VisibleTagesCategories(i), , , "Clickfinder\Categories\" & str_VisibleTagesCategories(i) & ".png")
+                            Log.Debug("")
                         End If
                     Next
 
@@ -871,8 +903,9 @@ Namespace ClickfinderProgramGuide
             Try
 
                 _RespectInFavGroup = True
-
-                Log.Debug("Clickfinder ProgramGuide: [FillListControl] Categorie: " & _CurrentCategorie)
+                Log.Debug("")
+                Log.Debug("Clickfinder ProgramGuide: [ShowSelectedCategorieItems] Categorie: " & _CurrentCategorie)
+                Log.Debug("")
 
                 _idGroup = MPSettingRead("config", "ChannelGroupID")
                 _ClickfinderPath = MPSettingRead("config", "ClickfinderPath")
@@ -1036,6 +1069,8 @@ Namespace ClickfinderProgramGuide
             Dim _EpisodenName As String
             Dim _SeriesNum As String
             Dim _EpisodeNum As String
+            Dim _Rating As Integer
+
 
             _TippsCounter = _idStartCounter
 
@@ -1079,6 +1114,7 @@ Namespace ClickfinderProgramGuide
                         _EndZeit = CDate(ClickfinderData.Item("Ende"))
                         _BildDatei = _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
                         _EpisodenName = ClickfinderData.Item("Originaltitel")
+                        _Rating = CInt(ClickfinderData.Item("Rating"))
 
 
                         ' Clickfinder Titel Korrektur bei "Append (Live) / (Whd.)
@@ -1126,7 +1162,7 @@ Namespace ClickfinderProgramGuide
                                         _TippClickfinderSendungID(_TippsCounter) = CLng(ClickfinderData.Item("SendungID"))
                                         _TippClickfinderSendungChannelName(_TippsCounter) = _ChannelName
                                         FillTipps(_TippsCounter, Sendung.Title, _BildDatei, _ChannelName, _StartZeit, _
-                                                  _EndZeit, _Genre, _BewertungStr, _Kritik, _
+                                                  _EndZeit, _Genre, "Bewertung: " & CStr(_Rating), _Kritik, _
                                                   "ClickfinderPG_R" & CStr(_Bewertung) & ".png", _EpisodenName, _SeriesNum, _EpisodeNum)
 
                                     End If
@@ -1145,7 +1181,7 @@ Namespace ClickfinderProgramGuide
                                         _TippClickfinderSendungID(_TippsCounter) = CLng(ClickfinderData.Item("SendungID"))
                                         _TippClickfinderSendungChannelName(_TippsCounter) = _ChannelName
                                         FillTipps(_TippsCounter, Sendung.Title, _BildDatei, _ChannelName, _StartZeit, _
-                                                  _EndZeit, _Genre, _BewertungStr, _Kritik, _
+                                                  _EndZeit, _Genre, "Bewertung: " & CStr(_Rating), _Kritik, _
                                                   "ClickfinderPG_R" & CStr(_Bewertung) & ".png", _EpisodenName, _SeriesNum, _EpisodeNum)
 
                                     End If
@@ -1186,7 +1222,7 @@ Namespace ClickfinderProgramGuide
             _CurrentDetailsSendungChannelName = ChannelName
             _CurrentDetailsImageIsPath = ChannelNameIsImagePath
 
-            Log.Debug("Clickfinder ProgramGuide: [ShowItemDetails]: ClkID: " & _CurrentDetailsSendungId)
+
 
             ClearDetails()
 
@@ -1274,6 +1310,17 @@ Namespace ClickfinderProgramGuide
 
                     DetailsImage.FileName = _BildDatei
                     DetailsRatingImage.FileName = "ClickfinderPG_R" & CStr(_Bewertung) & ".png"
+
+                    Log.Debug("Clickfinder ProgramGuide: [ShowItemDetails]: ClkID: " & _CurrentDetailsSendungId)
+                    Log.Debug("Clickfinder ProgramGuide: [ShowItemDetails]: Titel: " & _Titel)
+                    Log.Debug("Clickfinder ProgramGuide: [ShowItemDetails]: Channel: " & _ChannelName)
+                    Log.Debug("Clickfinder ProgramGuide: [ShowItemDetails]: Time: " & (ClickfinderData.Item("Beginn") & " - " & (ClickfinderData.Item("Ende"))))
+
+
+
+
+
+
                 Catch ex As Exception
                     Log.Error("Clickfinder ProgramGuide: [ShowItemDetails]: " & ex.Message)
                 End Try
@@ -1469,11 +1516,15 @@ Namespace ClickfinderProgramGuide
                 'Rating Image Path
                 _GuiImage(StartIdofGroup + 7).SetFileName(_FavRatingImagePath)
 
-                Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & StartIdofGroup & "]: Titel: " & _Titel & " " & _FavImagePath & " " & _channelName & " " & _Genre & " " & _StartZeit & " " & _EndZeit & " " & _BewertungStr & " " & _Kritik & " " & _FavRatingImagePath)
-                Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & StartIdofGroup & "]: Channel: " & _channelName)
-                Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & StartIdofGroup & "]: Time: " & _StartZeit & " - " & _EndZeit)
-                Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & StartIdofGroup & "]: ImagePath: " & _FavImagePath)
-                Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & StartIdofGroup & "]: RatingImagePath: " & _FavRatingImagePath)
+                If Not _Titel = "" Then
+                    Log.Debug("")
+                    Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & StartIdofGroup & "]: ClickfinderID: " & _TippClickfinderSendungID(StartIdofGroup))
+                    Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & StartIdofGroup & "]: Titel: " & _Titel & " " & _FavImagePath & " " & _channelName & " " & _Genre & " " & _StartZeit & " " & _EndZeit & " " & _BewertungStr & " " & _Kritik & " " & _FavRatingImagePath)
+                    Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & StartIdofGroup & "]: Channel: " & _channelName)
+                    Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & StartIdofGroup & "]: Time: " & _StartZeit & " - " & _EndZeit)
+                    Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & StartIdofGroup & "]: ImagePath: " & _Bilddatei)
+                    Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & StartIdofGroup & "]: RatingImagePath: " & _FavRatingImagePath)
+                End If
 
             Catch ex As Exception
                 Log.Error("Clickfinder ProgramGuide: [FillTipps]: " & ex.Message)
@@ -1494,7 +1545,9 @@ Namespace ClickfinderProgramGuide
 
                     _TippsCounter = _TippsCounter + 10
                 Loop Until _TippsCounter = _idStoppCounter
-
+                Log.Debug("")
+                Log.Debug("Clickfinder ProgramGuide: [ClearTipps]: Called")
+                Log.Debug("")
             Catch ex As Exception
                 Log.Error("Clickfinder ProgramGuide: [ClearTipps]: " & ex.Message)
             End Try
@@ -1621,7 +1674,7 @@ Namespace ClickfinderProgramGuide
         Public Sub ReadClickfinderDB(ByVal SQLString As String)
             Dim ClickfinderPath As String
 
-            Log.Debug("TV Movie ProgramGuide: Open TV Movie Clickfinder Database")
+
 
             ClickfinderPath = MPSettingRead("config", "ClickfinderPath")
 
@@ -1654,7 +1707,7 @@ Namespace ClickfinderProgramGuide
         Public Sub CloseClickfinderDB()
 
             Try
-                Log.Debug("TV Movie ProgramGuide: Close TV Movie Clickfinder Database")
+
 
                 CmdClickfinderDBRead.Dispose()
                 ConClickfinderDBRead.Close()
@@ -1670,7 +1723,7 @@ Namespace ClickfinderProgramGuide
 
 
             Try
-                Log.Debug("TV Movie ProgramGuide: Open TV Server Database")
+
 
                 ConTvServerDBRead.ConnectionString = Left(Replace(Gentle.Framework.GentleSettings.DefaultProviderConnectionString, " ", ""), InStr(Gentle.Framework.GentleSettings.DefaultProviderConnectionString, "charset=utf8") - 3)
                 ConTvServerDBRead.Open()
@@ -1696,7 +1749,6 @@ Namespace ClickfinderProgramGuide
         Public Sub CloseTvServerDB()
 
             Try
-                Log.Debug("TV Movie ProgramGuide: Close TV Server Database")
 
                 CmdTvServerDBRead.Dispose()
                 ConTvServerDBRead.Close()
@@ -1997,8 +2049,10 @@ Namespace ClickfinderProgramGuide
             lItem.IconImage = ImagePath
             GUIControl.AddListItemControl(GetID, ctlList.GetID, lItem)
 
-            Log.Debug("Clickfinder ProgramGuide: [AddListControlItem]: ID: " & SendungID)
+
+            Log.Debug("Clickfinder ProgramGuide: [AddListControlItem]: ClickfinderID: " & SendungID)
             Log.Debug("Clickfinder ProgramGuide: [AddListControlItem]: ImagePath: " & ImagePath)
+
 
         End Sub
         Private Sub MPDialogOK(ByVal Heading As String, ByVal StringLine1 As String, Optional ByVal StringLine2 As String = "", Optional ByVal StringLine3 As String = "")
