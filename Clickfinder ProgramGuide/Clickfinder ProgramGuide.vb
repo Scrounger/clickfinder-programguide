@@ -479,7 +479,10 @@ Namespace ClickfinderProgramGuide
 #Region "Click Events"
 
         Private Sub Button_Now()
+            Log.Debug("Clickfinder ProgramGuide: [Button_Now]: Clicked")
+
             Dim t As DateTime = DateTime.Now.Subtract(New System.TimeSpan(0, _SettingDelayNow, 0))
+
 
             _ZeitQueryStart = Today.AddHours(t.Hour).AddMinutes(t.Minute)
             _ZeitQueryEnde = _ZeitQueryStart.AddHours(4)
@@ -493,6 +496,7 @@ Namespace ClickfinderProgramGuide
         End Sub
 
         Private Sub Button_PrimeTime()
+            Log.Debug("Clickfinder ProgramGuide: [Button_PrimeTime]: Clicked")
             _ZeitQueryStart = Today.AddHours(_SettingPrimeTimeHour).AddMinutes(_SettingPrimeTimeMinute)
             _ZeitQueryEnde = _ZeitQueryStart.AddHours(4)
             _CurrentQuery = "PrimeTime"
@@ -501,6 +505,7 @@ Namespace ClickfinderProgramGuide
             ShowCategories()
         End Sub
         Private Sub Button_LateTime()
+            Log.Debug("Clickfinder ProgramGuide: [Button_LateTime]: Clicked")
             _ZeitQueryStart = Today.AddHours(_SettingLateTimeHour).AddMinutes(_SettingLateTimeMinute)
             _ZeitQueryEnde = _ZeitQueryStart.AddHours(4)
             _CurrentQuery = "LateTime"
@@ -510,6 +515,8 @@ Namespace ClickfinderProgramGuide
         End Sub
 
         Private Sub Button_Preview()
+            Log.Debug("Clickfinder ProgramGuide: [Button_Preview]: Clicked")
+
             _ZeitQueryStart = Today
             _ZeitQueryEnde = _ZeitQueryStart.AddDays(20)
             _CurrentQuery = "Preview"
@@ -548,6 +555,7 @@ Namespace ClickfinderProgramGuide
 
             Try
 
+                Log.Debug("Clickfinder ProgramGuide: [Button_Record]: Clicked")
 
 
                 DetailsImage.Visible = True
@@ -603,6 +611,7 @@ Namespace ClickfinderProgramGuide
 
             Try
 
+                Log.Debug("Clickfinder ProgramGuide: [Button_Remember]: Clicked")
 
 
                 DetailsImage.Visible = True
@@ -786,6 +795,7 @@ Namespace ClickfinderProgramGuide
                     For i = 0 To str_VisiblePreviewCategories.Length - 1
                         If Not str_VisiblePreviewCategories(i) = "" Then
                             AddListControlItem(ctlList.ListItems.Count - 1, str_VisiblePreviewCategories(i), , , "Clickfinder\Categories\" & str_VisiblePreviewCategories(i) & ".png")
+                            Log.Debug("Clickfinder ProgramGuide: [ShowCategories]: Add PreviewCategorie: " & str_VisiblePreviewCategories(i))
                         End If
                     Next
 
@@ -798,6 +808,7 @@ Namespace ClickfinderProgramGuide
                     For i = 0 To str_VisibleTagesCategories.Length - 1
                         If Not str_VisibleTagesCategories(i) = "" Then
                             AddListControlItem(ctlList.ListItems.Count - 1, str_VisibleTagesCategories(i), , , "Clickfinder\Categories\" & str_VisibleTagesCategories(i) & ".png")
+                            Log.Debug("Clickfinder ProgramGuide: [ShowCategories]: Add Categorie: " & str_VisibleTagesCategories(i))
                         End If
                     Next
 
@@ -861,7 +872,7 @@ Namespace ClickfinderProgramGuide
 
                 _RespectInFavGroup = True
 
-                Log.Debug("Clickfinder ProgramGuide: [FillListControl] Start")
+                Log.Debug("Clickfinder ProgramGuide: [FillListControl] Categorie: " & _CurrentCategorie)
 
                 _idGroup = MPSettingRead("config", "ChannelGroupID")
                 _ClickfinderPath = MPSettingRead("config", "ClickfinderPath")
@@ -913,8 +924,6 @@ Namespace ClickfinderProgramGuide
                         While TvServerData.Read
                             _idChannel = TvServerData.Item("idChannel")
                             _ChannelName = TvServerData.Item("displayName")
-
-                            Log.Debug("Clickfinder ProgramGuide:" & _StartZeit & " " & _Titel & " " & _idChannel)
 
                             'Prüfen ob Program in der TV Server Program DB ist
                             If ProgramFoundinTvDb(_Titel, _idChannel, _StartZeit, _EndZeit) = True Then
@@ -1043,6 +1052,7 @@ Namespace ClickfinderProgramGuide
             _ClickfinderPath = MPSettingRead("config", "ClickfinderPath")
             _lastTitel = Nothing
 
+            Log.Debug("Clickfinder ProgramGuide: [ShowTipps]: Query: " & _CurrentQuery & ", Categorie:" & _CurrentCategorie)
 
             If _CurrentCategorie = "Serien" And _SettingIgnoreMinTimeSeries = "true" _
                     Then _SettingMinTime = 0
@@ -1176,7 +1186,7 @@ Namespace ClickfinderProgramGuide
             _CurrentDetailsSendungChannelName = ChannelName
             _CurrentDetailsImageIsPath = ChannelNameIsImagePath
 
-
+            Log.Debug("Clickfinder ProgramGuide: [ShowItemDetails]: ClkID: " & _CurrentDetailsSendungId)
 
             ClearDetails()
 
@@ -1459,7 +1469,11 @@ Namespace ClickfinderProgramGuide
                 'Rating Image Path
                 _GuiImage(StartIdofGroup + 7).SetFileName(_FavRatingImagePath)
 
-                Log.Debug("Clickfinder ProgramGuide: [FillTipps]: " & _Titel & " " & _FavImagePath & " " & _channelName & " " & _Genre & " " & _StartZeit & " " & _EndZeit & " " & _BewertungStr & " " & _Kritik & " " & _FavRatingImagePath)
+                Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & StartIdofGroup & "]: Titel: " & _Titel & " " & _FavImagePath & " " & _channelName & " " & _Genre & " " & _StartZeit & " " & _EndZeit & " " & _BewertungStr & " " & _Kritik & " " & _FavRatingImagePath)
+                Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & StartIdofGroup & "]: Channel: " & _channelName)
+                Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & StartIdofGroup & "]: Time: " & _StartZeit & " - " & _EndZeit)
+                Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & StartIdofGroup & "]: ImagePath: " & _FavImagePath)
+                Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & StartIdofGroup & "]: RatingImagePath: " & _FavRatingImagePath)
 
             Catch ex As Exception
                 Log.Error("Clickfinder ProgramGuide: [FillTipps]: " & ex.Message)
@@ -1983,6 +1997,9 @@ Namespace ClickfinderProgramGuide
             lItem.IconImage = ImagePath
             GUIControl.AddListItemControl(GetID, ctlList.GetID, lItem)
 
+            Log.Debug("Clickfinder ProgramGuide: [AddListControlItem]: ID: " & SendungID)
+            Log.Debug("Clickfinder ProgramGuide: [AddListControlItem]: ImagePath: " & ImagePath)
+
         End Sub
         Private Sub MPDialogOK(ByVal Heading As String, ByVal StringLine1 As String, Optional ByVal StringLine2 As String = "", Optional ByVal StringLine3 As String = "")
             Dim dlg As GUIDialogOK = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_OK, Integer)), GUIDialogOK)
@@ -2037,7 +2054,7 @@ Namespace ClickfinderProgramGuide
 
 
         Public Shared Function ListByNameStartsWith(ByVal DisplayName As String) As IList
-
+            'SSSS
 
             Dim sb As SqlBuilder = New SqlBuilder(StatementType.Select, GetType(Channel))
             ' note: the partialName parameter must also contain the %'s for the LIKE query!
