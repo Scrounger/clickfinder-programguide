@@ -167,6 +167,8 @@ Namespace ClickfinderProgramGuide
         Private _TippClickfinderSendungChannelName As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String)
         Private MyTVDB As clsTheTVdb = New clsTheTVdb("de")
 
+        'Private _ListStandardOffSetY As Integer
+        'Private _ListOffSetY As Integer
 #End Region
 
 
@@ -238,7 +240,10 @@ Namespace ClickfinderProgramGuide
             Log.Debug("Clickfinder ProgramGuide: [OnPageLoad]: Load -----------")
             Log.Debug("")
 
+            '_ListStandardOffSetY = ctlList.TextOffsetY
+            '_ListOffSetY = ctlList.TextOffsetY + 3
 
+            'MsgBox(_ListStandardOffSetY)
             Dictonary()
 
             ctlProgressBar.Visibility = Windows.Visibility.Hidden
@@ -717,6 +722,8 @@ Namespace ClickfinderProgramGuide
                 End If
             Next
 
+            'ctlList.SetTextOffsets(ctlList.TextOffsetX, _ListStandardOffSetY, ctlList.TextOffsetX2, ctlList.TextOffsetY2, ctlList.TextOffsetX3, ctlList.TextOffsetY3)
+
             'Log.Debug("Clickfinder ProgramGuide: [ListControlClick] - Available Categories: " & _Log)
 
             _Rating = MPSettingRead("config", "ClickfinderRating")
@@ -729,7 +736,7 @@ Namespace ClickfinderProgramGuide
 
 
             'Aufruf der Fkt. beim click auf ein ListConrtol Item
-                Select Case ctlList.SelectedListItem.Label.ToString
+            Select Case ctlList.SelectedListItem.Label.ToString
                 Case ""
                     'Listcontrol Item = .. -> eine Ebende zurück in der Listcontrol
                     Log.Debug("")
@@ -807,14 +814,18 @@ Namespace ClickfinderProgramGuide
             Dim _ProgressBar As New Thread(AddressOf ShowProgressbar)
             Dim _Threat As New Thread(AddressOf ShowTipps)
 
+
+
             Try
                 Log.Debug("Clickfinder ProgramGuide: [ShowCategories]: _CurrentQuery" & _CurrentQuery)
                 Log.Debug("")
 
+
+
                 _CurrentCategorie = ""
                 _RespectInFavGroup = False
                 ctlList.ListItems.Clear()
-
+                'ctlList.SetTextOffsets(ctlList.TextOffsetX, _ListOffSetY, ctlList.TextOffsetX2, ctlList.TextOffsetY2, ctlList.TextOffsetX3, ctlList.TextOffsetY3)
 
                 If _CurrentQuery = "Preview" Then
                     _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung = 4", "Beginn ASC, Bewertung DESC, Titel")
@@ -825,7 +836,7 @@ Namespace ClickfinderProgramGuide
                     For i = 0 To str_VisiblePreviewCategories.Length - 1
                         If Not str_VisiblePreviewCategories(i) = "" Then
                             Log.Debug("Clickfinder ProgramGuide: [ShowCategories]: Add PreviewCategorie: " & str_VisiblePreviewCategories(i))
-                            AddListControlItem(ctlList.ListItems.Count - 1, str_VisiblePreviewCategories(i), , , "Clickfinder\Categories\" & str_VisiblePreviewCategories(i) & ".png")
+                            AddListControlItem(ctlList.ListItems.Count - 1, str_VisiblePreviewCategories(i), , , Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\Categories\") & str_VisiblePreviewCategories(i) & ".png")
                             Log.Debug("")
                         End If
                     Next
@@ -839,7 +850,7 @@ Namespace ClickfinderProgramGuide
                     For i = 0 To str_VisibleTagesCategories.Length - 1
                         If Not str_VisibleTagesCategories(i) = "" Then
                             Log.Debug("Clickfinder ProgramGuide: [ShowCategories]: Add Categorie: " & str_VisibleTagesCategories(i))
-                            AddListControlItem(ctlList.ListItems.Count - 1, str_VisibleTagesCategories(i), , , "Clickfinder\Categories\" & str_VisibleTagesCategories(i) & ".png")
+                            AddListControlItem(ctlList.ListItems.Count - 1, str_VisibleTagesCategories(i), , , Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\Categories\") & str_VisibleTagesCategories(i) & ".png")
                             Log.Debug("")
                         End If
                     Next
@@ -1163,7 +1174,7 @@ Namespace ClickfinderProgramGuide
                                         _TippClickfinderSendungChannelName(_TippsCounter) = _ChannelName
                                         FillTipps(_TippsCounter, Sendung.Title, _BildDatei, _ChannelName, _StartZeit, _
                                                   _EndZeit, _Genre, "Bewertung: " & CStr(_Rating), _Kritik, _
-                                                  "ClickfinderPG_R" & CStr(_Bewertung) & ".png", _EpisodenName, _SeriesNum, _EpisodeNum)
+                                                  "ClickfinderPG_R" & CStr(_Bewertung) & ".png", _EpisodenName, _SeriesNum, _EpisodeNum, _Bewertung)
 
                                     End If
 
@@ -1182,7 +1193,7 @@ Namespace ClickfinderProgramGuide
                                         _TippClickfinderSendungChannelName(_TippsCounter) = _ChannelName
                                         FillTipps(_TippsCounter, Sendung.Title, _BildDatei, _ChannelName, _StartZeit, _
                                                   _EndZeit, _Genre, "Bewertung: " & CStr(_Rating), _Kritik, _
-                                                  "ClickfinderPG_R" & CStr(_Bewertung) & ".png", _EpisodenName, _SeriesNum, _EpisodeNum)
+                                                  "ClickfinderPG_R" & CStr(_Bewertung) & ".png", _EpisodenName, _SeriesNum, _EpisodeNum, _Bewertung)
 
                                     End If
 
@@ -1451,7 +1462,7 @@ Namespace ClickfinderProgramGuide
 
         Private Sub FillTipps(ByVal StartIdofGroup As Integer, ByVal _Titel As String, ByVal _FavImagePath As String, _
             ByVal _channelName As String, ByVal _StartZeit As Date, ByVal _EndZeit As Date, ByVal _Genre As String, ByVal _BewertungStr As String, _
-            ByVal _Kritik As String, ByVal _FavRatingImagePath As String, ByVal _EpisodenName As String, ByVal _SeriesNum As String, ByVal _EpisodeNum As String)
+            ByVal _Kritik As String, ByVal _FavRatingImagePath As String, ByVal _EpisodenName As String, ByVal _SeriesNum As String, ByVal _EpisodeNum As String, ByVal _Bewertung As Integer)
 
 
             Dim _Bilddatei As String
@@ -1491,7 +1502,7 @@ Namespace ClickfinderProgramGuide
                 End If
 
                 'Wenn keine Bewertung vorhanden ist, Genre = EpisodenName, Kanal = Genre, Bewertung = Kanal
-                If _BewertungStr = "" Then
+                If _Bewertung = 0 Then
 
                     If _EpisodenName = "" Then
                         GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 2, _channelName)
@@ -1541,7 +1552,7 @@ Namespace ClickfinderProgramGuide
             Try
 
                 Do
-                    FillTipps(_TippsCounter, Nothing, "", Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, "", "", "", "")
+                    FillTipps(_TippsCounter, Nothing, "", Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, "", "", "", "", 0)
 
                     _TippsCounter = _TippsCounter + 10
                 Loop Until _TippsCounter = _idStoppCounter
@@ -2048,7 +2059,6 @@ Namespace ClickfinderProgramGuide
             lItem.ItemId = CInt(SendungID)
             lItem.IconImage = ImagePath
             GUIControl.AddListItemControl(GetID, ctlList.GetID, lItem)
-
 
             Log.Debug("Clickfinder ProgramGuide: [AddListControlItem]: ClickfinderID: " & SendungID)
             Log.Debug("Clickfinder ProgramGuide: [AddListControlItem]: ImagePath: " & ImagePath)

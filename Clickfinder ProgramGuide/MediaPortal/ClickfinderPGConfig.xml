@@ -18,7 +18,7 @@
     <entry name="VisibleTagesCategories">Movies;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;</entry>
     <entry name="VisibleVorschauCategories">Movies;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;Fußball LIVE;</entry>   
     <entry name="AvailableTagesCategories">Movies;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;</entry>
-    <entry name="AvailableVorschauCategories">Movies;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;Fußball LIVE;</entry>
+    <entry name="AvailableVorschauCategories">Movies;Tv Movie Tages Tipp;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;Fußball LIVE;</entry>
   </section>
   <section name="Save">
     <entry name="LastUpdate">01.01.2011</entry>
@@ -26,6 +26,10 @@
   <section name="Movies">
     <entry name="Where">AND Bewertung >= #Rating# AND KzFilm = true</entry>
     <entry name="PreviewWhere">AND Bewertung >= 4 AND KzFilm = true</entry>
+    <entry name="OrderBy">Beginn ASC, Rating DESC, SenderKennung DESC</entry>
+  </section>
+  <section name="Tv Movie Tages Tipp">
+    <entry name="PreviewWhere">AND Bewertung = 4 AND KzFilm = true</entry>
     <entry name="OrderBy">Beginn ASC, Rating DESC, SenderKennung DESC</entry>
   </section>
   <section name="Sky Cinema">
