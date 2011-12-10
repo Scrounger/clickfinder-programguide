@@ -131,6 +131,13 @@ Public Class Setup
             CBMinTime.Items.Add(Format(i, "00"))
         Next
 
+        For i = 0 To 100
+            CBListOffsetY.Items.Add(i)
+        Next
+
+        For i = 0 To CBListOffsetY.Items.Count - 1
+            If CBListOffsetY.Items.Item(i) = MPSettingRead("config", "ListLabelOffsetY") Then CBListOffsetY.Text = MPSettingRead("config", "ListLabelOffsetY")
+        Next
 
         For i = 0 To CBPrimeTimeHour.Items.Count - 1
             If CBPrimeTimeHour.Items.Item(i) = MPSettingRead("config", "PrimeTimeHour") Then CBPrimeTimeHour.Text = MPSettingRead("config", "PrimeTimeHour")
@@ -214,6 +221,7 @@ Public Class Setup
         MPSettingsWrite("config", "ClickfinderRating", Me.cbRating.Text)
         MPSettingsWrite("config", "PrimeTimeHour", Me.CBPrimeTimeHour.Text)
         MPSettingsWrite("config", "PrimeTimeMinute", Me.CBPrimeTimeMinute.Text)
+        MPSettingsWrite("config", "ListLabelOffsetY", Me.CBListOffsetY.Text)
         MPSettingsWrite("config", "LateTimeHour", Me.CBLateTimeHour.Text)
         MPSettingsWrite("config", "LateTimeMinute", Me.CBLateTimeMinute.Text)
         MPSettingsWrite("config", "DelayNow", Me.CBDelayNow.Text)

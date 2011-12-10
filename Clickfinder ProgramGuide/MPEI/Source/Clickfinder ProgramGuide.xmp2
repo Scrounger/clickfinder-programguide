@@ -251,188 +251,6 @@
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Dokumentationen.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{d1d35712-ce13-4e40-be50-927e9f118b6f}-Dokumentationen.png</ZipFileName>
-              <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\Dokumentationen.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\HDTV.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{9822bb2e-c72d-4c61-b762-627fe10f5ab8}-HDTV.png</ZipFileName>
-              <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\HDTV.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\LateTime.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{1d30a97b-2992-48dc-895f-0b015fc0299a}-LateTime.png</ZipFileName>
-              <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\LateTime.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Magazine.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{0b2d8a81-3e59-4ed3-a9cb-522e99c1be59}-Magazine.png</ZipFileName>
-              <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\Magazine.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Movies.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{1a7d62f8-8845-4ce3-b363-75ae8a1221ed}-Movies.png</ZipFileName>
-              <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\Movies.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Now.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{f5f1db7d-a5d4-4929-9f94-a06fa01d6c6f}-Now.png</ZipFileName>
-              <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\Now.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Preview.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{996769ac-96f5-4187-aa3b-ba5ee162d494}-Preview.png</ZipFileName>
-              <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\Preview.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\PrimeTime.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{be73a39a-54d1-43da-80f7-3d61a7ef2b0d}-PrimeTime.png</ZipFileName>
-              <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\PrimeTime.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Reportagen.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{0e69bcbe-4938-40f6-a820-ed994bf8204b}-Reportagen.png</ZipFileName>
-              <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\Reportagen.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Serien.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{c1b59f90-3176-4cfd-b6f6-181d6d47afd7}-Serien.png</ZipFileName>
-              <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\Serien.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Sky Cinema.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{c540aae6-e330-4399-8d22-e35d6547419c}-Sky Cinema.png</ZipFileName>
-              <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\Sky Cinema.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Sky Dokumentationen.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{a95199d5-94b6-45c0-bfda-e933b3e33b97}-Sky Dokumentationen.png</ZipFileName>
-              <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\Sky Dokumentationen.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Sport.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{1f2893e9-26d5-47e6-8c6b-44511ba54de0}-Sport.png</ZipFileName>
-              <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\Sport.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Dokumentationen.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{40d534f3-81f2-4eb4-b29f-f631b194e6e0}-Dokumentationen.png</ZipFileName>
-              <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\Dokumentationen.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\HDTV.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{dcb3648b-7553-4f0c-8efe-2e5e01faf1af}-HDTV.png</ZipFileName>
-              <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\HDTV.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\LateTime.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{788389f4-e7d2-48b6-ba5e-7712d0bc4009}-LateTime.png</ZipFileName>
-              <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\LateTime.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Magazine.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{7bc6dbd3-ee9f-4580-b867-4d5ee905c3e4}-Magazine.png</ZipFileName>
-              <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\Magazine.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Movies.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{a1a0ce6e-ead9-4f18-b910-4d9f1218f84b}-Movies.png</ZipFileName>
-              <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\Movies.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Now.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{f0bf83fa-3844-4613-bd0f-286c60507bcd}-Now.png</ZipFileName>
-              <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\Now.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Preview.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{693ca29c-957c-4169-a2ca-4f94d599ac61}-Preview.png</ZipFileName>
-              <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\Preview.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\PrimeTime.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{a5e37300-f3cb-4d40-ace5-85f85e114d7f}-PrimeTime.png</ZipFileName>
-              <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\PrimeTime.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Reportagen.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{9075b569-fda5-44e7-8b6b-dee6843b5e4d}-Reportagen.png</ZipFileName>
-              <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\Reportagen.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Serien.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{f890f15b-bd3a-49c2-b5dc-5e4cd8e99d86}-Serien.png</ZipFileName>
-              <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\Serien.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Sky Cinema.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{139447c5-0bd1-4759-96d4-42ee88452bd0}-Sky Cinema.png</ZipFileName>
-              <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\Sky Cinema.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Sky Dokumentationen.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{a81b61d0-cce2-4ee4-a24c-b6039e1e90e7}-Sky Dokumentationen.png</ZipFileName>
-              <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\Sky Dokumentationen.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Sport.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{cd1ca6d8-82c1-4197-80de-d3cfd740fe00}-Sport.png</ZipFileName>
-              <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\Sport.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_SepHor.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{4346ee80-3170-4266-9f6f-8a51aeb9a6ae}-ClickfinderPG_SepHor.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_SepHor.png</DestinationFilename>
@@ -474,37 +292,100 @@
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R2.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{bfacd9fd-ca3b-48df-bacd-53c88e97fec2}-ClickfinderPG_R2.png</ZipFileName>
-              <DestinationFilename>%Thumbs%\ClickfinderPG\ClickfinderPG_R2.png</DestinationFilename>
+              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Dokumentationen.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{01cedb8c-86af-4aaa-a9dc-8dd639150e46}-Dokumentationen.png</ZipFileName>
+              <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Dokumentationen.png</DestinationFilename>
             </FileItem>
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R4.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{40e5da28-e2fa-4a44-b449-f3260569152f}-ClickfinderPG_R4.png</ZipFileName>
-              <DestinationFilename>%Thumbs%\ClickfinderPG\ClickfinderPG_R4.png</DestinationFilename>
+              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Fußball LIVE.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{bf1450af-d121-49a6-83a3-a773fc24381b}-Fu_ball LIVE.png</ZipFileName>
+              <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Fußball LIVE.png</DestinationFilename>
             </FileItem>
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R5.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{642cb135-1e31-403b-a481-439eaa7140a0}-ClickfinderPG_R5.png</ZipFileName>
-              <DestinationFilename>%Thumbs%\ClickfinderPG\ClickfinderPG_R5.png</DestinationFilename>
+              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\HDTV.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{cb742d58-bcf6-41f7-8573-303be6e09257}-HDTV.png</ZipFileName>
+              <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\HDTV.png</DestinationFilename>
             </FileItem>
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R6.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{3cf550fb-fb37-4823-939b-669a9e138d82}-ClickfinderPG_R6.png</ZipFileName>
-              <DestinationFilename>%Thumbs%\ClickfinderPG\ClickfinderPG_R6.png</DestinationFilename>
+              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\LateTime.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{a2395b5a-1302-456b-9f4c-d750fbbae413}-LateTime.png</ZipFileName>
+              <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\LateTime.png</DestinationFilename>
             </FileItem>
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R1.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{9c76ed9f-dea7-4f64-b927-1fa03ad14882}-ClickfinderPG_R1.png</ZipFileName>
-              <DestinationFilename>%Thumbs%\ClickfinderPG\ClickfinderPG_R1.png</DestinationFilename>
+              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Magazine.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{8a092813-1c18-4104-b658-0be3ec4052f0}-Magazine.png</ZipFileName>
+              <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Magazine.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Movies.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{43c40c0a-3a92-40c7-8e21-7e124242de6d}-Movies.png</ZipFileName>
+              <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Movies.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Now.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{bf22d1f0-db7e-4e3d-8f65-0a96107360b7}-Now.png</ZipFileName>
+              <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Now.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Preview.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{fa6fb329-5148-4cae-8a82-11e96a214486}-Preview.png</ZipFileName>
+              <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Preview.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\PrimeTime.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{0c92e28d-8aa3-44eb-b43c-d0349560dd29}-PrimeTime.png</ZipFileName>
+              <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\PrimeTime.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Reportagen.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{d4a2de1c-2220-4a76-8b9a-5f0787e1b11b}-Reportagen.png</ZipFileName>
+              <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Reportagen.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Serien.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{f038700b-3626-4090-b1a6-1cc6f24caee4}-Serien.png</ZipFileName>
+              <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Serien.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Sky Cinema.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{b400be9f-2b8b-4c26-bc60-81485485b64b}-Sky Cinema.png</ZipFileName>
+              <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Sky Cinema.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Sky Dokumentationen.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{5dc06dda-ab16-454e-9454-012198ee85cc}-Sky Dokumentationen.png</ZipFileName>
+              <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Sky Dokumentationen.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Sport.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{1d117af9-eb26-4d21-95ca-b0a8b04a7e1f}-Sport.png</ZipFileName>
+              <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Sport.png</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -702,19 +583,19 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Id>304bc464-97b0-49e5-a6b7-fc9a1b95fa5d</Id>
     <Author>Scrounger</Author>
     <HomePage>https://code.google.com/p/clickfinder-programguide/</HomePage>
-    <ForumPage />
+    <ForumPage>http://forum.team-mediaportal.com/plugins-erweiterungen-178/clickfinder-programguide-0-0-5-7-beta-103217/</ForumPage>
     <UpdateUrl />
     <Version>
       <Major>0</Major>
       <Minor>0</Minor>
-      <Build>5</Build>
-      <Revision>8</Revision>
+      <Build>6</Build>
+      <Revision>0</Revision>
     </Version>
     <ExtensionDescription />
     <VersionDescription />
     <DevelopmentStatus>Beta</DevelopmentStatus>
     <OnlineLocation />
-    <ReleaseDate>2011-12-07T15:57:29</ReleaseDate>
+    <ReleaseDate>2011-12-10T15:57:29</ReleaseDate>
     <Tags />
     <Location>D:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPEI\Clickfinder ProgramGuide.mpe1</Location>
     <Params>
@@ -992,188 +873,6 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Dokumentationen.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{d1d35712-ce13-4e40-be50-927e9f118b6f}-Dokumentationen.png</ZipFileName>
-        <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\Dokumentationen.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\HDTV.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{9822bb2e-c72d-4c61-b762-627fe10f5ab8}-HDTV.png</ZipFileName>
-        <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\HDTV.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\LateTime.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{1d30a97b-2992-48dc-895f-0b015fc0299a}-LateTime.png</ZipFileName>
-        <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\LateTime.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Magazine.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{0b2d8a81-3e59-4ed3-a9cb-522e99c1be59}-Magazine.png</ZipFileName>
-        <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\Magazine.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Movies.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{1a7d62f8-8845-4ce3-b363-75ae8a1221ed}-Movies.png</ZipFileName>
-        <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\Movies.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Now.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{f5f1db7d-a5d4-4929-9f94-a06fa01d6c6f}-Now.png</ZipFileName>
-        <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\Now.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Preview.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{996769ac-96f5-4187-aa3b-ba5ee162d494}-Preview.png</ZipFileName>
-        <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\Preview.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\PrimeTime.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{be73a39a-54d1-43da-80f7-3d61a7ef2b0d}-PrimeTime.png</ZipFileName>
-        <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\PrimeTime.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Reportagen.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{0e69bcbe-4938-40f6-a820-ed994bf8204b}-Reportagen.png</ZipFileName>
-        <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\Reportagen.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Serien.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{c1b59f90-3176-4cfd-b6f6-181d6d47afd7}-Serien.png</ZipFileName>
-        <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\Serien.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Sky Cinema.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{c540aae6-e330-4399-8d22-e35d6547419c}-Sky Cinema.png</ZipFileName>
-        <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\Sky Cinema.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Sky Dokumentationen.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{a95199d5-94b6-45c0-bfda-e933b3e33b97}-Sky Dokumentationen.png</ZipFileName>
-        <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\Sky Dokumentationen.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Clickfinder\Categories\Sport.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{1f2893e9-26d5-47e6-8c6b-44511ba54de0}-Sport.png</ZipFileName>
-        <DestinationFilename>%Skin%\DefaultWide\Media\Clickfinder\Categories\Sport.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Dokumentationen.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{40d534f3-81f2-4eb4-b29f-f631b194e6e0}-Dokumentationen.png</ZipFileName>
-        <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\Dokumentationen.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\HDTV.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{dcb3648b-7553-4f0c-8efe-2e5e01faf1af}-HDTV.png</ZipFileName>
-        <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\HDTV.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\LateTime.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{788389f4-e7d2-48b6-ba5e-7712d0bc4009}-LateTime.png</ZipFileName>
-        <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\LateTime.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Magazine.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{7bc6dbd3-ee9f-4580-b867-4d5ee905c3e4}-Magazine.png</ZipFileName>
-        <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\Magazine.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Movies.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{a1a0ce6e-ead9-4f18-b910-4d9f1218f84b}-Movies.png</ZipFileName>
-        <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\Movies.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Now.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{f0bf83fa-3844-4613-bd0f-286c60507bcd}-Now.png</ZipFileName>
-        <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\Now.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Preview.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{693ca29c-957c-4169-a2ca-4f94d599ac61}-Preview.png</ZipFileName>
-        <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\Preview.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\PrimeTime.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{a5e37300-f3cb-4d40-ace5-85f85e114d7f}-PrimeTime.png</ZipFileName>
-        <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\PrimeTime.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Reportagen.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{9075b569-fda5-44e7-8b6b-dee6843b5e4d}-Reportagen.png</ZipFileName>
-        <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\Reportagen.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Serien.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{f890f15b-bd3a-49c2-b5dc-5e4cd8e99d86}-Serien.png</ZipFileName>
-        <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\Serien.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Sky Cinema.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{139447c5-0bd1-4759-96d4-42ee88452bd0}-Sky Cinema.png</ZipFileName>
-        <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\Sky Cinema.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Sky Dokumentationen.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{a81b61d0-cce2-4ee4-a24c-b6039e1e90e7}-Sky Dokumentationen.png</ZipFileName>
-        <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\Sky Dokumentationen.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Clickfinder\Categories\Sport.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{cd1ca6d8-82c1-4197-80de-d3cfd740fe00}-Sport.png</ZipFileName>
-        <DestinationFilename>%Skin%\StreamedMP\Media\Clickfinder\Categories\Sport.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_SepHor.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{4346ee80-3170-4266-9f6f-8a51aeb9a6ae}-ClickfinderPG_SepHor.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_SepHor.png</DestinationFilename>
@@ -1195,37 +894,100 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R2.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{bfacd9fd-ca3b-48df-bacd-53c88e97fec2}-ClickfinderPG_R2.png</ZipFileName>
-        <DestinationFilename>%Thumbs%\ClickfinderPG\ClickfinderPG_R2.png</DestinationFilename>
+        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Dokumentationen.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{01cedb8c-86af-4aaa-a9dc-8dd639150e46}-Dokumentationen.png</ZipFileName>
+        <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Dokumentationen.png</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R4.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{40e5da28-e2fa-4a44-b449-f3260569152f}-ClickfinderPG_R4.png</ZipFileName>
-        <DestinationFilename>%Thumbs%\ClickfinderPG\ClickfinderPG_R4.png</DestinationFilename>
+        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Fußball LIVE.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{bf1450af-d121-49a6-83a3-a773fc24381b}-Fu_ball LIVE.png</ZipFileName>
+        <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Fußball LIVE.png</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R5.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{642cb135-1e31-403b-a481-439eaa7140a0}-ClickfinderPG_R5.png</ZipFileName>
-        <DestinationFilename>%Thumbs%\ClickfinderPG\ClickfinderPG_R5.png</DestinationFilename>
+        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\HDTV.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{cb742d58-bcf6-41f7-8573-303be6e09257}-HDTV.png</ZipFileName>
+        <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\HDTV.png</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R6.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{3cf550fb-fb37-4823-939b-669a9e138d82}-ClickfinderPG_R6.png</ZipFileName>
-        <DestinationFilename>%Thumbs%\ClickfinderPG\ClickfinderPG_R6.png</DestinationFilename>
+        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\LateTime.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{a2395b5a-1302-456b-9f4c-d750fbbae413}-LateTime.png</ZipFileName>
+        <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\LateTime.png</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\ClickfinderPG_R1.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{9c76ed9f-dea7-4f64-b927-1fa03ad14882}-ClickfinderPG_R1.png</ZipFileName>
-        <DestinationFilename>%Thumbs%\ClickfinderPG\ClickfinderPG_R1.png</DestinationFilename>
+        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Magazine.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{8a092813-1c18-4104-b658-0be3ec4052f0}-Magazine.png</ZipFileName>
+        <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Magazine.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Movies.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{43c40c0a-3a92-40c7-8e21-7e124242de6d}-Movies.png</ZipFileName>
+        <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Movies.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Now.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{bf22d1f0-db7e-4e3d-8f65-0a96107360b7}-Now.png</ZipFileName>
+        <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Now.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Preview.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{fa6fb329-5148-4cae-8a82-11e96a214486}-Preview.png</ZipFileName>
+        <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Preview.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\PrimeTime.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{0c92e28d-8aa3-44eb-b43c-d0349560dd29}-PrimeTime.png</ZipFileName>
+        <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\PrimeTime.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Reportagen.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{d4a2de1c-2220-4a76-8b9a-5f0787e1b11b}-Reportagen.png</ZipFileName>
+        <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Reportagen.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Serien.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{f038700b-3626-4090-b1a6-1cc6f24caee4}-Serien.png</ZipFileName>
+        <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Serien.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Sky Cinema.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{b400be9f-2b8b-4c26-bc60-81485485b64b}-Sky Cinema.png</ZipFileName>
+        <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Sky Cinema.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Sky Dokumentationen.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{5dc06dda-ab16-454e-9454-012198ee85cc}-Sky Dokumentationen.png</ZipFileName>
+        <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Sky Dokumentationen.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Sport.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{1d117af9-eb26-4d21-95ca-b0a8b04a7e1f}-Sport.png</ZipFileName>
+        <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Sport.png</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />

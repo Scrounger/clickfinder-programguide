@@ -15,10 +15,11 @@
     <entry name="UpdateInterval">1</entry>
     <entry name="LiveCorrection">true</entry>
     <entry name="WdhCorrection">false</entry>
-    <entry name="VisibleTagesCategories">Movies;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;</entry>
-    <entry name="VisibleVorschauCategories">Movies;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;Fußball LIVE;</entry>   
+    <entry name="ListLabelOffsetY">26</entry>
     <entry name="AvailableTagesCategories">Movies;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;</entry>
+    <entry name="VisibleTagesCategories">Movies;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;</entry>
     <entry name="AvailableVorschauCategories">Movies;Tv Movie Tages Tipp;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;Fußball LIVE;</entry>
+    <entry name="VisibleVorschauCategories">Movies;Tv Movie Tages Tipp;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;Fußball LIVE;</entry>         
   </section>
   <section name="Save">
     <entry name="LastUpdate">01.01.2011</entry>

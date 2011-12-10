@@ -53,6 +53,7 @@ Partial Class Setup
         Me.CBWdhCorretcion = New System.Windows.Forms.CheckBox
         Me.TabControl1 = New System.Windows.Forms.TabControl
         Me.TabPage1 = New System.Windows.Forms.TabPage
+        Me.CBListOffsetY = New System.Windows.Forms.ComboBox
         Me.Label13 = New System.Windows.Forms.Label
         Me.Label12 = New System.Windows.Forms.Label
         Me.TabPage2 = New System.Windows.Forms.TabPage
@@ -95,6 +96,7 @@ Partial Class Setup
         Me.Label14 = New System.Windows.Forms.Label
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel
+        Me.Label24 = New System.Windows.Forms.Label
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -434,6 +436,8 @@ Partial Class Setup
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.Label24)
+        Me.TabPage1.Controls.Add(Me.CBListOffsetY)
         Me.TabPage1.Controls.Add(Me.Label13)
         Me.TabPage1.Controls.Add(Me.Label12)
         Me.TabPage1.Controls.Add(Me.tfClickfinderPath)
@@ -450,6 +454,17 @@ Partial Class Setup
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Allgemeines"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'CBListOffsetY
+        '
+        Me.CBListOffsetY.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBListOffsetY.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CBListOffsetY.FormattingEnabled = True
+        Me.CBListOffsetY.Location = New System.Drawing.Point(246, 196)
+        Me.CBListOffsetY.Margin = New System.Windows.Forms.Padding(4)
+        Me.CBListOffsetY.Name = "CBListOffsetY"
+        Me.CBListOffsetY.Size = New System.Drawing.Size(54, 24)
+        Me.CBListOffsetY.TabIndex = 38
         '
         'Label13
         '
@@ -913,6 +928,17 @@ Partial Class Setup
         Me.LinkLabel1.Tag = ""
         Me.LinkLabel1.Text = "Ausführliche Anleitung im Wiki"
         '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label24.Location = New System.Drawing.Point(24, 199)
+        Me.Label24.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(185, 16)
+        Me.Label24.TabIndex = 39
+        Me.Label24.Text = "Kategorien Label Y-Offset:"
+        '
         'Setup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
@@ -1021,4 +1047,6 @@ Partial Class Setup
     Friend WithEvents PictureBox5 As System.Windows.Forms.PictureBox
     Friend WithEvents Label23 As System.Windows.Forms.Label
     Friend WithEvents LinkLabel1 As System.Windows.Forms.LinkLabel
+    Friend WithEvents CBListOffsetY As System.Windows.Forms.ComboBox
+    Friend WithEvents Label24 As System.Windows.Forms.Label
 End Class

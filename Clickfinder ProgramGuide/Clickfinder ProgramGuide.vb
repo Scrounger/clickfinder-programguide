@@ -167,8 +167,8 @@ Namespace ClickfinderProgramGuide
         Private _TippClickfinderSendungChannelName As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String)
         Private MyTVDB As clsTheTVdb = New clsTheTVdb("de")
 
-        'Private _ListStandardOffSetY As Integer
-        'Private _ListOffSetY As Integer
+        Private _ListStandardOffSetY As Integer
+        Private _ListOffSetY As Integer
 #End Region
 
 
@@ -240,10 +240,9 @@ Namespace ClickfinderProgramGuide
             Log.Debug("Clickfinder ProgramGuide: [OnPageLoad]: Load -----------")
             Log.Debug("")
 
-            '_ListStandardOffSetY = ctlList.TextOffsetY
-            '_ListOffSetY = ctlList.TextOffsetY + 3
+            _ListStandardOffSetY = ctlList.TextOffsetY
+            _ListOffSetY = ctlList.TextOffsetY + CInt(MPSettingRead("config", "ListLabelOffsetY"))
 
-            'MsgBox(_ListStandardOffSetY)
             Dictonary()
 
             ctlProgressBar.Visibility = Windows.Visibility.Hidden
@@ -511,6 +510,7 @@ Namespace ClickfinderProgramGuide
 
 
 
+
             ShowCategories()
 
 
@@ -722,9 +722,7 @@ Namespace ClickfinderProgramGuide
                 End If
             Next
 
-            'ctlList.SetTextOffsets(ctlList.TextOffsetX, _ListStandardOffSetY, ctlList.TextOffsetX2, ctlList.TextOffsetY2, ctlList.TextOffsetX3, ctlList.TextOffsetY3)
-
-            'Log.Debug("Clickfinder ProgramGuide: [ListControlClick] - Available Categories: " & _Log)
+            ctlList.SetTextOffsets(ctlList.TextOffsetX, _ListStandardOffSetY, ctlList.TextOffsetX2, ctlList.TextOffsetY2, ctlList.TextOffsetX3, ctlList.TextOffsetY3)
 
             _Rating = MPSettingRead("config", "ClickfinderRating")
             _RespectInFavGroup = True
@@ -825,7 +823,8 @@ Namespace ClickfinderProgramGuide
                 _CurrentCategorie = ""
                 _RespectInFavGroup = False
                 ctlList.ListItems.Clear()
-                'ctlList.SetTextOffsets(ctlList.TextOffsetX, _ListOffSetY, ctlList.TextOffsetX2, ctlList.TextOffsetY2, ctlList.TextOffsetX3, ctlList.TextOffsetY3)
+
+                ctlList.SetTextOffsets(ctlList.TextOffsetX, _ListOffSetY, ctlList.TextOffsetX2, ctlList.TextOffsetY2, ctlList.TextOffsetX3, ctlList.TextOffsetY3)
 
                 If _CurrentQuery = "Preview" Then
                     _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung = 4", "Beginn ASC, Bewertung DESC, Titel")
@@ -874,6 +873,7 @@ Namespace ClickfinderProgramGuide
                 btnPrimeTime.Focus = False
                 btnLateTime.Focus = False
                 btnPreview.Focus = False
+
 
 
             Catch ex As Exception
