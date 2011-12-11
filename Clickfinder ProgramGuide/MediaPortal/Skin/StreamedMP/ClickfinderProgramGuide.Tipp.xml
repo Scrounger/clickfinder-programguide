@@ -71,9 +71,9 @@
       <description>FavoritenTipp0 RatingStar ImageList</description>
       <type>imagelist</type>
       <id>118</id>
-      <posX>1120</posX>
+      <posX>1130</posX>
       <posY>158</posY>
-      <width>120</width>
+      <width>110</width>
       <height>40</height>
       <textureWidth>12</textureWidth>
       <textureHeight>12</textureHeight>
@@ -84,7 +84,7 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
-      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.isvisible(100)</visible>
+      <visible>false</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
@@ -222,9 +222,9 @@
       <description>FavoritenTipp1 RatingStar ImageList</description>
       <type>imagelist</type>
       <id>128</id>
-      <posX>1120</posX>
+      <posX>1130</posX>
       <posY>272</posY>
-      <width>120</width>
+      <width>110</width>
       <height>40</height>
       <textureWidth>12</textureWidth>
       <textureHeight>12</textureHeight>
@@ -235,7 +235,7 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
-      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.isvisible(101)</visible>
+      <visible>false</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
@@ -373,9 +373,9 @@
       <description>FavoritenTipp2 RatingStar ImageList</description>
       <type>imagelist</type>
       <id>138</id>
-      <posX>1120</posX>
+      <posX>1130</posX>
       <posY>392</posY>
-      <width>120</width>
+      <width>110</width>
       <height>40</height>
       <textureWidth>12</textureWidth>
       <textureHeight>12</textureHeight>
@@ -386,7 +386,7 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
-      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.isvisible(102)</visible>
+      <visible>false</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
@@ -525,9 +525,9 @@
       <description>FavoritenTipp3 RatingStar ImageList</description>
       <type>imagelist</type>
       <id>148</id>
-      <posX>1120</posX>
+      <posX>1130</posX>
       <posY>500</posY>
-      <width>120</width>
+      <width>110</width>
       <height>40</height>
       <textureWidth>12</textureWidth>
       <textureHeight>12</textureHeight>
@@ -538,7 +538,7 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
-      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.isvisible(103)</visible>
+      <visible>false</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
@@ -678,9 +678,9 @@
       <description>FavoritenTipp4 RatingStar ImageList</description>
       <type>imagelist</type>
       <id>158</id>
-      <posX>1120</posX>
+      <posX>1130</posX>
       <posY>614</posY>
-      <width>120</width>
+      <width>110</width>
       <height>40</height>
       <textureWidth>12</textureWidth>
       <textureHeight>12</textureHeight>
@@ -691,7 +691,7 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
-      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.isvisible(104)</visible>
+      <visible>false</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>

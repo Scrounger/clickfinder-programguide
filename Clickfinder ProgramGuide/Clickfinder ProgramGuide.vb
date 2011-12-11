@@ -812,7 +812,7 @@ Namespace ClickfinderProgramGuide
         Private Sub ShowCategories()
 
             Dim _ProgressBar As New Thread(AddressOf ShowProgressbar)
-            Dim _Threat As New Thread(AddressOf ShowTipps)
+
 
 
 
@@ -1051,7 +1051,7 @@ Namespace ClickfinderProgramGuide
                 CloseClickfinderDB()
 
 
-
+                RatingStarsVisble()
 
                 ctlProgressBar.Visible = False
 
@@ -1168,8 +1168,9 @@ Namespace ClickfinderProgramGuide
                                     'Abbruch wenn alle Tipps gefüllt sind
                                     If _TippsCounter >= _idStoppCounter Then
                                         CloseTvServerDB()
-                                        CloseClickfinderDB()
+                                        CloseClickfinderDB()                                        
                                         ctlProgressBar.Visible = False
+                                        RatingStarsVisble()
                                         Exit Sub
                                     Else
                                         _TippClickfinderSendungID(_TippsCounter) = CLng(ClickfinderData.Item("SendungID"))
@@ -1187,8 +1188,9 @@ Namespace ClickfinderProgramGuide
                                     'Abbruch wenn alle Tipps gefüllt sind
                                     If _TippsCounter >= _idStoppCounter Then
                                         CloseTvServerDB()
-                                        CloseClickfinderDB()
+                                        CloseClickfinderDB()                                        
                                         ctlProgressBar.Visible = False
+                                        RatingStarsVisble()
                                         Exit Sub
                                     Else
                                         _TippClickfinderSendungID(_TippsCounter) = CLng(ClickfinderData.Item("SendungID"))
@@ -1216,7 +1218,9 @@ Namespace ClickfinderProgramGuide
 
                 End While
                 CloseClickfinderDB()
+
                 ctlProgressBar.Visible = False
+                RatingStarsVisble()
 
             Catch ex As Exception
                 Log.Error("Clickfinder ProgramGuide: [ShowTipps]: " & ex.Message)
@@ -1450,10 +1454,17 @@ Namespace ClickfinderProgramGuide
 
         'ProgresBar paralell anzeigen
         Private Sub ShowProgressbar()
+            For Each _item In _GuiImageList
+                _GuiImageList(_item.Key).Visible = False
+            Next
             ctlProgressBar.Visible = True
         End Sub
         Private Sub ShowImportProgressbar()
+            For Each _item In _GuiImageList
+                _GuiImageList(_item.Key).Visible = False
+            Next
             ctlImportProgress.Visible = True
+
         End Sub
 
 #End Region
@@ -1523,12 +1534,8 @@ Namespace ClickfinderProgramGuide
                 End If
 
                 If _Rating > 0 Then
-                    GUIImage.ShowControl(GetID, StartIdofGroup + 8)
-                    _GuiImageList(StartIdofGroup + 8).Visible = True
                     _GuiImageList(StartIdofGroup + 8).Percentage = _Rating * 10
-                Else                
-                    _GuiImageList(StartIdofGroup + 8).SetVisibleCondition(0, False)
-                    _GuiImageList(StartIdofGroup + 8).Visible = False
+                Else
                     _GuiImageList(StartIdofGroup + 8).Percentage = 0
                 End If
 
@@ -1576,6 +1583,17 @@ Namespace ClickfinderProgramGuide
                 Log.Error("Clickfinder ProgramGuide: [ClearTipps]: " & ex.Message)
             End Try
 
+        End Sub
+
+        Private Sub RatingStarsVisble()
+            For Each _item In _GuiImageList
+                If _GuiImageList(_item.Key).Percentage > 0 Then
+                    _GuiImageList(_item.Key).Visible = True
+                Else
+                    _GuiImageList(_item.Key).Visible = False
+                End If
+
+            Next
         End Sub
         Private Function FormatTimeLabel(ByVal _StartZeit As Date, ByVal _EndZeit As Date)
 

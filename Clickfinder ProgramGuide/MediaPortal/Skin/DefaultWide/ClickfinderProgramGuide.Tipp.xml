@@ -75,7 +75,7 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
-      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.isvisible(100)</visible>
+      <visible>false</visible>
     </control>
     <control>
       <description>FavoritenTipp0 Zeit</description>
@@ -206,7 +206,7 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
-      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.isvisible(101)</visible>
+      <visible>false</visible>
     </control>
     <control>
       <description>FavoritenTipp1 Zeit</description>
@@ -339,7 +339,7 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
-      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.isvisible(102)</visible>
+      <visible>false</visible>
     </control>
     <control>
       <description>FavoritenTipp2 Zeit</description>
@@ -473,7 +473,7 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
-      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.isvisible(103)</visible>
+      <visible>false</visible>
     </control>
     <control>
       <description>FavoritenTipp3 Zeit</description>
@@ -608,7 +608,7 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
-      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)+control.isvisible(104)</visible>
+      <visible>false</visible>
     </control>
     <control>
       <description>FavoritenTipp4 Zeit</description>
@@ -620,7 +620,6 @@
       <label></label>
       <font>font9</font>
       <textcolor>ff909090</textcolor>
-
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
