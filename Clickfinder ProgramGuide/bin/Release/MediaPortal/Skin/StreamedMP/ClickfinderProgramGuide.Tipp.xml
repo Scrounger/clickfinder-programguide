@@ -83,7 +83,7 @@
       </subitems>
       <orientation>horizontal</orientation>
       <align>left</align>
-      <imagesToDraw>5</imagesToDraw>
+      <imagesToDraw>10</imagesToDraw>
       <visible>false</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
@@ -234,7 +234,7 @@
       </subitems>
       <orientation>horizontal</orientation>
       <align>left</align>
-      <imagesToDraw>5</imagesToDraw>
+      <imagesToDraw>10</imagesToDraw>
       <visible>false</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
@@ -385,7 +385,7 @@
       </subitems>
       <orientation>horizontal</orientation>
       <align>left</align>
-      <imagesToDraw>5</imagesToDraw>
+      <imagesToDraw>10</imagesToDraw>
       <visible>false</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
@@ -537,7 +537,7 @@
       </subitems>
       <orientation>horizontal</orientation>
       <align>left</align>
-      <imagesToDraw>5</imagesToDraw>
+      <imagesToDraw>10</imagesToDraw>
       <visible>false</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
@@ -690,7 +690,7 @@
       </subitems>
       <orientation>horizontal</orientation>
       <align>left</align>
-      <imagesToDraw>5</imagesToDraw>
+      <imagesToDraw>10</imagesToDraw>
       <visible>false</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>

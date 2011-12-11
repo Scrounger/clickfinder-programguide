@@ -571,8 +571,8 @@ Click Next to continue or Cancel to exit Setup.</Value>
         </CompatibleVersion>
         <SubSystemsUsed>
           <Items>
-            <SubSystemItem Name="MP.SkinEngine" />
             <SubSystemItem Name="MP.Config" />
+            <SubSystemItem Name="MP.SkinEngine" />
           </Items>
         </SubSystemsUsed>
       </PluginDependencyItem>
@@ -589,7 +589,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>0</Minor>
       <Build>6</Build>
-      <Revision>4</Revision>
+      <Revision>5</Revision>
     </Version>
     <ExtensionDescription />
     <VersionDescription />
