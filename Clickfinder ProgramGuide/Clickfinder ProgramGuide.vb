@@ -85,6 +85,8 @@ Namespace ClickfinderProgramGuide
         <SkinControlAttribute(115)> Protected FavBewertung0 As GUIFadeLabel = Nothing
         <SkinControlAttribute(116)> Protected FavKritik0 As GUIFadeLabel = Nothing
         <SkinControlAttribute(117)> Protected FavRatingImage0 As GUIImage = Nothing
+        <SkinControlAttribute(118)> Protected FavRatingStars0 As GUIImageList = Nothing
+
 
         <SkinControlAttribute(120)> Protected FavTitel1 As GUIFadeLabel = Nothing
         <SkinControlAttribute(121)> Protected FavImage1 As GUIImage = Nothing
@@ -94,6 +96,7 @@ Namespace ClickfinderProgramGuide
         <SkinControlAttribute(125)> Protected FavBewertung1 As GUIFadeLabel = Nothing
         <SkinControlAttribute(126)> Protected FavKritik1 As GUIFadeLabel = Nothing
         <SkinControlAttribute(127)> Protected FavRatingImage1 As GUIImage = Nothing
+        <SkinControlAttribute(128)> Protected FavRatingStars1 As GUIImageList = Nothing
 
         <SkinControlAttribute(130)> Protected FavTitel2 As GUIFadeLabel = Nothing
         <SkinControlAttribute(131)> Protected FavImage2 As GUIImage = Nothing
@@ -103,6 +106,7 @@ Namespace ClickfinderProgramGuide
         <SkinControlAttribute(135)> Protected FavBewertung2 As GUIFadeLabel = Nothing
         <SkinControlAttribute(136)> Protected FavKritik2 As GUIFadeLabel = Nothing
         <SkinControlAttribute(137)> Protected FavRatingImage2 As GUIImage = Nothing
+        <SkinControlAttribute(138)> Protected FavRatingStars2 As GUIImageList = Nothing
 
 
         <SkinControlAttribute(140)> Protected FavTitel3 As GUIFadeLabel = Nothing
@@ -113,6 +117,7 @@ Namespace ClickfinderProgramGuide
         <SkinControlAttribute(145)> Protected FavBewertung3 As GUIFadeLabel = Nothing
         <SkinControlAttribute(146)> Protected FavKritik3 As GUIFadeLabel = Nothing
         <SkinControlAttribute(147)> Protected FavRatingImage3 As GUIImage = Nothing
+        <SkinControlAttribute(148)> Protected FavRatingStars3 As GUIImageList = Nothing
 
         <SkinControlAttribute(150)> Protected FavTitel4 As GUIFadeLabel = Nothing
         <SkinControlAttribute(151)> Protected FavImage4 As GUIImage = Nothing
@@ -122,6 +127,7 @@ Namespace ClickfinderProgramGuide
         <SkinControlAttribute(155)> Protected FavBewertung4 As GUIFadeLabel = Nothing
         <SkinControlAttribute(156)> Protected FavKritik4 As GUIFadeLabel = Nothing
         <SkinControlAttribute(157)> Protected FavRatingImage4 As GUIImage = Nothing
+        <SkinControlAttribute(158)> Protected FavRatingStars4 As GUIImageList = Nothing
 
 
 
@@ -150,7 +156,8 @@ Namespace ClickfinderProgramGuide
         Private _SettingLateTimeHour As Double = CDbl(MPSettingRead("config", "LateTimeHour"))
         Private _SettingLateTimeMinute As Double = CDbl(MPSettingRead("config", "LateTimeMinute"))
         Private _GuiImage As Dictionary(Of Integer, GUIImage) = New Dictionary(Of Integer, GUIImage)
-        Private _GuiButton As Dictionary(Of Integer, GUIButtonControl) = New Dictionary(Of Integer, GUIButtonControl)    
+        Private _GuiButton As Dictionary(Of Integer, GUIButtonControl) = New Dictionary(Of Integer, GUIButtonControl)
+        Private _GuiImageList As Dictionary(Of Integer, GUIImageList) = New Dictionary(Of Integer, GUIImageList)
         Const _idStartCounter As Integer = 110
         Const _idStoppCounter As Integer = 160
         Private _TippClickfinderSendungID0 As Long
@@ -248,11 +255,6 @@ Namespace ClickfinderProgramGuide
             ctlProgressBar.Visibility = Windows.Visibility.Hidden
             DetailsImage.Visibility = Windows.Visibility.Hidden
             btnNow.IsFocused = True
-
-
-            'MsgBox(LiveCorrection & " " & WdhCorrection)
-
-            'btnNow.IsFocused = False
 
 
             'Screen wird das erste Mal geladen
@@ -356,6 +358,7 @@ Namespace ClickfinderProgramGuide
             MyBase.OnPageDestroy(new_windowId)
             _GuiImage.Clear()
             _GuiButton.Clear()
+            _GuiImageList.Clear()
             _TippClickfinderSendungID.Clear()
             _TippClickfinderSendungChannelName.Clear()
             MyTVDB.TheTVdbHandler.ClearCache()
@@ -523,7 +526,6 @@ Namespace ClickfinderProgramGuide
             _ZeitQueryStart = Today.AddHours(_SettingPrimeTimeHour).AddMinutes(_SettingPrimeTimeMinute)
             _ZeitQueryEnde = _ZeitQueryStart.AddHours(4)
             _CurrentQuery = "PrimeTime"
-
 
             ShowCategories()
         End Sub
@@ -1174,7 +1176,7 @@ Namespace ClickfinderProgramGuide
                                         _TippClickfinderSendungChannelName(_TippsCounter) = _ChannelName
                                         FillTipps(_TippsCounter, Sendung.Title, _BildDatei, _ChannelName, _StartZeit, _
                                                   _EndZeit, _Genre, "Bewertung: " & CStr(_Rating), _Kritik, _
-                                                  "ClickfinderPG_R" & CStr(_Bewertung) & ".png", _EpisodenName, _SeriesNum, _EpisodeNum, _Bewertung)
+                                                  "ClickfinderPG_R" & CStr(_Bewertung) & ".png", _EpisodenName, _SeriesNum, _EpisodeNum, _Bewertung, _Rating)
 
                                     End If
 
@@ -1193,7 +1195,7 @@ Namespace ClickfinderProgramGuide
                                         _TippClickfinderSendungChannelName(_TippsCounter) = _ChannelName
                                         FillTipps(_TippsCounter, Sendung.Title, _BildDatei, _ChannelName, _StartZeit, _
                                                   _EndZeit, _Genre, "Bewertung: " & CStr(_Rating), _Kritik, _
-                                                  "ClickfinderPG_R" & CStr(_Bewertung) & ".png", _EpisodenName, _SeriesNum, _EpisodeNum, _Bewertung)
+                                                  "ClickfinderPG_R" & CStr(_Bewertung) & ".png", _EpisodenName, _SeriesNum, _EpisodeNum, _Bewertung, _Rating)
 
                                     End If
 
@@ -1462,7 +1464,7 @@ Namespace ClickfinderProgramGuide
 
         Private Sub FillTipps(ByVal StartIdofGroup As Integer, ByVal _Titel As String, ByVal _FavImagePath As String, _
             ByVal _channelName As String, ByVal _StartZeit As Date, ByVal _EndZeit As Date, ByVal _Genre As String, ByVal _BewertungStr As String, _
-            ByVal _Kritik As String, ByVal _FavRatingImagePath As String, ByVal _EpisodenName As String, ByVal _SeriesNum As String, ByVal _EpisodeNum As String, ByVal _Bewertung As Integer)
+            ByVal _Kritik As String, ByVal _FavRatingImagePath As String, ByVal _EpisodenName As String, ByVal _SeriesNum As String, ByVal _EpisodeNum As String, ByVal _Bewertung As Integer, ByVal _Rating As Integer)
 
 
             Dim _Bilddatei As String
@@ -1520,12 +1522,23 @@ Namespace ClickfinderProgramGuide
                     GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 5, _BewertungStr)
                 End If
 
+                If _Rating > 0 Then
+                    GUIImage.ShowControl(GetID, StartIdofGroup + 8)
+                    _GuiImageList(StartIdofGroup + 8).Visible = True
+                    _GuiImageList(StartIdofGroup + 8).Percentage = _Rating * 10
+                Else                
+                    _GuiImageList(StartIdofGroup + 8).SetVisibleCondition(0, False)
+                    _GuiImageList(StartIdofGroup + 8).Visible = False
+                    _GuiImageList(StartIdofGroup + 8).Percentage = 0
+                End If
 
                 'Kritik 
                 GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 6, _Kritik)
 
                 'Rating Image Path
                 _GuiImage(StartIdofGroup + 7).SetFileName(_FavRatingImagePath)
+
+
 
                 If Not _Titel = "" Then
                     Log.Debug("")
@@ -1552,7 +1565,7 @@ Namespace ClickfinderProgramGuide
             Try
 
                 Do
-                    FillTipps(_TippsCounter, Nothing, "", Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, "", "", "", "", 0)
+                    FillTipps(_TippsCounter, Nothing, "", Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, "", "", "", "", 0, 0)
 
                     _TippsCounter = _TippsCounter + 10
                 Loop Until _TippsCounter = _idStoppCounter
@@ -1641,6 +1654,12 @@ Namespace ClickfinderProgramGuide
             _GuiImage.Add(147, FavRatingImage3)
             _GuiImage.Add(151, FavImage4)
             _GuiImage.Add(157, FavRatingImage4)
+
+            _GuiImageList.Add(118, FavRatingStars0)
+            _GuiImageList.Add(128, FavRatingStars1)
+            _GuiImageList.Add(138, FavRatingStars2)
+            _GuiImageList.Add(148, FavRatingStars3)
+            _GuiImageList.Add(158, FavRatingStars4)
 
             _GuiButton.Add(100, btnTipp0)
             _GuiButton.Add(101, btnTipp1)

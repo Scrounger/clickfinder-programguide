@@ -589,7 +589,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>0</Minor>
       <Build>6</Build>
-      <Revision>0</Revision>
+      <Revision>1</Revision>
     </Version>
     <ExtensionDescription />
     <VersionDescription />
@@ -597,7 +597,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <OnlineLocation />
     <ReleaseDate>2011-12-10T15:57:29</ReleaseDate>
     <Tags />
-    <Location>D:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPEI\Clickfinder ProgramGuide.mpe1</Location>
+    <Location>Z:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPEI\Clickfinder ProgramGuide.mpe1</Location>
     <Params>
       <Items>
         <SectionParam Name="Icon">
