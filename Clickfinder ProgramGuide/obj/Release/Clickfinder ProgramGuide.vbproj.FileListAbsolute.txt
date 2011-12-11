@@ -371,3 +371,4 @@ Z:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickf
 Z:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Sky Cinema.png
 Z:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Sky Dokumentationen.png
 Z:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\Microsoft.mshtml.dll
+Z:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Tages Tipps.png

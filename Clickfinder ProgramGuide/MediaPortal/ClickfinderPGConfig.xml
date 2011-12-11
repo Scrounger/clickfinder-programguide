@@ -18,8 +18,8 @@
     <entry name="ListLabelOffsetY">26</entry>
     <entry name="AvailableTagesCategories">Movies;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;</entry>
     <entry name="VisibleTagesCategories">Movies;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;</entry>
-    <entry name="AvailableVorschauCategories">Movies;Tv Movie Tages Tipp;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;Fußball LIVE;</entry>
-    <entry name="VisibleVorschauCategories">Movies;Tv Movie Tages Tipp;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;Fußball LIVE;</entry>         
+    <entry name="AvailableVorschauCategories">Movies;Tages Tipps;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;Fußball LIVE;</entry>
+    <entry name="VisibleVorschauCategories">Movies;Tages Tipps;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;Fußball LIVE;</entry>         
   </section>
   <section name="Save">
     <entry name="LastUpdate">01.01.2011</entry>
@@ -29,7 +29,7 @@
     <entry name="PreviewWhere">AND Bewertung >= 4 AND KzFilm = true</entry>
     <entry name="OrderBy">Beginn ASC, Rating DESC, SenderKennung DESC</entry>
   </section>
-  <section name="Tv Movie Tages Tipp">
+  <section name="Tages Tipps">
     <entry name="PreviewWhere">AND Bewertung = 4 AND KzFilm = true</entry>
     <entry name="OrderBy">Beginn ASC, Rating DESC, SenderKennung DESC</entry>
   </section>

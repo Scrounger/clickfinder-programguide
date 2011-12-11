@@ -387,6 +387,13 @@
               <ZipFileName>Installer{CopyFile}\{1d117af9-eb26-4d21-95ca-b0a8b04a7e1f}-Sport.png</ZipFileName>
               <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Sport.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Tages Tipps.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{06406efd-93a2-4bf0-b985-61386edcf2e5}-Tages Tipps.png</ZipFileName>
+              <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Tages Tipps.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -571,8 +578,8 @@ Click Next to continue or Cancel to exit Setup.</Value>
         </CompatibleVersion>
         <SubSystemsUsed>
           <Items>
-            <SubSystemItem Name="MP.Config" />
             <SubSystemItem Name="MP.SkinEngine" />
+            <SubSystemItem Name="MP.Config" />
           </Items>
         </SubSystemsUsed>
       </PluginDependencyItem>
@@ -589,7 +596,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>0</Minor>
       <Build>6</Build>
-      <Revision>5</Revision>
+      <Revision>7</Revision>
     </Version>
     <ExtensionDescription />
     <VersionDescription />
@@ -988,6 +995,13 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Sport.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{1d117af9-eb26-4d21-95ca-b0a8b04a7e1f}-Sport.png</ZipFileName>
         <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Sport.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\ClickfinderPG\Categories\Tages Tipps.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{06406efd-93a2-4bf0-b985-61386edcf2e5}-Tages Tipps.png</ZipFileName>
+        <DestinationFilename>%Thumbs%\ClickfinderPG\Categories\Tages Tipps.png</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />

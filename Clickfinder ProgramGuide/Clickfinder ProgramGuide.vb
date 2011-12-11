@@ -26,6 +26,9 @@ Namespace ClickfinderProgramGuide
         Inherits GUIWindow
         Implements ISetupForm
 
+
+
+
 #Region "Skin Controls"
 
         <SkinControlAttribute(2)> Protected btnNow As GUIButtonControl = Nothing
@@ -167,8 +170,8 @@ Namespace ClickfinderProgramGuide
         Private _TippClickfinderSendungChannelName As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String)
         Private MyTVDB As clsTheTVdb = New clsTheTVdb("de")
 
-        Private _ListStandardOffSetY As Integer
-        Private _ListOffSetY As Integer
+        Public _ListStandardOffSetY As Integer
+        Public _ListOffSetY As Integer
 #End Region
 
 #Region "iSetupFormImplementation"
@@ -237,8 +240,10 @@ Namespace ClickfinderProgramGuide
             Log.Debug("Clickfinder ProgramGuide: [OnPageLoad]: Load -----------")
             Log.Debug("")
 
-            _ListStandardOffSetY = ctlList.TextOffsetY
-            _ListOffSetY = ctlList.TextOffsetY + CInt(MPSettingRead("config", "ListLabelOffsetY"))
+            If _ListOffSetY = 0 Then
+                _ListStandardOffSetY = ctlList.TextOffsetY
+                _ListOffSetY = ctlList.TextOffsetY + CInt(MPSettingRead("config", "ListLabelOffsetY"))
+            End If
 
             Dictonary()
 
@@ -247,9 +252,8 @@ Namespace ClickfinderProgramGuide
             btnNow.IsFocused = True
 
 
-            'Screen wird das erste Mal geladen
+            'Screen wird das erste Mal geladen, kein SQL String existiert
             If _ShowSQLString = "" Then
-
 
                 btnNow.IsFocused = False
                 btnPrimeTime.IsFocused = False
@@ -257,17 +261,14 @@ Namespace ClickfinderProgramGuide
                 btnPreview.IsFocused = False
 
                 ctlList.IsFocused = True
-
-
-
                 Button_Now()
-                'Screen wird erneut geladen
+
+                'Screen wird erneut geladen, germkte Ansichten zeigen
             ElseIf _CurrentCategorie = "" Then
-
-
 
                 If Not _CurrentDetailsSendungId = Nothing Then
                     ShowItemDetails(_CurrentDetailsSendungId, _CurrentDetailsSendungChannelName, _CurrentDetailsImageIsPath)
+
 
                     ShowCategories()
                     btnNow.IsFocused = False
@@ -278,6 +279,7 @@ Namespace ClickfinderProgramGuide
 
                     btnBack.IsFocused = True
                 Else
+
                     ShowCategories()
 
                     btnNow.IsFocused = False
@@ -287,14 +289,6 @@ Namespace ClickfinderProgramGuide
 
                     ctlList.IsFocused = True
                 End If
-
-
-
-
-
-
-
-
             Else
                 Dim _ProgressBar As New Thread(AddressOf ShowProgressbar)
                 Dim _Threat As New Thread(AddressOf ShowSelectedCategorieItems)
@@ -343,7 +337,6 @@ Namespace ClickfinderProgramGuide
 
         End Sub
 
-
         Protected Overrides Sub OnPageDestroy(ByVal new_windowId As Integer)
             MyBase.OnPageDestroy(new_windowId)
             _GuiImage.Clear()
@@ -353,6 +346,10 @@ Namespace ClickfinderProgramGuide
             _TippClickfinderSendungChannelName.Clear()
             MyTVDB.TheTVdbHandler.ClearCache()
             MyTVDB.TheTVdbHandler.CloseCache()
+
+            ctlList.SetTextOffsets(ctlList.TextOffsetX, _ListStandardOffSetY, ctlList.TextOffsetX2, ctlList.TextOffsetY2, ctlList.TextOffsetX3, ctlList.TextOffsetY3)
+            _ListStandardOffSetY = Nothing
+            _ListOffSetY = Nothing
 
             Directory.Delete(Config.GetFolder(Config.Dir.Cache) & "\ClickfinderPG", True)
 
@@ -395,7 +392,6 @@ Namespace ClickfinderProgramGuide
 
 
             If control Is btnBack Then
-
 
                 If _TippButtonFocus = True Then
                     DetailsImage.Visible = False
@@ -498,16 +494,11 @@ Namespace ClickfinderProgramGuide
 
             Dim t As DateTime = DateTime.Now.Subtract(New System.TimeSpan(0, _SettingDelayNow, 0))
 
-
             _ZeitQueryStart = Today.AddHours(t.Hour).AddMinutes(t.Minute)
             _ZeitQueryEnde = _ZeitQueryStart.AddHours(4)
             _CurrentQuery = "Now"
 
-
-
-
             ShowCategories()
-
 
         End Sub
 
@@ -529,7 +520,6 @@ Namespace ClickfinderProgramGuide
             _ZeitQueryEnde = _ZeitQueryStart.AddHours(4)
             _CurrentQuery = "LateTime"
 
-
             ShowCategories()
         End Sub
 
@@ -541,7 +531,6 @@ Namespace ClickfinderProgramGuide
             _ZeitQueryStart = Today
             _ZeitQueryEnde = _ZeitQueryStart.AddDays(20)
             _CurrentQuery = "Preview"
-
 
             ShowCategories()
         End Sub
@@ -816,7 +805,7 @@ Namespace ClickfinderProgramGuide
                 ctlList.SetTextOffsets(ctlList.TextOffsetX, _ListOffSetY, ctlList.TextOffsetX2, ctlList.TextOffsetY2, ctlList.TextOffsetX3, ctlList.TextOffsetY3)
 
                 If _CurrentQuery = "Preview" Then
-                    _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung = 4", "Beginn ASC, Bewertung DESC, Titel")
+                    _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND Bewertung >= 4 AND KzFilm = true", "Beginn ASC, SendungenDetails.Rating DESC, Bewertung DESC")
 
                     'Gewählte Kategorien aus ClickfinderPGConfig.xml lesen und in Array packen
                     Dim str_VisiblePreviewCategories() As String = MPSettingRead("config", "VisibleVorschauCategories").ToString.Split(CChar(";"))
@@ -830,7 +819,7 @@ Namespace ClickfinderProgramGuide
                     Next
 
                 Else
-                    _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND KzFilm = true", "Beginn ASC, SendungenDetails.Rating DESC, Titel")
+                    _ShowSQLString = SQLQueryAccess(_ZeitQueryStart, _ZeitQueryEnde, "AND KzFilm = true", "Beginn ASC, SendungenDetails.Rating DESC")
 
                     'Gewählte Kategorien aus ClickfinderPGConfig.xml lesen und in Array packen
                     Dim str_VisibleTagesCategories() As String = MPSettingRead("config", "VisibleTagesCategories").ToString.Split(CChar(";"))
@@ -1099,7 +1088,7 @@ Namespace ClickfinderProgramGuide
                                         _TippClickfinderSendungID(_TippsCounter) = CLng(ClickfinderData.Item("SendungID"))
                                         _TippClickfinderSendungChannelName(_TippsCounter) = _ChannelName
                                         FillTipps(_TippsCounter, Sendung.Title, _BildDatei, _ChannelName, _StartZeit, _
-                                                  _EndZeit, _Genre, "Bewertung: " & CStr(_Rating), _Kritik, _
+                                                  _EndZeit, _Genre, _BewertungStr, _Kritik, _
                                                   "ClickfinderPG_R" & CStr(_Bewertung) & ".png", _EpisodenName, _SeriesNum, _EpisodeNum, _Bewertung, _Rating)
 
                                     End If
@@ -1119,7 +1108,7 @@ Namespace ClickfinderProgramGuide
                                         _TippClickfinderSendungID(_TippsCounter) = CLng(ClickfinderData.Item("SendungID"))
                                         _TippClickfinderSendungChannelName(_TippsCounter) = _ChannelName
                                         FillTipps(_TippsCounter, Sendung.Title, _BildDatei, _ChannelName, _StartZeit, _
-                                                  _EndZeit, _Genre, "Bewertung: " & CStr(_Rating), _Kritik, _
+                                                  _EndZeit, _Genre, _BewertungStr, _Kritik, _
                                                   "ClickfinderPG_R" & CStr(_Bewertung) & ".png", _EpisodenName, _SeriesNum, _EpisodeNum, _Bewertung, _Rating)
 
                                     End If

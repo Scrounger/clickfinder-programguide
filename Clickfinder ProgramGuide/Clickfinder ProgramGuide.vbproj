@@ -301,6 +301,9 @@
     <Content Include="MediaPortal\ClickfinderPGConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="MediaPortal\thumbs\ClickfinderPG\Categories\Tages Tipps.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="ConfigIcons\Config.png">
     </EmbeddedResource>
     <None Include="Resources\Phoenix_1.png" />
