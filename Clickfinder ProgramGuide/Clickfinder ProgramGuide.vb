@@ -8,9 +8,11 @@ Imports MediaPortal.Configuration
 Imports MediaPortal.Utils
 Imports MediaPortal.Util
 Imports TvDatabase
+Imports MediaPortal.Player
 
 Imports Gentle.Common
 Imports TvPlugin
+Imports TvControl
 
 Imports MySql.Data
 Imports MySql.Data.MySqlClient
@@ -136,6 +138,9 @@ Namespace ClickfinderProgramGuide
         Public _CurrentDetailsSendungChannelName As String
         Public _CurrentDetailsImageIsPath As Boolean
 
+        Public _ListStandardOffSetY As Integer
+        Public _ListOffSetY As Integer
+
         Private _TippButtonFocus As Boolean
         Private _TippButtonFocusID As Integer
         Private LiveCorrection As Boolean = CBool(MPSettingRead("config", "LiveCorrection"))
@@ -170,8 +175,9 @@ Namespace ClickfinderProgramGuide
         Private _TippClickfinderSendungChannelName As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String)
         Private MyTVDB As clsTheTVdb = New clsTheTVdb("de")
 
-        Public _ListStandardOffSetY As Integer
-        Public _ListOffSetY As Integer
+        Private _Threat_CreateClickfinderRatingTable As New Thread(AddressOf CreateClickfinderRatingTable)
+
+
 #End Region
 
 #Region "iSetupFormImplementation"
@@ -237,7 +243,6 @@ Namespace ClickfinderProgramGuide
             GUIWindowManager.NeedRefresh()
 
             Log.Debug("")
-            Log.Debug("Clickfinder ProgramGuide: [OnPageLoad]: Load -----------")
             Log.Debug("")
 
             If _ListOffSetY = 0 Then
@@ -249,70 +254,79 @@ Namespace ClickfinderProgramGuide
 
             ctlProgressBar.Visibility = Windows.Visibility.Hidden
             DetailsImage.Visibility = Windows.Visibility.Hidden
+
             btnNow.IsFocused = True
+            btnNow.IsFocused = False
+            btnPrimeTime.IsFocused = False
+            btnLateTime.IsFocused = False
+            btnPreview.IsFocused = False
 
 
-            'Screen wird das erste Mal geladen, kein SQL String existiert
             If _ShowSQLString = "" Then
-
-                btnNow.IsFocused = False
-                btnPrimeTime.IsFocused = False
-                btnLateTime.IsFocused = False
-                btnPreview.IsFocused = False
+                'Screen wird das erste Mal geladen, kein SQL String existiert -> Tages Ansicht Now
+                Log.Debug("")
+                Log.Debug("Clickfinder ProgramGuide: [OnPageLoad]: Load First Time")
+                Log.Debug("Clickfinder ProgramGuide: [OnPageLoad]: Ansicht Now - Categorie")
 
                 ctlList.IsFocused = True
                 Button_Now()
 
-                'Screen wird erneut geladen, germkte Ansichten zeigen
+                'Screen wird erneut geladen, germkte Ansichten zeigen   
             ElseIf _CurrentCategorie = "" Then
+                'Keine Kategorie gespeichert
+                Log.Debug("")
+                Log.Debug("Clickfinder ProgramGuide: [OnPageLoad]: Load again")
 
                 If Not _CurrentDetailsSendungId = Nothing Then
+                    'SendungId vorhanden -> Ansicht Item Details anzeigen
+                    Log.Debug("Clickfinder ProgramGuide: [OnPageLoad]: Detail Ansicht " & _CurrentQuery & ", " & _CurrentDetailsSendungId)
+
+
+                    ShowCategories()
+                    System.Threading.Thread.Sleep(1000)
                     ShowItemDetails(_CurrentDetailsSendungId, _CurrentDetailsSendungChannelName, _CurrentDetailsImageIsPath)
 
 
-                    ShowCategories()
-                    btnNow.IsFocused = False
-                    btnPrimeTime.IsFocused = False
-                    btnLateTime.IsFocused = False
-                    btnPreview.IsFocused = False
+
                     ctlList.IsFocused = False
-
                     btnBack.IsFocused = True
+                
+
                 Else
-
+                    'SendungId nicht vorhanden -> Ansicht Kategorie anzeigen
+                    Log.Debug("Clickfinder ProgramGuide: [OnPageLoad]: Ansicht " & _CurrentQuery)
                     ShowCategories()
-
-                    btnNow.IsFocused = False
-                    btnPrimeTime.IsFocused = False
-                    btnLateTime.IsFocused = False
-                    btnPreview.IsFocused = False
-
                     ctlList.IsFocused = True
                 End If
+
             Else
+                'Kategorie vorhanden -> SelctedKategorie Items Ansicht
+                Log.Debug("")
+                Log.Debug("Clickfinder ProgramGuide: [OnPageLoad]: Load again")
+                If Not _CurrentDetailsSendungId = Nothing Then
+                    Log.Debug("Clickfinder ProgramGuide: [OnPageLoad]: SelectedCategorieItem Detail Ansicht " & _CurrentQuery & " - " & _CurrentCategorie & ", " & _CurrentDetailsSendungId)
+                Else
+                    Log.Debug("Clickfinder ProgramGuide: [OnPageLoad]: SelectedCategorieItem Ansicht " & _CurrentQuery & " - " & _CurrentCategorie)
+                End If
+
                 Dim _ProgressBar As New Thread(AddressOf ShowProgressbar)
                 Dim _Threat As New Thread(AddressOf ShowSelectedCategorieItems)
                 ShowTipps()
                 _ProgressBar.Start()
                 _Threat.Start()
 
-                btnNow.IsFocused = False
-                btnPrimeTime.IsFocused = False
-                btnLateTime.IsFocused = False
-                btnPreview.IsFocused = False
-
                 ctlList.IsFocused = True
 
-
+                'Wenn Sendung ID vorhanden, dann DetailsView anzeigen
                 If Not _CurrentDetailsSendungId = Nothing Then
                     _Threat.Join()
-                    ShowItemDetails(_CurrentDetailsSendungId, _CurrentDetailsSendungChannelName, _CurrentDetailsImageIsPath)
+                    ShowItemDetails(_CurrentDetailsSendungId, _CurrentDetailsSendungChannelName, _CurrentDetailsImageIsPath)                    
                 End If
-
             End If
+
+            Log.Debug("")
             SelectedCategorieLabel.Label = _CurrentCategorie
             AnsichtImage.FileName = Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\Categories\") & _CurrentQuery & ".png"
-
 
         End Sub
         Public Overrides Sub OnAction(ByVal action As MediaPortal.GUI.Library.Action)
@@ -426,14 +440,18 @@ Namespace ClickfinderProgramGuide
 
             If control Is btnTheTvDb Then
 
+                Dim _Channel As Channel
+                ReadTvServerDB("SELECT * FROM channel WHERE displayName = '" & DetailsKanal.Label & "'")
 
-                Dim _ProgressBar As New Thread(AddressOf ShowProgressbar)
-                Dim _Threat As New Thread(AddressOf ShowTheTvDBDetails)
+                While TvServerData.Read
+                    _Channel = Channel.Retrieve(CInt(TvServerData("idChannel")))
+                    Exit While
+                End While
+                CloseTvServerDB()
 
-                _ProgressBar.Start()
-
-                _Threat.Start()
-
+                Dim changeChannel As Channel = DirectCast(_Channel, Channel)
+                MediaPortal.GUI.Library.GUIWindowManager.ActivateWindow(CInt(MediaPortal.GUI.Library.GUIWindow.Window.WINDOW_TVFULLSCREEN))
+                TVHome.ViewChannelAndCheck(changeChannel)
 
             End If
 
@@ -483,6 +501,10 @@ Namespace ClickfinderProgramGuide
             End If
 
         End Sub
+
+        Private Sub test()
+
+        End Sub
 #End Region
 
 #Region "Click Events"
@@ -499,6 +521,7 @@ Namespace ClickfinderProgramGuide
             _CurrentQuery = "Now"
 
             ShowCategories()
+
 
         End Sub
 

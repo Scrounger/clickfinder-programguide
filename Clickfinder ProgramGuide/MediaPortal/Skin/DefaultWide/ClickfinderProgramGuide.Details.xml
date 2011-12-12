@@ -428,6 +428,24 @@
     </control>
 
     <control>
+      <description>theTvDb</description>
+      <type>button</type>
+      <id>88</id>
+      <posX>110</posX>
+      <posY>540</posY>
+      <width>216</width>
+      <label>TheTvDb</label>
+      <onleft>88</onleft>
+      <onright>88</onright>
+      <onup>90</onup>
+      <ondown>89</ondown>
+      <textalign>center</textalign>
+      <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
       <description>Remember</description>
       <type>button</type>
       <id>89</id>
@@ -437,7 +455,7 @@
       <label>Erinnern</label>
       <onleft>89</onleft>
       <onright>89</onright>
-      <onup>90</onup>
+      <onup>88</onup>
       <ondown>91</ondown>
       <textalign>center</textalign>
       <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
@@ -475,13 +493,12 @@
       <onleft>90</onleft>
       <onright>90</onright>
       <onup>91</onup>
-      <ondown>89</ondown>
+      <ondown>88</ondown>
       <textalign>center</textalign>
       <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
-
 
   </controls>
 </window>

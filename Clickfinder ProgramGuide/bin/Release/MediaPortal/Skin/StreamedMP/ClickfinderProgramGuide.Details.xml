@@ -435,8 +435,8 @@
       <posY>540</posY>
       <width>216</width>
       <label>TheTvDb</label>
-      <onleft>89</onleft>
-      <onright>89</onright>
+      <onleft>88</onleft>
+      <onright>88</onright>
       <onup>90</onup>
       <ondown>89</ondown>
       <textalign>center</textalign>

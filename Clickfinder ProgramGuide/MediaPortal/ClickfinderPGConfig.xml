@@ -11,7 +11,7 @@
     <entry name="DelayNow">30</entry>
     <entry name="MinTime">40</entry>
     <entry name="IgnoreMinTimeSeries">true</entry>
-    <entry name="useRatingTvLogos">true</entry>
+    <entry name="useRatingTvLogos">false</entry>
     <entry name="UpdateInterval">1</entry>
     <entry name="LiveCorrection">true</entry>
     <entry name="WdhCorrection">false</entry>
