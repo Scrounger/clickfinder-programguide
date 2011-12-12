@@ -125,7 +125,6 @@
       <width>48</width>
       <height>48</height>
       <texture></texture>
-
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>

@@ -12,7 +12,7 @@ Imports MediaPortal.Player
 
 Imports Gentle.Common
 Imports TvPlugin
-Imports TvControl
+
 
 Imports MySql.Data
 Imports MySql.Data.MySqlClient
@@ -61,12 +61,13 @@ Namespace ClickfinderProgramGuide
         <SkinControlAttribute(41)> Protected DetailsDauer As GUIFadeLabel = Nothing
         <SkinControlAttribute(42)> Protected DetailsKurzKritik As GUIFadeLabel = Nothing
         <SkinControlAttribute(43)> Protected DetailsBewertungen As GUIFadeLabel = Nothing
+        <SkinControlAttribute(44)> Protected DetailsRatingStars As GUIImageList = Nothing
 
-
-        <SkinControlAttribute(88)> Protected btnTheTvDb As GUIButtonControl = Nothing
-        <SkinControlAttribute(89)> Protected btnRemember As GUIButtonControl = Nothing
+        <SkinControlAttribute(86)> Protected btnTheTvDb As GUIButtonControl = Nothing
+        <SkinControlAttribute(87)> Protected btnRemember As GUIButtonControl = Nothing
+        <SkinControlAttribute(88)> Protected btnRecord As GUIButtonControl = Nothing
+        <SkinControlAttribute(89)> Protected btnViewChannel As GUIButtonControl = Nothing
         <SkinControlAttribute(90)> Protected btnBack As GUIButtonControl = Nothing
-        <SkinControlAttribute(91)> Protected btnRecord As GUIButtonControl = Nothing
 
         <SkinControlAttribute(100)> Protected btnTipp0 As GUIButtonControl = Nothing
         <SkinControlAttribute(101)> Protected btnTipp1 As GUIButtonControl = Nothing
@@ -174,9 +175,6 @@ Namespace ClickfinderProgramGuide
         Private _TippClickfinderSendungChannelName4 As String
         Private _TippClickfinderSendungChannelName As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String)
         Private MyTVDB As clsTheTVdb = New clsTheTVdb("de")
-
-        Private _Threat_CreateClickfinderRatingTable As New Thread(AddressOf CreateClickfinderRatingTable)
-
 
 #End Region
 
@@ -407,6 +405,8 @@ Namespace ClickfinderProgramGuide
 
             If control Is btnBack Then
 
+                DetailsRatingStars.Visible = False
+
                 If _TippButtonFocus = True Then
                     DetailsImage.Visible = False
                     btnBack.IsFocused = False
@@ -426,6 +426,11 @@ Namespace ClickfinderProgramGuide
 
             End If
 
+            If control Is btnViewChannel Then
+                Button_ViewChannel()
+
+            End If
+
             If control Is btnRecord Then
 
                 Button_Record()
@@ -440,18 +445,7 @@ Namespace ClickfinderProgramGuide
 
             If control Is btnTheTvDb Then
 
-                Dim _Channel As Channel
-                ReadTvServerDB("SELECT * FROM channel WHERE displayName = '" & DetailsKanal.Label & "'")
 
-                While TvServerData.Read
-                    _Channel = Channel.Retrieve(CInt(TvServerData("idChannel")))
-                    Exit While
-                End While
-                CloseTvServerDB()
-
-                Dim changeChannel As Channel = DirectCast(_Channel, Channel)
-                MediaPortal.GUI.Library.GUIWindowManager.ActivateWindow(CInt(MediaPortal.GUI.Library.GUIWindow.Window.WINDOW_TVFULLSCREEN))
-                TVHome.ViewChannelAndCheck(changeChannel)
 
             End If
 
@@ -558,27 +552,20 @@ Namespace ClickfinderProgramGuide
             ShowCategories()
         End Sub
 
+        Private Sub Button_ViewChannel()
+            Dim _Channel As Channel
+            ReadTvServerDB("SELECT * FROM channel WHERE displayName = '" & DetailsKanal.Label & "'")
 
-        Private Sub Button_CommingTipps()
+            While TvServerData.Read
+                _Channel = Channel.Retrieve(CInt(TvServerData("idChannel")))
+                Exit While
+            End While
+            CloseTvServerDB()
 
-            Dim _Threat1 As New Thread(AddressOf ShowProgressbar)
-            Dim _Threat2 As New Thread(AddressOf CreateClickfinderRatingTable)
-
-            _Threat1.Start()
-            _Threat2.Start()
-
-
-
-
-            '_Threat2.Join()
-
-
-
-
-
+            Dim changeChannel As Channel = DirectCast(_Channel, Channel)
+            MediaPortal.GUI.Library.GUIWindowManager.ActivateWindow(CInt(MediaPortal.GUI.Library.GUIWindow.Window.WINDOW_TVFULLSCREEN))
+            TVHome.ViewChannelAndCheck(changeChannel)
         End Sub
-
-
         Private Sub Button_Record()
             Dim _ClickfinderChannelName As String
             Dim _idChannel As Integer
@@ -1162,6 +1149,8 @@ Namespace ClickfinderProgramGuide
 
             ClearDetails()
 
+
+
             'Detail Info's zeigen - GUIWindow
             DetailsImage.Visible = True
             ctlList.IsFocused = False
@@ -1171,6 +1160,8 @@ Namespace ClickfinderProgramGuide
             btnTipp3.Focus = False
             btnTipp4.Focus = False
             btnBack.IsFocused = True
+
+
 
             For Each _item In _GuiImageList
                 _GuiImageList(_item.Key).Visible = False
@@ -1205,6 +1196,7 @@ Namespace ClickfinderProgramGuide
 
                     DetailsKanal.Label = _ChannelName
                     Dim _Bewertung As Integer = CInt(ClickfinderData.Item("Bewertung"))
+                    Dim _Rating As Integer = CInt(ClickfinderData.Item("Rating"))
 
                     DetailsZeit.Label = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
                                         ":" & Format(CDate(ClickfinderData.Item("Beginn")).Minute, "00") & _
@@ -1219,6 +1211,14 @@ Namespace ClickfinderProgramGuide
                     DetailsDauer.Label = ClickfinderData.Item("Dauer")
                     DetailsKurzKritik.Label = ClickfinderData.Item("Kurzkritik")
                     DetailsBewertungen.Label = Replace(ClickfinderData.Item("Bewertungen"), ";", " ")
+
+                    If _Rating > 0 Then
+                        DetailsRatingStars.Percentage = _Rating * 10
+                        DetailsRatingStars.Visible = True
+                    Else
+                        DetailsRatingStars.Percentage = 0
+                        DetailsRatingStars.Visible = False
+                    End If
 
                     Dim _BildDatei As String
                     If ClickfinderData.Item("KzBilddateiHeruntergeladen") = "false" Then
