@@ -13,7 +13,6 @@ Imports MediaPortal.Player
 Imports Gentle.Common
 Imports TvPlugin
 
-
 Imports MySql.Data
 Imports MySql.Data.MySqlClient
 Imports System.Threading
@@ -27,9 +26,6 @@ Namespace ClickfinderProgramGuide
     Public Class Class1
         Inherits GUIWindow
         Implements ISetupForm
-
-
-
 
 #Region "Skin Controls"
 
@@ -131,6 +127,7 @@ Namespace ClickfinderProgramGuide
 
 
 #End Region
+
 #Region "Variablen"
         Public _ShowSQLString As String
         Public _CurrentCategorie As String
@@ -144,8 +141,7 @@ Namespace ClickfinderProgramGuide
 
         Private _TippButtonFocus As Boolean
         Private _TippButtonFocusID As Integer
-        Private LiveCorrection As Boolean = CBool(MPSettingRead("config", "LiveCorrection"))
-        Private WdhCorrection As Boolean = CBool(MPSettingRead("config", "WdhCorrection"))
+        
 
         Private _ZeitQueryStart As Date
         Private _ZeitQueryEnde As Date
@@ -327,27 +323,27 @@ Namespace ClickfinderProgramGuide
             AnsichtImage.FileName = Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\Categories\") & _CurrentQuery & ".png"
 
         End Sub
-        Public Overrides Sub OnAction(ByVal action As MediaPortal.GUI.Library.Action)
-            MyBase.OnAction(action)
+        'Public Overrides Sub OnAction(ByVal action As MediaPortal.GUI.Library.Action)
+        '    MyBase.OnAction(action)
 
-            If GUIWindowManager.ActiveWindow = GetID Then
-                If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM _
-                Or action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_MOVE_DOWN _
-                Or action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_MOVE_UP _
-                Or action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_PAGE_UP _
-                Or action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_PAGE_DOWN _
-                Or action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_HOME _
-                Or action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_END Then
+        '    If GUIWindowManager.ActiveWindow = GetID Then
+        '        If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM _
+        '        Or action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_MOVE_DOWN _
+        '        Or action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_MOVE_UP _
+        '        Or action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_PAGE_UP _
+        '        Or action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_PAGE_DOWN _
+        '        Or action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_HOME _
+        '        Or action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_END Then
 
-                    If ctlList.IsFocused Then
+        '            If ctlList.IsFocused Then
 
-                    End If
-                End If
+        '            End If
+        '        End If
 
 
-            End If
+        '    End If
 
-        End Sub
+        'End Sub
 
         Protected Overrides Sub OnPageDestroy(ByVal new_windowId As Integer)
             MyBase.OnPageDestroy(new_windowId)
@@ -495,10 +491,6 @@ Namespace ClickfinderProgramGuide
             End If
 
         End Sub
-
-        Private Sub test()
-
-        End Sub
 #End Region
 
 #Region "Click Events"
@@ -567,11 +559,6 @@ Namespace ClickfinderProgramGuide
             TVHome.ViewChannelAndCheck(changeChannel)
         End Sub
         Private Sub Button_Record()
-            Dim _ClickfinderChannelName As String
-            Dim _idChannel As Integer
-            Dim _StartZeit As String
-            Dim _EndZeit As String
-            Dim _Titel As String
 
             Try
                 Log.Debug("")
@@ -582,14 +569,10 @@ Namespace ClickfinderProgramGuide
                 ctlList.IsFocused = False
                 btnBack.IsFocused = True
 
-                ReadClickfinderDB("SELECT * FROM Sendungen WHERE SendungID = '" & _CurrentDetailsSendungId & "'")
+                Dim _ClickfinderDB As New ClickfinderDB("SELECT * FROM Sendungen WHERE SendungID = '" & _CurrentDetailsSendungId & "'")
+                For i As Integer = 0 To _ClickfinderDB.Count - 1
 
-
-                While ClickfinderData.Read
-                    _ClickfinderChannelName = ClickfinderData.Item("SenderKennung")
-                    _Titel = ClickfinderData.Item("Titel")
-                    _StartZeit = CDate(ClickfinderData.Item("Beginn"))
-                    _EndZeit = CDate(ClickfinderData.Item("Ende"))
+                    Dim _idChannel As Integer
 
                     ReadTvServerDB("SELECT * FROM channel WHERE displayName = '" & DetailsKanal.Label & "'")
                     While TvServerData.Read
@@ -598,21 +581,12 @@ Namespace ClickfinderProgramGuide
                     CloseTvServerDB()
 
 
-                    If LiveCorrection = True And ClickfinderData.Item("KzLive") = "true" Then
-                        _Titel = ClickfinderData.Item("Titel") & " (LIVE)"
-                    ElseIf WdhCorrection = True And ClickfinderData.Item("KzWiederholung") = "true" Then
-                        _Titel = ClickfinderData.Item("Titel") & " (Wdh.)"
-                    Else
-                        _Titel = ClickfinderData.Item("Titel")
-                    End If
 
-                    LoadTVProgramInfo(_idChannel, _StartZeit, _EndZeit, _Titel)
+                    Log.Debug("Clickfinder ProgramGuide: [Button_Record]: LoadTVProgramInfo(" & _idChannel & "," & _ClickfinderDB(i).Beginn & "," & _ClickfinderDB(i).Ende & "," & _ClickfinderDB(i).Titel & ")")
+                    LoadTVProgramInfo(_idChannel, _ClickfinderDB(i).Beginn, _ClickfinderDB(i).Ende, _ClickfinderDB(i).Titel)
 
-                    Exit While
-                End While
-
-
-                CloseClickfinderDB()
+                    Exit For
+                Next
 
                 btnRecord.IsFocused = False
                 btnBack.IsFocused = True
@@ -623,29 +597,19 @@ Namespace ClickfinderProgramGuide
 
         End Sub
         Private Sub Button_Remember()
-            Dim _ClickfinderChannelName As String
-            Dim _idChannel As Integer
-            Dim _StartZeit As String
-            Dim _EndZeit As String
-            Dim _Titel As String
-
             Try
                 Log.Debug("")
-                Log.Debug("Clickfinder ProgramGuide: [Button_Remember]: Clicked")
+                Log.Debug("Clickfinder ProgramGuide: [Button_Record]: Clicked")
                 Log.Debug("")
 
                 DetailsImage.Visible = True
                 ctlList.IsFocused = False
                 btnBack.IsFocused = True
 
-                ReadClickfinderDB("SELECT * FROM Sendungen WHERE SendungID = '" & _CurrentDetailsSendungId & "'")
+                Dim _ClickfinderDB As New ClickfinderDB("SELECT * FROM Sendungen WHERE SendungID = '" & _CurrentDetailsSendungId & "'")
+                For i As Integer = 0 To _ClickfinderDB.Count - 1
 
-
-                While ClickfinderData.Read
-                    _ClickfinderChannelName = ClickfinderData.Item("SenderKennung")
-                    _Titel = ClickfinderData.Item("Titel")
-                    _StartZeit = CDate(ClickfinderData.Item("Beginn"))
-                    _EndZeit = CDate(ClickfinderData.Item("Ende"))
+                    Dim _idChannel As Integer
 
                     ReadTvServerDB("SELECT * FROM channel WHERE displayName = '" & DetailsKanal.Label & "'")
                     While TvServerData.Read
@@ -653,27 +617,14 @@ Namespace ClickfinderProgramGuide
                     End While
                     CloseTvServerDB()
 
+                    Log.Debug("Clickfinder ProgramGuide: [Button_Remember]: SetNotify(" & _idChannel & "," & _ClickfinderDB(i).Beginn & "," & _ClickfinderDB(i).Ende & "," & _ClickfinderDB(i).Titel & ")")
+                    SetNotify(_idChannel, _ClickfinderDB(i).Beginn, _ClickfinderDB(i).Ende, _ClickfinderDB(i).Titel)
 
-                    If LiveCorrection = True And ClickfinderData.Item("KzLive") = "true" Then
-                        _Titel = ClickfinderData.Item("Titel") & " (LIVE)"
-                    ElseIf WdhCorrection = True And ClickfinderData.Item("KzWiederholung") = "true" Then
-                        _Titel = ClickfinderData.Item("Titel") & " (Wdh.)"
-                    Else
-                        _Titel = ClickfinderData.Item("Titel")
-                    End If
+                    Exit For
+                Next
 
-                    btnRemember.IsFocused = False
-                    btnBack.IsFocused = True
-
-                    SetNotify(_idChannel, _StartZeit, _EndZeit, _Titel)
-
-                    Exit While
-                End While
-
-
-                CloseClickfinderDB()
-
-
+                btnRemember.IsFocused = False
+                btnBack.IsFocused = True
 
             Catch ex As Exception
                 Log.Error("Clickfinder ProgramGuide: [Button_Remember]: " & ex.Message)
@@ -884,49 +835,25 @@ Namespace ClickfinderProgramGuide
                 ctlList.ListItems.Clear()
                 ctlList.Clear()
 
-                'MsgBox("Categorie: " & _CurrentCategorie & " " & _SettingIgnoreMinTimeSeries & " " & _SettingMinTime)
-
+                'Zurück ListItem hinzufügen
                 AddListControlItem(ctlList.ListItems.Count - 1, "", , , "defaultFolderBack.png")
 
                 'Clickfinder Datenbank öffnen & Daten einlesen
-                ReadClickfinderDB(_ShowSQLString)
+                Dim _ClickfinderDB As New ClickfinderDB(_ShowSQLString)
+                For i As Integer = 0 To _ClickfinderDB.Count - 1
 
-                While ClickfinderData.Read
-
-                    Dim _MinTime As String = Replace(ClickfinderData.Item("Dauer"), " min", "")
-
-                    If CInt(_MinTime) >= _SettingMinTime Then
-                        Dim _MappingName As String = ClickfinderData.Item("SenderKennung")
-                        Dim _Genre As String = ClickfinderData.Item("Genre")
-                        Dim _Bewertung As Integer = CInt(ClickfinderData.Item("Bewertung"))
-                        Dim _BewertungStr As String = Replace(ClickfinderData.Item("Bewertungen"), ";", " ")
-                        Dim _Kritik As String = ClickfinderData.Item("Kurzkritik")
-                        Dim _StartZeit As Date = CDate(ClickfinderData.Item("Beginn"))
-                        Dim _EndZeit As Date = CDate(ClickfinderData.Item("Ende"))
-                        Dim _EpisodenName As String = ClickfinderData.Item("Originaltitel")
-                        Dim _Rating As Integer = CInt(ClickfinderData.Item("Rating"))
-
-                        ' Clickfinder Titel Korrektur bei "Append (Live) / (Whd.)
-                        Dim _Titel As String
-                        If LiveCorrection = True And ClickfinderData.Item("KzLive") = "true" Then
-                            _Titel = ClickfinderData.Item("Titel") & " (LIVE)"
-                        ElseIf WdhCorrection = True And ClickfinderData.Item("KzWiederholung") = "true" Then
-                            _Titel = ClickfinderData.Item("Titel") & " (Wdh.)"
-                        Else
-                            _Titel = ClickfinderData.Item("Titel")
-                        End If
-
+                    If _ClickfinderDB(i).Dauer >= _SettingMinTime Then
 
                         'Tv Server öffnen und TVMovieMapping idChannel ermitteln
-                        ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where stationName = '" & ClickfinderData.Item("SenderKennung").ToString & "'")
+                        ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where stationName = '" & _ClickfinderDB(i).SenderKennung & "'")
 
                         While TvServerData.Read
                             Dim _idChannel As String = TvServerData.Item("idChannel")
                             Dim _ChannelName As String = TvServerData.Item("displayName")
 
                             'Prüfen ob Program in der TV Server Program DB ist
-                            If ProgramFoundinTvDb(_Titel, _idChannel, _StartZeit, _EndZeit) = True Then
-                                Dim Sendung As Program = TvDatabase.Program.RetrieveByTitleTimesAndChannel(_Titel, _StartZeit, _EndZeit, _idChannel)
+                            If ProgramFoundinTvDb(_ClickfinderDB(i).Titel, _idChannel, _ClickfinderDB(i).Beginn, _ClickfinderDB(i).Ende) = True Then
+                                Dim Sendung As Program = TvDatabase.Program.RetrieveByTitleTimesAndChannel(_ClickfinderDB(i).Titel, _ClickfinderDB(i).Beginn, _ClickfinderDB(i).Ende, _idChannel)
 
                                 Dim _SeriesNum As String = Sendung.SeriesNum
                                 Dim _EpisodeNum As String = Sendung.EpisodeNum
@@ -950,7 +877,7 @@ Namespace ClickfinderProgramGuide
 
                                         Dim _TvLogo As String
                                         If _useRatingTvLogos = "true" Then
-                                            _TvLogo = Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\tv\logos\") & Channel.Retrieve(_idChannel).DisplayName & "_" & _Bewertung & ".png"
+                                            _TvLogo = Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\tv\logos\") & Channel.Retrieve(_idChannel).DisplayName & "_" & _ClickfinderDB(i).Bewertung & ".png"
                                         Else
                                             _TvLogo = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & Channel.Retrieve(_idChannel).DisplayName & ".png")
                                         End If
@@ -959,35 +886,35 @@ Namespace ClickfinderProgramGuide
                                         Dim _ListItemInfoLabel As String
                                         Select Case _CurrentCategorie
                                             Case Is = "Serien"
-                                                _ListItemInfoLabel = _EpisodenName
+                                                _ListItemInfoLabel = _ClickfinderDB(i).Originaltitel
                                                 If Not _SeriesNum = "" Or Not _EpisodeNum = "" Then
-                                                    _ListItemInfoLabel = "Folge: " & _EpisodenName _
+                                                    _ListItemInfoLabel = "Folge: " & _ClickfinderDB(i).Originaltitel _
                                                     & vbNewLine & "Staffel " & _SeriesNum _
                                                      & ", Episode " & _EpisodeNum
                                                 Else
-                                                    _ListItemInfoLabel = _EpisodenName _
-                                                    & vbNewLine & _Genre
+                                                    _ListItemInfoLabel = _ClickfinderDB(i).Originaltitel _
+                                                    & vbNewLine & _ClickfinderDB(i).Genre
                                                 End If
 
                                             Case Is = "Fußball LIVE"
-                                                _ListItemInfoLabel = _EpisodenName
+                                                _ListItemInfoLabel = _ClickfinderDB(i).Originaltitel
 
                                             Case Else
-                                                If _Rating > 0 Then
-                                                    _ListItemInfoLabel = _Genre _
-                                                                & vbNewLine & "Bewertung: " & CStr(_Rating) _
-                                                                & vbNewLine & _Kritik
-                                                ElseIf Not _EpisodenName = "" Then
-                                                    _ListItemInfoLabel = _EpisodenName _
-                                                                        & vbNewLine & _Genre
+                                                If _ClickfinderDB(i).Rating > 0 Then
+                                                    _ListItemInfoLabel = _ClickfinderDB(i).Genre _
+                                                                & vbNewLine & "Bewertung: " & CStr(_ClickfinderDB(i).Rating) _
+                                                                & vbNewLine & _ClickfinderDB(i).Kurzkritik
+                                                ElseIf Not _ClickfinderDB(i).Originaltitel = "" Then
+                                                    _ListItemInfoLabel = _ClickfinderDB(i).Originaltitel _
+                                                                        & vbNewLine & _ClickfinderDB(i).Genre
                                                 Else
-                                                    _ListItemInfoLabel = _Genre
+                                                    _ListItemInfoLabel = _ClickfinderDB(i).Genre
                                                 End If
                                         End Select
 
 
-                                        AddListControlItem(ClickfinderData.Item("SendungID"), Sendung.Title.ToString, _
-                                                           FormatTimeLabel(_StartZeit, _EndZeit), _
+                                        AddListControlItem(_ClickfinderDB(i).SendungID, Sendung.Title.ToString, _
+                                                           FormatTimeLabel(_ClickfinderDB(i).Beginn, _ClickfinderDB(i).Ende), _
                                                             _ListItemInfoLabel, _
                                                             _TvLogo)
 
@@ -1002,8 +929,8 @@ Namespace ClickfinderProgramGuide
                         CloseTvServerDB()
                     End If
 
-                End While
-                CloseClickfinderDB()
+                Next
+
                 RatingStarsVisble()
                 ctlProgressBar.Visible = False
                 ctlList.Focus = True
@@ -1022,7 +949,7 @@ Namespace ClickfinderProgramGuide
 
             'Einstellungen aus ClickfinderPGConfig.xml laden & Variablen übergeben / definieren
             Dim _idGroup As String = MPSettingRead("config", "ChannelGroupID")
-            Dim _ClickfinderPath As String = MPSettingRead("config", "ClickfinderPath")
+
             Dim _lastTitel As String = Nothing
             Dim _TippsCounter As Integer = _idStartCounter            
             Dim _SettingMinTime As Integer = CInt(MPSettingRead("config", "MinTime"))
@@ -1034,52 +961,29 @@ Namespace ClickfinderProgramGuide
 
             Try
                 'Clickfinder Datenbank öffnen & Daten einlesen
-                ReadClickfinderDB(_ShowSQLString)
+                Dim _ClickfinderDB As New ClickfinderDB(_ShowSQLString)
+                For i As Integer = 0 To _ClickfinderDB.Count - 1
 
-                While ClickfinderData.Read
-
-                    Dim _MinTime As String = Replace(ClickfinderData.Item("Dauer"), " min", "")
-
-                    If CInt(_MinTime) >= _SettingMinTime Then
+                    If _ClickfinderDB(i).Dauer >= _SettingMinTime Then
                         'Daten aus Clickfinder DB lesen und übergeben
-                        Dim _MappingName As String = ClickfinderData.Item("SenderKennung")
-                        Dim _Genre As String = ClickfinderData.Item("Genre")
-                        Dim _Bewertung As Integer = CInt(ClickfinderData.Item("Bewertung"))
-                        Dim _BewertungStr As String = Replace(ClickfinderData.Item("Bewertungen"), ";", " ")
-                        Dim _Kritik As String = ClickfinderData.Item("Kurzkritik")
-                        Dim _StartZeit As Date = CDate(ClickfinderData.Item("Beginn"))
-                        Dim _EndZeit As Date = CDate(ClickfinderData.Item("Ende"))
-                        Dim _BildDatei As String = _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
-                        Dim _EpisodenName As String = ClickfinderData.Item("Originaltitel")
-                        Dim _Rating As Integer = CInt(ClickfinderData.Item("Rating"))
+                        Dim _BildDatei As String = _ClickfinderDB(i).Bilddateiname
 
 
-                        ' Clickfinder Titel Korrektur bei "Append (Live) / (Whd.)
-                        Dim _Titel As String
-                        If LiveCorrection = True And ClickfinderData.Item("KzLive") = "true" Then
-                            _Titel = ClickfinderData.Item("Titel") & " (LIVE)"
-                        ElseIf WdhCorrection = True And ClickfinderData.Item("KzWiederholung") = "true" Then
-                            _Titel = ClickfinderData.Item("Titel") & " (Wdh.)"
-                        Else
-                            _Titel = ClickfinderData.Item("Titel")
-                        End If
 
-                        If ClickfinderData.Item("KzBilddateiHeruntergeladen") = True Then
-                            _BildDatei = _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
-                        Else
+                        If _ClickfinderDB(i).KzBilddateiHeruntergeladen = False Then
                             _BildDatei = ""
                         End If
 
                         'TvMovieMapping in TvServerDB auslesen & idChannel + displayName übergeben
-                        ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where stationName = '" & ClickfinderData.Item("SenderKennung").ToString & "'")
+                        ReadTvServerDB("Select * from tvmoviemapping Inner Join channel on tvmoviemapping.idChannel = channel.idChannel where stationName = '" & _ClickfinderDB(i).SenderKennung & "'")
 
                         While TvServerData.Read
                             Dim _idChannel As String = TvServerData.Item("idChannel")
                             Dim _ChannelName As String = TvServerData.Item("displayName")
 
                             'Prüfen ob Sendung in der TV DB vorhanden ist - Ja ->
-                            If ProgramFoundinTvDb(_Titel, _idChannel, _StartZeit, _EndZeit) = True Then
-                                Dim Sendung As Program = TvDatabase.Program.RetrieveByTitleTimesAndChannel(_Titel, _StartZeit, _EndZeit, _idChannel)
+                            If ProgramFoundinTvDb(_ClickfinderDB(i).Titel, _idChannel, _ClickfinderDB(i).Beginn, _ClickfinderDB(i).Ende) = True Then
+                                Dim Sendung As Program = TvDatabase.Program.RetrieveByTitleTimesAndChannel(_ClickfinderDB(i).Titel, _ClickfinderDB(i).Beginn, _ClickfinderDB(i).Ende, _idChannel)
 
                                 Dim _SeriesNum As String = Sendung.SeriesNum
                                 Dim _EpisodeNum As String = Sendung.EpisodeNum
@@ -1090,16 +994,15 @@ Namespace ClickfinderProgramGuide
                                     'Abbruch wenn alle Tipps gefüllt sind
                                     If _TippsCounter >= _idStoppCounter Then
                                         CloseTvServerDB()
-                                        CloseClickfinderDB()                                        
                                         ctlProgressBar.Visible = False
                                         RatingStarsVisble()
                                         Exit Sub
                                     Else
-                                        _TippClickfinderSendungID(_TippsCounter) = CLng(ClickfinderData.Item("SendungID"))
+                                        _TippClickfinderSendungID(_TippsCounter) = _ClickfinderDB(i).SendungID
                                         _TippClickfinderSendungChannelName(_TippsCounter) = _ChannelName
-                                        FillTipps(_TippsCounter, Sendung.Title, _BildDatei, _ChannelName, _StartZeit, _
-                                                  _EndZeit, _Genre, _BewertungStr, _Kritik, _
-                                                  "ClickfinderPG_R" & CStr(_Bewertung) & ".png", _EpisodenName, _SeriesNum, _EpisodeNum, _Bewertung, _Rating)
+                                        FillTipps(_TippsCounter, Sendung.Title, _BildDatei, _ChannelName, _ClickfinderDB(i).Beginn, _
+                                                  _ClickfinderDB(i).Ende, _ClickfinderDB(i).Genre, _ClickfinderDB(i).Bewertungen, _ClickfinderDB(i).Kurzkritik, _
+                                                  "ClickfinderPG_R" & CStr(_ClickfinderDB(i).Bewertung) & ".png", _ClickfinderDB(i).Originaltitel, _SeriesNum, _EpisodeNum, _ClickfinderDB(i).Bewertung, _ClickfinderDB(i).Rating)
 
                                     End If
 
@@ -1110,16 +1013,15 @@ Namespace ClickfinderProgramGuide
                                     'Abbruch wenn alle Tipps gefüllt sind
                                     If _TippsCounter >= _idStoppCounter Then
                                         CloseTvServerDB()
-                                        CloseClickfinderDB()                                        
                                         ctlProgressBar.Visible = False
                                         RatingStarsVisble()
                                         Exit Sub
                                     Else
-                                        _TippClickfinderSendungID(_TippsCounter) = CLng(ClickfinderData.Item("SendungID"))
+                                        _TippClickfinderSendungID(_TippsCounter) = _ClickfinderDB(i).SendungID
                                         _TippClickfinderSendungChannelName(_TippsCounter) = _ChannelName
-                                        FillTipps(_TippsCounter, Sendung.Title, _BildDatei, _ChannelName, _StartZeit, _
-                                                  _EndZeit, _Genre, _BewertungStr, _Kritik, _
-                                                  "ClickfinderPG_R" & CStr(_Bewertung) & ".png", _EpisodenName, _SeriesNum, _EpisodeNum, _Bewertung, _Rating)
+                                        FillTipps(_TippsCounter, Sendung.Title, _BildDatei, _ChannelName, _ClickfinderDB(i).Beginn, _
+                                                  _ClickfinderDB(i).Ende, _ClickfinderDB(i).Genre, _ClickfinderDB(i).Bewertungen, _ClickfinderDB(i).Kurzkritik, _
+                                                  "ClickfinderPG_R" & CStr(_ClickfinderDB(i).Bewertung) & ".png", _ClickfinderDB(i).Originaltitel, _SeriesNum, _EpisodeNum, _ClickfinderDB(i).Bewertung, _ClickfinderDB(i).Rating)
 
                                     End If
                                     _TippsCounter = _TippsCounter + 10
@@ -1129,8 +1031,10 @@ Namespace ClickfinderProgramGuide
                         End While
                         CloseTvServerDB()
                     End If
-                End While
-                CloseClickfinderDB()
+
+                    'End While
+                Next
+
                 ctlProgressBar.Visible = False
                 RatingStarsVisble()
 
@@ -1141,15 +1045,11 @@ Namespace ClickfinderProgramGuide
 
         Private Sub ShowItemDetails(ByVal ClickfinderSendungID As String, ByVal ChannelName As String, Optional ByVal ChannelNameIsImagePath As Boolean = False)
 
-            Dim _ClickfinderPath As String = MPSettingRead("config", "ClickfinderPath")
-
             _CurrentDetailsSendungId = ClickfinderSendungID
             _CurrentDetailsSendungChannelName = ChannelName
             _CurrentDetailsImageIsPath = ChannelNameIsImagePath
 
             ClearDetails()
-
-
 
             'Detail Info's zeigen - GUIWindow
             DetailsImage.Visible = True
@@ -1160,8 +1060,6 @@ Namespace ClickfinderProgramGuide
             btnTipp3.Focus = False
             btnTipp4.Focus = False
             btnBack.IsFocused = True
-
-
 
             For Each _item In _GuiImageList
                 _GuiImageList(_item.Key).Visible = False
@@ -1178,42 +1076,38 @@ Namespace ClickfinderProgramGuide
                 End If
             End If
 
-            ReadClickfinderDB("Select * from Sendungen Inner Join SendungenDetails on Sendungen.Pos = SendungenDetails.Pos where Sendungen.SendungID = '" & ClickfinderSendungID & "'")
-
-            While ClickfinderData.Read
+            'Clickfinder Datenbank öffnen & Daten einlesen
+            Dim _ClickfinderDB As New ClickfinderDB("Select * from Sendungen Inner Join SendungenDetails on Sendungen.Pos = SendungenDetails.Pos where Sendungen.SendungID = '" & ClickfinderSendungID & "'")
+            For i As Integer = 0 To _ClickfinderDB.Count - 1
                 Try
 
-                    Dim _Titel As String = ClickfinderData.Item("Titel")
-                    DetailsTitel.Label = ClickfinderData.Item("Titel")
+                    DetailsTitel.Label = _ClickfinderDB(i).Titel
 
-                    If Not ClickfinderData.Item("Beschreibung") = "" Then
-                        If ClickfinderData.Item("KurzBeschreibung") = "" Or ClickfinderData.Item("KurzBeschreibung") = "HDTV" Then
-                            DetailsBeschreibung.Label = Replace(ClickfinderData.Item("Beschreibung"), "<br><br>", vbNewLine)
+                    If Not _ClickfinderDB(i).Beschreibung = "" Then
+                        If _ClickfinderDB(i).KurzBeschreibung = "" Or _ClickfinderDB(i).KurzBeschreibung = "HDTV" Then
+                            DetailsBeschreibung.Label = Replace(_ClickfinderDB(i).Beschreibung, "<br><br>", vbNewLine)
                         Else
-                            DetailsBeschreibung.Label = Replace(ClickfinderData.Item("KurzBeschreibung"), "HDTV,", "") & vbNewLine & vbNewLine & Replace(ClickfinderData.Item("Beschreibung"), "<br><br>", vbNewLine)
+                            DetailsBeschreibung.Label = Replace(_ClickfinderDB(i).KurzBeschreibung, "HDTV,", "") & vbNewLine & vbNewLine & Replace(_ClickfinderDB(i).Beschreibung, "<br><br>", vbNewLine)
                         End If
                     End If
 
                     DetailsKanal.Label = _ChannelName
-                    Dim _Bewertung As Integer = CInt(ClickfinderData.Item("Bewertung"))
-                    Dim _Rating As Integer = CInt(ClickfinderData.Item("Rating"))
+                    DetailsZeit.Label = Format(_ClickfinderDB(i).Beginn.Hour, "00") & _
+                                        ":" & Format(_ClickfinderDB(i).Beginn.Minute, "00") & _
+                                            " - " & Format(_ClickfinderDB(i).Ende.Hour, "00") & _
+                                            ":" & Format(_ClickfinderDB(i).Ende.Minute, "00")
 
-                    DetailsZeit.Label = Format(CDate(ClickfinderData.Item("Beginn")).Hour, "00") & _
-                                        ":" & Format(CDate(ClickfinderData.Item("Beginn")).Minute, "00") & _
-                                            " - " & Format(CDate(ClickfinderData.Item("Ende")).Hour, "00") & _
-                                            ":" & Format(CDate(ClickfinderData.Item("Ende")).Minute, "00")
+                    DetailsGenre.Label = _ClickfinderDB(i).Genre
+                    DetailsActors.Label = _ClickfinderDB(i).Darsteller
+                    DetailsOrgTitel.Label = _ClickfinderDB(i).Originaltitel
+                    DetailsRegie.Label = _ClickfinderDB(i).Regie
+                    DetailsYearLand.Label = _ClickfinderDB(i).Herstellungsland & " " & _ClickfinderDB(i).Herstellungsjahr
+                    DetailsDauer.Label = CStr(_ClickfinderDB(i).Dauer) & " min"
+                    DetailsKurzKritik.Label = _ClickfinderDB(i).Kurzkritik
+                    DetailsBewertungen.Label = Replace(_ClickfinderDB(i).Bewertungen, ";", " ")
 
-                    DetailsGenre.Label = ClickfinderData.Item("Genre")
-                    DetailsActors.Label = ClickfinderData.Item("Darsteller")
-                    DetailsOrgTitel.Label = ClickfinderData.Item("Originaltitel")
-                    DetailsRegie.Label = ClickfinderData.Item("Regie")
-                    DetailsYearLand.Label = ClickfinderData.Item("Herstellungsland") & " " & ClickfinderData.Item("Herstellungsjahr")
-                    DetailsDauer.Label = ClickfinderData.Item("Dauer")
-                    DetailsKurzKritik.Label = ClickfinderData.Item("Kurzkritik")
-                    DetailsBewertungen.Label = Replace(ClickfinderData.Item("Bewertungen"), ";", " ")
-
-                    If _Rating > 0 Then
-                        DetailsRatingStars.Percentage = _Rating * 10
+                    If _ClickfinderDB(i).Rating > 0 Then
+                        DetailsRatingStars.Percentage = _ClickfinderDB(i).Rating * 10
                         DetailsRatingStars.Visible = True
                     Else
                         DetailsRatingStars.Percentage = 0
@@ -1221,39 +1115,31 @@ Namespace ClickfinderProgramGuide
                     End If
 
                     Dim _BildDatei As String
-                    If ClickfinderData.Item("KzBilddateiHeruntergeladen") = "false" Then
+                    If _ClickfinderDB(i).KzBilddateiHeruntergeladen = False Then
                         DetailsImage.KeepAspectRatio = True
                         DetailsImage.Centered = True
 
                         'Premier League
-                        _BildDatei = UseSportLogos(_Titel, _ChannelName)
+                        _BildDatei = UseSportLogos(_ClickfinderDB(i).Titel, _ChannelName)
 
                     Else
                         DetailsImage.KeepAspectRatio = False
                         DetailsImage.Centered = False
-                        _BildDatei = _ClickfinderPath & "\Hyperlinks\" & ClickfinderData.Item("Bilddateiname")
+                        _BildDatei = _ClickfinderDB(i).Bilddateiname
                     End If
 
                     DetailsImage.FileName = _BildDatei
-                    DetailsRatingImage.FileName = "ClickfinderPG_R" & CStr(_Bewertung) & ".png"
+                    DetailsRatingImage.FileName = "ClickfinderPG_R" & CStr(_ClickfinderDB(i).Bewertung) & ".png"
 
                     Log.Debug("Clickfinder ProgramGuide: [ShowItemDetails]: ClkID: " & _CurrentDetailsSendungId)
-                    Log.Debug("Clickfinder ProgramGuide: [ShowItemDetails]: Titel: " & _Titel)
+                    Log.Debug("Clickfinder ProgramGuide: [ShowItemDetails]: Titel: " & _ClickfinderDB(i).Titel)
                     Log.Debug("Clickfinder ProgramGuide: [ShowItemDetails]: Channel: " & _ChannelName)
-                    Log.Debug("Clickfinder ProgramGuide: [ShowItemDetails]: Time: " & (ClickfinderData.Item("Beginn") & " - " & (ClickfinderData.Item("Ende"))))
+                    Log.Debug("Clickfinder ProgramGuide: [ShowItemDetails]: Time: " & (_ClickfinderDB(i).Beginn & " - " & (_ClickfinderDB(i).Ende)))
 
                 Catch ex As Exception
                     Log.Error("Clickfinder ProgramGuide: [ShowItemDetails]: " & ex.Message)
                 End Try
-
-            End While
-
-            CloseClickfinderDB()
-
-
-
-
-
+            Next
 
         End Sub
         Private Sub ShowTheTvDBDetails()
@@ -1509,7 +1395,7 @@ Namespace ClickfinderProgramGuide
 
         End Function
 
-        Public Function UseSportLogos(ByVal _Titel As String, ByVal _channelname As String) As String
+        Private Function UseSportLogos(ByVal _Titel As String, ByVal _channelname As String) As String
 
             Dim _BildDatei As String = Config.GetFile(Config.Dir.Thumbs, "tv\logos\" & _channelname & ".png")
 
@@ -1603,7 +1489,7 @@ Namespace ClickfinderProgramGuide
 
         Public Count As Long
 
-        Public Sub ReadClickfinderDB(ByVal SQLString As String)
+        Private Sub ReadClickfinderDB(ByVal SQLString As String)
 
             Dim ClickfinderPath As String = MPSettingRead("config", "ClickfinderPath")
 
@@ -1630,7 +1516,7 @@ Namespace ClickfinderProgramGuide
 
             End Try
         End Sub
-        Public Sub CloseClickfinderDB()
+        Private Sub CloseClickfinderDB()
 
             Try
                 CmdClickfinderDBRead.Dispose()
@@ -1641,7 +1527,7 @@ Namespace ClickfinderProgramGuide
             End Try
         End Sub
 
-        Public Sub ReadTvServerDB(ByVal SQLString As String)
+        Private Sub ReadTvServerDB(ByVal SQLString As String)
 
             Try
                 ConTvServerDBRead.ConnectionString = Left(Replace(Gentle.Framework.GentleSettings.DefaultProviderConnectionString, " ", ""), InStr(Gentle.Framework.GentleSettings.DefaultProviderConnectionString, "charset=utf8") - 3)
@@ -1663,7 +1549,7 @@ Namespace ClickfinderProgramGuide
             End Try
 
         End Sub
-        Public Sub CloseTvServerDB()
+        Private Sub CloseTvServerDB()
 
             Try
                 CmdTvServerDBRead.Dispose()
@@ -1680,7 +1566,6 @@ Namespace ClickfinderProgramGuide
             Dim Cmd As New MySqlCommand
 
             Dim _SQLString As String = ("SELECT COUNT(*) FROM program WHERE Title = '" & _Titel & "' AND idChannel = " & _idChannel & " AND startTime =" & DateTOMySQLstring(_StartZeit) & " AND endTime =" & DateTOMySQLstring(_EndZeit))
-
             Try
 
                 Con.ConnectionString = Left(Replace(Gentle.Framework.GentleSettings.DefaultProviderConnectionString, " ", ""), InStr(Gentle.Framework.GentleSettings.DefaultProviderConnectionString, "charset=utf8") - 3)
@@ -1852,7 +1737,7 @@ Namespace ClickfinderProgramGuide
 
         End Sub
 
-        Public Sub DBWrite(ByVal SQLString As String)
+        Private Sub DBWrite(ByVal SQLString As String)
 
             Dim _ClickfinderPath As String = MPSettingRead("config", "ClickfinderPath")
 
@@ -1874,7 +1759,7 @@ Namespace ClickfinderProgramGuide
             End Try
         End Sub
 
-        Public Function DoesFieldExist(ByVal tblName As String, _
+        Private Function DoesFieldExist(ByVal tblName As String, _
                                ByVal fldName As String, _
                                ByVal cnnStr As String) As Boolean
 
@@ -1917,13 +1802,13 @@ Namespace ClickfinderProgramGuide
 
 #Region "MediaPortal Funktionen / Dialogs"
         'xml Setting Datei lesen
-        Public Function MPSettingRead(ByVal section As String, ByVal entry As String) As String
+        Private Function MPSettingRead(ByVal section As String, ByVal entry As String) As String
             Using xmlReader As New Settings(Config.GetFile(Config.Dir.Config, "ClickfinderPGConfig.xml"))
                 MPSettingRead = xmlReader.GetValue(section, entry)
             End Using
         End Function
 
-        Public Sub MPSettingsWrite(ByVal section As String, ByVal entry As String, ByVal NewAttribute As String)
+        Private Sub MPSettingsWrite(ByVal section As String, ByVal entry As String, ByVal NewAttribute As String)
             Using xmlReader As New Settings(Config.GetFile(Config.Dir.Config, "ClickfinderPGConfig.xml"))
                 xmlReader.SetValue(section, entry, NewAttribute)
             End Using

@@ -108,6 +108,26 @@
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
+
+    <control>
+      <description>Detail RatingStars Image</description>
+      <type>imagelist</type>
+      <id>44</id>
+      <posX>820</posX>
+      <posY>216</posY>
+      <width>120</width>
+      <height>40</height>
+      <textureWidth>32</textureWidth>
+      <textureHeight>32</textureHeight>
+      <subitems>
+        <subitem>UserRatingStarOff.png</subitem>
+        <subitem>stargood.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>10</imagesToDraw>
+      <visible>false</visible>
+    </control>
     
     <control>
       <description>Label Zeit</description>
@@ -426,55 +446,73 @@
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
-    
+
+
     <control>
-      <description>theTvDb</description>
+      <description>TheTvDB</description>
       <type>button</type>
-      <id>88</id>
+      <id>86</id>
+      <posX>110</posX>
+      <posY>510</posY>
+      <width>216</width>
+      <label>TheTvDB</label>
+      <onleft>86</onleft>
+      <onright>86</onright>
+      <onup>90</onup>
+      <ondown>87</ondown>
+      <textalign>center</textalign>
+      <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+    <control>
+      <description>Remember</description>
+      <type>button</type>
+      <id>87</id>
       <posX>110</posX>
       <posY>540</posY>
       <width>216</width>
-      <label>TheTvDb</label>
-      <onleft>89</onleft>
-      <onright>89</onright>
-      <onup>90</onup>
+      <label>Erinnern</label>
+      <onleft>87</onleft>
+      <onright>87</onright>
+      <onup>86</onup>
+      <ondown>88</ondown>
+      <textalign>center</textalign>
+      <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+    
+    <control>
+      <description>Record</description>
+      <type>button</type>
+      <id>88</id>
+      <posX>110</posX>
+      <posY>570</posY>
+      <width>216</width>
+      <label>Aufnehmen</label>
+      <onleft>88</onleft>
+      <onright>88</onright>
+      <onup>87</onup>
       <ondown>89</ondown>
       <textalign>center</textalign>
       <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
-    
+
+
     <control>
-      <description>Remember</description>
+      <description>View Channel</description>
       <type>button</type>
       <id>89</id>
       <posX>110</posX>
-      <posY>570</posY>
+      <posY>600</posY>
       <width>216</width>
-      <label>Erinnern</label>
+      <label>Kanal einschalten</label>
       <onleft>89</onleft>
       <onright>89</onright>
       <onup>88</onup>
-      <ondown>91</ondown>
-      <textalign>center</textalign>
-      <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
-    </control>
-
-
-    <control>
-      <description>Record</description>
-      <type>button</type>
-      <id>91</id>
-      <posX>110</posX>
-      <posY>600</posY>
-      <width>216</width>
-      <label>Aufnehmen</label>
-      <onleft>91</onleft>
-      <onright>91</onright>
-      <onup>89</onup>
       <ondown>90</ondown>
       <textalign>center</textalign>
       <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
@@ -492,8 +530,8 @@
       <label>Zurück</label>
       <onleft>90</onleft>
       <onright>90</onright>
-      <onup>91</onup>
-      <ondown>88</ondown>
+      <onup>89</onup>
+      <ondown>86</ondown>
       <textalign>center</textalign>
       <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>

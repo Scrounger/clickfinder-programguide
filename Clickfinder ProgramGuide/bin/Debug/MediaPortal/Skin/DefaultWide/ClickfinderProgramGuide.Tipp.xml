@@ -16,103 +16,121 @@
       <wrapString> | </wrapString>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
-      <control>
-        <description>FavoritenTipp0 Image</description>
-        <type>image</type>
-        <id>111</id>
-        <posX>660</posX>
-        <posY>128</posY>
-        <width>130</width>
-        <height>100</height>
-        <texture></texture>
+    <control>
+      <description>FavoritenTipp0 Image</description>
+      <type>image</type>
+      <id>111</id>
+      <posX>660</posX>
+      <posY>128</posY>
+      <width>130</width>
+      <height>100</height>
+      <texture></texture>
 
-        <filtered>yes</filtered>
-        <centered>no</centered>
-        <keepaspectratio>no</keepaspectratio>
+      <filtered>yes</filtered>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
-      </control>
+    </control>
 
-      <control>
-        <description>FavoritenTipp0 Kanal</description>
-        <type>fadelabel</type>
-        <id>112</id>
-        <posX>800</posX>
-        <posY>174</posY>
-        <width>680</width>
-        <align>left</align>
-        <font>font9</font>
-        <textcolor>ff909090</textcolor>
-        <wrapString> | </wrapString>
+    <control>
+      <description>FavoritenTipp0 Kanal</description>
+      <type>fadelabel</type>
+      <id>112</id>
+      <posX>800</posX>
+      <posY>174</posY>
+      <width>680</width>
+      <align>left</align>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
-      </control>
-      <control>
-        <description>FavoritenTipp0 Genre</description>
-        <type>fadelabel</type>
-        <id>113</id>
-        <posX>800</posX>
-        <posY>154</posY>
-        <width>460</width>
-        <label></label>
-        <font>font9</font>
-        <textcolor>ff909090</textcolor>
-        <align>left</align>
+    </control>
+    <control>
+      <description>FavoritenTipp0 Genre</description>
+      <type>fadelabel</type>
+      <id>113</id>
+      <posX>800</posX>
+      <posY>154</posY>
+      <width>460</width>
+      <label></label>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <align>left</align>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
-      </control>
-      <control>
-        <description>FavoritenTipp0 Zeit</description>
-        <type>label</type>
-        <id>114</id>
-        <posX>1240</posX>
-        <posY>174</posY>
-        <align>right</align>
-        <label></label>
-        <font>font9</font>
-        <textcolor>ff909090</textcolor>
+    </control>
+    <control>
+      <description>FavoritenTipp0 RatingStar ImageList</description>
+      <type>imagelist</type>
+      <id>118</id>
+      <posX>1120</posX>
+      <posY>158</posY>
+      <width>120</width>
+      <height>40</height>
+      <textureWidth>12</textureWidth>
+      <textureHeight>12</textureHeight>
+      <subitems>
+        <subitem>UserRatingStarOff.png</subitem>
+        <subitem>stargood.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>10</imagesToDraw>
+      <visible>false</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp0 Zeit</description>
+      <type>label</type>
+      <id>114</id>
+      <posX>1240</posX>
+      <posY>174</posY>
+      <align>right</align>
+      <label></label>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
 
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
-      </control>
-      <control>
-        <description>FavoritenTipp0 BewertungString</description>
-        <type>fadelabel</type>
-        <id>115</id>
-        <posX>800</posX>
-        <posY>194</posY>
-        <width>400</width>
-        <label></label>
-        <font>font9</font>
-        <textcolor>ff909090</textcolor>
-        <align>left</align>
+    </control>
+    <control>
+      <description>FavoritenTipp0 BewertungString</description>
+      <type>fadelabel</type>
+      <id>115</id>
+      <posX>800</posX>
+      <posY>194</posY>
+      <width>400</width>
+      <label></label>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <align>left</align>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
-      </control>
-      <control>
-        <description>FavoritenTipp0 Kritik</description>
-        <type>fadelabel</type>
-        <id>116</id>
-        <posX>800</posX>
-        <posY>214</posY>
-        <width>400</width>
-        <label></label>
-        <font>font9</font>
-        <textcolor>ff909090</textcolor>
-        <align>left</align>
+    </control>
+    <control>
+      <description>FavoritenTipp0 Kritik</description>
+      <type>fadelabel</type>
+      <id>116</id>
+      <posX>800</posX>
+      <posY>214</posY>
+      <width>400</width>
+      <label></label>
+      <font>font9</font>
+      <textcolor>ff909090</textcolor>
+      <align>left</align>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
-      </control>
-      <control>
-        <description>FavoritenTipp0 RatingImage</description>
-        <type>image</type>
-        <id>117</id>
-        <posX>650</posX>
-        <posY>200</posY>
-        <width>48</width>
-        <height>48</height>
-        <texture></texture>
+    </control>
+    <control>
+      <description>FavoritenTipp0 RatingImage</description>
+      <type>image</type>
+      <id>117</id>
+      <posX>650</posX>
+      <posY>200</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture></texture>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+    </control>
 
-        <centered>no</centered>
-        <keepaspectratio>no</keepaspectratio>
-      <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
-      </control>
-    
-    
+
     <!--FavoritenTipp1-->
     <control>
       <description>FavoritenTipp1 Titel</description>
@@ -166,9 +184,28 @@
       <label></label>
       <font>font9</font>
       <textcolor>ff909090</textcolor>
-      
+
       <align>left</align>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp1 RatingStar ImageList</description>
+      <type>imagelist</type>
+      <id>128</id>
+      <posX>1120</posX>
+      <posY>272</posY>
+      <width>120</width>
+      <height>40</height>
+      <textureWidth>12</textureWidth>
+      <textureHeight>12</textureHeight>
+      <subitems>
+        <subitem>UserRatingStarOff.png</subitem>
+        <subitem>stargood.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>10</imagesToDraw>
+      <visible>false</visible>
     </control>
     <control>
       <description>FavoritenTipp1 Zeit</description>
@@ -180,7 +217,7 @@
       <label></label>
       <font>font9</font>
       <textcolor>ff909090</textcolor>
-      
+
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
@@ -193,7 +230,7 @@
       <label></label>
       <font>font9</font>
       <textcolor>ff909090</textcolor>
-      
+
       <align>left</align>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
@@ -207,7 +244,7 @@
       <label></label>
       <font>font9</font>
       <textcolor>ff909090</textcolor>
-      
+
       <align>left</align>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
@@ -280,9 +317,28 @@
       <label></label>
       <font>font9</font>
       <textcolor>ff909090</textcolor>
-      
+
       <align>left</align>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp2 RatingStar ImageList</description>
+      <type>imagelist</type>
+      <id>138</id>
+      <posX>1120</posX>
+      <posY>392</posY>
+      <width>120</width>
+      <height>40</height>
+      <textureWidth>12</textureWidth>
+      <textureHeight>12</textureHeight>
+      <subitems>
+        <subitem>UserRatingStarOff.png</subitem>
+        <subitem>stargood.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>10</imagesToDraw>
+      <visible>false</visible>
     </control>
     <control>
       <description>FavoritenTipp2 Zeit</description>
@@ -294,7 +350,7 @@
       <label></label>
       <font>font9</font>
       <textcolor>ff909090</textcolor>
-      
+
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
@@ -307,7 +363,7 @@
       <label></label>
       <font>font9</font>
       <textcolor>ff909090</textcolor>
-      
+
       <align>left</align>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
@@ -321,7 +377,7 @@
       <label></label>
       <font>font9</font>
       <textcolor>ff909090</textcolor>
-      
+
       <align>left</align>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
@@ -338,10 +394,10 @@
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
-    </control>   
-    
-    
-    
+    </control>
+
+
+
     <!--FavoritenTipp3-->
     <control>
       <description>FavoritenTipp3 Titel</description>
@@ -395,9 +451,28 @@
       <label></label>
       <font>font9</font>
       <textcolor>ff909090</textcolor>
-      
+
       <align>left</align>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp3 RatingStar ImageList</description>
+      <type>imagelist</type>
+      <id>148</id>
+      <posX>1120</posX>
+      <posY>500</posY>
+      <width>120</width>
+      <height>40</height>
+      <textureWidth>12</textureWidth>
+      <textureHeight>12</textureHeight>
+      <subitems>
+        <subitem>UserRatingStarOff.png</subitem>
+        <subitem>stargood.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>10</imagesToDraw>
+      <visible>false</visible>
     </control>
     <control>
       <description>FavoritenTipp3 Zeit</description>
@@ -409,7 +484,7 @@
       <label></label>
       <font>font9</font>
       <textcolor>ff909090</textcolor>
-      
+
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
@@ -422,7 +497,7 @@
       <label></label>
       <font>font9</font>
       <textcolor>ff909090</textcolor>
-      
+
       <align>left</align>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
@@ -436,7 +511,7 @@
       <label></label>
       <font>font9</font>
       <textcolor>ff909090</textcolor>
-      
+
       <align>left</align>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
@@ -511,9 +586,28 @@
       <label></label>
       <font>font9</font>
       <textcolor>ff909090</textcolor>
-      
+
       <align>left</align>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+    </control>
+    <control>
+      <description>FavoritenTipp4 RatingStar ImageList</description>
+      <type>imagelist</type>
+      <id>158</id>
+      <posX>1120</posX>
+      <posY>614</posY>
+      <width>120</width>
+      <height>40</height>
+      <textureWidth>12</textureWidth>
+      <textureHeight>12</textureHeight>
+      <subitems>
+        <subitem>UserRatingStarOff.png</subitem>
+        <subitem>stargood.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>10</imagesToDraw>
+      <visible>false</visible>
     </control>
     <control>
       <description>FavoritenTipp4 Zeit</description>
@@ -525,7 +619,6 @@
       <label></label>
       <font>font9</font>
       <textcolor>ff909090</textcolor>
-      
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
@@ -538,7 +631,7 @@
       <label></label>
       <font>font9</font>
       <textcolor>ff909090</textcolor>
-      
+
       <align>left</align>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
@@ -552,12 +645,12 @@
       <label></label>
       <font>font9</font>
       <textcolor>ff909090</textcolor>
-      
+
       <align>left</align>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
     <control>
-      <description>FavoritenTipp3 RatingImage</description>
+      <description>FavoritenTipp4 RatingImage</description>
       <type>image</type>
       <id>157</id>
       <posX>650</posX>
@@ -570,5 +663,8 @@
       <keepaspectratio>no</keepaspectratio>
       <visible>!control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
     </control>
+
+
+
   </controls>
 </window>
