@@ -825,6 +825,7 @@ Namespace ClickfinderProgramGuide
                 Dim _ClickfinderPath As String = MPSettingRead("config", "ClickfinderPath")
                 Dim _SettingMinTime As Integer = CInt(MPSettingRead("config", "MinTime"))
                 Dim _lastTitel As String = Nothing
+                Dim _lastorgTitel As String = Nothing
                 Dim _FavCounter As Integer = 0
 
                 _RespectInFavGroup = True
@@ -859,18 +860,26 @@ Namespace ClickfinderProgramGuide
                                 Dim _EpisodeNum As String = Sendung.EpisodeNum
 
                                 'angeziegte Tipps und doppelte Einträge abfangen
-                                Select Case Sendung.Title
+
+                                'If (Not Sendung.Title = _lastTitel And Not Sendung.EpisodeName = _lastorgTitel) _
+                                'Or (Not Sendung.Title = FavTitel0.Label And Not Sendung.EpisodeName = FavGenre0.Label) _
+                                'Or (Not Sendung.Title = FavTitel1.Label And Not Sendung.EpisodeName = FavGenre1.Label) _
+                                'Or (Not Sendung.Title = FavTitel2.Label And Not Sendung.EpisodeName = FavGenre2.Label) _
+                                'Or (Not Sendung.Title = FavTitel3.Label And Not Sendung.EpisodeName = FavGenre3.Label) _
+                                'Or (Not Sendung.Title = FavTitel4.Label And Not Sendung.EpisodeName = FavGenre4.Label) Then
+
+                                Select Case _ClickfinderDB(i).Titel & _ClickfinderDB(i).Originaltitel
                                     Case Is = _lastTitel
                                         Exit Select
-                                    Case Is = FavTitel0.Label
+                                    Case Is = FavTitel0.Label & FavGenre0.Label
                                         Exit Select
-                                    Case Is = FavTitel1.Label
+                                    Case Is = FavTitel1.Label & FavGenre1.Label
                                         Exit Select
-                                    Case Is = FavTitel2.Label
+                                    Case Is = FavTitel2.Label & FavGenre2.Label
                                         Exit Select
-                                    Case Is = FavTitel3.Label
+                                    Case Is = FavTitel3.Label & FavGenre3.Label
                                         Exit Select
-                                    Case Is = FavTitel4.Label
+                                    Case Is = FavTitel4.Label & FavGenre4.Label
                                         Exit Select
                                     Case Else
 
@@ -920,9 +929,8 @@ Namespace ClickfinderProgramGuide
 
                                 End Select
 
-                                _lastTitel = Sendung.Title
-
-
+                                _lastTitel = _ClickfinderDB(i).Titel & _ClickfinderDB(i).Originaltitel
+                                '_lastorgTitel = Sendung.EpisodeName
                             End If
                         End While
 
@@ -951,7 +959,7 @@ Namespace ClickfinderProgramGuide
             Dim _idGroup As String = MPSettingRead("config", "ChannelGroupID")
 
             Dim _lastTitel As String = Nothing
-            Dim _TippsCounter As Integer = _idStartCounter            
+            Dim _TippsCounter As Integer = _idStartCounter
             Dim _SettingMinTime As Integer = CInt(MPSettingRead("config", "MinTime"))
 
             Log.Debug("Clickfinder ProgramGuide: [ShowTipps]: Query: " & _CurrentQuery & ", Categorie:" & _CurrentCategorie)
@@ -989,7 +997,7 @@ Namespace ClickfinderProgramGuide
                                 Dim _EpisodeNum As String = Sendung.EpisodeNum
 
 
-                                If Not Sendung.Title = _lastTitel And _RespectInFavGroup = True And ChannelFoundInFavGroup(_idChannel) = True Then
+                                If Not _lastTitel = _ClickfinderDB(i).Titel & _ClickfinderDB(i).Originaltitel And _RespectInFavGroup = True And ChannelFoundInFavGroup(_idChannel) = True Then
 
                                     'Abbruch wenn alle Tipps gefüllt sind
                                     If _TippsCounter >= _idStoppCounter Then
@@ -1008,7 +1016,7 @@ Namespace ClickfinderProgramGuide
 
                                     _TippsCounter = _TippsCounter + 10
 
-                                ElseIf Not Sendung.Title = _lastTitel And _RespectInFavGroup = False Then
+                                ElseIf Not _lastTitel = _ClickfinderDB(i).Titel & _ClickfinderDB(i).Originaltitel And _RespectInFavGroup = False Then
 
                                     'Abbruch wenn alle Tipps gefüllt sind
                                     If _TippsCounter >= _idStoppCounter Then
@@ -1026,7 +1034,7 @@ Namespace ClickfinderProgramGuide
                                     End If
                                     _TippsCounter = _TippsCounter + 10
                                 End If
-                                _lastTitel = Sendung.Title
+                                _lastTitel = _ClickfinderDB(i).Titel & _ClickfinderDB(i).Originaltitel
                             End If
                         End While
                         CloseTvServerDB()
@@ -1042,6 +1050,7 @@ Namespace ClickfinderProgramGuide
                 Log.Error("Clickfinder ProgramGuide: [ShowTipps]: " & ex.Message)
             End Try
         End Sub
+
 
         Private Sub ShowItemDetails(ByVal ClickfinderSendungID As String, ByVal ChannelName As String, Optional ByVal ChannelNameIsImagePath As Boolean = False)
 
@@ -1647,15 +1656,13 @@ Namespace ClickfinderProgramGuide
                 Log.Info("Clickfinder ProgramGuide: [CreateClickfinderRatingTable]: Start Calculate & write Ratings")
 
                 Try
-                    ctlImportProgress.Percentage = 0
-
                     Dim _StartZeit As Date = Today
                     Dim _EndZeit As Date = Today.AddDays(CDbl(MPSettingRead("config", "UpdateInterval")))
                     Dim _SQLString As String = SQLQueryAccess(_StartZeit, _EndZeit, "AND Bewertung >= 1 AND Bewertungen LIKE '%Spann%'")
-
                     Dim _ClickfinderDB As New ClickfinderDB(_SQLString)
                     Dim Max As Integer = _ClickfinderDB.Count
 
+                    ctlImportProgress.Percentage = 0
                     ctlProgressBar.Visible = False
                     ctlImportProgress.IsVisible = True
 

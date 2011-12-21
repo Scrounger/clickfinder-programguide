@@ -94,6 +94,7 @@
       <spinPosY>650</spinPosY>
       <spinAlign>Right</spinAlign>
       <spinColor>ff006698</spinColor>
+      <spinCanFocus>no</spinCanFocus>
       <textureUp>page_up_nofocus.png</textureUp>
       <textureDown>page_down_nofocus.png</textureDown>
       <textureUpFocus>page_up_focus.png</textureUpFocus>
