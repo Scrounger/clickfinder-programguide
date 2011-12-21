@@ -1478,54 +1478,12 @@ Namespace ClickfinderProgramGuide
 
 #Region "TV Movie and TVServer Database Access and Function"
 
-        Public ConClickfinderDBRead As New OleDb.OleDbConnection
-        Public CmdClickfinderDBRead As New OleDb.OleDbCommand
-        Public ClickfinderData As OleDb.OleDbDataReader
-
         'MP - TVServer Datenbank Variablen  - MYSql
         Public ConTvServerDBRead As New MySqlConnection
         Public CmdTvServerDBRead As New MySqlCommand
         Public TvServerData As MySqlDataReader
 
         Public Count As Long
-
-        Private Sub ReadClickfinderDB(ByVal SQLString As String)
-
-            Dim ClickfinderPath As String = MPSettingRead("config", "ClickfinderPath")
-
-            Try
-                ConClickfinderDBRead.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;" & "Data Source=" & ClickfinderPath & "\tvdaten.mdb"
-                ConClickfinderDBRead.Open()
-                'Provider=Microsoft.Jet.OLEDB.4.0;
-                'Provider=Microsoft.ACE.OLEDB.12.0;
-                CmdClickfinderDBRead = ConClickfinderDBRead.CreateCommand
-                CmdClickfinderDBRead.CommandText = SQLString
-
-                ClickfinderData = CmdClickfinderDBRead.ExecuteReader
-
-            Catch ex As Exception
-
-                If IO.File.Exists(ClickfinderPath & "\tvdaten.mdb") Then
-                    Log.Error("Clickfinder ProgramGuide: [ReadClickfinderDB]: " & ex.Message)
-                Else
-                    MPDialogNotify("Warnung ...", "Clickfinder Datenbank nicht gefunden !")
-                End If
-
-                CmdClickfinderDBRead.Dispose()
-                ConClickfinderDBRead.Close()
-
-            End Try
-        End Sub
-        Private Sub CloseClickfinderDB()
-
-            Try
-                CmdClickfinderDBRead.Dispose()
-                ConClickfinderDBRead.Close()
-
-            Catch ex As Exception
-                Log.Error("Clickfinder ProgramGuide: [CloseClickfinderDB]: " & ex.Message)
-            End Try
-        End Sub
 
         Private Sub ReadTvServerDB(ByVal SQLString As String)
 
@@ -1649,114 +1607,95 @@ Namespace ClickfinderProgramGuide
             Dim _BewertungenStrNumber As String
             Dim _Rating As Integer
             Dim _LastUpdate As Date = CDate(MPSettingRead("Save", "LastUpdate"))
-            Dim _UpdateInterval As Double = CDbl(MPSettingRead("config", "UpdateInterval"))
             Dim _Counter As Integer = 0
-            Dim _StartZeit As Date = Today
-            Dim _EndZeit As Date = Today.AddDays(_UpdateInterval)
 
-            If _LastUpdate.AddDays(_UpdateInterval) < Now.Subtract(New System.TimeSpan(4, 5, 0)) Then
-                ctlImportProgress.IsVisible = True
-                ctlImportProgress.Percentage = 0
 
-                If DoesFieldExist("SendungenDetails", _NewColumn, "Select * FROM SendungenDetails") = False Then
+            For Each _item In _GuiImageList
+                _GuiImageList(_item.Key).Visible = False
 
-                    Try
-                        Dim dbConn As New OleDb.OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;" & "Data Source=" & _ClickfinderPath & "\tvdaten.mdb")
-                        dbConn.Open()
+            Next
+            ctlProgressBar.Visible = True
 
-                        Dim dbCmd As New OleDb.OleDbCommand("ALTER TABLE SendungenDetails ADD COLUMN " & _NewColumn & " int DEFAULT 0", dbConn)
-                        dbCmd.ExecuteNonQuery()
+            'Prüfen ob in der Tabelle SendungenDetails die Spalte "Rating" existiert
+            If DoesFieldExist("SendungenDetails", _NewColumn, "Select * FROM SendungenDetails") = False Then
 
-                        Log.Info("Clickfinder ProgramGuide: [CreateClickfinderRatingTable]: RatingField in SendungenDetails created")
+                'Falls nicht -> erstellen
+                Try
+                    Dim dbConn As New OleDb.OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;" & "Data Source=" & _ClickfinderPath & "\tvdaten.mdb")
+                    dbConn.Open()
 
-                        dbCmd.Dispose()
-                        dbConn.Close()
+                    Dim dbCmd As New OleDb.OleDbCommand("ALTER TABLE SendungenDetails ADD COLUMN " & _NewColumn & " int DEFAULT 0", dbConn)
+                    dbCmd.ExecuteNonQuery()
 
-                    Catch ex As Exception
-                        MsgBox(ex.Message)
-                        Log.Error("Clickfinder ProgramGuide: [CreateClickfinderRatingTable]: " & ex.Message)
-                    End Try
-                End If
+                    Log.Info("Clickfinder ProgramGuide: [CreateClickfinderRatingTable]: RatingField in SendungenDetails created")
+
+                    dbCmd.Dispose()
+                    dbConn.Close()
+
+                Catch ex As Exception
+                    Log.Error("Clickfinder ProgramGuide: [CreateClickfinderRatingTable]: " & ex.Message)
+                End Try
+            End If
+
+
+            Dim _TestStartZeit As Date = Today
+            Dim _TestEndZeit As Date = Today.AddHours(6)
+            Dim _RatingField As New ClickfinderDB(Replace(SQLQueryAccess(_TestStartZeit, _TestEndZeit, "AND Bewertung >= 1 AND Rating >= 1 AND KzFilm = true"), "*", "DISTINCT Rating"))
+
+            'Prüfen ob Rating für die kommenden Stunden existiert - ClickfinderDB Update erkennen
+            If _RatingField.Count = 0 Then
+                Log.Info("Clickfinder ProgramGuide: [CreateClickfinderRatingTable]: Start Calculate & write Ratings")
 
                 Try
-                    Log.Info("Clickfinder ProgramGuide: [CreateClickfinderRatingTable]: Start Calculate & write Ratings")
+                    ctlImportProgress.Percentage = 0
 
+                    Dim _StartZeit As Date = Today
+                    Dim _EndZeit As Date = Today.AddDays(CDbl(MPSettingRead("config", "UpdateInterval")))
                     Dim _SQLString As String = SQLQueryAccess(_StartZeit, _EndZeit, "AND Bewertung >= 1 AND Bewertungen LIKE '%Spann%'")
 
-                    Dim Con As New OleDb.OleDbConnection
-                    Dim Cmd As New OleDb.OleDbCommand
-                    Dim DataCount As Long
+                    Dim _ClickfinderDB As New ClickfinderDB(_SQLString)
+                    Dim Max As Integer = _ClickfinderDB.Count
 
-                    Con.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;" & "Data Source=" & _ClickfinderPath & "\tvdaten.mdb"
-                    Con.Open()
+                    ctlProgressBar.Visible = False
+                    ctlImportProgress.IsVisible = True
 
-                    Cmd = Con.CreateCommand
-                    Cmd.CommandText = Replace(_SQLString, "Select *", "SELECT Count (*) As Anzahl")
-                    DataCount = CLng(Cmd.ExecuteScalar)
+                    'Connection DB öffnen fürs schreiben
+                    Dim dbConn As New OleDb.OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;" & "Data Source=" & _ClickfinderPath & "\tvdaten.mdb")
+                    Dim dbCmd As New OleDb.OleDbCommand
+                    dbCmd.Connection = dbConn
+                    dbConn.Open()
 
-                    Cmd.Dispose()
-                    Con.Close()
+                    For i As Integer = 0 To _ClickfinderDB.Count - 1
 
-                    ReadClickfinderDB(_SQLString)
-                    While ClickfinderData.Read
-                        _Counter = _Counter + 1
+                        ctlImportProgress.Percentage = (i + 1) / Max * 100
 
-                        ctlImportProgress.Percentage = _Counter / DataCount * 100
-
-                        _BewertungenStrNumber = Replace(Replace(Replace(Replace(Replace(Replace(Replace(ClickfinderData.Item("Bewertungen"), ";", " "), "Spaß=", ""), "Action=", ""), "Erotik=", ""), "Spannung=", ""), "Gefühl=", ""), "Anspruch=", "")
+                        _BewertungenStrNumber = Replace(Replace(Replace(Replace(Replace(Replace(Replace(_ClickfinderDB(i).Bewertungen, ";", " "), "Spaß=", ""), "Action=", ""), "Erotik=", ""), "Spannung=", ""), "Gefühl=", ""), "Anspruch=", "")
                         _Rating = 0
 
-                        For i = 1 To _BewertungenStrNumber.Length
-                            If IsNumeric(Mid$(_BewertungenStrNumber, i, 1)) Then
-                                _Rating = _Rating + CInt(Mid$(_BewertungenStrNumber, i, 1))
-
+                        For d = 1 To _BewertungenStrNumber.Length
+                            If IsNumeric(Mid$(_BewertungenStrNumber, d, 1)) Then
+                                _Rating = _Rating + CInt(Mid$(_BewertungenStrNumber, d, 1))
                             End If
-
                         Next
 
-                        If Not CInt(ClickfinderData.Item("Sendungen.Pos")) = _Rating Then
-                            DBWrite("UPDATE SendungenDetails SET Rating = '" & _Rating & "' WHERE Pos = " & ClickfinderData.Item("Sendungen.Pos"))
+                        If Not _ClickfinderDB(i).Rating = _Rating Then
+                            dbCmd.CommandText = ("UPDATE SendungenDetails SET Rating = '" & _Rating & "' WHERE Pos = " & _ClickfinderDB(i).Pos)
+                            dbCmd.ExecuteNonQuery()
                         End If
 
-                    End While
-                    CloseClickfinderDB()
-
-                    MPSettingsWrite("Save", "LastUpdate", Now)
-
-                    Log.Info("Clickfinder ProgramGuide: [CreateClickfinderRatingTable]: Calculate & write Ratings - success")
+                    Next
+                    dbConn.Close()
+                    ctlProgressBar.Visible = True
+                    ctlImportProgress.Visible = False
 
                 Catch ex As Exception
                     Log.Error("Clickfinder ProgramGuide: [CreateClickfinderRatingTable]: " & ex.Message)
                 End Try
 
-                ctlProgressBar.Visible = True
-                ctlImportProgress.Visible = False
             End If
 
             ShowTipps()
 
-        End Sub
-
-        Private Sub DBWrite(ByVal SQLString As String)
-
-            Dim _ClickfinderPath As String = MPSettingRead("config", "ClickfinderPath")
-
-            'Connection zur DB herstellen
-            Dim dbConn As New OleDb.OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;" & "Data Source=" & _ClickfinderPath & "\tvdaten.mdb")
-            Dim dbCmd As New OleDb.OleDbCommand
-
-            dbCmd.Connection = dbConn
-
-            Try
-                'Reader mit SQL Anfrage füllen
-                dbConn.Open()
-                dbCmd.CommandText = SQLString
-                dbCmd.ExecuteNonQuery()
-                dbConn.Close()
-
-            Catch ex As Exception
-                MsgBox(ex.Message, MsgBoxStyle.Critical, "Fehler...")
-            End Try
         End Sub
 
         Private Function DoesFieldExist(ByVal tblName As String, _

@@ -390,7 +390,7 @@ Partial Class Setup
         Me.CBUpdateInterval.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CBUpdateInterval.FormattingEnabled = True
         Me.CBUpdateInterval.Items.AddRange(New Object() {"1", "2", "5", "7", "10", "14"})
-        Me.CBUpdateInterval.Location = New System.Drawing.Point(373, 99)
+        Me.CBUpdateInterval.Location = New System.Drawing.Point(395, 99)
         Me.CBUpdateInterval.Margin = New System.Windows.Forms.Padding(4)
         Me.CBUpdateInterval.Name = "CBUpdateInterval"
         Me.CBUpdateInterval.Size = New System.Drawing.Size(54, 24)
@@ -481,23 +481,23 @@ Partial Class Setup
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(435, 105)
+        Me.Label13.Location = New System.Drawing.Point(457, 105)
         Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(41, 16)
+        Me.Label13.Size = New System.Drawing.Size(115, 16)
         Me.Label13.TabIndex = 37
-        Me.Label13.Text = "Tage"
+        Me.Label13.Text = "Tage berechnen"
         '
         'Label12
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(248, 104)
+        Me.Label12.Location = New System.Drawing.Point(315, 102)
         Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(117, 16)
+        Me.Label12.Size = New System.Drawing.Size(72, 16)
         Me.Label12.TabIndex = 36
-        Me.Label12.Text = "Update Interval:"
+        Me.Label12.Text = "Rating für"
         '
         'TabPage2
         '
