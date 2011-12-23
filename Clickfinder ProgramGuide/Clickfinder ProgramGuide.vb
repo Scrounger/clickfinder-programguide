@@ -344,7 +344,6 @@ Namespace ClickfinderProgramGuide
         '    End If
 
         'End Sub
-
         Protected Overrides Sub OnPageDestroy(ByVal new_windowId As Integer)
             MyBase.OnPageDestroy(new_windowId)
             _GuiImage.Clear()
