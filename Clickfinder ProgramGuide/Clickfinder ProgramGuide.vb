@@ -172,6 +172,13 @@ Namespace ClickfinderProgramGuide
         Private _TippClickfinderSendungChannelName As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String)
         Private MyTVDB As clsTheTVdb = New clsTheTVdb("de")
 
+
+        Private _TippClickfinderSendungTitel0 As Long
+        Private _TippClickfinderSendungTitel1 As Long
+        Private _TippClickfinderSendungTitel2 As Long
+        Private _TippClickfinderSendungTitel3 As Long
+        Private _TippClickfinderSendungTitel4 As Long
+        Private _TippClickfinderSendungTitel As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String)
 #End Region
 
 #Region "iSetupFormImplementation"
@@ -350,6 +357,7 @@ Namespace ClickfinderProgramGuide
             _GuiButton.Clear()
             _GuiImageList.Clear()
             _TippClickfinderSendungID.Clear()
+            _TippClickfinderSendungTitel.Clear()
             _TippClickfinderSendungChannelName.Clear()
             MyTVDB.TheTVdbHandler.ClearCache()
             MyTVDB.TheTVdbHandler.CloseCache()
@@ -858,30 +866,17 @@ Namespace ClickfinderProgramGuide
                                 Dim _SeriesNum As String = Sendung.SeriesNum
                                 Dim _EpisodeNum As String = Sendung.EpisodeNum
 
-                                'angeziegte Tipps und doppelte Einträge abfangen
-
-                                'If (Not Sendung.Title = _lastTitel And Not Sendung.EpisodeName = _lastorgTitel) _
-                                'Or (Not Sendung.Title = FavTitel0.Label And Not Sendung.EpisodeName = FavGenre0.Label) _
-                                'Or (Not Sendung.Title = FavTitel1.Label And Not Sendung.EpisodeName = FavGenre1.Label) _
-                                'Or (Not Sendung.Title = FavTitel2.Label And Not Sendung.EpisodeName = FavGenre2.Label) _
-                                'Or (Not Sendung.Title = FavTitel3.Label And Not Sendung.EpisodeName = FavGenre3.Label) _
-                                'Or (Not Sendung.Title = FavTitel4.Label And Not Sendung.EpisodeName = FavGenre4.Label) Then
-
                                 Select Case _ClickfinderDB(i).Titel & _ClickfinderDB(i).Originaltitel
                                     Case Is = _lastTitel
                                         Exit Select
-                                    Case Is = FavTitel0.Label & FavGenre0.Label
-                                        Exit Select
-                                    Case Is = FavTitel1.Label & FavGenre1.Label
-                                        Exit Select
-                                    Case Is = FavTitel2.Label & FavGenre2.Label
-                                        Exit Select
-                                    Case Is = FavTitel3.Label & FavGenre3.Label
-                                        Exit Select
-                                    Case Is = FavTitel4.Label & FavGenre4.Label
-                                        Exit Select
                                     Case Else
 
+                                        For Each item In _TippClickfinderSendungTitel
+                                            If _ClickfinderDB(i).Titel & _ClickfinderDB(i).Originaltitel = _TippClickfinderSendungTitel.Item(item.Key) Then
+                                                MsgBox(_TippClickfinderSendungTitel.Item(item.Key))
+                                                Exit Select
+                                            End If
+                                        Next
 
                                         Dim _TvLogo As String
                                         If _useRatingTvLogos = "true" Then
@@ -920,7 +915,6 @@ Namespace ClickfinderProgramGuide
                                                 End If
                                         End Select
 
-
                                         AddListControlItem(_ClickfinderDB(i).SendungID, Sendung.Title.ToString, _
                                                            FormatTimeLabel(_ClickfinderDB(i).Beginn, _ClickfinderDB(i).Ende), _
                                                             _ListItemInfoLabel, _
@@ -929,7 +923,6 @@ Namespace ClickfinderProgramGuide
                                 End Select
 
                                 _lastTitel = _ClickfinderDB(i).Titel & _ClickfinderDB(i).Originaltitel
-                                '_lastorgTitel = Sendung.EpisodeName
                             End If
                         End While
 
@@ -1007,6 +1000,7 @@ Namespace ClickfinderProgramGuide
                                     Else
                                         _TippClickfinderSendungID(_TippsCounter) = _ClickfinderDB(i).SendungID
                                         _TippClickfinderSendungChannelName(_TippsCounter) = _ChannelName
+                                        _TippClickfinderSendungTitel(_TippsCounter) = _ClickfinderDB(i).Titel & _ClickfinderDB(i).Originaltitel
                                         FillTipps(_TippsCounter, Sendung.Title, _BildDatei, _ChannelName, _ClickfinderDB(i).Beginn, _
                                                   _ClickfinderDB(i).Ende, _ClickfinderDB(i).Genre, _ClickfinderDB(i).Bewertungen, _ClickfinderDB(i).Kurzkritik, _
                                                   "ClickfinderPG_R" & CStr(_ClickfinderDB(i).Bewertung) & ".png", _ClickfinderDB(i).Originaltitel, _SeriesNum, _EpisodeNum, _ClickfinderDB(i).Bewertung, _ClickfinderDB(i).Rating)
@@ -1026,6 +1020,7 @@ Namespace ClickfinderProgramGuide
                                     Else
                                         _TippClickfinderSendungID(_TippsCounter) = _ClickfinderDB(i).SendungID
                                         _TippClickfinderSendungChannelName(_TippsCounter) = _ChannelName
+                                        _TippClickfinderSendungTitel(_TippsCounter) = _ClickfinderDB(i).Titel & _ClickfinderDB(i).Originaltitel
                                         FillTipps(_TippsCounter, Sendung.Title, _BildDatei, _ChannelName, _ClickfinderDB(i).Beginn, _
                                                   _ClickfinderDB(i).Ende, _ClickfinderDB(i).Genre, _ClickfinderDB(i).Bewertungen, _ClickfinderDB(i).Kurzkritik, _
                                                   "ClickfinderPG_R" & CStr(_ClickfinderDB(i).Bewertung) & ".png", _ClickfinderDB(i).Originaltitel, _SeriesNum, _EpisodeNum, _ClickfinderDB(i).Bewertung, _ClickfinderDB(i).Rating)
@@ -1049,7 +1044,6 @@ Namespace ClickfinderProgramGuide
                 Log.Error("Clickfinder ProgramGuide: [ShowTipps]: " & ex.Message)
             End Try
         End Sub
-
 
         Private Sub ShowItemDetails(ByVal ClickfinderSendungID As String, ByVal ChannelName As String, Optional ByVal ChannelNameIsImagePath As Boolean = False)
 
@@ -1475,6 +1469,12 @@ Namespace ClickfinderProgramGuide
             _TippClickfinderSendungID.Add(140, _TippClickfinderSendungID3)
             _TippClickfinderSendungID.Add(150, _TippClickfinderSendungID4)
 
+            _TippClickfinderSendungTitel.Add(110, _TippClickfinderSendungTitel0)
+            _TippClickfinderSendungTitel.Add(120, _TippClickfinderSendungTitel1)
+            _TippClickfinderSendungTitel.Add(130, _TippClickfinderSendungTitel2)
+            _TippClickfinderSendungTitel.Add(140, _TippClickfinderSendungTitel3)
+            _TippClickfinderSendungTitel.Add(150, _TippClickfinderSendungTitel4)
+
             _TippClickfinderSendungChannelName.Add(110, _TippClickfinderSendungChannelName0)
             _TippClickfinderSendungChannelName.Add(120, _TippClickfinderSendungChannelName1)
             _TippClickfinderSendungChannelName.Add(130, _TippClickfinderSendungChannelName2)
@@ -1650,8 +1650,9 @@ Namespace ClickfinderProgramGuide
             Dim _TestEndZeit As Date = Today.AddHours(6)
             Dim _RatingField As New ClickfinderDB(Replace(SQLQueryAccess(_TestStartZeit, _TestEndZeit, "AND Bewertung >= 1 AND Rating >= 1 AND KzFilm = true"), "*", "DISTINCT Rating"))
 
+            'MsgBox(_RatingField.Count)
             'Prüfen ob Rating für die kommenden Stunden existiert - ClickfinderDB Update erkennen
-            If _RatingField.Count = 0 Then
+            If _RatingField.Count <= 5 Then
                 Log.Info("Clickfinder ProgramGuide: [CreateClickfinderRatingTable]: Start Calculate & write Ratings")
 
                 Try

@@ -649,13 +649,13 @@
       <Major>0</Major>
       <Minor>0</Minor>
       <Build>8</Build>
-      <Revision>1</Revision>
+      <Revision>2</Revision>
     </Version>
     <ExtensionDescription />
     <VersionDescription />
     <DevelopmentStatus>Beta</DevelopmentStatus>
-    <OnlineLocation />
-    <ReleaseDate>2011-12-21T15:57:29</ReleaseDate>
+    <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_0.0.8.2.beta.mpe1</OnlineLocation>
+    <ReleaseDate>2011-12-24T15:57:29</ReleaseDate>
     <Tags />
     <Location>Z:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPEI\Clickfinder ProgramGuide.mpe1</Location>
     <Params>
