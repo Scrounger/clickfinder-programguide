@@ -189,6 +189,19 @@ Public Class Setup
             CBWdhCorretcion.CheckState = Windows.Forms.CheckState.Unchecked
         End If
 
+        If MPSettingRead("MPTVSeries", "enable") = "true" Then
+            CBTvSeries.CheckState = Windows.Forms.CheckState.Checked
+        Else
+            CBTvSeries.CheckState = Windows.Forms.CheckState.Unchecked
+        End If
+
+        If MPSettingRead("MPTVSeries", "ShowDescribtion") = "true" Then
+            CBTvSeriesBeschreibung.CheckState = Windows.Forms.CheckState.Checked
+        Else
+            CBTvSeriesBeschreibung.CheckState = Windows.Forms.CheckState.Unchecked
+        End If
+
+        CBTvSeries_CheckedChanged(sender, e)
 
         rbHeute.Select()
 
@@ -250,6 +263,18 @@ Public Class Setup
             MPSettingsWrite("config", "WdhCorrection", "true")
         Else
             MPSettingsWrite("config", "WdhCorrection", "false")
+        End If
+
+        If CBTvSeries.CheckState = Windows.Forms.CheckState.Checked Then
+            MPSettingsWrite("MPTVSeries", "enable", "true")
+        Else
+            MPSettingsWrite("MPTVSeries", "enable", "false")
+        End If
+
+        If CBTvSeriesBeschreibung.CheckState = Windows.Forms.CheckState.Checked Then
+            MPSettingsWrite("MPTVSeries", "ShowDescribtion", "true")
+        Else
+            MPSettingsWrite("MPTVSeries", "ShowDescribtion", "false")
         End If
 
         ReadTvServerDB("Select * from channelgroup Where groupName = '" & CBChannelGroup.Text & "'")
@@ -677,4 +702,13 @@ Public Class Setup
     Private Sub LinkLabel1_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
         System.Diagnostics.Process.Start("https://code.google.com/p/clickfinder-programguide/wiki/Setup")
     End Sub
+
+    Private Sub CBTvSeries_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CBTvSeries.CheckedChanged
+        If CBTvSeries.CheckState = CheckState.Checked Then
+            CBTvSeriesBeschreibung.Enabled = True
+        Else
+            CBTvSeriesBeschreibung.Enabled = False
+        End If
+    End Sub
+
 End Class

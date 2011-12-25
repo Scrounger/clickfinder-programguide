@@ -644,20 +644,20 @@
     <Author>Scrounger</Author>
     <HomePage>https://code.google.com/p/clickfinder-programguide/</HomePage>
     <ForumPage>http://forum.team-mediaportal.com/plugins-erweiterungen-178/clickfinder-programguide-0-0-5-7-beta-103217/</ForumPage>
-    <UpdateUrl />
+    <UpdateUrl>https://clickfinder-programguide.googlecode.com/git/Clickfinder%20ProgramGuide/MPEI/Source/update.xml</UpdateUrl>
     <Version>
       <Major>0</Major>
       <Minor>0</Minor>
       <Build>8</Build>
-      <Revision>2</Revision>
+      <Revision>3</Revision>
     </Version>
     <ExtensionDescription />
     <VersionDescription />
     <DevelopmentStatus>Beta</DevelopmentStatus>
-    <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_0.0.8.2.beta.mpe1</OnlineLocation>
-    <ReleaseDate>2011-12-24T15:57:29</ReleaseDate>
+    <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_0.0.8.3.beta.mpe1</OnlineLocation>
+    <ReleaseDate>2011-12-25T15:57:29</ReleaseDate>
     <Tags />
-    <Location>Z:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPEI\Clickfinder ProgramGuide.mpe1</Location>
+    <Location>D:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPEI\Clickfinder ProgramGuide.mpe1</Location>
     <Params>
       <Items>
         <SectionParam Name="Icon">
@@ -1099,7 +1099,7 @@
       </FolderGroup>
     </FolderGroups>
     <ProjectFilename>Clickfinder ProgramGuide.xmp2</ProjectFilename>
-    <UpdatePath1 />
+    <UpdatePath1>update.xml</UpdatePath1>
     <UpdatePath2 />
     <UpdatePath3 />
   </ProjectSettings>

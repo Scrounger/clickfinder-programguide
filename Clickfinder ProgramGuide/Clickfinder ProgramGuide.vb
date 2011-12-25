@@ -170,7 +170,7 @@ Namespace ClickfinderProgramGuide
         Private _TippClickfinderSendungChannelName3 As String
         Private _TippClickfinderSendungChannelName4 As String
         Private _TippClickfinderSendungChannelName As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String)
-        Private MyTVDB As clsTheTVdb = New clsTheTVdb("de")
+        'Private MyTVDB As clsTheTVdb = New clsTheTVdb("de")
 
 
         Private _TippClickfinderSendungTitel0 As Long
@@ -359,8 +359,8 @@ Namespace ClickfinderProgramGuide
             _TippClickfinderSendungID.Clear()
             _TippClickfinderSendungTitel.Clear()
             _TippClickfinderSendungChannelName.Clear()
-            MyTVDB.TheTVdbHandler.ClearCache()
-            MyTVDB.TheTVdbHandler.CloseCache()
+            'MyTVDB.TheTVdbHandler.ClearCache()
+            'MyTVDB.TheTVdbHandler.CloseCache()
 
             ctlList.SetTextOffsets(ctlList.TextOffsetX, _ListStandardOffSetY, ctlList.TextOffsetX2, ctlList.TextOffsetY2, ctlList.TextOffsetX3, ctlList.TextOffsetY3)
             _ListStandardOffSetY = Nothing
@@ -1144,94 +1144,94 @@ Namespace ClickfinderProgramGuide
             Next
 
         End Sub
-        Private Sub ShowTheTvDBDetails()
-            Dim _EpisodeFound As Boolean = False
-            Dim _SeriesID As Integer = 0
-            Dim _SeriesName As String = DetailsTitel.Label
-            Dim _EpisodeName As String = DetailsOrgTitel.Label
+        'Private Sub ShowTheTvDBDetails()
+        '    Dim _EpisodeFound As Boolean = False
+        '    Dim _SeriesID As Integer = 0
+        '    Dim _SeriesName As String = DetailsTitel.Label
+        '    Dim _EpisodeName As String = DetailsOrgTitel.Label
 
-            'Serie suchen und in Liste packen
-            Dim _SearchSeriesResult As List(Of TvdbLib.Data.TvdbSearchResult) _
-                    = MyTVDB.TheTVdbHandler.SearchSeries(_SeriesName)
-
-
-
-            Dim dlg As GUIDialogMenu = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_MENU, Integer)), GUIDialogMenu)
-            Dim bla As GUIListItem = New GUIListItem
-
-
-            'SerienId auf TheTvDB suchen mit SerienName
-            If _SearchSeriesResult.Count > 0 Then
-                For i = 0 To _SearchSeriesResult.Count - 1
-
-                    bla.Label = _SearchSeriesResult(i).SeriesName.ToString
-                    dlg.Add(bla)
-                    'If UCase(_SearchSeriesResult(i).SeriesName) = UCase(_SeriesName) Then
-                    '    _SeriesID = _SearchSeriesResult(i).Id
-                    '    Exit For
-                    'End If
-                Next
-
-                dlg.DoModal(GetID)
+        '    'Serie suchen und in Liste packen
+        '    Dim _SearchSeriesResult As List(Of TvdbLib.Data.TvdbSearchResult) _
+        '            = MyTVDB.TheTVdbHandler.SearchSeries(_SeriesName)
 
 
 
-                ''kompletten Serien Inhalt laden, sofern SeriesId gefunden
-                'If _SeriesID > 0 Then
-                '    Dim _Serie As TvdbLib.Data.TvdbSeries = MyTVDB.TheTVdbHandler.GetFullSeries(_SeriesID, MyTVDB.DBLanguage, True)
-
-                '    If _Serie.Episodes.Count > 0 Then
-                '        For i = 0 To _Serie.Episodes.Count - 1
-                '            If UCase(_Serie.Episodes(i).EpisodeName) = UCase(_EpisodeName) Then
-                '                _EpisodeFound = True
-
-                '                Dim _SeasonID As Integer = _Serie.Episodes(i).SeasonNumber
+        '    Dim dlg As GUIDialogMenu = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_MENU, Integer)), GUIDialogMenu)
+        '    Dim bla As GUIListItem = New GUIListItem
 
 
-                '                '_Serie.Episodes(i).Banner.LoadThumb()
+        '    'SerienId auf TheTvDB suchen mit SerienName
+        '    If _SearchSeriesResult.Count > 0 Then
+        '        For i = 0 To _SearchSeriesResult.Count - 1
 
-                '                '_Serie.PosterBanners(0).LoadThumb()
+        '            bla.Label = _SearchSeriesResult(i).SeriesName.ToString
+        '            dlg.Add(bla)
+        '            'If UCase(_SearchSeriesResult(i).SeriesName) = UCase(_SeriesName) Then
+        '            '    _SeriesID = _SearchSeriesResult(i).Id
+        '            '    Exit For
+        '            'End If
+        '        Next
 
-                '                DetailsOrgTitel.Label = _Serie.Episodes(i).EpisodeName _
-                '                & " (Staffel " & _Serie.Episodes(i).SeasonNumber _
-                '                & ", Episode " & _Serie.Episodes(i).EpisodeNumber _
-                '                & ")"
-
-                '                DetailsGenre.Label = Replace(_Serie.GenreString, "|", "")
-                '                DetailsYearLand.Label = _Serie.Episodes(i).FirstAired
-                '                DetailsRegie.Label = Replace(_Serie.Episodes(i).DirectorsString, "|", "")
+        '        dlg.DoModal(GetID)
 
 
 
-                '                'MsgBox(Config.GetFile(Config.Dir.Cache, "ClickfinderPG\" & _SeasonID & "\" & Replace(Replace(_Serie.PosterBanners(0).ThumbPath, "_cache", "thumb"), "/", "_")))
-                '                DetailsImage.KeepAspectRatio = True
-                '                DetailsImage.Centered = True
-                '                _Serie.PosterBanners(0).LoadThumb()
-                '                DetailsImage.FileName = Config.GetFile(Config.Dir.Cache, "ClickfinderPG\" & _SeriesID.ToString & "\" & Replace(Replace(_Serie.PosterBanners(0).ThumbPath, "_cache", "thumb"), "/", "_"))
+        '        ''kompletten Serien Inhalt laden, sofern SeriesId gefunden
+        '        'If _SeriesID > 0 Then
+        '        '    Dim _Serie As TvdbLib.Data.TvdbSeries = MyTVDB.TheTVdbHandler.GetFullSeries(_SeriesID, MyTVDB.DBLanguage, True)
+
+        '        '    If _Serie.Episodes.Count > 0 Then
+        '        '        For i = 0 To _Serie.Episodes.Count - 1
+        '        '            If UCase(_Serie.Episodes(i).EpisodeName) = UCase(_EpisodeName) Then
+        '        '                _EpisodeFound = True
+
+        '        '                Dim _SeasonID As Integer = _Serie.Episodes(i).SeasonNumber
 
 
-                '            End If
-                '        Next
+        '        '                '_Serie.Episodes(i).Banner.LoadThumb()
 
-                '    End If
-                'End If
+        '        '                '_Serie.PosterBanners(0).LoadThumb()
 
-                'If _EpisodeFound = False Then
-                '    MPDialogOK("Information", "Episode nicht gefunden!")
-                'End If
+        '        '                DetailsOrgTitel.Label = _Serie.Episodes(i).EpisodeName _
+        '        '                & " (Staffel " & _Serie.Episodes(i).SeasonNumber _
+        '        '                & ", Episode " & _Serie.Episodes(i).EpisodeNumber _
+        '        '                & ")"
 
-            Else
-                MPDialogOK("Information", "Serie nicht gefunden!")
-            End If
+        '        '                DetailsGenre.Label = Replace(_Serie.GenreString, "|", "")
+        '        '                DetailsYearLand.Label = _Serie.Episodes(i).FirstAired
+        '        '                DetailsRegie.Label = Replace(_Serie.Episodes(i).DirectorsString, "|", "")
 
 
+
+        '        '                'MsgBox(Config.GetFile(Config.Dir.Cache, "ClickfinderPG\" & _SeasonID & "\" & Replace(Replace(_Serie.PosterBanners(0).ThumbPath, "_cache", "thumb"), "/", "_")))
+        '        '                DetailsImage.KeepAspectRatio = True
+        '        '                DetailsImage.Centered = True
+        '        '                _Serie.PosterBanners(0).LoadThumb()
+        '        '                DetailsImage.FileName = Config.GetFile(Config.Dir.Cache, "ClickfinderPG\" & _SeriesID.ToString & "\" & Replace(Replace(_Serie.PosterBanners(0).ThumbPath, "_cache", "thumb"), "/", "_"))
+
+
+        '        '            End If
+        '        '        Next
+
+        '        '    End If
+        '        'End If
+
+        '        'If _EpisodeFound = False Then
+        '        '    MPDialogOK("Information", "Episode nicht gefunden!")
+        '        'End If
+
+        '    Else
+        '        MPDialogOK("Information", "Serie nicht gefunden!")
+        '    End If
 
 
 
 
-            ctlProgressBar.Visible = False
 
-        End Sub
+
+        '    ctlProgressBar.Visible = False
+
+        'End Sub
 
 
 #End Region

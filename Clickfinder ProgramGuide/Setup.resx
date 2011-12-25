@@ -117,31 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Label22.Text" xml:space="preserve">
-    <value>Über den Button könnt ihr euch Logos mit Rating-Stars erstellen, die dann in der Listcontrol angeziegt werden.
-Dazu werden eure TVLogos aus dem "thumbs" Ordner nach "thumbs\ClickfinderPG" kopiert und für jedes Rating ein eigenes Logo erstellt.
-Solltet ihr eure TVLogos updaten, dann müsst ihr die Funktion erneut ausführen.</value>
+  <data name="Label18.Text" xml:space="preserve">
+    <value>Hier könnt ihr die SQL Abfragen der einzelnen Kategorien bearbeiten. 
+(Access SQL Strings!)
+Wenn ihr keine Ahnung von SQL haben solltet, dann bitte nichts verändern, weil sonst evtl. nichts mehr in der entsprechenden Kategorie angezeigt wird oder sogar MediaPortal abstürzen kann !!!</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btVorschauUp.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAMCSURBVGhDxdM9T1NhFAfwhjAYQ4wxhsGBt5YCbSktlNdC3yj0BWgvbSkvM5NxJsbBxMEP4Ojg
-        J2DwIzgYB0dCmBwYGIxhMJ0MIc3xf+UWrwXsebzPPTb55Zw+9zznnNukHo9Ln+2dvRKcQwP2XRrjTtut
-        +k4YvtXru1Tf3iXkDci6M01z162t7QdwAmSqWRH5GTzRPE5vu2q1fq9aq78HusMnnD/UO1VTt0q11gWv
-        oAn0F2/xrFvTWH1tNis1A34AdXCJ58/0TdbQqWxUAoZRaQAxXaAuoWG08xal8mYvHJXLm6QCd07B53wD
-        Bx1KJaMbDjdKBiH+clfeet4WP+B7j4MVnF1dXy+9BnLoHe53OdtE8XaxuOFZW9sw4BLIoSbu74PiFg7K
-        i8X1EJwDadJAH5k/daFQfAzHQJqd5vPFAQe/a+er+VyhGw6B8nkX5Aof0ft+503+oSK3mvfAAZDL3qC/
-        /j/16kquAhdALmui/9N/+I3vvpLNroTg60p2lSRg1ndIaXmJ7HK2B46ATMu26HJ+hnm9jl8ik17eA/pP
-        DjS8QOZRJp15Di+vpW7m6VSGVJi9UH/d85b8BWr6HL8At0EqmaJUMg1mtOfm2U3cvmJ1yUSSVIgtxh2U
-        WEpQYhHM2J63zmyR21esbim+RCrEFuMOWlyIU9xiz1tn7ZHbV6wuPr9AKsQW4w6an5snFdy+YnVzM3Ok
-        Qmwx7qDZ6VlSwe0rVjcTmyYVYotxB01PxUgFt69YXSw6RbHoJJixPW+d/Y5ii3EHTUUm6UrUilf5pPXd
-        jPac21esLjoRIRVii3EHRcITFBkHM7bntzzj9hWrmxgP061C1rkZbbnYYtxB4WCIVHD7itWNB4KkQmwx
-        7qDQWIBUcPuK1QVHxig4CmZk5GKLcQeN+UcpYLHnrbP2yO0rVjc67CcVYotxB434hkkFt69Ynd/rJb/X
-        Z7HnrbM/o9hi3EHDg0OkgttXrM43MNgE4hJbjDvI2z/wGYjphNtXrG6orz8Gx0AdfMHzBV2L/QTakrN4
-        JQyT6AAAAABJRU5ErkJggg==
-</value>
-  </data>
   <data name="btTagesUp.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -161,10 +142,29 @@ Solltet ihr eure TVLogos updaten, dann müsst ihr die Funktion erneut ausführen
         JQyT6AAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="Label18.Text" xml:space="preserve">
-    <value>Hier könnt ihr die SQL Abfragen der einzelnen Kategorien bearbeiten. 
-(Access SQL Strings!)
-Wenn ihr keine Ahnung von SQL haben solltet, dann bitte nichts verändern, weil sonst evtl. nichts mehr in der entsprechenden Kategorie angezeigt wird oder sogar MediaPortal abstürzen kann !!!</value>
+  <data name="btVorschauUp.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAMCSURBVGhDxdM9T1NhFAfwhjAYQ4wxhsGBt5YCbSktlNdC3yj0BWgvbSkvM5NxJsbBxMEP4Ojg
+        J2DwIzgYB0dCmBwYGIxhMJ0MIc3xf+UWrwXsebzPPTb55Zw+9zznnNukHo9Ln+2dvRKcQwP2XRrjTtut
+        +k4YvtXru1Tf3iXkDci6M01z162t7QdwAmSqWRH5GTzRPE5vu2q1fq9aq78HusMnnD/UO1VTt0q11gWv
+        oAn0F2/xrFvTWH1tNis1A34AdXCJ58/0TdbQqWxUAoZRaQAxXaAuoWG08xal8mYvHJXLm6QCd07B53wD
+        Bx1KJaMbDjdKBiH+clfeet4WP+B7j4MVnF1dXy+9BnLoHe53OdtE8XaxuOFZW9sw4BLIoSbu74PiFg7K
+        i8X1EJwDadJAH5k/daFQfAzHQJqd5vPFAQe/a+er+VyhGw6B8nkX5Aof0ft+503+oSK3mvfAAZDL3qC/
+        /j/16kquAhdALmui/9N/+I3vvpLNroTg60p2lSRg1ndIaXmJ7HK2B46ATMu26HJ+hnm9jl8ik17eA/pP
+        DjS8QOZRJp15Di+vpW7m6VSGVJi9UH/d85b8BWr6HL8At0EqmaJUMg1mtOfm2U3cvmJ1yUSSVIgtxh2U
+        WEpQYhHM2J63zmyR21esbim+RCrEFuMOWlyIU9xiz1tn7ZHbV6wuPr9AKsQW4w6an5snFdy+YnVzM3Ok
+        Qmwx7qDZ6VlSwe0rVjcTmyYVYotxB01PxUgFt69YXSw6RbHoJJixPW+d/Y5ii3EHTUUm6UrUilf5pPXd
+        jPac21esLjoRIRVii3EHRcITFBkHM7bntzzj9hWrmxgP061C1rkZbbnYYtxB4WCIVHD7itWNB4KkQmwx
+        7qDQWIBUcPuK1QVHxig4CmZk5GKLcQeN+UcpYLHnrbP2yO0rVjc67CcVYotxB434hkkFt69Ynd/rJb/X
+        Z7HnrbM/o9hi3EHDg0OkgttXrM43MNgE4hJbjDvI2z/wGYjphNtXrG6orz8Gx0AdfMHzBV2L/QTakrN4
+        JQyT6AAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="Label22.Text" xml:space="preserve">
+    <value>Über den Button könnt ihr euch Logos mit Rating-Stars erstellen, die dann in der Listcontrol angeziegt werden.
+Dazu werden eure TVLogos aus dem "thumbs" Ordner nach "thumbs\ClickfinderPG" kopiert und für jedes Rating ein eigenes Logo erstellt.
+Solltet ihr eure TVLogos updaten, dann müsst ihr die Funktion erneut ausführen.</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

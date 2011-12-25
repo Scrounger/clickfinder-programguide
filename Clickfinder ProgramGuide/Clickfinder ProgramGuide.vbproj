@@ -102,9 +102,9 @@
     <Compile Include="Klassen\ClickfinderDB.vb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Klassen\clsTheTVdb.vb">
+    <None Include="Klassen\clsTheTVdb.vb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
+    </None>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

@@ -21,6 +21,10 @@
     <entry name="AvailableVorschauCategories">Movies;Tages Tipps;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;Fußball LIVE;</entry>
     <entry name="VisibleVorschauCategories">Movies;Tages Tipps;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;Fußball LIVE;</entry>         
   </section>
+  <section name="MPTVSeries">
+    <entry name="enable">true</entry>
+    <entry name="ShowDescribtion">true</entry>
+  </section>
   <section name="Save">
     <entry name="LastUpdate">01.01.2011</entry>
   </section>
