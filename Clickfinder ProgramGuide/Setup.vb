@@ -326,6 +326,7 @@ Public Class Setup
 
             CmdTvServerDBRead.Dispose()
             ConTvServerDBRead.Close()
+            Exit Sub
 
         End Try
 
@@ -706,8 +707,10 @@ Public Class Setup
     Private Sub CBTvSeries_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CBTvSeries.CheckedChanged
         If CBTvSeries.CheckState = CheckState.Checked Then
             CBTvSeriesBeschreibung.Enabled = True
+            CBTvSeriesTvServerWrite.Enabled = True
         Else
             CBTvSeriesBeschreibung.Enabled = False
+            CBTvSeriesTvServerWrite.Enabled = False
         End If
     End Sub
 
