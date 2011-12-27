@@ -358,7 +358,7 @@
       <type>fadelabel</type>
       <id>135</id>
       <posX>800</posX>
-      <posY>460</posY>
+      <posY>422</posY>
       <width>460</width>
       <label></label>
       <font>font9</font>
@@ -492,7 +492,7 @@
       <type>fadelabel</type>
       <id>145</id>
       <posX>800</posX>
-      <posY>460</posY>
+      <posY>536</posY>
       <width>460</width>
       <label></label>
       <font>font9</font>

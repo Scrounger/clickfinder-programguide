@@ -820,7 +820,6 @@ Namespace ClickfinderProgramGuide
             End Try
 
         End Sub
-
         Private Sub ShowSelectedCategorieItems()
 
             Try
@@ -873,7 +872,7 @@ Namespace ClickfinderProgramGuide
 
                                         For Each item In _TippClickfinderSendungTitel
                                             If _ClickfinderDB(i).Titel & _ClickfinderDB(i).Originaltitel = _TippClickfinderSendungTitel.Item(item.Key) Then
-                                                MsgBox(_TippClickfinderSendungTitel.Item(item.Key))
+                                                'MsgBox(_TippClickfinderSendungTitel.Item(item.Key))
                                                 Exit Select
                                             End If
                                         Next
@@ -1044,7 +1043,6 @@ Namespace ClickfinderProgramGuide
                 Log.Error("Clickfinder ProgramGuide: [ShowTipps]: " & ex.Message)
             End Try
         End Sub
-
         Private Sub ShowItemDetails(ByVal ClickfinderSendungID As String, ByVal ChannelName As String, Optional ByVal ChannelNameIsImagePath As Boolean = False)
 
             _CurrentDetailsSendungId = ClickfinderSendungID

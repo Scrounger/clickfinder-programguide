@@ -301,7 +301,6 @@ Z:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickf
 Z:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\Gentle.Framework.dll
 Z:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MySql.Data.dll
 Z:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\TVDatabase.dll
-Z:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\TvdbLib.dll
 Z:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\TvPlugin.dll
 Z:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\Utils.dll
 Z:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\edtftpnet-1.2.2.dll

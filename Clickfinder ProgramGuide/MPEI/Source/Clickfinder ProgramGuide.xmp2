@@ -648,16 +648,16 @@
     <Version>
       <Major>0</Major>
       <Minor>0</Minor>
-      <Build>8</Build>
-      <Revision>9</Revision>
+      <Build>9</Build>
+      <Revision>1</Revision>
     </Version>
     <ExtensionDescription>Clickfinder ProgramGuide ist ein Plugin für MediaPortal, dass bassierend auf den Bewertungen, die in der TV Movie Clickfinder Datenbank hinterlegt sind, einen Program Guide anzeigt.</ExtensionDescription>
     <VersionDescription />
     <DevelopmentStatus>Beta</DevelopmentStatus>
-    <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_0.0.8.5.beta.mpe1</OnlineLocation>
-    <ReleaseDate>2011-12-26T15:57:29</ReleaseDate>
+    <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_0.0.9.1.beta.mpe1</OnlineLocation>
+    <ReleaseDate>2011-12-27T15:57:29</ReleaseDate>
     <Tags />
-    <Location>D:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPEI\Clickfinder ProgramGuide.mpe1</Location>
+    <Location>Z:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPEI\Clickfinder ProgramGuide.mpe1</Location>
     <Params>
       <Items>
         <SectionParam Name="Icon">
@@ -1067,7 +1067,7 @@
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\..\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_R3.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{e3f39824-4f9e-43b5-b6c8-27b2e23a013f}-ClickfinderPG_R3.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{7f987df3-b957-4960-a133-e4362d6f5a8b}-ClickfinderPG_R3.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
