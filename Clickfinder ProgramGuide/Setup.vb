@@ -6,13 +6,12 @@ Imports MediaPortal.Configuration
 Imports MediaPortal.GUI.Library
 Imports MediaPortal.Util
 Imports MediaPortal.Utils
-Imports MySql.Data
-Imports MySql.Data.MySqlClient
 
 Imports Gentle.Framework
 Imports System.Drawing
 Imports System.Threading
 Imports System.Windows.Forms
+Imports TvDatabase
 
 
 
@@ -22,18 +21,14 @@ Public Class Setup
     Private _AvailableTagesCategories As Dictionary(Of String, String) = New Dictionary(Of String, String)
     Private _AvailableVorschauCategories As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String)
 
-
-
     Private Sub Setup_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Dim Rating As Integer
         Dim i As Integer
-        Dim idGroup As String
+        Dim idGroup As Integer
         Dim ChannelName As String
 
         _AvailableTagesCategories.Clear()
         _AvailableVorschauCategories.Clear()
-
-
 
 
         'Available Tages Kategorien aus ClickfinderPGConfig.xml lesen und in Array packen
@@ -86,7 +81,7 @@ Public Class Setup
 
         Me.tfClickfinderPath.Text = MPSettingRead("config", "ClickfinderPath")
         Rating = CInt(MPSettingRead("config", "ClickfinderRating"))
-        idGroup = MPSettingRead("config", "ChannelGroupID")
+        idGroup = CInt(MPSettingRead("config", "ChannelGroupID"))
         MPSettingsWrite("Save", "LastUpdate", "01.01.2011")
 
         Select Case Rating
@@ -100,18 +95,22 @@ Public Class Setup
                 Me.cbRating.Text = Me.cbRating.Items.Item(3)
         End Select
 
-        ReadTvServerDB("Select * from channelgroup")
-        While TvServerData.Read
 
-            Me.CBChannelGroup.Items.Add(TvServerData.Item("groupName"))
+        Dim sb As New SqlBuilder(StatementType.[Select], GetType(ChannelGroup))
+        Dim stmt As SqlStatement = sb.GetStatement(True)
+        Dim _Result As IList = ObjectFactory.GetCollection(GetType(ChannelGroup), stmt.Execute())
 
-            If idGroup = TvServerData.Item("idGroup") Then
-                ChannelName = TvServerData.Item("groupName")
+
+        For i = 0 To _Result.Count - 1
+            Dim _ChannelGroup As ChannelGroup = _Result.Item(i)
+
+            Me.CBChannelGroup.Items.Add(_ChannelGroup.GroupName)
+
+            If idGroup = _ChannelGroup.IdGroup Then
+                ChannelName = _ChannelGroup.GroupName
             End If
 
-        End While
-
-        CloseTvServerDB()
+        Next
 
         For i = 0 To CBChannelGroup.Items.Count - 1
             If InStr(CBChannelGroup.Items.Item(i), ChannelName) Then
@@ -176,7 +175,6 @@ Public Class Setup
             CKRatingTVLogos.CheckState = Windows.Forms.CheckState.Unchecked
         End If
 
-
         If MPSettingRead("config", "LiveCorrection") = "true" Then
             CBLiveCorrection.CheckState = Windows.Forms.CheckState.Checked
         Else
@@ -202,9 +200,7 @@ Public Class Setup
         End If
 
         CBTvSeries_CheckedChanged(sender, e)
-
         rbHeute.Select()
-
 
     End Sub
 
@@ -277,11 +273,19 @@ Public Class Setup
             MPSettingsWrite("MPTVSeries", "ShowDescribtion", "false")
         End If
 
-        ReadTvServerDB("Select * from channelgroup Where groupName = '" & CBChannelGroup.Text & "'")
-        While TvServerData.Read
-            MPSettingsWrite("config", "ChannelGroupID", TvServerData.Item("idGroup"))
-        End While
-        CloseTvServerDB()
+
+        Dim sb As New SqlBuilder(StatementType.[Select], GetType(ChannelGroup))
+        sb.AddConstraint([Operator].Equals, "groupName", CBChannelGroup.Text)
+        Dim stmt As SqlStatement = sb.GetStatement(True)
+        Dim _Result As IList = ObjectFactory.GetCollection(GetType(ChannelGroup), stmt.Execute())
+
+        For i = 0 To _Result.Count - 1
+            Dim _ChannelGroup As ChannelGroup = _Result.Item(i)
+
+
+            MPSettingsWrite("config", "ChannelGroupID", _ChannelGroup.IdGroup)
+        Next
+
 
 
         For i = 0 To lvTagesCategorieChoosen.Items.Count - 1
@@ -299,59 +303,6 @@ Public Class Setup
         Me.Close()
 
     End Sub
-
-#Region "TV Server DB"
-    Public ConTvServerDBRead As New MySqlConnection
-    Public CmdTvServerDBRead As New MySqlCommand
-    Public TvServerData As MySqlDataReader
-
-    Public Sub ReadTvServerDB(ByVal SQLString As String)
-
-        Try
-
-            ConTvServerDBRead.ConnectionString = LeftCut(Replace(Gentle.Framework.GentleSettings.DefaultProviderConnectionString, " ", ""), InStr(Gentle.Framework.GentleSettings.DefaultProviderConnectionString, "charset=utf8") - 3)
-            ConTvServerDBRead.Open()
-
-
-            CmdTvServerDBRead = ConTvServerDBRead.CreateCommand
-            CmdTvServerDBRead.CommandText = SQLString
-
-            TvServerData = CmdTvServerDBRead.ExecuteReader
-
-
-        Catch ex As Exception
-
-            Log.Error("Clickfinder ProgramGuide: (Config: TvServer DB, read) " & ex.Message)
-            MsgBox("Der TV Server wurde nicht gefunden!" & vbNewLine & "Bitte überprüfen Sie die Einstellungen in der Gentle.config Datei")
-
-            CmdTvServerDBRead.Dispose()
-            ConTvServerDBRead.Close()
-            Exit Sub
-
-        End Try
-
-
-    End Sub
-    Public Sub CloseTvServerDB()
-
-        Try
-            CmdTvServerDBRead.Dispose()
-            ConTvServerDBRead.Close()
-        Catch ex As Exception
-            Log.Error("Clickfinder ProgramGuide: (Config: TvServer DB, close) " & ex.Message)
-            MsgBox("Clickfinder ProgramGuide: (Config: TvServer DB, close) " & ex.Message)
-        End Try
-
-    End Sub
-
-    Public Function LeftCut(ByVal sText As String, _
-  ByVal nLen As Integer) As String
-
-        If nLen > sText.Length Then nLen = sText.Length
-        Return (sText.Substring(0, nLen))
-    End Function
-#End Region
-
 
     Private Sub BtnCreateLogos_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnCreateLogos.Click
 
@@ -456,66 +407,6 @@ Public Class Setup
         ProgressBar1.Style = Windows.Forms.ProgressBarStyle.Marquee
 
     End Sub
-
-    'Private Sub ClickfinderCorrection()
-
-    '    LiveCorrection = ClickfinderCorrectionFunction("KzLive", " (LIVE)")
-    '    WdhCorrection = ClickfinderCorrectionFunction("KzLive", " (Wdh.)")
-    '    MsgBox(LiveCorrection, WdhCorrection)
-
-    'End Sub
-
-    'Private Function ClickfinderCorrectionFunction(ByVal _SQLWhereString As String, ByVal _ProofSting As String) As Boolean
-    '    Dim _idChannel As String
-    '    Dim _StartZeit As Date
-    '    Dim _EndZeit As Date
-    '    Dim _StartZeitSQL As String
-    '    Dim _EndZeitSQL As String
-    '    Dim _Titel As String
-
-
-
-    '    Try
-    '        ReadClickfinderDB("SELECT Titel, Beginn, Ende, SenderKennung FROM Sendungen WHERE " & _SQLWhereString & " = true")
-
-    '        While ClickfinderData.Read
-
-    '            _Titel = ClickfinderData.Item("Titel")
-    '            _StartZeit = CDate(ClickfinderData.Item("Beginn"))
-    '            _EndZeit = CDate(ClickfinderData.Item("Ende"))
-
-    '            _StartZeitSQL = DateTOMySQLstring(_StartZeit)
-
-    '            _EndZeitSQL = DateTOMySQLstring(_EndZeit)
-
-
-
-    '            ReadTvServerDB("Select * from tvmoviemapping WHERE stationName = '" & ClickfinderData.Item("SenderKennung").ToString & "'")
-    '            While TvServerData.Read
-
-    '                _idChannel = TvServerData.Item("idChannel")
-
-    '                Exit While
-    '            End While
-    '            CloseTvServerDB()
-
-    '            If ProgramFoundinTvDb(_Titel & _ProofSting, _idChannel, _StartZeit, _EndZeit) = True Then
-    '                ClickfinderCorrectionFunction = True
-    '                Exit While
-    '                Log.Info("Clickfinder ProgramGuide: [ClickfinderCorrection]: " & _ProofSting & " = true")
-    '            End If
-
-
-    '            Log.Debug("Clickfinder ProgramGuide: [ClickfinderCorrection]: nothing")
-
-    '        End While
-    '        CloseClickfinderDB()
-
-    '    Catch ex As Exception
-    '        Log.Error("Clickfinder ProgramGuide: [ClickfinderCorrection]: " & ex.Message)
-    '    End Try
-
-    'End Function
 
     Private Sub ComboBox1_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CBCategorie.SelectedIndexChanged
 
@@ -652,7 +543,7 @@ Public Class Setup
         lvVorschauCategorieChoosen.SelectedItems.Item(0).Remove()
     End Sub
 
-    
+
     Private Sub MoveSelectedLVWItems(ByVal LVW As ListView, Optional ByVal Down As Boolean = False)
         Dim OldItem As ListViewItem
         Dim OldPos As Integer

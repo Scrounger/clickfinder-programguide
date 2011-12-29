@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <window>
   <controls>
-
-
-
     <control>
       <description>Details BG Image</description>
       <type>image</type>
@@ -60,9 +57,9 @@
       <description>Detail org. Titel</description>
       <type>fadelabel</type>
       <id>38</id>
-      <posX>350</posX>
-      <posY>162</posY>
-      <width>640</width>
+      <posX>352</posX>
+      <posY>170</posY>
+      <width>840</width>
       <align>left</align>
       <font>font11</font>
       <textcolor>ff909090</textcolor>
@@ -385,7 +382,7 @@
       <id>43</id>
       <posX>480</posX>
       <posY>292</posY>
-      <width>460</width>
+      <width>680</width>
       <align>left</align>
       <font>font10</font>
       <textcolor>ff909090</textcolor>
@@ -417,7 +414,7 @@
       <id>42</id>
       <posX>480</posX>
       <posY>316</posY>
-      <width>460</width>
+      <width>680</width>
       <align>left</align>
       <font>font10</font>
       <textcolor>ff909090</textcolor>

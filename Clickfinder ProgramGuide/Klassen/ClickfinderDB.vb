@@ -2,11 +2,15 @@
 Imports System.Data.OleDb
 Imports MediaPortal.Configuration
 Imports MediaPortal.Profile
+Imports Gentle.Common
+Imports Gentle.Framework
+Imports TvDatabase
 
 
 Public Class ClickfinderDB
 #Region "Variablen"
-    Public Shared _Table As DataTable
+    Shared _Table As DataTable
+    Shared _TvServerTable As DataTable
     Shared _Index As Integer
     Shared _IndexColumn As Integer
     Shared _ClickfinderDataBasePath As String
@@ -19,6 +23,11 @@ Public Class ClickfinderDB
             Return _Table.Rows.Count
         End Get
     End Property
+    Public ReadOnly Property Datatable() As DataTable
+        Get
+            Return _Table
+        End Get
+    End Property
 
     'Get DBFields over Index
     Private _Item As New DataBaseItem
@@ -29,7 +38,90 @@ Public Class ClickfinderDB
         End Get
     End Property
     Public Class DataBaseItem
+
+
+
+
+
         'SubProperties for _item
+
+        Public ReadOnly Property TvServer_idchannel() As Integer
+            Get
+
+                Try
+
+                    Dim _result As IList = TvServerMapping(_Table.Rows(_Index).Item("SenderKennung"))
+
+                    If _result.Count = 1 Then
+                        Dim _Mapping As TvMovieMapping = _result.Item(0)
+                        Dim _channel As Channel = Channel.Retrieve(_Mapping.IdChannel)
+
+                        Return _channel.IdChannel
+
+                    ElseIf _result.Count > 1 Then
+                        Dim _idchannel As String = ""
+
+                        For i = 0 To _result.Count - 1
+                            Dim _Mapping As TvMovieMapping = _result.Item(i)
+                            Dim _channel As Channel = Channel.Retrieve(_Mapping.IdChannel)
+
+                            If InStr(_channel.DisplayName, "HD") Then
+                                _idchannel = _channel.IdChannel
+                                Exit For
+                            Else
+                                _idchannel = _channel.IdChannel
+                            End If
+
+                        Next
+
+                        Return _idchannel
+                    Else
+                        Return 0
+                    End If
+
+
+                Catch ex As Exception
+                    MsgBox(ex.Message)
+                End Try
+            End Get
+        End Property
+
+        Public ReadOnly Property TvServer_displayName() As String
+            Get
+                Dim _Result As IList = TvServerMapping(_Table.Rows(_Index).Item("SenderKennung"))
+
+                If _Result.Count = 1 Then
+                    Dim _Mapping As TvMovieMapping = _Result.Item(0)
+                    Dim _channel As Channel = Channel.Retrieve(_Mapping.IdChannel)
+
+                    Return _channel.DisplayName
+
+                ElseIf _Result.Count > 1 Then
+                    Dim _displayName As String = ""
+
+                    For i = 0 To _Result.Count - 1
+                        Dim _Mapping As TvMovieMapping = _Result.Item(i)
+                        Dim _channel As Channel = Channel.Retrieve(_Mapping.IdChannel)
+
+                        If InStr(_channel.DisplayName, "HD") Then
+                            _displayName = _channel.DisplayName
+                            Exit For
+                        Else
+                            _displayName = _channel.DisplayName
+                        End If
+
+                    Next
+
+                    Return _displayName
+
+                Else
+                    Return ""
+                End If
+
+
+            End Get
+        End Property
+
         Public ReadOnly Property Titel() As String
             Get
                 If Not IsDBNull(_Table.Rows(_Index).Item("Titel")) Then
@@ -243,6 +335,7 @@ Public Class ClickfinderDB
 
     End Class
 
+
     'Get DBColumns over Index
     Private _Columns As New DataBaseColumns
     Public ReadOnly Property Columns(Optional ByVal Index As String = Nothing) As DataBaseColumns
@@ -289,10 +382,23 @@ Public Class ClickfinderDB
 
             _Table = Data.Tables("ClickfinderDB")
 
-        Catch
-            MsgBox("Can not open connection ! ")
+            'PrimärSchlüssel für Datatable festlegen, damit gesucht werden kann.
+            _Table.PrimaryKey = New DataColumn() {_Table.Columns("Sendungen.Pos")}
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
         End Try
     End Sub
+    Shared Function TvServerMapping(ByVal SenderKennung As String) As IList
+        'TvMovieMapping Table nach idchannel durchsuchen
+        Dim sb As New SqlBuilder(StatementType.[Select], GetType(TvMovieMapping))
+        sb.AddConstraint([Operator].Equals, "stationName", SenderKennung)
+        'sb.AddOrderByField(False, "stationName")
+        Dim stmt As SqlStatement = sb.GetStatement(True)
+        Dim _Result As IList = ObjectFactory.GetCollection(GetType(TvMovieMapping), stmt.Execute())
+
+        Return _Result
+    End Function
     Private Function MPSettingRead(ByVal section As String, ByVal entry As String) As String
         Using xmlReader As New Settings(Config.GetFile(Config.Dir.Config, "ClickfinderPGConfig.xml"))
             MPSettingRead = xmlReader.GetValue(section, entry)

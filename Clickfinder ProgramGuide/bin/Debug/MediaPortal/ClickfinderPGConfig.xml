@@ -12,7 +12,7 @@
     <entry name="MinTime">40</entry>
     <entry name="IgnoreMinTimeSeries">true</entry>
     <entry name="useRatingTvLogos">false</entry>
-    <entry name="UpdateInterval">1</entry>
+    <entry name="UpdateInterval">14</entry>
     <entry name="LiveCorrection">true</entry>
     <entry name="WdhCorrection">false</entry>
     <entry name="ListLabelOffsetY">26</entry>
@@ -20,6 +20,10 @@
     <entry name="VisibleTagesCategories">Movies;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;</entry>
     <entry name="AvailableVorschauCategories">Movies;Tages Tipps;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;Fußball LIVE;</entry>
     <entry name="VisibleVorschauCategories">Movies;Tages Tipps;Serien;Dokumentationen;Sport;Reportagen;Magazine;HDTV;Sky Cinema;Sky Dokumentationen;Fußball LIVE;</entry>         
+  </section>
+  <section name="MPTVSeries">
+    <entry name="enable">true</entry>
+    <entry name="ShowDescribtion">true</entry>
   </section>
   <section name="Save">
     <entry name="LastUpdate">01.01.2011</entry>

@@ -337,7 +337,7 @@
       <posX>350</posX>
       <posY>270</posY>
       <width>120</width>
-<label>Schauspieler:</label>
+      <label>Schauspieler:</label>
       <align>left</align>
       <font>mediastream10c</font>
       <textcolor>ffffffff</textcolor>
@@ -385,7 +385,7 @@
       <id>43</id>
       <posX>480</posX>
       <posY>292</posY>
-      <width>460</width>
+      <width>680</width>
       <align>left</align>
       <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
@@ -417,7 +417,7 @@
       <id>42</id>
       <posX>480</posX>
       <posY>316</posY>
-      <width>460</width>
+      <width>680</width>
       <align>left</align>
       <font>mediastream10</font>
       <textcolor>ff909090</textcolor>
