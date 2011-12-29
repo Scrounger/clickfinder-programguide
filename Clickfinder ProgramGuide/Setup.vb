@@ -76,6 +76,7 @@ Public Class Setup
             lvVorschauKategorien.Items.Add(_AvailableVorschauCategories.Item(i).ToString)
         Next
 
+        tfPluginName.Text = MPSettingRead("config", "PluginName")
 
         ChannelName = "Bitte wählen..."
 
@@ -225,7 +226,7 @@ Public Class Setup
         _VisibleTagesCategories = Nothing
         _VisibleVorschauCategories = Nothing
 
-
+        MPSettingsWrite("config", "PluginName", tfPluginName.Text)
         MPSettingsWrite("config", "ClickfinderPath", tfClickfinderPath.Text.ToString)
         MPSettingsWrite("config", "ClickfinderRating", Me.cbRating.Text)
         MPSettingsWrite("config", "PrimeTimeHour", Me.CBPrimeTimeHour.Text)

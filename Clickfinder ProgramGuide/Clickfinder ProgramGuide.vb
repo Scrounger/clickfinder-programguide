@@ -219,7 +219,7 @@ Namespace ClickfinderProgramGuide
             Return True
         End Function
         Public Function GetHome(ByRef strButtonText As String, ByRef strButtonImage As String, ByRef strButtonImageFocus As String, ByRef strPictureImage As String) As Boolean Implements MediaPortal.GUI.Library.ISetupForm.GetHome
-            strButtonText = "Clickfinder ProgramGuide"
+            strButtonText = MPSettingRead("config", "PluginName")
 
             strButtonImage = String.Empty
 
