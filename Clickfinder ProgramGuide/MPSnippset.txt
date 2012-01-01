@@ -47,3 +47,24 @@ next
             '    'MsgBox(bla.IdChannel)
 
             'Next
+            
+            
+            
+                'Bestehende Gruppe Wert ändern
+                Dim groupchange As ChannelGroup = ChannelGroup.Retrieve(12)
+
+                groupchange.SortOrder = 555
+                groupchange.Persist()
+
+                'Dim _tvbLayer As New TvBusinessLayer
+
+                '_tvbLayer.CreateGroup("Test")
+
+                'Neu Gruppe anlegen
+                Dim NewGroup As New ChannelGroup("Test", 8)
+                NewGroup.Persist()
+                
+                
+                        _TVSeriesDBPath = Config.GetFile(Config.Dir.Database, "TVSeriesDatabase4.db3")
+        _TVSeriesThumbPath = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners")
+        _TVSeriesFanArtPath = Config.GetFile(Config.Dir.Thumbs, "Fan Art\")

@@ -7,13 +7,14 @@ Imports Gentle.Framework
 Imports TvDatabase
 
 
+
 Public Class ClickfinderDB
 #Region "Variablen"
-    Shared _Table As DataTable
-    Shared _TvServerTable As DataTable
-    Shared _Index As Integer
-    Shared _IndexColumn As Integer
-    Shared _ClickfinderDataBasePath As String
+    Private Shared _Table As DataTable
+    Private Shared _TvServerTable As DataTable
+    Private Shared _Index As Integer
+    Private Shared _IndexColumn As Integer
+    Private Shared _ClickfinderDataBasePath As String
 
 #End Region
 

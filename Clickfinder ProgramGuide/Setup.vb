@@ -200,6 +200,18 @@ Public Class Setup
             CBTvSeriesBeschreibung.CheckState = Windows.Forms.CheckState.Unchecked
         End If
 
+        If MPSettingRead("MPTVSeries", "WriteToEPG") = "true" Then
+            CBTvSeriesWriteToEPG.CheckState = Windows.Forms.CheckState.Checked
+        Else
+            CBTvSeriesWriteToEPG.CheckState = Windows.Forms.CheckState.Unchecked
+        End If
+
+        If MPSettingRead("MPTVSeries", "ShowTvSeriesPoster") = "true" Then
+            CBShowTvSeriesPoster.CheckState = Windows.Forms.CheckState.Checked
+        Else
+            CBShowTvSeriesPoster.CheckState = Windows.Forms.CheckState.Unchecked
+        End If
+
         CBTvSeries_CheckedChanged(sender, e)
         rbHeute.Select()
 
@@ -262,17 +274,37 @@ Public Class Setup
             MPSettingsWrite("config", "WdhCorrection", "false")
         End If
 
+
+        'Wenn Series Schnittstelle aktiviert ist, true bei Optionen setzen, sonst alle auf false
         If CBTvSeries.CheckState = Windows.Forms.CheckState.Checked Then
+
             MPSettingsWrite("MPTVSeries", "enable", "true")
+
+            If CBTvSeriesBeschreibung.CheckState = Windows.Forms.CheckState.Checked Then
+                MPSettingsWrite("MPTVSeries", "ShowDescribtion", "true")
+            Else
+                MPSettingsWrite("MPTVSeries", "ShowDescribtion", "false")
+            End If
+
+            If CBTvSeriesWriteToEPG.CheckState = Windows.Forms.CheckState.Checked Then
+                MPSettingsWrite("MPTVSeries", "WriteToEPG", "true")
+            Else
+                MPSettingsWrite("MPTVSeries", "WriteToEPG", "false")
+            End If
+
+            If CBShowTvSeriesPoster.CheckState = Windows.Forms.CheckState.Checked Then
+                MPSettingsWrite("MPTVSeries", "ShowTvSeriesPoster", "true")
+            Else
+                MPSettingsWrite("MPTVSeries", "ShowTvSeriesPoster", "false")
+            End If
+
         Else
             MPSettingsWrite("MPTVSeries", "enable", "false")
+            MPSettingsWrite("MPTVSeries", "ShowDescribtion", "false")
+            MPSettingsWrite("MPTVSeries", "WriteToEPG", "false")
+            MPSettingsWrite("MPTVSeries", "ShowTvSeriesPoster", "false")
         End If
 
-        If CBTvSeriesBeschreibung.CheckState = Windows.Forms.CheckState.Checked Then
-            MPSettingsWrite("MPTVSeries", "ShowDescribtion", "true")
-        Else
-            MPSettingsWrite("MPTVSeries", "ShowDescribtion", "false")
-        End If
 
 
         Dim sb As New SqlBuilder(StatementType.[Select], GetType(ChannelGroup))
@@ -599,10 +631,10 @@ Public Class Setup
     Private Sub CBTvSeries_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CBTvSeries.CheckedChanged
         If CBTvSeries.CheckState = CheckState.Checked Then
             CBTvSeriesBeschreibung.Enabled = True
-            CBTvSeriesTvServerWrite.Enabled = True
+            CBTvSeriesWriteToEPG.Enabled = True
         Else
             CBTvSeriesBeschreibung.Enabled = False
-            CBTvSeriesTvServerWrite.Enabled = False
+            CBTvSeriesWriteToEPG.Enabled = False
         End If
     End Sub
 

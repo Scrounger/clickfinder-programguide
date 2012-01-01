@@ -423,6 +423,22 @@
           </Items>
         </Files>
       </GroupItem>
+      <GroupItem Name="dll">
+        <DisplayName>dll</DisplayName>
+        <DefaulChecked>true</DefaulChecked>
+        <Description>dll</Description>
+        <Files>
+          <Items>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\System.Data.SQLite.dll</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{4ce1d366-1f5d-45ef-bf9c-557b3224a246}-System.Data.SQLite.dll</ZipFileName>
+              <DestinationFilename>%Base%\System.Data.SQLite.dll</DestinationFilename>
+            </FileItem>
+          </Items>
+        </Files>
+      </GroupItem>
     </Items>
   </Groups>
   <Sections>
@@ -649,7 +665,7 @@
       <Major>0</Major>
       <Minor>0</Minor>
       <Build>9</Build>
-      <Revision>5</Revision>
+      <Revision>6</Revision>
     </Version>
     <ExtensionDescription>This Plugin is a ProgramGuide based on the german EPG Data from the Tv Movie Clickfinder Provider (Software). It shows you information for different categories (e.g. Movies, Series, Doku,...), which television program is broadcasting now, at PrimeTime or at LateTime. There is also a Preview for the whole EPG timespan. The Data are sorted by the Rating of the TV Movie Clickfinder Plugin. This Plugin has a lot of configuration options, that gives the user the possibility to personalize the different views.
 
@@ -1064,6 +1080,13 @@ This Plugin is only in German, because the Clickfinder EPG Data are only availab
         <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\hover_ClickfinderProgramGuide.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{54b84e8a-768f-421f-b4cd-208d39430ed8}-hover_ClickfinderProgramGuide.png</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\Media\hover_ClickfinderProgramGuide.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\System.Data.SQLite.dll</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{4ce1d366-1f5d-45ef-bf9c-557b3224a246}-System.Data.SQLite.dll</ZipFileName>
+        <DestinationFilename>%Base%\System.Data.SQLite.dll</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
