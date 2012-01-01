@@ -300,7 +300,7 @@ Namespace ClickfinderProgramGuide
 
                     ShowCategories()
                     System.Threading.Thread.Sleep(1000)
-                    ShowItemDetails(_CurrentDetailsSendungId, _CurrentDetailsSendungChannelName, _CurrentDetailsImageIsPath)
+                    ShowItemDetails(_CurrentDetailsSendungId, _CurrentDetailsSendungChannelName)
 
 
 
@@ -336,7 +336,7 @@ Namespace ClickfinderProgramGuide
                 'Wenn Sendung ID vorhanden, dann DetailsView anzeigen
                 If Not _CurrentDetailsSendungId = Nothing Then
                     _Threat.Join()
-                    ShowItemDetails(_CurrentDetailsSendungId, _CurrentDetailsSendungChannelName, _CurrentDetailsImageIsPath)                    
+                    ShowItemDetails(_CurrentDetailsSendungId, _CurrentDetailsSendungChannelName)
                 End If
             End If
 
@@ -866,7 +866,7 @@ Namespace ClickfinderProgramGuide
                     Log.Debug("")
                     Log.Debug("Clickfinder ProgramGuide: [ListControlClick] Call ShowItemDetails: " & ctlList.SelectedListItem.Label & " " & ctlList.SelectedListItem.Label3 & " " & ctlList.SelectedListItem.Label2 & " " & ctlList.SelectedListItem.Icon.FileName & " - true")
                     Log.Debug("")
-                    ShowItemDetails(ctlList.SelectedListItem.ItemId, ctlList.SelectedListItem.Icon.FileName, True)
+                    ShowItemDetails(ctlList.SelectedListItem.ItemId, ctlList.SelectedListItem.Path)
             End Select
 
         End Sub
@@ -899,7 +899,7 @@ Namespace ClickfinderProgramGuide
                     For i = 0 To str_VisiblePreviewCategories.Length - 1
                         If Not str_VisiblePreviewCategories(i) = "" Then
                             Log.Debug("Clickfinder ProgramGuide: [ShowCategories]: Add PreviewCategorie: " & str_VisiblePreviewCategories(i))
-                            AddListControlItem(ctlList.ListItems.Count - 1, str_VisiblePreviewCategories(i), , , Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\Categories\") & str_VisiblePreviewCategories(i) & ".png")
+                            AddListControlItem(ctlList.ListItems.Count - 1, "", str_VisiblePreviewCategories(i), , , Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\Categories\") & str_VisiblePreviewCategories(i) & ".png")
                             Log.Debug("")
                         End If
                     Next
@@ -913,7 +913,7 @@ Namespace ClickfinderProgramGuide
                     For i = 0 To str_VisibleTagesCategories.Length - 1
                         If Not str_VisibleTagesCategories(i) = "" Then
                             Log.Debug("Clickfinder ProgramGuide: [ShowCategories]: Add Categorie: " & str_VisibleTagesCategories(i))
-                            AddListControlItem(ctlList.ListItems.Count - 1, str_VisibleTagesCategories(i), , , Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\Categories\") & str_VisibleTagesCategories(i) & ".png")
+                            AddListControlItem(ctlList.ListItems.Count - 1, "", str_VisibleTagesCategories(i), , , Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\Categories\") & str_VisibleTagesCategories(i) & ".png")
                             Log.Debug("")
                         End If
                     Next
@@ -968,7 +968,7 @@ Namespace ClickfinderProgramGuide
                 ctlList.Clear()
 
                 'Zurück ListItem hinzufügen
-                AddListControlItem(ctlList.ListItems.Count - 1, "", , , "defaultFolderBack.png")
+                AddListControlItem(ctlList.ListItems.Count - 1, "", "", , , "defaultFolderBack.png")
 
                 'Clickfinder Datenbank öffnen & Daten einlesen
                 Dim _ClickfinderDB As New ClickfinderDB(_ShowSQLString)
@@ -1088,7 +1088,7 @@ Namespace ClickfinderProgramGuide
                                             End If
                                     End Select
 
-                                    AddListControlItem(_ClickfinderDB(i).SendungID, Sendung.Title.ToString, _
+                                    AddListControlItem(_ClickfinderDB(i).SendungID, _ClickfinderDB(i).TvServer_displayName, Sendung.Title.ToString, _
                                                        FormatTimeLabel(_ClickfinderDB(i).Beginn, _ClickfinderDB(i).Ende), _
                                                         _ListItemInfoLabel, _
                                                         _TvLogo)
@@ -1208,11 +1208,10 @@ Namespace ClickfinderProgramGuide
                 Log.Error("Clickfinder ProgramGuide: [ShowTipps]: " & ex.Message)
             End Try
         End Sub
-        Private Sub ShowItemDetails(ByVal ClickfinderSendungID As String, ByVal ChannelName As String, Optional ByVal ChannelNameIsImagePath As Boolean = False)
+        Private Sub ShowItemDetails(ByVal ClickfinderSendungID As String, ByVal ChannelName As String)
 
             _CurrentDetailsSendungId = ClickfinderSendungID
             _CurrentDetailsSendungChannelName = ChannelName
-            _CurrentDetailsImageIsPath = ChannelNameIsImagePath
 
             ClearDetails()
 
@@ -1232,14 +1231,7 @@ Namespace ClickfinderProgramGuide
 
             Dim _ChannelName As String = ChannelName
 
-            If ChannelNameIsImagePath = True Then
-                'ChannelName aus Logo extrahieren - wird benötigt um das Clickfinder Mapping im Tv Server zu ermitteln
-                If _useRatingTvLogos = "true" Then
-                    _ChannelName = Replace(Left(_ChannelName, InStr(_ChannelName, "_") - 1), Config.GetFile(Config.Dir.Thumbs, "ClickfinderPG\tv\logos\"), "")
-                Else
-                    _ChannelName = Replace(Replace(_ChannelName, ".png", ""), Config.GetFile(Config.Dir.Thumbs, "tv\logos\"), "")
-                End If
-            End If
+
 
             'Clickfinder Datenbank öffnen & Daten einlesen
             Dim _ClickfinderDB As New ClickfinderDB("Select * from Sendungen Inner Join SendungenDetails on Sendungen.Pos = SendungenDetails.Pos where Sendungen.SendungID = '" & ClickfinderSendungID & "'")
@@ -1869,7 +1861,7 @@ Namespace ClickfinderProgramGuide
 
         End Sub
 
-        Private Sub AddListControlItem(ByVal SendungID As String, ByVal Label As String, Optional ByVal label2 As String = "", Optional ByVal label3 As String = "", Optional ByVal ImagePath As String = "")
+        Private Sub AddListControlItem(ByVal SendungID As String, ByVal ChannelName As String, ByVal Label As String, Optional ByVal label2 As String = "", Optional ByVal label3 As String = "", Optional ByVal ImagePath As String = "")
 
             Dim lItem As New GUIListItem
 
@@ -1877,6 +1869,7 @@ Namespace ClickfinderProgramGuide
             lItem.Label2 = label2
             lItem.Label3 = label3
             lItem.ItemId = CInt(SendungID)
+            lItem.Path = ChannelName
             lItem.IconImage = ImagePath
 
             GUIControl.AddListItemControl(GetID, ctlList.GetID, lItem)
