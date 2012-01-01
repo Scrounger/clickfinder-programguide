@@ -632,11 +632,17 @@ Public Class Setup
         If CBTvSeries.CheckState = CheckState.Checked Then
             CBTvSeriesBeschreibung.Enabled = True
             CBTvSeriesWriteToEPG.Enabled = True
+<<<<<<< HEAD
             CBShowTvSeriesPoster.Enabled = True
         Else
             CBTvSeriesBeschreibung.Enabled = False
             CBTvSeriesWriteToEPG.Enabled = False
             CBShowTvSeriesPoster.Enabled = False
+=======
+        Else
+            CBTvSeriesBeschreibung.Enabled = False
+            CBTvSeriesWriteToEPG.Enabled = False
+>>>>>>> f7ab6318668a72a530dd652f0e169ecee5d323e9
         End If
     End Sub
 

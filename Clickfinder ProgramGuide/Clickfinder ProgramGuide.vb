@@ -1009,6 +1009,10 @@ Namespace ClickfinderProgramGuide
                                             Dim _SeriesNum As String = Sendung.SeriesNum
                                             Dim _EpisodeNum As String = Sendung.EpisodeNum
 
+<<<<<<< HEAD
+=======
+                                            'Dim _TVSeriesDB As New TVSeriesDB(_ClickfinderDB(i).Titel, _ClickfinderDB(i).Originaltitel)
+>>>>>>> f7ab6318668a72a530dd652f0e169ecee5d323e9
                                             If MPSettingRead("MPTVSeries", "enable") = "true" Then
                                                 If _TVSeriesDB.SeriesFound(_ClickfinderDB(i).Titel) = True Then
 
@@ -1016,7 +1020,11 @@ Namespace ClickfinderProgramGuide
                                                         _TvLogo = _TVSeriesDB.SeriesPosterBannerFileName
                                                     End If
 
+<<<<<<< HEAD
 
+=======
+                                                    
+>>>>>>> f7ab6318668a72a530dd652f0e169ecee5d323e9
 
                                                     If _TVSeriesDB.EpisodeFound(Sendung.EpisodeName) = True Then
 
@@ -1045,6 +1053,7 @@ Namespace ClickfinderProgramGuide
                                                             If Not _TVSeriesDB.SeasonIndex = 0 Or _TVSeriesDB.EpisodeIndex = 0 Then
                                                                 _SeriesNum = _TVSeriesDB.SeasonIndex
                                                                 _EpisodeNum = _TVSeriesDB.EpisodeIndex
+<<<<<<< HEAD
                                                             End If
                                                         End If
 
@@ -1054,6 +1063,15 @@ Namespace ClickfinderProgramGuide
                                                             _EpisodeExist = " (Neu!)"
                                                         End If
                                                     End If
+=======
+                                                            End If                                                           
+                                                        End If
+                                                    End If
+                                                    'MsgBox(_TVSeriesDB.SeriesID & vbNewLine & _
+                                                    '       _TVSeriesDB.SeriesName & vbNewLine & _
+                                                    '       _TVSeriesDB.SeriesPosterBannerFileName)
+
+>>>>>>> f7ab6318668a72a530dd652f0e169ecee5d323e9
                                                 End If
 
                                             End If
