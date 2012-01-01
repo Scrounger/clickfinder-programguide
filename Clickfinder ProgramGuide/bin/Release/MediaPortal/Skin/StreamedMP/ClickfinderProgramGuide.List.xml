@@ -109,6 +109,7 @@
       <textureUpFocus>arrow_round_up_focus.png</textureUpFocus>
       <textureDownFocus>arrow_round_down_focus.png</textureDownFocus>
       <textureHeight>90</textureHeight>
+      <keepaspectratio>yes</keepaspectratio>
       <IconXOff>4</IconXOff>
       <IconYOff>4</IconYOff>
       <textXOff>2</textXOff>

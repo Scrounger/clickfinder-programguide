@@ -85,6 +85,8 @@ Partial Class Setup
         Me.Label9 = New System.Windows.Forms.Label
         Me.Label5 = New System.Windows.Forms.Label
         Me.TabPage1 = New System.Windows.Forms.TabPage
+        Me.tfPluginName = New System.Windows.Forms.TextBox
+        Me.Label25 = New System.Windows.Forms.Label
         Me.Label24 = New System.Windows.Forms.Label
         Me.CBListOffsetY = New System.Windows.Forms.ComboBox
         Me.Label13 = New System.Windows.Forms.Label
@@ -98,11 +100,10 @@ Partial Class Setup
         Me.Label11 = New System.Windows.Forms.Label
         Me.TabControl1 = New System.Windows.Forms.TabControl
         Me.TabPage6 = New System.Windows.Forms.TabPage
-        Me.CBTvSeriesTvServerWrite = New System.Windows.Forms.CheckBox
+        Me.CBTvSeriesWriteToEPG = New System.Windows.Forms.CheckBox
         Me.CBTvSeriesBeschreibung = New System.Windows.Forms.CheckBox
         Me.CBTvSeries = New System.Windows.Forms.CheckBox
-        Me.tfPluginName = New System.Windows.Forms.TextBox
-        Me.Label25 = New System.Windows.Forms.Label
+        Me.CBShowTvSeriesPoster = New System.Windows.Forms.CheckBox
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage4.SuspendLayout()
         Me.TabPage5.SuspendLayout()
@@ -814,6 +815,25 @@ Partial Class Setup
         Me.TabPage1.Text = "Allgemeines"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
+        'tfPluginName
+        '
+        Me.tfPluginName.Location = New System.Drawing.Point(246, 13)
+        Me.tfPluginName.Margin = New System.Windows.Forms.Padding(4)
+        Me.tfPluginName.Name = "tfPluginName"
+        Me.tfPluginName.Size = New System.Drawing.Size(326, 23)
+        Me.tfPluginName.TabIndex = 41
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label25.Location = New System.Drawing.Point(24, 16)
+        Me.Label25.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(93, 16)
+        Me.Label25.TabIndex = 40
+        Me.Label25.Text = "Plugin Name:"
+        '
         'Label24
         '
         Me.Label24.AutoSize = True
@@ -952,7 +972,8 @@ Partial Class Setup
         '
         'TabPage6
         '
-        Me.TabPage6.Controls.Add(Me.CBTvSeriesTvServerWrite)
+        Me.TabPage6.Controls.Add(Me.CBShowTvSeriesPoster)
+        Me.TabPage6.Controls.Add(Me.CBTvSeriesWriteToEPG)
         Me.TabPage6.Controls.Add(Me.CBTvSeriesBeschreibung)
         Me.TabPage6.Controls.Add(Me.CBTvSeries)
         Me.TabPage6.Location = New System.Drawing.Point(4, 25)
@@ -963,17 +984,17 @@ Partial Class Setup
         Me.TabPage6.Text = "MP-TVSeries"
         Me.TabPage6.UseVisualStyleBackColor = True
         '
-        'CBTvSeriesTvServerWrite
+        'CBTvSeriesWriteToEPG
         '
-        Me.CBTvSeriesTvServerWrite.AutoSize = True
-        Me.CBTvSeriesTvServerWrite.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CBTvSeriesTvServerWrite.Location = New System.Drawing.Point(19, 105)
-        Me.CBTvSeriesTvServerWrite.Margin = New System.Windows.Forms.Padding(4)
-        Me.CBTvSeriesTvServerWrite.Name = "CBTvSeriesTvServerWrite"
-        Me.CBTvSeriesTvServerWrite.Size = New System.Drawing.Size(516, 20)
-        Me.CBTvSeriesTvServerWrite.TabIndex = 32
-        Me.CBTvSeriesTvServerWrite.Text = "Schreibe gefundene Staffel- und Episodennummer ins EPG des TV Servers"
-        Me.CBTvSeriesTvServerWrite.UseVisualStyleBackColor = True
+        Me.CBTvSeriesWriteToEPG.AutoSize = True
+        Me.CBTvSeriesWriteToEPG.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CBTvSeriesWriteToEPG.Location = New System.Drawing.Point(19, 105)
+        Me.CBTvSeriesWriteToEPG.Margin = New System.Windows.Forms.Padding(4)
+        Me.CBTvSeriesWriteToEPG.Name = "CBTvSeriesWriteToEPG"
+        Me.CBTvSeriesWriteToEPG.Size = New System.Drawing.Size(516, 20)
+        Me.CBTvSeriesWriteToEPG.TabIndex = 32
+        Me.CBTvSeriesWriteToEPG.Text = "Schreibe gefundene Staffel- und Episodennummer ins EPG des TV Servers"
+        Me.CBTvSeriesWriteToEPG.UseVisualStyleBackColor = True
         '
         'CBTvSeriesBeschreibung
         '
@@ -999,24 +1020,17 @@ Partial Class Setup
         Me.CBTvSeries.Text = "Schnittstelle zu MP-TVSeries aktivieren (funktioniert noch nicht !!!)"
         Me.CBTvSeries.UseVisualStyleBackColor = True
         '
-        'tfPluginName
+        'CBShowTvSeriesPoster
         '
-        Me.tfPluginName.Location = New System.Drawing.Point(246, 13)
-        Me.tfPluginName.Margin = New System.Windows.Forms.Padding(4)
-        Me.tfPluginName.Name = "tfPluginName"
-        Me.tfPluginName.Size = New System.Drawing.Size(326, 23)
-        Me.tfPluginName.TabIndex = 41
-        '
-        'Label25
-        '
-        Me.Label25.AutoSize = True
-        Me.Label25.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label25.Location = New System.Drawing.Point(24, 16)
-        Me.Label25.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(93, 16)
-        Me.Label25.TabIndex = 40
-        Me.Label25.Text = "Plugin Name:"
+        Me.CBShowTvSeriesPoster.AutoSize = True
+        Me.CBShowTvSeriesPoster.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CBShowTvSeriesPoster.Location = New System.Drawing.Point(19, 133)
+        Me.CBShowTvSeriesPoster.Margin = New System.Windows.Forms.Padding(4)
+        Me.CBShowTvSeriesPoster.Name = "CBShowTvSeriesPoster"
+        Me.CBShowTvSeriesPoster.Size = New System.Drawing.Size(351, 20)
+        Me.CBShowTvSeriesPoster.TabIndex = 33
+        Me.CBShowTvSeriesPoster.Text = "Zeige Serien-Poster anstatt TV-Logo in der Liste"
+        Me.CBShowTvSeriesPoster.UseVisualStyleBackColor = True
         '
         'Setup
         '
@@ -1131,9 +1145,10 @@ Partial Class Setup
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
     Friend WithEvents TabPage6 As System.Windows.Forms.TabPage
-    Friend WithEvents CBTvSeriesTvServerWrite As System.Windows.Forms.CheckBox
+    Friend WithEvents CBTvSeriesWriteToEPG As System.Windows.Forms.CheckBox
     Friend WithEvents CBTvSeriesBeschreibung As System.Windows.Forms.CheckBox
     Friend WithEvents CBTvSeries As System.Windows.Forms.CheckBox
     Friend WithEvents tfPluginName As System.Windows.Forms.TextBox
     Friend WithEvents Label25 As System.Windows.Forms.Label
+    Friend WithEvents CBShowTvSeriesPoster As System.Windows.Forms.CheckBox
 End Class
