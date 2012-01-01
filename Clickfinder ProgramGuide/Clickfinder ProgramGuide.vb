@@ -275,10 +275,7 @@ Namespace ClickfinderProgramGuide
             btnPreview.IsFocused = False
 
 
-            'TVSeriesDB.LoadAvailableSeries()
-            If MPSettingRead("MPTVSeries", "enable") = "true" Then
-                _TVSeriesDB = New TVSeriesDB
-            End If
+
 
 
             If _ShowSQLString = "" Then
@@ -886,6 +883,7 @@ Namespace ClickfinderProgramGuide
                 Log.Debug("Clickfinder ProgramGuide: [ShowCategories]: _CurrentQuery" & _CurrentQuery)
                 Log.Debug("")
 
+
                 _CurrentCategorie = ""
                 _RespectInFavGroup = False
                 ctlList.ListItems.Clear()
@@ -960,6 +958,12 @@ Namespace ClickfinderProgramGuide
                 If _CurrentCategorie = "Serien" And MPSettingRead("config", "IgnoreMinTimeSeries") = "true" _
                 Then _SettingMinTime = 0
 
+
+                'TVSeriesDB.LoadAvailableSeries()
+                If MPSettingRead("MPTVSeries", "enable") = "true" Then
+                    _TVSeriesDB = New TVSeriesDB
+                End If
+
                 ctlList.ListItems.Clear()
                 ctlList.Clear()
 
@@ -1009,10 +1013,6 @@ Namespace ClickfinderProgramGuide
                                             Dim _SeriesNum As String = Sendung.SeriesNum
                                             Dim _EpisodeNum As String = Sendung.EpisodeNum
 
-<<<<<<< HEAD
-=======
-                                            'Dim _TVSeriesDB As New TVSeriesDB(_ClickfinderDB(i).Titel, _ClickfinderDB(i).Originaltitel)
->>>>>>> f7ab6318668a72a530dd652f0e169ecee5d323e9
                                             If MPSettingRead("MPTVSeries", "enable") = "true" Then
                                                 If _TVSeriesDB.SeriesFound(_ClickfinderDB(i).Titel) = True Then
 
@@ -1020,11 +1020,7 @@ Namespace ClickfinderProgramGuide
                                                         _TvLogo = _TVSeriesDB.SeriesPosterBannerFileName
                                                     End If
 
-<<<<<<< HEAD
 
-=======
-                                                    
->>>>>>> f7ab6318668a72a530dd652f0e169ecee5d323e9
 
                                                     If _TVSeriesDB.EpisodeFound(Sendung.EpisodeName) = True Then
 
@@ -1053,7 +1049,6 @@ Namespace ClickfinderProgramGuide
                                                             If Not _TVSeriesDB.SeasonIndex = 0 Or _TVSeriesDB.EpisodeIndex = 0 Then
                                                                 _SeriesNum = _TVSeriesDB.SeasonIndex
                                                                 _EpisodeNum = _TVSeriesDB.EpisodeIndex
-<<<<<<< HEAD
                                                             End If
                                                         End If
 
@@ -1063,15 +1058,6 @@ Namespace ClickfinderProgramGuide
                                                             _EpisodeExist = " (Neu!)"
                                                         End If
                                                     End If
-=======
-                                                            End If                                                           
-                                                        End If
-                                                    End If
-                                                    'MsgBox(_TVSeriesDB.SeriesID & vbNewLine & _
-                                                    '       _TVSeriesDB.SeriesName & vbNewLine & _
-                                                    '       _TVSeriesDB.SeriesPosterBannerFileName)
-
->>>>>>> f7ab6318668a72a530dd652f0e169ecee5d323e9
                                                 End If
 
                                             End If
@@ -1087,19 +1073,19 @@ Namespace ClickfinderProgramGuide
                                             End If
 
                                         Case Is = "Fußball LIVE"
-                                                _ListItemInfoLabel = _ClickfinderDB(i).Originaltitel
+                                            _ListItemInfoLabel = _ClickfinderDB(i).Originaltitel
 
                                         Case Else
-                                                If _ClickfinderDB(i).Rating > 0 Then
-                                                    _ListItemInfoLabel = _ClickfinderDB(i).Genre _
-                                                                & vbNewLine & "Bewertung: " & CStr(_ClickfinderDB(i).Rating) _
-                                                                & vbNewLine & _ClickfinderDB(i).Kurzkritik
-                                                ElseIf Not _ClickfinderDB(i).Originaltitel = "" Then
-                                                    _ListItemInfoLabel = _ClickfinderDB(i).Originaltitel _
-                                                                        & vbNewLine & _ClickfinderDB(i).Genre
-                                                Else
-                                                    _ListItemInfoLabel = _ClickfinderDB(i).Genre
-                                                End If
+                                            If _ClickfinderDB(i).Rating > 0 Then
+                                                _ListItemInfoLabel = _ClickfinderDB(i).Genre _
+                                                            & vbNewLine & "Bewertung: " & CStr(_ClickfinderDB(i).Rating) _
+                                                            & vbNewLine & _ClickfinderDB(i).Kurzkritik
+                                            ElseIf Not _ClickfinderDB(i).Originaltitel = "" Then
+                                                _ListItemInfoLabel = _ClickfinderDB(i).Originaltitel _
+                                                                    & vbNewLine & _ClickfinderDB(i).Genre
+                                            Else
+                                                _ListItemInfoLabel = _ClickfinderDB(i).Genre
+                                            End If
                                     End Select
 
                                     AddListControlItem(_ClickfinderDB(i).SendungID, Sendung.Title.ToString, _
@@ -1116,7 +1102,10 @@ Namespace ClickfinderProgramGuide
 
                 Next
 
-                '_TVSeriesDB.Dispose()
+                'TVSeriesDB.LoadAvailableSeries()
+                If MPSettingRead("MPTVSeries", "enable") = "true" Then
+                    _TVSeriesDB.Dispose()
+                End If
 
                 RatingStarsVisble()
                 ctlProgressBar.Visible = False
@@ -1125,6 +1114,7 @@ Namespace ClickfinderProgramGuide
             Catch ex As Exception
                 Log.Error("Clickfinder ProgramGuide: [ShowSelectedCategorieItems]: " & ex.Message)
             End Try
+
 
         End Sub
         Private Sub ShowTipps()
