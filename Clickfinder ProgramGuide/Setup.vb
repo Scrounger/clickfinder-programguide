@@ -212,6 +212,19 @@ Public Class Setup
             CBShowTvSeriesPoster.CheckState = Windows.Forms.CheckState.Unchecked
         End If
 
+        Select Case MPSettingRead("MPTVSeries", "TippsImage")
+            Case Is = "SerienPoster"
+                RBSerienPoster.Checked = True
+            Case Is = "SerienBanner"
+                RBSerienBanner.Checked = True
+            Case Is = "SerienFanArt"
+                RBSerienFanArt.Checked = True
+            Case Is = "Thumb"
+                RBThumb.Checked = True
+            Case Is = "Clickfinder"
+                RBClickfinder.Checked = True
+        End Select
+
         CBTvSeries_CheckedChanged(sender, e)
         rbHeute.Select()
 
@@ -331,6 +344,19 @@ Public Class Setup
             _VisibleVorschauCategories = _VisibleVorschauCategories & lvVorschauCategorieChoosen.Items(i).Text & ";"
         Next
         MPSettingsWrite("config", "VisibleVorschauCategories", _VisibleVorschauCategories)
+
+
+        If RBSerienPoster.Checked = True Then
+            MPSettingsWrite("MPTVSeries", "TippsImage", "SerienPoster")
+        ElseIf RBSerienBanner.Checked = True Then
+            MPSettingsWrite("MPTVSeries", "TippsImage", "SerienBanner")
+        ElseIf RBSerienFanArt.Checked = True Then
+            MPSettingsWrite("MPTVSeries", "TippsImage", "SerienFanArt")
+        ElseIf RBThumb.Checked = True Then
+            MPSettingsWrite("MPTVSeries", "TippsImage", "Thumb")
+        Else
+            MPSettingsWrite("MPTVSeries", "TippsImage", "Clickfinder")
+        End If
 
 
         Me.Close()
@@ -632,9 +658,23 @@ Public Class Setup
         If CBTvSeries.CheckState = CheckState.Checked Then
             CBTvSeriesBeschreibung.Enabled = True
             CBTvSeriesWriteToEPG.Enabled = True
+            CBShowTvSeriesPoster.Enabled = True
+            GroupTipps.Enabled = True
+            RBSerienBanner.Enabled = True
+            RBSerienPoster.Enabled = True
+            RBSerienFanArt.Enabled = True
+            RBThumb.Enabled = True
+            RBClickfinder.Enabled = True
         Else
             CBTvSeriesBeschreibung.Enabled = False
             CBTvSeriesWriteToEPG.Enabled = False
+            CBShowTvSeriesPoster.Enabled = False
+            GroupTipps.Enabled = False
+            RBSerienBanner.Enabled = False
+            RBSerienPoster.Enabled = False
+            RBSerienFanArt.Enabled = False
+            RBThumb.Enabled = False
+            RBClickfinder.Enabled = False
         End If
     End Sub
 

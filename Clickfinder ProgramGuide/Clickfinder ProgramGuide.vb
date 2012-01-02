@@ -960,7 +960,7 @@ Namespace ClickfinderProgramGuide
 
 
                 'TVSeriesDB.LoadAvailableSeries()
-                If MPSettingRead("MPTVSeries", "enable") = "true" Then
+                If MPSettingRead("MPTVSeries", "enable") = "true" And _CurrentCategorie = "Serien" Then
                     _TVSeriesDB = New TVSeriesDB
                 End If
 
@@ -1103,7 +1103,7 @@ Namespace ClickfinderProgramGuide
                 Next
 
                 'TVSeriesDB.LoadAvailableSeries()
-                If MPSettingRead("MPTVSeries", "enable") = "true" Then
+                If MPSettingRead("MPTVSeries", "enable") = "true" And _CurrentCategorie = "Serien" Then
                     _TVSeriesDB.Dispose()
                 End If
 
@@ -1130,6 +1130,12 @@ Namespace ClickfinderProgramGuide
             Dim _lastTitel As String = Nothing
             Dim _TippsCounter As Integer = _idStartCounter
             Dim _SettingMinTime As Integer = CInt(MPSettingRead("config", "MinTime"))
+            Dim _EpisodeExist As String = ""
+
+            'TVSeriesDB.LoadAvailableSeries()
+            If MPSettingRead("MPTVSeries", "enable") = "true" And _CurrentCategorie = "Serien" Then
+                _TVSeriesDB = New TVSeriesDB
+            End If
 
             Log.Debug("Clickfinder ProgramGuide: [ShowTipps]: Query: " & _CurrentQuery & ", Categorie:" & _CurrentCategorie)
 
@@ -1149,28 +1155,99 @@ Namespace ClickfinderProgramGuide
                             _BildDatei = ""
                         End If
 
+                        Dim _Rating As Integer = _ClickfinderDB(i).Rating
+
                         'Prüfen ob Sendung in der TV DB vorhanden ist - Ja ->
                         If ProgramFoundinTvDb(_ClickfinderDB(i).Titel, _ClickfinderDB(i).TvServer_idchannel, _ClickfinderDB(i).Beginn, _ClickfinderDB(i).Ende, _ClickfinderDB(i).SenderKennung) = True Then
                             Dim Sendung As Program = TvDatabase.Program.RetrieveByTitleTimesAndChannel(_ClickfinderDB(i).Titel, _ClickfinderDB(i).Beginn, _ClickfinderDB(i).Ende, _ClickfinderDB(i).TvServer_idchannel)
-
                             Dim _SeriesNum As String = Sendung.SeriesNum
                             Dim _EpisodeNum As String = Sendung.EpisodeNum
-
 
                             If Not _lastTitel = _ClickfinderDB(i).Titel & _ClickfinderDB(i).Originaltitel And _RespectInFavGroup = True And ChannelFoundInFavGroup(_ClickfinderDB(i).TvServer_idchannel) = True Then
 
                                 'Abbruch wenn alle Tipps gefüllt sind
                                 If _TippsCounter >= _idStoppCounter Then
+                                    If MPSettingRead("MPTVSeries", "enable") = "true" And _CurrentCategorie = "Serien" Then
+                                        _TVSeriesDB.Dispose()
+                                    End If
                                     ctlProgressBar.Visible = False
                                     RatingStarsVisble()
                                     Exit Sub
                                 Else
+
+                                    Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & _TippsCounter & "]: ClickfinderID: " & _ClickfinderDB(i).SendungID)
+                                    Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & _TippsCounter & "]: Titel: " & _ClickfinderDB(i).Titel)
+                                    Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & _TippsCounter & "]: orgTitel: " & _ClickfinderDB(i).Originaltitel)
+                                    Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & _TippsCounter & "]: channel: " & _ClickfinderDB(i).TvServer_displayName)
+                                    Select Case _CurrentCategorie
+                                        Case Is = "Serien"
+
+                                            If MPSettingRead("MPTVSeries", "enable") = "true" Then
+                                                If _TVSeriesDB.SeriesFound(_ClickfinderDB(i).Titel) = True Then
+
+                                                    Select Case MPSettingRead("MPTVSeries", "TippsImage")
+                                                        Case Is = "SerienPoster"
+                                                            _BildDatei = _TVSeriesDB.SeriesPosterBannerFileName
+                                                        Case Is = "SerienBanner"
+                                                            _BildDatei = _TVSeriesDB.CurrentBannerFileName
+                                                        Case Is = "SerienFanArt"
+                                                            _BildDatei = _TVSeriesDB.FanArt
+                                                    End Select
+
+                                                    If _TVSeriesDB.EpisodeFound(Sendung.EpisodeName) = True Then
+
+                                                        _Rating = _TVSeriesDB.Rating
+
+                                                        If MPSettingRead("MPTVSeries", "TippsImage") = "Thumb" Then
+                                                            _BildDatei = _TVSeriesDB.thumbFilename
+                                                            'MsgBox(_BildDatei)
+                                                        End If
+
+                                                        If MPSettingRead("MPTVSeries", "WriteToEPG") = "true" Then
+
+                                                            If Not Sendung.SeriesNum = "" Or Not Sendung.EpisodeNum = "" Then
+
+                                                                If Not CInt(Sendung.SeriesNum) = _TVSeriesDB.SeasonIndex Or Not CInt(Sendung.EpisodeNum) = _TVSeriesDB.EpisodeIndex Then
+                                                                    Sendung.SeriesNum = _TVSeriesDB.SeasonIndex
+                                                                    Sendung.EpisodeNum = _TVSeriesDB.EpisodeIndex
+                                                                    Sendung.Persist()
+                                                                    Log.Debug("Clickfinder ProgramGuide: [EpisodeInfo]: Overwrite TV Server EpisodeInfos (" & Sendung.IdProgram & ", " & Sendung.Title & ", S" & Sendung.SeriesNum & "E" & Sendung.EpisodeNum & ")")
+                                                                Else
+                                                                    Log.Debug("Clickfinder ProgramGuide: [EpisodeInfo]: TV Server EpisodeInfos are uptodate (" & Sendung.IdProgram & ", " & Sendung.Title & ", S" & Sendung.SeriesNum & "E" & Sendung.EpisodeNum & ")")
+                                                                End If
+
+                                                            Else
+                                                                Sendung.SeriesNum = _TVSeriesDB.SeasonIndex
+                                                                Sendung.EpisodeNum = _TVSeriesDB.EpisodeIndex
+                                                                Sendung.Persist()
+                                                                Log.Debug("Clickfinder ProgramGuide: [EpisodeInfo]: Write TV Server EpisodeInfos (" & Sendung.IdProgram & ", " & Sendung.Title & ", S" & Sendung.SeriesNum & "E" & Sendung.EpisodeNum & ")")
+                                                            End If
+                                                            _SeriesNum = Sendung.SeriesNum
+                                                            _EpisodeNum = Sendung.EpisodeNum
+                                                        Else
+                                                            If Not _TVSeriesDB.SeasonIndex = 0 Or _TVSeriesDB.EpisodeIndex = 0 Then
+                                                                _SeriesNum = _TVSeriesDB.SeasonIndex
+                                                                _EpisodeNum = _TVSeriesDB.EpisodeIndex
+                                                            End If
+                                                        End If
+
+                                                        If _TVSeriesDB.EpisodeExistLocal = True Then
+                                                            _EpisodeExist = ""
+                                                        Else
+                                                            _EpisodeExist = " (Neu!)"
+                                                        End If
+                                                    End If
+                                                End If
+
+                                            End If
+                                    End Select
+
                                     _TippClickfinderSendungID(_TippsCounter) = _ClickfinderDB(i).SendungID
                                     _TippClickfinderSendungChannelName(_TippsCounter) = _ClickfinderDB(i).TvServer_displayName
                                     _TippClickfinderSendungTitel(_TippsCounter) = _ClickfinderDB(i).Titel & _ClickfinderDB(i).Originaltitel
                                     FillTipps(_TippsCounter, Sendung.Title, _BildDatei, _ClickfinderDB(i).TvServer_displayName, _ClickfinderDB(i).Beginn, _
                                               _ClickfinderDB(i).Ende, _ClickfinderDB(i).Genre, _ClickfinderDB(i).Bewertungen, _ClickfinderDB(i).Kurzkritik, _
-                                              "ClickfinderPG_R" & CStr(_ClickfinderDB(i).Bewertung) & ".png", _ClickfinderDB(i).Originaltitel, _SeriesNum, _EpisodeNum, _ClickfinderDB(i).Bewertung, _ClickfinderDB(i).Rating)
+                                              "ClickfinderPG_R" & CStr(_ClickfinderDB(i).Bewertung) & ".png", _ClickfinderDB(i).Originaltitel & _EpisodeExist, _SeriesNum, _EpisodeNum, _ClickfinderDB(i).Bewertung, _Rating)
 
                                 End If
 
@@ -1180,16 +1257,87 @@ Namespace ClickfinderProgramGuide
 
                                 'Abbruch wenn alle Tipps gefüllt sind
                                 If _TippsCounter >= _idStoppCounter Then
+                                    If MPSettingRead("MPTVSeries", "enable") = "true" And _CurrentCategorie = "Serien" Then
+                                        _TVSeriesDB.Dispose()
+                                    End If
                                     ctlProgressBar.Visible = False
                                     RatingStarsVisble()
                                     Exit Sub
                                 Else
+
+                                    Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & _TippsCounter & "]: ClickfinderID: " & _ClickfinderDB(i).SendungID)
+                                    Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & _TippsCounter & "]: Titel: " & _ClickfinderDB(i).Titel)
+                                    Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & _TippsCounter & "]: orgTitel: " & _ClickfinderDB(i).Originaltitel)
+                                    Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & _TippsCounter & "]: channel: " & _ClickfinderDB(i).TvServer_displayName)
+                                    Select Case _CurrentCategorie
+                                        Case Is = "Serien"
+
+                                            If MPSettingRead("MPTVSeries", "enable") = "true" Then
+                                                If _TVSeriesDB.SeriesFound(_ClickfinderDB(i).Titel) = True Then
+
+                                                    Select Case MPSettingRead("MPTVSeries", "TippsImage")
+                                                        Case Is = "SerienPoster"
+                                                            _BildDatei = _TVSeriesDB.SeriesPosterBannerFileName
+                                                        Case Is = "SerienBanner"
+                                                            _BildDatei = _TVSeriesDB.CurrentBannerFileName
+                                                        Case Is = "SerienFanArt"
+                                                            _BildDatei = _TVSeriesDB.FanArt
+                                                    End Select
+
+                                                    If _TVSeriesDB.EpisodeFound(Sendung.EpisodeName) = True Then
+
+                                                        _Rating = _TVSeriesDB.Rating
+
+                                                        If MPSettingRead("MPTVSeries", "TippsImage") = "Thumb" Then
+                                                            _BildDatei = _TVSeriesDB.thumbFilename
+                                                            'MsgBox(_BildDatei)
+                                                        End If
+
+                                                        If MPSettingRead("MPTVSeries", "WriteToEPG") = "true" Then
+
+                                                            If Not Sendung.SeriesNum = "" Or Not Sendung.EpisodeNum = "" Then
+
+                                                                If Not CInt(Sendung.SeriesNum) = _TVSeriesDB.SeasonIndex Or Not CInt(Sendung.EpisodeNum) = _TVSeriesDB.EpisodeIndex Then
+                                                                    Sendung.SeriesNum = _TVSeriesDB.SeasonIndex
+                                                                    Sendung.EpisodeNum = _TVSeriesDB.EpisodeIndex
+                                                                    Sendung.Persist()
+                                                                    Log.Debug("Clickfinder ProgramGuide: [EpisodeInfo]: Overwrite TV Server EpisodeInfos (" & Sendung.IdProgram & ", " & Sendung.Title & ", S" & Sendung.SeriesNum & "E" & Sendung.EpisodeNum & ")")
+                                                                Else
+                                                                    Log.Debug("Clickfinder ProgramGuide: [EpisodeInfo]: TV Server EpisodeInfos are uptodate (" & Sendung.IdProgram & ", " & Sendung.Title & ", S" & Sendung.SeriesNum & "E" & Sendung.EpisodeNum & ")")
+                                                                End If
+
+                                                            Else
+                                                                Sendung.SeriesNum = _TVSeriesDB.SeasonIndex
+                                                                Sendung.EpisodeNum = _TVSeriesDB.EpisodeIndex
+                                                                Sendung.Persist()
+                                                                Log.Debug("Clickfinder ProgramGuide: [EpisodeInfo]: Write TV Server EpisodeInfos (" & Sendung.IdProgram & ", " & Sendung.Title & ", S" & Sendung.SeriesNum & "E" & Sendung.EpisodeNum & ")")
+                                                            End If
+                                                            _SeriesNum = Sendung.SeriesNum
+                                                            _EpisodeNum = Sendung.EpisodeNum
+                                                        Else
+                                                            If Not _TVSeriesDB.SeasonIndex = 0 Or _TVSeriesDB.EpisodeIndex = 0 Then
+                                                                _SeriesNum = _TVSeriesDB.SeasonIndex
+                                                                _EpisodeNum = _TVSeriesDB.EpisodeIndex
+                                                            End If
+                                                        End If
+
+                                                        If _TVSeriesDB.EpisodeExistLocal = True Then
+                                                            _EpisodeExist = ""
+                                                        Else
+                                                            _EpisodeExist = " (Neu!)"
+                                                        End If
+                                                    End If
+                                                End If
+
+                                            End If
+                                    End Select
+
                                     _TippClickfinderSendungID(_TippsCounter) = _ClickfinderDB(i).SendungID
                                     _TippClickfinderSendungChannelName(_TippsCounter) = _ClickfinderDB(i).TvServer_displayName
                                     _TippClickfinderSendungTitel(_TippsCounter) = _ClickfinderDB(i).Titel & _ClickfinderDB(i).Originaltitel
                                     FillTipps(_TippsCounter, Sendung.Title, _BildDatei, _ClickfinderDB(i).TvServer_displayName, _ClickfinderDB(i).Beginn, _
                                               _ClickfinderDB(i).Ende, _ClickfinderDB(i).Genre, _ClickfinderDB(i).Bewertungen, _ClickfinderDB(i).Kurzkritik, _
-                                              "ClickfinderPG_R" & CStr(_ClickfinderDB(i).Bewertung) & ".png", _ClickfinderDB(i).Originaltitel, _SeriesNum, _EpisodeNum, _ClickfinderDB(i).Bewertung, _ClickfinderDB(i).Rating)
+                                              "ClickfinderPG_R" & CStr(_ClickfinderDB(i).Bewertung) & ".png", _ClickfinderDB(i).Originaltitel & _EpisodeExist, _SeriesNum, _EpisodeNum, _ClickfinderDB(i).Bewertung, _Rating)
 
                                 End If
                                 _TippsCounter = _TippsCounter + 10
@@ -1201,6 +1349,9 @@ Namespace ClickfinderProgramGuide
 
                 Next
 
+                If MPSettingRead("MPTVSeries", "enable") = "true" And _CurrentCategorie = "Serien" Then
+                    _TVSeriesDB.Dispose()
+                End If
                 ctlProgressBar.Visible = False
                 RatingStarsVisble()
 
@@ -1429,6 +1580,10 @@ Namespace ClickfinderProgramGuide
 
 
                     _Bilddatei = UseSportLogos(_Titel, _channelName)
+                ElseIf InStr(_Bilddatei, "MPTVSeriesBanners") Or InStr(_Bilddatei, "Fan Art") Then
+                    _GuiImage(StartIdofGroup + 1).KeepAspectRatio = True
+                    _GuiImage(StartIdofGroup + 1).Centered = True
+                    _Bilddatei = _FavImagePath
                 Else
                     _GuiImage(StartIdofGroup + 1).KeepAspectRatio = False
                     _GuiImage(StartIdofGroup + 1).Centered = False
@@ -1446,18 +1601,21 @@ Namespace ClickfinderProgramGuide
                 'Zeit 
                 GUILabelControl.SetControlLabel(GetID, StartIdofGroup + 4, FormatTimeLabel(_StartZeit, _EndZeit))
 
-                If Not _SeriesNum = "" Or Not _EpisodeNum = "" Then
-                    _EpisodenName = "S" & Format(CInt(_SeriesNum), "00") & "E" & Format(CInt(_EpisodeNum), "00") & " - " & _EpisodenName
-                End If
+ 
 
                 'Wenn keine Bewertung vorhanden ist, Genre = EpisodenName, Kanal = Genre, Bewertung = Kanal
-                If _Bewertung = 0 Then
+                If _BewertungStr = "" Then
 
                     If _EpisodenName = "" Then
                         GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 2, _channelName)
                         GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 3, _Genre)
                         GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 5, "")
                     Else
+                        If Not _SeriesNum = "" Or Not _EpisodeNum = "" Then
+                            _channelName = _Genre
+                            _Genre = "Staffel " & _SeriesNum & ", Episode " & _EpisodeNum
+                        End If
+
                         GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 2, _Genre)
                         GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 3, _EpisodenName)
                         GUIFadeLabel.SetControlLabel(GetID, StartIdofGroup + 5, _channelName)
@@ -1482,13 +1640,10 @@ Namespace ClickfinderProgramGuide
                 _GuiImage(StartIdofGroup + 7).SetFileName(_FavRatingImagePath)
 
                 If Not _Titel = "" Then
-                    Log.Debug("")
-                    Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & StartIdofGroup & "]: ClickfinderID: " & _TippClickfinderSendungID(StartIdofGroup))
-                    Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & StartIdofGroup & "]: Titel: " & _Titel & " " & _FavImagePath & " " & _channelName & " " & _Genre & " " & _StartZeit & " " & _EndZeit & " " & _BewertungStr & " " & _Kritik & " " & _FavRatingImagePath)
-                    Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & StartIdofGroup & "]: Channel: " & _channelName)
-                    Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & StartIdofGroup & "]: Time: " & _StartZeit & " - " & _EndZeit)
+
                     Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & StartIdofGroup & "]: ImagePath: " & _Bilddatei)
                     Log.Debug("Clickfinder ProgramGuide: [FillTipps: " & StartIdofGroup & "]: RatingImagePath: " & _FavRatingImagePath)
+                    Log.Debug("")
                 End If
 
             Catch ex As Exception
@@ -1748,11 +1903,10 @@ Namespace ClickfinderProgramGuide
 
             Dim _TestStartZeit As Date = Today
             Dim _TestEndZeit As Date = Today.AddHours(6)
-            Dim _RatingField As New ClickfinderDB(Replace(SQLQueryAccess(_TestStartZeit, _TestEndZeit, "AND Bewertung >= 1 AND Rating >= 1 AND KzFilm = true"), "*", "DISTINCT Rating"))
+            Dim _RatingField As New ClickfinderDB(Replace(SQLQueryAccess(_TestStartZeit, _TestEndZeit, "AND Bewertung = 3 AND Rating >= 1 AND KzFilm = true"), "*", "DISTINCT Rating"))
 
-            'MsgBox(_RatingField.Count)
             'Prüfen ob Rating für die kommenden Stunden existiert - ClickfinderDB Update erkennen
-            If _RatingField.Count <= 5 Then
+            If _RatingField.Count <= 1 Then '<= 5
                 Log.Info("Clickfinder ProgramGuide: [CreateClickfinderRatingTable]: Start Calculate & write Ratings")
 
                 Try
