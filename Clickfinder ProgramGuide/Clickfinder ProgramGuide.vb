@@ -1196,7 +1196,7 @@ Namespace ClickfinderProgramGuide
 
                                                     If _TVSeriesDB.EpisodeFound(Sendung.EpisodeName) = True Then
 
-                                                        _Rating = _TVSeriesDB.Rating
+                                                        _Rating = _TVSeriesDB.SeriesRating
 
                                                         If MPSettingRead("MPTVSeries", "TippsImage") = "Thumb" Then
                                                             _BildDatei = _TVSeriesDB.thumbFilename
@@ -1286,7 +1286,7 @@ Namespace ClickfinderProgramGuide
 
                                                     If _TVSeriesDB.EpisodeFound(Sendung.EpisodeName) = True Then
 
-                                                        _Rating = _TVSeriesDB.Rating
+                                                        _Rating = _TVSeriesDB.SeriesRating
 
                                                         If MPSettingRead("MPTVSeries", "TippsImage") = "Thumb" Then
                                                             _BildDatei = _TVSeriesDB.thumbFilename
