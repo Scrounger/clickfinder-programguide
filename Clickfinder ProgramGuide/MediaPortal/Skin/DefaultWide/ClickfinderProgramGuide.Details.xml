@@ -445,21 +445,21 @@
     </control>
 
     <control>
-      <description>TheTvDB</description>
+      <description>Play</description>
       <type>button</type>
       <id>86</id>
       <posX>110</posX>
       <posY>510</posY>
       <width>216</width>
       <height>30</height>
-      <label>TheTvDB</label>
+      <label>Play</label>
       <onleft>86</onleft>
       <onright>86</onright>
       <onup>90</onup>
       <ondown>87</ondown>
       <textalign>center</textalign>
       <font>font10</font>
-      <visible>control.isvisible(30)+!control.isvisible(9)+!control.isvisible(11)</visible>
+      <visible>false</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>

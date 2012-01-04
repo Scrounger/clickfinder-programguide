@@ -100,6 +100,13 @@ Partial Class Setup
         Me.Label11 = New System.Windows.Forms.Label
         Me.TabControl1 = New System.Windows.Forms.TabControl
         Me.TabPage6 = New System.Windows.Forms.TabPage
+        Me.GroupDetail = New System.Windows.Forms.GroupBox
+        Me.RBDetailClickfinder = New System.Windows.Forms.RadioButton
+        Me.RBDetailThumb = New System.Windows.Forms.RadioButton
+        Me.RBDetailSerienFanArt = New System.Windows.Forms.RadioButton
+        Me.RBDetailSerienBanner = New System.Windows.Forms.RadioButton
+        Me.CBTvSeriesBeschreibung = New System.Windows.Forms.CheckBox
+        Me.RBDetailSerienPoster = New System.Windows.Forms.RadioButton
         Me.GroupTipps = New System.Windows.Forms.GroupBox
         Me.RBClickfinder = New System.Windows.Forms.RadioButton
         Me.RBThumb = New System.Windows.Forms.RadioButton
@@ -108,7 +115,6 @@ Partial Class Setup
         Me.RBSerienPoster = New System.Windows.Forms.RadioButton
         Me.CBShowTvSeriesPoster = New System.Windows.Forms.CheckBox
         Me.CBTvSeriesWriteToEPG = New System.Windows.Forms.CheckBox
-        Me.CBTvSeriesBeschreibung = New System.Windows.Forms.CheckBox
         Me.CBTvSeries = New System.Windows.Forms.CheckBox
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage4.SuspendLayout()
@@ -122,6 +128,7 @@ Partial Class Setup
         Me.TabPage1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage6.SuspendLayout()
+        Me.GroupDetail.SuspendLayout()
         Me.GroupTipps.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -979,10 +986,10 @@ Partial Class Setup
         '
         'TabPage6
         '
+        Me.TabPage6.Controls.Add(Me.GroupDetail)
         Me.TabPage6.Controls.Add(Me.GroupTipps)
         Me.TabPage6.Controls.Add(Me.CBShowTvSeriesPoster)
         Me.TabPage6.Controls.Add(Me.CBTvSeriesWriteToEPG)
-        Me.TabPage6.Controls.Add(Me.CBTvSeriesBeschreibung)
         Me.TabPage6.Controls.Add(Me.CBTvSeries)
         Me.TabPage6.Location = New System.Drawing.Point(4, 25)
         Me.TabPage6.Name = "TabPage6"
@@ -991,6 +998,88 @@ Partial Class Setup
         Me.TabPage6.TabIndex = 5
         Me.TabPage6.Text = "MP-TVSeries"
         Me.TabPage6.UseVisualStyleBackColor = True
+        '
+        'GroupDetail
+        '
+        Me.GroupDetail.Controls.Add(Me.RBDetailClickfinder)
+        Me.GroupDetail.Controls.Add(Me.RBDetailThumb)
+        Me.GroupDetail.Controls.Add(Me.RBDetailSerienFanArt)
+        Me.GroupDetail.Controls.Add(Me.RBDetailSerienBanner)
+        Me.GroupDetail.Controls.Add(Me.CBTvSeriesBeschreibung)
+        Me.GroupDetail.Controls.Add(Me.RBDetailSerienPoster)
+        Me.GroupDetail.Location = New System.Drawing.Point(19, 226)
+        Me.GroupDetail.Name = "GroupDetail"
+        Me.GroupDetail.Size = New System.Drawing.Size(553, 135)
+        Me.GroupDetail.TabIndex = 35
+        Me.GroupDetail.TabStop = False
+        Me.GroupDetail.Text = "Detail Ansicht"
+        '
+        'RBDetailClickfinder
+        '
+        Me.RBDetailClickfinder.AutoSize = True
+        Me.RBDetailClickfinder.Location = New System.Drawing.Point(17, 74)
+        Me.RBDetailClickfinder.Name = "RBDetailClickfinder"
+        Me.RBDetailClickfinder.Size = New System.Drawing.Size(120, 20)
+        Me.RBDetailClickfinder.TabIndex = 4
+        Me.RBDetailClickfinder.TabStop = True
+        Me.RBDetailClickfinder.Text = "Clickfinder Bild"
+        Me.RBDetailClickfinder.UseVisualStyleBackColor = True
+        '
+        'RBDetailThumb
+        '
+        Me.RBDetailThumb.AutoSize = True
+        Me.RBDetailThumb.Location = New System.Drawing.Point(137, 48)
+        Me.RBDetailThumb.Name = "RBDetailThumb"
+        Me.RBDetailThumb.Size = New System.Drawing.Size(111, 20)
+        Me.RBDetailThumb.TabIndex = 3
+        Me.RBDetailThumb.TabStop = True
+        Me.RBDetailThumb.Text = "Episoden Bild"
+        Me.RBDetailThumb.UseVisualStyleBackColor = True
+        '
+        'RBDetailSerienFanArt
+        '
+        Me.RBDetailSerienFanArt.AutoSize = True
+        Me.RBDetailSerienFanArt.Location = New System.Drawing.Point(17, 48)
+        Me.RBDetailSerienFanArt.Name = "RBDetailSerienFanArt"
+        Me.RBDetailSerienFanArt.Size = New System.Drawing.Size(116, 20)
+        Me.RBDetailSerienFanArt.TabIndex = 2
+        Me.RBDetailSerienFanArt.TabStop = True
+        Me.RBDetailSerienFanArt.Text = "Serien FanArt"
+        Me.RBDetailSerienFanArt.UseVisualStyleBackColor = True
+        '
+        'RBDetailSerienBanner
+        '
+        Me.RBDetailSerienBanner.AutoSize = True
+        Me.RBDetailSerienBanner.Location = New System.Drawing.Point(137, 22)
+        Me.RBDetailSerienBanner.Name = "RBDetailSerienBanner"
+        Me.RBDetailSerienBanner.Size = New System.Drawing.Size(117, 20)
+        Me.RBDetailSerienBanner.TabIndex = 1
+        Me.RBDetailSerienBanner.TabStop = True
+        Me.RBDetailSerienBanner.Text = "Serien Banner"
+        Me.RBDetailSerienBanner.UseVisualStyleBackColor = True
+        '
+        'CBTvSeriesBeschreibung
+        '
+        Me.CBTvSeriesBeschreibung.AutoSize = True
+        Me.CBTvSeriesBeschreibung.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CBTvSeriesBeschreibung.Location = New System.Drawing.Point(17, 101)
+        Me.CBTvSeriesBeschreibung.Margin = New System.Windows.Forms.Padding(4)
+        Me.CBTvSeriesBeschreibung.Name = "CBTvSeriesBeschreibung"
+        Me.CBTvSeriesBeschreibung.Size = New System.Drawing.Size(448, 20)
+        Me.CBTvSeriesBeschreibung.TabIndex = 31
+        Me.CBTvSeriesBeschreibung.Text = "Zeige MP-TVSeries Episoden Infos, anstatt der Clickfinder Infos"
+        Me.CBTvSeriesBeschreibung.UseVisualStyleBackColor = True
+        '
+        'RBDetailSerienPoster
+        '
+        Me.RBDetailSerienPoster.AutoSize = True
+        Me.RBDetailSerienPoster.Location = New System.Drawing.Point(17, 22)
+        Me.RBDetailSerienPoster.Name = "RBDetailSerienPoster"
+        Me.RBDetailSerienPoster.Size = New System.Drawing.Size(114, 20)
+        Me.RBDetailSerienPoster.TabIndex = 0
+        Me.RBDetailSerienPoster.TabStop = True
+        Me.RBDetailSerienPoster.Text = "Serien Poster"
+        Me.RBDetailSerienPoster.UseVisualStyleBackColor = True
         '
         'GroupTipps
         '
@@ -1085,18 +1174,6 @@ Partial Class Setup
         Me.CBTvSeriesWriteToEPG.Text = "Schreibe gefundene Staffel- und Episodennummer ins EPG des TV Servers"
         Me.CBTvSeriesWriteToEPG.UseVisualStyleBackColor = True
         '
-        'CBTvSeriesBeschreibung
-        '
-        Me.CBTvSeriesBeschreibung.AutoSize = True
-        Me.CBTvSeriesBeschreibung.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CBTvSeriesBeschreibung.Location = New System.Drawing.Point(19, 238)
-        Me.CBTvSeriesBeschreibung.Margin = New System.Windows.Forms.Padding(4)
-        Me.CBTvSeriesBeschreibung.Name = "CBTvSeriesBeschreibung"
-        Me.CBTvSeriesBeschreibung.Size = New System.Drawing.Size(493, 20)
-        Me.CBTvSeriesBeschreibung.TabIndex = 31
-        Me.CBTvSeriesBeschreibung.Text = "Zeige MP-TVSeries Beschreibung, anstatt der Clickfinder Beschreibung"
-        Me.CBTvSeriesBeschreibung.UseVisualStyleBackColor = True
-        '
         'CBTvSeries
         '
         Me.CBTvSeries.AutoSize = True
@@ -1143,6 +1220,8 @@ Partial Class Setup
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage6.ResumeLayout(False)
         Me.TabPage6.PerformLayout()
+        Me.GroupDetail.ResumeLayout(False)
+        Me.GroupDetail.PerformLayout()
         Me.GroupTipps.ResumeLayout(False)
         Me.GroupTipps.PerformLayout()
         Me.ResumeLayout(False)
@@ -1236,4 +1315,10 @@ Partial Class Setup
     Friend WithEvents RBSerienBanner As System.Windows.Forms.RadioButton
     Friend WithEvents RBSerienPoster As System.Windows.Forms.RadioButton
     Friend WithEvents RBClickfinder As System.Windows.Forms.RadioButton
+    Friend WithEvents GroupDetail As System.Windows.Forms.GroupBox
+    Friend WithEvents RBDetailClickfinder As System.Windows.Forms.RadioButton
+    Friend WithEvents RBDetailThumb As System.Windows.Forms.RadioButton
+    Friend WithEvents RBDetailSerienFanArt As System.Windows.Forms.RadioButton
+    Friend WithEvents RBDetailSerienBanner As System.Windows.Forms.RadioButton
+    Friend WithEvents RBDetailSerienPoster As System.Windows.Forms.RadioButton
 End Class

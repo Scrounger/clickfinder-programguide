@@ -28,6 +28,7 @@
     <entry name="WriteToEPG">true</entry>
     <entry name="ShowTvSeriesPoster">true</entry>
     <entry name="TippsImage">Clickfinder</entry>
+    <entry name="DetailImage">Clickfinder</entry>
     <!--SerienPoster, SerienBanner, SerienFanArt, Thumb, Clickfinder-->
   </section>
   <section name="Save">

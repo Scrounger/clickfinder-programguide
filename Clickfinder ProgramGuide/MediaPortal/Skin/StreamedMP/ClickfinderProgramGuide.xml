@@ -21,6 +21,17 @@
       <colordiffuse>#header.BG.colordiffuse</colordiffuse>
       <!--<animation effect="fade" time="300">WindowOpen</animation>-->
     </control>
+
+    <control>
+      <id>45</id>
+      <description>Background FanArt Image</description>
+      <type>image</type>
+      <posX>0</posX>
+      <posY>0</posY>
+      <width>1280</width>
+      <height>720</height>
+      <visible>no</visible>
+    </control>
     
     <control>
       <description>Overlay Image</description>

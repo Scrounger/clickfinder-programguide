@@ -225,6 +225,18 @@ Public Class Setup
                 RBClickfinder.Checked = True
         End Select
 
+        Select Case MPSettingRead("MPTVSeries", "DetailImage")
+            Case Is = "SerienPoster"
+                RBDetailSerienPoster.Checked = True
+            Case Is = "SerienBanner"
+                RBDetailSerienBanner.Checked = True
+            Case Is = "SerienFanArt"
+                RBDetailSerienFanArt.Checked = True
+            Case Is = "Thumb"
+                RBDetailThumb.Checked = True
+            Case Is = "Clickfinder"
+                RBDetailClickfinder.Checked = True
+        End Select
         CBTvSeries_CheckedChanged(sender, e)
         rbHeute.Select()
 
@@ -359,6 +371,17 @@ Public Class Setup
         End If
 
 
+        If RBDetailSerienPoster.Checked = True Then
+            MPSettingsWrite("MPTVSeries", "DetailImage", "SerienPoster")
+        ElseIf RBDetailSerienBanner.Checked = True Then
+            MPSettingsWrite("MPTVSeries", "DetailImage", "SerienBanner")
+        ElseIf RBDetailSerienFanArt.Checked = True Then
+            MPSettingsWrite("MPTVSeries", "DetailImage", "SerienFanArt")
+        ElseIf RBDetailThumb.Checked = True Then
+            MPSettingsWrite("MPTVSeries", "DetailImage", "Thumb")
+        Else
+            MPSettingsWrite("MPTVSeries", "DetailImage", "Clickfinder")
+        End If
         Me.Close()
 
     End Sub
@@ -665,6 +688,13 @@ Public Class Setup
             RBSerienFanArt.Enabled = True
             RBThumb.Enabled = True
             RBClickfinder.Enabled = True
+
+            GroupDetail.Enabled = True
+            RBDetailSerienBanner.Enabled = True
+            RBDetailSerienPoster.Enabled = True
+            RBDetailSerienFanArt.Enabled = True
+            RBDetailThumb.Enabled = True
+            RBDetailClickfinder.Enabled = True
         Else
             CBTvSeriesBeschreibung.Enabled = False
             CBTvSeriesWriteToEPG.Enabled = False
@@ -675,6 +705,12 @@ Public Class Setup
             RBSerienFanArt.Enabled = False
             RBThumb.Enabled = False
             RBClickfinder.Enabled = False
+            GroupDetail.Enabled = False
+            RBDetailSerienBanner.Enabled = False
+            RBDetailSerienPoster.Enabled = False
+            RBDetailSerienFanArt.Enabled = False
+            RBDetailThumb.Enabled = False
+            RBDetailClickfinder.Enabled = False
         End If
     End Sub
 

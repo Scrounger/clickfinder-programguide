@@ -7,7 +7,6 @@ Imports Gentle.Framework
 Imports TvDatabase
 
 
-
 Public Class ClickfinderDB
 #Region "Variablen"
     Private Shared _Table As DataTable
@@ -358,8 +357,6 @@ Public Class ClickfinderDB
             End Get
         End Property
     End Class
-
-
 
 #End Region
 
