@@ -647,16 +647,24 @@
     <UpdateUrl>https://clickfinder-programguide.googlecode.com/git/Clickfinder%20ProgramGuide/MPEI/Source/update.xml</UpdateUrl>
     <Version>
       <Major>0</Major>
-      <Minor>0</Minor>
-      <Build>9</Build>
-      <Revision>9</Revision>
+      <Minor>1</Minor>
+      <Build>0</Build>
+      <Revision>0</Revision>
     </Version>
     <ExtensionDescription>This Plugin is a ProgramGuide based on the german EPG Data from the Tv Movie Clickfinder Provider (Software). It shows you information for different categories (e.g. Movies, Series, Doku,...), which television program is broadcasting now, at PrimeTime or at LateTime. There is also a Preview for the whole EPG timespan. The Data are sorted by the Rating of the TV Movie Clickfinder Plugin. This Plugin has a lot of configuration options, that gives the user the possibility to personalize the different views.
 
 This Plugin is only in German, because the Clickfinder EPG Data are only available in German too.</ExtensionDescription>
-    <VersionDescription />
+    <VersionDescription>- Support for MS SQL Server
+- Bug Fixes
+
+*** New Feature:
+- Integration of MP-TvSeries in the Categorie Series
+- Shows Sesaon- and EpisodeNr.
+- Write Sesaon- and EpisodeNr. to TvService EPG [optional]
+- Show Episode Infos and Thumbs [optional]
+</VersionDescription>
     <DevelopmentStatus>Beta</DevelopmentStatus>
-    <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_0.0.9.1.beta.mpe1</OnlineLocation>
+    <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_0.1.0.0.beta.mpe1</OnlineLocation>
     <ReleaseDate>2012-01-04T15:57:29</ReleaseDate>
     <Tags>programguide, tv movie, clickfinder, epg, tv</Tags>
     <Location>Z:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPEI\Clickfinder ProgramGuide.mpe1</Location>
@@ -680,7 +688,7 @@ This Plugin is only in German, because the Clickfinder EPG Data are only availab
  If have .dll extension used like MP plugin configuration</Description>
         </SectionParam>
         <SectionParam Name="Online Screenshots">
-          <Value>http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/ActionMenu.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Categories.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Items.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Items_TVLogos.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Items_SportLogos.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Items_TVLogos_Episode.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/DetailAnsicht.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/Blue3Wide_Categories.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/Blue3Wide_ActionMenu.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/Blue3Wide_Items.jpg</Value>
+          <Value>http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/ActionMenu.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Categories.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Items.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Items_TVLogos.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Items_MP-TvSeries.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/Detail_MP-TvSeries.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Items_SportLogos.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Items_TVLogos_Episode.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/DetailAnsicht.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/Blue3Wide_Categories.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/Blue3Wide_ActionMenu.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/Blue3Wide_Items.jpg</Value>
           <ValueType>String</ValueType>
           <Description>Online stored screenshot urls separated by ; </Description>
         </SectionParam>
@@ -1069,7 +1077,7 @@ This Plugin is only in German, because the Clickfinder EPG Data are only availab
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\..\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R3.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{8d683315-b3e2-4784-805d-a9424daa7774}-ClickfinderPG_R3.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{55215560-6904-4b30-9c80-6dfdadf8beae}-ClickfinderPG_R3.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>

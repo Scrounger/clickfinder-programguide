@@ -148,5 +148,162 @@
       </ProjectSettings>
       <IsSkin>false</IsSkin>
     </PackageClass>
+    <PackageClass>
+      <Version>2.0</Version>
+      <Groups>
+        <Items>
+          <GroupItem Name="Plugin dll">
+            <DisplayName>Plugin dll</DisplayName>
+            <DefaulChecked>true</DefaulChecked>
+            <Description>Plugin dll</Description>
+            <Files>
+              <Items />
+            </Files>
+          </GroupItem>
+          <GroupItem Name="Thumb Files">
+            <DisplayName>Thumb Files</DisplayName>
+            <DefaulChecked>true</DefaulChecked>
+            <Description>Thumb Files</Description>
+            <Files>
+              <Items />
+            </Files>
+          </GroupItem>
+          <GroupItem Name="Config File">
+            <DisplayName>Config File</DisplayName>
+            <DefaulChecked>true</DefaulChecked>
+            <Description>Config File</Description>
+            <Files>
+              <Items />
+            </Files>
+          </GroupItem>
+          <GroupItem Name="StreamedMP">
+            <DisplayName>StreamedMP</DisplayName>
+            <DefaulChecked>true</DefaulChecked>
+            <Description>StreamedMP</Description>
+            <Files>
+              <Items />
+            </Files>
+          </GroupItem>
+          <GroupItem Name="DefaultWide">
+            <DisplayName>DefaultWide</DisplayName>
+            <DefaulChecked>true</DefaulChecked>
+            <Description>DefaultWide</Description>
+            <Files>
+              <Items />
+            </Files>
+          </GroupItem>
+        </Items>
+      </Groups>
+      <Sections>
+        <Items />
+      </Sections>
+      <Dependencies>
+        <Items>
+          <DependencyItem>
+            <Type>MediaPortal</Type>
+            <Id />
+            <MinVersion>
+              <Major>1</Major>
+              <Minor>1</Minor>
+              <Build>6</Build>
+              <Revision>27644</Revision>
+            </MinVersion>
+            <MaxVersion>
+              <Major>1</Major>
+              <Minor>1</Minor>
+              <Build>6</Build>
+              <Revision>27644</Revision>
+            </MaxVersion>
+            <WarnOnly>false</WarnOnly>
+            <Message>requires MediaPortal version 1.1.6.27644 to 1.1.6.27644.</Message>
+            <Name>MediaPortal</Name>
+          </DependencyItem>
+        </Items>
+      </Dependencies>
+      <PluginDependencies>
+        <Items>
+          <PluginDependencyItem AssemblyName="ClickfinderProgramGuide.dll">
+            <CompatibleVersion>
+              <Items>
+                <CompatibleVersionItem>
+                  <MinRequiredVersion>1.2.0.0</MinRequiredVersion>
+                  <DesignedForVersion>1.2.0.0</DesignedForVersion>
+                </CompatibleVersionItem>
+              </Items>
+            </CompatibleVersion>
+            <SubSystemsUsed>
+              <Items>
+                <SubSystemItem Name="MP.SkinEngine" />
+                <SubSystemItem Name="MP.Config" />
+              </Items>
+            </SubSystemsUsed>
+          </PluginDependencyItem>
+        </Items>
+      </PluginDependencies>
+      <GeneralInfo>
+        <Name>Clickfinder ProgramGuide</Name>
+        <Id>304bc464-97b0-49e5-a6b7-fc9a1b95fa5d</Id>
+        <Author>Scrounger</Author>
+        <HomePage>https://code.google.com/p/clickfinder-programguide/</HomePage>
+        <ForumPage>http://forum.team-mediaportal.com/plugins-erweiterungen-178/clickfinder-programguide-0-0-5-7-beta-103217/</ForumPage>
+        <UpdateUrl>https://clickfinder-programguide.googlecode.com/git/Clickfinder%20ProgramGuide/MPEI/Source/update.xml</UpdateUrl>
+        <Version>
+          <Major>0</Major>
+          <Minor>1</Minor>
+          <Build>0</Build>
+          <Revision>0</Revision>
+        </Version>
+        <ExtensionDescription>This Plugin is a ProgramGuide based on the german EPG Data from the Tv Movie Clickfinder Provider (Software). It shows you information for different categories (e.g. Movies, Series, Doku,...), which television program is broadcasting now, at PrimeTime or at LateTime. There is also a Preview for the whole EPG timespan. The Data are sorted by the Rating of the TV Movie Clickfinder Plugin. This Plugin has a lot of configuration options, that gives the user the possibility to personalize the different views.
+
+This Plugin is only in German, because the Clickfinder EPG Data are only available in German too.</ExtensionDescription>
+        <VersionDescription>- Support for MS SQL Server
+- Bug Fixes
+
+*** New Feature:
+- Integration of MP-TvSeries in the Categorie Series
+- Shows Sesaon- and EpisodeNr.
+- Write Sesaon- and EpisodeNr. to TvService EPG [optional]
+- Show Episode Infos and Thumbs [optional]
+</VersionDescription>
+        <DevelopmentStatus>Beta</DevelopmentStatus>
+        <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_0.1.0.0.beta.mpe1</OnlineLocation>
+        <ReleaseDate>2012-01-04T15:57:29</ReleaseDate>
+        <Tags>programguide, tv movie, clickfinder, epg, tv</Tags>
+        <Location>Z:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPEI\Clickfinder ProgramGuide.mpe1</Location>
+        <Params>
+          <Items>
+            <SectionParam Name="Online Icon">
+              <Value>https://clickfinder-programguide.googlecode.com/git/Clickfinder%20ProgramGuide/MediaPortal/Skin/DefaultWide/Media/ClickfinderPG_R3.png</Value>
+              <ValueType>String</ValueType>
+              <Description>The icon file of the package stored online (jpg,png,bmp)</Description>
+            </SectionParam>
+            <SectionParam Name="Configuration file">
+              <Value />
+              <ValueType>Template</ValueType>
+              <Description>The file used to configure the extension.
+ If have .exe extension the will be executed
+ If have .dll extension used like MP plugin configuration</Description>
+            </SectionParam>
+            <SectionParam Name="Online Screenshots">
+              <Value>http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/ActionMenu.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Categories.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Items.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Items_TVLogos.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Items_MP-TvSeries.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/Detail_MP-TvSeries.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Items_SportLogos.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Items_TVLogos_Episode.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/DetailAnsicht.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/Blue3Wide_Categories.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/Blue3Wide_ActionMenu.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/Blue3Wide_Items.jpg</Value>
+              <ValueType>String</ValueType>
+              <Description>Online stored screenshot urls separated by ; </Description>
+            </SectionParam>
+            <SectionParam Name="Force to uninstall on update">
+              <Value>YES</Value>
+              <ValueType>Bool</ValueType>
+              <Description>Show dialog and force to uninstall previous version when updating an extension. Should only be disabled if you are using an NSIS/MSI installer.</Description>
+            </SectionParam>
+          </Items>
+        </Params>
+      </GeneralInfo>
+      <UniqueFileList>
+        <Items />
+      </UniqueFileList>
+      <ProjectSettings>
+        <FolderGroups />
+      </ProjectSettings>
+      <IsSkin>false</IsSkin>
+    </PackageClass>
   </Items>
 </ExtensionCollection>
