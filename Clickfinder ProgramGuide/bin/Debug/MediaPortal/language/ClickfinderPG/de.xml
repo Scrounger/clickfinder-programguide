@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- German -->
+<!-- Note: German is the fallback for any strings not found in other languages -->
+<strings>
+  <string Field="LastUpdate">Letztes Update:</string>
+  <string Field="Today">Heute</string>
+  <string Field="Tomorrow">Morgen</string>
+  <string Field="Monday">Montag</string>
+  <string Field="Tuesday">Dienstag</string>
+  <string Field="Wednesday">Mittwoch</string>
+  <string Field="Thursday">Donnerstag</string>
+  <string Field="Friday">Freitag</string>
+  <string Field="Saturday">Samstag</string>
+  <string Field="Sunday">Sonntag</string>
+  <string Field="Yesterday">Gestern</string>
+  <string Field="MovieListTitle">Movie Higlights</string>
+  <string Field="HighlightsListTitle">weitere Higlights</string>
+  <string Field="NewLabel">Neu !!!</string>
+  <string Field="NewEpisodeFound">Neu Episode(n) gefunden</string>
+  <string Field="Record">Aufnehmen</string>
+  <string Field="Remember">Erinnern</string>
+  <string Field="ChannelON">Kanal einschalten</string>
+  <string Field="TodayGenre">gleiches Genre:</string>
+  <string Field="Season">Staffel</string>
+  <string Field="Episode">Episode</string>
+  <string Field="NewEpisode">Neu Episode !!!</string>
+  <string Field="EpisodePrefixLabel">Folge:</string>
+  <string Field="Now">Jetzt</string>
+  <string Field="PrimeTime">Prime Time</string>
+  <string Field="LateTime">Late Time</string>
+  <string Field="Preview">Preview</string>
+  <string Field="CategoriePreviewLabel">ab:</string>
+  <string Field="Highlights">Highlights</string>
+  <string Field="CategorieLabel">Kategorie</string>
+  <string Field="CategorieEdit">bearbeiten</string>
+  <string Field="CategorieRename">umbennen</string>
+  <string Field="CategorieHide">verstecken</string>
+  <string Field="CategorieShow">versteckte Kategorie anzeigen</string>
+  <string Field="CategorieChoose">wähle die Kategorie aus, die angezeigt werden soll</string>
+  <string Field="CategorieHideNotFound">Keine versteckten Kategorien gefunden...</string>
+
+</strings>

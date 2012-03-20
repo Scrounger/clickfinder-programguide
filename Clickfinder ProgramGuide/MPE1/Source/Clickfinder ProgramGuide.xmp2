@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PackageClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Version>2.0</Version>
+  <Groups>
+    <Items>
+      <GroupItem Name="Plugin dll">
+        <DisplayName>Plugin dll</DisplayName>
+        <DefaulChecked>true</DefaulChecked>
+        <Description>Plugin dll</Description>
+        <Files>
+          <Items />
+        </Files>
+      </GroupItem>
+    </Items>
+  </Groups>
+  <Sections>
+    <Items>
+      <SectionItem Guid="e6dded85-3bc4-4617-8b16-db4d2adcd722" Name="Welcome Screen" ConditionGroup="">
+        <Params>
+          <Items>
+            <SectionParam Name="Header text">
+              <Value>[Name]</Value>
+              <ValueType>String</ValueType>
+              <Description />
+            </SectionParam>
+            <SectionParam Name="Description">
+              <Value>Version: [Version]
+
+[Name] ist ein Plugin für MediaPortal, dass bassierend auf den Bewertungen, die in der TV Movie Clickfinder Datenbank hinterlegt sind, einen Program Guide anzeigt. Das Plugin zeigt Informationen zu Filmen, Sport, Dokumentation und Serien an, die zur Zeit (Jetzt), zur Prime Time (20:15h) oder zur Late Time (22.00h) ausgestrahlt werden. Die Daten werden dann entsprechend ihrer Bewertung sortiert und angezeigt. Das Plugin ermöglicht dem User die Darstellung und die verwendeten Daten nach individuellen Vorlieben einzustellen bzw. zu personalisieren. </Value>
+              <ValueType>String</ValueType>
+              <Description />
+            </SectionParam>
+            <SectionParam Name="Left part image">
+              <Value />
+              <ValueType>File</ValueType>
+              <Description />
+            </SectionParam>
+            <SectionParam Name="Header image">
+              <Value />
+              <ValueType>File</ValueType>
+              <Description>Image in upper right part</Description>
+            </SectionParam>
+          </Items>
+        </Params>
+        <Actions>
+          <Items />
+        </Actions>
+        <IncludedGroups />
+        <PanelName>Welcome Screen</PanelName>
+        <WizardButtonsEnum>NextCancel</WizardButtonsEnum>
+      </SectionItem>
+      <SectionItem Guid="b495e35a-fd44-4259-a1f2-33d08a605aca" Name="Tree View Selector" ConditionGroup="">
+        <Params>
+          <Items>
+            <SectionParam Name="Header Title">
+              <Value>Installation: Skin Files</Value>
+              <ValueType>String</ValueType>
+              <Description>Header title</Description>
+            </SectionParam>
+            <SectionParam Name="Header description">
+              <Value>Bitte wählen Sie ihren Skin aus</Value>
+              <ValueType>String</ValueType>
+              <Description>Description of section, shown in under section title</Description>
+            </SectionParam>
+            <SectionParam Name="Header image">
+              <Value />
+              <ValueType>File</ValueType>
+              <Description>Image in upper right part</Description>
+            </SectionParam>
+            <SectionParam Name="Description ">
+              <Value />
+              <ValueType>String</ValueType>
+              <Description>Description of this operation</Description>
+            </SectionParam>
+          </Items>
+        </Params>
+        <Actions>
+          <Items />
+        </Actions>
+        <IncludedGroups>
+          <string>StreamedMP</string>
+          <string>DefaultWide</string>
+        </IncludedGroups>
+        <PanelName>Tree View Selector</PanelName>
+        <WizardButtonsEnum>BackNextCancel</WizardButtonsEnum>
+      </SectionItem>
+      <SectionItem Guid="92eac883-1e0f-427f-a7ed-bcc532cb7c2b" Name="Install Section" ConditionGroup="">
+        <Params>
+          <Items>
+            <SectionParam Name="Header Title">
+              <Value>Installation</Value>
+              <ValueType>String</ValueType>
+              <Description>Header title</Description>
+            </SectionParam>
+            <SectionParam Name="Header description">
+              <Value>Clickfinder ProgramGuide wird installiert ...</Value>
+              <ValueType>String</ValueType>
+              <Description>Description of section, shown in under section title</Description>
+            </SectionParam>
+            <SectionParam Name="Header image">
+              <Value />
+              <ValueType>File</ValueType>
+              <Description>Image in upper right part</Description>
+            </SectionParam>
+          </Items>
+        </Params>
+        <Actions>
+          <Items />
+        </Actions>
+        <IncludedGroups>
+          <string>Skin Files</string>
+          <string>Plugin dll</string>
+          <string>Thumb Files</string>
+          <string>Config File</string>
+          <string>StreamedMP</string>
+          <string>DefaultWide</string>
+        </IncludedGroups>
+        <PanelName>Install Section</PanelName>
+        <WizardButtonsEnum>Next</WizardButtonsEnum>
+      </SectionItem>
+      <SectionItem Guid="5a3bd74d-3896-4612-961f-2073e451052f" Name="Setup Complete" ConditionGroup="">
+        <Params>
+          <Items>
+            <SectionParam Name="Header text">
+              <Value>[Name] wurde erfolgreich installiert.</Value>
+              <ValueType>String</ValueType>
+              <Description />
+            </SectionParam>
+            <SectionParam Name="Left part image">
+              <Value />
+              <ValueType>File</ValueType>
+              <Description />
+            </SectionParam>
+            <SectionParam Name="Show radio buttons">
+              <Value />
+              <ValueType>Bool</ValueType>
+              <Description>Use radiobutton in place of combobox</Description>
+            </SectionParam>
+            <SectionParam Name="Header image">
+              <Value />
+              <ValueType>File</ValueType>
+              <Description>Image in upper right part</Description>
+            </SectionParam>
+          </Items>
+        </Params>
+        <Actions>
+          <Items />
+        </Actions>
+        <IncludedGroups />
+        <PanelName>Setup Complete</PanelName>
+        <WizardButtonsEnum>Finish</WizardButtonsEnum>
+      </SectionItem>
+    </Items>
+  </Sections>
+  <Dependencies>
+    <Items>
+      <DependencyItem>
+        <Type>MediaPortal</Type>
+        <Id />
+        <MinVersion>
+          <Major>1</Major>
+          <Minor>1</Minor>
+          <Build>6</Build>
+          <Revision>27644</Revision>
+        </MinVersion>
+        <MaxVersion>
+          <Major>1</Major>
+          <Minor>1</Minor>
+          <Build>6</Build>
+          <Revision>27644</Revision>
+        </MaxVersion>
+        <WarnOnly>false</WarnOnly>
+        <Message>requires MediaPortal version 1.1.6.27644 to 1.1.6.27644.</Message>
+        <Name>MediaPortal</Name>
+      </DependencyItem>
+    </Items>
+  </Dependencies>
+  <PluginDependencies>
+    <Items />
+  </PluginDependencies>
+  <GeneralInfo>
+    <Name>Clickfinder ProgramGuide</Name>
+    <Id>304bc464-97b0-49e5-a6b7-fc9a1b95fa5d</Id>
+    <Author>Scrounger</Author>
+    <HomePage>https://code.google.com/p/clickfinder-programguide/</HomePage>
+    <ForumPage>http://forum.team-mediaportal.com/plugins-erweiterungen-178/clickfinder-programguide-0-0-5-7-beta-103217/</ForumPage>
+    <UpdateUrl>https://clickfinder-programguide.googlecode.com/git/Clickfinder%20ProgramGuide/MPEI/Source/update.xml</UpdateUrl>
+    <Version>
+      <Major>0</Major>
+      <Minor>1</Minor>
+      <Build>0</Build>
+      <Revision>0</Revision>
+    </Version>
+    <ExtensionDescription>This Plugin is a ProgramGuide based on the german EPG Data from the Tv Movie Clickfinder Provider (Software). It shows you information for different categories (e.g. Movies, Series, Doku,...), which television program is broadcasting now, at PrimeTime or at LateTime. There is also a Preview for the whole EPG timespan. The Data are sorted by the Rating of the TV Movie Clickfinder Plugin. This Plugin has a lot of configuration options, that gives the user the possibility to personalize the different views.
+
+This Plugin is only in German, because the Clickfinder EPG Data are only available in German too.</ExtensionDescription>
+    <VersionDescription>- Support for MS SQL Server
+- Bug Fixes
+
+*** New Feature:
+- Integration of MP-TvSeries in the Categorie Series
+- Shows Sesaon- and EpisodeNr.
+- Write Sesaon- and EpisodeNr. to TvService EPG [optional]
+- Show Episode Infos and Thumbs [optional]
+</VersionDescription>
+    <DevelopmentStatus>Beta</DevelopmentStatus>
+    <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_0.1.0.0.beta.mpe1</OnlineLocation>
+    <ReleaseDate>2012-01-04T15:57:29</ReleaseDate>
+    <Tags>programguide, tv movie, clickfinder, epg, tv</Tags>
+    <Location>Z:\Projekte\MediaPortal\Clickfinder ProgramGuide\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPEI\Clickfinder ProgramGuide.mpe1</Location>
+    <Params>
+      <Items>
+        <SectionParam Name="Icon">
+          <Value>..\..\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R3.png</Value>
+          <ValueType>File</ValueType>
+          <Description>The icon file of the package (jpg,png,bmp)</Description>
+        </SectionParam>
+        <SectionParam Name="Online Icon">
+          <Value>https://clickfinder-programguide.googlecode.com/git/Clickfinder%20ProgramGuide/MediaPortal/Skin/DefaultWide/Media/ClickfinderPG_R3.png</Value>
+          <ValueType>String</ValueType>
+          <Description>The icon file of the package stored online (jpg,png,bmp)</Description>
+        </SectionParam>
+        <SectionParam Name="Configuration file">
+          <Value />
+          <ValueType>Template</ValueType>
+          <Description>The file used to configure the extension.
+ If have .exe extension the will be executed
+ If have .dll extension used like MP plugin configuration</Description>
+        </SectionParam>
+        <SectionParam Name="Online Screenshots">
+          <Value>http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/ActionMenu.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Categories.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Items.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Items_TVLogos.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Items_MP-TvSeries.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/Detail_MP-TvSeries.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Items_SportLogos.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/GUI_Items_TVLogos_Episode.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/DetailAnsicht.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/Blue3Wide_Categories.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/Blue3Wide_ActionMenu.jpg;http://wiki.clickfinder-programguide.googlecode.com/git/Screenshots/GUI/Blue3Wide_Items.jpg</Value>
+          <ValueType>String</ValueType>
+          <Description>Online stored screenshot urls separated by ; </Description>
+        </SectionParam>
+        <SectionParam Name="Force to uninstall on update">
+          <Value>YES</Value>
+          <ValueType>Bool</ValueType>
+          <Description>Show dialog and force to uninstall previous version when updating an extension. Should only be disabled if you are using an NSIS/MSI installer.</Description>
+        </SectionParam>
+      </Items>
+    </Params>
+  </GeneralInfo>
+  <UniqueFileList>
+    <Items>
+      <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R3.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{55215560-6904-4b30-9c80-6dfdadf8beae}-ClickfinderPG_R3.png</ZipFileName>
+        <DestinationFilename />
+      </FileItem>
+    </Items>
+  </UniqueFileList>
+  <ProjectSettings>
+    <FolderGroups />
+    <ProjectFilename>Clickfinder ProgramGuide.xmp2</ProjectFilename>
+    <UpdatePath1>update.xml</UpdatePath1>
+    <UpdatePath2 />
+    <UpdatePath3 />
+  </ProjectSettings>
+  <IsSkin>false</IsSkin>
+</PackageClass>

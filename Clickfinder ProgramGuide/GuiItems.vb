@@ -1,0 +1,733 @@
+﻿Imports MediaPortal.GUI.Library
+Imports TvDatabase
+Imports ClickfinderProgramGuide.ClickfinderProgramGuide.HighlightsGUIWindow
+Imports Gentle.Framework
+Imports ClickfinderProgramGuide.TvDatabase.TVMovieProgram
+Imports ClickfinderProgramGuide.Helper
+Imports MediaPortal.Configuration
+Imports ClickfinderProgramGuide.TvDatabase
+Imports MediaPortal.Dialogs
+Imports System.Threading
+Imports ClickfinderProgramGuide.ClickfinderProgramGuide.CategoriesGuiWindow
+
+Namespace ClickfinderProgramGuide
+    Public Class ItemsGuiWindow
+        Inherits GUIWindow
+
+
+#Region "Skin Controls"
+
+        'Buttons
+        <SkinControlAttribute(2)> Protected _btnNow As GUIButtonControl = Nothing
+        <SkinControlAttribute(3)> Protected _btnPrimeTime As GUIButtonControl = Nothing
+        <SkinControlAttribute(4)> Protected _btnLateTime As GUIButtonControl = Nothing
+        <SkinControlAttribute(5)> Protected _btnHighlights As GUIButtonControl = Nothing
+        <SkinControlAttribute(6)> Protected _btnPreview As GUIButtonControl = Nothing
+
+        'ProgressBar
+        'ProgressBar
+        <SkinControlAttribute(9)> Protected _LeftProgressBar As GUIAnimation = Nothing
+        <SkinControlAttribute(8)> Protected _RightProgressBar As GUIAnimation = Nothing
+        <SkinControlAttribute(11)> Protected _PageProgress As GUIProgressControl = Nothing
+
+        'ListControl
+        <SkinControlAttribute(10)> Protected _leftList As GUIListControl = Nothing
+        <SkinControlAttribute(30)> Protected _rightList As GUIListControl = Nothing
+
+#End Region
+
+#Region "Members"
+        Friend Shared _ItemsResult As New ArrayList
+        Friend Shared _CurrentCounter As Integer = 0
+        Private _ThreadLeftList As Threading.Thread
+        Private _ThreadRightList As Threading.Thread
+        Private _isAbortException As Boolean = False
+        Private _layer As New TvBusinessLayer
+        Friend Shared _CategorieMinRuntime As Integer
+        Friend Shared _idCategorie As Integer = 0
+        Friend Shared _sortedBy As String = String.Empty
+
+        Friend Shared _ItemsSqlString As String = String.Empty
+#End Region
+
+#Region "Constructors"
+
+        Public Sub New()
+        End Sub
+        'Public Shared Sub SetGuiProperties(ByVal idprogram As Integer, ByVal PeriodeStartTime As Date, ByVal PeriodeEndTime As Date, Optional ByVal Genre As String = "%")
+
+        Friend Shared Sub SetGuiProperties(ByVal SqlString As String, Optional ByVal CategorieMinRuntime As Integer = 0, Optional ByVal sortedby As String = "startTime", Optional ByVal idCategorie As Integer = 0)
+
+            _CategorieMinRuntime = CategorieMinRuntime
+            _ItemsSqlString = SqlString
+            _sortedBy = sortedby
+            _idCategorie = idCategorie
+            _ItemsResult.Clear()
+
+        End Sub
+
+
+
+#End Region
+
+#Region "GUI Properties"
+        Public Overloads Overrides Property GetID() As Integer
+            Get
+                Return 1656544653
+            End Get
+            Set(ByVal value As Integer)
+            End Set
+        End Property
+
+
+        Public Overloads Overrides Function Init() As Boolean
+            'Beim initialisieren des Plugin den Screen laden
+
+            Return Load(GUIGraphicsContext.Skin + "\ClickfinderProgramGuideItems.xml")
+        End Function
+
+        Public Overrides Function GetModuleName() As String
+            Return "Clickfinder ProgramGuide Items"
+        End Function
+
+#End Region
+
+#Region "GUI Events"
+
+        Protected Overrides Sub OnPageLoad()
+            GUIWindowManager.NeedRefresh()
+
+            GuiLayoutLoading()
+
+            If _ItemsResult.Count = 0 Then
+                Dim _FillLists As New Threading.Thread(AddressOf GetItemsOnLoad)
+                _FillLists.Start()
+            Else
+                Dim _Thread1 As New Thread(AddressOf FillLeftList)
+                Dim _Thread2 As New Thread(AddressOf FillRightList)
+                _Thread1.Start()
+                _Thread2.Start()
+            End If
+
+            MyLog.Info("")
+            MyLog.Info("[ItemsGuiWindow] load")
+
+            '_Thread1.Join()
+
+            MyBase.OnPageLoad()
+        End Sub
+
+        Protected Overrides Sub OnPageDestroy(ByVal new_windowId As Integer)
+            'MsgBox("Hallo")
+            For i = 1 To 12
+                Translator.SetProperty("#ItemsListTvMovieStar" & i, "")
+                Translator.SetProperty("#ItemsListImage" & i, "")
+                Translator.SetProperty("#ItemsListRatingStar" & i, 0)
+            Next
+
+            Try
+
+                If _ThreadLeftList.IsAlive = True And _ThreadRightList.IsAlive = True Then
+                    _ThreadLeftList.Abort()
+                    _ThreadRightList.Abort()
+                End If
+            Catch ex3 As Exception ' Ignore this exception
+                'Eventuell auftretende Exception abfangen
+                ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
+            End Try
+
+            MyBase.OnPageDestroy(new_windowId)
+        End Sub
+
+        Public Overrides Sub OnAction(ByVal action As MediaPortal.GUI.Library.Action)
+
+            If GUIWindowManager.ActiveWindow = GetID Then
+                Try
+                    MyLog.[Debug]("Keypress on VideoReDo Screen. KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
+                Catch
+                    MyLog.[Debug]("Keypress on VideoReDo Screen. KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
+                End Try
+
+                'Select Item (Enter) -> MP TvProgramInfo aufrufen --Über keychar--
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM Then
+                    If _leftList.IsFocused = True Then ListControlClick(_leftList.SelectedListItem.ItemId)
+                    If _rightList.IsFocused = True Then ListControlClick(_rightList.SelectedListItem.ItemId)
+                End If
+
+                'Next Item (F8) -> eine Seite vor
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_NEXT_ITEM _
+                                And (_leftList.IsFocused Or _rightList.IsFocused) Then
+
+                    Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowLeftProgressBar)
+                    _ProgressBarThread.Start()
+
+                    Dim _ProgressBarThread2 As New Threading.Thread(AddressOf ShowRightProgressBar)
+                    _ProgressBarThread2.Start()
+
+                    Try
+
+                        If _ThreadLeftList.IsAlive = True And _ThreadRightList.IsAlive = True Then
+                            _ThreadLeftList.Abort()
+                            _ThreadRightList.Abort()
+                        End If
+                    Catch ex3 As Exception ' Ignore this exception
+                        'Eventuell auftretende Exception abfangen
+                        ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
+                    End Try
+
+                    If CInt(_CurrentCounter / 12) * 12 + 12 > _ItemsResult.Count - 1 Then
+                        _CurrentCounter = 0
+                        _PageProgress.Percentage = 0
+                    Else
+                        _CurrentCounter = _CurrentCounter + 12
+                        _PageProgress.Percentage = (CShort((_CurrentCounter + 12) / 12)) * 100 / (CShort((_ItemsResult.Count) / 12 + 0.5))
+                    End If
+
+                    Translator.SetProperty("#CurrentPageLabel", Translation.PageLabel & " " & CShort((_CurrentCounter + 12) / 12) & " / " & CShort((_ItemsResult.Count) / 12 + 0.5))
+
+                    _ThreadLeftList = New Thread(AddressOf FillLeftList)
+                    _ThreadRightList = New Thread(AddressOf FillRightList)
+                    _ThreadLeftList.IsBackground = True
+                    _ThreadRightList.IsBackground = True
+
+                    _ThreadLeftList.Start()
+                    _ThreadRightList.Start()
+
+                End If
+
+                'Prev. Item (F7) -> einen Tag zurück
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_PREV_ITEM _
+                                And (_leftList.IsFocused Or _rightList.IsFocused) Then
+
+                    Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowLeftProgressBar)
+                    _ProgressBarThread.Start()
+
+                    Dim _ProgressBarThread2 As New Threading.Thread(AddressOf ShowRightProgressBar)
+                    _ProgressBarThread2.Start()
+
+                    Try
+
+                        If _ThreadLeftList.IsAlive = True And _ThreadRightList.IsAlive = True Then
+                            _ThreadLeftList.Abort()
+                            _ThreadRightList.Abort()
+                        End If
+                    Catch ex3 As Exception ' Ignore this exception
+                        'Eventuell auftretende Exception abfangen
+                    End Try
+
+                    If _CurrentCounter <= 0 Then
+                        _CurrentCounter = Int(_ItemsResult.Count / 12) * 12
+                        _PageProgress.Percentage = 100
+                    Else
+                        _CurrentCounter = _CurrentCounter - 12
+                        _PageProgress.Percentage = (CShort((_CurrentCounter + 12) / 12)) * 100 / (CShort((_ItemsResult.Count) / 12 + 0.5))
+                    End If
+
+                    Translator.SetProperty("#CurrentPageLabel", Translation.PageLabel & " " & CShort((_CurrentCounter + 12) / 12) & " / " & CShort((_ItemsResult.Count) / 12 + 0.5))
+
+                    _ThreadLeftList = New Thread(AddressOf FillLeftList)
+                    _ThreadRightList = New Thread(AddressOf FillRightList)
+                    _ThreadLeftList.IsBackground = True
+                    _ThreadRightList.IsBackground = True
+
+                    _ThreadLeftList.Start()
+                    _ThreadRightList.Start()
+
+                End If
+
+                'Play Button (P) -> Start channel
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_MUSIC_PLAY Then
+                    Try
+                        If _leftList.IsFocused = True Then StartTv(Program.Retrieve(_leftList.SelectedListItem.ItemId).ReferencedChannel)
+                        If _rightList.IsFocused = True Then StartTv(Program.Retrieve(_rightList.SelectedListItem.ItemId).ReferencedChannel)
+                    Catch ex As Exception
+                        MyLog.[Error]("[Play Button]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                    End Try
+                End If
+
+                'Record Button (R) -> MP TvProgramInfo aufrufen --Über keychar--
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_KEY_PRESSED Then
+                    If action.m_key IsNot Nothing Then
+                        If action.m_key.KeyChar = 114 Then
+                            If _leftList.IsFocused = True Then LoadTVProgramInfo(Program.Retrieve(_leftList.SelectedListItem.ItemId))
+                            If _rightList.IsFocused = True Then LoadTVProgramInfo(Program.Retrieve(_rightList.SelectedListItem.ItemId))
+                        End If
+                    End If
+                End If
+
+                'Menu Button (F9) -> Context Menu open
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_CONTEXT_MENU Then
+                    If _leftList.IsFocused = True Then ShowItemsContextMenu(_leftList.SelectedListItem.ItemId, GetID)
+                    If _rightList.IsFocused = True Then ShowItemsContextMenu(_rightList.SelectedListItem.ItemId, GetID)
+                End If
+
+                'OSD Info Button (Y) -> Context Menu open (gleiche Fkt. wie Menu Button)
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_KEY_PRESSED Then
+                    If action.m_key IsNot Nothing Then
+                        If action.m_key.KeyChar = 121 Then
+                            If _leftList.IsFocused = True Then ShowItemsContextMenu(_leftList.SelectedListItem.ItemId, GetID)
+                            If _rightList.IsFocused = True Then ShowItemsContextMenu(_rightList.SelectedListItem.ItemId, GetID)
+                        End If
+                    End If
+                End If
+            End If
+
+
+
+
+            MyBase.OnAction(action)
+        End Sub
+
+        Protected Overrides Sub OnClicked(ByVal controlId As Integer, _
+                                  ByVal control As GUIControl, _
+                                  ByVal actionType As  _
+                                  MediaPortal.GUI.Library.Action.ActionType)
+
+            MyBase.OnClicked(controlId, control, actionType)
+
+            If control Is _btnNow Then
+                CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Now)
+                GUIWindowManager.ActivateWindow(1656544654)
+            End If
+
+            If control Is _btnPrimeTime Then
+                CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.PrimeTime)
+                GUIWindowManager.ActivateWindow(1656544654)
+            End If
+            If control Is _btnLateTime Then
+
+                CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.LateTime)
+                GUIWindowManager.ActivateWindow(1656544654)
+            End If
+
+            If control Is _btnHighlights Then
+
+                CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Preview)
+                GUIWindowManager.ActivateWindow(165654465)
+            End If
+
+            If control Is _btnPreview Then
+
+                CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Preview)
+                GUIWindowManager.ActivateWindow(1656544654)
+            End If
+
+
+        End Sub
+
+#End Region
+
+
+#Region "Functions"
+
+
+        Private Sub GetItemsOnLoad()
+
+            Dim _lastTitle As String = String.Empty
+            Dim _Result As New ArrayList
+            Dim _layer As New TvBusinessLayer
+
+            _ItemsResult.Clear()
+
+            _CurrentCounter = 0
+
+            Select Case _sortedBy
+                Case Is = SortMethode.startTime.ToString
+                    _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
+                        Helper.ORDERBYstartTime
+                Case Is = SortMethode.TvMovieStar.ToString
+                    _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
+                        Helper.ORDERBYtvMovieBewertung
+                Case Is = SortMethode.RatingStar.ToString
+                    _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
+                        Helper.ORDERBYstarRating
+            End Select
+
+            _Result.AddRange(Broker.Execute(_ItemsSqlString).TransposeToFieldList("idProgram", False))
+            For i = 0 To _Result.Count - 1
+                Try
+
+                    Dim _Program As Program = Program.Retrieve(_Result.Item(i))
+
+                    If _Program.ReferencedChannel.IsTv = True Then
+
+                        If DateDiff(DateInterval.Minute, _Program.StartTime, _Program.EndTime) > _CategorieMinRuntime Then
+
+                            'Prüfen ob schon in der Liste vorhanden
+                            If String.Equals(_lastTitle, _Program.Title & _Program.EpisodeName) = False Then
+
+                                'Falls lokale Movies/Videos nicht angezeigt werden sollen -> aus Array entfernen
+                                If CBool(_layer.GetSetting("ClickfinderShowLocalMovies", "false").Value) = True Then
+                                    Try
+                                        Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_Program.IdProgram)
+                                        If _TvMovieProgram.local = True And _TvMovieProgram.idSeries = 0 Then
+                                            MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: {0} exist local and will not be displayed", _TvMovieProgram.ReferencedProgram.Title)
+                                            Continue For
+                                        End If
+                                    Catch ex As Exception
+                                    End Try
+                                End If
+
+                                'Falls lokale Serien nicht angezeigt werden sollen -> aus Array entfernen
+                                If CBool(_layer.GetSetting("ClickfinderShowLocalSeries", "false").Value) = True Then
+                                    Try
+                                        Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_Program.IdProgram)
+                                        If _TvMovieProgram.local = True And _TvMovieProgram.idSeries > 0 Then
+                                            MyLog.Debug("[CategoriesGuiWindow] [SetGuiProperties]: {0} exist local and will not be displayed", _TvMovieProgram.ReferencedProgram.Title & " - " & _TvMovieProgram.ReferencedProgram.EpisodeName)
+                                            Continue For
+                                        End If
+                                    Catch ex As Exception
+                                    End Try
+                                End If
+
+                                'Falls Ansicht Now, alle Programme die schon beendet sind rauswerfen
+                                If _ClickfinderCategorieView = CategorieView.Now And _Program.EndTime < Date.Now Then
+                                    Continue For
+                                End If
+
+                                'Prüfen ob gleiches Program evtl. auf HDSender auch läuft
+                                Dim _idHDchannelProgram As Integer = GetHDChannel(_Program)
+                                If _idHDchannelProgram > 0 Then
+                                    _ItemsResult.Add(_idHDchannelProgram)
+                                Else
+                                    _ItemsResult.Add(_Program.IdProgram)
+                                End If
+
+                                _lastTitle = _Program.Title & _Program.EpisodeName
+                            End If
+                        End If
+                    End If
+                Catch ex As Exception
+                    MyLog.[Error]("[ItemsGuiWindow] [SetGuiProperties]: Loop: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                End Try
+            Next
+            MyLog.[Debug]("[ItemsGuiWindow] [SetGuiProperties]: _Result = {0} ItemsResult= {1}", _Result.Count, _ItemsResult.Count)
+
+            Dim _Thread1 As New Thread(AddressOf FillLeftList)
+            Dim _Thread2 As New Thread(AddressOf FillRightList)
+            _Thread1.Start()
+            _Thread2.Start()
+        End Sub
+
+        Private Sub FillLeftList()
+
+            Dim _lastTitle As String = String.Empty
+            Dim _ItemCounter As Integer = 0
+            Dim _timeLabel As String = String.Empty
+            Dim _infoLabel As String = String.Empty
+            Dim _startTime As String = String.Empty
+            Dim _imagepath As String = String.Empty
+            Dim _ForEndCondition As Integer = 0
+            Dim _program As Program = Nothing
+
+            _isAbortException = False
+
+            _leftList.Visible = False
+            _leftList.Clear()
+
+            For i = 1 To 6
+                Translator.SetProperty("#ItemsListTvMovieStar" & i, "")
+                Translator.SetProperty("#ItemsListImage" & i, "")
+                Translator.SetProperty("#ItemsListRatingStar" & i, 0)
+            Next
+
+            'Damit der Counter nicht größer wird als _ItemsResult.Count, sonst ERROR Meldung für größere Werte
+            If _CurrentCounter + 6 > _ItemsResult.Count Then
+                _ForEndCondition = _ItemsResult.Count
+            Else
+                _ForEndCondition = _CurrentCounter + 6
+            End If
+
+            Try
+
+                For i = _CurrentCounter To _ForEndCondition - 1
+                    Try
+
+                        'ProgramDaten über idProgram laden
+                        _program = Program.Retrieve(_ItemsResult.Item(i))
+
+                        'If String.Equals(_lastTitle, _program.Title & _program.EpisodeName) = False Then
+                        _ItemCounter = _ItemCounter + 1
+
+                        'TvMovieProgram laden / erstellen wenn nicht vorhanden
+                        Dim _TvMovieProgram As TVMovieProgram = getTvMovieProgram(_program)
+
+                        Translator.SetProperty("#ItemsListRatingStar" & _ItemCounter, GuiLayout.ratingStar(_program))
+                        Translator.SetProperty("#ItemsListTvMovieStar" & _ItemCounter, GuiLayout.TvMovieStar(_TvMovieProgram))
+                        Translator.SetProperty("#ItemsListImage" & _ItemCounter, GuiLayout.Image(_TvMovieProgram))
+
+                        AddListControlItem(GetID, _leftList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram))
+
+                        '    _lastTitle = _program.Title & _program.EpisodeName
+                        'End If
+
+                    Catch ex2 As ThreadAbortException
+                        _isAbortException = True
+                    Catch ex2 As Exception
+                        If _isAbortException = False Then
+                            MyLog.[Error]("[ItemsGuiWindow] [FillLeftList]: Loop: exception err: {0} stack: {1}", ex2.Message, ex2.StackTrace)
+                        Else
+                            _isAbortException = False
+                        End If
+                    End Try
+                Next
+
+                _LeftProgressBar.Visible = False
+                _leftList.Visible = True
+
+
+            Catch ex As ThreadAbortException
+                _isAbortException = True
+            Catch ex As Exception
+                If _isAbortException = False Then
+                    MyLog.[Error]("[ItemsGuiWindow] [FillLeftList]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                Else
+                    _isAbortException = False
+                End If
+            End Try
+        End Sub
+        Private Sub FillRightList()
+
+            Dim _lastTitle As String = String.Empty
+            Dim _ItemCounter As Integer = 6
+            Dim _timeLabel As String = String.Empty
+            Dim _infoLabel As String = String.Empty
+            Dim _startTime As String = String.Empty
+            Dim _imagepath As String = String.Empty
+            Dim _ForEndCondition As Integer = 0
+            Dim _program As Program = Nothing
+
+
+            Translator.SetProperty("#CurrentPageLabel", Translation.PageLabel & " " & CShort((_CurrentCounter + 12) / 12) & " / " & CShort((_ItemsResult.Count) / 12 + 0.5))
+            _PageProgress.Percentage = (CShort((_CurrentCounter + 12) / 12)) * 100 / (CShort((_ItemsResult.Count) / 12 + 0.5))
+
+            _isAbortException = False
+
+            _rightList.Visible = False
+            _rightList.Clear()
+
+            For i = 7 To 12
+                Translator.SetProperty("#ItemsListTvMovieStar" & i, "")
+                Translator.SetProperty("#ItemsListImage" & i, "")
+                Translator.SetProperty("#ItemsListRatingStar" & i, 0)
+            Next
+
+
+            'Damit der Counter nicht größer wird als _ItemsResult.Count, sonst ERROR Meldung für größere Werte
+            If _CurrentCounter + 12 > _ItemsResult.Count Then
+                _ForEndCondition = _ItemsResult.Count
+            Else
+                _ForEndCondition = _CurrentCounter + 12
+            End If
+
+            Try
+
+                For i = _CurrentCounter + 6 To _ForEndCondition - 1
+                    Try
+
+                        'ProgramDaten über idProgram laden
+                        _program = Program.Retrieve(_ItemsResult.Item(i))
+
+                        'If String.Equals(_lastTitle, _program.Title & _program.EpisodeName) = False Then
+                        _ItemCounter = _ItemCounter + 1
+
+                        'TvMovieProgram laden / erstellen wenn nicht vorhanden
+                        Dim _TvMovieProgram As TVMovieProgram = getTvMovieProgram(_program)
+
+                        Translator.SetProperty("#ItemsListRatingStar" & _ItemCounter, GuiLayout.ratingStar(_program))
+                        Translator.SetProperty("#ItemsListTvMovieStar" & _ItemCounter, GuiLayout.TvMovieStar(_TvMovieProgram))
+                        Translator.SetProperty("#ItemsListImage" & _ItemCounter, GuiLayout.Image(_TvMovieProgram))
+
+                        AddListControlItem(GetID, _rightList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram))
+
+                        '_lastTitle = _program.Title & _program.EpisodeName
+                        'End If
+
+                    Catch ex2 As ThreadAbortException
+                        _isAbortException = True
+                    Catch ex2 As Exception
+                        If _isAbortException = False Then
+                            MyLog.[Error]("[ItemsGuiWindow] [FillRightList]: Loop: exception err: {0} stack: {1}", ex2.Message, ex2.StackTrace)
+                        Else
+                            _isAbortException = False
+                        End If
+                    End Try
+                Next
+
+                _RightProgressBar.Visible = False
+                _rightList.Visible = True
+
+            Catch ex As ThreadAbortException
+                _isAbortException = True
+            Catch ex As Exception
+                If _isAbortException = False Then
+                    MyLog.[Error]("[ItemsGuiWindow] [FillRightList]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                Else
+                    _isAbortException = False
+                End If
+            End Try
+        End Sub
+
+        'ProgresBar paralell anzeigen
+        Private Sub ShowLeftProgressBar()
+            _LeftProgressBar.Visible = True
+        End Sub
+
+        Private Sub ShowRightProgressBar()
+            _RightProgressBar.Visible = True
+        End Sub
+#End Region
+
+
+#Region "MediaPortal Funktionen / Dialogs"
+        Private Sub ShowItemsContextMenu(ByVal idProgram As Integer, ByVal idWindow As Integer)
+            Dim dlgContext As GUIDialogMenu = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_MENU, Integer)), GUIDialogMenu)
+            dlgContext.Reset()
+
+            Dim _Program As Program = Program.Retrieve(idProgram)
+
+            'ContextMenu Layout
+            dlgContext.SetHeading(_Program.Title)
+            dlgContext.ShowQuickNumbers = True
+
+            'Sort SubMenu
+            Dim lItemSort As New GUIListItem
+            lItemSort.Label = Translation.Sortby
+            'lItemRem.IconImage = "tvguide_notify_button.png"
+            dlgContext.Add(lItemSort)
+            lItemSort.Dispose()
+
+            'Action SubMenu
+            Dim lItemActionOn As New GUIListItem
+            lItemActionOn.Label = Translation.action
+            'lItemOn.IconImage = "play_enabled.png"
+            dlgContext.Add(lItemActionOn)
+            lItemActionOn.Dispose()
+
+            'Aufnehmen
+            Dim lItemRec As New GUIListItem
+            lItemRec.Label = "Alle Filme der #Categorie (ändern)"
+            'lItemRec.IconImage = "tvguide_record_button.png"
+            dlgContext.Add(lItemRec)
+            lItemRec.Dispose()
+
+            'Erinnern
+            Dim lItemRem As New GUIListItem
+            lItemRem.Label = "gleiches Genre, gleicher Zeitraum)"
+            'lItemRem.IconImage = "tvguide_notify_button.png"
+            dlgContext.Add(lItemRem)
+            lItemRem.Dispose()
+
+
+            'Refresh
+            If _ClickfinderCategorieView = CategorieView.Now And _idCategorie > 0 Then
+                Dim lItemRefresh As New GUIListItem
+                lItemRefresh.Label = Translation.Refresh
+                'lItemRem.IconImage = "tvguide_notify_button.png"
+                dlgContext.Add(lItemRefresh)
+                lItemRefresh.Dispose()
+            End If
+
+            dlgContext.DoModal(idWindow)
+
+            Select Case dlgContext.SelectedLabelText
+                Case Is = Translation.Sortby
+                    ShowSortMenu()
+                Case Is = Translation.action
+                    ShowActionMenu(_Program, GetID)
+                Case Is = Translation.Refresh
+
+                    Dim key As New Gentle.Framework.Key(GetType(ClickfinderCategories), True, "idClickfinderCategories", _idCategorie)
+                    Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(key)
+                    ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime.AddMinutes(CDbl(_layer.GetSetting("ClickfinderNowOffset", "-20").Value)))), "#endTime", MySqlDate(PeriodeEndTime))), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
+                    Translator.SetProperty("#ItemsLeftListLabel", _Categorie.Name & " " & Translation.von & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00") & " - " & Format(PeriodeEndTime.Hour, "00") & ":" & Format(PeriodeEndTime.Minute, "00"))
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.Categorie & ": " & _Categorie.Name)
+                    GUIWindowManager.ActivateWindow(1656544653)
+                    '    SetNotify(_Program)
+                    'Case Is = 3
+                    '    ShowSortMenu()
+            End Select
+
+        End Sub
+        Private Sub ShowSortMenu()
+            Dim dlgContext As GUIDialogMenu = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_MENU, Integer)), GUIDialogMenu)
+            dlgContext.Reset()
+
+            'Program gleichen Genres anzeigen
+            Dim lItemStartTime As New GUIListItem
+            lItemStartTime.Label = Translation.SortStartTime
+            'lItemStartTime.IconImage = "tvguide_notify_button.png"
+            dlgContext.Add(lItemStartTime)
+            lItemStartTime.Dispose()
+
+            Dim lItemTvMovie As New GUIListItem
+            lItemTvMovie.Label = Translation.SortTvMovieStar
+            'lItemTvMovie.IconImage = "tvguide_notify_button.png"
+            dlgContext.Add(lItemTvMovie)
+            lItemTvMovie.Dispose()
+
+            Dim lItemRating As New GUIListItem
+            lItemRating.Label = Translation.SortRatingStar
+            'lItemRating.IconImage = "tvguide_notify_button.png"
+            dlgContext.Add(lItemRating)
+            lItemRating.Dispose()
+
+            dlgContext.DoModal(GetID)
+
+
+            Dim _FillLists As New Threading.Thread(AddressOf GetItemsOnLoad)
+
+            Select Case dlgContext.SelectedLabel
+                Case Is = 0
+                    _sortedBy = SortMethode.startTime.ToString
+                    SaveSortedByToClickfinderCategories()
+                    GuiLayoutLoading()
+                    _FillLists.Start()
+                Case Is = 1
+                    _sortedBy = SortMethode.TvMovieStar.ToString
+                    SaveSortedByToClickfinderCategories()
+                    GuiLayoutLoading()
+                    _FillLists.Start()
+                Case Is = 2
+                    _sortedBy = SortMethode.RatingStar.ToString
+                    SaveSortedByToClickfinderCategories()
+                    GuiLayoutLoading()
+                    _FillLists.Start()
+            End Select
+        End Sub
+
+        Private Sub GuiLayoutLoading()
+
+            Translator.SetProperty("#CurrentPageLabel", Translation.Loading)
+
+            For i = 1 To 12
+                Translator.SetProperty("#ItemsListTvMovieStar" & i, "")
+                Translator.SetProperty("#ItemsListImage" & i, "")
+                Translator.SetProperty("#ItemsListRatingStar" & i, 0)
+            Next
+
+            _leftList.Visible = False
+            _rightList.Visible = False
+
+
+            Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowLeftProgressBar)
+            _ProgressBarThread.Start()
+
+            Dim _ProgressBarThread2 As New Threading.Thread(AddressOf ShowRightProgressBar)
+            _ProgressBarThread2.Start()
+
+        End Sub
+        Private Sub SaveSortedByToClickfinderCategories()
+            If Not _idCategorie = 0 And CBool(_layer.GetSetting("ClickfinderRemberSortedBy", "true").Value) = True Then
+                Dim key As New Gentle.Framework.Key(GetType(ClickfinderCategories), True, "idClickfinderCategories", _idCategorie)
+                Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(key)
+                _Categorie.sortedBy = _sortedBy
+                _Categorie.Persist()
+            End If
+
+        End Sub
+#End Region
+
+    End Class
+End Namespace
+

@@ -1,0 +1,70 @@
+﻿
+Datenbank Tv Server alle abfragen
+
+Dim _TVMovieMapping = TvDatabase.TvMovieMapping.ListAll
+For i = 0 To _TVMovieMapping.Count - 1
+If _TVMovieMapping.Item(i).StationName = _MappingName Then
+end if
+next
+                                   
+                                   
+            _StartZeit = Today.AddHours(StartZeitHour).AddMinutes(StartZeitMinute)
+            _EndZeit = _StartZeit.AddHours(4)
+            
+            
+            Datenbank Zugriff:
+                       
+            
+                        'Dim sb As New SqlBuilder(StatementType.[Select], GetType(Program))
+            'sb.AddConstraint([Operator].GreaterThan, "starRating", CInt(0))
+            'sb.AddConstraint([Operator].LessThanOrEquals, "starRating", CInt(10))
+            'Dim stmt As SqlStatement = sb.GetStatement(True)
+            'Dim apps As IList = ObjectFactory.GetCollection(GetType(Program), stmt.Execute())
+
+            'MsgBox(apps.Count - 1)
+
+            'For i = 0 To apps.Count - 1
+            '    Dim _program As Program = apps.Item(i)
+            '    Dim bla As Channel = Channel.Retrieve(_program.IdChannel)
+
+            '    MsgBox(bla.DisplayName)
+
+            'Next
+
+
+            'Dim sb As New SqlBuilder(StatementType.[Select], GetType(GroupMap))
+            'sb.AddConstraint([Operator].Equals, "idGroup", CInt(2))
+            'Dim stmt As SqlStatement = sb.GetStatement(True)
+            'Dim apps As IList = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
+
+
+
+            'For I = 0 To apps.Count - 1
+            '    Dim bla As GroupMap = apps.Item(I)
+            '    Dim ChannelName As Channel = Channel.Retrieve(bla.IdChannel)
+
+            '    MsgBox(ChannelName.DisplayName)
+            '    'MsgBox(bla.IdChannel)
+
+            'Next
+            
+            
+            
+                'Bestehende Gruppe Wert ändern
+                Dim groupchange As ChannelGroup = ChannelGroup.Retrieve(12)
+
+                groupchange.SortOrder = 555
+                groupchange.Persist()
+
+                'Dim _tvbLayer As New TvBusinessLayer
+
+                '_tvbLayer.CreateGroup("Test")
+
+                'Neu Gruppe anlegen
+                Dim NewGroup As New ChannelGroup("Test", 8)
+                NewGroup.Persist()
+                
+                
+                        _TVSeriesDBPath = Config.GetFile(Config.Dir.Database, "TVSeriesDatabase4.db3")
+        _TVSeriesThumbPath = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners")
+        _TVSeriesFanArtPath = Config.GetFile(Config.Dir.Thumbs, "Fan Art\")

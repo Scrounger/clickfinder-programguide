@@ -1,0 +1,850 @@
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+Partial Class Setup
+    Inherits System.Windows.Forms.Form
+
+    'Das Formular überschreibt den Löschvorgang, um die Komponentenliste zu bereinigen.
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing AndAlso components IsNot Nothing Then
+                components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
+    'Wird vom Windows Form-Designer benötigt.
+    Private components As System.ComponentModel.IContainer
+
+    'Hinweis: Die folgende Prozedur ist für den Windows Form-Designer erforderlich.
+    'Das Bearbeiten ist mit dem Windows Form-Designer möglich.  
+    'Das Bearbeiten mit dem Code-Editor ist nicht möglich.
+    <System.Diagnostics.DebuggerStepThrough()> _
+    Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Setup))
+        Me.ButtonSave = New System.Windows.Forms.Button
+        Me.Label2 = New System.Windows.Forms.Label
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel
+        Me.TabControl1 = New System.Windows.Forms.TabControl
+        Me.TabAllgemeines = New System.Windows.Forms.TabPage
+        Me.CheckBoxUseSportLogos = New System.Windows.Forms.CheckBox
+        Me.ButtonOpenDlgImageFolder = New System.Windows.Forms.Button
+        Me.ButtonOpenDlgDatabase = New System.Windows.Forms.Button
+        Me.tbClickfinderDatabase = New System.Windows.Forms.TextBox
+        Me.tbClickfinderImagePath = New System.Windows.Forms.TextBox
+        Me.Label3 = New System.Windows.Forms.Label
+        Me.Label1 = New System.Windows.Forms.Label
+        Me.TabFilter = New System.Windows.Forms.TabPage
+        Me.CheckBoxRemberSortedBy = New System.Windows.Forms.CheckBox
+        Me.CheckBoxFilterShowLocalSeries = New System.Windows.Forms.CheckBox
+        Me.CheckBoxFilterShowLocalMovies = New System.Windows.Forms.CheckBox
+        Me.Label17 = New System.Windows.Forms.Label
+        Me.Label16 = New System.Windows.Forms.Label
+        Me.Label15 = New System.Windows.Forms.Label
+        Me.Label14 = New System.Windows.Forms.Label
+        Me.tbLateTime = New System.Windows.Forms.MaskedTextBox
+        Me.tbPrimeTime = New System.Windows.Forms.MaskedTextBox
+        Me.NumNowOffset = New System.Windows.Forms.NumericUpDown
+        Me.TabÜbersicht = New System.Windows.Forms.TabPage
+        Me.NumMaxDays = New System.Windows.Forms.NumericUpDown
+        Me.Label12 = New System.Windows.Forms.Label
+        Me.Label13 = New System.Windows.Forms.Label
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox
+        Me.Label11 = New System.Windows.Forms.Label
+        Me.Label10 = New System.Windows.Forms.Label
+        Me.NumHighlightsMinRuntime = New System.Windows.Forms.NumericUpDown
+        Me.NumShowHighlightsAfter = New System.Windows.Forms.NumericUpDown
+        Me.Label7 = New System.Windows.Forms.Label
+        Me.Label8 = New System.Windows.Forms.Label
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox
+        Me.RBstartTime = New System.Windows.Forms.RadioButton
+        Me.RBTvMovieStar = New System.Windows.Forms.RadioButton
+        Me.RBRatingStar = New System.Windows.Forms.RadioButton
+        Me.CheckBoxShowTagesTipp = New System.Windows.Forms.CheckBox
+        Me.NumShowMoviesAfter = New System.Windows.Forms.NumericUpDown
+        Me.Label4 = New System.Windows.Forms.Label
+        Me.Label5 = New System.Windows.Forms.Label
+        Me.CheckBoxShowLocalMovies = New System.Windows.Forms.CheckBox
+        Me.TabCategories = New System.Windows.Forms.TabPage
+        Me.CheckBoxSelect = New System.Windows.Forms.CheckBox
+        Me.ButtonCategoriesDefault = New System.Windows.Forms.Button
+        Me.ButtonDown = New System.Windows.Forms.Button
+        Me.ButtonNewCategorie = New System.Windows.Forms.Button
+        Me.ButtonUp = New System.Windows.Forms.Button
+        Me.dgvCategories = New System.Windows.Forms.DataGridView
+        Me.openFileDialog = New System.Windows.Forms.OpenFileDialog
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox
+        Me.C_id = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.C_Image = New System.Windows.Forms.DataGridViewImageColumn
+        Me.C_visible = New System.Windows.Forms.DataGridViewCheckBoxColumn
+        Me.C_Name = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.C_Beschreibung = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.C_sortOrder = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.C_SqlString = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.C_MinRuntime = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.C_NowOffset = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.TabControl1.SuspendLayout()
+        Me.TabAllgemeines.SuspendLayout()
+        Me.TabFilter.SuspendLayout()
+        CType(Me.NumNowOffset, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabÜbersicht.SuspendLayout()
+        CType(Me.NumMaxDays, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
+        CType(Me.NumHighlightsMinRuntime, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumShowHighlightsAfter, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox2.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
+        CType(Me.NumShowMoviesAfter, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabCategories.SuspendLayout()
+        CType(Me.dgvCategories, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SuspendLayout()
+        '
+        'ButtonSave
+        '
+        Me.ButtonSave.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonSave.Location = New System.Drawing.Point(583, 553)
+        Me.ButtonSave.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonSave.Name = "ButtonSave"
+        Me.ButtonSave.Size = New System.Drawing.Size(79, 39)
+        Me.ButtonSave.TabIndex = 8
+        Me.ButtonSave.Text = "speichern"
+        Me.ButtonSave.UseVisualStyleBackColor = True
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Verdana", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(76, 18)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(486, 25)
+        Me.Label2.TabIndex = 10
+        Me.Label2.Text = "Clickfinder Program Guide Configuration"
+        '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LinkLabel1.Location = New System.Drawing.Point(13, 565)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(194, 14)
+        Me.LinkLabel1.TabIndex = 38
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Tag = ""
+        Me.LinkLabel1.Text = "Ausführliche Anleitung im Wiki"
+        '
+        'TabControl1
+        '
+        Me.TabControl1.Controls.Add(Me.TabAllgemeines)
+        Me.TabControl1.Controls.Add(Me.TabFilter)
+        Me.TabControl1.Controls.Add(Me.TabÜbersicht)
+        Me.TabControl1.Controls.Add(Me.TabCategories)
+        Me.TabControl1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TabControl1.Location = New System.Drawing.Point(12, 73)
+        Me.TabControl1.Name = "TabControl1"
+        Me.TabControl1.SelectedIndex = 0
+        Me.TabControl1.Size = New System.Drawing.Size(654, 473)
+        Me.TabControl1.TabIndex = 39
+        '
+        'TabAllgemeines
+        '
+        Me.TabAllgemeines.Controls.Add(Me.CheckBoxUseSportLogos)
+        Me.TabAllgemeines.Controls.Add(Me.ButtonOpenDlgImageFolder)
+        Me.TabAllgemeines.Controls.Add(Me.ButtonOpenDlgDatabase)
+        Me.TabAllgemeines.Controls.Add(Me.tbClickfinderDatabase)
+        Me.TabAllgemeines.Controls.Add(Me.tbClickfinderImagePath)
+        Me.TabAllgemeines.Controls.Add(Me.Label3)
+        Me.TabAllgemeines.Controls.Add(Me.Label1)
+        Me.TabAllgemeines.Location = New System.Drawing.Point(4, 25)
+        Me.TabAllgemeines.Name = "TabAllgemeines"
+        Me.TabAllgemeines.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabAllgemeines.Size = New System.Drawing.Size(646, 444)
+        Me.TabAllgemeines.TabIndex = 0
+        Me.TabAllgemeines.Text = "Allgemeines"
+        Me.TabAllgemeines.UseVisualStyleBackColor = True
+        '
+        'CheckBoxUseSportLogos
+        '
+        Me.CheckBoxUseSportLogos.AutoSize = True
+        Me.CheckBoxUseSportLogos.Location = New System.Drawing.Point(9, 113)
+        Me.CheckBoxUseSportLogos.Name = "CheckBoxUseSportLogos"
+        Me.CheckBoxUseSportLogos.Size = New System.Drawing.Size(183, 20)
+        Me.CheckBoxUseSportLogos.TabIndex = 6
+        Me.CheckBoxUseSportLogos.Text = "Sport Logos verwenden"
+        Me.CheckBoxUseSportLogos.UseVisualStyleBackColor = True
+        '
+        'ButtonOpenDlgImageFolder
+        '
+        Me.ButtonOpenDlgImageFolder.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonOpenDlgImageFolder.Location = New System.Drawing.Point(560, 65)
+        Me.ButtonOpenDlgImageFolder.Name = "ButtonOpenDlgImageFolder"
+        Me.ButtonOpenDlgImageFolder.Size = New System.Drawing.Size(23, 23)
+        Me.ButtonOpenDlgImageFolder.TabIndex = 5
+        Me.ButtonOpenDlgImageFolder.Text = "..."
+        Me.ButtonOpenDlgImageFolder.UseVisualStyleBackColor = True
+        '
+        'ButtonOpenDlgDatabase
+        '
+        Me.ButtonOpenDlgDatabase.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonOpenDlgDatabase.Location = New System.Drawing.Point(560, 24)
+        Me.ButtonOpenDlgDatabase.Name = "ButtonOpenDlgDatabase"
+        Me.ButtonOpenDlgDatabase.Size = New System.Drawing.Size(23, 23)
+        Me.ButtonOpenDlgDatabase.TabIndex = 4
+        Me.ButtonOpenDlgDatabase.Text = "..."
+        Me.ButtonOpenDlgDatabase.UseVisualStyleBackColor = True
+        '
+        'tbClickfinderDatabase
+        '
+        Me.tbClickfinderDatabase.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbClickfinderDatabase.Location = New System.Drawing.Point(182, 24)
+        Me.tbClickfinderDatabase.Name = "tbClickfinderDatabase"
+        Me.tbClickfinderDatabase.Size = New System.Drawing.Size(372, 23)
+        Me.tbClickfinderDatabase.TabIndex = 3
+        '
+        'tbClickfinderImagePath
+        '
+        Me.tbClickfinderImagePath.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbClickfinderImagePath.Location = New System.Drawing.Point(182, 65)
+        Me.tbClickfinderImagePath.Name = "tbClickfinderImagePath"
+        Me.tbClickfinderImagePath.Size = New System.Drawing.Size(372, 23)
+        Me.tbClickfinderImagePath.TabIndex = 2
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(6, 68)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(170, 16)
+        Me.Label3.TabIndex = 1
+        Me.Label3.Text = "Clickfinder Bilder Ordner:"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(6, 27)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(148, 16)
+        Me.Label1.TabIndex = 0
+        Me.Label1.Text = "Clickfinder Database:"
+        '
+        'TabFilter
+        '
+        Me.TabFilter.Controls.Add(Me.CheckBoxRemberSortedBy)
+        Me.TabFilter.Controls.Add(Me.CheckBoxFilterShowLocalSeries)
+        Me.TabFilter.Controls.Add(Me.CheckBoxFilterShowLocalMovies)
+        Me.TabFilter.Controls.Add(Me.Label17)
+        Me.TabFilter.Controls.Add(Me.Label16)
+        Me.TabFilter.Controls.Add(Me.Label15)
+        Me.TabFilter.Controls.Add(Me.Label14)
+        Me.TabFilter.Controls.Add(Me.tbLateTime)
+        Me.TabFilter.Controls.Add(Me.tbPrimeTime)
+        Me.TabFilter.Controls.Add(Me.NumNowOffset)
+        Me.TabFilter.Location = New System.Drawing.Point(4, 25)
+        Me.TabFilter.Name = "TabFilter"
+        Me.TabFilter.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabFilter.Size = New System.Drawing.Size(646, 444)
+        Me.TabFilter.TabIndex = 3
+        Me.TabFilter.Text = "Filter"
+        Me.TabFilter.UseVisualStyleBackColor = True
+        '
+        'CheckBoxRemberSortedBy
+        '
+        Me.CheckBoxRemberSortedBy.AutoSize = True
+        Me.CheckBoxRemberSortedBy.Location = New System.Drawing.Point(55, 254)
+        Me.CheckBoxRemberSortedBy.Name = "CheckBoxRemberSortedBy"
+        Me.CheckBoxRemberSortedBy.Size = New System.Drawing.Size(204, 20)
+        Me.CheckBoxRemberSortedBy.TabIndex = 11
+        Me.CheckBoxRemberSortedBy.Text = "merke gewählte Sortierung"
+        Me.CheckBoxRemberSortedBy.UseVisualStyleBackColor = True
+        '
+        'CheckBoxFilterShowLocalSeries
+        '
+        Me.CheckBoxFilterShowLocalSeries.AutoSize = True
+        Me.CheckBoxFilterShowLocalSeries.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBoxFilterShowLocalSeries.Location = New System.Drawing.Point(55, 225)
+        Me.CheckBoxFilterShowLocalSeries.Name = "CheckBoxFilterShowLocalSeries"
+        Me.CheckBoxFilterShowLocalSeries.Size = New System.Drawing.Size(361, 20)
+        Me.CheckBoxFilterShowLocalSeries.TabIndex = 10
+        Me.CheckBoxFilterShowLocalSeries.Text = "Keine Serien (Episoden) zeigen, die lokal existieren"
+        Me.CheckBoxFilterShowLocalSeries.UseVisualStyleBackColor = True
+        '
+        'CheckBoxFilterShowLocalMovies
+        '
+        Me.CheckBoxFilterShowLocalMovies.AutoSize = True
+        Me.CheckBoxFilterShowLocalMovies.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBoxFilterShowLocalMovies.Location = New System.Drawing.Point(55, 195)
+        Me.CheckBoxFilterShowLocalMovies.Name = "CheckBoxFilterShowLocalMovies"
+        Me.CheckBoxFilterShowLocalMovies.Size = New System.Drawing.Size(278, 20)
+        Me.CheckBoxFilterShowLocalMovies.TabIndex = 9
+        Me.CheckBoxFilterShowLocalMovies.Text = "Keine Filme zeigen, die lokal existieren"
+        Me.CheckBoxFilterShowLocalMovies.UseVisualStyleBackColor = True
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(52, 125)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(85, 16)
+        Me.Label17.TabIndex = 6
+        Me.Label17.Text = "Prime Time:"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(52, 160)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(79, 16)
+        Me.Label16.TabIndex = 5
+        Me.Label16.Text = "Late Time:"
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(52, 90)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(47, 16)
+        Me.Label15.TabIndex = 4
+        Me.Label15.Text = "Jetzt:"
+        '
+        'Label14
+        '
+        Me.Label14.Location = New System.Drawing.Point(22, 20)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(543, 38)
+        Me.Label14.TabIndex = 3
+        Me.Label14.Text = "Mit den verschiedenen Filtereinstellungen könnt ihr die Suchergebnisse eingrenzen" & _
+            " und die Zugrifsgeschwindigkeit steigern"
+        '
+        'tbLateTime
+        '
+        Me.tbLateTime.Location = New System.Drawing.Point(180, 157)
+        Me.tbLateTime.Mask = "00:00"
+        Me.tbLateTime.Name = "tbLateTime"
+        Me.tbLateTime.Size = New System.Drawing.Size(42, 23)
+        Me.tbLateTime.TabIndex = 2
+        '
+        'tbPrimeTime
+        '
+        Me.tbPrimeTime.Location = New System.Drawing.Point(180, 122)
+        Me.tbPrimeTime.Mask = "00:00"
+        Me.tbPrimeTime.Name = "tbPrimeTime"
+        Me.tbPrimeTime.Size = New System.Drawing.Size(42, 23)
+        Me.tbPrimeTime.TabIndex = 1
+        '
+        'NumNowOffset
+        '
+        Me.NumNowOffset.Location = New System.Drawing.Point(180, 88)
+        Me.NumNowOffset.Maximum = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.NumNowOffset.Minimum = New Decimal(New Integer() {120, 0, 0, -2147483648})
+        Me.NumNowOffset.Name = "NumNowOffset"
+        Me.NumNowOffset.Size = New System.Drawing.Size(42, 23)
+        Me.NumNowOffset.TabIndex = 0
+        '
+        'TabÜbersicht
+        '
+        Me.TabÜbersicht.Controls.Add(Me.NumMaxDays)
+        Me.TabÜbersicht.Controls.Add(Me.Label12)
+        Me.TabÜbersicht.Controls.Add(Me.Label13)
+        Me.TabÜbersicht.Controls.Add(Me.GroupBox1)
+        Me.TabÜbersicht.Controls.Add(Me.GroupBox2)
+        Me.TabÜbersicht.Location = New System.Drawing.Point(4, 25)
+        Me.TabÜbersicht.Name = "TabÜbersicht"
+        Me.TabÜbersicht.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabÜbersicht.Size = New System.Drawing.Size(646, 444)
+        Me.TabÜbersicht.TabIndex = 1
+        Me.TabÜbersicht.Text = "Übersicht"
+        Me.TabÜbersicht.UseVisualStyleBackColor = True
+        '
+        'NumMaxDays
+        '
+        Me.NumMaxDays.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.NumMaxDays.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NumMaxDays.Location = New System.Drawing.Point(209, 21)
+        Me.NumMaxDays.Maximum = New Decimal(New Integer() {14, 0, 0, 0})
+        Me.NumMaxDays.Name = "NumMaxDays"
+        Me.NumMaxDays.Size = New System.Drawing.Size(42, 23)
+        Me.NumMaxDays.TabIndex = 12
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.Location = New System.Drawing.Point(14, 23)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(195, 16)
+        Me.Label12.TabIndex = 13
+        Me.Label12.Text = "Zeige Übersicht für maximal "
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.Location = New System.Drawing.Point(257, 23)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(41, 16)
+        Me.Label13.TabIndex = 14
+        Me.Label13.Text = "Tage"
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.Label11)
+        Me.GroupBox1.Controls.Add(Me.Label10)
+        Me.GroupBox1.Controls.Add(Me.NumHighlightsMinRuntime)
+        Me.GroupBox1.Controls.Add(Me.NumShowHighlightsAfter)
+        Me.GroupBox1.Controls.Add(Me.Label7)
+        Me.GroupBox1.Controls.Add(Me.Label8)
+        Me.GroupBox1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox1.Location = New System.Drawing.Point(17, 263)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(554, 98)
+        Me.GroupBox1.TabIndex = 10
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "weitere Highlights"
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.Location = New System.Drawing.Point(240, 68)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(60, 16)
+        Me.Label11.TabIndex = 11
+        Me.Label11.Text = "Minuten"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.Location = New System.Drawing.Point(10, 68)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(163, 16)
+        Me.Label10.TabIndex = 10
+        Me.Label10.Text = "Ignoriere wenn Dauer <"
+        '
+        'NumHighlightsMinRuntime
+        '
+        Me.NumHighlightsMinRuntime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.NumHighlightsMinRuntime.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NumHighlightsMinRuntime.Location = New System.Drawing.Point(192, 66)
+        Me.NumHighlightsMinRuntime.Maximum = New Decimal(New Integer() {59, 0, 0, 0})
+        Me.NumHighlightsMinRuntime.Name = "NumHighlightsMinRuntime"
+        Me.NumHighlightsMinRuntime.Size = New System.Drawing.Size(42, 23)
+        Me.NumHighlightsMinRuntime.TabIndex = 9
+        '
+        'NumShowHighlightsAfter
+        '
+        Me.NumShowHighlightsAfter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.NumShowHighlightsAfter.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NumShowHighlightsAfter.Location = New System.Drawing.Point(192, 35)
+        Me.NumShowHighlightsAfter.Maximum = New Decimal(New Integer() {23, 0, 0, 0})
+        Me.NumShowHighlightsAfter.Name = "NumShowHighlightsAfter"
+        Me.NumShowHighlightsAfter.Size = New System.Drawing.Size(42, 23)
+        Me.NumShowHighlightsAfter.TabIndex = 3
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Location = New System.Drawing.Point(240, 37)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(30, 16)
+        Me.Label7.TabIndex = 7
+        Me.Label7.Text = "Uhr"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(10, 37)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(164, 16)
+        Me.Label8.TabIndex = 8
+        Me.Label8.Text = "Zeige Highlights erst ab"
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.GroupBox3)
+        Me.GroupBox2.Controls.Add(Me.CheckBoxShowTagesTipp)
+        Me.GroupBox2.Controls.Add(Me.NumShowMoviesAfter)
+        Me.GroupBox2.Controls.Add(Me.Label4)
+        Me.GroupBox2.Controls.Add(Me.Label5)
+        Me.GroupBox2.Controls.Add(Me.CheckBoxShowLocalMovies)
+        Me.GroupBox2.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox2.Location = New System.Drawing.Point(17, 60)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(554, 175)
+        Me.GroupBox2.TabIndex = 11
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Movie Highlights"
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.RBstartTime)
+        Me.GroupBox3.Controls.Add(Me.RBTvMovieStar)
+        Me.GroupBox3.Controls.Add(Me.RBRatingStar)
+        Me.GroupBox3.Location = New System.Drawing.Point(17, 110)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(335, 57)
+        Me.GroupBox3.TabIndex = 7
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "sortieren nach:"
+        '
+        'RBstartTime
+        '
+        Me.RBstartTime.AutoSize = True
+        Me.RBstartTime.Location = New System.Drawing.Point(17, 25)
+        Me.RBstartTime.Name = "RBstartTime"
+        Me.RBstartTime.Size = New System.Drawing.Size(86, 20)
+        Me.RBstartTime.TabIndex = 2
+        Me.RBstartTime.TabStop = True
+        Me.RBstartTime.Text = "StartZeit"
+        Me.RBstartTime.UseVisualStyleBackColor = True
+        '
+        'RBTvMovieStar
+        '
+        Me.RBTvMovieStar.AutoSize = True
+        Me.RBTvMovieStar.Location = New System.Drawing.Point(109, 25)
+        Me.RBTvMovieStar.Name = "RBTvMovieStar"
+        Me.RBTvMovieStar.Size = New System.Drawing.Size(114, 20)
+        Me.RBTvMovieStar.TabIndex = 1
+        Me.RBTvMovieStar.TabStop = True
+        Me.RBTvMovieStar.Text = "TvMovie Star"
+        Me.RBTvMovieStar.UseVisualStyleBackColor = True
+        '
+        'RBRatingStar
+        '
+        Me.RBRatingStar.AutoSize = True
+        Me.RBRatingStar.Location = New System.Drawing.Point(229, 25)
+        Me.RBRatingStar.Name = "RBRatingStar"
+        Me.RBRatingStar.Size = New System.Drawing.Size(95, 20)
+        Me.RBRatingStar.TabIndex = 0
+        Me.RBRatingStar.TabStop = True
+        Me.RBRatingStar.Text = "RatingStar"
+        Me.RBRatingStar.UseVisualStyleBackColor = True
+        '
+        'CheckBoxShowTagesTipp
+        '
+        Me.CheckBoxShowTagesTipp.AutoSize = True
+        Me.CheckBoxShowTagesTipp.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBoxShowTagesTipp.Location = New System.Drawing.Point(17, 54)
+        Me.CheckBoxShowTagesTipp.Name = "CheckBoxShowTagesTipp"
+        Me.CheckBoxShowTagesTipp.Size = New System.Drawing.Size(327, 20)
+        Me.CheckBoxShowTagesTipp.TabIndex = 6
+        Me.CheckBoxShowTagesTipp.Text = "Zeige Tv Movie Tages Tipp als ersten Eintrag"
+        Me.CheckBoxShowTagesTipp.UseVisualStyleBackColor = True
+        '
+        'NumShowMoviesAfter
+        '
+        Me.NumShowMoviesAfter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.NumShowMoviesAfter.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NumShowMoviesAfter.Location = New System.Drawing.Point(230, 85)
+        Me.NumShowMoviesAfter.Maximum = New Decimal(New Integer() {23, 0, 0, 0})
+        Me.NumShowMoviesAfter.Name = "NumShowMoviesAfter"
+        Me.NumShowMoviesAfter.Size = New System.Drawing.Size(42, 23)
+        Me.NumShowMoviesAfter.TabIndex = 1
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(16, 87)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(207, 16)
+        Me.Label4.TabIndex = 4
+        Me.Label4.Text = "Zeige Movie Highlights erst ab"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(278, 87)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(30, 16)
+        Me.Label5.TabIndex = 5
+        Me.Label5.Text = "Uhr"
+        '
+        'CheckBoxShowLocalMovies
+        '
+        Me.CheckBoxShowLocalMovies.AutoSize = True
+        Me.CheckBoxShowLocalMovies.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBoxShowLocalMovies.Location = New System.Drawing.Point(17, 22)
+        Me.CheckBoxShowLocalMovies.Name = "CheckBoxShowLocalMovies"
+        Me.CheckBoxShowLocalMovies.Size = New System.Drawing.Size(278, 20)
+        Me.CheckBoxShowLocalMovies.TabIndex = 0
+        Me.CheckBoxShowLocalMovies.Text = "Keine Filme zeigen, die lokal existieren"
+        Me.CheckBoxShowLocalMovies.UseVisualStyleBackColor = True
+        '
+        'TabCategories
+        '
+        Me.TabCategories.Controls.Add(Me.CheckBoxSelect)
+        Me.TabCategories.Controls.Add(Me.ButtonCategoriesDefault)
+        Me.TabCategories.Controls.Add(Me.ButtonDown)
+        Me.TabCategories.Controls.Add(Me.ButtonNewCategorie)
+        Me.TabCategories.Controls.Add(Me.ButtonUp)
+        Me.TabCategories.Controls.Add(Me.dgvCategories)
+        Me.TabCategories.Location = New System.Drawing.Point(4, 25)
+        Me.TabCategories.Name = "TabCategories"
+        Me.TabCategories.Size = New System.Drawing.Size(646, 444)
+        Me.TabCategories.TabIndex = 2
+        Me.TabCategories.Text = "Kategorien"
+        Me.TabCategories.UseVisualStyleBackColor = True
+        '
+        'CheckBoxSelect
+        '
+        Me.CheckBoxSelect.AutoSize = True
+        Me.CheckBoxSelect.Location = New System.Drawing.Point(9, 389)
+        Me.CheckBoxSelect.Name = "CheckBoxSelect"
+        Me.CheckBoxSelect.Size = New System.Drawing.Size(160, 20)
+        Me.CheckBoxSelect.TabIndex = 6
+        Me.CheckBoxSelect.Text = "Select / deselect all"
+        Me.CheckBoxSelect.UseVisualStyleBackColor = True
+        '
+        'ButtonCategoriesDefault
+        '
+        Me.ButtonCategoriesDefault.Location = New System.Drawing.Point(523, 390)
+        Me.ButtonCategoriesDefault.Name = "ButtonCategoriesDefault"
+        Me.ButtonCategoriesDefault.Size = New System.Drawing.Size(68, 28)
+        Me.ButtonCategoriesDefault.TabIndex = 5
+        Me.ButtonCategoriesDefault.Text = "Default"
+        Me.ButtonCategoriesDefault.UseVisualStyleBackColor = True
+        '
+        'ButtonDown
+        '
+        Me.ButtonDown.BackgroundImage = Global.ClickfinderProgramGuide.My.Resources.Resources.arrow_Down_48
+        Me.ButtonDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.ButtonDown.Location = New System.Drawing.Point(605, 206)
+        Me.ButtonDown.Name = "ButtonDown"
+        Me.ButtonDown.Size = New System.Drawing.Size(28, 61)
+        Me.ButtonDown.TabIndex = 4
+        Me.ButtonDown.UseVisualStyleBackColor = True
+        '
+        'ButtonNewCategorie
+        '
+        Me.ButtonNewCategorie.Location = New System.Drawing.Point(449, 390)
+        Me.ButtonNewCategorie.Name = "ButtonNewCategorie"
+        Me.ButtonNewCategorie.Size = New System.Drawing.Size(68, 28)
+        Me.ButtonNewCategorie.TabIndex = 2
+        Me.ButtonNewCategorie.Text = "New"
+        Me.ButtonNewCategorie.UseVisualStyleBackColor = True
+        '
+        'ButtonUp
+        '
+        Me.ButtonUp.BackgroundImage = Global.ClickfinderProgramGuide.My.Resources.Resources.arrow_UP_48
+        Me.ButtonUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.ButtonUp.Location = New System.Drawing.Point(605, 139)
+        Me.ButtonUp.Name = "ButtonUp"
+        Me.ButtonUp.Size = New System.Drawing.Size(28, 61)
+        Me.ButtonUp.TabIndex = 3
+        Me.ButtonUp.UseVisualStyleBackColor = True
+        '
+        'dgvCategories
+        '
+        Me.dgvCategories.AllowUserToAddRows = False
+        Me.dgvCategories.AllowUserToDeleteRows = False
+        Me.dgvCategories.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
+        Me.dgvCategories.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
+        Me.dgvCategories.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvCategories.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.C_id, Me.C_Image, Me.C_visible, Me.C_Name, Me.C_Beschreibung, Me.C_sortOrder, Me.C_SqlString, Me.C_MinRuntime, Me.C_NowOffset})
+        Me.dgvCategories.Location = New System.Drawing.Point(9, 8)
+        Me.dgvCategories.Name = "dgvCategories"
+        Me.dgvCategories.RowHeadersVisible = False
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
+        Me.dgvCategories.RowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvCategories.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvCategories.Size = New System.Drawing.Size(582, 376)
+        Me.dgvCategories.TabIndex = 0
+        '
+        'openFileDialog
+        '
+        Me.openFileDialog.FileName = "OpenFileDialog1"
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackgroundImage = Global.ClickfinderProgramGuide.My.Resources.Resources.SetupIcon
+        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox1.Location = New System.Drawing.Point(3, 4)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(75, 62)
+        Me.PictureBox1.TabIndex = 9
+        Me.PictureBox1.TabStop = False
+        '
+        'C_id
+        '
+        Me.C_id.FillWeight = 50.0!
+        Me.C_id.HeaderText = "id"
+        Me.C_id.Name = "C_id"
+        Me.C_id.ReadOnly = True
+        Me.C_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.C_id.Visible = False
+        '
+        'C_Image
+        '
+        Me.C_Image.HeaderText = ""
+        Me.C_Image.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom
+        Me.C_Image.Name = "C_Image"
+        Me.C_Image.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.C_Image.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.C_Image.Width = 40
+        '
+        'C_visible
+        '
+        Me.C_visible.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.C_visible.HeaderText = ""
+        Me.C_visible.Name = "C_visible"
+        Me.C_visible.Width = 5
+        '
+        'C_Name
+        '
+        Me.C_Name.HeaderText = "Name"
+        Me.C_Name.Name = "C_Name"
+        Me.C_Name.ReadOnly = True
+        Me.C_Name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.C_Name.Width = 200
+        '
+        'C_Beschreibung
+        '
+        Me.C_Beschreibung.HeaderText = "Beschreibung"
+        Me.C_Beschreibung.Name = "C_Beschreibung"
+        Me.C_Beschreibung.ReadOnly = True
+        Me.C_Beschreibung.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.C_Beschreibung.Width = 88
+        '
+        'C_sortOrder
+        '
+        Me.C_sortOrder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
+        Me.C_sortOrder.HeaderText = "sortOrder"
+        Me.C_sortOrder.Name = "C_sortOrder"
+        Me.C_sortOrder.ReadOnly = True
+        Me.C_sortOrder.Visible = False
+        Me.C_sortOrder.Width = 95
+        '
+        'C_SqlString
+        '
+        Me.C_SqlString.HeaderText = "SqlString"
+        Me.C_SqlString.Name = "C_SqlString"
+        Me.C_SqlString.Visible = False
+        '
+        'C_MinRuntime
+        '
+        Me.C_MinRuntime.HeaderText = "Min"
+        Me.C_MinRuntime.Name = "C_MinRuntime"
+        Me.C_MinRuntime.Width = 40
+        '
+        'C_NowOffset
+        '
+        Me.C_NowOffset.HeaderText = "Offset"
+        Me.C_NowOffset.Name = "C_NowOffset"
+        Me.C_NowOffset.Width = 52
+        '
+        'Setup
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.ClientSize = New System.Drawing.Size(678, 605)
+        Me.Controls.Add(Me.TabControl1)
+        Me.Controls.Add(Me.LinkLabel1)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.PictureBox1)
+        Me.Controls.Add(Me.ButtonSave)
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.Name = "Setup"
+        Me.Text = "Clickfinder Program Guide Configuration"
+        Me.TabControl1.ResumeLayout(False)
+        Me.TabAllgemeines.ResumeLayout(False)
+        Me.TabAllgemeines.PerformLayout()
+        Me.TabFilter.ResumeLayout(False)
+        Me.TabFilter.PerformLayout()
+        CType(Me.NumNowOffset, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabÜbersicht.ResumeLayout(False)
+        Me.TabÜbersicht.PerformLayout()
+        CType(Me.NumMaxDays, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        CType(Me.NumHighlightsMinRuntime, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumShowHighlightsAfter, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
+        CType(Me.NumShowMoviesAfter, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabCategories.ResumeLayout(False)
+        Me.TabCategories.PerformLayout()
+        CType(Me.dgvCategories, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ResumeLayout(False)
+        Me.PerformLayout()
+
+    End Sub
+    Friend WithEvents ButtonSave As System.Windows.Forms.Button
+    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents LinkLabel1 As System.Windows.Forms.LinkLabel
+    Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
+    Friend WithEvents TabAllgemeines As System.Windows.Forms.TabPage
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents TabÜbersicht As System.Windows.Forms.TabPage
+    Friend WithEvents tbClickfinderDatabase As System.Windows.Forms.TextBox
+    Friend WithEvents tbClickfinderImagePath As System.Windows.Forms.TextBox
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents ButtonOpenDlgImageFolder As System.Windows.Forms.Button
+    Friend WithEvents ButtonOpenDlgDatabase As System.Windows.Forms.Button
+    Friend WithEvents openFileDialog As System.Windows.Forms.OpenFileDialog
+    Friend WithEvents CheckBoxShowLocalMovies As System.Windows.Forms.CheckBox
+    Friend WithEvents NumShowMoviesAfter As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label8 As System.Windows.Forms.Label
+    Friend WithEvents Label7 As System.Windows.Forms.Label
+    Friend WithEvents Label5 As System.Windows.Forms.Label
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents NumShowHighlightsAfter As System.Windows.Forms.NumericUpDown
+    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
+    Friend WithEvents CheckBoxShowTagesTipp As System.Windows.Forms.CheckBox
+    Friend WithEvents Label11 As System.Windows.Forms.Label
+    Friend WithEvents Label10 As System.Windows.Forms.Label
+    Friend WithEvents NumHighlightsMinRuntime As System.Windows.Forms.NumericUpDown
+    Friend WithEvents NumMaxDays As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label12 As System.Windows.Forms.Label
+    Friend WithEvents Label13 As System.Windows.Forms.Label
+    Friend WithEvents CheckBoxUseSportLogos As System.Windows.Forms.CheckBox
+    Friend WithEvents TabCategories As System.Windows.Forms.TabPage
+    Friend WithEvents dgvCategories As System.Windows.Forms.DataGridView
+    Friend WithEvents ButtonNewCategorie As System.Windows.Forms.Button
+    Friend WithEvents ButtonDown As System.Windows.Forms.Button
+    Friend WithEvents ButtonUp As System.Windows.Forms.Button
+    Friend WithEvents ButtonCategoriesDefault As System.Windows.Forms.Button
+    Friend WithEvents CheckBoxSelect As System.Windows.Forms.CheckBox
+    Friend WithEvents TabFilter As System.Windows.Forms.TabPage
+    Friend WithEvents NumNowOffset As System.Windows.Forms.NumericUpDown
+    Friend WithEvents tbPrimeTime As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents tbLateTime As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents Label17 As System.Windows.Forms.Label
+    Friend WithEvents Label16 As System.Windows.Forms.Label
+    Friend WithEvents Label15 As System.Windows.Forms.Label
+    Friend WithEvents Label14 As System.Windows.Forms.Label
+    Friend WithEvents CheckBoxFilterShowLocalMovies As System.Windows.Forms.CheckBox
+    Friend WithEvents CheckBoxFilterShowLocalSeries As System.Windows.Forms.CheckBox
+    Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
+    Friend WithEvents RBstartTime As System.Windows.Forms.RadioButton
+    Friend WithEvents RBTvMovieStar As System.Windows.Forms.RadioButton
+    Friend WithEvents RBRatingStar As System.Windows.Forms.RadioButton
+    Friend WithEvents CheckBoxRemberSortedBy As System.Windows.Forms.CheckBox
+    Friend WithEvents C_id As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents C_Image As System.Windows.Forms.DataGridViewImageColumn
+    Friend WithEvents C_visible As System.Windows.Forms.DataGridViewCheckBoxColumn
+    Friend WithEvents C_Name As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents C_Beschreibung As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents C_sortOrder As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents C_SqlString As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents C_MinRuntime As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents C_NowOffset As System.Windows.Forms.DataGridViewTextBoxColumn
+End Class
