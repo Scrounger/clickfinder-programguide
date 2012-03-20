@@ -944,19 +944,16 @@ Namespace ClickfinderProgramGuide
             'Program gleichen Genres anzeigen
             Dim lItemStartTime As New GUIListItem
             lItemStartTime.Label = Translation.SortStartTime
-            lItemStartTime.IconImage = "tvguide_notify_button.png"
             dlgContext.Add(lItemStartTime)
             lItemStartTime.Dispose()
 
             Dim lItemTvMovie As New GUIListItem
             lItemTvMovie.Label = Translation.SortTvMovieStar
-            lItemTvMovie.IconImage = "tvguide_notify_button.png"
             dlgContext.Add(lItemTvMovie)
             lItemTvMovie.Dispose()
 
             Dim lItemRating As New GUIListItem
             lItemRating.Label = Translation.SortRatingStar
-            lItemRating.IconImage = "tvguide_notify_button.png"
             dlgContext.Add(lItemRating)
             lItemRating.Dispose()
 

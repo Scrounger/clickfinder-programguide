@@ -341,6 +341,12 @@ Namespace ClickfinderProgramGuide
                 Case Is = SortMethode.RatingStar.ToString
                     _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
                         Helper.ORDERBYstarRating
+                Case Is = SortMethode.Genre.ToString
+                    _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
+                        Helper.ORDERBYgerne
+                Case Is = SortMethode.parentalRating.ToString
+                    _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
+                        Helper.ORDERBYparentalRating
             End Select
 
             _Result.AddRange(Broker.Execute(_ItemsSqlString).TransposeToFieldList("idProgram", False))
@@ -590,43 +596,38 @@ Namespace ClickfinderProgramGuide
             dlgContext.SetHeading(_Program.Title)
             dlgContext.ShowQuickNumbers = True
 
+            'Refresh
+            If _ClickfinderCategorieView = CategorieView.Now And _idCategorie > 0 Then
+                Dim lItemRefresh As New GUIListItem
+                lItemRefresh.Label = Translation.Refresh
+                dlgContext.Add(lItemRefresh)
+                lItemRefresh.Dispose()
+            End If
+
             'Sort SubMenu
             Dim lItemSort As New GUIListItem
             lItemSort.Label = Translation.Sortby
-            'lItemRem.IconImage = "tvguide_notify_button.png"
             dlgContext.Add(lItemSort)
             lItemSort.Dispose()
 
             'Action SubMenu
             Dim lItemActionOn As New GUIListItem
             lItemActionOn.Label = Translation.action
-            'lItemOn.IconImage = "play_enabled.png"
             dlgContext.Add(lItemActionOn)
             lItemActionOn.Dispose()
 
             'Aufnehmen
             Dim lItemRec As New GUIListItem
             lItemRec.Label = "Alle Filme der #Categorie (ändern)"
-            'lItemRec.IconImage = "tvguide_record_button.png"
             dlgContext.Add(lItemRec)
             lItemRec.Dispose()
 
             'Erinnern
             Dim lItemRem As New GUIListItem
             lItemRem.Label = "gleiches Genre, gleicher Zeitraum)"
-            'lItemRem.IconImage = "tvguide_notify_button.png"
             dlgContext.Add(lItemRem)
             lItemRem.Dispose()
 
-
-            'Refresh
-            If _ClickfinderCategorieView = CategorieView.Now And _idCategorie > 0 Then
-                Dim lItemRefresh As New GUIListItem
-                lItemRefresh.Label = Translation.Refresh
-                'lItemRem.IconImage = "tvguide_notify_button.png"
-                dlgContext.Add(lItemRefresh)
-                lItemRefresh.Dispose()
-            End If
 
             dlgContext.DoModal(idWindow)
 
@@ -636,16 +637,13 @@ Namespace ClickfinderProgramGuide
                 Case Is = Translation.action
                     ShowActionMenu(_Program, GetID)
                 Case Is = Translation.Refresh
-
                     Dim key As New Gentle.Framework.Key(GetType(ClickfinderCategories), True, "idClickfinderCategories", _idCategorie)
                     Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(key)
                     ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime.AddMinutes(CDbl(_layer.GetSetting("ClickfinderNowOffset", "-20").Value)))), "#endTime", MySqlDate(PeriodeEndTime))), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
                     Translator.SetProperty("#ItemsLeftListLabel", _Categorie.Name & " " & Translation.von & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00") & " - " & Format(PeriodeEndTime.Hour, "00") & ":" & Format(PeriodeEndTime.Minute, "00"))
                     Translator.SetProperty("#ItemsRightListLabel", Translation.Categorie & ": " & _Categorie.Name)
                     GUIWindowManager.ActivateWindow(1656544653)
-                    '    SetNotify(_Program)
-                    'Case Is = 3
-                    '    ShowSortMenu()
+              
             End Select
 
         End Sub
@@ -653,27 +651,38 @@ Namespace ClickfinderProgramGuide
             Dim dlgContext As GUIDialogMenu = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_MENU, Integer)), GUIDialogMenu)
             dlgContext.Reset()
 
+
+            'ContextMenu Layout
+            dlgContext.SetHeading(Translation.Sortby)
+            dlgContext.ShowQuickNumbers = True
+
             'Program gleichen Genres anzeigen
             Dim lItemStartTime As New GUIListItem
             lItemStartTime.Label = Translation.SortStartTime
-            'lItemStartTime.IconImage = "tvguide_notify_button.png"
             dlgContext.Add(lItemStartTime)
             lItemStartTime.Dispose()
 
             Dim lItemTvMovie As New GUIListItem
             lItemTvMovie.Label = Translation.SortTvMovieStar
-            'lItemTvMovie.IconImage = "tvguide_notify_button.png"
             dlgContext.Add(lItemTvMovie)
             lItemTvMovie.Dispose()
 
             Dim lItemRating As New GUIListItem
             lItemRating.Label = Translation.SortRatingStar
-            'lItemRating.IconImage = "tvguide_notify_button.png"
             dlgContext.Add(lItemRating)
             lItemRating.Dispose()
 
-            dlgContext.DoModal(GetID)
+            Dim lItemGenre As New GUIListItem
+            lItemGenre.Label = Translation.SortGenre
+            dlgContext.Add(lItemGenre)
+            lItemGenre.Dispose()
 
+            Dim lItemparentalRating As New GUIListItem
+            lItemparentalRating.Label = Translation.SortparentalRating
+            dlgContext.Add(lItemparentalRating)
+            lItemparentalRating.Dispose()
+
+            dlgContext.DoModal(GetID)
 
             Dim _FillLists As New Threading.Thread(AddressOf GetItemsOnLoad)
 
@@ -690,6 +699,16 @@ Namespace ClickfinderProgramGuide
                     _FillLists.Start()
                 Case Is = 2
                     _sortedBy = SortMethode.RatingStar.ToString
+                    SaveSortedByToClickfinderCategories()
+                    GuiLayoutLoading()
+                    _FillLists.Start()
+                Case Is = 3
+                    _sortedBy = SortMethode.Genre.ToString
+                    SaveSortedByToClickfinderCategories()
+                    GuiLayoutLoading()
+                    _FillLists.Start()
+                Case Is = 4
+                    _sortedBy = SortMethode.parentalRating.ToString
                     SaveSortedByToClickfinderCategories()
                     GuiLayoutLoading()
                     _FillLists.Start()

@@ -16,6 +16,8 @@ Public Class Helper
         startTime
         TvMovieStar
         RatingStar
+        Genre
+        parentalRating
     End Enum
     Friend Shared Sub AddListControlItem(ByVal WindowId As Integer, ByVal Listcontrol As GUIListControl, ByVal idProgram As Integer, ByVal ChannelName As String, ByVal titelLabel As String, Optional ByVal timeLabel As String = "", Optional ByVal infoLabel As String = "", Optional ByVal ImagePath As String = "", Optional ByVal MinRunTime As Integer = 0)
 
@@ -76,7 +78,16 @@ Public Class Helper
             Return "ORDER BY starRating DESC, startTime ASC, title ASC, TVMovieBewertung DESC"
         End Get
     End Property
-
+    Friend Shared ReadOnly Property ORDERBYgerne() As String
+        Get
+            Return "ORDER BY genre ASC, starRating DESC, startTime ASC, title ASC, TVMovieBewertung DESC"
+        End Get
+    End Property
+    Friend Shared ReadOnly Property ORDERBYparentalRating() As String
+        Get
+            Return "ORDER BY parentalRating DESC, starRating DESC, startTime ASC, title ASC, TVMovieBewertung DESC"
+        End Get
+    End Property
 
     Friend Shared Sub ListControlClick(ByVal idProgram As Integer)
         DetailGuiWindow.Details_idProgram = idProgram
@@ -170,49 +181,49 @@ Public Class Helper
         End If
     End Function
 
-    ''' <summary>
-    ''' Prüft ob Program auf gleich gemappten (TvMovieMapping) HDSender existiert
-    ''' </summary>
-    ''' <returns>0 - kein Treffer, idprogram sofern treffer</returns>
-    Friend Shared Function GetHDChannel2(ByVal idprogram As Integer) As Program
-        Dim _program As Program = Program.Retrieve(idprogram)
+    '''' <summary>
+    '''' Prüft ob Program auf gleich gemappten (TvMovieMapping) HDSender existiert
+    '''' </summary>
+    '''' <returns>0 - kein Treffer, idprogram sofern treffer</returns>
+    'Friend Shared Function GetHDChannel2(ByVal idprogram As Integer) As Program
+    '    Dim _program As Program = Program.Retrieve(idprogram)
 
-        'Zunächst prüfen ob HDchannel
-        If InStr(_program.ReferencedChannel.DisplayName, " HD") = 0 Then
-            Dim _stationName As New Gentle.Framework.Key(False, "idChannel", _program.ReferencedChannel.IdChannel)
-            Try
-                'Alle Sender mit gleichem TvMovieMapping laden
-                Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(TvMovieMapping))
-                sb.AddConstraint([Operator].Equals, "stationName", TvMovieMapping.Retrieve(_stationName).StationName)
-                Dim stmt As SqlStatement = sb.GetStatement(True)
-                Dim _Result As IList(Of TvMovieMapping) = ObjectFactory.GetCollection(GetType(TvMovieMapping), stmt.Execute())
+    '    'Zunächst prüfen ob HDchannel
+    '    If InStr(_program.ReferencedChannel.DisplayName, " HD") = 0 Then
+    '        Dim _stationName As New Gentle.Framework.Key(False, "idChannel", _program.ReferencedChannel.IdChannel)
+    '        Try
+    '            'Alle Sender mit gleichem TvMovieMapping laden
+    '            Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(TvMovieMapping))
+    '            sb.AddConstraint([Operator].Equals, "stationName", TvMovieMapping.Retrieve(_stationName).StationName)
+    '            Dim stmt As SqlStatement = sb.GetStatement(True)
+    '            Dim _Result As IList(Of TvMovieMapping) = ObjectFactory.GetCollection(GetType(TvMovieMapping), stmt.Execute())
 
-                'Nach Sender mit Endung " HD" suchen
-                If _Result.Count > 1 Then
-                    For d = 0 To _Result.Count - 1
-                        If InStr(_Result(d).ReferencedChannel.DisplayName, " HD") > 0 Then
-                            Try
-                                Dim _HDprogram As Program = Program.RetrieveByTitleTimesAndChannel(_program.Title, _program.StartTime, _program.EndTime, _Result(d).IdChannel)
-                                Return _HDprogram
-                                Exit Function
-                            Catch ex As Exception
-                                MyLog.Debug("TVMovie: [GetHDChannel]: program not found on mapped _HDchannel ({0}, {1}, {2}, {3} -> {4})", _program.Title, _program.StartTime, _program.EndTime, _program.ReferencedChannel.DisplayName, _Result(d).IdChannel)
-                                Return _program
-                            End Try
-                        End If
-                    Next
-                End If
+    '            'Nach Sender mit Endung " HD" suchen
+    '            If _Result.Count > 1 Then
+    '                For d = 0 To _Result.Count - 1
+    '                    If InStr(_Result(d).ReferencedChannel.DisplayName, " HD") > 0 Then
+    '                        Try
+    '                            Dim _HDprogram As Program = Program.RetrieveByTitleTimesAndChannel(_program.Title, _program.StartTime, _program.EndTime, _Result(d).IdChannel)
+    '                            Return _HDprogram
+    '                            Exit Function
+    '                        Catch ex As Exception
+    '                            MyLog.Debug("TVMovie: [GetHDChannel]: program not found on mapped _HDchannel ({0}, {1}, {2}, {3} -> {4})", _program.Title, _program.StartTime, _program.EndTime, _program.ReferencedChannel.DisplayName, _Result(d).IdChannel)
+    '                            Return _program
+    '                        End Try
+    '                    End If
+    '                Next
+    '            End If
 
-                Return _program
+    '            Return _program
 
-            Catch ex As Exception
-                MyLog.Debug("TVMovie: [GetHDChannel]: {0} not mapped in TvMovieMapping", _program.ReferencedChannel.DisplayName)
-                Return _program
-            End Try
-        Else
-            Return _program
-        End If
-    End Function
+    '        Catch ex As Exception
+    '            MyLog.Debug("TVMovie: [GetHDChannel]: {0} not mapped in TvMovieMapping", _program.ReferencedChannel.DisplayName)
+    '            Return _program
+    '        End Try
+    '    Else
+    '        Return _program
+    '    End If
+    'End Function
 
     ''' <summary>
     ''' Holt / erstellt TvMovieProgram

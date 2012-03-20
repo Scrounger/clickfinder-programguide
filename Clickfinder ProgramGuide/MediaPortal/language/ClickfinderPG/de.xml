@@ -46,11 +46,12 @@
   <string Field="before">vor</string>
   <string Field="Days">Tagen</string>
   <string Field="existlocal">lokal</string>
-  <string Field="SortStartTime">nach Startzeit sortieren</string>
-  <string Field="SortTvMovieStar">nach Tv Movie Bewertung sortieren</string>
-  <string Field="SortRatingStar">nach Rating sortieren</string>
+  <string Field="SortStartTime">Startzeitsortieren</string>
+  <string Field="SortTvMovieStar">Tv Movie Bewertung</string>
+  <string Field="SortRatingStar">Rating</string>
+  <string Field="SortGenre">Genre</string>
+  <string Field="SortparentalRating">Altersfreigabe</string>
   <string Field="Sortby">sortieren nach ...</string>
   <string Field="von">von</string>
-  
-  
+    
 </strings>

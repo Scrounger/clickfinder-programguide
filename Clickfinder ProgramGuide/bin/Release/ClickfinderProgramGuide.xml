@@ -166,11 +166,6 @@ ClickfinderProgramGuide
  Prüft ob Program auf gleich gemappten (TvMovieMapping) HDSender existiert
  </summary>
 	<returns>0 - kein Treffer, idprogram sofern treffer</returns>
-</member><member name="M:ClickfinderProgramGuide.Helper.GetHDChannel2(System.Int32)">
-	<summary>
- Prüft ob Program auf gleich gemappten (TvMovieMapping) HDSender existiert
- </summary>
-	<returns>0 - kein Treffer, idprogram sofern treffer</returns>
 </member><member name="M:ClickfinderProgramGuide.Helper.getTvMovieProgram(TvDatabase.Program)">
 	<summary>
  Holt / erstellt TvMovieProgram
