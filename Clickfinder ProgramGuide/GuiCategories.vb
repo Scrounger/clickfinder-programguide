@@ -371,6 +371,8 @@ Namespace ClickfinderProgramGuide
             Dim _infoLabel As String = String.Empty
             Dim _imagepath As String = String.Empty
             Dim _program As Program = Nothing
+            Dim _startTime As Date = Nothing
+            Dim _endTime As Date = Nothing
 
             _isAbortException = False
 
@@ -379,15 +381,30 @@ Namespace ClickfinderProgramGuide
                 _PreviewList.Clear()
 
                 For i = 1 To 6
-
                     Translator.SetProperty("#PreviewListImage" & i, "")
                     Translator.SetProperty("#PreviewListTvMovieStar" & i, "")
                     Translator.SetProperty("#PreviewListRatingStar" & i, 0)
-
                 Next
 
                 Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(_SelectedCategorieItemId)
-                _SqlString = CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime)), "#endTime", MySqlDate(PeriodeEndTime)))
+
+                'SqlString StartZeit anpassen, je nachdem von wo aus GuiCategories aufgerufen wird
+                If _ClickfinderCategorieView = CategorieView.Day And _Day.Date = Date.Today.Date Then
+                    'Alle Kategorien (GuiHighlightsMenu): Heute -> PreviewList: Jetzt anzeigen
+                    _SqlString = CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(Date.Now)), "#endTime", MySqlDate(Date.Now.AddHours(2))))
+
+                ElseIf _ClickfinderCategorieView = CategorieView.Day And Not _Day.Date = Date.Today.Date Then
+
+                    'Alle Kategorien (GuiHighlightsMenu): außer Heute -> PreviewList: PrimeTime anzeigen, sortiert nach StarRating
+                    _startTime = PeriodeStartTime.Date.AddHours(20).AddMinutes(15)
+                    _SqlString = CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime.Date.AddHours(20).AddMinutes(15))), "#endTime", MySqlDate(PeriodeStartTime.Date.AddHours(22).AddMinutes(30))))
+                    _SqlString = Left(_SqlString, InStr(_SqlString, "ORDER BY") - 1) & _
+                        Helper.ORDERBYstarRating
+                Else
+                    'Jetzt,PrimeTime,LateTime über Button / Remote keys
+                    _SqlString = CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime)), "#endTime", MySqlDate(PeriodeStartTime.AddHours(2))))
+                End If
+
                 _SqlString = _SqlString & " LIMIT 30"
 
                 Dim _result As New ArrayList

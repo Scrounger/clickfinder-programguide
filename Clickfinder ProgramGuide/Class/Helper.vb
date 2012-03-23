@@ -78,6 +78,7 @@ Public Class Helper
             Return "ORDER BY starRating DESC, startTime ASC, title ASC, TVMovieBewertung DESC"
         End Get
     End Property
+
     Friend Shared ReadOnly Property ORDERBYgerne() As String
         Get
             Return "ORDER BY genre ASC, starRating DESC, startTime ASC, title ASC, TVMovieBewertung DESC"
