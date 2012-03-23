@@ -369,6 +369,40 @@ Public Class Helper
 
     End Function
 
+    Friend Shared Function getTranslatedDayOfWeek(ByVal Datum As Date) As String
+        Dim _Result As String = String.Empty
+
+        Select Case Datum.DayOfWeek
+            Case DayOfWeek.Monday
+                _Result = Translation.Monday
+            Case DayOfWeek.Tuesday
+                _Result = Translation.Tuesday
+            Case DayOfWeek.Wednesday
+                _Result = Translation.Wednesday
+            Case DayOfWeek.Thursday
+                _Result = Translation.Thursday
+            Case DayOfWeek.Friday
+                _Result = Translation.Friday
+            Case DayOfWeek.Saturday
+                _Result = Translation.Saturday
+            Case DayOfWeek.Sunday
+                _Result = Translation.Sunday
+        End Select
+
+        If Datum = Today Then
+            _Result = Translation.Today
+        End If
+
+        If Datum = Today.AddDays(1) Then
+            _Result = Translation.Tomorrow
+        End If
+
+        If Datum = Today.AddDays(-1) Then
+            _Result = Translation.Yesterday
+        End If
+
+        Return _Result
+    End Function
 
 
 End Class

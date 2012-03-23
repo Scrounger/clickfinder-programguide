@@ -132,7 +132,12 @@ Namespace ClickfinderProgramGuide
             MyLog.Info("")
             MyLog.Info("[HighlightsGuiWindow] [OnPageLoad]: load")
 
-            Translator.SetProperty("#SettingLastUpdate", GuiLayout.LastUpdateLabel)
+            If _layer.GetSetting("TvMovieImportIsRunning", "false").Value = "true" Then
+                Translator.SetProperty("#SettingLastUpdate", Translation.ImportIsRunning)
+                MyLog.Debug("[HighlightsGuiWindow] [OnPageLoad]: _ClickfinderCurrentDate = {0}", "TvMovie++ Import is running !")
+            Else
+                Translator.SetProperty("#SettingLastUpdate", GuiLayout.LastUpdateLabel)
+            End If
 
             Translator.SetProperty("#CurrentDate", Translation.Loading)
 
@@ -284,7 +289,7 @@ Namespace ClickfinderProgramGuide
                 If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_KEY_PRESSED Then
                     If Action.m_key IsNot Nothing Then
                         If Action.m_key.KeyChar = 121 Then
-                            If _MovieList.IsFocused = True Then ShowHighlightsMenu(_MovieList.SelectedListItem.ItemId, True)
+                            If _MovieList.IsFocused = True Then ShowMoviesMenu(_MovieList.SelectedListItem.ItemId)
                             If _HighlightsList.IsFocused = True Then
                                 'Falls im Label2 Translation.NewLabel gefunden -> Series Context Menu
                                 If _HighlightsList.SelectedListItem.Label2 = Translation.NewLabel Then
@@ -378,16 +383,17 @@ Namespace ClickfinderProgramGuide
 
             If control Is _btnPreview Then
                 Try
+                    CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Day, Today.AddDays(4))
+                    GUIWindowManager.ActivateWindow(1656544654)
+
+                    'Dim sqlstring As String
+                    'Dim _result As New ArrayList
+                    'sqlstring = CStr(Replace(Replace("Select * FROM program LEFT JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE startTime >= #StartTime AND startTime <= #EndTime AND (Genre LIKE '%Serie%' OR genre LIKE '%Sitcom%' OR genre LIKE '%Zeichentrick%') ORDER BY startTime ASC, starRating DESC", "#startTime", MySqlDate(Date.Today.AddHours(20))), "#endTime", MySqlDate(Date.Now.AddHours(22))))
 
 
-                    Dim sqlstring As String
-                    Dim _result As New ArrayList
-                    sqlstring = CStr(Replace(Replace("Select * FROM program LEFT JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE startTime >= #StartTime AND startTime <= #EndTime AND (Genre LIKE '%Serie%' OR genre LIKE '%Sitcom%' OR genre LIKE '%Zeichentrick%') ORDER BY startTime ASC, starRating DESC", "#startTime", MySqlDate(Date.Today.AddHours(20))), "#endTime", MySqlDate(Date.Now.AddHours(22))))
+                    '_result.AddRange(Broker.Execute(sqlstring).TransposeToFieldList("idProgram", False))
 
-
-                    _result.AddRange(Broker.Execute(sqlstring).TransposeToFieldList("idProgram", False))
-
-                    MsgBox(_result.Count - 1)
+                    'MsgBox(_result.Count - 1)
                 Catch ex As Exception
                     MsgBox(ex.Message & vbNewLine & ex.StackTrace)
                 End Try
@@ -683,40 +689,7 @@ Namespace ClickfinderProgramGuide
 
         End Sub
 
-        Private Function getTranslatedDayOfWeek(ByVal Datum As Date) As String
-            Dim _Result As String = String.Empty
-
-            Select Case Datum.DayOfWeek
-                Case DayOfWeek.Monday
-                    _Result = Translation.Monday
-                Case DayOfWeek.Tuesday
-                    _Result = Translation.Tuesday
-                Case DayOfWeek.Wednesday
-                    _Result = Translation.Wednesday
-                Case DayOfWeek.Thursday
-                    _Result = Translation.Thursday
-                Case DayOfWeek.Friday
-                    _Result = Translation.Friday
-                Case DayOfWeek.Saturday
-                    _Result = Translation.Saturday
-                Case DayOfWeek.Sunday
-                    _Result = Translation.Sunday
-            End Select
-
-            If Datum = Today Then
-                _Result = Translation.Today
-            End If
-
-            If Datum = Today.AddDays(1) Then
-                _Result = Translation.Tomorrow
-            End If
-
-            If Datum = Today.AddDays(-1) Then
-                _Result = Translation.Yesterday
-            End If
-
-            Return _Result
-        End Function
+        
 
         'ProgresBar paralell anzeigen
         Private Sub ShowHighlightsProgressBar()
@@ -805,7 +778,7 @@ Namespace ClickfinderProgramGuide
 
                 'Kategorien des Tages
                 Dim lItemCategories As New GUIListItem
-                lItemCategories.Label = "Kategorien des Tages"
+                lItemCategories.Label = Translation.allCategoriesAt & " " & getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy")
                 dlgContext.Add(lItemCategories)
                 lItemCategories.Dispose()
 
@@ -835,7 +808,8 @@ Namespace ClickfinderProgramGuide
                         GUIWindowManager.ActivateWindow(1656544653)
 
                     Case Is = 1
-
+                        CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Day, _Program.StartTime.Date)
+                        GUIWindowManager.ActivateWindow(1656544654)
                     Case Is = 2
                         ItemsGuiWindow.SetGuiProperties("Select * FROM program LEFT JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
                         "WHERE genre LIKE '" & _Program.Genre & "' " & _
@@ -880,7 +854,7 @@ Namespace ClickfinderProgramGuide
 
                 'Kategorien des Tages
                 Dim lItemCategories As New GUIListItem
-                lItemCategories.Label = "Kategorien des Tages"
+                lItemCategories.Label = Translation.allCategoriesAt & " " & getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy")
                 dlgContext.Add(lItemCategories)
                 lItemCategories.Dispose()
 
@@ -917,6 +891,8 @@ Namespace ClickfinderProgramGuide
                         Translator.SetProperty("#ItemsLeftListLabel", Translation.allMoviesAt & " " & getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
                         GUIWindowManager.ActivateWindow(1656544653)
                     Case Is = 2
+                        CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Day, _Program.StartTime.Date)
+                        GUIWindowManager.ActivateWindow(1656544654)
                     Case Is = 3
                         ItemsGuiWindow.SetGuiProperties("Select * FROM program LEFT JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
                         "WHERE genre LIKE '" & _Program.Genre & "' " & _

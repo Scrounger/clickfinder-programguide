@@ -35,9 +35,11 @@ Namespace ClickfinderProgramGuide
             LateTime = 2
             Preview = 3
             Highlights = 4
+            Day = 5
         End Enum
 
         Friend Shared _ClickfinderCategorieView As CategorieView
+        Private Shared _Day As Date
         Private _Categories As IList(Of ClickfinderCategories)
         Private _SelectedCategorieMinRunTime As Integer
         Private Shared _SelectedCategorieItemId As Integer
@@ -52,11 +54,12 @@ Namespace ClickfinderProgramGuide
 
         End Sub
 
-        Public Shared Sub SetGuiProperties(ByVal View As CategorieView)
+        Public Shared Sub SetGuiProperties(ByVal View As CategorieView, Optional ByVal Day As Date = Nothing)
             _ClickfinderCategorieView = View
             _SelectedCategorieItemId = 0
-        End Sub
+            _Day = Day
 
+        End Sub
 #End Region
 
 #Region "Properties"
@@ -90,6 +93,8 @@ Namespace ClickfinderProgramGuide
                         Return Date.Today.AddHours(_LateTime.Hour).AddMinutes(_LateTime.Minute)
                     Case CategorieView.Preview
                         Return Date.Now
+                    Case CategorieView.Day
+                        Return _Day
                 End Select
                 Return "Fehler"
             End Get
@@ -97,7 +102,13 @@ Namespace ClickfinderProgramGuide
 
         Friend Shared ReadOnly Property PeriodeEndTime() As Date
             Get
-                Return PeriodeStartTime.AddHours(4)
+                Select Case _ClickfinderCategorieView
+                    Case CategorieView.Day
+                        Return PeriodeStartTime.AddHours(24)
+                    Case Else
+                        Return PeriodeStartTime.AddHours(4)
+                End Select
+
             End Get
         End Property
 #End Region
@@ -136,15 +147,24 @@ Namespace ClickfinderProgramGuide
                 Translator.SetProperty("#PreviewListRatingStar" & i, 0)
             Next
 
-            Translator.SetProperty("#CategorieView", CategorieViewName & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00"))
+            If _layer.GetSetting("TvMovieImportIsRunning", "false").Value = "true" Then
+                Translator.SetProperty("#SettingLastUpdate", Translation.ImportIsRunning)
+                MyLog.Debug("[GuiItems] [OnPageLoad]: _ClickfinderCurrentDate = {0}", "TvMovie++ Import is running !")
+            Else
+                Translator.SetProperty("#SettingLastUpdate", GuiLayout.LastUpdateLabel)
+            End If
 
+            If _ClickfinderCategorieView = CategorieView.Day Then
+                Translator.SetProperty("#CategorieView", getTranslatedDayOfWeek(_Day) & " " & Format(_Day, "dd.MM.yyyy"))
+            Else
+                Translator.SetProperty("#CategorieView", CategorieViewName & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00"))
+            End If
 
             Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(0)
             _SelectedCategorieMinRunTime = _Categorie.MinRunTime
 
             Dim _Thread1 As New Thread(AddressOf FillCategories)
             Dim _Thread2 As New Thread(AddressOf FillPreviewList)
-
 
             _Thread1.Start()
             _Thread2.Start()

@@ -36,6 +36,7 @@ Public NotInheritable Class Translation
     Public Shared PageLabel = "Seite"
     Public Shared allMoviesAt = "Alle Filme von"
     Public Shared allHighlightsAt = "Alle Highlights von"
+    Public Shared allCategoriesAt = "Alle Kategorien von"
     Public Shared TwoDaysAgo = "Vorgestern"
     Public Shared at = "um"
     Public Shared before = "vor"
@@ -51,6 +52,7 @@ Public NotInheritable Class Translation
     Public Shared von = "von"
     Public Shared action = "Aktion ..."
     Public Shared Refresh = "Aktualisieren"
+    Public Shared ImportIsRunning = "Import wird zur Zeit durchgeführt !"
 
     ' A
 

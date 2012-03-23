@@ -42,7 +42,8 @@
   <string Field="CategorieHideNotFound">Keine versteckten Kategorien gefunden...</string>
   <string Field="PageLabel">Seite</string>
   <string Field="allMoviesAt">Alle Filme von</string>
-  <string Field="at">um</string>
+  <string Field="allCategoriesAt">Alle Kategorien von</string>
+    <string Field="at">um</string>
   <string Field="before">vor</string>
   <string Field="Days">Tagen</string>
   <string Field="existlocal">lokal</string>
@@ -53,6 +54,8 @@
   <string Field="SortparentalRating">Altersfreigabe</string>
   <string Field="Sortby">sortieren nach ...</string>
   <string Field="von">von</string>
-  
-  
+  <string Field="ImportIsRunning">Import wird zur Zeit durchgeführt !</string>
+
+
+
 </strings>

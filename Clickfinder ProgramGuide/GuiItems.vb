@@ -99,6 +99,13 @@ Namespace ClickfinderProgramGuide
 
             GuiLayoutLoading()
 
+            If _layer.GetSetting("TvMovieImportIsRunning", "false").Value = "true" Then
+                Translator.SetProperty("#SettingLastUpdate", Translation.ImportIsRunning)
+                MyLog.Debug("[GuiItems] [OnPageLoad]: _ClickfinderCurrentDate = {0}", "TvMovie++ Import is running !")
+            Else
+                Translator.SetProperty("#SettingLastUpdate", GuiLayout.LastUpdateLabel)
+            End If
+
             If _ItemsResult.Count = 0 Then
                 Dim _FillLists As New Threading.Thread(AddressOf GetItemsOnLoad)
                 _FillLists.Start()
