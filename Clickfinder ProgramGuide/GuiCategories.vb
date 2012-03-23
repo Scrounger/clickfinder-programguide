@@ -206,9 +206,12 @@ Namespace ClickfinderProgramGuide
                             ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime)), "#endTime", MySqlDate(PeriodeEndTime))), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
                         End If
 
+                        If _ClickfinderCategorieView = CategorieView.Day Then
+                            Translator.SetProperty("#ItemsLeftListLabel", Translation.All & " " & _Categorie.Name & " " & Translation.von & " " & getTranslatedDayOfWeek(_Day) & " " & Format(_Day.AddMinutes(-1), "dd.MM.yyyy"))
+                        Else
+                            Translator.SetProperty("#ItemsLeftListLabel", _Categorie.Name & " " & Translation.von & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00") & " - " & Format(PeriodeEndTime.Hour, "00") & ":" & Format(PeriodeEndTime.Minute, "00"))
+                        End If
 
-                        Translator.SetProperty("#ItemsLeftListLabel", _Categorie.Name & " " & Translation.von & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00") & " - " & Format(PeriodeEndTime.Hour, "00") & ":" & Format(PeriodeEndTime.Minute, "00"))
-                        Translator.SetProperty("#ItemsRightListLabel", Translation.Categorie & ": " & _Categorie.Name)
                         GUIWindowManager.ActivateWindow(1656544653)
                     End If
                 End If

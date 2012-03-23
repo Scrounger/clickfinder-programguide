@@ -75,8 +75,6 @@ Partial Class Setup
         Me.ButtonNewCategorie = New System.Windows.Forms.Button
         Me.ButtonUp = New System.Windows.Forms.Button
         Me.dgvCategories = New System.Windows.Forms.DataGridView
-        Me.openFileDialog = New System.Windows.Forms.OpenFileDialog
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox
         Me.C_id = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.C_Image = New System.Windows.Forms.DataGridViewImageColumn
         Me.C_visible = New System.Windows.Forms.DataGridViewCheckBoxColumn
@@ -86,6 +84,8 @@ Partial Class Setup
         Me.C_SqlString = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.C_MinRuntime = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.C_NowOffset = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.openFileDialog = New System.Windows.Forms.OpenFileDialog
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox
         Me.TabControl1.SuspendLayout()
         Me.TabAllgemeines.SuspendLayout()
         Me.TabFilter.SuspendLayout()
@@ -258,9 +258,9 @@ Partial Class Setup
         Me.CheckBoxRemberSortedBy.AutoSize = True
         Me.CheckBoxRemberSortedBy.Location = New System.Drawing.Point(55, 254)
         Me.CheckBoxRemberSortedBy.Name = "CheckBoxRemberSortedBy"
-        Me.CheckBoxRemberSortedBy.Size = New System.Drawing.Size(204, 20)
+        Me.CheckBoxRemberSortedBy.Size = New System.Drawing.Size(345, 20)
         Me.CheckBoxRemberSortedBy.TabIndex = 11
-        Me.CheckBoxRemberSortedBy.Text = "merke gewählte Sortierung"
+        Me.CheckBoxRemberSortedBy.Text = "merke zuletzt gewählte Sortierung in Kategorien"
         Me.CheckBoxRemberSortedBy.UseVisualStyleBackColor = True
         '
         'CheckBoxFilterShowLocalSeries
@@ -660,21 +660,6 @@ Partial Class Setup
         Me.dgvCategories.Size = New System.Drawing.Size(582, 376)
         Me.dgvCategories.TabIndex = 0
         '
-        'openFileDialog
-        '
-        Me.openFileDialog.FileName = "OpenFileDialog1"
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.BackgroundImage = Global.ClickfinderProgramGuide.My.Resources.Resources.SetupIcon
-        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.PictureBox1.Location = New System.Drawing.Point(3, 4)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(75, 62)
-        Me.PictureBox1.TabIndex = 9
-        Me.PictureBox1.TabStop = False
-        '
         'C_id
         '
         Me.C_id.FillWeight = 50.0!
@@ -723,7 +708,6 @@ Partial Class Setup
         Me.C_sortOrder.Name = "C_sortOrder"
         Me.C_sortOrder.ReadOnly = True
         Me.C_sortOrder.Visible = False
-        Me.C_sortOrder.Width = 95
         '
         'C_SqlString
         '
@@ -742,6 +726,21 @@ Partial Class Setup
         Me.C_NowOffset.HeaderText = "Offset"
         Me.C_NowOffset.Name = "C_NowOffset"
         Me.C_NowOffset.Width = 52
+        '
+        'openFileDialog
+        '
+        Me.openFileDialog.FileName = "OpenFileDialog1"
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackgroundImage = Global.ClickfinderProgramGuide.My.Resources.Resources.SetupIcon
+        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox1.Location = New System.Drawing.Point(3, 4)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(75, 62)
+        Me.PictureBox1.TabIndex = 9
+        Me.PictureBox1.TabStop = False
         '
         'Setup
         '

@@ -342,18 +342,23 @@ Namespace ClickfinderProgramGuide
                 Case Is = SortMethode.startTime.ToString
                     _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
                         Helper.ORDERBYstartTime
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortStartTime)
                 Case Is = SortMethode.TvMovieStar.ToString
                     _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
                         Helper.ORDERBYtvMovieBewertung
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortTvMovieStar)
                 Case Is = SortMethode.RatingStar.ToString
                     _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
                         Helper.ORDERBYstarRating
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortRatingStar)
                 Case Is = SortMethode.Genre.ToString
                     _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
                         Helper.ORDERBYgerne
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortGenre)
                 Case Is = SortMethode.parentalRating.ToString
                     _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
                         Helper.ORDERBYparentalRating
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortparentalRating)
             End Select
 
             _Result.AddRange(Broker.Execute(_ItemsSqlString).TransposeToFieldList("idProgram", False))
@@ -648,7 +653,6 @@ Namespace ClickfinderProgramGuide
                     Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(key)
                     ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime.AddMinutes(CDbl(_layer.GetSetting("ClickfinderNowOffset", "-20").Value)))), "#endTime", MySqlDate(PeriodeEndTime))), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
                     Translator.SetProperty("#ItemsLeftListLabel", _Categorie.Name & " " & Translation.von & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00") & " - " & Format(PeriodeEndTime.Hour, "00") & ":" & Format(PeriodeEndTime.Minute, "00"))
-                    Translator.SetProperty("#ItemsRightListLabel", Translation.Categorie & ": " & _Categorie.Name)
                     GUIWindowManager.ActivateWindow(1656544653)
               
             End Select
