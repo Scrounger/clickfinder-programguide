@@ -130,11 +130,12 @@ Namespace ClickfinderProgramGuide
             GUIWindowManager.NeedRefresh()
 
             MyLog.Info("")
-            MyLog.Info("[HighlightsGuiWindow] [OnPageLoad]: load")
+            MyLog.Info("")
+            MyLog.Info("[HighlightsGuiWindow] -------------[OPEN]-------------")
 
             If _layer.GetSetting("TvMovieImportIsRunning", "false").Value = "true" Then
                 Translator.SetProperty("#SettingLastUpdate", Translation.ImportIsRunning)
-                MyLog.Debug("[HighlightsGuiWindow] [OnPageLoad]: _ClickfinderCurrentDate = {0}", "TvMovie++ Import is running !")
+                MyLog.Debug("[HighlightsGuiWindow] [OnPageLoad]: {0}", "TvMovie++ Import is running !")
             Else
                 Translator.SetProperty("#SettingLastUpdate", GuiLayout.LastUpdateLabel)
             End If
@@ -178,6 +179,8 @@ Namespace ClickfinderProgramGuide
 
                 'Select Item (Enter) -> MP TvProgramInfo aufrufen --Über keychar--
                 If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM Then
+                    MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", Action.m_key.KeyChar, Action.m_key.KeyCode, Action.wID.ToString)
+
                     If _MovieList.IsFocused = True Then ListControlClick(_MovieList.SelectedListItem.ItemId)
                     If _HighlightsList.IsFocused = True Then ListControlClick(_HighlightsList.SelectedListItem.ItemId)
                 End If
@@ -194,6 +197,7 @@ Namespace ClickfinderProgramGuide
 
                     Try
                         If _ThreadFillMovieList.IsAlive = True Or _ThreadFillHighlightsList.IsAlive = True Then
+                            MyLog.Debug("")
                             _ThreadFillMovieList.Abort()
                             _ThreadFillHighlightsList.Abort()
                         End If
@@ -212,6 +216,8 @@ Namespace ClickfinderProgramGuide
                     End If
 
                     Translator.SetProperty("#CurrentDate", getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
+                    'MyLog.Debug("")
+                    MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - Actiontype={0}: _ClickfinderCurrentDate = {1}", Action.wID.ToString, getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
 
                     _ThreadFillMovieList = New Thread(AddressOf FillMovieList)
                     _ThreadFillHighlightsList = New Thread(AddressOf FillHighlightsList)
@@ -252,6 +258,8 @@ Namespace ClickfinderProgramGuide
                     End If
 
                     Translator.SetProperty("#CurrentDate", getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
+                    'MyLog.Debug("")
+                    MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - Actiontype={0}: _ClickfinderCurrentDate = {1}", Action.wID.ToString, getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
 
                     _ThreadFillMovieList = New Thread(AddressOf FillMovieList)
                     _ThreadFillHighlightsList = New Thread(AddressOf FillHighlightsList)
@@ -264,6 +272,8 @@ Namespace ClickfinderProgramGuide
 
                 'Menu Button (F9) -> Context Menu open
                 If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_CONTEXT_MENU Then
+                    MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", Action.m_key.KeyChar, Action.m_key.KeyCode, Action.wID.ToString)
+
                     If _MovieList.IsFocused = True Then ShowMoviesMenu(_MovieList.SelectedListItem.ItemId)
                     If _HighlightsList.IsFocused = True Then
                         'Falls im Label2 Translation.NewLabel gefunden -> Series Context Menu
@@ -278,6 +288,8 @@ Namespace ClickfinderProgramGuide
                 'Play Button (P) -> Start channel
                 If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_MUSIC_PLAY Then
                     Try
+                        MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", Action.m_key.KeyChar, Action.m_key.KeyCode, Action.wID.ToString)
+
                         If _MovieList.IsFocused = True Then StartTv(Program.Retrieve(_MovieList.SelectedListItem.ItemId).ReferencedChannel)
                         If _HighlightsList.IsFocused = True Then StartTv(Program.Retrieve(_HighlightsList.SelectedListItem.ItemId).ReferencedChannel)
                     Catch ex As Exception
@@ -289,6 +301,9 @@ Namespace ClickfinderProgramGuide
                 If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_KEY_PRESSED Then
                     If Action.m_key IsNot Nothing Then
                         If Action.m_key.KeyChar = 121 Then
+
+                            MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", Action.m_key.KeyChar, Action.m_key.KeyCode, Action.wID.ToString)
+
                             If _MovieList.IsFocused = True Then ShowMoviesMenu(_MovieList.SelectedListItem.ItemId)
                             If _HighlightsList.IsFocused = True Then
                                 'Falls im Label2 Translation.NewLabel gefunden -> Series Context Menu
@@ -306,6 +321,8 @@ Namespace ClickfinderProgramGuide
                 If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_KEY_PRESSED Then
                     If Action.m_key IsNot Nothing Then
                         If Action.m_key.KeyChar = 114 Then
+                            MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", Action.m_key.KeyChar, Action.m_key.KeyCode, Action.wID.ToString)
+
                             If _MovieList.IsFocused = True Then LoadTVProgramInfo(Program.Retrieve(_MovieList.SelectedListItem.ItemId))
                             If _HighlightsList.IsFocused = True Then LoadTVProgramInfo(Program.Retrieve(_HighlightsList.SelectedListItem.ItemId))
                         End If
@@ -413,10 +430,16 @@ Namespace ClickfinderProgramGuide
             Dim _SQLstring As String = String.Empty
             Dim _idProgramTagesTipp As Integer = 0
             Dim _program As Program = Nothing
+            Dim _LogLocalMovies As String = String.Empty
+            Dim _LogLocalSortedBy As String = String.Empty
+            Dim _logShowTagesTipp As String = "false"
 
             _isAbortException = False
 
             _MovieList.Visible = False
+
+            MyLog.Debug("")
+            MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: Thread started")
 
             Try
 
@@ -437,10 +460,32 @@ Namespace ClickfinderProgramGuide
                     "AND program.startTime > " & MySqlDate(_ClickfinderCurrentDate) & " " & _
                     "AND program.startTime < " & MySqlDate(_ClickfinderCurrentDate.AddHours(24))
 
-                    _Result.AddRange(Broker.Execute(_SQLstring).TransposeToFieldList("idProgram", False))
-                    _idProgramTagesTipp = _Result.Item(0)
-                    MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: Show TvMovie TagesTipp = true")
+                    Dim _TvMovieTagesTipps As New ArrayList(Broker.Execute(_SQLstring).TransposeToFieldList("idProgram", False))
+
+                    If _TvMovieTagesTipps.Count > 0 Then
+
+                        For i = 0 To _TvMovieTagesTipps.Count - 1
+                            Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_TvMovieTagesTipps.Item(i))
+
+                            Dim _idHDchannelProgram As Integer = GetHDChannel(_TvMovieProgram.ReferencedProgram)
+                            If _idHDchannelProgram > 0 Then
+                                _program = Program.Retrieve(_idHDchannelProgram)
+                                _Result.Add(_idHDchannelProgram)
+                                _idProgramTagesTipp = _idHDchannelProgram
+                            Else
+                                _Result.Add(_TvMovieTagesTipps.Item(i))
+
+                                _idProgramTagesTipp = _TvMovieTagesTipps.Item(i)
+                            End If
+
+                        Next
+                        _logShowTagesTipp = "true"
+                    Else
+                        _logShowTagesTipp = "not found"
+                    End If
+
                 End If
+
 
                 'Manuelle Sqlabfrage starten (wegen InnerJoin) -> idprogram 
                 _SQLstring = _
@@ -454,27 +499,34 @@ Namespace ClickfinderProgramGuide
 
                 Select Case (_layer.GetSetting("ClickfinderOverviewMovieSort", SortMethode.startTime.ToString).Value)
                     Case Is = SortMethode.startTime.ToString
-                        MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: sorted by {0}", SortMethode.startTime.ToString)
+                        _LogLocalSortedBy = SortMethode.startTime.ToString
                         _SQLstring = _SQLstring & Helper.ORDERBYstartTime & _
                                                   " LIMIT 25"
 
                     Case Is = SortMethode.TvMovieStar.ToString
-                        MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: sorted by {0}", SortMethode.TvMovieStar.ToString)
+                        _LogLocalSortedBy = SortMethode.TvMovieStar.ToString
                         _SQLstring = _SQLstring & Helper.ORDERBYtvMovieBewertung & _
                                                   " LIMIT 25"
 
                     Case Is = SortMethode.RatingStar.ToString
-                        MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: sorted by {0}", SortMethode.RatingStar.ToString)
+                        _LogLocalSortedBy = SortMethode.RatingStar.ToString
                         _SQLstring = _SQLstring & Helper.ORDERBYstarRating & _
                                                   " LIMIT 25"
                 End Select
 
+
+                MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: sorted by {0}, show TvMovie TagesTipp = {1}, SQLString: {2}", _LogLocalSortedBy, _logShowTagesTipp, _SQLstring)
+
                 _Result.AddRange(Broker.Execute(_SQLstring).TransposeToFieldList("idProgram", False))
+
+                MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: {0} program found", _Result.Count)
 
                 If _Result.Count > 0 Then
 
                     For i = 0 To _Result.Count - 1
                         Try
+
+                            Dim bla As New Date(2012, 4, 3)
 
                             'ProgramDaten über TvMovieProgram laden
                             Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_Result.Item(i))
@@ -483,7 +535,7 @@ Namespace ClickfinderProgramGuide
                             'Wenn TagesTipp aktiviert, dann nicht ausführen
                             If CBool(_layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false").Value) = True And Not _TvMovieProgram.idProgram = _idProgramTagesTipp Then
                                 If _TvMovieProgram.local = True Then
-                                    MyLog.Info("[HighlightsGUIWindow] [FillMovieList]: {0} exist local and will not be displayed", _TvMovieProgram.ReferencedProgram.Title)
+                                    _LogLocalMovies = _LogLocalMovies & _TvMovieProgram.ReferencedProgram.Title & ", "
                                     Continue For
                                 End If
                             End If
@@ -512,6 +564,12 @@ Namespace ClickfinderProgramGuide
 
                                 AddListControlItem(GetID, _MovieList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram))
 
+                                MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: Add ListItem {0} (Title: {1}, Channel: {2}, startTime: {3}, idprogram: {4}, ratingStar: {5}, TvMovieStar: {6}, image: {7})", _
+                                            _ItemCounter, _program.Title, _program.ReferencedChannel.DisplayName, _
+                                            _program.StartTime, _program.IdProgram, _
+                                            GuiLayout.ratingStar(_TvMovieProgram.ReferencedProgram), _
+                                            _TvMovieProgram.TVMovieBewertung, GuiLayout.Image(_TvMovieProgram))
+
                                 _lastTitle = _TvMovieProgram.ReferencedProgram.Title & _TvMovieProgram.ReferencedProgram.EpisodeName
 
                             End If
@@ -520,14 +578,12 @@ Namespace ClickfinderProgramGuide
 
                             'log Ausgabe abfangen, falls der Thread abgebrochen wird
                         Catch ex As ThreadAbortException ' Ignore this exception
-                            _isAbortException = True
+                            '_isAbortException = True
+                            MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: --- THREAD ABORTED ---")
+                            MyLog.Debug("")
                         Catch ex As GentleException
                         Catch ex As Exception
-                            If _isAbortException = False Then
-                                MyLog.[Error]("[HighlightsGUIWindow] [FillMovieList]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
-                            Else
-                                _isAbortException = False
-                            End If
+                            MyLog.[Error]("[HighlightsGUIWindow] [FillMovieList]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
                         End Try
                     Next
                 End If
@@ -535,16 +591,16 @@ Namespace ClickfinderProgramGuide
                 _MoviesProgressBar.Visible = False
                 _MovieList.Visible = True
 
+                MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: Movies exist local and will not be displayed ({0})", _LogLocalMovies)
+                MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: Thread finished")
+                MyLog.Debug("")
                 'log Ausgabe abfangen, falls der Thread abgebrochen wird
             Catch ex2 As ThreadAbortException ' Ignore this exception
-                _isAbortException = True
-            Catch ex As GentleException
+                MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: --- THREAD ABORTED ---")
+                MyLog.Debug("")
+            Catch ex2 As GentleException
             Catch ex2 As Exception
-                If _isAbortException = False Then
-                    MyLog.[Error]("[HighlightsGUIWindow] [FillMovieList]: exception err:" & ex2.Message & " stack:" & ex2.StackTrace)
-                Else
-                    _isAbortException = False
-                End If
+                MyLog.[Error]("[HighlightsGUIWindow] [FillMovieList]: exception err:" & ex2.Message & " stack:" & ex2.StackTrace)
             End Try
         End Sub
 

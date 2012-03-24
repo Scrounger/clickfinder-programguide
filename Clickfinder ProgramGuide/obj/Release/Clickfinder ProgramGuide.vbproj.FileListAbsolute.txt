@@ -11,7 +11,6 @@ D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaP
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R5.png
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R6.png
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Sep.png
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\ClickfinderPGConfig.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuide.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideDetail.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideItems.xml

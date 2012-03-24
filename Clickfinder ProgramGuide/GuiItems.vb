@@ -149,14 +149,17 @@ Namespace ClickfinderProgramGuide
         Public Overrides Sub OnAction(ByVal action As MediaPortal.GUI.Library.Action)
 
             If GUIWindowManager.ActiveWindow = GetID Then
-                Try
-                    MyLog.[Debug]("Keypress on VideoReDo Screen. KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
-                Catch
-                    MyLog.[Debug]("Keypress on VideoReDo Screen. KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
-                End Try
+                'Try
+                '    MyLog.[Debug]("Keypress on VideoReDo Screen. KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
+                'Catch
+                '    MyLog.[Debug]("Keypress on VideoReDo Screen. KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
+                'End Try
 
                 'Select Item (Enter) -> MP TvProgramInfo aufrufen --Über keychar--
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM Then
+
+                    MyLog.[Debug]("[ItemsGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
+
                     If _leftList.IsFocused = True Then ListControlClick(_leftList.SelectedListItem.ItemId)
                     If _rightList.IsFocused = True Then ListControlClick(_rightList.SelectedListItem.ItemId)
                 End If

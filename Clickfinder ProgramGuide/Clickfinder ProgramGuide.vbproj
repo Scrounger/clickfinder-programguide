@@ -235,9 +235,6 @@
     <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Sep.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="MediaPortal\ClickfinderPGConfig.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_TopBarBG.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
