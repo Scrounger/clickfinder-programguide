@@ -86,6 +86,7 @@ Partial Class Setup
         Me.C_NowOffset = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.openFileDialog = New System.Windows.Forms.OpenFileDialog
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
+        Me.CheckBoxDebugMode = New System.Windows.Forms.CheckBox
         Me.TabControl1.SuspendLayout()
         Me.TabAllgemeines.SuspendLayout()
         Me.TabFilter.SuspendLayout()
@@ -152,6 +153,7 @@ Partial Class Setup
         '
         'TabAllgemeines
         '
+        Me.TabAllgemeines.Controls.Add(Me.CheckBoxDebugMode)
         Me.TabAllgemeines.Controls.Add(Me.CheckBoxUseSportLogos)
         Me.TabAllgemeines.Controls.Add(Me.ButtonOpenDlgImageFolder)
         Me.TabAllgemeines.Controls.Add(Me.ButtonOpenDlgDatabase)
@@ -742,6 +744,16 @@ Partial Class Setup
         Me.PictureBox1.TabIndex = 9
         Me.PictureBox1.TabStop = False
         '
+        'CheckBoxDebugMode
+        '
+        Me.CheckBoxDebugMode.AutoSize = True
+        Me.CheckBoxDebugMode.Location = New System.Drawing.Point(9, 139)
+        Me.CheckBoxDebugMode.Name = "CheckBoxDebugMode"
+        Me.CheckBoxDebugMode.Size = New System.Drawing.Size(103, 20)
+        Me.CheckBoxDebugMode.TabIndex = 7
+        Me.CheckBoxDebugMode.Text = "DebugMode"
+        Me.CheckBoxDebugMode.UseVisualStyleBackColor = True
+        '
         'Setup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
@@ -846,4 +858,5 @@ Partial Class Setup
     Friend WithEvents C_SqlString As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents C_MinRuntime As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents C_NowOffset As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents CheckBoxDebugMode As System.Windows.Forms.CheckBox
 End Class

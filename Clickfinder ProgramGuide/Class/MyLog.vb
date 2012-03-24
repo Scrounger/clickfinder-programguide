@@ -155,7 +155,11 @@ Public Class MyLog
     ''' <param name="format">The format.</param>
     ''' <param name="arg">The arg.</param>
     Public Shared Sub Debug(ByVal format As String, ByVal ParamArray arg As Object())
-        WriteToFile(LogType.Debug, format, arg)
+
+        If ClickfinderProgramGuide.HighlightsGUIWindow._DebugModeOn = True Then
+            WriteToFile(LogType.Debug, format, arg)
+        End If
+
     End Sub
 
     ''' <summary>

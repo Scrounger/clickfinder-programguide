@@ -64,6 +64,7 @@ Namespace ClickfinderProgramGuide
         Friend _ClickfinderCurrentDate As Date = Nothing
         Friend _ProgressPercentagValue As Single
         Private _layer As New TvBusinessLayer
+        Friend Shared _DebugModeOn As Boolean = False
 #End Region
 
 
@@ -138,6 +139,10 @@ Namespace ClickfinderProgramGuide
                 MyLog.Debug("[HighlightsGuiWindow] [OnPageLoad]: {0}", "TvMovie++ Import is running !")
             Else
                 Translator.SetProperty("#SettingLastUpdate", GuiLayout.LastUpdateLabel)
+            End If
+
+            If CBool(_layer.GetSetting("ClickfinderDebugMode").Value) = True Then
+                _DebugModeOn = True
             End If
 
             Translator.SetProperty("#CurrentDate", Translation.Loading)
@@ -613,7 +618,13 @@ Namespace ClickfinderProgramGuide
             Dim _imagepath As String = String.Empty
             Dim SQLstring As String = String.Empty
             Dim _program As Program = Nothing
+            Dim _logNewShowSeries As String = "false"
+            Dim _logNewSeriesCount As Integer = 0
             _isAbortException = False
+
+
+            MyLog.Debug("")
+            MyLog.Debug("[HighlightsGUIWindow] [FillHighlightsList]: Thread started")
 
             Try
                 _HighlightsList.Visible = False
@@ -630,9 +641,9 @@ Namespace ClickfinderProgramGuide
                                         "AND startTime < " & MySqlDate(_ClickfinderCurrentDate.AddHours(24)) & " " & _
                                         "GROUP BY title " & _
                                         Helper.ORDERBYstartTime
-
+                    _logNewShowSeries = "true"
                     _Result.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", True))
-
+                    _logNewSeriesCount = _Result.Count
                 End If
 
                 'Manuelle Sqlabfrage starten (wegen InnerJoin) -> idprogram 
@@ -648,6 +659,8 @@ Namespace ClickfinderProgramGuide
                     Helper.ORDERBYstartTime
 
                 _Result.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", False))
+
+                MyLog.Debug("[HighlightsGUIWindow] [FillHighlightsList]: {0} program found, Show Series = {1} ({2} new series found), SqlString: {3}", _Result.Count, _logNewShowSeries, _logNewSeriesCount, SQLstring)
 
                 If _Result.Count > 0 Then
 
@@ -687,12 +700,12 @@ Namespace ClickfinderProgramGuide
                                     'Image zunächst auf SenderLogo festlegen
                                     _imagepath = Config.GetFile(Config.Dir.Thumbs, "tv\logos\") & Replace(_program.ReferencedChannel.DisplayName, "/", "_") & ".png"
 
-                                    'TvMovie Bewertung Image Property
-                                    If Not _TvMovieProgram.TVMovieBewertung = 0 Then
-                                        Translator.SetProperty("#HighlightsListTvMovieStar" & _ItemCounter, "ClickfinderPG_R" & _TvMovieProgram.TVMovieBewertung & ".png")
-                                    Else
-                                        Translator.SetProperty("#HighlightsListTvMovieStar" & _ItemCounter, "")
-                                    End If
+                                    ''TvMovie Bewertung Image Property
+                                    'If Not _TvMovieProgram.TVMovieBewertung = 0 Then
+                                    '    Translator.SetProperty("#HighlightsListTvMovieStar" & _ItemCounter, "ClickfinderPG_R" & _TvMovieProgram.TVMovieBewertung & ".png")
+                                    'Else
+                                    '    Translator.SetProperty("#HighlightsListTvMovieStar" & _ItemCounter, "")
+                                    'End If
 
                                     'Falls TvSeries Import an & ist TvSeries, poster Image anzeigen
                                     If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True And _TvMovieProgram.idSeries > 0 Then
@@ -705,7 +718,7 @@ Namespace ClickfinderProgramGuide
                                         _imagepath = UseSportLogos(_program.Title, _imagepath)
                                     End If
 
-                                    Translator.SetProperty("#HighlightsListImage" & _ItemCounter, _imagepath)
+                                    'Translator.SetProperty("#HighlightsListImage" & _ItemCounter, _imagepath)
 
                                     AddListControlItem(GetID, _HighlightsList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, _timeLabel, _infoLabel, _imagepath)
 
@@ -716,14 +729,11 @@ Namespace ClickfinderProgramGuide
 
                             'log Ausgabe abfangen, falls der Thread abgebrochen wird
                         Catch ex As ThreadAbortException ' Ignore this exception
-                            _isAbortException = True
+                            MyLog.Debug("[HighlightsGUIWindow] [FillHighlightsList]: --- THREAD ABORTED ---")
+                            MyLog.Debug("")
                         Catch ex As GentleException
                         Catch ex As Exception
-                            If _isAbortException = False Then
-                                MyLog.[Error]("[HighlightsGUIWindow] [FillHighlightsList]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
-                            Else
-                                _isAbortException = False
-                            End If
+                            MyLog.[Error]("[HighlightsGUIWindow] [FillHighlightsList]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
                         End Try
                     Next
                 End If
@@ -731,16 +741,15 @@ Namespace ClickfinderProgramGuide
                 _HighlightsProgressBar.Visible = False
                 _HighlightsList.Visible = True
 
+                MyLog.Debug("[HighlightsGUIWindow] [FillHighlightsList]: Thread finished")
+                MyLog.Debug("")
+
                 'log Ausgabe abfangen, falls der Thread abgebrochen wird
             Catch ex2 As ThreadAbortException ' Ignore this exception
-                _isAbortException = True
+                MyLog.Debug("[HighlightsGUIWindow] [FillHighlightsList]: --- THREAD ABORTED ---")
             Catch ex As GentleException
             Catch ex2 As Exception
-                If _isAbortException = False Then
-                    MyLog.[Error]("[HighlightsGUIWindow] [FillHighlightsList]: exception err:" & ex2.Message & " stack:" & ex2.StackTrace)
-                Else
-                    _isAbortException = False
-                End If
+                MyLog.[Error]("[HighlightsGUIWindow] [FillHighlightsList]: exception err:" & ex2.Message & " stack:" & ex2.StackTrace)
             End Try
 
         End Sub

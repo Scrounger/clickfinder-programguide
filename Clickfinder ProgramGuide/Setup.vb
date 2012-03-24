@@ -41,6 +41,7 @@ Public Class Setup
             CheckBoxFilterShowLocalSeries.Checked = _layer.GetSetting("ClickfinderShowLocalSeries", "false").Value
             CheckBoxUseSportLogos.Checked = _layer.GetSetting("ClickfinderUseSportLogos", "false").Value
             CheckBoxRemberSortedBy.Checked = _layer.GetSetting("ClickfinderRemberSortedBy", "true").Value
+            CheckBoxDebugMode.Checked = _layer.GetSetting("ClickfinderDebugMode", "false").Value
 
             If CBool(_layer.GetSetting("TvMovieEnabled", "false").Value) = False Or CBool(_layer.GetSetting("ClickfinderEnabled", "true").Value) = False Then
                 Dim message As New TvMoviePluginError
@@ -513,6 +514,13 @@ Public Class Setup
         Dim _layer As New TvBusinessLayer
         Dim setting As Setting = _layer.GetSetting("ClickfinderRemberSortedBy", "true")
         setting.Value = CStr(CheckBoxRemberSortedBy.Checked)
+        setting.Persist()
+    End Sub
+
+    Private Sub CheckBoxDebugMode_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxDebugMode.CheckedChanged
+        Dim _layer As New TvBusinessLayer
+        Dim setting As Setting = _layer.GetSetting("ClickfinderDebugMode", "false")
+        setting.Value = CStr(CheckBoxDebugMode.Checked)
         setting.Persist()
     End Sub
 End Class
