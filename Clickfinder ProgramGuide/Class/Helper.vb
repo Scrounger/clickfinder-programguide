@@ -344,10 +344,19 @@ Public Class Helper
         Select Case dlgContext.SelectedLabel
             Case Is = 0
                 StartTv(Program.ReferencedChannel)
+                MyLog.Debug("[ShowActionMenu]: selected -> start tv (channel)")
+                MyLog.Debug("")
             Case Is = 1
                 LoadTVProgramInfo(Program)
+                MyLog.Debug("[ShowActionMenu]: selected -> open TvProgramInfo Gui")
+                MyLog.Debug("")
             Case Is = 2
                 SetNotify(Program)
+                MyLog.Debug("[ShowActionMenu]: selected -> set notify")
+                MyLog.Debug("")
+            Case Else
+                MyLog.Debug("[ShowActionMenu]: exit")
+                MyLog.Debug("")
         End Select
     End Sub
 

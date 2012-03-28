@@ -65,6 +65,8 @@ Namespace ClickfinderProgramGuide
         Friend _ProgressPercentagValue As Single
         Private _layer As New TvBusinessLayer
         Friend Shared _DebugModeOn As Boolean = False
+
+
 #End Region
 
 
@@ -905,6 +907,8 @@ Namespace ClickfinderProgramGuide
                 dlgContext.ShowQuickNumbers = True
                 dlgContext.SetHeading(_Program.Title)
 
+                MyLog.Debug("[HighlightsGuiWindow] [ShowMoviesMenu]: idprogram = {0}, title = {1}", _Program.IdProgram, _Program.Title)
+
                 'Sort SubMenu
                 Dim lItemSort As New GUIListItem
                 lItemSort.Label = Translation.Sortby
@@ -940,8 +944,13 @@ Namespace ClickfinderProgramGuide
 
                 Select Case dlgContext.SelectedLabel
                     Case Is = 0
+                        MyLog.Debug("[HighlightsGuiWindow] [ShowMoviesMenu]: selected -> sort menu")
                         ShowSortMenu()
+                        
                     Case Is = 1
+                        MyLog.Debug("[HighlightsGuiWindow] [ShowMoviesMenu]:  selected -> " & Translation.allMoviesAt & " " & getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
+                        MyLog.Debug("")
+
                         ItemsGuiWindow.SetGuiProperties("Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
                                                             "WHERE startTime >= " & MySqlDate(_ClickfinderCurrentDate) & " " & _
                                                             "AND startTime <= " & MySqlDate(_ClickfinderCurrentDate.AddHours(24)) & " " & _
@@ -956,9 +965,14 @@ Namespace ClickfinderProgramGuide
                         Translator.SetProperty("#ItemsLeftListLabel", Translation.allMoviesAt & " " & getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
                         GUIWindowManager.ActivateWindow(1656544653)
                     Case Is = 2
+                        MyLog.Debug("[HighlightsGuiWindow] [ShowMoviesMenu]:  selected -> " & Translation.allCategoriesAt & " " & getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
+                        MyLog.Debug("")
+
                         CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Day, _Program.StartTime.Date)
                         GUIWindowManager.ActivateWindow(1656544654)
                     Case Is = 3
+                        MyLog.Debug("[HighlightsGuiWindow] [ShowMoviesMenu]:  selected -> " & Translation.SameGenre & " " & _Program.Genre)
+                        MyLog.Debug("")
                         ItemsGuiWindow.SetGuiProperties("Select * FROM program LEFT JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
                         "WHERE genre LIKE '" & _Program.Genre & "' " & _
                         "AND startTime > " & MySqlDate(_ClickfinderCurrentDate) & " " & _
@@ -969,7 +983,11 @@ Namespace ClickfinderProgramGuide
 
                         GUIWindowManager.ActivateWindow(1656544653)
                     Case Is = 4
+                        MyLog.Debug("[HighlightsGuiWindow] [ShowMoviesMenu]: selected -> action menu")
                         ShowActionMenu(_Program, GetID)
+                    Case Else
+                        MyLog.Debug("[HighlightsGuiWindow] [ShowMoviesMenu]: exit")
+                        MyLog.Debug("")
                 End Select
 
             Catch ex As Exception
@@ -1000,15 +1018,24 @@ Namespace ClickfinderProgramGuide
 
             dlgContext.DoModal(GetID)
 
-
             Dim setting As Setting = _layer.GetSetting("ClickfinderOverviewMovieSort", SortMethode.startTime.ToString)
             Select Case dlgContext.SelectedLabel
                 Case Is = 0
                     setting.Value = SortMethode.startTime.ToString
+                    MyLog.Debug("[HighlightsGuiWindow] [ShowSortMenu]: sorted by startTime")
+                    MyLog.Debug("")
                 Case Is = 1
                     setting.Value = SortMethode.TvMovieStar.ToString
+                    MyLog.Debug("[HighlightsGuiWindow] [ShowSortMenu]: sorted by TvMovieStar")
+                    MyLog.Debug("")
                 Case Is = 2
                     setting.Value = SortMethode.RatingStar.ToString
+                    MyLog.Debug("[HighlightsGuiWindow] [ShowSortMenu]: sorted by RatingStar")
+                    MyLog.Debug("")
+                Case Else
+                    MyLog.Debug("[HighlightsGuiWindow] [ShowSortMenu]: exit")
+                    MyLog.Debug("")
+                    Exit Sub
             End Select
             setting.Persist()
 
