@@ -45,6 +45,7 @@ Namespace ClickfinderProgramGuide
         Private Shared _SelectedCategorieItemId As Integer
         Private ThreadPreviewListFill As Threading.Thread
         Private Shared _layer As New TvBusinessLayer
+        Private _CategorieFilterByGroup As String
 
 #End Region
 
@@ -177,7 +178,6 @@ Namespace ClickfinderProgramGuide
         End Sub
 
         Protected Overrides Sub OnPageDestroy(ByVal new_windowId As Integer)
-            'MsgBox("Hallo")
             Try
                 If ThreadPreviewListFill.IsAlive = True Then ThreadPreviewListFill.Abort()
             Catch ex As Exception
@@ -190,11 +190,11 @@ Namespace ClickfinderProgramGuide
 
         Public Overrides Sub OnAction(ByVal action As MediaPortal.GUI.Library.Action)
             If GUIWindowManager.ActiveWindow = GetID Then
-                'Try
-                '    MyLog.[Debug]("[OnAction] Keypress KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
-                'Catch
-                '    MyLog.[Debug]("[OnAction] Keypress KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
-                'End Try
+                Try
+                    MyLog.[Debug]("[OnAction] Keypress KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
+                Catch
+                    MyLog.[Debug]("[OnAction] Keypress KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
+                End Try
 
                 'Select Item (Enter) -> MP TvProgramInfo aufrufen --Über keychar--
 
@@ -271,7 +271,19 @@ Namespace ClickfinderProgramGuide
 
                     End If
 
+                    'Remote 5 Button (5) -> Reset Filter Settings of selcted categorie-> AllChannels
+                    If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_5 Then
 
+                        Dim idCategorie As Integer = _CategorieList.SelectedListItemIndex
+                        Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(idCategorie)
+                        _Categorie.groupName = "All Channels"
+                        _Categorie.Persist()
+
+                        ThreadPreviewListFill = New Threading.Thread(AddressOf FillPreviewList)
+                        ThreadPreviewListFill.IsBackground = True
+                        ThreadPreviewListFill.Start()
+
+                    End If
                 End If
 
                 'Play Button (P) -> Start channel
@@ -562,6 +574,13 @@ Namespace ClickfinderProgramGuide
                 dlgContext.SetHeading(Translation.Categorie & ": " & _Categorie.Name & " " & Translation.CategorieEdit)
                 dlgContext.ShowQuickNumbers = True
 
+
+                'Filter: TvGroup
+                Dim lItemGroup As New GUIListItem
+                lItemGroup.Label = Translation.Filterby
+                dlgContext.Add(lItemGroup)
+                lItemGroup.Dispose()
+
                 'Categorie umbennenen
                 Dim lItemRename As New GUIListItem
                 lItemRename.Label = Translation.CategorieRename
@@ -586,11 +605,11 @@ Namespace ClickfinderProgramGuide
                 dlgContext.DoModal(GetID)
 
 
-                Select Case dlgContext.SelectedLabel
-                    Case Is = 0
+                Select Case dlgContext.SelectedLabelText
+                    Case Is = Translation.CategorieRename
                         'Categorie umbennen
 
-                    Case Is = 1
+                    Case Is = Translation.CategorieHide
                         'Categorie verstecken
                         _Categorie.isVisible = False
                         _Categorie.Persist()
@@ -598,10 +617,12 @@ Namespace ClickfinderProgramGuide
                         CategoriesGuiWindow.SetGuiProperties(_ClickfinderCategorieView)
                         GUIWindowManager.ActivateWindow(1656544654)
 
-                    Case Is = 2
+                    Case Is = Translation.CategorieShow
                         'versteckte Categorie anzeigen
                         showNotVisibleCategories()
 
+                    Case Is = Translation.Filterby
+                        ShowFilterMenu(_Categorie)
                 End Select
 
 
@@ -642,8 +663,6 @@ Namespace ClickfinderProgramGuide
 
                     dlgContext.DoModal(GetID)
 
-                    'MsgBox(_idCategorieContainer(dlgContext.SelectedLabel))
-
                     Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(_idCategorieContainer(dlgContext.SelectedLabel))
                     _Categorie.isVisible = True
                     _Categorie.Persist()
@@ -665,6 +684,38 @@ Namespace ClickfinderProgramGuide
             End Try
         End Sub
 
+        Private Sub ShowFilterMenu(ByVal Categorie As ClickfinderCategories)
+            Dim dlgContext As GUIDialogMenu = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_MENU, Integer)), GUIDialogMenu)
+            dlgContext.Reset()
+
+            'ContextMenu Layout
+            dlgContext.SetHeading(Translation.Filterby)
+            dlgContext.ShowQuickNumbers = True
+
+            Dim _groups As IList(Of ChannelGroup) = ChannelGroup.ListAll
+
+            For i = 0 To _groups.Count - 1
+
+                Dim lItem As New GUIListItem
+                lItem.Label = _groups(i).GroupName
+                dlgContext.Add(lItem)
+                lItem.Dispose()
+
+            Next
+
+            dlgContext.DoModal(GetID)
+
+            If Not String.IsNullOrEmpty(dlgContext.SelectedLabelText) Then
+                Categorie.groupName = dlgContext.SelectedLabelText
+                Categorie.Persist()
+
+                ThreadPreviewListFill = New Threading.Thread(AddressOf FillPreviewList)
+                ThreadPreviewListFill.IsBackground = True
+                ThreadPreviewListFill.Start()
+
+            End If
+
+        End Sub
 
 #End Region
 

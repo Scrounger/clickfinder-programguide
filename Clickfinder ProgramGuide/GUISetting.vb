@@ -55,7 +55,6 @@ Namespace ClickfinderProgramGuide
         End Sub
 
         Protected Overrides Sub OnPageDestroy(ByVal new_windowId As Integer)
-            MsgBox("Hallo")
 
             MyBase.OnPageDestroy(new_windowId)
         End Sub

@@ -54,52 +54,7 @@ Public Class ClickfinderDB
     End Property
     Public Class DataBaseItem
 
-
-
-
-
         'SubProperties for _item
-
-        Public ReadOnly Property TvServer_idchannel() As Integer
-            Get
-
-                Try
-
-                    Dim _result As IList = TvServerMapping(_Table.Rows(_Index).Item("SenderKennung"))
-
-                    If _result.Count = 1 Then
-                        Dim _Mapping As TvMovieMapping = _result.Item(0)
-                        Dim _channel As Channel = Channel.Retrieve(_Mapping.IdChannel)
-
-                        Return _channel.IdChannel
-
-                    ElseIf _result.Count > 1 Then
-                        Dim _idchannel As String = ""
-
-                        For i = 0 To _result.Count - 1
-                            Dim _Mapping As TvMovieMapping = _result.Item(i)
-                            Dim _channel As Channel = Channel.Retrieve(_Mapping.IdChannel)
-
-                            If InStr(_channel.DisplayName, "HD") Then
-                                _idchannel = _channel.IdChannel
-                                Exit For
-                            Else
-                                _idchannel = _channel.IdChannel
-                            End If
-
-                        Next
-
-                        Return _idchannel
-                    Else
-                        Return 0
-                    End If
-
-
-                Catch ex As Exception
-                    MsgBox(ex.Message)
-                End Try
-            End Get
-        End Property
 
         Public ReadOnly Property TvServer_displayName() As String
             Get
@@ -436,7 +391,7 @@ Public Class ClickfinderDB
             _Table.PrimaryKey = New DataColumn() {_Table.Columns("Sendungen.Pos")}
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MyLog.[Error]("[ClickfinderDB]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
         End Try
 
     End Sub
@@ -483,7 +438,7 @@ Public Class ClickfinderDB
             _Table.PrimaryKey = New DataColumn() {_Table.Columns("Sendungen.Pos")}
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MyLog.[Error]("[ClickfinderDB]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
         End Try
     End Sub
 

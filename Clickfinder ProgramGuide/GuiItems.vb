@@ -128,7 +128,6 @@ Namespace ClickfinderProgramGuide
         End Sub
 
         Protected Overrides Sub OnPageDestroy(ByVal new_windowId As Integer)
-            'MsgBox("Hallo")
             For i = 1 To 12
                 Translator.SetProperty("#ItemsListTvMovieStar" & i, "")
                 Translator.SetProperty("#ItemsListImage" & i, "")
