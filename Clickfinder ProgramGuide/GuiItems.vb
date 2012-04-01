@@ -282,7 +282,36 @@ Namespace ClickfinderProgramGuide
                         End If
                     End If
                 End If
+                'Remote 5 Button (5) -> zu Heute springen
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_5 Then
+                    MyLog.[Debug]("[ItemsGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
+
+                    _CurrentCounter = 0
+                    _PageProgress.Percentage = 0
+
+                    Translator.SetProperty("#CurrentPageLabel", Translation.PageLabel & " " & CShort((_CurrentCounter + 12) / 12) & " / " & CShort((_ItemsResult.Count) / 12 + 0.5))
+
+
+                    If _ClickfinderCategorieView = CategorieView.Now And _idCategorie > 0 Then
+                        Dim key As New Gentle.Framework.Key(GetType(ClickfinderCategories), True, "idClickfinderCategories", _idCategorie)
+                        Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(key)
+                        ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime.AddMinutes(CDbl(_layer.GetSetting("ClickfinderNowOffset", "-20").Value)))), "#endTime", MySqlDate(PeriodeEndTime))), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
+                        Translator.SetProperty("#ItemsLeftListLabel", _Categorie.Name & " " & Translation.von & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00") & " - " & Format(PeriodeEndTime.Hour, "00") & ":" & Format(PeriodeEndTime.Minute, "00"))
+                        GUIWindowManager.ActivateWindow(1656544653)
+                    Else
+                        _ThreadLeftList = New Thread(AddressOf FillLeftList)
+                        _ThreadRightList = New Thread(AddressOf FillRightList)
+                        _ThreadLeftList.IsBackground = True
+                        _ThreadRightList.IsBackground = True
+
+                        _ThreadLeftList.Start()
+                        _ThreadRightList.Start()
+                    End If
+
+                End If
+
             End If
+
 
 
 

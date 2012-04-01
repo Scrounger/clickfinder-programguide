@@ -190,16 +190,16 @@ Namespace ClickfinderProgramGuide
 
         Public Overrides Sub OnAction(ByVal action As MediaPortal.GUI.Library.Action)
             If GUIWindowManager.ActiveWindow = GetID Then
-                Try
-                    MyLog.[Debug]("[OnAction] Keypress KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
-                Catch
-                    MyLog.[Debug]("[OnAction] Keypress KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
-                End Try
+                'Try
+                '    MyLog.[Debug]("[OnAction] Keypress KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
+                'Catch
+                '    MyLog.[Debug]("[OnAction] Keypress KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
+                'End Try
 
                 'Select Item (Enter) -> MP TvProgramInfo aufrufen --Über keychar--
-
-
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM Then
+                    MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
+
                     If _CategorieList.IsFocused = True Then
 
                         Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(_SelectedCategorieItemId)
@@ -222,6 +222,7 @@ Namespace ClickfinderProgramGuide
                 If _CategorieList.IsFocused = True Then
 
                     If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_MOVE_UP Then
+                        MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
                         Try
                             If ThreadPreviewListFill.IsAlive = True Then ThreadPreviewListFill.Abort()
                         Catch ex As Exception
@@ -247,6 +248,7 @@ Namespace ClickfinderProgramGuide
                     End If
 
                     If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_MOVE_DOWN Then
+                        MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
                         Try
                             If ThreadPreviewListFill.IsAlive = True Then ThreadPreviewListFill.Abort()
                         Catch ex As Exception
@@ -273,6 +275,7 @@ Namespace ClickfinderProgramGuide
 
                     'Remote 5 Button (5) -> Reset Filter Settings of selcted categorie-> AllChannels
                     If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_5 Then
+                        MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
 
                         Dim idCategorie As Integer = _CategorieList.SelectedListItemIndex
                         Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(idCategorie)
@@ -288,6 +291,7 @@ Namespace ClickfinderProgramGuide
 
                 'Play Button (P) -> Start channel
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_MUSIC_PLAY Then
+                    MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
                     Try
                         If _PreviewList.IsFocused = True Then StartTv(Program.Retrieve(_PreviewList.SelectedListItem.ItemId).ReferencedChannel)
                     Catch ex As Exception
@@ -299,6 +303,7 @@ Namespace ClickfinderProgramGuide
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_KEY_PRESSED Then
                     If action.m_key IsNot Nothing Then
                         If action.m_key.KeyChar = 114 Then
+                            MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
                             If _PreviewList.IsFocused = True Then LoadTVProgramInfo(Program.Retrieve(_PreviewList.SelectedListItem.ItemId))
                         End If
                     End If
@@ -306,6 +311,7 @@ Namespace ClickfinderProgramGuide
 
                 'Menu Button (F9) -> Context Menu open
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_CONTEXT_MENU Then
+                    MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
                     If _PreviewList.IsFocused = True Then ShowContextMenu(_PreviewList.SelectedListItem.ItemId, GetID)
                     If _CategorieList.IsFocused = True Then ShowCategoriesContextMenu(_CategorieList.SelectedListItem.ItemId)
                 End If
@@ -314,6 +320,7 @@ Namespace ClickfinderProgramGuide
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_KEY_PRESSED Then
                     If action.m_key IsNot Nothing Then
                         If action.m_key.KeyChar = 121 Then
+                            MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
                             If _PreviewList.IsFocused = True Then ShowContextMenu(_PreviewList.SelectedListItem.ItemId, GetID)
                             If _CategorieList.IsFocused = True Then ShowCategoriesContextMenu(_CategorieList.SelectedListItem.ItemId)
                         End If

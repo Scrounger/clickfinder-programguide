@@ -292,18 +292,6 @@ Namespace ClickfinderProgramGuide
                     End If
                 End If
 
-                'Play Button (P) -> Start channel
-                If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_MUSIC_PLAY Then
-                    Try
-                        MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", Action.m_key.KeyChar, Action.m_key.KeyCode, Action.wID.ToString)
-
-                        If _MovieList.IsFocused = True Then StartTv(Program.Retrieve(_MovieList.SelectedListItem.ItemId).ReferencedChannel)
-                        If _HighlightsList.IsFocused = True Then StartTv(Program.Retrieve(_HighlightsList.SelectedListItem.ItemId).ReferencedChannel)
-                    Catch ex As Exception
-                        MyLog.[Error]("[Play Button]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
-                    End Try
-                End If
-
                 'OSD Info Button (Y) -> Context Menu open (gleiche Fkt. wie Menu Button)
                 If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_KEY_PRESSED Then
                     If Action.m_key IsNot Nothing Then
@@ -324,6 +312,18 @@ Namespace ClickfinderProgramGuide
                     End If
                 End If
 
+                'Play Button (P) -> Start channel
+                If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_MUSIC_PLAY Then
+                    Try
+                        MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", Action.m_key.KeyChar, Action.m_key.KeyCode, Action.wID.ToString)
+
+                        If _MovieList.IsFocused = True Then StartTv(Program.Retrieve(_MovieList.SelectedListItem.ItemId).ReferencedChannel)
+                        If _HighlightsList.IsFocused = True Then StartTv(Program.Retrieve(_HighlightsList.SelectedListItem.ItemId).ReferencedChannel)
+                    Catch ex As Exception
+                        MyLog.[Error]("[Play Button]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                    End Try
+                End If
+
                 'Record Button (R) -> MP TvProgramInfo aufrufen --Über keychar--
                 If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_KEY_PRESSED Then
                     If Action.m_key IsNot Nothing Then
@@ -336,18 +336,36 @@ Namespace ClickfinderProgramGuide
                     End If
                 End If
 
-            End If
 
-            ''Record Button -> MP TvProgramInfo aufrufen --- geht nicht???!?
-            'If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_RECORD Then
-            '    Try
-            '        MsgBox("Record Button")
-            '        If _MovieList.IsFocused = True Then LoadTVProgramInfo(Program.Retrieve(_MovieList.SelectedListItem.ItemId))
-            '        If _HighlightsList.IsFocused = True Then LoadTVProgramInfo(Program.Retrieve(_HighlightsList.SelectedListItem.ItemId))
-            '    Catch ex As Exception
-            '        MyLog.[Error]("[Record Button]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
-            '    End Try
-            'End If
+                'Remote 5 Button (5) -> zu Heute springen
+                If Action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_5 Then
+                    MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", Action.m_key.KeyChar, Action.m_key.KeyCode, Action.wID.ToString)
+
+                    _ClickfinderCurrentDate = Today
+                    If Not _DaysProgress.Percentage = 1 * 100 / (CDbl(_layer.GetSetting("ClickfinderOverviewMaxDays", "10").Value) + 1) Then
+                        _DaysProgress.Percentage = 1 * 100 / (CDbl(_layer.GetSetting("ClickfinderOverviewMaxDays", "10").Value) + 1)
+                    End If
+                    Translator.SetProperty("#CurrentDate", getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
+
+                    _ThreadFillMovieList = New Thread(AddressOf FillMovieList)
+                    _ThreadFillHighlightsList = New Thread(AddressOf FillHighlightsList)
+                    _ThreadFillMovieList.IsBackground = True
+                    _ThreadFillHighlightsList.IsBackground = True
+                    _ThreadFillMovieList.Start()
+                    _ThreadFillHighlightsList.Start()
+                End If
+
+                ''Record Button -> MP TvProgramInfo aufrufen --- geht nicht???!?
+                'If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_RECORD Then
+                '    Try
+                '        MsgBox("Record Button")
+                '        If _MovieList.IsFocused = True Then LoadTVProgramInfo(Program.Retrieve(_MovieList.SelectedListItem.ItemId))
+                '        If _HighlightsList.IsFocused = True Then LoadTVProgramInfo(Program.Retrieve(_HighlightsList.SelectedListItem.ItemId))
+                '    Catch ex As Exception
+                '        MyLog.[Error]("[Record Button]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                '    End Try
+                'End If
+            End If
 
 
             MyBase.OnAction(Action)
