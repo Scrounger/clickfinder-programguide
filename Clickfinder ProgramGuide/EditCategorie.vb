@@ -2,6 +2,8 @@
 Imports MediaPortal.Configuration
 Imports System.Drawing
 Imports Gentle.Framework
+Imports TvDatabase
+
 
 Public Class EditCategorie
 
@@ -38,6 +40,15 @@ Public Class EditCategorie
             For i = 0 To CBsortedBy.Items.Count - 1
                 If CBsortedBy.Items.Item(i) = _sortedBy Then
                     CBsortedBy.Text = CBsortedBy.Items.Item(i)
+                End If
+            Next
+
+            Dim _groups As List(Of ChannelGroup) = ChannelGroup.ListAll
+
+            For i = 0 To _groups.Count - 1
+                cbGroup.Items.Add(_groups(i).GroupName)
+                If _groups(i).GroupName = _Categorie.groupName Then
+                    cbGroup.Text = _groups(i).GroupName
                 End If
             Next
 
@@ -109,6 +120,8 @@ Public Class EditCategorie
                     Case Is = "TvMovie Bewertung"
                         _Categorie.sortedBy = Helper.SortMethode.TvMovieStar.ToString
                 End Select
+
+                _Categorie.groupName = cbGroup.Text
 
                 _Categorie.Persist()
 

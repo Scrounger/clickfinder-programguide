@@ -40,6 +40,8 @@ Partial Class EditCategorie
         Me.CheckBox1 = New System.Windows.Forms.CheckBox
         Me.NumNowOffset = New System.Windows.Forms.NumericUpDown
         Me.Label4 = New System.Windows.Forms.Label
+        Me.cbGroup = New System.Windows.Forms.ComboBox
+        Me.Label5 = New System.Windows.Forms.Label
         CType(Me.picCategorie, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumMinDauer, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumNowOffset, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -65,7 +67,7 @@ Partial Class EditCategorie
         'tbSortOrder
         '
         Me.tbSortOrder.Enabled = False
-        Me.tbSortOrder.Location = New System.Drawing.Point(216, 293)
+        Me.tbSortOrder.Location = New System.Drawing.Point(216, 325)
         Me.tbSortOrder.Name = "tbSortOrder"
         Me.tbSortOrder.Size = New System.Drawing.Size(74, 20)
         Me.tbSortOrder.TabIndex = 2
@@ -78,7 +80,7 @@ Partial Class EditCategorie
         Me.tbSqlString.Multiline = True
         Me.tbSqlString.Name = "tbSqlString"
         Me.tbSqlString.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.tbSqlString.Size = New System.Drawing.Size(389, 88)
+        Me.tbSqlString.Size = New System.Drawing.Size(389, 117)
         Me.tbSqlString.TabIndex = 3
         '
         'picCategorie
@@ -110,7 +112,7 @@ Partial Class EditCategorie
         '
         'ButtonImage
         '
-        Me.ButtonImage.Location = New System.Drawing.Point(12, 255)
+        Me.ButtonImage.Location = New System.Drawing.Point(12, 287)
         Me.ButtonImage.Name = "ButtonImage"
         Me.ButtonImage.Size = New System.Drawing.Size(100, 26)
         Me.ButtonImage.TabIndex = 11
@@ -119,7 +121,7 @@ Partial Class EditCategorie
         '
         'ButtonSave
         '
-        Me.ButtonSave.Location = New System.Drawing.Point(12, 287)
+        Me.ButtonSave.Location = New System.Drawing.Point(12, 319)
         Me.ButtonSave.Name = "ButtonSave"
         Me.ButtonSave.Size = New System.Drawing.Size(100, 26)
         Me.ButtonSave.TabIndex = 13
@@ -129,7 +131,7 @@ Partial Class EditCategorie
         'tbNewSortOrder
         '
         Me.tbNewSortOrder.Enabled = False
-        Me.tbNewSortOrder.Location = New System.Drawing.Point(136, 293)
+        Me.tbNewSortOrder.Location = New System.Drawing.Point(136, 325)
         Me.tbNewSortOrder.Name = "tbNewSortOrder"
         Me.tbNewSortOrder.Size = New System.Drawing.Size(74, 20)
         Me.tbNewSortOrder.TabIndex = 14
@@ -173,7 +175,7 @@ Partial Class EditCategorie
         'ButtonTestSQL
         '
         Me.ButtonTestSQL.Enabled = False
-        Me.ButtonTestSQL.Location = New System.Drawing.Point(408, 287)
+        Me.ButtonTestSQL.Location = New System.Drawing.Point(408, 319)
         Me.ButtonTestSQL.Name = "ButtonTestSQL"
         Me.ButtonTestSQL.Size = New System.Drawing.Size(108, 26)
         Me.ButtonTestSQL.TabIndex = 19
@@ -208,11 +210,32 @@ Partial Class EditCategorie
         Me.Label4.TabIndex = 22
         Me.Label4.Text = "Jetzt:"
         '
+        'cbGroup
+        '
+        Me.cbGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbGroup.FormattingEnabled = True
+        Me.cbGroup.Items.AddRange(New Object() {"Startzeit", "Rating Star", "TvMovie Bewertung"})
+        Me.cbGroup.Location = New System.Drawing.Point(12, 254)
+        Me.cbGroup.Name = "cbGroup"
+        Me.cbGroup.Size = New System.Drawing.Size(100, 21)
+        Me.cbGroup.TabIndex = 23
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(12, 238)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(64, 13)
+        Me.Label5.TabIndex = 24
+        Me.Label5.Text = "Group Filter:"
+        '
         'EditCategorie
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(528, 320)
+        Me.ClientSize = New System.Drawing.Size(528, 346)
+        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.cbGroup)
         Me.Controls.Add(Me.NumNowOffset)
         Me.Controls.Add(Me.ButtonTestSQL)
         Me.Controls.Add(Me.CBsortedBy)
@@ -258,4 +281,6 @@ Partial Class EditCategorie
     Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
     Friend WithEvents NumNowOffset As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents cbGroup As System.Windows.Forms.ComboBox
+    Friend WithEvents Label5 As System.Windows.Forms.Label
 End Class

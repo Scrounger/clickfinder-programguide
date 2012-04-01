@@ -533,8 +533,6 @@ Namespace ClickfinderProgramGuide
                     For i = 0 To _Result.Count - 1
                         Try
 
-                            Dim bla As New Date(2012, 4, 3)
-
                             'ProgramDaten über TvMovieProgram laden
                             Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_Result.Item(i))
 
@@ -598,7 +596,10 @@ Namespace ClickfinderProgramGuide
                 _MoviesProgressBar.Visible = False
                 _MovieList.Visible = True
 
-                MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: Movies exist local and will not be displayed ({0})", _LogLocalMovies)
+                If CBool(_layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false").Value) = True Then
+                    MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: Movies exist local and will not be displayed ({0})", _LogLocalMovies)
+                End If
+
                 MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: Thread finished")
                 MyLog.Debug("")
                 'log Ausgabe abfangen, falls der Thread abgebrochen wird
@@ -756,8 +757,6 @@ Namespace ClickfinderProgramGuide
 
         End Sub
 
-        
-
         'ProgresBar paralell anzeigen
         Private Sub ShowHighlightsProgressBar()
             _HighlightsProgressBar.Visible = True
@@ -778,6 +777,8 @@ Namespace ClickfinderProgramGuide
                 'ContextMenu Layout
                 dlgContext.SetHeading(_SeriesProgram.ReferencedProgram.Title)
                 'dlgContext.ShowQuickNumbers = False
+
+                MyLog.Debug("[HighlightsGuiWindow] [ShowSeriesContextMenu]: idprogram = {0}, title = {1}", _SeriesProgram.ReferencedProgram.IdProgram, _SeriesProgram.ReferencedProgram.Title)
 
                 If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True Then
 
@@ -822,7 +823,7 @@ Namespace ClickfinderProgramGuide
                 MyLog.[Error]("[HighlightsGUIWindow] [ShowSeriesContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
             End Try
         End Sub
-        Private Sub ShowHighlightsMenu(ByVal idProgram As Integer, Optional ByVal isMovieHighlights As Boolean = False)
+        Private Sub ShowHighlightsMenu(ByVal idProgram As Integer)
 
             Dim _Menu_AllMovies As String = String.Empty
             Dim _Menu_AllHighlights As String = String.Empty
@@ -835,6 +836,8 @@ Namespace ClickfinderProgramGuide
                 Dim _Program As Program = Program.Retrieve(idProgram)
                 dlgContext.ShowQuickNumbers = True
                 dlgContext.SetHeading(_Program.Title)
+
+                MyLog.Debug("[HighlightsGuiWindow] [ShowHighlightsMenu]: idprogram = {0}, title = {1}", _Program.IdProgram, _Program.Title)
 
                 'Alle Highlights + Serien des Tages
                 Dim lItemHighlights As New GUIListItem
@@ -865,6 +868,9 @@ Namespace ClickfinderProgramGuide
 
                 Select Case dlgContext.SelectedLabel
                     Case Is = 0
+                        MyLog.Debug("[HighlightsGuiWindow] [ShowHighlightsMenu]:  selected -> " & Translation.allHighlightsAt & " " & getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
+                        MyLog.Debug("")
+
                         ItemsGuiWindow.SetGuiProperties("Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
                                                         "WHERE startTime >= " & MySqlDate(_ClickfinderCurrentDate) & " " & _
                                                         "AND startTime <= " & MySqlDate(_ClickfinderCurrentDate.AddHours(24)) & " " & _
@@ -875,9 +881,14 @@ Namespace ClickfinderProgramGuide
                         GUIWindowManager.ActivateWindow(1656544653)
 
                     Case Is = 1
+                        MyLog.Debug("[HighlightsGuiWindow] [ShowHighlightsMenu]:  selected -> " & Translation.allCategoriesAt & " " & getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
+                        MyLog.Debug("")
+
                         CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Day, _Program.StartTime.Date)
                         GUIWindowManager.ActivateWindow(1656544654)
                     Case Is = 2
+                        MyLog.Debug("[HighlightsGuiWindow] [ShowHighlightsMenu]:  selected -> " & Translation.SameGenre & " " & _Program.Genre)
+                        MyLog.Debug("")
                         ItemsGuiWindow.SetGuiProperties("Select * FROM program LEFT JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
                         "WHERE genre LIKE '" & _Program.Genre & "' " & _
                         "AND startTime > " & MySqlDate(_ClickfinderCurrentDate) & " " & _
@@ -888,8 +899,12 @@ Namespace ClickfinderProgramGuide
                         GUIWindowManager.ActivateWindow(1656544653)
 
                     Case Is = 3
+                        MyLog.Debug("[HighlightsGuiWindow] [ShowHighlightsMenu]:  selected -> action menu")
+                        MyLog.Debug("")
                         ShowActionMenu(_Program, GetID)
                     Case Else
+                        MyLog.Debug("[HighlightsGuiWindow] [ShowHighlightsMenu]: exit")
+                        MyLog.Debug("")
 
                 End Select
 
@@ -994,8 +1009,6 @@ Namespace ClickfinderProgramGuide
                 MyLog.[Error]("[HighlightsGUIWindow] [ShowMovieMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
             End Try
         End Sub
-
-
         Private Sub ShowSortMenu()
             Dim dlgContext As GUIDialogMenu = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_MENU, Integer)), GUIDialogMenu)
             dlgContext.Reset()

@@ -55,6 +55,7 @@ Public NotInheritable Class Translation
     Public Shared action = "Aktion ..."
     Public Shared Refresh = "Aktualisieren"
     Public Shared ImportIsRunning = "Import wird zur Zeit durchgeführt !"
+    Public Shared Filterby = "Filter nach ..."
 
     ' A
 

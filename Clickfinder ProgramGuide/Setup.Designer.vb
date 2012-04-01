@@ -29,6 +29,11 @@ Partial Class Setup
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel
         Me.TabControl1 = New System.Windows.Forms.TabControl
         Me.TabAllgemeines = New System.Windows.Forms.TabPage
+        Me.Label17 = New System.Windows.Forms.Label
+        Me.Label16 = New System.Windows.Forms.Label
+        Me.tbLateTime = New System.Windows.Forms.MaskedTextBox
+        Me.tbPrimeTime = New System.Windows.Forms.MaskedTextBox
+        Me.CheckBoxDebugMode = New System.Windows.Forms.CheckBox
         Me.CheckBoxUseSportLogos = New System.Windows.Forms.CheckBox
         Me.ButtonOpenDlgImageFolder = New System.Windows.Forms.Button
         Me.ButtonOpenDlgDatabase = New System.Windows.Forms.Button
@@ -36,17 +41,11 @@ Partial Class Setup
         Me.tbClickfinderImagePath = New System.Windows.Forms.TextBox
         Me.Label3 = New System.Windows.Forms.Label
         Me.Label1 = New System.Windows.Forms.Label
-        Me.TabFilter = New System.Windows.Forms.TabPage
+        Me.TabItems = New System.Windows.Forms.TabPage
         Me.CheckBoxRemberSortedBy = New System.Windows.Forms.CheckBox
         Me.CheckBoxFilterShowLocalSeries = New System.Windows.Forms.CheckBox
         Me.CheckBoxFilterShowLocalMovies = New System.Windows.Forms.CheckBox
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.Label15 = New System.Windows.Forms.Label
         Me.Label14 = New System.Windows.Forms.Label
-        Me.tbLateTime = New System.Windows.Forms.MaskedTextBox
-        Me.tbPrimeTime = New System.Windows.Forms.MaskedTextBox
-        Me.NumNowOffset = New System.Windows.Forms.NumericUpDown
         Me.TabÜbersicht = New System.Windows.Forms.TabPage
         Me.NumMaxDays = New System.Windows.Forms.NumericUpDown
         Me.Label12 = New System.Windows.Forms.Label
@@ -69,12 +68,16 @@ Partial Class Setup
         Me.Label5 = New System.Windows.Forms.Label
         Me.CheckBoxShowLocalMovies = New System.Windows.Forms.CheckBox
         Me.TabCategories = New System.Windows.Forms.TabPage
+        Me.CheckBoxShowCategorieLocalSeries = New System.Windows.Forms.CheckBox
+        Me.CheckBoxShowCategorieLocalMovies = New System.Windows.Forms.CheckBox
         Me.CheckBoxSelect = New System.Windows.Forms.CheckBox
         Me.ButtonCategoriesDefault = New System.Windows.Forms.Button
         Me.ButtonDown = New System.Windows.Forms.Button
         Me.ButtonNewCategorie = New System.Windows.Forms.Button
         Me.ButtonUp = New System.Windows.Forms.Button
         Me.dgvCategories = New System.Windows.Forms.DataGridView
+        Me.openFileDialog = New System.Windows.Forms.OpenFileDialog
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox
         Me.C_id = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.C_Image = New System.Windows.Forms.DataGridViewImageColumn
         Me.C_visible = New System.Windows.Forms.DataGridViewCheckBoxColumn
@@ -84,13 +87,9 @@ Partial Class Setup
         Me.C_SqlString = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.C_MinRuntime = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.C_NowOffset = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.openFileDialog = New System.Windows.Forms.OpenFileDialog
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox
-        Me.CheckBoxDebugMode = New System.Windows.Forms.CheckBox
         Me.TabControl1.SuspendLayout()
         Me.TabAllgemeines.SuspendLayout()
-        Me.TabFilter.SuspendLayout()
-        CType(Me.NumNowOffset, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabItems.SuspendLayout()
         Me.TabÜbersicht.SuspendLayout()
         CType(Me.NumMaxDays, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -107,7 +106,7 @@ Partial Class Setup
         'ButtonSave
         '
         Me.ButtonSave.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonSave.Location = New System.Drawing.Point(583, 553)
+        Me.ButtonSave.Location = New System.Drawing.Point(583, 672)
         Me.ButtonSave.Margin = New System.Windows.Forms.Padding(4)
         Me.ButtonSave.Name = "ButtonSave"
         Me.ButtonSave.Size = New System.Drawing.Size(79, 39)
@@ -130,7 +129,7 @@ Partial Class Setup
         '
         Me.LinkLabel1.AutoSize = True
         Me.LinkLabel1.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LinkLabel1.Location = New System.Drawing.Point(13, 565)
+        Me.LinkLabel1.Location = New System.Drawing.Point(13, 684)
         Me.LinkLabel1.Name = "LinkLabel1"
         Me.LinkLabel1.Size = New System.Drawing.Size(194, 14)
         Me.LinkLabel1.TabIndex = 38
@@ -141,18 +140,22 @@ Partial Class Setup
         'TabControl1
         '
         Me.TabControl1.Controls.Add(Me.TabAllgemeines)
-        Me.TabControl1.Controls.Add(Me.TabFilter)
+        Me.TabControl1.Controls.Add(Me.TabItems)
         Me.TabControl1.Controls.Add(Me.TabÜbersicht)
         Me.TabControl1.Controls.Add(Me.TabCategories)
         Me.TabControl1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControl1.Location = New System.Drawing.Point(12, 73)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(654, 473)
+        Me.TabControl1.Size = New System.Drawing.Size(654, 592)
         Me.TabControl1.TabIndex = 39
         '
         'TabAllgemeines
         '
+        Me.TabAllgemeines.Controls.Add(Me.Label17)
+        Me.TabAllgemeines.Controls.Add(Me.Label16)
+        Me.TabAllgemeines.Controls.Add(Me.tbLateTime)
+        Me.TabAllgemeines.Controls.Add(Me.tbPrimeTime)
         Me.TabAllgemeines.Controls.Add(Me.CheckBoxDebugMode)
         Me.TabAllgemeines.Controls.Add(Me.CheckBoxUseSportLogos)
         Me.TabAllgemeines.Controls.Add(Me.ButtonOpenDlgImageFolder)
@@ -164,10 +167,54 @@ Partial Class Setup
         Me.TabAllgemeines.Location = New System.Drawing.Point(4, 25)
         Me.TabAllgemeines.Name = "TabAllgemeines"
         Me.TabAllgemeines.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabAllgemeines.Size = New System.Drawing.Size(646, 444)
+        Me.TabAllgemeines.Size = New System.Drawing.Size(646, 563)
         Me.TabAllgemeines.TabIndex = 0
         Me.TabAllgemeines.Text = "Allgemeines"
         Me.TabAllgemeines.UseVisualStyleBackColor = True
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(6, 174)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(85, 16)
+        Me.Label17.TabIndex = 11
+        Me.Label17.Text = "Prime Time:"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(6, 209)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(79, 16)
+        Me.Label16.TabIndex = 10
+        Me.Label16.Text = "Late Time:"
+        '
+        'tbLateTime
+        '
+        Me.tbLateTime.Location = New System.Drawing.Point(134, 206)
+        Me.tbLateTime.Mask = "00:00"
+        Me.tbLateTime.Name = "tbLateTime"
+        Me.tbLateTime.Size = New System.Drawing.Size(42, 23)
+        Me.tbLateTime.TabIndex = 9
+        '
+        'tbPrimeTime
+        '
+        Me.tbPrimeTime.Location = New System.Drawing.Point(134, 171)
+        Me.tbPrimeTime.Mask = "00:00"
+        Me.tbPrimeTime.Name = "tbPrimeTime"
+        Me.tbPrimeTime.Size = New System.Drawing.Size(42, 23)
+        Me.tbPrimeTime.TabIndex = 8
+        '
+        'CheckBoxDebugMode
+        '
+        Me.CheckBoxDebugMode.AutoSize = True
+        Me.CheckBoxDebugMode.Location = New System.Drawing.Point(9, 139)
+        Me.CheckBoxDebugMode.Name = "CheckBoxDebugMode"
+        Me.CheckBoxDebugMode.Size = New System.Drawing.Size(103, 20)
+        Me.CheckBoxDebugMode.TabIndex = 7
+        Me.CheckBoxDebugMode.Text = "DebugMode"
+        Me.CheckBoxDebugMode.UseVisualStyleBackColor = True
         '
         'CheckBoxUseSportLogos
         '
@@ -235,30 +282,24 @@ Partial Class Setup
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Clickfinder Database:"
         '
-        'TabFilter
+        'TabItems
         '
-        Me.TabFilter.Controls.Add(Me.CheckBoxRemberSortedBy)
-        Me.TabFilter.Controls.Add(Me.CheckBoxFilterShowLocalSeries)
-        Me.TabFilter.Controls.Add(Me.CheckBoxFilterShowLocalMovies)
-        Me.TabFilter.Controls.Add(Me.Label17)
-        Me.TabFilter.Controls.Add(Me.Label16)
-        Me.TabFilter.Controls.Add(Me.Label15)
-        Me.TabFilter.Controls.Add(Me.Label14)
-        Me.TabFilter.Controls.Add(Me.tbLateTime)
-        Me.TabFilter.Controls.Add(Me.tbPrimeTime)
-        Me.TabFilter.Controls.Add(Me.NumNowOffset)
-        Me.TabFilter.Location = New System.Drawing.Point(4, 25)
-        Me.TabFilter.Name = "TabFilter"
-        Me.TabFilter.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabFilter.Size = New System.Drawing.Size(646, 444)
-        Me.TabFilter.TabIndex = 3
-        Me.TabFilter.Text = "Filter"
-        Me.TabFilter.UseVisualStyleBackColor = True
+        Me.TabItems.Controls.Add(Me.CheckBoxRemberSortedBy)
+        Me.TabItems.Controls.Add(Me.CheckBoxFilterShowLocalSeries)
+        Me.TabItems.Controls.Add(Me.CheckBoxFilterShowLocalMovies)
+        Me.TabItems.Controls.Add(Me.Label14)
+        Me.TabItems.Location = New System.Drawing.Point(4, 25)
+        Me.TabItems.Name = "TabItems"
+        Me.TabItems.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabItems.Size = New System.Drawing.Size(646, 563)
+        Me.TabItems.TabIndex = 3
+        Me.TabItems.Text = "Items"
+        Me.TabItems.UseVisualStyleBackColor = True
         '
         'CheckBoxRemberSortedBy
         '
         Me.CheckBoxRemberSortedBy.AutoSize = True
-        Me.CheckBoxRemberSortedBy.Location = New System.Drawing.Point(55, 254)
+        Me.CheckBoxRemberSortedBy.Location = New System.Drawing.Point(43, 133)
         Me.CheckBoxRemberSortedBy.Name = "CheckBoxRemberSortedBy"
         Me.CheckBoxRemberSortedBy.Size = New System.Drawing.Size(345, 20)
         Me.CheckBoxRemberSortedBy.TabIndex = 11
@@ -269,7 +310,7 @@ Partial Class Setup
         '
         Me.CheckBoxFilterShowLocalSeries.AutoSize = True
         Me.CheckBoxFilterShowLocalSeries.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBoxFilterShowLocalSeries.Location = New System.Drawing.Point(55, 225)
+        Me.CheckBoxFilterShowLocalSeries.Location = New System.Drawing.Point(43, 104)
         Me.CheckBoxFilterShowLocalSeries.Name = "CheckBoxFilterShowLocalSeries"
         Me.CheckBoxFilterShowLocalSeries.Size = New System.Drawing.Size(361, 20)
         Me.CheckBoxFilterShowLocalSeries.TabIndex = 10
@@ -280,39 +321,12 @@ Partial Class Setup
         '
         Me.CheckBoxFilterShowLocalMovies.AutoSize = True
         Me.CheckBoxFilterShowLocalMovies.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBoxFilterShowLocalMovies.Location = New System.Drawing.Point(55, 195)
+        Me.CheckBoxFilterShowLocalMovies.Location = New System.Drawing.Point(43, 74)
         Me.CheckBoxFilterShowLocalMovies.Name = "CheckBoxFilterShowLocalMovies"
         Me.CheckBoxFilterShowLocalMovies.Size = New System.Drawing.Size(278, 20)
         Me.CheckBoxFilterShowLocalMovies.TabIndex = 9
         Me.CheckBoxFilterShowLocalMovies.Text = "Keine Filme zeigen, die lokal existieren"
         Me.CheckBoxFilterShowLocalMovies.UseVisualStyleBackColor = True
-        '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(52, 125)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(85, 16)
-        Me.Label17.TabIndex = 6
-        Me.Label17.Text = "Prime Time:"
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(52, 160)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(79, 16)
-        Me.Label16.TabIndex = 5
-        Me.Label16.Text = "Late Time:"
-        '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(52, 90)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(47, 16)
-        Me.Label15.TabIndex = 4
-        Me.Label15.Text = "Jetzt:"
         '
         'Label14
         '
@@ -322,31 +336,6 @@ Partial Class Setup
         Me.Label14.TabIndex = 3
         Me.Label14.Text = "Mit den verschiedenen Filtereinstellungen könnt ihr die Suchergebnisse eingrenzen" & _
             " und die Zugrifsgeschwindigkeit steigern"
-        '
-        'tbLateTime
-        '
-        Me.tbLateTime.Location = New System.Drawing.Point(180, 157)
-        Me.tbLateTime.Mask = "00:00"
-        Me.tbLateTime.Name = "tbLateTime"
-        Me.tbLateTime.Size = New System.Drawing.Size(42, 23)
-        Me.tbLateTime.TabIndex = 2
-        '
-        'tbPrimeTime
-        '
-        Me.tbPrimeTime.Location = New System.Drawing.Point(180, 122)
-        Me.tbPrimeTime.Mask = "00:00"
-        Me.tbPrimeTime.Name = "tbPrimeTime"
-        Me.tbPrimeTime.Size = New System.Drawing.Size(42, 23)
-        Me.tbPrimeTime.TabIndex = 1
-        '
-        'NumNowOffset
-        '
-        Me.NumNowOffset.Location = New System.Drawing.Point(180, 88)
-        Me.NumNowOffset.Maximum = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.NumNowOffset.Minimum = New Decimal(New Integer() {120, 0, 0, -2147483648})
-        Me.NumNowOffset.Name = "NumNowOffset"
-        Me.NumNowOffset.Size = New System.Drawing.Size(42, 23)
-        Me.NumNowOffset.TabIndex = 0
         '
         'TabÜbersicht
         '
@@ -358,9 +347,9 @@ Partial Class Setup
         Me.TabÜbersicht.Location = New System.Drawing.Point(4, 25)
         Me.TabÜbersicht.Name = "TabÜbersicht"
         Me.TabÜbersicht.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabÜbersicht.Size = New System.Drawing.Size(646, 444)
+        Me.TabÜbersicht.Size = New System.Drawing.Size(646, 563)
         Me.TabÜbersicht.TabIndex = 1
-        Me.TabÜbersicht.Text = "Übersicht"
+        Me.TabÜbersicht.Text = "Highlights"
         Me.TabÜbersicht.UseVisualStyleBackColor = True
         '
         'NumMaxDays
@@ -584,6 +573,8 @@ Partial Class Setup
         '
         'TabCategories
         '
+        Me.TabCategories.Controls.Add(Me.CheckBoxShowCategorieLocalSeries)
+        Me.TabCategories.Controls.Add(Me.CheckBoxShowCategorieLocalMovies)
         Me.TabCategories.Controls.Add(Me.CheckBoxSelect)
         Me.TabCategories.Controls.Add(Me.ButtonCategoriesDefault)
         Me.TabCategories.Controls.Add(Me.ButtonDown)
@@ -592,10 +583,32 @@ Partial Class Setup
         Me.TabCategories.Controls.Add(Me.dgvCategories)
         Me.TabCategories.Location = New System.Drawing.Point(4, 25)
         Me.TabCategories.Name = "TabCategories"
-        Me.TabCategories.Size = New System.Drawing.Size(646, 444)
+        Me.TabCategories.Size = New System.Drawing.Size(646, 563)
         Me.TabCategories.TabIndex = 2
         Me.TabCategories.Text = "Kategorien"
         Me.TabCategories.UseVisualStyleBackColor = True
+        '
+        'CheckBoxShowCategorieLocalSeries
+        '
+        Me.CheckBoxShowCategorieLocalSeries.AutoSize = True
+        Me.CheckBoxShowCategorieLocalSeries.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBoxShowCategorieLocalSeries.Location = New System.Drawing.Point(9, 471)
+        Me.CheckBoxShowCategorieLocalSeries.Name = "CheckBoxShowCategorieLocalSeries"
+        Me.CheckBoxShowCategorieLocalSeries.Size = New System.Drawing.Size(361, 20)
+        Me.CheckBoxShowCategorieLocalSeries.TabIndex = 12
+        Me.CheckBoxShowCategorieLocalSeries.Text = "Keine Serien (Episoden) zeigen, die lokal existieren"
+        Me.CheckBoxShowCategorieLocalSeries.UseVisualStyleBackColor = True
+        '
+        'CheckBoxShowCategorieLocalMovies
+        '
+        Me.CheckBoxShowCategorieLocalMovies.AutoSize = True
+        Me.CheckBoxShowCategorieLocalMovies.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBoxShowCategorieLocalMovies.Location = New System.Drawing.Point(9, 445)
+        Me.CheckBoxShowCategorieLocalMovies.Name = "CheckBoxShowCategorieLocalMovies"
+        Me.CheckBoxShowCategorieLocalMovies.Size = New System.Drawing.Size(278, 20)
+        Me.CheckBoxShowCategorieLocalMovies.TabIndex = 11
+        Me.CheckBoxShowCategorieLocalMovies.Text = "Keine Filme zeigen, die lokal existieren"
+        Me.CheckBoxShowCategorieLocalMovies.UseVisualStyleBackColor = True
         '
         'CheckBoxSelect
         '
@@ -662,6 +675,21 @@ Partial Class Setup
         Me.dgvCategories.Size = New System.Drawing.Size(582, 376)
         Me.dgvCategories.TabIndex = 0
         '
+        'openFileDialog
+        '
+        Me.openFileDialog.FileName = "OpenFileDialog1"
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackgroundImage = Global.ClickfinderProgramGuide.My.Resources.Resources.SetupIcon
+        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox1.Location = New System.Drawing.Point(3, 4)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(75, 62)
+        Me.PictureBox1.TabIndex = 9
+        Me.PictureBox1.TabStop = False
+        '
         'C_id
         '
         Me.C_id.FillWeight = 50.0!
@@ -710,6 +738,7 @@ Partial Class Setup
         Me.C_sortOrder.Name = "C_sortOrder"
         Me.C_sortOrder.ReadOnly = True
         Me.C_sortOrder.Visible = False
+        Me.C_sortOrder.Width = 95
         '
         'C_SqlString
         '
@@ -729,37 +758,12 @@ Partial Class Setup
         Me.C_NowOffset.Name = "C_NowOffset"
         Me.C_NowOffset.Width = 52
         '
-        'openFileDialog
-        '
-        Me.openFileDialog.FileName = "OpenFileDialog1"
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.BackgroundImage = Global.ClickfinderProgramGuide.My.Resources.Resources.SetupIcon
-        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.PictureBox1.Location = New System.Drawing.Point(3, 4)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(75, 62)
-        Me.PictureBox1.TabIndex = 9
-        Me.PictureBox1.TabStop = False
-        '
-        'CheckBoxDebugMode
-        '
-        Me.CheckBoxDebugMode.AutoSize = True
-        Me.CheckBoxDebugMode.Location = New System.Drawing.Point(9, 139)
-        Me.CheckBoxDebugMode.Name = "CheckBoxDebugMode"
-        Me.CheckBoxDebugMode.Size = New System.Drawing.Size(103, 20)
-        Me.CheckBoxDebugMode.TabIndex = 7
-        Me.CheckBoxDebugMode.Text = "DebugMode"
-        Me.CheckBoxDebugMode.UseVisualStyleBackColor = True
-        '
         'Setup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ClientSize = New System.Drawing.Size(678, 605)
+        Me.ClientSize = New System.Drawing.Size(678, 724)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.Label2)
@@ -773,9 +777,8 @@ Partial Class Setup
         Me.TabControl1.ResumeLayout(False)
         Me.TabAllgemeines.ResumeLayout(False)
         Me.TabAllgemeines.PerformLayout()
-        Me.TabFilter.ResumeLayout(False)
-        Me.TabFilter.PerformLayout()
-        CType(Me.NumNowOffset, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabItems.ResumeLayout(False)
+        Me.TabItems.PerformLayout()
         Me.TabÜbersicht.ResumeLayout(False)
         Me.TabÜbersicht.PerformLayout()
         CType(Me.NumMaxDays, System.ComponentModel.ISupportInitialize).EndInit()
@@ -834,13 +837,7 @@ Partial Class Setup
     Friend WithEvents ButtonUp As System.Windows.Forms.Button
     Friend WithEvents ButtonCategoriesDefault As System.Windows.Forms.Button
     Friend WithEvents CheckBoxSelect As System.Windows.Forms.CheckBox
-    Friend WithEvents TabFilter As System.Windows.Forms.TabPage
-    Friend WithEvents NumNowOffset As System.Windows.Forms.NumericUpDown
-    Friend WithEvents tbPrimeTime As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents tbLateTime As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents Label17 As System.Windows.Forms.Label
-    Friend WithEvents Label16 As System.Windows.Forms.Label
-    Friend WithEvents Label15 As System.Windows.Forms.Label
+    Friend WithEvents TabItems As System.Windows.Forms.TabPage
     Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents CheckBoxFilterShowLocalMovies As System.Windows.Forms.CheckBox
     Friend WithEvents CheckBoxFilterShowLocalSeries As System.Windows.Forms.CheckBox
@@ -849,6 +846,13 @@ Partial Class Setup
     Friend WithEvents RBTvMovieStar As System.Windows.Forms.RadioButton
     Friend WithEvents RBRatingStar As System.Windows.Forms.RadioButton
     Friend WithEvents CheckBoxRemberSortedBy As System.Windows.Forms.CheckBox
+    Friend WithEvents CheckBoxDebugMode As System.Windows.Forms.CheckBox
+    Friend WithEvents Label17 As System.Windows.Forms.Label
+    Friend WithEvents Label16 As System.Windows.Forms.Label
+    Friend WithEvents tbLateTime As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents tbPrimeTime As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents CheckBoxShowCategorieLocalSeries As System.Windows.Forms.CheckBox
+    Friend WithEvents CheckBoxShowCategorieLocalMovies As System.Windows.Forms.CheckBox
     Friend WithEvents C_id As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents C_Image As System.Windows.Forms.DataGridViewImageColumn
     Friend WithEvents C_visible As System.Windows.Forms.DataGridViewCheckBoxColumn
@@ -858,5 +862,4 @@ Partial Class Setup
     Friend WithEvents C_SqlString As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents C_MinRuntime As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents C_NowOffset As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents CheckBoxDebugMode As System.Windows.Forms.CheckBox
 End Class

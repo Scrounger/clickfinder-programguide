@@ -490,6 +490,17 @@
       <textcolor>FFdddddd</textcolor>
     </control>
     <control>
+      <description>Filterby label</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>1250</posX>
+      <posY>84</posY>
+      <label>#ItemsGroup</label>
+      <font>mediastream10</font>
+      <align>right</align>
+      <textcolor>FFdddddd</textcolor>
+    </control>
+    <control>
       <id>1</id>
       <description>Separator Image</description>
       <type>image</type>

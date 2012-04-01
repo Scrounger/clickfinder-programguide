@@ -44,7 +44,6 @@ Namespace ClickfinderProgramGuide
         Private _SelectedCategorieMinRunTime As Integer
         Private Shared _SelectedCategorieItemId As Integer
         Private ThreadPreviewListFill As Threading.Thread
-        Private _isAbortException As Boolean = False
         Private Shared _layer As New TvBusinessLayer
 
 #End Region
@@ -139,7 +138,11 @@ Namespace ClickfinderProgramGuide
         Protected Overrides Sub OnPageLoad()
 
             MyLog.Info("")
-            MyLog.Info("[CategoriesGuiWindow] {0} load", CategorieViewName)
+            MyLog.Info("")
+            MyLog.Info("[CategoriesGuiWindow] -------------[OPEN]-------------")
+
+            MyLog.Debug("[CategoriesGuiWindow] [OnPageLoad]: PeriodeStartTime = {0}, PeriodeEndTime = {1}", _
+                        getTranslatedDayOfWeek(PeriodeStartTime.Date) & " " & Format(PeriodeStartTime, "dd.MM.yyyy") & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00"), Format(PeriodeEndTime.Hour, "00") & ":" & Format(PeriodeEndTime.Minute, "00"))
 
             For i = 1 To 6
                 Translator.SetProperty("#PreviewListImage" & i, "")
@@ -149,7 +152,7 @@ Namespace ClickfinderProgramGuide
 
             If _layer.GetSetting("TvMovieImportIsRunning", "false").Value = "true" Then
                 Translator.SetProperty("#SettingLastUpdate", Translation.ImportIsRunning)
-                MyLog.Debug("[GuiItems] [OnPageLoad]: _ClickfinderCurrentDate = {0}", "TvMovie++ Import is running !")
+                MyLog.Debug("[CategoriesGuiWindow] [OnPageLoad]: _ClickfinderCurrentDate = {0}", "TvMovie++ Import is running !")
             Else
                 Translator.SetProperty("#SettingLastUpdate", GuiLayout.LastUpdateLabel)
             End If
@@ -352,18 +355,37 @@ Namespace ClickfinderProgramGuide
 #Region "Functions"
 
         Private Sub FillCategories()
-            Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(ClickfinderCategories))
-            sb.AddOrderByField(True, "sortOrder")
-            Dim stmt As SqlStatement = sb.GetStatement(True)
-            _Categories = ObjectFactory.GetCollection(GetType(ClickfinderCategories), stmt.Execute())
+            Try
 
-            For i = 0 To _Categories.Count - 1
+                Dim _logCategories As String = String.Empty
+                Dim _logHiddenCategories As String = String.Empty
 
-                If _Categories(i).isVisible = True Then
-                    AddListControlItem(GetID, _CategorieList, _Categories(i).SortOrder, String.Empty, _Categories(i).Name, , , Config.GetFile(Config.Dir.Thumbs, "Clickfinder ProgramGuide\Categories\") & _Categories(i).Name & ".png", _Categories(i).MinRunTime)
-                End If
+                MyLog.Debug("")
+                MyLog.Debug("[CategoriesGuiWindow] [FillCategories]: Thread started")
 
-            Next
+                Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(ClickfinderCategories))
+                sb.AddOrderByField(True, "sortOrder")
+                Dim stmt As SqlStatement = sb.GetStatement(True)
+                _Categories = ObjectFactory.GetCollection(GetType(ClickfinderCategories), stmt.Execute())
+
+                For i = 0 To _Categories.Count - 1
+                    If _Categories(i).isVisible = True Then
+                        AddListControlItem(GetID, _CategorieList, _Categories(i).SortOrder, String.Empty, _Categories(i).Name, , , Config.GetFile(Config.Dir.Thumbs, "Clickfinder ProgramGuide\Categories\") & _Categories(i).Name & ".png", _Categories(i).MinRunTime)
+                        _logCategories = _logCategories & _Categories(i).Name & ", "
+                    Else
+                        _logHiddenCategories = _logHiddenCategories & _Categories(i).Name & ", "
+                    End If
+                Next
+
+                MyLog.Debug("[CategoriesGuiWindow] [FillCategories]: categories ({0})", _logCategories)
+                MyLog.Debug("[CategoriesGuiWindow] [FillCategories]: hidden categories ({0})", _logHiddenCategories)
+                MyLog.Debug("[CategoriesGuiWindow] [FillCategories]: Thread finished")
+                MyLog.Debug("")
+
+            Catch ex As Exception
+                MyLog.[Error]("[CategoriesGuiWindow] [FillCategories]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
+            End Try
+
         End Sub
 
         Private Sub FillPreviewList()
@@ -376,12 +398,16 @@ Namespace ClickfinderProgramGuide
             Dim _program As Program = Nothing
             Dim _startTime As Date = Nothing
             Dim _endTime As Date = Nothing
+            Dim _LogLocalMovies As String = Nothing
+            Dim _LogLocalSeries As String = Nothing
 
-            _isAbortException = False
 
             Try
                 _PreviewList.Visible = False
                 _PreviewList.Clear()
+
+                MyLog.Debug("")
+                MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: Thread started")
 
                 For i = 1 To 6
                     Translator.SetProperty("#PreviewListImage" & i, "")
@@ -390,6 +416,8 @@ Namespace ClickfinderProgramGuide
                 Next
 
                 Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(_SelectedCategorieItemId)
+
+                Translator.SetProperty("#CategorieGroup", _Categorie.groupName)
 
                 'SqlString StartZeit anpassen, je nachdem von wo aus GuiCategories aufgerufen wird
                 If _ClickfinderCategorieView = CategorieView.Day And _Day.Date = Date.Today.Date Then
@@ -413,6 +441,9 @@ Namespace ClickfinderProgramGuide
                 Dim _result As New ArrayList
                 _result.AddRange(Broker.Execute(_SqlString).TransposeToFieldList("idProgram", False))
 
+
+                MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: {0} program found, Categorie = {1}, group = {2}, SQLString: {3}", _result.Count, _Categorie.Name, _Categorie.groupName, _SqlString)
+
                 For i = 0 To _result.Count - 1
                     Try
                         Dim SaveChanges As Boolean = False
@@ -420,20 +451,33 @@ Namespace ClickfinderProgramGuide
                         'ProgramDaten über idProgram laden
                         Dim _ResultProgram As Program = Program.Retrieve(_result.Item(i))
 
+                        If Not _Categorie.groupName = "All Channels" Then
+                            'Alle Gruppen des _resultprogram laden
+                            Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
+                            sb.AddConstraint([Operator].Equals, "idgroup", _Categorie.Referencedgroup.IdGroup)
+                            sb.AddConstraint([Operator].Equals, "idChannel", _ResultProgram.IdChannel)
+                            Dim stmt As SqlStatement = sb.GetStatement(True)
+                            Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
+
+                            If _isInFavGroup.Count = 0 Then
+                                Continue For
+                            End If
+                        End If
+
                         Dim _TvMovieProgram As TVMovieProgram = getTvMovieProgram(_ResultProgram)
 
                         'Falls lokale Movies/Videos nicht angezeigt werden sollen -> aus Array entfernen
-                        If CBool(_layer.GetSetting("ClickfinderShowLocalMovies", "false").Value) = True Then
+                        If CBool(_layer.GetSetting("ClickfinderCategorieShowLocalMovies", "false").Value) = True Then
                             If _TvMovieProgram.local = True And _TvMovieProgram.idSeries = 0 Then
-                                MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: {0} exist local and will not be displayed", _TvMovieProgram.ReferencedProgram.Title)
+                                _LogLocalMovies = _LogLocalMovies & _TvMovieProgram.ReferencedProgram.Title & ", "
                                 Continue For
                             End If
                         End If
 
                         'Falls lokale Serien nicht angezeigt werden sollen -> aus Array entfernen
-                        If CBool(_layer.GetSetting("ClickfinderShowLocalSeries", "false").Value) = True Then
+                        If CBool(_layer.GetSetting("ClickfinderCategorieShowLocalSeries", "false").Value) = True Then
                             If _TvMovieProgram.local = True And _TvMovieProgram.idSeries > 0 Then
-                                MyLog.Debug("[CategoriesGuiWindow] [SetGuiProperties]: {0} exist local and will not be displayed", _TvMovieProgram.ReferencedProgram.Title & " - " & _TvMovieProgram.ReferencedProgram.EpisodeName)
+                                _LogLocalSeries = _LogLocalSeries & _TvMovieProgram.ReferencedProgram.Title & " - S" & Format(_TvMovieProgram.ReferencedProgram.SeriesNum, "00") & "E" & Format(_TvMovieProgram.ReferencedProgram.EpisodeNum, "00") & ", "
                                 Continue For
                             End If
                         End If
@@ -456,6 +500,12 @@ Namespace ClickfinderProgramGuide
 
                                 AddListControlItem(GetID, _PreviewList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram))
 
+                                MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: Add ListItem {0} (Title: {1}, Channel: {2}, startTime: {3}, idprogram: {4}, ratingStar: {5}, TvMovieStar: {6}, image: {7})", _
+                                            _ItemCounter, _program.Title, _program.ReferencedChannel.DisplayName, _
+                                            _program.StartTime, _program.IdProgram, _
+                                            GuiLayout.ratingStar(_TvMovieProgram.ReferencedProgram), _
+                                            _TvMovieProgram.TVMovieBewertung, GuiLayout.Image(_TvMovieProgram))
+
                                 _ItemCounter = _ItemCounter + 1
                                 _lastTitle = _program.Title & _program.EpisodeName
                             End If
@@ -465,14 +515,11 @@ Namespace ClickfinderProgramGuide
 
                         'log Ausgabe abfangen, falls der Thread abgebrochen wird
                     Catch ex As ThreadAbortException ' Ignore this exception
-                        _isAbortException = True
+                        MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: --- THREAD ABORTED ---")
+                        MyLog.Debug("")
                     Catch ex As GentleException
                     Catch ex As Exception
-                        If _isAbortException = False Then
-                            MyLog.[Error]("[CategoriesGuiWindow] [FillPreviewList]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
-                        Else
-                            _isAbortException = False
-                        End If
+                        MyLog.[Error]("[CategoriesGuiWindow] [FillPreviewList]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
                     End Try
 
                 Next
@@ -480,16 +527,23 @@ Namespace ClickfinderProgramGuide
                 ctlProgressBar.Visible = False
                 _PreviewList.Visible = True
 
+                If CBool(_layer.GetSetting("ClickfinderCategorieShowLocalSeries", "false").Value) = True Then
+                    MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: Series Episodes exist local and will not be displayed ({0})", _LogLocalMovies)
+                End If
+                If CBool(_layer.GetSetting("ClickfinderCategorieShowLocalMovies", "false").Value) = True Then
+                    MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: Movies exist local and will not be displayed ({0})", _LogLocalMovies)
+                End If
+
+                MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: Thread finished")
+                MyLog.Debug("")
+
                 'log Ausgabe abfangen, falls der Thread abgebrochen wird
             Catch ex2 As ThreadAbortException ' Ignore this exception
-                _isAbortException = True
-            Catch ex As GentleException
+                MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: --- THREAD ABORTED ---")
+                MyLog.Debug("")
+            Catch ex2 As GentleException
             Catch ex2 As Exception
-                If _isAbortException = False Then
-                    MyLog.[Error]("[CategoriesGuiWindow] [FillPreviewList]: exception err:" & ex2.Message & " stack:" & ex2.StackTrace)
-                Else
-                    _isAbortException = False
-                End If
+                MyLog.[Error]("[CategoriesGuiWindow] [FillPreviewList]: exception err:" & ex2.Message & " stack:" & ex2.StackTrace)
             End Try
         End Sub
 

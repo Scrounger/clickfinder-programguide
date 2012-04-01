@@ -201,6 +201,9 @@ ClickfinderProgramGuide
 	<summary>
  Persists the entity if it was never persisted or was changed.
  </summary>
+</member><member name="M:ClickfinderProgramGuide.TvDatabase.ClickfinderCategories.Referencedgroup">
+	<summary>
+	</summary>
 </member><member name="T:ClickfinderProgramGuide.TvDatabase.ClickfinderCategories">
 	<summary>
  Instances of this class represent the properties and methods of a row in the table <b>ClickfinderCategories</b>.

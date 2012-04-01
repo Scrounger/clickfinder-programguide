@@ -46,6 +46,7 @@ Namespace ClickfinderProgramGuide
         Friend Shared _CategorieMinRuntime As Integer
         Friend Shared _idCategorie As Integer = 0
         Friend Shared _sortedBy As String = String.Empty
+        Private _FilterByGroup As String = String.Empty
 
         Friend Shared _ItemsSqlString As String = String.Empty
 #End Region
@@ -115,6 +116,8 @@ Namespace ClickfinderProgramGuide
                 _Thread1.Start()
                 _Thread2.Start()
             End If
+
+            _FilterByGroup = "All Channels"
 
             MyLog.Info("")
             MyLog.Info("[ItemsGuiWindow] load")
@@ -341,6 +344,8 @@ Namespace ClickfinderProgramGuide
 
             _CurrentCounter = 0
 
+            Translator.SetProperty("#ItemsGroup", _FilterByGroup)
+
             Select Case _sortedBy
                 Case Is = SortMethode.startTime.ToString
                     _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
@@ -377,8 +382,26 @@ Namespace ClickfinderProgramGuide
                             'Prüfen ob schon in der Liste vorhanden
                             If String.Equals(_lastTitle, _Program.Title & _Program.EpisodeName) = False Then
 
+                                'Prüfen ob in Gruppe (Filter Fkt.)
+                                If Not _FilterByGroup = "All Channels" Then
+
+                                    Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _FilterByGroup)
+                                    Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
+
+                                    'Alle Gruppen des _program laden
+                                    Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
+                                    sb.AddConstraint([Operator].Equals, "idgroup", _Group.IdGroup)
+                                    sb.AddConstraint([Operator].Equals, "idChannel", _Program.IdChannel)
+                                    Dim stmt As SqlStatement = sb.GetStatement(True)
+                                    Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
+
+                                    If _isInFavGroup.Count = 0 Then
+                                        Continue For
+                                    End If
+                                End If
+
                                 'Falls lokale Movies/Videos nicht angezeigt werden sollen -> aus Array entfernen
-                                If CBool(_layer.GetSetting("ClickfinderShowLocalMovies", "false").Value) = True Then
+                                If CBool(_layer.GetSetting("ClickfinderItemsShowLocalMovies", "false").Value) = True Then
                                     Try
                                         Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_Program.IdProgram)
                                         If _TvMovieProgram.local = True And _TvMovieProgram.idSeries = 0 Then
@@ -390,7 +413,7 @@ Namespace ClickfinderProgramGuide
                                 End If
 
                                 'Falls lokale Serien nicht angezeigt werden sollen -> aus Array entfernen
-                                If CBool(_layer.GetSetting("ClickfinderShowLocalSeries", "false").Value) = True Then
+                                If CBool(_layer.GetSetting("ClickfinderItemsShowLocalSeries", "false").Value) = True Then
                                     Try
                                         Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_Program.IdProgram)
                                         If _TvMovieProgram.local = True And _TvMovieProgram.idSeries > 0 Then
@@ -423,6 +446,9 @@ Namespace ClickfinderProgramGuide
                 End Try
             Next
             MyLog.[Debug]("[ItemsGuiWindow] [SetGuiProperties]: _Result = {0} ItemsResult= {1}", _Result.Count, _ItemsResult.Count)
+
+
+
 
             Dim _Thread1 As New Thread(AddressOf FillLeftList)
             Dim _Thread2 As New Thread(AddressOf FillRightList)
@@ -625,6 +651,12 @@ Namespace ClickfinderProgramGuide
             dlgContext.Add(lItemSort)
             lItemSort.Dispose()
 
+            'Filter: TvGroup
+            Dim lItemGroup As New GUIListItem
+            lItemGroup.Label = Translation.Filterby
+            dlgContext.Add(lItemGroup)
+            lItemGroup.Dispose()
+
             'Action SubMenu
             Dim lItemActionOn As New GUIListItem
             lItemActionOn.Label = Translation.action
@@ -657,7 +689,8 @@ Namespace ClickfinderProgramGuide
                     ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime.AddMinutes(CDbl(_layer.GetSetting("ClickfinderNowOffset", "-20").Value)))), "#endTime", MySqlDate(PeriodeEndTime))), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
                     Translator.SetProperty("#ItemsLeftListLabel", _Categorie.Name & " " & Translation.von & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00") & " - " & Format(PeriodeEndTime.Hour, "00") & ":" & Format(PeriodeEndTime.Minute, "00"))
                     GUIWindowManager.ActivateWindow(1656544653)
-              
+                Case Is = Translation.Filterby
+                    ShowFilterMenu()
             End Select
 
         End Sub
@@ -756,6 +789,34 @@ Namespace ClickfinderProgramGuide
                 Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(key)
                 _Categorie.sortedBy = _sortedBy
                 _Categorie.Persist()
+            End If
+
+        End Sub
+
+        Private Sub ShowFilterMenu()
+            Dim dlgContext As GUIDialogMenu = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_MENU, Integer)), GUIDialogMenu)
+            dlgContext.Reset()
+
+            'ContextMenu Layout
+            dlgContext.SetHeading(Translation.Filterby)
+            dlgContext.ShowQuickNumbers = True
+
+            Dim _groups As IList(Of ChannelGroup) = ChannelGroup.ListAll
+
+            For i = 0 To _groups.Count - 1
+                Dim lItem As New GUIListItem
+                lItem.Label = _groups(i).GroupName
+                dlgContext.Add(lItem)
+                lItem.Dispose()
+            Next
+
+            dlgContext.DoModal(GetID)
+
+            If Not String.IsNullOrEmpty(dlgContext.SelectedLabelText) Then
+                _FilterByGroup = dlgContext.SelectedLabelText
+                Dim _FillLists As New Threading.Thread(AddressOf GetItemsOnLoad)
+                GuiLayoutLoading()
+                _FillLists.Start()
             End If
 
         End Sub

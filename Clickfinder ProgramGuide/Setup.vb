@@ -34,14 +34,16 @@ Public Class Setup
             NumShowHighlightsAfter.Value = _layer.GetSetting("ClickfinderOverviewShowHighlightsAfter", "15").Value
             NumHighlightsMinRuntime.Value = _layer.GetSetting("ClickfinderOverviewHighlightsMinRuntime", "16").Value
             NumMaxDays.Value = _layer.GetSetting("ClickfinderOverviewMaxDays", "10").Value
-            NumNowOffset.Value = _layer.GetSetting("ClickfinderNowOffset", "-20").Value
+            'NumNowOffset.Value = _layer.GetSetting("ClickfinderNowOffset", "-20").Value
             tbPrimeTime.Text = _layer.GetSetting("ClickfinderPrimeTime", "20:15").Value
             tbLateTime.Text = _layer.GetSetting("ClickfinderLateTime", "22:00").Value
-            CheckBoxFilterShowLocalMovies.Checked = _layer.GetSetting("ClickfinderShowLocalMovies", "false").Value
-            CheckBoxFilterShowLocalSeries.Checked = _layer.GetSetting("ClickfinderShowLocalSeries", "false").Value
+            CheckBoxFilterShowLocalMovies.Checked = _layer.GetSetting("ClickfinderItemsShowLocalMovies", "false").Value
+            CheckBoxFilterShowLocalSeries.Checked = _layer.GetSetting("ClickfinderItemsShowLocalSeries", "false").Value
             CheckBoxUseSportLogos.Checked = _layer.GetSetting("ClickfinderUseSportLogos", "false").Value
             CheckBoxRemberSortedBy.Checked = _layer.GetSetting("ClickfinderRemberSortedBy", "true").Value
             CheckBoxDebugMode.Checked = _layer.GetSetting("ClickfinderDebugMode", "false").Value
+            CheckBoxShowCategorieLocalMovies.Checked = _layer.GetSetting("ClickfinderCategorieShowLocalMovies", "false").Value
+            CheckBoxShowCategorieLocalSeries.Checked = _layer.GetSetting("ClickfinderCategorieShowLocalSeries", "false").Value
 
             If CBool(_layer.GetSetting("TvMovieEnabled", "false").Value) = False Or CBool(_layer.GetSetting("ClickfinderEnabled", "true").Value) = False Then
                 Dim message As New TvMoviePluginError
@@ -125,9 +127,9 @@ Public Class Setup
             setting.Value = CStr(NumMaxDays.Value)
             setting.Persist()
 
-            setting = _layer.GetSetting("ClickfinderNowOffset", "-20")
-            setting.Value = CStr(NumNowOffset.Value)
-            setting.Persist()
+            'setting = _layer.GetSetting("ClickfinderNowOffset", "-20")
+            'setting.Value = CStr(NumNowOffset.Value)
+            'setting.Persist()
 
             setting = _layer.GetSetting("ClickfinderPrimeTime", "20:15")
             setting.Value = tbPrimeTime.Text
@@ -233,7 +235,7 @@ Public Class Setup
     End Sub
 
     Private Sub CreateClickfinderCategoriesTable()
-        Broker.Execute("CREATE  TABLE `mptvdb`.`ClickfinderCategories` ( `idClickfinderCategories` INT NOT NULL AUTO_INCREMENT , `Name` VARCHAR(255) , `Beschreibung` VARCHAR(255) , `isVisible` BIT(1) NOT NULL DEFAULT 0 , `Image` VARCHAR(255) , `SqlString` TEXT NULL , `sortOrder` INT NOT NULL DEFAULT 0 , `MinRunTime` INT NOT NULL DEFAULT 0 , `NowOffset` INT NOT NULL DEFAULT 0 , `sortedBy` VARCHAR(255) , PRIMARY KEY (`idClickfinderCategories`) )")
+        Broker.Execute("CREATE  TABLE `mptvdb`.`ClickfinderCategories` ( `idClickfinderCategories` INT NOT NULL AUTO_INCREMENT , `Name` VARCHAR(255) , `Beschreibung` VARCHAR(255) , `isVisible` BIT(1) NOT NULL DEFAULT 0 , `Image` VARCHAR(255) , `SqlString` TEXT NULL , `sortOrder` INT NOT NULL DEFAULT 0 , `MinRunTime` INT NOT NULL DEFAULT 0 , `NowOffset` INT NOT NULL DEFAULT 0 , `sortedBy` VARCHAR(255) , `groupName` VARCHAR(255) , PRIMARY KEY (`idClickfinderCategories`) )")
     End Sub
 
     Private Sub CreateClickfinderCategories()
@@ -477,14 +479,14 @@ Public Class Setup
 
     Private Sub CheckBoxFilterShowLocalMovies_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxFilterShowLocalMovies.CheckedChanged
         Dim _layer As New TvBusinessLayer
-        Dim setting As Setting = _layer.GetSetting("ClickfinderShowLocalMovies", "false")
+        Dim setting As Setting = _layer.GetSetting("ClickfinderItemsShowLocalMovies", "false")
         setting.Value = CStr(CheckBoxFilterShowLocalMovies.Checked)
         setting.Persist()
     End Sub
 
     Private Sub CheckBoxFilterShowLocalSeries_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxFilterShowLocalSeries.CheckedChanged
         Dim _layer As New TvBusinessLayer
-        Dim setting As Setting = _layer.GetSetting("ClickfinderShowLocalSeries", "false")
+        Dim setting As Setting = _layer.GetSetting("ClickfinderItemsShowLocalSeries", "false")
         setting.Value = CStr(CheckBoxFilterShowLocalSeries.Checked)
         setting.Persist()
     End Sub
@@ -521,6 +523,21 @@ Public Class Setup
         Dim _layer As New TvBusinessLayer
         Dim setting As Setting = _layer.GetSetting("ClickfinderDebugMode", "false")
         setting.Value = CStr(CheckBoxDebugMode.Checked)
+        setting.Persist()
+    End Sub
+
+
+    Private Sub CheckBoxShowCategorieLocalMovies_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxShowCategorieLocalMovies.CheckedChanged
+        Dim _layer As New TvBusinessLayer
+        Dim setting As Setting = _layer.GetSetting("ClickfinderCategorieShowLocalMovies", "false")
+        setting.Value = CStr(CheckBoxShowCategorieLocalMovies.Checked)
+        setting.Persist()
+    End Sub
+
+    Private Sub CheckBoxShowCategorieLocalSeries_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxShowCategorieLocalSeries.CheckedChanged
+        Dim _layer As New TvBusinessLayer
+        Dim setting As Setting = _layer.GetSetting("ClickfinderCategorieShowLocalSeries", "false")
+        setting.Value = CStr(CheckBoxShowCategorieLocalSeries.Checked)
         setting.Persist()
     End Sub
 End Class

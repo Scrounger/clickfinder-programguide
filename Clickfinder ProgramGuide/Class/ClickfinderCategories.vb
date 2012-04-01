@@ -64,6 +64,9 @@ Namespace TvDatabase
         <TableColumn("sortedBy", NotNull:=True)> _
         Private m_sortedBy As String
 
+        <TableColumn("groupName", NotNull:=True)> _
+        Private m_groupName As String
+
 #End Region
 
 #Region "Constructors"
@@ -76,7 +79,7 @@ Namespace TvDatabase
             Me.m_Name = Name
         End Sub
 
-        Public Sub New(ByVal Name As String, ByVal Beschreibung As String, ByVal isVisible As Boolean, ByVal SortOrder As Integer, ByVal MinRunTime As Integer, ByVal NowOffset As Integer, Optional ByVal sortedBy As String = "startTime")
+        Public Sub New(ByVal Name As String, ByVal Beschreibung As String, ByVal isVisible As Boolean, ByVal SortOrder As Integer, ByVal MinRunTime As Integer, ByVal NowOffset As Integer, Optional ByVal sortedBy As String = "startTime", Optional ByVal groupName As String = "All Channels")
             Me.m_Name = Name
             Me.m_Beschreibung = Beschreibung
             Me.m_isVisible = isVisible
@@ -84,6 +87,7 @@ Namespace TvDatabase
             Me.m_MinRunTime = MinRunTime
             Me.m_NowOffset = NowOffset
             Me.m_sortedBy = sortedBy
+            Me.m_groupName = groupName
         End Sub
 
 #End Region
@@ -199,6 +203,15 @@ Namespace TvDatabase
                 m_sortedBy = value
             End Set
         End Property
+        Public Property groupName() As String
+            Get
+                Return m_groupName
+            End Get
+            Set(ByVal value As String)
+                m_isChanged = m_isChanged Or m_groupName <> value
+                m_groupName = value
+            End Set
+        End Property
 #End Region
 
 #Region "Storage and Retrieval"
@@ -247,6 +260,15 @@ Namespace TvDatabase
 #End Region
 
 #Region "Relations"
+
+        ''' <summary>
+        '''
+        ''' </summary>
+        <CLSCompliant(False)> _
+        Public Function Referencedgroup() As ChannelGroup
+            Dim key As New Key(GetType(ChannelGroup), True, "groupName", groupName)
+            Return Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
+        End Function
 
 #End Region
 
