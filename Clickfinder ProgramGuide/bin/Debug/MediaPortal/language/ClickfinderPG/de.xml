@@ -13,6 +13,7 @@
   <string Field="Saturday">Samstag</string>
   <string Field="Sunday">Sonntag</string>
   <string Field="Yesterday">Gestern</string>
+  <string Field="TwoDaysAgo">Vorgestern</string>
   <string Field="MovieListTitle">Movie Higlights</string>
   <string Field="HighlightsListTitle">weitere Higlights</string>
   <string Field="NewLabel">Neu !!!</string>
@@ -20,11 +21,12 @@
   <string Field="Record">Aufnehmen</string>
   <string Field="Remember">Erinnern</string>
   <string Field="ChannelON">Kanal einschalten</string>
-  <string Field="TodayGenre">gleiches Genre:</string>
+  <string Field="SameGenre">gleiches Genre:</string>
   <string Field="Season">Staffel</string>
   <string Field="Episode">Episode</string>
   <string Field="NewEpisode">Neu Episode !!!</string>
   <string Field="EpisodePrefixLabel">Folge:</string>
+  <string Field="EpisodeNewPrefixLabel">Neue Folge:</string>
   <string Field="Now">Jetzt</string>
   <string Field="PrimeTime">Prime Time</string>
   <string Field="LateTime">Late Time</string>
@@ -38,5 +40,21 @@
   <string Field="CategorieShow">versteckte Kategorie anzeigen</string>
   <string Field="CategorieChoose">wähle die Kategorie aus, die angezeigt werden soll</string>
   <string Field="CategorieHideNotFound">Keine versteckten Kategorien gefunden...</string>
+  <string Field="PageLabel">Seite</string>
+  <string Field="allMoviesAt">Alle Filme von</string>
+  <string Field="allCategoriesAt">Alle Kategorien von</string>
+    <string Field="at">um</string>
+  <string Field="before">vor</string>
+  <string Field="Days">Tagen</string>
+  <string Field="existlocal">lokal</string>
+  <string Field="SortStartTime">Startzeit</string>
+  <string Field="SortTvMovieStar">Tv Movie Bewertung</string>
+  <string Field="SortRatingStar">Rating</string>
+  <string Field="SortGenre">Genre</string>
+  <string Field="SortparentalRating">Altersfreigabe</string>
+  <string Field="Sortby">sortieren nach ...</string>
+  <string Field="SortbyGuiItems">sortiert nach</string>
+  <string Field="von">von</string>
+  <string Field="ImportIsRunning">Import wird zur Zeit durchgeführt !</string>
 
 </strings>

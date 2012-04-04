@@ -178,8 +178,16 @@ Namespace ClickfinderProgramGuide
         End Sub
 
         Protected Overrides Sub OnPageDestroy(ByVal new_windowId As Integer)
+
+            For i = 1 To 6
+                Translator.SetProperty("#PreviewListImage" & i, "")
+                Translator.SetProperty("#PreviewListTvMovieStar" & i, "")
+                Translator.SetProperty("#PreviewListRatingStar" & i, 0)
+            Next
+
             Try
                 If ThreadPreviewListFill.IsAlive = True Then ThreadPreviewListFill.Abort()
+
             Catch ex As Exception
                 'Eventuell auftretende Exception abfangen
                 ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
@@ -496,7 +504,7 @@ Namespace ClickfinderProgramGuide
                         'Falls lokale Serien nicht angezeigt werden sollen -> aus Array entfernen
                         If CBool(_layer.GetSetting("ClickfinderCategorieShowLocalSeries", "false").Value) = True Then
                             If _TvMovieProgram.local = True And _TvMovieProgram.idSeries > 0 Then
-                                _LogLocalSeries = _LogLocalSeries & _TvMovieProgram.ReferencedProgram.Title & " - S" & Format(_TvMovieProgram.ReferencedProgram.SeriesNum, "00") & "E" & Format(_TvMovieProgram.ReferencedProgram.EpisodeNum, "00") & ", "
+                                _LogLocalSeries = _LogLocalSeries & _TvMovieProgram.ReferencedProgram.Title & " - S" & _TvMovieProgram.ReferencedProgram.SeriesNum & "E" & _TvMovieProgram.ReferencedProgram.EpisodeNum & ", "
                                 Continue For
                             End If
                         End If
@@ -517,7 +525,7 @@ Namespace ClickfinderProgramGuide
                                 Translator.SetProperty("#PreviewListTvMovieStar" & _ItemCounter, GuiLayout.TvMovieStar(_TvMovieProgram))
                                 Translator.SetProperty("#PreviewListImage" & _ItemCounter, GuiLayout.Image(_TvMovieProgram))
 
-                                AddListControlItem(GetID, _PreviewList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram))
+                                AddListControlItem(GetID, _PreviewList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_program))
 
                                 MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: Add ListItem {0} (Title: {1}, Channel: {2}, startTime: {3}, idprogram: {4}, ratingStar: {5}, TvMovieStar: {6}, image: {7})", _
                                             _ItemCounter, _program.Title, _program.ReferencedChannel.DisplayName, _
@@ -547,7 +555,7 @@ Namespace ClickfinderProgramGuide
                 _PreviewList.Visible = True
 
                 If CBool(_layer.GetSetting("ClickfinderCategorieShowLocalSeries", "false").Value) = True Then
-                    MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: Series Episodes exist local and will not be displayed ({0})", _LogLocalMovies)
+                    MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: Series Episodes exist local and will not be displayed ({0})", _LogLocalSeries)
                 End If
                 If CBool(_layer.GetSetting("ClickfinderCategorieShowLocalMovies", "false").Value) = True Then
                     MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: Movies exist local and will not be displayed ({0})", _LogLocalMovies)
@@ -581,6 +589,7 @@ Namespace ClickfinderProgramGuide
                 dlgContext.SetHeading(Translation.Categorie & ": " & _Categorie.Name & " " & Translation.CategorieEdit)
                 dlgContext.ShowQuickNumbers = True
 
+                MyLog.Debug("[CategoriesGuiWindow] [ShowCategoriesContextMenu]: idCategorie = {0}, title = {1}", _Categorie.SortOrder, _Categorie.Name)
 
                 'Filter: TvGroup
                 Dim lItemGroup As New GUIListItem
@@ -614,10 +623,14 @@ Namespace ClickfinderProgramGuide
 
                 Select Case dlgContext.SelectedLabelText
                     Case Is = Translation.CategorieRename
+                        MyLog.Debug("[CategoriesGuiWindow] [ShowCategoriesContextMenu]: selected -> rename categorie: {0}", _Categorie.Name)
+                        MyLog.Debug("")
                         'Categorie umbennen
 
                     Case Is = Translation.CategorieHide
                         'Categorie verstecken
+                        MyLog.Debug("[CategoriesGuiWindow] [ShowCategoriesContextMenu]: selected -> hide categorie: {0}", _Categorie.Name)
+                        MyLog.Debug("")
                         _Categorie.isVisible = False
                         _Categorie.Persist()
 
@@ -626,10 +639,15 @@ Namespace ClickfinderProgramGuide
 
                     Case Is = Translation.CategorieShow
                         'versteckte Categorie anzeigen
+                        MyLog.Debug("[CategoriesGuiWindow] [ShowCategoriesContextMenu]: selected -> hidden Categories menu")
                         showNotVisibleCategories()
 
                     Case Is = Translation.Filterby
+                        MyLog.Debug("[CategoriesGuiWindow] [ShowCategoriesContextMenu]: selected -> filter menu")
                         ShowFilterMenu(_Categorie)
+                    Case Else
+                        MyLog.Debug("[CategoriesGuiWindow] [ShowCategoriesContextMenu]: exit")
+                        MyLog.Debug("")
                 End Select
 
 
@@ -671,12 +689,16 @@ Namespace ClickfinderProgramGuide
                     dlgContext.DoModal(GetID)
 
                     Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(_idCategorieContainer(dlgContext.SelectedLabel))
+                    MyLog.Debug("[CategoriesGuiWindow] [showNotVisibleCategories]: selected -> set Categorie = {0} visible", _Categorie.Name)
+                    MyLog.Debug("")
                     _Categorie.isVisible = True
                     _Categorie.Persist()
                     CategoriesGuiWindow.SetGuiProperties(_ClickfinderCategorieView)
                     GUIWindowManager.ActivateWindow(1656544654)
                 Else
                     'dlgContext.ShowQuickNumbers = False
+                    MyLog.Debug("[CategoriesGuiWindow] [showNotVisibleCategories]: no hidden categories found -> exit")
+                    MyLog.Debug("")
                     Dim lItem As New GUIListItem
                     lItem.Label = Translation.CategorieHideNotFound
                     dlgContext.Add(lItem)
@@ -713,6 +735,8 @@ Namespace ClickfinderProgramGuide
             dlgContext.DoModal(GetID)
 
             If Not String.IsNullOrEmpty(dlgContext.SelectedLabelText) Then
+                MyLog.Debug("[CategoriesGuiWindow] [ShowFilterMenu]: selected -> fliter by groug: {0}", dlgContext.SelectedLabelText)
+                MyLog.Debug("")
                 Categorie.groupName = dlgContext.SelectedLabelText
                 Categorie.Persist()
 
@@ -720,6 +744,8 @@ Namespace ClickfinderProgramGuide
                 ThreadPreviewListFill.IsBackground = True
                 ThreadPreviewListFill.Start()
 
+            Else
+                MyLog.Debug("[CategoriesGuiWindow] [showNotVisibleCategories]: selected -> exit")
             End If
 
         End Sub

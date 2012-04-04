@@ -201,6 +201,18 @@ Namespace ClickfinderProgramGuide
             End Get
         End Property
 
+        Friend Shared ReadOnly Property RecordingStatus(ByVal program As Program) As Boolean
+            Get
+                If program.IsRecording = True Or program.IsRecordingManual = True Or program.IsRecordingOnce = True Or _
+                program.IsRecordingOncePending = True Or program.IsRecordingSeries = True Or program.IsRecordingSeriesPending = True Then
+                    Return True
+                Else
+                    Return False
+                End If
+
+            End Get
+        End Property
+
     End Class
 
 End Namespace

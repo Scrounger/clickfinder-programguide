@@ -19,7 +19,7 @@ Public Class Helper
         Genre
         parentalRating
     End Enum
-    Friend Shared Sub AddListControlItem(ByVal WindowId As Integer, ByVal Listcontrol As GUIListControl, ByVal idProgram As Integer, ByVal ChannelName As String, ByVal titelLabel As String, Optional ByVal timeLabel As String = "", Optional ByVal infoLabel As String = "", Optional ByVal ImagePath As String = "", Optional ByVal MinRunTime As Integer = 0)
+    Friend Shared Sub AddListControlItem(ByVal WindowId As Integer, ByVal Listcontrol As GUIListControl, ByVal idProgram As Integer, ByVal ChannelName As String, ByVal titelLabel As String, Optional ByVal timeLabel As String = "", Optional ByVal infoLabel As String = "", Optional ByVal ImagePath As String = "", Optional ByVal MinRunTime As Integer = 0, Optional ByVal isRecording As Boolean = False)
 
         Dim lItem As New GUIListItem
 
@@ -39,6 +39,12 @@ Public Class Helper
         lItem.Path = ChannelName
         lItem.IconImage = ImagePath
         lItem.Duration = MinRunTime
+        If isRecording = True Then
+            lItem.PinImage = "tvguide_record_button.png"
+        Else
+            lItem.PinImage = ""
+        End If
+
 
         'If Not String.IsNullOrEmpty(ImagePath) Then
         '    Try

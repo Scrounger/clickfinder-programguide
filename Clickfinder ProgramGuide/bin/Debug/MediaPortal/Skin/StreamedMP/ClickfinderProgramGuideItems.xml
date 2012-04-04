@@ -39,7 +39,7 @@
       <colordiffuse>90ffffff</colordiffuse>
     </control>
 
-    <control>
+    <!--<control>
       <id>1</id>
       <description>Overlay Image</description>
       <type>image</type>
@@ -47,42 +47,42 @@
       <posY>0</posY>
       <width>1280</width>
       <height>720</height>
-      <texture>filmstrip_overlay.png</texture>
-    </control>
+      <texture>ClickfinderPG_overlay.png</texture>
+    </control>-->
 
+    <control>
+      <id>1</id>
+      <description>TopBar Image</description>
+      <type>image</type>
+      <posX>20</posX>
+      <posY>14</posY>
+      <width>1240</width>
+      <height>46</height>
+      <texture>ClickfinderPG_TopBarBG.png</texture>
+    </control>
+    
     <control>
       <description>Date Time</description>
       <type>label</type>
       <id>0</id>
       <posX>1244</posX>
-      <posY>10</posY>
+      <posY>25</posY>
       <label>#date | #time</label>
       <align>right</align>
-      <font>font12</font>
+      <font>mediastream10</font>
       <textcolor>ffa9d0f7</textcolor>
     </control>
 
     <!-- Tv Movie++ Last UpdateLabel-->
     <control>
-      <description>label</description>
-      <type>label</type>
-      <id>1</id>
-      <posX>300</posX>
-      <posY>674</posY>
-      <label>#ClickfinderPG.Translation.LastUpdate</label>
-      <font>font9</font>
-      <textcolor>FFdddddd</textcolor>
-    </control>
-
-    <control>
       <description>TvMovie++ LastUpdate</description>
       <type>label</type>
       <id>1</id>
-      <posX>620</posX>
-      <posY>674</posY>
+      <posX>40</posX>
+      <posY>25</posY>
       <label>#SettingLastUpdate</label>
-      <font>font9</font>
-      <align>right</align>
+      <font>mediastream10</font>
+      <align>left</align>
       <textcolor>FFdddddd</textcolor>
     </control>
 
@@ -90,10 +90,12 @@
       <description>CurrentPage Label</description>
       <type>label</type>
       <id>1</id>
-      <posX>20</posX>
+      <posX>450</posX>
       <posY>30</posY>
-      <label>#SettingCurrentPageLabel</label>
-      <font>font10</font>
+      <width>380</width>
+      <align>center</align>
+      <label>#CurrentPageLabel</label>
+      <font>mediastream10tc</font>
       <textcolor>FFdddddd</textcolor>
     </control>
 
@@ -113,17 +115,17 @@
       <type>label</type>
       <id>1</id>
       <posX>40</posX>
-      <posY>84</posY>
-      <label>#ClickfinderPG.Translation.MovieListTitle</label>
-      <font>font12</font>
+      <posY>76</posY>
+      <label>#ItemsLeftListLabel</label>
+      <font>mediastream12</font>
       <textcolor>FFdddddd</textcolor>
     </control>
     <control>
       <id>1</id>
-      <description>Background Image</description>
+      <description>Separator Image</description>
       <type>image</type>
       <posX>20</posX>
-      <posY>120</posY>
+      <posY>110</posY>
       <width>630</width>
       <height>2</height>
       <texture>ClickfinderPG_Sep.png</texture>
@@ -135,9 +137,9 @@
       <onleft>2</onleft>
       <onright>30</onright>
       <posX>30</posX>
-      <posY>130</posY>
+      <posY>114</posY>
       <width>590</width>
-      <height>600</height>
+      <height>636</height>
       <spinWidth>30</spinWidth>
       <spinHeight>30</spinHeight>
       <spinPosX>564</spinPosX>
@@ -145,67 +147,55 @@
       <spinAlign>Right</spinAlign>
       <spinColor>ff006698</spinColor>
       <spinCanFocus>no</spinCanFocus>
-      <textureUp>page_up_nofocus.png</textureUp>
-      <textureDown>page_down_nofocus.png</textureDown>
-      <textureUpFocus>page_up_focus.png</textureUpFocus>
-      <textureDownFocus>page_down_focus.png</textureDownFocus>
-      <textureFocus>list_sub_focus.png</textureFocus>
-      <textureNoFocus>list_sub_nofocus.png</textureNoFocus>
-      <textureHeight>90</textureHeight>
+      <textureUp>arrow_round_up_nofocus.png</textureUp>
+      <textureDown>arrow_round_down_nofocus.png</textureDown>
+      <textureUpFocus>arrow_round_up_focus.png</textureUpFocus>
+      <textureDownFocus>arrow_round_down_focus.png</textureDownFocus>
+      <keepaspectratio>yes</keepaspectratio>
+      <textureHeight>97</textureHeight>
       <IconXOff>4</IconXOff>
       <IconYOff>4</IconYOff>
-      <textXOff>26</textXOff>
+      <textXOff>20</textXOff>
       <textYOff>2</textYOff>
-      <font>font11</font>
+      <font>mediastream12</font>
       <textcolor>ffffffff</textcolor>
       <textXOff2>590</textXOff2>
       <textYOff2>40</textYOff2>
-      <font2>font10</font2>
+      <font2>mediastream12tc</font2>
       <textcolor2>ff909090</textcolor2>
-      <textXOff3>122</textXOff3>
+      <textXOff3>124</textXOff3>
       <textYOff3>30</textYOff3>
-      <font3>font9</font3>
+      <font3>mediastream10</font3>
       <textcolor3>ff909090</textcolor3>
-      <itemWidth>82</itemWidth>
-      <itemHeight>82</itemHeight>
+      <itemWidth>89</itemWidth>
+      <itemHeight>89</itemHeight>
       <scrollOffset>2</scrollOffset>
       <scrollbarXOff>0</scrollbarXOff>
       <scrollbarwidth>15</scrollbarwidth>
       <visible></visible>
     </control>
+
     <control>
       <description>ItemsListImage 1</description>
       <type>image</type>
       <id>1</id>
       <posX>40</posX>
-      <posY>134</posY>
+      <posY>120</posY>
       <width>100</width>
-      <height>80</height>
+      <height>86</height>
       <texture>#ItemsListImage1</texture>
       <filtered>yes</filtered>
       <centered>yes</centered>
       <keepaspectratio>yes</keepaspectratio>
-      <visible></visible>
+      <visible>control.isvisible(10)</visible>
     </control>
-    <control>
-      <description>ItemsListTvMovieStar1</description>
-      <type>image</type>
-      <id>1</id>
-      <posX>22</posX>
-      <posY>180</posY>
-      <width>48</width>
-      <height>48</height>
-      <texture>#ItemsListTvMovieStar1</texture>
-      <centered>no</centered>
-      <keepaspectratio>no</keepaspectratio>
-      <visible></visible>
-    </control>
+
     <control>
       <description>ItemsListRatingStar Image 1</description>
       <type>imagelist</type>
       <id>1</id>
       <posX>496</posX>
-      <posY>160</posY>
+      <posY>146</posY>
       <width>120</width>
       <height>10</height>
       <textureWidth>12</textureWidth>
@@ -218,7 +208,7 @@
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
       <percentage>#ItemsListRatingStar1</percentage>
-      <visible>!string.starts(#ItemsListRatingStar1,0)</visible>
+      <visible>!string.starts(#ItemsListRatingStar1,0)+control.isvisible(10)</visible>
     </control>
 
     <control>
@@ -226,34 +216,22 @@
       <type>image</type>
       <id>1</id>
       <posX>40</posX>
-      <posY>224</posY>
+      <posY>218</posY>
       <width>100</width>
-      <height>80</height>
+      <height>86</height>
       <texture>#ItemsListImage2</texture>
       <filtered>yes</filtered>
       <centered>yes</centered>
       <keepaspectratio>yes</keepaspectratio>
-      <visible></visible>
+      <visible>control.isvisible(10)</visible>
     </control>
-    <control>
-      <description>ItemsListTvMovieStar2</description>
-      <type>image</type>
-      <id>1</id>
-      <posX>22</posX>
-      <posY>270</posY>
-      <width>48</width>
-      <height>48</height>
-      <texture>#ItemsListTvMovieStar2</texture>
-      <centered>no</centered>
-      <keepaspectratio>no</keepaspectratio>
-      <visible></visible>
-    </control>
+
     <control>
       <description>ItemsListRatingStar Image 2</description>
       <type>imagelist</type>
       <id>1</id>
       <posX>496</posX>
-      <posY>250</posY>
+      <posY>244</posY>
       <width>120</width>
       <height>10</height>
       <textureWidth>12</textureWidth>
@@ -266,7 +244,7 @@
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
       <percentage>#ItemsListRatingStar2</percentage>
-      <visible>!string.starts(#ItemsListRatingStar2,0)</visible>
+      <visible>!string.starts(#ItemsListRatingStar2,0)+control.isvisible(10)</visible>
     </control>
 
     <control>
@@ -276,26 +254,14 @@
       <posX>40</posX>
       <posY>314</posY>
       <width>100</width>
-      <height>80</height>
+      <height>86</height>
       <texture>#ItemsListImage3</texture>
       <filtered>yes</filtered>
       <centered>yes</centered>
       <keepaspectratio>yes</keepaspectratio>
-      <visible></visible>
+      <visible>control.isvisible(10)</visible>
     </control>
-    <control>
-      <description>ItemsListTvMovieStar3</description>
-      <type>image</type>
-      <id>1</id>
-      <posX>22</posX>
-      <posY>360</posY>
-      <width>48</width>
-      <height>48</height>
-      <texture>#ItemsListTvMovieStar3</texture>
-      <centered>no</centered>
-      <keepaspectratio>no</keepaspectratio>
-      <visible></visible>
-    </control>
+
     <control>
       <description>ItemsListRatingStar Image 3</description>
       <type>imagelist</type>
@@ -314,7 +280,7 @@
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
       <percentage>#ItemsListRatingStar3</percentage>
-      <visible>!string.starts(#ItemsListRatingStar3,0)</visible>
+      <visible>!string.starts(#ItemsListRatingStar3,0)+control.isvisible(10)</visible>
     </control>
 
     <control>
@@ -322,34 +288,21 @@
       <type>image</type>
       <id>1</id>
       <posX>40</posX>
-      <posY>404</posY>
+      <posY>412</posY>
       <width>100</width>
-      <height>80</height>
+      <height>86</height>
       <texture>#ItemsListImage4</texture>
       <filtered>yes</filtered>
       <centered>yes</centered>
       <keepaspectratio>yes</keepaspectratio>
-      <visible></visible>
-    </control>
-    <control>
-      <description>ItemsListTvMovieStar4</description>
-      <type>image</type>
-      <id>1</id>
-      <posX>22</posX>
-      <posY>450</posY>
-      <width>48</width>
-      <height>48</height>
-      <texture>#ItemsListTvMovieStar4</texture>
-      <centered>no</centered>
-      <keepaspectratio>no</keepaspectratio>
-      <visible></visible>
+      <visible>control.isvisible(10)</visible>
     </control>
     <control>
       <description>ItemsListRatingStar Image 4</description>
       <type>imagelist</type>
       <id>1</id>
       <posX>496</posX>
-      <posY>430</posY>
+      <posY>438</posY>
       <width>120</width>
       <height>10</height>
       <textureWidth>12</textureWidth>
@@ -362,7 +315,7 @@
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
       <percentage>#ItemsListRatingStar4</percentage>
-      <visible>!string.starts(#ItemsListRatingStar4,0)</visible>
+      <visible>!string.starts(#ItemsListRatingStar4,0)+control.isvisible(10)</visible>
     </control>
 
     <control>
@@ -370,34 +323,21 @@
       <type>image</type>
       <id>1</id>
       <posX>40</posX>
-      <posY>494</posY>
+      <posY>508</posY>
       <width>100</width>
-      <height>80</height>
+      <height>86</height>
       <texture>#ItemsListImage5</texture>
       <filtered>yes</filtered>
       <centered>yes</centered>
       <keepaspectratio>yes</keepaspectratio>
-      <visible></visible>
-    </control>
-    <control>
-      <description>ItemsListTvMovieStar5</description>
-      <type>image</type>
-      <id>1</id>
-      <posX>22</posX>
-      <posY>540</posY>
-      <width>48</width>
-      <height>48</height>
-      <texture>#ItemsListTvMovieStar5</texture>
-      <centered>no</centered>
-      <keepaspectratio>no</keepaspectratio>
-      <visible></visible>
+      <visible>control.isvisible(10)</visible>
     </control>
     <control>
       <description>ItemsListRatingStar Image 5</description>
       <type>imagelist</type>
       <id>1</id>
       <posX>496</posX>
-      <posY>520</posY>
+      <posY>534</posY>
       <width>120</width>
       <height>10</height>
       <textureWidth>12</textureWidth>
@@ -410,41 +350,28 @@
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
       <percentage>#ItemsListRatingStar5</percentage>
-      <visible>!string.starts(#ItemsListRatingStar5,0)</visible>
+      <visible>!string.starts(#ItemsListRatingStar5,0)+control.isvisible(10)</visible>
     </control>
     <control>
       <description>ItemsListImage 6</description>
       <type>image</type>
       <id>1</id>
       <posX>40</posX>
-      <posY>584</posY>
+      <posY>606</posY>
       <width>100</width>
-      <height>80</height>
+      <height>86</height>
       <texture>#ItemsListImage6</texture>
       <filtered>yes</filtered>
       <centered>yes</centered>
       <keepaspectratio>yes</keepaspectratio>
-      <visible></visible>
-    </control>
-    <control>
-      <description>ItemsListTvMovieStar6</description>
-      <type>image</type>
-      <id>1</id>
-      <posX>22</posX>
-      <posY>630</posY>
-      <width>48</width>
-      <height>48</height>
-      <texture>#ItemsListTvMovieStar6</texture>
-      <centered>no</centered>
-      <keepaspectratio>no</keepaspectratio>
-      <visible></visible>
+      <visible>control.isvisible(10)</visible>
     </control>
     <control>
       <description>ItemsListRatingStar Image 6</description>
       <type>imagelist</type>
       <id>1</id>
       <posX>496</posX>
-      <posY>610</posY>
+      <posY>632</posY>
       <width>120</width>
       <height>10</height>
       <textureWidth>12</textureWidth>
@@ -457,7 +384,88 @@
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
       <percentage>#ItemsListRatingStar6</percentage>
-      <visible>!string.starts(#ItemsListRatingStar6,0)</visible>
+      <visible>!string.starts(#ItemsListRatingStar6,0)+control.isvisible(10)</visible>
+    </control>
+
+
+    <!--Tv Movie ListStars-->
+    <control>
+      <description>ItemsListTvMovieStar1</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>22</posX>
+      <posY>174</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture>#ItemsListTvMovieStar1</texture>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>control.isvisible(10)</visible>
+    </control>
+    <control>
+      <description>ItemsListTvMovieStar2</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>22</posX>
+      <posY>272</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture>#ItemsListTvMovieStar2</texture>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>control.isvisible(10)</visible>
+    </control>
+    <control>
+      <description>ItemsListTvMovieStar3</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>22</posX>
+      <posY>368</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture>#ItemsListTvMovieStar3</texture>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>control.isvisible(10)</visible>
+    </control>
+    <control>
+      <description>ItemsListTvMovieStar4</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>22</posX>
+      <posY>466</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture>#ItemsListTvMovieStar4</texture>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>control.isvisible(10)</visible>
+    </control>
+    <control>
+      <description>ItemsListTvMovieStar5</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>22</posX>
+      <posY>564</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture>#ItemsListTvMovieStar5</texture>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>control.isvisible(10)</visible>
+    </control>
+    <control>
+      <description>ItemsListTvMovieStar6</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>22</posX>
+      <posY>660</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture>#ItemsListTvMovieStar6</texture>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>control.isvisible(10)</visible>
     </control>
 
     <!-- rightList & Controls-->
@@ -476,17 +484,28 @@
       <type>label</type>
       <id>1</id>
       <posX>670</posX>
+      <posY>76</posY>
+      <label>#ItemsRightListLabel</label>
+      <font>mediastream12</font>
+      <textcolor>FFdddddd</textcolor>
+    </control>
+    <control>
+      <description>Filterby label</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>1250</posX>
       <posY>84</posY>
-      <label>#ClickfinderPG.Translation.HighlightsListTitle</label>
-      <font>font12</font>
+      <label>#ItemsGroup</label>
+      <font>mediastream10</font>
+      <align>right</align>
       <textcolor>FFdddddd</textcolor>
     </control>
     <control>
       <id>1</id>
-      <description>Background Image</description>
+      <description>Separator Image</description>
       <type>image</type>
       <posX>650</posX>
-      <posY>120</posY>
+      <posY>110</posY>
       <width>630</width>
       <height>2</height>
       <texture>ClickfinderPG_Sep.png</texture>
@@ -494,13 +513,12 @@
     <control>
       <type>listcontrol</type>
       <id>30</id>
-      <onright>100</onright>
       <onleft>10</onleft>
       <onright>2</onright>
       <posX>660</posX>
-      <posY>130</posY>
+      <posY>114</posY>
       <width>590</width>
-      <height>600</height>
+      <height>636</height>
       <spinWidth>30</spinWidth>
       <spinHeight>30</spinHeight>
       <spinPosX>1180</spinPosX>
@@ -508,29 +526,28 @@
       <spinAlign>Right</spinAlign>
       <spinColor>ff006698</spinColor>
       <spinCanFocus>no</spinCanFocus>
-      <textureUp>page_up_nofocus.png</textureUp>
-      <textureDown>page_down_nofocus.png</textureDown>
-      <textureUpFocus>page_up_focus.png</textureUpFocus>
-      <textureDownFocus>page_down_focus.png</textureDownFocus>
-      <textureFocus>list_sub_focus.png</textureFocus>
-      <textureNoFocus>list_sub_nofocus.png</textureNoFocus>
-      <textureHeight>90</textureHeight>
+      <textureUp>arrow_round_up_nofocus.png</textureUp>
+      <textureDown>arrow_round_down_nofocus.png</textureDown>
+      <textureUpFocus>arrow_round_up_focus.png</textureUpFocus>
+      <textureDownFocus>arrow_round_down_focus.png</textureDownFocus>
+      <keepaspectratio>yes</keepaspectratio>
+      <textureHeight>97</textureHeight>
       <IconXOff>4</IconXOff>
       <IconYOff>4</IconYOff>
-      <textXOff>26</textXOff>
+      <textXOff>20</textXOff>
       <textYOff>2</textYOff>
-      <font>font11</font>
+      <font>mediastream12</font>
       <textcolor>ffffffff</textcolor>
       <textXOff2>590</textXOff2>
       <textYOff2>40</textYOff2>
-      <font2>font10</font2>
+      <font2>mediastream12tc</font2>
       <textcolor2>ff909090</textcolor2>
-      <textXOff3>122</textXOff3>
+      <textXOff3>124</textXOff3>
       <textYOff3>30</textYOff3>
-      <font3>font9</font3>
+      <font3>mediastream10</font3>
       <textcolor3>ff909090</textcolor3>
-      <itemWidth>82</itemWidth>
-      <itemHeight>82</itemHeight>
+      <itemWidth>89</itemWidth>
+      <itemHeight>89</itemHeight>
       <scrollOffset>2</scrollOffset>
       <scrollbarXOff>0</scrollbarXOff>
       <scrollbarwidth>15</scrollbarwidth>
@@ -540,38 +557,24 @@
       <description>ItemsListImage 7</description>
       <type>image</type>
       <id>1</id>
-      <!--<posX>40</posX>-->
       <posX>670</posX>
-      <posY>134</posY>
+      <posY>120</posY>
       <width>100</width>
       <height>80</height>
       <texture>#ItemsListImage7</texture>
       <filtered>yes</filtered>
       <centered>yes</centered>
       <keepaspectratio>yes</keepaspectratio>
-      <visible></visible>
+      <visible>control.isvisible(30)</visible>
     </control>
-    <control>
-      <description>ItemsListTvMovieStar7</description>
-      <type>image</type>
-      <id>1</id>
-      <!--<posX>22</posX>-->
-      <posX>652</posX>
-      <posY>180</posY>
-      <width>48</width>
-      <height>48</height>
-      <texture>#ItemsListTvMovieStar7</texture>
-      <centered>no</centered>
-      <keepaspectratio>no</keepaspectratio>
-      <visible></visible>
-    </control>
+
     <control>
       <description>ItemsListRatingStar Image 7</description>
       <type>imagelist</type>
       <id>1</id>
       <!--<posX>496</posX>-->
       <posX>1126</posX>
-      <posY>160</posY>
+      <posY>146</posY>
       <width>120</width>
       <height>10</height>
       <textureWidth>12</textureWidth>
@@ -584,7 +587,7 @@
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
       <percentage>#ItemsListRatingStar7</percentage>
-      <visible>!string.starts(#ItemsListRatingStar7,0)</visible>
+      <visible>!string.starts(#ItemsListRatingStar7,0)+control.isvisible(30)</visible>
     </control>
 
     <control>
@@ -592,34 +595,22 @@
       <type>image</type>
       <id>1</id>
       <posX>670</posX>
-      <posY>224</posY>
+      <posY>218</posY>
       <width>100</width>
       <height>80</height>
       <texture>#ItemsListImage8</texture>
       <filtered>yes</filtered>
       <centered>yes</centered>
       <keepaspectratio>yes</keepaspectratio>
-      <visible></visible>
+      <visible>control.isvisible(30)</visible>
     </control>
-    <control>
-      <description>ItemsListTvMovieStar8</description>
-      <type>image</type>
-      <id>1</id>
-      <posX>652</posX>
-      <posY>270</posY>
-      <width>48</width>
-      <height>48</height>
-      <texture>#ItemsListTvMovieStar8</texture>
-      <centered>no</centered>
-      <keepaspectratio>no</keepaspectratio>
-      <visible></visible>
-    </control>
+
     <control>
       <description>ItemsListRatingStar Image 8</description>
       <type>imagelist</type>
       <id>1</id>
       <posX>1126</posX>
-      <posY>250</posY>
+      <posY>244</posY>
       <width>120</width>
       <height>10</height>
       <textureWidth>12</textureWidth>
@@ -632,7 +623,7 @@
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
       <percentage>#ItemsListRatingStar8</percentage>
-      <visible>!string.starts(#ItemsListRatingStar8,0)</visible>
+      <visible>!string.starts(#ItemsListRatingStar8,0)+control.isvisible(30)</visible>
     </control>
 
     <control>
@@ -647,21 +638,9 @@
       <filtered>yes</filtered>
       <centered>yes</centered>
       <keepaspectratio>yes</keepaspectratio>
-      <visible></visible>
+      <visible>control.isvisible(30)</visible>
     </control>
-    <control>
-      <description>ItemsListTvMovieStar9</description>
-      <type>image</type>
-      <id>1</id>
-      <posX>652</posX>
-      <posY>360</posY>
-      <width>48</width>
-      <height>48</height>
-      <texture>#ItemsListTvMovieStar9</texture>
-      <centered>no</centered>
-      <keepaspectratio>no</keepaspectratio>
-      <visible></visible>
-    </control>
+
     <control>
       <description>ItemsListRatingStar Image 9</description>
       <type>imagelist</type>
@@ -680,7 +659,7 @@
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
       <percentage>#ItemsListRatingStar9</percentage>
-      <visible>!string.starts(#ItemsListRatingStar9,0)</visible>
+      <visible>!string.starts(#ItemsListRatingStar9,0)+control.isvisible(30)</visible>
     </control>
 
     <control>
@@ -688,34 +667,22 @@
       <type>image</type>
       <id>1</id>
       <posX>670</posX>
-      <posY>404</posY>
+      <posY>412</posY>
       <width>100</width>
       <height>80</height>
       <texture>#ItemsListImage10</texture>
       <filtered>yes</filtered>
       <centered>yes</centered>
       <keepaspectratio>yes</keepaspectratio>
-      <visible></visible>
+      <visible>control.isvisible(30)</visible>
     </control>
-    <control>
-      <description>ItemsListTvMovieStar10</description>
-      <type>image</type>
-      <id>1</id>
-      <posX>652</posX>
-      <posY>450</posY>
-      <width>48</width>
-      <height>48</height>
-      <texture>#ItemsListTvMovieStar10</texture>
-      <centered>no</centered>
-      <keepaspectratio>no</keepaspectratio>
-      <visible></visible>
-    </control>
+
     <control>
       <description>ItemsListRatingStar Image 10</description>
       <type>imagelist</type>
       <id>1</id>
       <posX>1126</posX>
-      <posY>430</posY>
+      <posY>438</posY>
       <width>120</width>
       <height>10</height>
       <textureWidth>12</textureWidth>
@@ -728,7 +695,7 @@
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
       <percentage>#ItemsListRatingStar10</percentage>
-      <visible>!string.starts(#ItemsListRatingStar10,0)</visible>
+      <visible>!string.starts(#ItemsListRatingStar10,0)+control.isvisible(30)</visible>
     </control>
 
     <control>
@@ -736,34 +703,22 @@
       <type>image</type>
       <id>1</id>
       <posX>670</posX>
-      <posY>494</posY>
+      <posY>508</posY>
       <width>100</width>
       <height>80</height>
       <texture>#ItemsListImage11</texture>
       <filtered>yes</filtered>
       <centered>yes</centered>
       <keepaspectratio>yes</keepaspectratio>
-      <visible></visible>
+      <visible>control.isvisible(30)</visible>
     </control>
-    <control>
-      <description>ItemsListTvMovieStar11</description>
-      <type>image</type>
-      <id>1</id>
-      <posX>652</posX>
-      <posY>540</posY>
-      <width>48</width>
-      <height>48</height>
-      <texture>#ItemsListTvMovieStar11</texture>
-      <centered>no</centered>
-      <keepaspectratio>no</keepaspectratio>
-      <visible></visible>
-    </control>
+
     <control>
       <description>ItemsListRatingStar Image 11</description>
       <type>imagelist</type>
       <id>1</id>
       <posX>1126</posX>
-      <posY>520</posY>
+      <posY>534</posY>
       <width>120</width>
       <height>10</height>
       <textureWidth>12</textureWidth>
@@ -776,41 +731,29 @@
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
       <percentage>#ItemsListRatingStar11</percentage>
-      <visible>!string.starts(#ItemsListRatingStar11,0)</visible>
+      <visible>!string.starts(#ItemsListRatingStar11,0)+control.isvisible(30)</visible>
     </control>
     <control>
       <description>ItemsListImage 12</description>
       <type>image</type>
       <id>1</id>
       <posX>670</posX>
-      <posY>584</posY>
+      <posY>606</posY>
       <width>100</width>
       <height>80</height>
       <texture>#ItemsListImage12</texture>
       <filtered>yes</filtered>
       <centered>yes</centered>
       <keepaspectratio>yes</keepaspectratio>
-      <visible></visible>
+      <visible>control.isvisible(30)</visible>
     </control>
-    <control>
-      <description>ItemsListTvMovieStar12</description>
-      <type>image</type>
-      <id>1</id>
-      <posX>652</posX>
-      <posY>630</posY>
-      <width>48</width>
-      <height>48</height>
-      <texture>#ItemsListTvMovieStar12</texture>
-      <centered>no</centered>
-      <keepaspectratio>no</keepaspectratio>
-      <visible></visible>
-    </control>
+
     <control>
       <description>ItemsListRatingStar Image 12</description>
       <type>imagelist</type>
       <id>1</id>
       <posX>1126</posX>
-      <posY>610</posY>
+      <posY>632</posY>
       <width>120</width>
       <height>10</height>
       <textureWidth>12</textureWidth>
@@ -823,7 +766,87 @@
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
       <percentage>#ItemsListRatingStar12</percentage>
-      <visible>!string.starts(#ItemsListRatingStar12,0)</visible>
+      <visible>!string.starts(#ItemsListRatingStar12,0)+control.isvisible(30)</visible>
+    </control>
+
+    <!-- TvMovie Stars 7 - 12 -->
+    <control>
+      <description>ItemsListTvMovieStar7</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>652</posX>
+      <posY>174</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture>#ItemsListTvMovieStar7</texture>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>control.isvisible(30)</visible>
+    </control>
+    <control>
+      <description>ItemsListTvMovieStar8</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>652</posX>
+      <posY>272</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture>#ItemsListTvMovieStar8</texture>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>control.isvisible(30)</visible>
+    </control>
+    <control>
+      <description>ItemsListTvMovieStar9</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>652</posX>
+      <posY>368</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture>#ItemsListTvMovieStar9</texture>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>control.isvisible(30)</visible>
+    </control>
+    <control>
+      <description>ItemsListTvMovieStar10</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>652</posX>
+      <posY>466</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture>#ItemsListTvMovieStar10</texture>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>control.isvisible(30)</visible>
+    </control>
+    <control>
+      <description>ItemsListTvMovieStar11</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>652</posX>
+      <posY>564</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture>#ItemsListTvMovieStar11</texture>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>control.isvisible(30)</visible>
+    </control>
+    <control>
+      <description>ItemsListTvMovieStar12</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>652</posX>
+      <posY>660</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture>#ItemsListTvMovieStar12</texture>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>control.isvisible(30)</visible>
     </control>
 
     <!-- ActionGroup -->
@@ -843,20 +866,31 @@
       <animation effect="fade" time="250">WindowClose</animation>
       <control>
         <type>image</type>
-        <posX>0</posX>
-        <posY>150</posY>
-        <width>263</width>
-        <height>473</height>
-        <texture>Backslide.png</texture>
-        <visible>!control.hasfocus(10)|!control.hasfocus(30)</visible>
-        <animation effect="slide" time="100" start="-300,0">visible</animation>
-        <animation effect="slide" time="0" end="-300,0">hidden</animation>
+        <posX>1002</posX>
+        <posY>0</posY>
+        <width>278</width>
+        <height>720</height>
+        <texture>hiddenmenu_right.png</texture>
+        <visible>!control.hasfocus(10)|control.isvisible(30)</visible>
+        <animation effect="slide" time="100" start="300,0">visible</animation>
+        <animation effect="slide" time="0" end="300,0">hidden</animation>
       </control>
       <control>
         <type>group</type>
         <description>group element</description>
-        <posX>0</posX>
-        <posY>160</posY>
+        <posX>1012</posX>
+        <posY>130</posY>
+        <layout>Stacklayout(Vertical,50,false)</layout>
+        <visible>!control.hasfocus(10)|!control.isvisible(30)</visible>
+        <animation effect="slide" time="100" start="300,0">visible</animation>
+        <animation effect="slide" time="0" end="300,0">hidden</animation>
+
+      </control>
+      <control>
+        <type>group</type>
+        <description>group element</description>
+        <posX>1012</posX>
+        <posY>130</posY>
         <layout>Stacklayout(Vertical,50,false)</layout>
         <visible>!control.hasfocus(10)|!control.hasfocus(30)</visible>
         <animation effect="slide" time="100" start="-300,0">visible</animation>
@@ -867,8 +901,8 @@
           <id>2</id>
           <width>263</width>
           <textalign>center</textalign>
-          <label>Jetzt</label>
-          <font>font10</font>
+          <label>#ClickfinderPG.Translation.Now</label>
+          <font>mediastream10</font>
           <onup>5</onup>
           <ondown>3</ondown>
           <onright>10</onright>
@@ -879,8 +913,8 @@
           <id>3</id>
           <width>263</width>
           <textalign>center</textalign>
-          <label>PrimeTime</label>
-          <font>font10</font>
+          <label>#ClickfinderPG.Translation.PrimeTime</label>
+          <font>mediastream10</font>
           <onup>2</onup>
           <ondown>4</ondown>
           <onright>10</onright>
@@ -891,24 +925,46 @@
           <id>4</id>
           <width>263</width>
           <textalign>center</textalign>
-          <label>LateTime</label>
-          <font>font10</font>
+          <label>#ClickfinderPG.Translation.LateTime</label>
+          <font>mediastream10</font>
           <onup>3</onup>
           <ondown>5</ondown>
+          <onright>10</onright>
+        </control>
+        <control>
+          <description>Highlights</description>
+          <type>button</type>
+          <id>5</id>
+          <width>263</width>
+          <textalign>center</textalign>
+          <label>#ClickfinderPG.Translation.Highlights</label>
+          <font>mediastream10</font>
+          <onup>4</onup>
+          <ondown>6</ondown>
+          <onright>10</onright>
+        </control>
+        <control>
+          <description>Preview</description>
+          <type>button</type>
+          <id>6</id>
+          <width>263</width>
+          <textalign>center</textalign>
+          <label>#ClickfinderPG.Translation.Preview</label>
+          <font>mediastream10</font>
+          <onup>5</onup>
+          <ondown>2</ondown>
           <onright>10</onright>
         </control>
       </control>
     </control>
 
-
-
     <control>
       <id>1</id>
       <description>Time Progressbar Background Image</description>
       <type>image</type>
-      <posX>30</posX>
-      <posY>36</posY>
-      <width>260</width>
+      <posX>460</posX>
+      <posY>42</posY>
+      <width>360</width>
       <height>12</height>
       <texture>background.png</texture>
     </control>
@@ -916,14 +972,41 @@
       <id>11</id>
       <description>Time Progressbar</description>
       <type>progress</type>
-      <posX>20</posX>
-      <posY>36</posY>
-      <width>280</width>
+      <posX>450</posX>
+      <posY>42</posY>
+      <width>380</width>
       <height>12</height>
       <innerheight>12</innerheight>
       <visible></visible>
     </control>
 
+    <control>
+      <id>9</id>
+      <type>animation</type>
+      <posX>290</posX>
+      <posY>344</posY>
+      <width>80</width>
+      <height>24</height>
+      <textures>
+        common.waiting.1.png;common.waiting.2.png;common.waiting.3.png;common.waiting.4.png;common.waiting.5.png;
+        common.waiting.6.png;common.waiting.7.png;common.waiting.8.png
+      </textures>
+      <Duration>0:0:01.5</Duration>
+    </control>
+    <control>
+      <id>8</id>
+      <type>animation</type>
+      <posX>920</posX>
+      <posY>344</posY>
+      <width>80</width>
+      <height>24</height>
+      <textures>
+        common.waiting.1.png;common.waiting.2.png;common.waiting.3.png;common.waiting.4.png;common.waiting.5.png;
+        common.waiting.6.png;common.waiting.7.png;common.waiting.8.png
+      </textures>
+      <Duration>0:0:01.5</Duration>
+    </control>
   </controls>
+
 </window>
 

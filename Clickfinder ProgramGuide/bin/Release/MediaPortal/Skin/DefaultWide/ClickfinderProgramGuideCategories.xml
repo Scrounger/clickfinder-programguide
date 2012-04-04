@@ -229,6 +229,8 @@
       <textureFocus>list_sub_focus.png</textureFocus>
       <textureNoFocus>list_sub_nofocus.png</textureNoFocus>
       <textureHeight>97</textureHeight>
+      <PinIconXOff>570</PinIconXOff>
+      <PinIconYOff>10</PinIconYOff>
       <IconXOff>4</IconXOff>
       <IconYOff>4</IconYOff>
       <textXOff>20</textXOff>

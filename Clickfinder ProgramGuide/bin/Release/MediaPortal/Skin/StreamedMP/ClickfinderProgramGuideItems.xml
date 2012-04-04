@@ -153,6 +153,8 @@
       <textureDownFocus>arrow_round_down_focus.png</textureDownFocus>
       <keepaspectratio>yes</keepaspectratio>
       <textureHeight>97</textureHeight>
+      <PinIconXOff>570</PinIconXOff>
+      <PinIconYOff>10</PinIconYOff>
       <IconXOff>4</IconXOff>
       <IconYOff>4</IconYOff>
       <textXOff>20</textXOff>
@@ -532,6 +534,8 @@
       <textureDownFocus>arrow_round_down_focus.png</textureDownFocus>
       <keepaspectratio>yes</keepaspectratio>
       <textureHeight>97</textureHeight>
+      <PinIconXOff>570</PinIconXOff>
+      <PinIconYOff>10</PinIconYOff>
       <IconXOff>4</IconXOff>
       <IconYOff>4</IconYOff>
       <textXOff>20</textXOff>

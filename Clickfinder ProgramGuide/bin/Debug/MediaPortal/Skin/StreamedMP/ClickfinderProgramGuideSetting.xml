@@ -1,200 +1,115 @@
-﻿<window>
-  <id>1656544651</id>
-  <defaultcontrol>2</defaultcontrol>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<window>
+  <id>2009</id>
+  <defaultcontrol>3</defaultcontrol>
   <allowoverlay>no</allowoverlay>
   <controls>
-
-    <!-- Background & StreamedMP Layout -->
     <control>
-      <id>1</id>
-      <description>Background Image</description>
       <type>image</type>
-      <posX>0</posX>
-      <posY>0</posY>
-      <width>1280</width>
-      <height>720</height>
-      <texture>hover_ClickfinderProgramGuide.png</texture>
-    </control>
-
-    <control>
-      <id>45</id>
-      <description>Background FanArt Image</description>
-      <type>image</type>
-      <posX>0</posX>
-      <posY>0</posY>
-      <width>1280</width>
-      <height>720</height>
-      <visible>no</visible>
-    </control>
-    
-    <control>
-      <description>Overlay Image</description>
-      <type>image</type>
-      <id>1</id>
-      <posX>0</posX>
-      <posY>0</posY>
+      <id>0</id>
       <width>1280</width>
       <height>720</height>
       <texture>black.png</texture>
       <colordiffuse>90ffffff</colordiffuse>
+      <animation effect="fade" time="200">windowopen</animation>
     </control>
-
     <control>
-      <id>1</id>
-      <description>Overlay Image</description>
       <type>image</type>
-      <posX>0</posX>
-      <posY>0</posY>
-      <width>1280</width>
-      <height>720</height>
-      <texture>filmstrip_overlay.png</texture>
-    </control>
-    
-    <control>
-      <description>Date Time</description>
-      <type>label</type>
       <id>0</id>
-      <posX>1244</posX>
-      <posY>10</posY>
-      <label>#date | #time</label>
-      <align>right</align>
-      <font>font12</font>
-      <textcolor>ffa9d0f7</textcolor>
+      <posX>100</posX>
+      <posY>100</posY>
+      <width>512</width>
+      <height>37</height>
+      <texture>dialogmenutop.png</texture>
     </control>
-
     <control>
-      <description>label</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>100</posX>
+      <posY>137</posY>
+      <width>512</width>
+      <height>433</height>
+      <texture>dialogmenumiddle.png</texture>
+    </control>
+    <control>
+      <type>image</type>
+      <id>0</id>
+      <posX>100</posX>
+      <posY>570</posY>
+      <width>512</width>
+      <height>12</height>
+      <texture>dialogmenubottom.png</texture>
+    </control>
+    <control>
+      <description>GFX-Heading "menu" text label</description>
       <type>label</type>
-      <id>1</id>
-      <posX>80</posX>
-      <posY>80</posY>
-      <label>#ClickfinderPG.Translation.LastUpdate</label>
-      <font>font10</font>
-      <textcolor>FFdddddd</textcolor>
-    </control>
-    
-    <control>
-      <description>TvMovie++ LastUpdate</description>
-      <type>label</type>
-      <id>1</id>
-      <posX>80</posX>
-      <posY>60</posY>
-      <label>#SettingLastUpdate</label>
-      <font>font10</font>
-      <textcolor>FFdddddd</textcolor>
-    </control>
-
-    <control>
-      <description>automatically turn on tv</description>
-      <type>checkbutton</type>
       <id>5</id>
-      <posX>180</posX>
-      <posY>360</posY>
-      <label>Import TvSeries</label>
-      <onleft>11</onleft>
-      <onright>11</onright>
-      <onup>23</onup>
-      <ondown>28</ondown>
-      <textureCheckmark>check-box.png</textureCheckmark>
-      <textureCheckmarkNoFocus>check-boxNF.png</textureCheckmarkNoFocus>
-      <markWidth>16</markWidth>
-      <markHeight>16</markHeight>
-      <markXOff>20</markXOff>
-      <markalign>right</markalign>
-      <markvalign>middle</markvalign>
-      <height>34</height>
-      <width>995</width>
-      <font>menu</font>
-      <shadowAngle>45</shadowAngle>
-      <shadowDistance>1</shadowDistance>
-      <shadowColor>FF000000</shadowColor>
-      <textcolor>FFFFFFFF</textcolor>
-      <textalign>left</textalign>
-      <textvalign>middle</textvalign>
-      <textXOff>10</textXOff>
-      <textureFocus border="1" position="insideimage" colorKey="66FFFFFF">list-focus.png</textureFocus>
-      <textureNoFocus>list-nofocus.png</textureNoFocus>
+      <posX>100</posX>
+      <posY>120</posY>
+      <width>512</width>
+      <label>924</label>
+      <font>mediastream12tc</font>
+      <textcolor>White</textcolor>
+      <align>center</align>
     </control>
-
-
-    
-    
-    <!-- ActionGroup -->
     <control>
-      <type>actiongroup</type>
-      <description>action menu</description>
-      <defaultcontrol>2</defaultcontrol>
-      <onexit>10</onexit>
-      <buttonX>1232</buttonX>
-      <buttonY>50</buttonY>
-      <buttonwidth>48</buttonwidth>
-      <buttonheight>144</buttonheight>
-      <textureFocus>#StreamedMP.ActionMenu.Image</textureFocus>
-      <textureNoFocus>#StreamedMP.ActionMenu.Image</textureNoFocus>
-      <dimColor>00ffffff</dimColor>
-      <animation effect="fade" time="250">WindowOpen</animation>
-      <animation effect="fade" time="250">WindowClose</animation>
-      <control>
-        <type>image</type>
-        <posX>0</posX>
-        <posY>150</posY>
-        <width>263</width>
-        <height>473</height>
-        <texture>Backslide.png</texture>
-        <visible>!control.hasfocus(10)+!control.isvisible(9)+!control.isvisible(11)+!control.isvisible(30)</visible>
-        <animation effect="slide" time="100" start="-300,0">visible</animation>
-        <animation effect="slide" time="0" end="-300,0">hidden</animation>
-      </control>
-      <control>
-        <type>group</type>
-        <description>group element</description>
-        <posX>0</posX>
-        <posY>160</posY>
-        <layout>Stacklayout(Vertical,50,false)</layout>
-        <visible>!control.hasfocus(10)+!control.isvisible(9)+!control.isvisible(11)+!control.isvisible(30)</visible>
-        <animation effect="slide" time="100" start="-300,0">visible</animation>
-        <animation effect="slide" time="0" end="-300,0">hidden</animation>
-        <control>
-          <description>Now</description>
-          <type>button</type>
-          <id>2</id>
-          <width>263</width>
-          <textalign>center</textalign>
-          <label>Jetzt</label>
-          <font>font10</font>
-          <onup>5</onup>
-          <ondown>3</ondown>
-          <onright>10</onright>
-        </control>
-        <control>
-          <description>20:15</description>
-          <type>button</type>
-          <id>3</id>
-          <width>263</width>
-          <textalign>center</textalign>
-          <label>PrimeTime</label>
-          <font>font10</font>
-          <onup>2</onup>
-          <ondown>4</ondown>
-          <onright>10</onright>
-        </control>
-        <control>
-          <description>22:00 Movies</description>
-          <type>button</type>
-          <id>4</id>
-          <width>263</width>
-          <textalign>center</textalign>
-          <label>LateTime</label>
-          <font>font10</font>
-          <onup>3</onup>
-          <ondown>5</ondown>
-          <onright>10</onright>
-        </control>
-      </control>
+      <description>Heading text label</description>
+      <type>label</type>
+      <id>4</id>
+      <posX>100</posX>
+      <posY>155</posY>
+      <width>512</width>
+      <label>181</label>
+      <font>mediastream11c</font>
+      <align>center</align>
+      <textcolor>FF025984</textcolor>
     </control>
-
-
-    
+    <control>
+      <type>listcontrol</type>
+      <id>3</id>
+      <onleft>5</onleft>
+      <onright>5</onright>
+      <onup>3</onup>
+      <ondown>3</ondown>
+      <posX>284</posX>
+      <posY>160</posY>
+      <width>800</width>
+      <height>350</height>
+      <spinWidth>30</spinWidth>
+      <spinHeight>30</spinHeight>
+      <spinPosX>977</spinPosX>
+      <spinPosY>472</spinPosY>
+      <spinAlign>Right</spinAlign>
+      <spinColor>ff006698</spinColor>
+      <spinCanFocus>no</spinCanFocus>
+      <textureUp>page_up_nofocus.png</textureUp>
+      <textureDown>page_down_nofocus.png</textureDown>
+      <textureUpFocus>page_up_focus.png</textureUpFocus>
+      <textureDownFocus>page_down_focus.png</textureDownFocus>
+      <textureFocus>list_sub_focus.png</textureFocus>
+      <textureNoFocus>list_sub_nofocus.png</textureNoFocus>
+      <textureHeight>78</textureHeight>
+      <IconXOff>4</IconXOff>
+      <IconYOff>4</IconYOff>
+      <textXOff>2</textXOff>
+      <textYOff>10</textYOff>
+      <font>mediastream12</font>
+      <textcolor>ffffffff</textcolor>
+      <textXOff2>790</textXOff2>
+      <textYOff2>30</textYOff2>
+      <font2>mediastream10</font2>
+      <textcolor2>ff909090</textcolor2>
+      <textXOff3>86</textXOff3>
+      <textYOff3>42</textYOff3>
+      <font3>mediastream10</font3>
+      <textcolor3>ff909090</textcolor3>
+      <itemWidth>70</itemWidth>
+      <itemHeight>70</itemHeight>
+      <scrollOffset>2</scrollOffset>
+      <scrollbarXOff>630</scrollbarXOff>
+      <scrollbarwidth>15</scrollbarwidth>
+      <visible></visible>
+    </control>
   </controls>
 </window>
-
+<!--Checksum:64033012321f4814d8d98e03edbc481c-->

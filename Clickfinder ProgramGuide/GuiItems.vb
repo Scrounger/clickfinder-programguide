@@ -9,6 +9,7 @@ Imports ClickfinderProgramGuide.TvDatabase
 Imports MediaPortal.Dialogs
 Imports System.Threading
 Imports ClickfinderProgramGuide.ClickfinderProgramGuide.CategoriesGuiWindow
+Imports Gentle.Common
 
 Namespace ClickfinderProgramGuide
     Public Class ItemsGuiWindow
@@ -98,6 +99,9 @@ Namespace ClickfinderProgramGuide
         Protected Overrides Sub OnPageLoad()
             GUIWindowManager.NeedRefresh()
 
+            MyLog.Info("")
+            MyLog.Info("[ItemsGuiWindow] -------------[OPEN]-------------")
+
             GuiLayoutLoading()
 
             If _layer.GetSetting("TvMovieImportIsRunning", "false").Value = "true" Then
@@ -119,8 +123,7 @@ Namespace ClickfinderProgramGuide
 
             _FilterByGroup = "All Channels"
 
-            MyLog.Info("")
-            MyLog.Info("[ItemsGuiWindow] load")
+
 
             '_Thread1.Join()
 
@@ -197,6 +200,8 @@ Namespace ClickfinderProgramGuide
 
                     Translator.SetProperty("#CurrentPageLabel", Translation.PageLabel & " " & CShort((_CurrentCounter + 12) / 12) & " / " & CShort((_ItemsResult.Count) / 12 + 0.5))
 
+                    MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - Actiontype={0}: page = {1}", action.wID.ToString, CShort((_CurrentCounter + 12) / 12) & " / " & CShort((_ItemsResult.Count) / 12 + 0.5))
+
                     _ThreadLeftList = New Thread(AddressOf FillLeftList)
                     _ThreadRightList = New Thread(AddressOf FillRightList)
                     _ThreadLeftList.IsBackground = True
@@ -236,6 +241,8 @@ Namespace ClickfinderProgramGuide
                     End If
 
                     Translator.SetProperty("#CurrentPageLabel", Translation.PageLabel & " " & CShort((_CurrentCounter + 12) / 12) & " / " & CShort((_ItemsResult.Count) / 12 + 0.5))
+
+                    MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - Actiontype={0}: page = {1}", action.wID.ToString, CShort((_CurrentCounter + 12) / 12) & " / " & CShort((_ItemsResult.Count) / 12 + 0.5))
 
                     _ThreadLeftList = New Thread(AddressOf FillLeftList)
                     _ThreadRightList = New Thread(AddressOf FillRightList)
@@ -367,6 +374,13 @@ Namespace ClickfinderProgramGuide
             Dim _lastTitle As String = String.Empty
             Dim _Result As New ArrayList
             Dim _layer As New TvBusinessLayer
+            Dim _LogLocalSortedBy As String = String.Empty
+            Dim _LogLocalMovies As String = String.Empty
+            Dim _LogLocalSeries As String = String.Empty
+            Dim _LogCategorie As String = String.Empty
+
+            MyLog.Debug("")
+            MyLog.Debug("[ItemsGuiWindow] [GetItemsOnLoad]: Thread started")
 
             _ItemsResult.Clear()
 
@@ -376,28 +390,44 @@ Namespace ClickfinderProgramGuide
 
             Select Case _sortedBy
                 Case Is = SortMethode.startTime.ToString
+                    _LogLocalSortedBy = SortMethode.startTime.ToString
                     _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
                         Helper.ORDERBYstartTime
                     Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortStartTime)
                 Case Is = SortMethode.TvMovieStar.ToString
+                    _LogLocalSortedBy = SortMethode.TvMovieStar.ToString
                     _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
                         Helper.ORDERBYtvMovieBewertung
                     Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortTvMovieStar)
                 Case Is = SortMethode.RatingStar.ToString
+                    _LogLocalSortedBy = SortMethode.RatingStar.ToString
                     _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
                         Helper.ORDERBYstarRating
                     Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortRatingStar)
                 Case Is = SortMethode.Genre.ToString
+                    _LogLocalSortedBy = SortMethode.Genre.ToString
                     _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
                         Helper.ORDERBYgerne
                     Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortGenre)
                 Case Is = SortMethode.parentalRating.ToString
+                    _LogLocalSortedBy = SortMethode.parentalRating.ToString
                     _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
                         Helper.ORDERBYparentalRating
                     Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortparentalRating)
             End Select
 
             _Result.AddRange(Broker.Execute(_ItemsSqlString).TransposeToFieldList("idProgram", False))
+
+            If _idCategorie = 0 Then
+                _LogCategorie = "none"
+            Else
+                Dim key As New Gentle.Framework.Key(GetType(ClickfinderCategories), True, "idClickfinderCategories", _idCategorie)
+                _LogCategorie = Gentle.Framework.Broker.RetrieveInstance(Of ClickfinderCategories)(key).Name
+            End If
+
+            MyLog.Debug("[ItemsGuiWindow] [GetItemsOnLoad]: _result.Count = {0}, sorted by {1}, group = {2}, Categorie = {3}, SQLString: {4}", _
+                        _Result.Count, _LogLocalSortedBy, _FilterByGroup, _LogCategorie, _ItemsSqlString)
+
             For i = 0 To _Result.Count - 1
                 Try
 
@@ -433,7 +463,7 @@ Namespace ClickfinderProgramGuide
                                     Try
                                         Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_Program.IdProgram)
                                         If _TvMovieProgram.local = True And _TvMovieProgram.idSeries = 0 Then
-                                            MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: {0} exist local and will not be displayed", _TvMovieProgram.ReferencedProgram.Title)
+                                            _LogLocalMovies = _LogLocalMovies & _TvMovieProgram.ReferencedProgram.Title & ", "
                                             Continue For
                                         End If
                                     Catch ex As Exception
@@ -445,7 +475,7 @@ Namespace ClickfinderProgramGuide
                                     Try
                                         Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_Program.IdProgram)
                                         If _TvMovieProgram.local = True And _TvMovieProgram.idSeries > 0 Then
-                                            MyLog.Debug("[CategoriesGuiWindow] [SetGuiProperties]: {0} exist local and will not be displayed", _TvMovieProgram.ReferencedProgram.Title & " - " & _TvMovieProgram.ReferencedProgram.EpisodeName)
+                                            _LogLocalSeries = _LogLocalSeries & _TvMovieProgram.ReferencedProgram.Title & " - S" & _TvMovieProgram.ReferencedProgram.SeriesNum & "E" & _TvMovieProgram.ReferencedProgram.EpisodeNum & ", "
                                             Continue For
                                         End If
                                     Catch ex As Exception
@@ -470,13 +500,21 @@ Namespace ClickfinderProgramGuide
                         End If
                     End If
                 Catch ex As Exception
-                    MyLog.[Error]("[ItemsGuiWindow] [SetGuiProperties]: Loop: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                    MyLog.[Error]("[ItemsGuiWindow] [GetItemsOnLoad]: Loop: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
                 End Try
             Next
-            MyLog.[Debug]("[ItemsGuiWindow] [SetGuiProperties]: _Result = {0} ItemsResult= {1}", _Result.Count, _ItemsResult.Count)
+            MyLog.[Debug]("[ItemsGuiWindow] [GetItemsOnLoad]: _ItemsResult= {0}", _ItemsResult.Count)
 
 
+            If CBool(_layer.GetSetting("ClickfinderItemsShowLocalSeries", "false").Value) = True Then
+                MyLog.Debug("[ItemsGuiWindow] [GetItemsOnLoad]: Series Episodes exist local and will not be displayed ({0})", _LogLocalSeries)
+            End If
+            If CBool(_layer.GetSetting("ClickfinderItemsShowLocalMovies", "false").Value) = True Then
+                MyLog.Debug("[ItemsGuiWindow] [GetItemsOnLoad]: Movies exist local and will not be displayed ({0})", _LogLocalMovies)
+            End If
 
+            MyLog.Debug("[ItemsGuiWindow] [GetItemsOnLoad]: Thread finished")
+            MyLog.Debug("")
 
             Dim _Thread1 As New Thread(AddressOf FillLeftList)
             Dim _Thread2 As New Thread(AddressOf FillRightList)
@@ -494,6 +532,10 @@ Namespace ClickfinderProgramGuide
             Dim _imagepath As String = String.Empty
             Dim _ForEndCondition As Integer = 0
             Dim _program As Program = Nothing
+
+
+            MyLog.Debug("")
+            MyLog.Debug("[ItemsGuiWindow] [FillLeftList]: Thread started")
 
             _isAbortException = False
 
@@ -531,34 +573,35 @@ Namespace ClickfinderProgramGuide
                         Translator.SetProperty("#ItemsListTvMovieStar" & _ItemCounter, GuiLayout.TvMovieStar(_TvMovieProgram))
                         Translator.SetProperty("#ItemsListImage" & _ItemCounter, GuiLayout.Image(_TvMovieProgram))
 
-                        AddListControlItem(GetID, _leftList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram))
+                        AddListControlItem(GetID, _leftList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_program))
 
-                        '    _lastTitle = _program.Title & _program.EpisodeName
-                        'End If
+                        MyLog.Debug("[ItemsGuiWindow] [FillLeftList]: Add ListItem {0} (Title: {1}, Channel: {2}, startTime: {3}, idprogram: {4}, ratingStar: {5}, TvMovieStar: {6}, image: {7})", _
+                                            _ItemCounter, _program.Title, _program.ReferencedChannel.DisplayName, _
+                                            _program.StartTime, _program.IdProgram, _
+                                            GuiLayout.ratingStar(_TvMovieProgram.ReferencedProgram), _
+                                            _TvMovieProgram.TVMovieBewertung, GuiLayout.Image(_TvMovieProgram))
 
                     Catch ex2 As ThreadAbortException
-                        _isAbortException = True
+                        MyLog.Debug("[ItemsGuiWindow] [FillLeftList]: --- THREAD ABORTED ---")
+                        MyLog.Debug("")
+                    Catch ex2 As GentleException
                     Catch ex2 As Exception
-                        If _isAbortException = False Then
-                            MyLog.[Error]("[ItemsGuiWindow] [FillLeftList]: Loop: exception err: {0} stack: {1}", ex2.Message, ex2.StackTrace)
-                        Else
-                            _isAbortException = False
-                        End If
+                        MyLog.[Error]("[ItemsGuiWindow] [FillLeftList]: Loop: exception err: {0} stack: {1}", ex2.Message, ex2.StackTrace)
                     End Try
                 Next
 
                 _LeftProgressBar.Visible = False
                 _leftList.Visible = True
 
+                MyLog.Debug("[ItemsGuiWindow] [FillLeftList]: Thread finished")
+                MyLog.Debug("")
 
             Catch ex As ThreadAbortException
-                _isAbortException = True
+                MyLog.Debug("[ItemsGuiWindow] [FillLeftList]: --- THREAD ABORTED ---")
+                MyLog.Debug("")
+            Catch ex As GentleException
             Catch ex As Exception
-                If _isAbortException = False Then
-                    MyLog.[Error]("[ItemsGuiWindow] [FillLeftList]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
-                Else
-                    _isAbortException = False
-                End If
+                MyLog.[Error]("[ItemsGuiWindow] [FillLeftList]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
             End Try
         End Sub
         Private Sub FillRightList()
@@ -572,6 +615,8 @@ Namespace ClickfinderProgramGuide
             Dim _ForEndCondition As Integer = 0
             Dim _program As Program = Nothing
 
+            MyLog.Debug("")
+            MyLog.Debug("[ItemsGuiWindow] [FillRightList]: Thread started")
 
             Translator.SetProperty("#CurrentPageLabel", Translation.PageLabel & " " & CShort((_CurrentCounter + 12) / 12) & " / " & CShort((_ItemsResult.Count) / 12 + 0.5))
             _PageProgress.Percentage = (CShort((_CurrentCounter + 12) / 12)) * 100 / (CShort((_ItemsResult.Count) / 12 + 0.5))
@@ -613,33 +658,35 @@ Namespace ClickfinderProgramGuide
                         Translator.SetProperty("#ItemsListTvMovieStar" & _ItemCounter, GuiLayout.TvMovieStar(_TvMovieProgram))
                         Translator.SetProperty("#ItemsListImage" & _ItemCounter, GuiLayout.Image(_TvMovieProgram))
 
-                        AddListControlItem(GetID, _rightList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram))
+                        AddListControlItem(GetID, _rightList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_program))
 
-                        '_lastTitle = _program.Title & _program.EpisodeName
-                        'End If
+                        MyLog.Debug("[ItemsGuiWindow] [FillRightList]: Add ListItem {0} (Title: {1}, Channel: {2}, startTime: {3}, idprogram: {4}, ratingStar: {5}, TvMovieStar: {6}, image: {7})", _
+                                            _ItemCounter, _program.Title, _program.ReferencedChannel.DisplayName, _
+                                            _program.StartTime, _program.IdProgram, _
+                                            GuiLayout.ratingStar(_TvMovieProgram.ReferencedProgram), _
+                                            _TvMovieProgram.TVMovieBewertung, GuiLayout.Image(_TvMovieProgram))
 
                     Catch ex2 As ThreadAbortException
-                        _isAbortException = True
+                        MyLog.Debug("[ItemsGuiWindow] [FillRightList]: --- THREAD ABORTED ---")
+                        MyLog.Debug("")
+                    Catch ex2 As GentleException
                     Catch ex2 As Exception
-                        If _isAbortException = False Then
-                            MyLog.[Error]("[ItemsGuiWindow] [FillRightList]: Loop: exception err: {0} stack: {1}", ex2.Message, ex2.StackTrace)
-                        Else
-                            _isAbortException = False
-                        End If
+                        MyLog.[Error]("[ItemsGuiWindow] [FillRightList]: Loop: exception err: {0} stack: {1}", ex2.Message, ex2.StackTrace)
                     End Try
                 Next
 
                 _RightProgressBar.Visible = False
                 _rightList.Visible = True
 
+                MyLog.Debug("[ItemsGuiWindow] [FillRightList]: Thread finished")
+                MyLog.Debug("")
+
             Catch ex As ThreadAbortException
-                _isAbortException = True
+                MyLog.Debug("[ItemsGuiWindow] [FillRightList]: --- THREAD ABORTED ---")
+                MyLog.Debug("")
+            Catch ex As GentleException
             Catch ex As Exception
-                If _isAbortException = False Then
-                    MyLog.[Error]("[ItemsGuiWindow] [FillRightList]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
-                Else
-                    _isAbortException = False
-                End If
+                MyLog.[Error]("[ItemsGuiWindow] [FillRightList]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
             End Try
         End Sub
 

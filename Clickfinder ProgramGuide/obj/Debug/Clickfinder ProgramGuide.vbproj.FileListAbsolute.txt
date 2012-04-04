@@ -11,7 +11,6 @@ D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPor
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R5.png
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R6.png
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_Sep.png
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\ClickfinderPGConfig.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuide.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideDetail.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideItems.xml
@@ -84,3 +83,9 @@ D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPor
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuideDialogSelect2.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_overlay.png
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\DefaultWide\Media\hover_ClickfinderProgramGuide.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideCategories.xml
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_TopBarBG.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideDialogSelect2.xml
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_overlay.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_TopBarBG.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\Media\hover_ClickfinderProgramGuide.png

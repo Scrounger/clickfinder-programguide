@@ -274,7 +274,6 @@ Namespace ClickfinderProgramGuide
                     _ThreadFillHighlightsList.IsBackground = True
                     _ThreadFillMovieList.Start()
                     _ThreadFillHighlightsList.Start()
-                    '_ThreadFillHighlightsList.Join()
                 End If
 
                 'Menu Button (F9) -> Context Menu open
@@ -371,6 +370,13 @@ Namespace ClickfinderProgramGuide
             MyBase.OnAction(Action)
         End Sub
         Protected Overrides Sub OnPageDestroy(ByVal new_windowId As Integer)
+
+            For i = 1 To 6
+                Translator.SetProperty("#MovieListTvMovieStar" & i, "")
+                Translator.SetProperty("#MovieListImage" & i, "")
+                Translator.SetProperty("#MovieListRatingStar" & i, 0)
+            Next
+            _MovieList.Clear()
 
             _ProgressPercentagValue = _DaysProgress.Percentage
 
@@ -585,7 +591,7 @@ Namespace ClickfinderProgramGuide
                                 Translator.SetProperty("#MovieListTvMovieStar" & _ItemCounter, GuiLayout.TvMovieStar(_TvMovieProgram))
                                 Translator.SetProperty("#MovieListImage" & _ItemCounter, GuiLayout.Image(_TvMovieProgram))
 
-                                AddListControlItem(GetID, _MovieList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram))
+                                AddListControlItem(GetID, _MovieList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_program))
 
                                 MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: Add ListItem {0} (Title: {1}, Channel: {2}, startTime: {3}, idprogram: {4}, ratingStar: {5}, TvMovieStar: {6}, image: {7})", _
                                             _ItemCounter, _program.Title, _program.ReferencedChannel.DisplayName, _
@@ -741,7 +747,7 @@ Namespace ClickfinderProgramGuide
 
                                     'Translator.SetProperty("#HighlightsListImage" & _ItemCounter, _imagepath)
 
-                                    AddListControlItem(GetID, _HighlightsList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, _timeLabel, _infoLabel, _imagepath)
+                                    AddListControlItem(GetID, _HighlightsList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, _timeLabel, _infoLabel, _imagepath, , GuiLayout.RecordingStatus(_program))
 
                                     _lastTitle = _TvMovieProgram.ReferencedProgram.Title & _TvMovieProgram.ReferencedProgram.EpisodeName
 
@@ -823,7 +829,15 @@ Namespace ClickfinderProgramGuide
                                                     ":" & Format(_TvMovieProgram.ReferencedProgram.StartTime.Minute, "00") & " - " & _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName
                                 lItemEpisode.Label3 = "Staffel " & Format(CInt(_TvMovieProgram.ReferencedProgram.SeriesNum), "00") & ", Episode " & Format(CInt(_TvMovieProgram.ReferencedProgram.EpisodeNum), "00")
                                 lItemEpisode.IconImage = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieProgram.SeriesPosterImage
+
+                                If GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram) = True Then
+                                    lItemEpisode.PinImage = "tvguide_record_button.png"
+                                Else
+                                    lItemEpisode.PinImage = ""
+                                End If
+
                                 _idProgramContainer.Add(i, _TvMovieProgram.idProgram)
+
                                 dlgContext.Add(lItemEpisode)
                                 lItemEpisode.Dispose()
                             Catch ex As Exception
@@ -1073,6 +1087,11 @@ Namespace ClickfinderProgramGuide
             Dim _Thread1 As New Thread(AddressOf FillMovieList)
             _Thread1.Start()
 
+        End Sub
+
+        Private Sub InfoMenu()
+            Dim dlgContext As GUIDialogExif = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_EXIF, Integer)), GUIDialogExif)
+            dlgContext.Reset()
         End Sub
 
 #End Region

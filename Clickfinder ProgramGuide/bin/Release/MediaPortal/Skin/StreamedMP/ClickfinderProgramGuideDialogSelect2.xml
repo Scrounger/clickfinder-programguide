@@ -87,6 +87,8 @@
       <textureFocus>dialogmenubutton.png</textureFocus>
       <textureHeight>78</textureHeight>
       <keepaspectratio>yes</keepaspectratio>
+      <PinIconXOff>570</PinIconXOff>
+      <PinIconYOff>10</PinIconYOff>
       <IconXOff>4</IconXOff>
       <IconYOff>4</IconYOff>
       <textXOff>2</textXOff>

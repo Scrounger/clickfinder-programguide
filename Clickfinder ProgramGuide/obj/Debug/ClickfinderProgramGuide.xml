@@ -166,6 +166,11 @@ ClickfinderProgramGuide
  Prüft ob Program auf gleich gemappten (TvMovieMapping) HDSender existiert
  </summary>
 	<returns>0 - kein Treffer, idprogram sofern treffer</returns>
+</member><member name="M:ClickfinderProgramGuide.Helper.getTvMovieProgram(TvDatabase.Program)">
+	<summary>
+ Holt / erstellt TvMovieProgram
+ </summary>
+	<returns>TvMovieProgram</returns>
 </member><member name="M:ClickfinderProgramGuide.TvDatabase.ClickfinderCategories.#ctor(System.String)">
 	<summary> 
  Create an object from an existing row of data. This will be used by Gentle to 
@@ -196,6 +201,9 @@ ClickfinderProgramGuide
 	<summary>
  Persists the entity if it was never persisted or was changed.
  </summary>
+</member><member name="M:ClickfinderProgramGuide.TvDatabase.ClickfinderCategories.Referencedgroup">
+	<summary>
+	</summary>
 </member><member name="T:ClickfinderProgramGuide.TvDatabase.ClickfinderCategories">
 	<summary>
  Instances of this class represent the properties and methods of a row in the table <b>ClickfinderCategories</b>.
