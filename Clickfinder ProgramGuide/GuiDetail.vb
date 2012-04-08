@@ -1,5 +1,7 @@
 ﻿Imports MediaPortal.GUI.Library
 Imports TvDatabase
+Imports ClickfinderProgramGuide.TvDatabase
+
 
 Namespace ClickfinderProgramGuide
     Public Class DetailGuiWindow
@@ -11,7 +13,7 @@ Namespace ClickfinderProgramGuide
 #End Region
 
 #Region "Members"
-        Public Shared Details_idProgram As Integer
+        Friend Shared _tvMovieProgram As TVMovieProgram
 
         Private _layer As New TvBusinessLayer
 
@@ -20,6 +22,10 @@ Namespace ClickfinderProgramGuide
 #Region "Constructors"
         Public Sub New()
 
+        End Sub
+
+        Friend Shared Sub SetGuiProperties(ByVal TvMovieProgram As tvmovieprogram)
+            _tvMovieProgram = TvMovieProgram
         End Sub
 #End Region
 
@@ -47,7 +53,14 @@ Namespace ClickfinderProgramGuide
 #Region "GUI Events"
 
         Protected Overrides Sub OnPageLoad()
-            Translator.SetProperty("#SettingLastUpdate", Details_idProgram)
+            Translator.SetProperty("#DetailTitle", _tvMovieProgram.ReferencedProgram.Title)
+            Translator.SetProperty("#DetailorgTitle", _tvMovieProgram.ReferencedProgram.EpisodeName)
+            Translator.SetProperty("#DetailImage", GuiLayout.Image(_tvMovieProgram))
+            Translator.SetProperty("#DetailTvMovieStar", GuiLayout.TvMovieStar(_tvMovieProgram))
+            Translator.SetProperty("#DetailRatingStar", GuiLayout.ratingStar(_tvMovieProgram.ReferencedProgram))
+            Translator.SetProperty("#DetailTime", GuiLayout.TimeLabel(_tvMovieProgram))
+            Translator.SetProperty("#DetailDuration", DateDiff(DateInterval.Minute, _tvMovieProgram.ReferencedProgram.StartTime, _tvMovieProgram.ReferencedProgram.EndTime) & " " & Translation.MinuteLabel)
+            Translator.SetProperty("#DetailChannel", _tvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName)
 
             'MsgBox(Details_idProgram)
             MyBase.OnPageLoad()

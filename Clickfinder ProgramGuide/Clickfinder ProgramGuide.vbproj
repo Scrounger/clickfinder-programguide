@@ -202,6 +202,9 @@
     <Content Include="MediaPortal\Skin\DefaultWide\ClickfinderProgramGuideCategories.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_SepHor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideCategories.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -278,6 +281,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_Sep.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_SepHor.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_TopBarBG.png">

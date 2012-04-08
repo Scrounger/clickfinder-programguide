@@ -26,7 +26,7 @@
       <height>720</height>
       <visible>no</visible>
     </control>-->
-    
+
     <control>
       <description>Overlay Image</description>
       <type>image</type>
@@ -49,42 +49,486 @@
       <height>720</height>
       <texture>ClickfinderPG_overlay.png</texture>
     </control>
-    
+
+    <control>
+      <id>1</id>
+      <description>TopBar Image</description>
+      <type>image</type>
+      <posX>20</posX>
+      <posY>14</posY>
+      <width>1240</width>
+      <height>46</height>
+      <texture>ClickfinderPG_TopBarBG.png</texture>
+    </control>
+
     <control>
       <description>Date Time</description>
       <type>label</type>
       <id>0</id>
       <posX>1244</posX>
-      <posY>10</posY>
+      <posY>25</posY>
       <label>#date | #time</label>
       <align>right</align>
-      <font>font12</font>
+      <font>font10</font>
       <textcolor>ffa9d0f7</textcolor>
     </control>
 
-    <control>
-      <description>label</description>
-      <type>label</type>
-      <id>1</id>
-      <posX>80</posX>
-      <posY>80</posY>
-      <label>#ClickfinderPG.Translation.LastUpdate</label>
-      <font>font10</font>
-      <textcolor>FFdddddd</textcolor>
-    </control>
-    
+    <!-- Tv Movie++ Last UpdateLabel-->
     <control>
       <description>TvMovie++ LastUpdate</description>
       <type>label</type>
       <id>1</id>
-      <posX>80</posX>
-      <posY>60</posY>
+      <posX>40</posX>
+      <posY>25</posY>
       <label>#SettingLastUpdate</label>
       <font>font10</font>
+      <align>left</align>
       <textcolor>FFdddddd</textcolor>
     </control>
+    <control>
+      <id>1</id>
+      <description>Background Image</description>
+      <type>image</type>
+      <posX>100</posX>
+      <posY>90</posY>
+      <width>1080</width>
+      <height>590</height>
 
-     
+      <texture>ClickfinderPG_ListBG.png</texture>
+    </control>
+
+    <!--rechts vom Separator-->
+    <control>
+      <description>Seporator Image</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>335</posX>
+      <posY>90</posY>
+      <width>5</width>
+      <height>590</height>
+      <texture></texture>
+      <colorkey>0</colorkey>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <texture>ClickfinderPG_SepHor.png</texture>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+    <control>
+      <description>Detail Titel</description>
+      <type>fadelabel</type>
+      <id>1</id>
+      <posX>350</posX>
+      <posY>100</posY>
+      <width>840</width>
+      <align>left</align>
+      <font>font14</font>
+      <textcolor>ffffffff</textcolor>
+      <label>#DetailTitle</label>
+      <wrapString> | </wrapString>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+    <control>
+      <description>Detail org. Titel</description>
+      <type>fadelabel</type>
+      <id>1</id>
+      <posX>352</posX>
+      <posY>130</posY>
+      <width>840</width>
+      <align>left</align>
+      <font>font11</font>
+      <textcolor>ff909090</textcolor>
+      <label>#DetailorgTitle</label>
+      <wrapString> | </wrapString>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+
+    <!--links vom Separator-->
+    <control>
+      <description>Detail Image</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>110</posX>
+      <posY>100</posY>
+      <width>216</width>
+      <height>160</height>
+      <texture>#DetailImage</texture>
+      <colorkey>0</colorkey>
+      <filtered>yes</filtered>
+      <centered>no</centered>
+      <keepaspectratio>yes</keepaspectratio>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Detail TvMovieStar</description>
+      <type>image</type>
+      <id>37</id>
+      <posX>90</posX>
+      <posY>234</posY>
+      <width>48</width>
+      <texture></texture>
+      <colorkey>0</colorkey>
+      <filtered>yes</filtered>
+      <centered>no</centered>
+      <keepaspectratio>yes</keepaspectratio>
+      <texture>#DetailTvMovieStar</texture>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Detail RatingStars</description>
+      <type>imagelist</type>
+      <id>44</id>
+      <posX>820</posX>
+      <posY>176</posY>
+      <width>120</width>
+      <height>40</height>
+      <textureWidth>32</textureWidth>
+      <textureHeight>32</textureHeight>
+      <subitems>
+        <subitem>UserRatingStarOff.png</subitem>
+        <subitem>stargood.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>10</imagesToDraw>
+      <percentage>#DetailRatingStar</percentage>
+      <visible>!string.starts(#DetailRatingStar,0)</visible>
+    </control>
+
+    <control>
+      <description>Label Zeit</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>110</posX>
+      <posY>280</posY>
+      <width>100</width>
+      <label>#ClickfinderPG.Translation.TimeLabel</label>
+      <align>left</align>
+      <font>font10</font>
+      <textcolor>ffffffff</textcolor>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+    <control>
+      <description>Detail time</description>
+      <type>fadelabel</type>
+      <id>1</id>
+      <posX>326</posX>
+      <posY>280</posY>
+      <width>150</width>
+      <align>right</align>
+      <font>font10</font>
+      <textcolor>ff909090</textcolor>
+      <label>#DetailTime</label>
+      <wrapString> | </wrapString>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+    <control>
+      <description>Label Dauer</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>110</posX>
+      <posY>304</posY>
+      <width>100</width>
+      <label>#ClickfinderPG.Translation.DurationLabel</label>
+      <align>left</align>
+      <font>font10</font>
+      <textcolor>ffffffff</textcolor>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Detail Duration</description>
+      <type>fadelabel</type>
+      <id>1</id>
+      <posX>326</posX>
+      <posY>304</posY>
+      <width>120</width>
+      <align>right</align>
+      <font>font10</font>
+      <textcolor>ff909090</textcolor>
+      <label>#DetailDuration</label>
+      <wrapString> | </wrapString>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+
+    <control>
+      <description>Label Kanal</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>110</posX>
+      <posY>328</posY>
+      <width>100</width>
+      <label>#ClickfinderPG.Translation.ChannelLabel</label>
+      <align>left</align>
+      <font>font10</font>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>ListItem Kanal</description>
+      <type>fadelabel</type>
+      <id>33</id>
+      <posX>326</posX>
+      <posY>328</posY>
+      <width>300</width>
+      <align>right</align>
+      <font>font10</font>
+      <textcolor>ff909090</textcolor>
+      <label>#DetailChannel</label>
+      <wrapString> | </wrapString>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+
+    <!-- Program Infos / Einzelbewertung-->
+
+    <control>
+      <description>Seporator Image</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>340</posX>
+      <posY>612</posY>
+      <width>900</width>
+      <height>5</height>
+      <texture></texture>
+      <colorkey>0</colorkey>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <texture>ClickfinderPG_Sep.png</texture>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Program Audio Image</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>470</posX>
+      <posY>590</posY>
+      <width>50</width>
+      <texture>Logos\ac-3 dolby digital.png</texture>
+      <colorkey>0</colorkey>
+      <filtered>yes</filtered>
+      <centered>yes</centered>
+      <keepaspectratio>yes</keepaspectratio>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Program HD/SD Image</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>570</posX>
+      <posY>590</posY>
+      <width>50</width>
+      <texture>Logos\hd.png</texture>
+      <colorkey>0</colorkey>
+      <filtered>yes</filtered>
+      <centered>yes</centered>
+      <keepaspectratio>yes</keepaspectratio>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+
+    <control>
+      <description>Fun</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>670</posX>
+      <posY>640</posY>
+      <width>100</width>
+      <label>#ClickfinderPG.Translation.FunLabel</label>
+      <font>font10</font>
+      <align>center</align>
+      <textcolor>FFdddddd</textcolor>
+    </control>
+    <control>
+      <description>FunStars</description>
+      <type>imagelist</type>
+      <id>1</id>
+      <posX>704</posX>
+      <posY>656</posY>
+      <width>100</width>
+      <height>10</height>
+      <textureWidth>12</textureWidth>
+      <textureHeight>12</textureHeight>
+      <subitems>
+        <subitem>UserRatingStarOff.png</subitem>
+        <subitem>stargood.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>3</imagesToDraw>
+      <percentage>8</percentage>
+      <!--<visible>!string.starts(#MovieListRatingStar6,0)+control.isvisible(10)</visible>-->
+    </control>
+
+    <control>
+      <description>Action</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>770</posX>
+      <posY>640</posY>
+      <width>100</width>
+      <label>#ClickfinderPG.Translation.ActionLabel</label>
+      <font>font10</font>
+      <align>center</align>
+      <textcolor>FFdddddd</textcolor>
+    </control>
+    <control>
+      <description>ActionStars</description>
+      <type>imagelist</type>
+      <id>1</id>
+      <posX>804</posX>
+      <posY>656</posY>
+      <width>100</width>
+      <height>10</height>
+      <textureWidth>12</textureWidth>
+      <textureHeight>12</textureHeight>
+      <subitems>
+        <subitem>UserRatingStarOff.png</subitem>
+        <subitem>stargood.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>3</imagesToDraw>
+      <percentage>5</percentage>
+      <!--<visible>!string.starts(#MovieListRatingStar6,0)+control.isvisible(10)</visible>-->
+    </control>
+
+    <control>
+      <description>Erotik</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>870</posX>
+      <posY>640</posY>
+      <width>100</width>
+      <label>#ClickfinderPG.Translation.EroticLabel</label>
+      <font>font10</font>
+      <align>center</align>
+      <textcolor>FFdddddd</textcolor>
+    </control>
+    <control>
+      <description>ErotikStars</description>
+      <type>imagelist</type>
+      <id>1</id>
+      <posX>904</posX>
+      <posY>656</posY>
+      <width>100</width>
+      <height>10</height>
+      <textureWidth>12</textureWidth>
+      <textureHeight>12</textureHeight>
+      <subitems>
+        <subitem>UserRatingStarOff.png</subitem>
+        <subitem>stargood.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>3</imagesToDraw>
+      <percentage>10</percentage>
+      <!--<visible>!string.starts(#MovieListRatingStar6,0)+control.isvisible(10)</visible>-->
+    </control>
+
+    <control>
+      <description>Spannung</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>970</posX>
+      <posY>640</posY>
+      <width>100</width>
+      <label>#ClickfinderPG.Translation.TensionLabel</label>
+      <font>font10</font>
+      <align>center</align>
+      <textcolor>FFdddddd</textcolor>
+    </control>
+    <control>
+      <description>SpannungStars</description>
+      <type>imagelist</type>
+      <id>1</id>
+      <posX>1004</posX>
+      <posY>656</posY>
+      <width>100</width>
+      <height>10</height>
+      <textureWidth>12</textureWidth>
+      <textureHeight>12</textureHeight>
+      <subitems>
+        <subitem>UserRatingStarOff.png</subitem>
+        <subitem>stargood.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>3</imagesToDraw>
+      <percentage>8</percentage>
+      <!--<visible>!string.starts(#MovieListRatingStar6,0)+control.isvisible(10)</visible>-->
+    </control>
+
+    <control>
+      <description>Anspruch</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>1070</posX>
+      <posY>640</posY>
+      <width>100</width>
+      <label>#ClickfinderPG.Translation.RequirementLabel</label>
+      <font>font10</font>
+      <align>center</align>
+      <textcolor>FFdddddd</textcolor>
+    </control>
+    <control>
+      <description>AnspruchStars</description>
+      <type>imagelist</type>
+      <id>1</id>
+      <posX>1104</posX>
+      <posY>656</posY>
+      <width>100</width>
+      <height>10</height>
+      <textureWidth>12</textureWidth>
+      <textureHeight>12</textureHeight>
+      <subitems>
+        <subitem>UserRatingStarOff.png</subitem>
+        <subitem>stargood.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>3</imagesToDraw>
+      <percentage>10</percentage>
+      <!--<visible>!string.starts(#MovieListRatingStar6,0)+control.isvisible(10)</visible>-->
+    </control>
+
+
+
+
+
     <!-- ActionGroup -->
     <control>
       <type>actiongroup</type>
@@ -160,7 +604,7 @@
     </control>
 
 
-    
+
   </controls>
 </window>
 

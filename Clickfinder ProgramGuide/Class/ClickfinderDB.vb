@@ -193,15 +193,6 @@ Public Class ClickfinderDB
                 End If
             End Get
         End Property
-        Public ReadOnly Property Bewertungen() As String
-            Get
-                If Not IsDBNull(_Table.Rows(_Index).Item("Bewertungen")) Then
-                    Return Replace(_Table.Rows(_Index).Item("Bewertungen"), ";", " ")
-                Else
-                    Return ""
-                End If
-            End Get
-        End Property
         Public ReadOnly Property Kurzkritik() As String
             Get
                 If Not IsDBNull(_Table.Rows(_Index).Item("Kurzkritik")) Then
@@ -256,6 +247,29 @@ Public Class ClickfinderDB
                 End If
             End Get
         End Property
+        Public ReadOnly Property Dolby() As Boolean
+            Get
+                If Not IsDBNull(_Table.Rows(_Index).Item("KzDolby")) Or Not IsDBNull(_Table.Rows(_Index).Item("KzDolbyDigital")) Or Not IsDBNull(_Table.Rows(_Index).Item("KzDolbySurround")) Then
+                    If CBool(_Table.Rows(_Index).Item("KzDolby")) = True Or CBool(_Table.Rows(_Index).Item("KzDolbyDigital")) = True Or CBool(_Table.Rows(_Index).Item("KzDolbySurround")) = True Then
+                        Return True
+                    Else
+                        Return False
+                    End If
+                Else
+                    Return False
+                End If
+            End Get
+        End Property
+        Public ReadOnly Property KzHDTV() As Boolean
+            Get
+                If Not IsDBNull(_Table.Rows(_Index).Item("KzHDTV")) Then
+                    Return CBool(_Table.Rows(_Index).Item("KzHDTV"))
+                Else
+                    Return False
+                End If
+            End Get
+        End Property
+
         Public ReadOnly Property KzBilddateiHeruntergeladen() As Boolean
             Get
                 If Not IsDBNull(_Table.Rows(_Index).Item("KzBilddateiHeruntergeladen")) Then
@@ -329,7 +343,15 @@ Public Class ClickfinderDB
                 End If
             End Get
         End Property
-
+        Public ReadOnly Property Bewertungen() As String
+            Get
+                If Not IsDBNull(_Table.Rows(_Index).Item("Bewertungen")) Then
+                    Return CStr(_Table.Rows(_Index).Item("Bewertungen"))
+                Else
+                    Return ""
+                End If
+            End Get
+        End Property
     End Class
 
     Public ReadOnly Property DataTable() As DataTable

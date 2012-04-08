@@ -56,7 +56,16 @@ Public NotInheritable Class Translation
     Public Shared Refresh = "Aktualisieren"
     Public Shared ImportIsRunning = "Import wird zur Zeit durchgeführt !"
     Public Shared Filterby = "Nach Tv-Gruppe filtern ..."
+    Public Shared MinuteLabel = "min"
+    Public Shared DurationLabel = "Dauer:"
+    Public Shared TimeLabel = "Uhrzeit:"
+    Public Shared ChannelLabel = "Sender:"
 
+    Public Shared RequirementLabel = "Anspruch"
+    Public Shared FunLabel = "Spaß"
+    Public Shared ActionLabel = "Action"
+    Public Shared EroticLabel = "Erotik"
+    Public Shared TensionLabel = "Spannung"
     ' A
 
     ' B

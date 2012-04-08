@@ -21,6 +21,7 @@
 Imports System
 Imports System.Collections.Generic
 Imports Gentle.Framework
+Imports TvLibrary.Log
 Imports TvDatabase
 
 Namespace TvDatabase
@@ -76,6 +77,14 @@ Namespace TvDatabase
         <TableColumn("Cover", NotNull:=True)> _
         Private m_Cover As String
 
+        <TableColumn("Dolby", NotNull:=True)> _
+        Private m_Dolby As Boolean
+
+        <TableColumn("HDTV", NotNull:=True)> _
+        Private m_HDTV As Boolean
+
+        <TableColumn("RatingString", NotNull:=True)> _
+        Private m_RatingString As String
 
 #End Region
 
@@ -272,8 +281,37 @@ Namespace TvDatabase
             End Get
             Set(ByVal value As String)
                 m_isChanged = m_isChanged Or m_Cover <> value
-                '"\" am Anfang entfernen sofern vorhanden
                 m_Cover = value
+            End Set
+        End Property
+
+        Public Property Dolby() As Boolean
+            Get
+                Return m_Dolby
+            End Get
+            Set(ByVal value As Boolean)
+                m_isChanged = m_isChanged Or m_Dolby <> value
+                m_Dolby = value
+            End Set
+        End Property
+
+        Public Property HDTV() As Boolean
+            Get
+                Return m_HDTV
+            End Get
+            Set(ByVal value As Boolean)
+                m_isChanged = m_isChanged Or m_HDTV <> value
+                m_HDTV = value
+            End Set
+        End Property
+
+        Public Property RatingString() As String
+            Get
+                Return m_RatingString
+            End Get
+            Set(ByVal value As String)
+                m_isChanged = m_isChanged Or m_RatingString <> value
+                m_RatingString = value
             End Set
         End Property
 

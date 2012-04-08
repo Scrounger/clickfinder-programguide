@@ -15,7 +15,6 @@ Namespace ClickfinderProgramGuide
     Public Class ItemsGuiWindow
         Inherits GUIWindow
 
-
 #Region "Skin Controls"
 
         'Buttons
@@ -365,7 +364,6 @@ Namespace ClickfinderProgramGuide
 
 #End Region
 
-
 #Region "Functions"
 
 
@@ -699,7 +697,6 @@ Namespace ClickfinderProgramGuide
             _RightProgressBar.Visible = True
         End Sub
 #End Region
-
 
 #Region "MediaPortal Funktionen / Dialogs"
         Private Sub ShowItemsContextMenu(ByVal idProgram As Integer, ByVal idWindow As Integer)

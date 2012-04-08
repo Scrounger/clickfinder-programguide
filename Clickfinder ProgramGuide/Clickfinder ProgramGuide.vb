@@ -57,6 +57,7 @@ Namespace ClickfinderProgramGuide
         <SkinControlAttribute(30)> Protected _HighlightsList As GUIListControl = Nothing
 
 #End Region
+
 #Region "Members"
         Private _ThreadFillMovieList As Threading.Thread
         Private _ThreadFillHighlightsList As Threading.Thread
@@ -68,7 +69,6 @@ Namespace ClickfinderProgramGuide
 
 
 #End Region
-
 
 #Region "iSetupFormImplementation"
 
@@ -635,7 +635,6 @@ Namespace ClickfinderProgramGuide
                 MyLog.[Error]("[HighlightsGUIWindow] [FillMovieList]: exception err:" & ex2.Message & " stack:" & ex2.StackTrace)
             End Try
         End Sub
-
         Private Sub FillHighlightsList()
 
             Dim _lastTitle As String = String.Empty
@@ -788,7 +787,6 @@ Namespace ClickfinderProgramGuide
         Private Sub ShowMoviesProgressBar()
             _MoviesProgressBar.Visible = True
         End Sub
-
 #End Region
 
 #Region "MediaPortal Funktionen / Dialogs"
@@ -830,11 +828,7 @@ Namespace ClickfinderProgramGuide
                                 lItemEpisode.Label3 = "Staffel " & Format(CInt(_TvMovieProgram.ReferencedProgram.SeriesNum), "00") & ", Episode " & Format(CInt(_TvMovieProgram.ReferencedProgram.EpisodeNum), "00")
                                 lItemEpisode.IconImage = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieProgram.SeriesPosterImage
 
-                                If GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram) = True Then
-                                    lItemEpisode.PinImage = "tvguide_record_button.png"
-                                Else
-                                    lItemEpisode.PinImage = ""
-                                End If
+                                lItemEpisode.PinImage = GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram)
 
                                 _idProgramContainer.Add(i, _TvMovieProgram.idProgram)
 
