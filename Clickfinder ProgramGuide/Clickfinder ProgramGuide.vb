@@ -841,6 +841,7 @@ Namespace ClickfinderProgramGuide
 
                         dlgContext.DoModal(GetID)
                         ShowHighlightsMenu(_idProgramContainer.Item(dlgContext.SelectedLabel))
+
                     End If
                 End If
 

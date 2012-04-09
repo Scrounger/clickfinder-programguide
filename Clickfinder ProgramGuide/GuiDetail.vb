@@ -53,6 +53,26 @@ Namespace ClickfinderProgramGuide
 #Region "GUI Events"
 
         Protected Overrides Sub OnPageLoad()
+
+            If _tvMovieProgram.needsUpdate = True Then
+                Dim _ClickfinderDB As New ClickfinderDB(_tvMovieProgram.ReferencedProgram)
+
+                'Wenn HD Sender -> Dolby = true, Hd = true
+                If InStr(_tvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, " HD") > 0 Then
+                    _tvMovieProgram.Dolby = True
+                    _tvMovieProgram.HDTV = True
+                Else
+                    'Daten aus ClickfinderDB 
+                    If _ClickfinderDB.Count > 0 Then
+                        _tvMovieProgram.Dolby = _ClickfinderDB(0).Dolby
+                        _tvMovieProgram.HDTV = _ClickfinderDB(0).KzHDTV
+                    End If
+                End If
+
+                _tvMovieProgram.needsUpdate = False
+                _tvMovieProgram.Persist()
+            End If
+
             Translator.SetProperty("#DetailTitle", _tvMovieProgram.ReferencedProgram.Title)
             Translator.SetProperty("#DetailorgTitle", _tvMovieProgram.ReferencedProgram.EpisodeName)
             Translator.SetProperty("#DetailImage", GuiLayout.Image(_tvMovieProgram))
@@ -61,6 +81,25 @@ Namespace ClickfinderProgramGuide
             Translator.SetProperty("#DetailTime", GuiLayout.TimeLabel(_tvMovieProgram))
             Translator.SetProperty("#DetailDuration", DateDiff(DateInterval.Minute, _tvMovieProgram.ReferencedProgram.StartTime, _tvMovieProgram.ReferencedProgram.EndTime) & " " & Translation.MinuteLabel)
             Translator.SetProperty("#DetailChannel", _tvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName)
+
+            If _tvMovieProgram.Dolby = True Then
+                Translator.SetProperty("#AudioImage", "Logos\ac-3 dolby digital.png")
+            Else
+                Translator.SetProperty("#AudioImage", "Logos\stereo.png")
+            End If
+
+            If _tvMovieProgram.HDTV = True Then
+                Translator.SetProperty("#ProgramFormat", "Logos\hd.png")
+            Else
+                Translator.SetProperty("#ProgramFormat", "Logos\sd.png")
+            End If
+
+            Translator.SetProperty("#RatingFun", getRatingpercentage(_tvMovieProgram.Fun))
+            Translator.SetProperty("#RatingAction", getRatingpercentage(_tvMovieProgram.Action))
+            Translator.SetProperty("#RatingErotic", getRatingpercentage(_tvMovieProgram.Erotic))
+            Translator.SetProperty("#RatingSpannung", getRatingpercentage(_tvMovieProgram.Tension))
+            Translator.SetProperty("#RatingAnspruch", getRatingpercentage(_tvMovieProgram.Requirement))
+            Translator.SetProperty("#RatingFeelings", getRatingpercentage(_tvMovieProgram.Feelings))
 
             'MsgBox(Details_idProgram)
             MyBase.OnPageLoad()
@@ -90,6 +129,22 @@ Namespace ClickfinderProgramGuide
 
 
         End Sub
+
+        Private Function getRatingpercentage(ByVal TvMovieRating As Integer) As Integer
+            Select Case TvMovieRating
+                Case Is = 0
+                    Return 0
+                Case Is = 1
+                    Return 5
+                Case Is = 2
+                    Return 8
+                Case Is = 3
+                    Return 10
+            End Select
+
+        End Function
+
+
 #End Region
 
     End Class

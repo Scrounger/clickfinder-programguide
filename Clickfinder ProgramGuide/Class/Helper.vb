@@ -238,44 +238,71 @@ Public Class Helper
             Return _TvMovieProgram
         Catch ex As Exception
             Dim _ClickfinderDB As New ClickfinderDB(Program)
-            Dim _newTvMovieProgram As New TVMovieProgram(Program.IdProgram)
+            Dim _TvMovieProgram As New TVMovieProgram(Program.IdProgram)
 
             If _ClickfinderDB.Count > 0 Then
 
+                'nur Informationen die zwigend benötigt werden, anzeige in GuiItems, GuiCategories & GuiHighlights
+                '+ zusätzlich Infos zum sortieren & suchen (z.B. TvMovieBewretung, Fun, Action, etc.)
+
                 'BildDateiname aus Clickfinder DB holen, sofern vorhanden
                 If CBool(_ClickfinderDB(0).KzBilddateiHeruntergeladen) = True And Not String.IsNullOrEmpty(_ClickfinderDB(0).Bilddateiname) Then
-                    _newTvMovieProgram.BildDateiname = _ClickfinderDB(0).Bilddateiname
+                    _TvMovieProgram.BildDateiname = _ClickfinderDB(0).Bilddateiname
                 End If
 
                 'TvMovie Bewertung aus Clickfinder DB holen, sofern vorhanden
                 If Not _ClickfinderDB(0).Bewertung = 0 Then
-                    _newTvMovieProgram.TVMovieBewertung = _ClickfinderDB(0).Bewertung
+                    _TvMovieProgram.TVMovieBewertung = _ClickfinderDB(0).Bewertung
                 End If
 
                 'KurzKritik aus Clickfinder DB holen, sofern vorhanden
                 If Not String.IsNullOrEmpty(_ClickfinderDB(0).Kurzkritik) Then
-                    _newTvMovieProgram.KurzKritik = _ClickfinderDB(0).Kurzkritik
+                    _TvMovieProgram.KurzKritik = _ClickfinderDB(0).Kurzkritik
                 End If
 
-                _newTvMovieProgram.Dolby = _ClickfinderDB(0).Dolby
 
-                If InStr(_newTvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, " HD") > 0 Then
-                    _newTvMovieProgram.HDTV = True
-                Else
-                    _newTvMovieProgram.HDTV = _ClickfinderDB(0).KzHDTV
-                End If
-
+                'Bewertungen String aus Clickfinder DB holen, zerlegen, einzel Bewertungen extrahieren
                 If Not String.IsNullOrEmpty(_ClickfinderDB(0).Bewertungen) Then
-                    _newTvMovieProgram.RatingString = _ClickfinderDB(0).Bewertungen
+                    ' We want to split this input string
+                    Dim s As String = _ClickfinderDB(0).Bewertungen
+
+                    ' Split string based on spaces
+                    Dim words As String() = s.Split(New Char() {";"c})
+
+                    ' Use For Each loop over words and display them
+                    Dim word As String
+                    For Each word In words
+
+                        'MsgBox(Left(word, InStr(word, "=") - 1))
+
+                        'MsgBox(CInt(Right(word, word.Length - InStr(word, "="))))
+
+                        Select Case Left(word, InStr(word, "=") - 1)
+                            Case Is = "Spaß"
+                                _TvMovieProgram.Fun = CInt(Right(word, word.Length - InStr(word, "=")))
+                            Case Is = "Action"
+                                _TvMovieProgram.Action = CInt(Right(word, word.Length - InStr(word, "=")))
+                            Case Is = "Erotik"
+                                _TvMovieProgram.Erotic = CInt(Right(word, word.Length - InStr(word, "=")))
+                            Case Is = "Spannung"
+                                _TvMovieProgram.Tension = CInt(Right(word, word.Length - InStr(word, "=")))
+                            Case Is = "Anspruch"
+                                _TvMovieProgram.Requirement = CInt(Right(word, word.Length - InStr(word, "=")))
+                            Case Is = "Gefühl"
+                                _TvMovieProgram.Feelings = CInt(Right(word, word.Length - InStr(word, "=")))
+                        End Select
+
+                    Next
                 End If
 
-                _newTvMovieProgram.Persist()
-                Return _newTvMovieProgram
+                _TvMovieProgram.needsUpdate = True
+                _TvMovieProgram.Persist()
+                Return _TvMovieProgram
             Else
-                _newTvMovieProgram.Persist()
+                _TvMovieProgram.Persist()
                 MyLog.[Warn]("[ItemsGuiWindow] [FillList]: Program {0} not found in ClickfinderDB (Title: {1}, Channel: {2}, startTime: {3}, starRating: {4})", _
-                                        _newTvMovieProgram.ReferencedProgram.IdProgram, _newTvMovieProgram.ReferencedProgram.Title, _newTvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _newTvMovieProgram.ReferencedProgram.StartTime, _newTvMovieProgram.ReferencedProgram.StarRating)
-                Return _newTvMovieProgram
+                                        _TvMovieProgram.ReferencedProgram.IdProgram, _TvMovieProgram.ReferencedProgram.Title, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieProgram.ReferencedProgram.StartTime, _TvMovieProgram.ReferencedProgram.StarRating)
+                Return _TvMovieProgram
             End If
 
         End Try
@@ -353,6 +380,13 @@ Public Class Helper
         dlgContext.Add(lItemRem)
         lItemOn.Dispose()
 
+        'mit Serie verlinken
+        Dim lItemSerieLink As New GUIListItem
+        lItemSerieLink.Label = Translation.SerieLinkLabel
+        'lItemSerieLink.IconImage = "tvguide_notify_button.png"
+        dlgContext.Add(lItemSerieLink)
+        lItemSerieLink.Dispose()
+
         dlgContext.DoModal(idWindow)
 
         Select Case dlgContext.SelectedLabel
@@ -368,10 +402,120 @@ Public Class Helper
                 SetNotify(Program)
                 MyLog.Debug("[ShowActionMenu]: selected -> set notify")
                 MyLog.Debug("")
+            Case Is = 3
+                ShowSerieLinkContextMenu(Program, idWindow)
             Case Else
                 MyLog.Debug("[ShowActionMenu]: exit")
                 MyLog.Debug("")
         End Select
+    End Sub
+
+    Private Shared Sub ShowSerieLinkContextMenu(ByVal program As Program, ByVal idWindow As Integer)
+        Dim dlgContext As GUIDialogSelect2Custom = CType(GUIWindowManager.GetWindow(CType(1656544655, Integer)), GUIDialogSelect2Custom)
+        dlgContext.Reset()
+        Try
+            Dim _layer As New TvBusinessLayer
+            Dim _idSeriesContainer As Dictionary(Of Integer, Integer) = New Dictionary(Of Integer, Integer)
+
+            If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True Then
+                'ContextMenu Layout
+                dlgContext.SetHeading(program.Title)
+
+                'Alle Serien aus DB laden
+                Dim _TvSeriesDB As New TVSeriesDB
+                _TvSeriesDB.LoadAllSeries()
+
+                'Alle Serien + idSeries in CB schreiben
+                For i As Integer = 0 To _TvSeriesDB.CountSeries - 1
+                    Dim lItemSerie As New GUIListItem
+                    lItemSerie.Label = _TvSeriesDB(i).SeriesName
+
+                    Try
+                        Dim SeriesMapping As TvMovieSeriesMapping = TvMovieSeriesMapping.Retrieve(_TvSeriesDB(i).SeriesID)
+                        lItemSerie.Label3 = SeriesMapping.EpgTitle
+                    Catch ex As Exception
+
+                    End Try
+
+
+                    lItemSerie.IconImage = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvSeriesDB(i).SeriesPosterImage
+
+                    _idSeriesContainer.Add(i, _TvSeriesDB(i).SeriesID)
+
+                    dlgContext.Add(lItemSerie)
+                    lItemSerie.Dispose()
+
+                Next
+            End If
+
+            dlgContext.DoModal(idWindow)
+
+            Try
+                Dim _SeriesMapping As TvMovieSeriesMapping = TvMovieSeriesMapping.Retrieve(_idSeriesContainer.Item(dlgContext.SelectedLabel))
+                _SeriesMapping.EpgTitle = program.Title
+                _SeriesMapping.Persist()
+            Catch ex As Exception
+                Dim _SeriesMapping As New TvMovieSeriesMapping(_idSeriesContainer.Item(dlgContext.SelectedLabel))
+                _SeriesMapping.EpgTitle = program.Title
+                _SeriesMapping.Persist()
+            End Try
+
+
+            'Dim _idProgramContainer As Dictionary(Of Integer, Integer) = New Dictionary(Of Integer, Integer)
+            'Dim _SeriesProgram As TVMovieProgram = TVMovieProgram.Retrieve(idProgram)
+            ''ContextMenu Layout
+            'dlgContext.SetHeading(_SeriesProgram.ReferencedProgram.Title)
+            ''dlgContext.ShowQuickNumbers = False
+
+            'MyLog.Debug("[HighlightsGuiWindow] [ShowSeriesContextMenu]: idprogram = {0}, title = {1}", _SeriesProgram.ReferencedProgram.IdProgram, _SeriesProgram.ReferencedProgram.Title)
+
+            'If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True Then
+
+            '    Dim SQLstring As String = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
+            '                        "WHERE idSeries = " & _SeriesProgram.idSeries & " " & _
+            '                        "AND local = 0 " & _
+            '                        "AND startTime > " & MySqlDate(_ClickfinderCurrentDate.AddHours(0)) & " " & _
+            '                        "AND startTime < " & MySqlDate(_ClickfinderCurrentDate.AddHours(24)) & " " & _
+            '                        Helper.ORDERBYstartTime
+
+            '    Dim _Result As New ArrayList
+            '    _Result.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", True))
+
+            '    If _Result.Count > 0 Then
+            '        For i = 0 To _Result.Count - 1
+            '            Try
+
+            '                'ProgramDaten über TvMovieProgram laden
+            '                Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_Result.Item(i))
+
+            '                Dim lItemEpisode As New GUIListItem
+            '                lItemEpisode.Label = _TvMovieProgram.ReferencedProgram.EpisodeName
+            '                lItemEpisode.Label2 = Format(_TvMovieProgram.ReferencedProgram.StartTime.Hour, "00") & _
+            '                                    ":" & Format(_TvMovieProgram.ReferencedProgram.StartTime.Minute, "00") & " - " & _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName
+            '                lItemEpisode.Label3 = "Staffel " & Format(CInt(_TvMovieProgram.ReferencedProgram.SeriesNum), "00") & ", Episode " & Format(CInt(_TvMovieProgram.ReferencedProgram.EpisodeNum), "00")
+            '                lItemEpisode.IconImage = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieProgram.SeriesPosterImage
+
+            '                lItemEpisode.PinImage = GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram)
+
+            '                _idProgramContainer.Add(i, _TvMovieProgram.idProgram)
+
+            '                dlgContext.Add(lItemEpisode)
+            '                lItemEpisode.Dispose()
+            '            Catch ex As Exception
+            '                MyLog.[Error]("[ShowSeriesContextMenu]: Loop: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+            '            End Try
+            '        Next
+
+            '        dlgContext.DoModal(GetID)
+            '        ShowHighlightsMenu(_idProgramContainer.Item(dlgContext.SelectedLabel))
+
+            '    End If
+            'End If
+
+            '_idProgramContainer.Clear()
+        Catch ex As Exception
+            MyLog.[Error]("[HighlightsGUIWindow] [ShowSeriesContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+        End Try
     End Sub
 
     Friend Shared Function UseSportLogos(ByVal title As String, ByVal imagePathFallback As String) As String

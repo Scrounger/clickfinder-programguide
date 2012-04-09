@@ -66,6 +66,9 @@ Public NotInheritable Class Translation
     Public Shared ActionLabel = "Action"
     Public Shared EroticLabel = "Erotik"
     Public Shared TensionLabel = "Spannung"
+    Public Shared FeelingsLabel = "Gefühl"
+    Public Shared SerieLinkLabel = "mit Serie verknüpfen ..."
+
     ' A
 
     ' B

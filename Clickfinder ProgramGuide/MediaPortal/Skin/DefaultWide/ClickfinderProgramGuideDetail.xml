@@ -329,10 +329,10 @@
       <description>Program Audio Image</description>
       <type>image</type>
       <id>1</id>
-      <posX>470</posX>
+      <posX>370</posX>
       <posY>590</posY>
       <width>50</width>
-      <texture>Logos\ac-3 dolby digital.png</texture>
+      <texture>#AudioImage</texture>
       <colorkey>0</colorkey>
       <filtered>yes</filtered>
       <centered>yes</centered>
@@ -346,10 +346,10 @@
       <description>Program HD/SD Image</description>
       <type>image</type>
       <id>1</id>
-      <posX>570</posX>
+      <posX>470</posX>
       <posY>590</posY>
       <width>50</width>
-      <texture>Logos\hd.png</texture>
+      <texture>#ProgramFormat</texture>
       <colorkey>0</colorkey>
       <filtered>yes</filtered>
       <centered>yes</centered>
@@ -364,7 +364,7 @@
       <description>Fun</description>
       <type>label</type>
       <id>1</id>
-      <posX>670</posX>
+      <posX>570</posX>
       <posY>640</posY>
       <width>100</width>
       <label>#ClickfinderPG.Translation.FunLabel</label>
@@ -374,6 +374,39 @@
     </control>
     <control>
       <description>FunStars</description>
+      <type>imagelist</type>
+      <id>1</id>
+      <posX>604</posX>
+      <posY>656</posY>
+      <width>100</width>
+      <height>10</height>
+      <textureWidth>12</textureWidth>
+      <textureHeight>12</textureHeight>
+      <subitems>
+        <subitem>UserRatingStarOff.png</subitem>
+        <subitem>stargood.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>3</imagesToDraw>
+      <percentage>#RatingFun</percentage>
+      <visible>!string.starts(#RatingFun,0)</visible>
+    </control>
+
+    <control>
+      <description>Action</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>670</posX>
+      <posY>640</posY>
+      <width>100</width>
+      <label>#ClickfinderPG.Translation.ActionLabel</label>
+      <font>font10</font>
+      <align>center</align>
+      <textcolor>FFdddddd</textcolor>
+    </control>
+    <control>
+      <description>ActionStars</description>
       <type>imagelist</type>
       <id>1</id>
       <posX>704</posX>
@@ -389,24 +422,24 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
-      <percentage>8</percentage>
-      <!--<visible>!string.starts(#MovieListRatingStar6,0)+control.isvisible(10)</visible>-->
+      <percentage>#RatingAction</percentage>
+      <visible>!string.starts(#RatingAction,0)</visible>
     </control>
 
     <control>
-      <description>Action</description>
+      <description>Gefühl</description>
       <type>label</type>
       <id>1</id>
       <posX>770</posX>
       <posY>640</posY>
       <width>100</width>
-      <label>#ClickfinderPG.Translation.ActionLabel</label>
+      <label>#ClickfinderPG.Translation.FeelingsLabel</label>
       <font>font10</font>
       <align>center</align>
       <textcolor>FFdddddd</textcolor>
     </control>
     <control>
-      <description>ActionStars</description>
+      <description>GefühlStars</description>
       <type>imagelist</type>
       <id>1</id>
       <posX>804</posX>
@@ -422,8 +455,8 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
-      <percentage>5</percentage>
-      <!--<visible>!string.starts(#MovieListRatingStar6,0)+control.isvisible(10)</visible>-->
+      <percentage>#RatingFeelings</percentage>
+      <visible>!string.starts(#RatingFeelings,0)</visible>
     </control>
 
     <control>
@@ -455,8 +488,8 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
-      <percentage>10</percentage>
-      <!--<visible>!string.starts(#MovieListRatingStar6,0)+control.isvisible(10)</visible>-->
+      <percentage>#RatingErotic</percentage>
+      <visible>!string.starts(#RatingErotic,0)</visible>
     </control>
 
     <control>
@@ -488,8 +521,8 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
-      <percentage>8</percentage>
-      <!--<visible>!string.starts(#MovieListRatingStar6,0)+control.isvisible(10)</visible>-->
+      <percentage>#RatingSpannung</percentage>
+      <visible>!string.starts(#RatingSpannung,0)</visible>
     </control>
 
     <control>
@@ -521,13 +554,9 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
-      <percentage>10</percentage>
-      <!--<visible>!string.starts(#MovieListRatingStar6,0)+control.isvisible(10)</visible>-->
+      <percentage>#RatingAnspruch</percentage>
+      <visible>!string.starts(#RatingAnspruch,0)</visible>
     </control>
-
-
-
-
 
     <!-- ActionGroup -->
     <control>

@@ -120,6 +120,8 @@
     <Compile Include="Class\Translation.vb" />
     <Compile Include="Class\Translator.vb" />
     <Compile Include="Class\TVMovieProgram.vb" />
+    <Compile Include="Class\TvMovieSeriesMapping.vb" />
+    <Compile Include="Class\TVSeriesDB.vb" />
     <Compile Include="Clickfinder ProgramGuide.vb" />
     <Compile Include="EditCategorie.Designer.vb">
       <DependentUpon>EditCategorie.vb</DependentUpon>

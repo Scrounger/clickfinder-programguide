@@ -275,6 +275,13 @@
               <ZipFileName>Installer{CopyFile}\{99a5d132-8066-492c-aa25-1be78753d24d}-hover_ClickfinderProgramGuide.png</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\Media\hover_ClickfinderProgramGuide.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_SepHor.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{9d2bca32-4145-4efd-9683-fcbb72ccfdfc}-ClickfinderPG_SepHor.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_SepHor.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -402,6 +409,13 @@
               <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\hover_ClickfinderProgramGuide.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{abb5ed6a-7725-4e53-a72f-0de7d9d65072}-hover_ClickfinderProgramGuide.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\Media\hover_ClickfinderProgramGuide.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_SepHor.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{f12c36f4-94d5-47d3-b19e-838aea299a19}-ClickfinderPG_SepHor.png</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_SepHor.png</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -605,13 +619,22 @@
     </Version>
     <ExtensionDescription>This Plugin is a ProgramGuide based on the german EPG Data from the Tv Movie Clickfinder Provider (Software). It shows you information for different categories (e.g. Movies, Series, Doku,...), which television program is broadcasting now, at PrimeTime or at LateTime. There is also a Preview for the whole EPG timespan. The Data are sorted by the Rating of the TV Movie Clickfinder Plugin. This Plugin has a lot of configuration options, that gives the user the possibility to personalize the different views.
 
+
+
 This Plugin is only in German, because the Clickfinder EPG Data are only available in German too.</ExtensionDescription>
     <VersionDescription>Completly rewriten plugin.
+
 a lot of new features !
+
+- sort function
+- filter function
+- show / hide local existing movies / series
+- 
+
 </VersionDescription>
     <DevelopmentStatus>Alpha</DevelopmentStatus>
     <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_0.1.0.0.beta.mpe1</OnlineLocation>
-    <ReleaseDate>2012-01-04T15:57:29</ReleaseDate>
+    <ReleaseDate>2012-04-09T15:57:29</ReleaseDate>
     <Tags>programguide, tv movie, clickfinder, epg, tv</Tags>
     <Location>D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPE1\Clickfinder ProgramGuide.mpe1</Location>
     <Params>
@@ -889,6 +912,13 @@ a lot of new features !
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_SepHor.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{9d2bca32-4145-4efd-9683-fcbb72ccfdfc}-ClickfinderPG_SepHor.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_SepHor.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuide.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{9131b31f-9413-4b66-a114-f929e6ee55ae}-ClickfinderProgramGuide.xml</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\ClickfinderProgramGuide.xml</DestinationFilename>
@@ -1005,11 +1035,18 @@ a lot of new features !
         <ZipFileName>Installer{CopyFile}\{abb5ed6a-7725-4e53-a72f-0de7d9d65072}-hover_ClickfinderProgramGuide.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\Media\hover_ClickfinderProgramGuide.png</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_SepHor.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{f12c36f4-94d5-47d3-b19e-838aea299a19}-ClickfinderPG_SepHor.png</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_SepHor.png</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\..\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R3.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{7839d86f-f246-4fdf-9fee-6cc45d868fc6}-ClickfinderPG_R3.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{90896347-6440-4235-bf97-91676d3bc6c2}-ClickfinderPG_R3.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
