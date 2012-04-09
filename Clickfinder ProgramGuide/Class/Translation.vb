@@ -68,6 +68,12 @@ Public NotInheritable Class Translation
     Public Shared TensionLabel = "Spannung"
     Public Shared FeelingsLabel = "Gefühl"
     Public Shared SerieLinkLabel = "mit Serie verknüpfen ..."
+    Public Shared YearLabel = "Jahr:"
+    Public Shared GenreLabel = "Genre:"
+    Public Shared RegieLabel = "Regie:"
+
+    Public Shared ActorsLabel = "Schauspieler:"
+    Public Shared Critic = "Kritik:"
 
     ' A
 

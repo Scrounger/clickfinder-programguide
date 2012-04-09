@@ -295,6 +295,11 @@ Public Class Helper
                     Next
                 End If
 
+                'Actors aus Clickfinder DB holen, sofern vorhanden
+                If Not String.IsNullOrEmpty(_ClickfinderDB(0).Darsteller) Then
+                    _TvMovieProgram.Actors = _ClickfinderDB(0).Darsteller
+                End If
+
                 _TvMovieProgram.needsUpdate = True
                 _TvMovieProgram.Persist()
                 Return _TvMovieProgram

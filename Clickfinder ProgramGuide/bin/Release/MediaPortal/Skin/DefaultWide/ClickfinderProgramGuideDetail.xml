@@ -148,6 +148,191 @@
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
+    <control>
+      <description>Detail RatingStars</description>
+      <type>imagelist</type>
+      <id>44</id>
+      <posX>350</posX>
+      <posY>162</posY>
+      <width>120</width>
+      <height>40</height>
+      <textureWidth>32</textureWidth>
+      <textureHeight>32</textureHeight>
+      <subitems>
+        <subitem>UserRatingStarOff.png</subitem>
+        <subitem>stargood.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>10</imagesToDraw>
+      <percentage>#DetailRatingStar</percentage>
+      <visible>!string.starts(#DetailRatingStar,0)</visible>
+    </control>
+
+    <control>
+      <description>Label Genre</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>350</posX>
+      <posY>204</posY>
+      <width>100</width>
+      <label>#ClickfinderPG.Translation.GenreLabel</label>
+      <align>left</align>
+      <font>font10</font>
+      <textcolor>ffffffff</textcolor>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>ListItem Genre</description>
+      <type>fadelabel</type>
+      <id>1</id>
+      <posX>480</posX>
+      <posY>204</posY>
+      <width>460</width>
+      <label>#DetailGenre</label>
+      <align>left</align>
+      <font>font10</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Label Jahr/Country</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>350</posX>
+      <posY>224</posY>
+      <width>50</width>
+      <label>#ClickfinderPG.Translation.YearLabel</label>
+      <align>left</align>
+      <font>font10</font>
+      <textcolor>ffffffff</textcolor>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Detail Year/Countryr</description>
+      <type>fadelabel</type>
+      <id>1</id>
+      <posX>480</posX>
+      <posY>224</posY>
+      <width>680</width>
+      <label>#DetailCountry #DetailYear</label>
+      <align>left</align>
+      <font>font10</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Label Regie</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>350</posX>
+      <posY>246</posY>
+      <width>100</width>
+      <label>#ClickfinderPG.Translation.RegieLabel</label>
+      <align>left</align>
+      <font>font10</font>
+      <textcolor>ffffffff</textcolor>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Detail Regie</description>
+      <type>fadelabel</type>
+      <id>1</id>
+      <posX>480</posX>
+      <posY>246</posY>
+      <width>460</width>
+      <label>#DetailRegie</label>
+      <align>left</align>
+      <font>font10</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Label Schauspieler</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>350</posX>
+      <posY>270</posY>
+      <width>120</width>
+      <label>#ClickfinderPG.Translation.ActorsLabel</label>
+      <align>left</align>
+      <font>font10</font>
+      <textcolor>ffffffff</textcolor>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Detail Actors</description>
+      <type>fadelabel</type>
+      <id>1</id>
+      <posX>480</posX>
+      <posY>270</posY>
+      <width>680</width>
+      <label>#DetailActors</label>
+      <align>left</align>
+      <font>font10</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Label KurzKritik</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>350</posX>
+      <posY>292</posY>
+      <width>100</width>
+      <label>#ClickfinderPG.Translation.Critic</label>
+      <align>left</align>
+      <font>font10</font>
+      <textcolor>ffffffff</textcolor>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Detail Kurzkritik</description>
+      <type>fadelabel</type>
+      <id>42</id>
+      <posX>480</posX>
+      <posY>292</posY>
+      <width>680</width>
+      <label>#DetailKritik</label>
+      <align>left</align>
+      <font>font10</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
 
     <!--links vom Separator-->
     <control>
@@ -161,7 +346,7 @@
       <texture>#DetailImage</texture>
       <colorkey>0</colorkey>
       <filtered>yes</filtered>
-      <centered>no</centered>
+      <centered>yes</centered>
       <keepaspectratio>yes</keepaspectratio>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
@@ -186,26 +371,6 @@
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
-    <control>
-      <description>Detail RatingStars</description>
-      <type>imagelist</type>
-      <id>44</id>
-      <posX>820</posX>
-      <posY>176</posY>
-      <width>120</width>
-      <height>40</height>
-      <textureWidth>32</textureWidth>
-      <textureHeight>32</textureHeight>
-      <subitems>
-        <subitem>UserRatingStarOff.png</subitem>
-        <subitem>stargood.png</subitem>
-      </subitems>
-      <orientation>horizontal</orientation>
-      <align>left</align>
-      <imagesToDraw>10</imagesToDraw>
-      <percentage>#DetailRatingStar</percentage>
-      <visible>!string.starts(#DetailRatingStar,0)</visible>
-    </control>
 
     <control>
       <description>Label Zeit</description>
@@ -332,7 +497,7 @@
       <posX>370</posX>
       <posY>590</posY>
       <width>50</width>
-      <texture>#AudioImage</texture>
+      <texture>#DetailAudioImage</texture>
       <colorkey>0</colorkey>
       <filtered>yes</filtered>
       <centered>yes</centered>
@@ -349,7 +514,7 @@
       <posX>470</posX>
       <posY>590</posY>
       <width>50</width>
-      <texture>#ProgramFormat</texture>
+      <texture>#DetailProgramFormat</texture>
       <colorkey>0</colorkey>
       <filtered>yes</filtered>
       <centered>yes</centered>
@@ -389,8 +554,8 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
-      <percentage>#RatingFun</percentage>
-      <visible>!string.starts(#RatingFun,0)</visible>
+      <percentage>#DetailRatingFun</percentage>
+      <visible>!string.starts(#DetailRatingFun,0)</visible>
     </control>
 
     <control>
@@ -422,8 +587,8 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
-      <percentage>#RatingAction</percentage>
-      <visible>!string.starts(#RatingAction,0)</visible>
+      <percentage>#DetailRatingAction</percentage>
+      <visible>!string.starts(#DetailRatingAction,0)</visible>
     </control>
 
     <control>
@@ -455,8 +620,8 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
-      <percentage>#RatingFeelings</percentage>
-      <visible>!string.starts(#RatingFeelings,0)</visible>
+      <percentage>#DetailRatingFeelings</percentage>
+      <visible>!string.starts(#DetailRatingFeelings,0)</visible>
     </control>
 
     <control>
@@ -488,8 +653,8 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
-      <percentage>#RatingErotic</percentage>
-      <visible>!string.starts(#RatingErotic,0)</visible>
+      <percentage>#DetailRatingErotic</percentage>
+      <visible>!string.starts(#DetailRatingErotic,0)</visible>
     </control>
 
     <control>
@@ -521,8 +686,8 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
-      <percentage>#RatingSpannung</percentage>
-      <visible>!string.starts(#RatingSpannung,0)</visible>
+      <percentage>#DetailRatingSpannung</percentage>
+      <visible>!string.starts(#DetailRatingSpannung,0)</visible>
     </control>
 
     <control>
@@ -554,8 +719,8 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
-      <percentage>#RatingAnspruch</percentage>
-      <visible>!string.starts(#RatingAnspruch,0)</visible>
+      <percentage>#DetailRatingAnspruch</percentage>
+      <visible>!string.starts(#DetailRatingAnspruch,0)</visible>
     </control>
 
     <!-- ActionGroup -->

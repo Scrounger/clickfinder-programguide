@@ -310,7 +310,7 @@ Public Class ClickfinderDB
         Public ReadOnly Property Darsteller() As String
             Get
                 If Not IsDBNull(_Table.Rows(_Index).Item("Darsteller")) Then
-                    Return Replace(_Table.Rows(_Index).Item("Darsteller"), ";", " ")
+                    Return _Table.Rows(_Index).Item("Darsteller")
                 Else
                     Return ""
                 End If

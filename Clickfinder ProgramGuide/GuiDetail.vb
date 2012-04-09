@@ -14,7 +14,6 @@ Namespace ClickfinderProgramGuide
 
 #Region "Members"
         Friend Shared _tvMovieProgram As TVMovieProgram
-
         Private _layer As New TvBusinessLayer
 
 #End Region
@@ -54,6 +53,12 @@ Namespace ClickfinderProgramGuide
 
         Protected Overrides Sub OnPageLoad()
 
+
+            MyLog.Info("")
+            MyLog.Info("")
+            MyLog.Info("[DetailGuiWindow] -------------[OPEN]-------------")
+            MyLog.Debug("[DetailGuiWindow] [OnPageLoad]: {0}, idProgram = {1}, needsUpdate = {2}", _tvMovieProgram.ReferencedProgram.Title, _tvMovieProgram.idProgram, _tvMovieProgram.needsUpdate)
+
             If _tvMovieProgram.needsUpdate = True Then
                 Dim _ClickfinderDB As New ClickfinderDB(_tvMovieProgram.ReferencedProgram)
 
@@ -69,6 +74,18 @@ Namespace ClickfinderProgramGuide
                     End If
                 End If
 
+                If Not String.IsNullOrEmpty(_ClickfinderDB(0).Herstellungsjahr) Then
+                    _tvMovieProgram.Year = CDate("01.01." & _ClickfinderDB(0).Herstellungsjahr)
+                End If
+
+                If Not String.IsNullOrEmpty(_ClickfinderDB(0).Herstellungsland) Then
+                    _tvMovieProgram.Country = _ClickfinderDB(0).Herstellungsland
+                End If
+
+                If Not String.IsNullOrEmpty(_ClickfinderDB(0).Regie) Then
+                    _tvMovieProgram.Regie = _ClickfinderDB(0).Regie
+                End If
+
                 _tvMovieProgram.needsUpdate = False
                 _tvMovieProgram.Persist()
             End If
@@ -81,25 +98,31 @@ Namespace ClickfinderProgramGuide
             Translator.SetProperty("#DetailTime", GuiLayout.TimeLabel(_tvMovieProgram))
             Translator.SetProperty("#DetailDuration", DateDiff(DateInterval.Minute, _tvMovieProgram.ReferencedProgram.StartTime, _tvMovieProgram.ReferencedProgram.EndTime) & " " & Translation.MinuteLabel)
             Translator.SetProperty("#DetailChannel", _tvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName)
+            Translator.SetProperty("#DetailGenre", _tvMovieProgram.ReferencedProgram.Genre)
+            Translator.SetProperty("#DetailYear", _tvMovieProgram.Year.Year & " ")
+            Translator.SetProperty("#DetailCountry", _tvMovieProgram.Country)
+            Translator.SetProperty("#DetailRegie", _tvMovieProgram.Regie)
+            Translator.SetProperty("#DetailActors", Replace(_tvMovieProgram.Actors, ";", ", "))
+            Translator.SetProperty("#DetailKritik", _tvMovieProgram.KurzKritik)
 
             If _tvMovieProgram.Dolby = True Then
-                Translator.SetProperty("#AudioImage", "Logos\ac-3 dolby digital.png")
+                Translator.SetProperty("#DetailAudioImage", "Logos\ac-3 dolby digital.png")
             Else
-                Translator.SetProperty("#AudioImage", "Logos\stereo.png")
+                Translator.SetProperty("#DetailAudioImage", "Logos\stereo.png")
             End If
 
             If _tvMovieProgram.HDTV = True Then
-                Translator.SetProperty("#ProgramFormat", "Logos\hd.png")
+                Translator.SetProperty("#DetailProgramFormat", "Logos\hd.png")
             Else
-                Translator.SetProperty("#ProgramFormat", "Logos\sd.png")
+                Translator.SetProperty("#DetailProgramFormat", "Logos\sd.png")
             End If
 
-            Translator.SetProperty("#RatingFun", getRatingpercentage(_tvMovieProgram.Fun))
-            Translator.SetProperty("#RatingAction", getRatingpercentage(_tvMovieProgram.Action))
-            Translator.SetProperty("#RatingErotic", getRatingpercentage(_tvMovieProgram.Erotic))
-            Translator.SetProperty("#RatingSpannung", getRatingpercentage(_tvMovieProgram.Tension))
-            Translator.SetProperty("#RatingAnspruch", getRatingpercentage(_tvMovieProgram.Requirement))
-            Translator.SetProperty("#RatingFeelings", getRatingpercentage(_tvMovieProgram.Feelings))
+            Translator.SetProperty("#DetailRatingFun", getRatingpercentage(_tvMovieProgram.Fun))
+            Translator.SetProperty("#DetailRatingAction", getRatingpercentage(_tvMovieProgram.Action))
+            Translator.SetProperty("#DetailRatingErotic", getRatingpercentage(_tvMovieProgram.Erotic))
+            Translator.SetProperty("#DetailRatingSpannung", getRatingpercentage(_tvMovieProgram.Tension))
+            Translator.SetProperty("#DetailRatingAnspruch", getRatingpercentage(_tvMovieProgram.Requirement))
+            Translator.SetProperty("#DetailRatingFeelings", getRatingpercentage(_tvMovieProgram.Feelings))
 
             'MsgBox(Details_idProgram)
             MyBase.OnPageLoad()
