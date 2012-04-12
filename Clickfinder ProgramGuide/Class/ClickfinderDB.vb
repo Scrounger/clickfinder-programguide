@@ -418,24 +418,32 @@ Public Class ClickfinderDB
 
     End Sub
 
-    Public Sub New(ByVal _TvServerProgram As Program)
+    Public Sub New(ByVal _TvServerProgram As Program, Optional ByVal InnerJoinSendungenDetails As Boolean = False)
         Dim DataAdapter As OleDb.OleDbDataAdapter
         Dim Data As New DataSet
         Dim _SenderKennung As String = String.Empty
         Dim layer As New TvBusinessLayer()
+        Dim SQLString As String = String.Empty
         Try
+            '
 
-            Dim bla As New Gentle.Framework.Key(False, "idChannel", _TvServerProgram.ReferencedChannel.IdChannel)
-            _SenderKennung = TvMovieMapping.Retrieve(bla).StationName
+            Dim _channel As New Gentle.Framework.Key(False, "idChannel", _TvServerProgram.ReferencedChannel.IdChannel)
+            _SenderKennung = TvMovieMapping.Retrieve(_channel).StationName
 
         Catch ex As Exception
             MyLog.Warn("[ClickfinderDB]: Channel not mapped in TvMovieMapping: {0}", _TvServerProgram.ReferencedChannel.DisplayName)
             _SenderKennung = String.Empty
         End Try
 
-        Dim SQLString As String = "Select * from Sendungen Inner Join SendungenDetails on Sendungen.Pos = SendungenDetails.Pos" & _
+        If InnerJoinSendungenDetails = False Then
+            SQLString = "Select * FROM Sendungen"
+        Else
+            SQLString = "Select * FROM Sendungen INNER JOIN SendungenDetails ON Sendungen.Pos = SendungenDetails.Pos"
+        End If
+
+        SQLString = SQLString & _
         " WHERE SenderKennung = '" & _SenderKennung & "'" & _
-        " AND (Beginn BETWEEN " & DateToAccessSQLstring(_TvServerProgram.StartTime.AddMinutes(-5)) & " AND " & DateToAccessSQLstring(_TvServerProgram.StartTime.AddMinutes(5)) & ")" & _
+        " AND (Beginn BETWEEN " & DateToAccessSQLstring(_TvServerProgram.StartTime.AddMinutes(-1)) & " AND " & DateToAccessSQLstring(_TvServerProgram.StartTime.AddMinutes(1)) & ")" & _
         " AND Titel = '" & Replace(Replace(Replace(_TvServerProgram.Title, "'", "''"), " (LIVE)", ""), " (Wdh.)", "") & "'"
 
         _ClickfinderDataBaseFolder = System.IO.Path.GetDirectoryName(DatabasePath)

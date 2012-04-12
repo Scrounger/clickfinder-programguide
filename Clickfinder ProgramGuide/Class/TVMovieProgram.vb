@@ -21,7 +21,6 @@
 Imports System
 Imports System.Collections.Generic
 Imports Gentle.Framework
-Imports TvLibrary.Log
 Imports TvDatabase
 
 Namespace TvDatabase

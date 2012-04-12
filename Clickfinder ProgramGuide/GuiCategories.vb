@@ -137,6 +137,8 @@ Namespace ClickfinderProgramGuide
 
 #Region "GUI Events"
         Protected Overrides Sub OnPageLoad()
+            MyBase.OnPageLoad()
+            GUIWindowManager.NeedRefresh()
 
             MyLog.Info("")
             MyLog.Info("")
@@ -166,6 +168,7 @@ Namespace ClickfinderProgramGuide
 
             Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(0)
             _SelectedCategorieMinRunTime = _Categorie.MinRunTime
+            _SelectedCategorieItemId = 0
 
             Dim _Thread1 As New Thread(AddressOf FillCategories)
             Dim _Thread2 As New Thread(AddressOf FillPreviewList)
@@ -174,7 +177,6 @@ Namespace ClickfinderProgramGuide
             _Thread2.Start()
 
 
-            MyBase.OnPageLoad()
         End Sub
 
         Protected Overrides Sub OnPageDestroy(ByVal new_windowId As Integer)
@@ -187,6 +189,8 @@ Namespace ClickfinderProgramGuide
 
             Try
                 If ThreadPreviewListFill.IsAlive = True Then ThreadPreviewListFill.Abort()
+
+
 
             Catch ex As Exception
                 'Eventuell auftretende Exception abfangen
@@ -225,6 +229,10 @@ Namespace ClickfinderProgramGuide
 
                         GUIWindowManager.ActivateWindow(1656544653)
                     End If
+
+                    If _PreviewList.IsFocused = True Then ListControlClick(_PreviewList.SelectedListItem.ItemId)
+
+
                 End If
 
                 If _CategorieList.IsFocused = True Then
@@ -428,7 +436,6 @@ Namespace ClickfinderProgramGuide
             Dim _LogLocalMovies As String = Nothing
             Dim _LogLocalSeries As String = Nothing
 
-
             Try
                 _PreviewList.Visible = False
                 _PreviewList.Clear()
@@ -463,11 +470,12 @@ Namespace ClickfinderProgramGuide
                     _SqlString = CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime)), "#endTime", MySqlDate(PeriodeStartTime.AddHours(2))))
                 End If
 
-                _SqlString = _SqlString & " LIMIT 30"
+
+                _SqlString = _SqlString & " LIMIT 25"
+
 
                 Dim _result As New ArrayList
                 _result.AddRange(Broker.Execute(_SqlString).TransposeToFieldList("idProgram", False))
-
 
                 MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: {0} program found, Categorie = {1}, group = {2}, SQLString: {3}", _result.Count, _Categorie.Name, _Categorie.groupName, _SqlString)
 
@@ -563,6 +571,7 @@ Namespace ClickfinderProgramGuide
 
                 MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: Thread finished")
                 MyLog.Debug("")
+
 
                 'log Ausgabe abfangen, falls der Thread abgebrochen wird
             Catch ex2 As ThreadAbortException ' Ignore this exception
@@ -739,6 +748,9 @@ Namespace ClickfinderProgramGuide
                 MyLog.Debug("")
                 Categorie.groupName = dlgContext.SelectedLabelText
                 Categorie.Persist()
+
+                Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowProgressbar)
+                _ProgressBarThread.Start()
 
                 ThreadPreviewListFill = New Threading.Thread(AddressOf FillPreviewList)
                 ThreadPreviewListFill.IsBackground = True

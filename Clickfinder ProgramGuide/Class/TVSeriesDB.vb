@@ -23,8 +23,6 @@ Imports System.Globalization
 Imports System.IO
 Imports System.Runtime.CompilerServices
 Imports System.Threading
-Imports TvLibrary.Log
-
 
 Imports MediaPortal.Database
 Imports SQLite.NET
@@ -112,6 +110,25 @@ Public Class TVSeriesDB
             _EpisodeInfos = m_db.Execute( _
                                 [String].Format("SELECT * FROM online_episodes WHERE SeriesID = '{0}' AND SeasonIndex = '{1}' AND EpisodeIndex = '{2}'", _
                                                 Me.Series(0).SeriesID, seriesNum, episodeNum))
+
+        Catch ex As Exception
+            MyLog.[Error]("TVMovie: [LoadEpisode]: exception err:{0} stack:{1}", ex.Message, ex.StackTrace)
+            OpenTvSeriesDB()
+        End Try
+
+    End Sub
+
+    Public Sub LoadEpisodebyEpsiodeID(ByVal seriesID As Integer, ByVal episodeID As String)
+
+        Try
+
+            _SeriesInfos = m_db.Execute( _
+                                [String].Format("SELECT * FROM online_series WHERE ID = {0}", _
+                                seriesID))
+
+            _EpisodeInfos = m_db.Execute( _
+                                [String].Format("SELECT * FROM online_episodes WHERE CompositeID = '{0}'", _
+                                                episodeID))
 
         Catch ex As Exception
             MyLog.[Error]("TVMovie: [LoadEpisode]: exception err:{0} stack:{1}", ex.Message, ex.StackTrace)
@@ -285,6 +302,15 @@ Public Class TVSeriesDB
         Get
             If _EpisodeInfos IsNot Nothing AndAlso _EpisodeInfos.Rows.Count > 0 Then
                 Return DatabaseUtility.[Get](_EpisodeInfos, 0, "thumbFilename")
+            Else
+                Return ""
+            End If
+        End Get
+    End Property
+    Public ReadOnly Property EpisodeSummary() As String
+        Get
+            If _EpisodeInfos IsNot Nothing AndAlso _EpisodeInfos.Rows.Count > 0 Then
+                Return DatabaseUtility.[Get](_EpisodeInfos, 0, "Summary")
             Else
                 Return ""
             End If

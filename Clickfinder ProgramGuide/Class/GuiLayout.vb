@@ -92,7 +92,7 @@ Namespace ClickfinderProgramGuide
 
                             End If
                         Else
-                            'Keine Serie/Movie/Video -> SenderLogo anzeigen
+                            'Keine Serie/Movie/Video -> SenderLogo / Clickfinder Bild anzeigen
                             If Not String.IsNullOrEmpty(TvMovieProgram.BildDateiname) Then
                                 Return _ClickfinderImage
                             Else
@@ -154,8 +154,6 @@ Namespace ClickfinderProgramGuide
                             End If
                         End If
 
-
-
                         Return _infoLabel
 
                     Case Is > 0
@@ -215,6 +213,23 @@ Namespace ClickfinderProgramGuide
             End Get
         End Property
 
+
+        Friend Shared ReadOnly Property DetailOrgTitle(ByVal TvMovieProgram As TVMovieProgram) As String
+            Get
+                If TvMovieProgram.idSeries > 0 And Not String.IsNullOrEmpty(TvMovieProgram.ReferencedProgram.SeriesNum) Then
+
+                    If TvMovieProgram.local = True Then
+                        Return Translation.EpisodePrefixLabel & " " & TvMovieProgram.ReferencedProgram.EpisodeName & " (" & _
+                                                   Translation.Season & " " & TvMovieProgram.ReferencedProgram.SeriesNum & " " & Translation.Episode & " " & TvMovieProgram.ReferencedProgram.EpisodeNum & ")"
+                    Else
+                        Return Translation.EpisodeNewPrefixLabel & " " & TvMovieProgram.ReferencedProgram.EpisodeName & " (" & _
+                           Translation.Season & " " & TvMovieProgram.ReferencedProgram.SeriesNum & " " & Translation.Episode & " " & TvMovieProgram.ReferencedProgram.EpisodeNum & ")"
+                    End If
+                Else
+                    Return TvMovieProgram.ReferencedProgram.EpisodeName
+                End If
+            End Get
+        End Property
     End Class
 
 End Namespace

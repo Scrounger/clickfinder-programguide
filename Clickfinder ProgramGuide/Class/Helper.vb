@@ -261,44 +261,44 @@ Public Class Helper
                 End If
 
 
-                'Bewertungen String aus Clickfinder DB holen, zerlegen, einzel Bewertungen extrahieren
-                If Not String.IsNullOrEmpty(_ClickfinderDB(0).Bewertungen) Then
-                    ' We want to split this input string
-                    Dim s As String = _ClickfinderDB(0).Bewertungen
+                ''Bewertungen String aus Clickfinder DB holen, zerlegen, einzel Bewertungen extrahieren
+                'If Not String.IsNullOrEmpty(_ClickfinderDB(0).Bewertungen) Then
+                '    ' We want to split this input string
+                '    Dim s As String = _ClickfinderDB(0).Bewertungen
 
-                    ' Split string based on spaces
-                    Dim words As String() = s.Split(New Char() {";"c})
+                '    ' Split string based on spaces
+                '    Dim words As String() = s.Split(New Char() {";"c})
 
-                    ' Use For Each loop over words and display them
-                    Dim word As String
-                    For Each word In words
+                '    ' Use For Each loop over words and display them
+                '    Dim word As String
+                '    For Each word In words
 
-                        'MsgBox(Left(word, InStr(word, "=") - 1))
+                '        'MsgBox(Left(word, InStr(word, "=") - 1))
 
-                        'MsgBox(CInt(Right(word, word.Length - InStr(word, "="))))
+                '        'MsgBox(CInt(Right(word, word.Length - InStr(word, "="))))
 
-                        Select Case Left(word, InStr(word, "=") - 1)
-                            Case Is = "Spaß"
-                                _TvMovieProgram.Fun = CInt(Right(word, word.Length - InStr(word, "=")))
-                            Case Is = "Action"
-                                _TvMovieProgram.Action = CInt(Right(word, word.Length - InStr(word, "=")))
-                            Case Is = "Erotik"
-                                _TvMovieProgram.Erotic = CInt(Right(word, word.Length - InStr(word, "=")))
-                            Case Is = "Spannung"
-                                _TvMovieProgram.Tension = CInt(Right(word, word.Length - InStr(word, "=")))
-                            Case Is = "Anspruch"
-                                _TvMovieProgram.Requirement = CInt(Right(word, word.Length - InStr(word, "=")))
-                            Case Is = "Gefühl"
-                                _TvMovieProgram.Feelings = CInt(Right(word, word.Length - InStr(word, "=")))
-                        End Select
+                '        Select Case Left(word, InStr(word, "=") - 1)
+                '            Case Is = "Spaß"
+                '                _TvMovieProgram.Fun = CInt(Right(word, word.Length - InStr(word, "=")))
+                '            Case Is = "Action"
+                '                _TvMovieProgram.Action = CInt(Right(word, word.Length - InStr(word, "=")))
+                '            Case Is = "Erotik"
+                '                _TvMovieProgram.Erotic = CInt(Right(word, word.Length - InStr(word, "=")))
+                '            Case Is = "Spannung"
+                '                _TvMovieProgram.Tension = CInt(Right(word, word.Length - InStr(word, "=")))
+                '            Case Is = "Anspruch"
+                '                _TvMovieProgram.Requirement = CInt(Right(word, word.Length - InStr(word, "=")))
+                '            Case Is = "Gefühl"
+                '                _TvMovieProgram.Feelings = CInt(Right(word, word.Length - InStr(word, "=")))
+                '        End Select
 
-                    Next
-                End If
+                '    Next
+                'End If
 
-                'Actors aus Clickfinder DB holen, sofern vorhanden
-                If Not String.IsNullOrEmpty(_ClickfinderDB(0).Darsteller) Then
-                    _TvMovieProgram.Actors = _ClickfinderDB(0).Darsteller
-                End If
+                ''Actors aus Clickfinder DB holen, sofern vorhanden
+                'If Not String.IsNullOrEmpty(_ClickfinderDB(0).Darsteller) Then
+                '    _TvMovieProgram.Actors = _ClickfinderDB(0).Darsteller
+                'End If
 
                 _TvMovieProgram.needsUpdate = True
                 _TvMovieProgram.Persist()
@@ -436,12 +436,12 @@ Public Class Helper
                     lItemSerie.Label = _TvSeriesDB(i).SeriesName
 
                     Try
+                        'Sofern verlinkung vorhanden
                         Dim SeriesMapping As TvMovieSeriesMapping = TvMovieSeriesMapping.Retrieve(_TvSeriesDB(i).SeriesID)
-                        lItemSerie.Label3 = SeriesMapping.EpgTitle
+                        lItemSerie.Label3 = Translation.LinkTo & " " & SeriesMapping.EpgTitle
                     Catch ex As Exception
-
+                        'sonst abfangen
                     End Try
-
 
                     lItemSerie.IconImage = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvSeriesDB(i).SeriesPosterImage
 
@@ -465,59 +465,6 @@ Public Class Helper
                 _SeriesMapping.Persist()
             End Try
 
-
-            'Dim _idProgramContainer As Dictionary(Of Integer, Integer) = New Dictionary(Of Integer, Integer)
-            'Dim _SeriesProgram As TVMovieProgram = TVMovieProgram.Retrieve(idProgram)
-            ''ContextMenu Layout
-            'dlgContext.SetHeading(_SeriesProgram.ReferencedProgram.Title)
-            ''dlgContext.ShowQuickNumbers = False
-
-            'MyLog.Debug("[HighlightsGuiWindow] [ShowSeriesContextMenu]: idprogram = {0}, title = {1}", _SeriesProgram.ReferencedProgram.IdProgram, _SeriesProgram.ReferencedProgram.Title)
-
-            'If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True Then
-
-            '    Dim SQLstring As String = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
-            '                        "WHERE idSeries = " & _SeriesProgram.idSeries & " " & _
-            '                        "AND local = 0 " & _
-            '                        "AND startTime > " & MySqlDate(_ClickfinderCurrentDate.AddHours(0)) & " " & _
-            '                        "AND startTime < " & MySqlDate(_ClickfinderCurrentDate.AddHours(24)) & " " & _
-            '                        Helper.ORDERBYstartTime
-
-            '    Dim _Result As New ArrayList
-            '    _Result.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", True))
-
-            '    If _Result.Count > 0 Then
-            '        For i = 0 To _Result.Count - 1
-            '            Try
-
-            '                'ProgramDaten über TvMovieProgram laden
-            '                Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_Result.Item(i))
-
-            '                Dim lItemEpisode As New GUIListItem
-            '                lItemEpisode.Label = _TvMovieProgram.ReferencedProgram.EpisodeName
-            '                lItemEpisode.Label2 = Format(_TvMovieProgram.ReferencedProgram.StartTime.Hour, "00") & _
-            '                                    ":" & Format(_TvMovieProgram.ReferencedProgram.StartTime.Minute, "00") & " - " & _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName
-            '                lItemEpisode.Label3 = "Staffel " & Format(CInt(_TvMovieProgram.ReferencedProgram.SeriesNum), "00") & ", Episode " & Format(CInt(_TvMovieProgram.ReferencedProgram.EpisodeNum), "00")
-            '                lItemEpisode.IconImage = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieProgram.SeriesPosterImage
-
-            '                lItemEpisode.PinImage = GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram)
-
-            '                _idProgramContainer.Add(i, _TvMovieProgram.idProgram)
-
-            '                dlgContext.Add(lItemEpisode)
-            '                lItemEpisode.Dispose()
-            '            Catch ex As Exception
-            '                MyLog.[Error]("[ShowSeriesContextMenu]: Loop: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
-            '            End Try
-            '        Next
-
-            '        dlgContext.DoModal(GetID)
-            '        ShowHighlightsMenu(_idProgramContainer.Item(dlgContext.SelectedLabel))
-
-            '    End If
-            'End If
-
-            '_idProgramContainer.Clear()
         Catch ex As Exception
             MyLog.[Error]("[HighlightsGUIWindow] [ShowSeriesContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
         End Try

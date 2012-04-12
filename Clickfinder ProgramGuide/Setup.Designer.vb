@@ -22,13 +22,21 @@ Partial Class Setup
     'Das Bearbeiten mit dem Code-Editor ist nicht möglich.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Setup))
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.ButtonSave = New System.Windows.Forms.Button
         Me.Label2 = New System.Windows.Forms.Label
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel
         Me.TabControl1 = New System.Windows.Forms.TabControl
         Me.TabAllgemeines = New System.Windows.Forms.TabPage
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox
+        Me.Label9 = New System.Windows.Forms.Label
+        Me.CheckBoxClickfinderPG = New MediaPortal.UserInterface.Controls.MPCheckBox
+        Me.CheckBoxVideoDB = New MediaPortal.UserInterface.Controls.MPCheckBox
+        Me.CheckBoxMovingPictures = New MediaPortal.UserInterface.Controls.MPCheckBox
+        Me.CheckBoxTvSeries = New MediaPortal.UserInterface.Controls.MPCheckBox
+        Me.Label6 = New System.Windows.Forms.Label
+        Me.tbTvMovieDatabasepath = New System.Windows.Forms.TextBox
         Me.Label17 = New System.Windows.Forms.Label
         Me.Label16 = New System.Windows.Forms.Label
         Me.tbLateTime = New System.Windows.Forms.MaskedTextBox
@@ -76,8 +84,6 @@ Partial Class Setup
         Me.ButtonNewCategorie = New System.Windows.Forms.Button
         Me.ButtonUp = New System.Windows.Forms.Button
         Me.dgvCategories = New System.Windows.Forms.DataGridView
-        Me.openFileDialog = New System.Windows.Forms.OpenFileDialog
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox
         Me.C_id = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.C_Image = New System.Windows.Forms.DataGridViewImageColumn
         Me.C_visible = New System.Windows.Forms.DataGridViewCheckBoxColumn
@@ -87,8 +93,13 @@ Partial Class Setup
         Me.C_SqlString = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.C_MinRuntime = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.C_NowOffset = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.TabDetail = New System.Windows.Forms.TabPage
+        Me.CheckBoxUseSeriesDescribtion = New System.Windows.Forms.CheckBox
+        Me.openFileDialog = New System.Windows.Forms.OpenFileDialog
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox
         Me.TabControl1.SuspendLayout()
         Me.TabAllgemeines.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
         Me.TabItems.SuspendLayout()
         Me.TabÜbersicht.SuspendLayout()
         CType(Me.NumMaxDays, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -100,6 +111,7 @@ Partial Class Setup
         CType(Me.NumShowMoviesAfter, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabCategories.SuspendLayout()
         CType(Me.dgvCategories, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabDetail.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -143,6 +155,7 @@ Partial Class Setup
         Me.TabControl1.Controls.Add(Me.TabItems)
         Me.TabControl1.Controls.Add(Me.TabÜbersicht)
         Me.TabControl1.Controls.Add(Me.TabCategories)
+        Me.TabControl1.Controls.Add(Me.TabDetail)
         Me.TabControl1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControl1.Location = New System.Drawing.Point(12, 73)
         Me.TabControl1.Name = "TabControl1"
@@ -152,6 +165,7 @@ Partial Class Setup
         '
         'TabAllgemeines
         '
+        Me.TabAllgemeines.Controls.Add(Me.GroupBox4)
         Me.TabAllgemeines.Controls.Add(Me.Label17)
         Me.TabAllgemeines.Controls.Add(Me.Label16)
         Me.TabAllgemeines.Controls.Add(Me.tbLateTime)
@@ -171,6 +185,97 @@ Partial Class Setup
         Me.TabAllgemeines.TabIndex = 0
         Me.TabAllgemeines.Text = "Allgemeines"
         Me.TabAllgemeines.UseVisualStyleBackColor = True
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.BackColor = System.Drawing.Color.Gainsboro
+        Me.GroupBox4.Controls.Add(Me.Label9)
+        Me.GroupBox4.Controls.Add(Me.CheckBoxClickfinderPG)
+        Me.GroupBox4.Controls.Add(Me.CheckBoxVideoDB)
+        Me.GroupBox4.Controls.Add(Me.CheckBoxMovingPictures)
+        Me.GroupBox4.Controls.Add(Me.CheckBoxTvSeries)
+        Me.GroupBox4.Controls.Add(Me.Label6)
+        Me.GroupBox4.Controls.Add(Me.tbTvMovieDatabasepath)
+        Me.GroupBox4.Location = New System.Drawing.Point(12, 245)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(621, 245)
+        Me.GroupBox4.TabIndex = 12
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Tv Movie EPG Import++ settings (zur Info)"
+        '
+        'Label9
+        '
+        Me.Label9.Location = New System.Drawing.Point(6, 131)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(598, 104)
+        Me.Label9.TabIndex = 77
+        Me.Label9.Text = resources.GetString("Label9.Text")
+        '
+        'CheckBoxClickfinderPG
+        '
+        Me.CheckBoxClickfinderPG.AutoSize = True
+        Me.CheckBoxClickfinderPG.Enabled = False
+        Me.CheckBoxClickfinderPG.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.CheckBoxClickfinderPG.Location = New System.Drawing.Point(9, 64)
+        Me.CheckBoxClickfinderPG.Name = "CheckBoxClickfinderPG"
+        Me.CheckBoxClickfinderPG.Size = New System.Drawing.Size(232, 20)
+        Me.CheckBoxClickfinderPG.TabIndex = 76
+        Me.CheckBoxClickfinderPG.Text = "Clickfinder ProgramGuide import"
+        Me.CheckBoxClickfinderPG.UseVisualStyleBackColor = True
+        '
+        'CheckBoxVideoDB
+        '
+        Me.CheckBoxVideoDB.AutoSize = True
+        Me.CheckBoxVideoDB.Enabled = False
+        Me.CheckBoxVideoDB.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.CheckBoxVideoDB.Location = New System.Drawing.Point(435, 94)
+        Me.CheckBoxVideoDB.Name = "CheckBoxVideoDB"
+        Me.CheckBoxVideoDB.Size = New System.Drawing.Size(169, 20)
+        Me.CheckBoxVideoDB.TabIndex = 75
+        Me.CheckBoxVideoDB.Text = "VideoDatabase import"
+        Me.CheckBoxVideoDB.UseVisualStyleBackColor = True
+        '
+        'CheckBoxMovingPictures
+        '
+        Me.CheckBoxMovingPictures.AutoSize = True
+        Me.CheckBoxMovingPictures.Enabled = False
+        Me.CheckBoxMovingPictures.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.CheckBoxMovingPictures.Location = New System.Drawing.Point(214, 94)
+        Me.CheckBoxMovingPictures.Name = "CheckBoxMovingPictures"
+        Me.CheckBoxMovingPictures.Size = New System.Drawing.Size(170, 20)
+        Me.CheckBoxMovingPictures.TabIndex = 74
+        Me.CheckBoxMovingPictures.Text = "MovingPictures import"
+        Me.CheckBoxMovingPictures.UseVisualStyleBackColor = True
+        '
+        'CheckBoxTvSeries
+        '
+        Me.CheckBoxTvSeries.AutoSize = True
+        Me.CheckBoxTvSeries.Enabled = False
+        Me.CheckBoxTvSeries.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.CheckBoxTvSeries.Location = New System.Drawing.Point(9, 94)
+        Me.CheckBoxTvSeries.Name = "CheckBoxTvSeries"
+        Me.CheckBoxTvSeries.Size = New System.Drawing.Size(154, 20)
+        Me.CheckBoxTvSeries.TabIndex = 73
+        Me.CheckBoxTvSeries.Text = "MP-TvSeries import"
+        Me.CheckBoxTvSeries.UseVisualStyleBackColor = True
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(6, 32)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(191, 16)
+        Me.Label6.TabIndex = 1
+        Me.Label6.Text = "MediaPortal database path:"
+        '
+        'tbTvMovieDatabasepath
+        '
+        Me.tbTvMovieDatabasepath.Enabled = False
+        Me.tbTvMovieDatabasepath.Location = New System.Drawing.Point(203, 29)
+        Me.tbTvMovieDatabasepath.Name = "tbTvMovieDatabasepath"
+        Me.tbTvMovieDatabasepath.Size = New System.Drawing.Size(401, 23)
+        Me.tbTvMovieDatabasepath.TabIndex = 0
         '
         'Label17
         '
@@ -293,7 +398,7 @@ Partial Class Setup
         Me.TabItems.Padding = New System.Windows.Forms.Padding(3)
         Me.TabItems.Size = New System.Drawing.Size(646, 563)
         Me.TabItems.TabIndex = 3
-        Me.TabItems.Text = "Items"
+        Me.TabItems.Text = "GUI Items"
         Me.TabItems.UseVisualStyleBackColor = True
         '
         'CheckBoxRemberSortedBy
@@ -349,7 +454,7 @@ Partial Class Setup
         Me.TabÜbersicht.Padding = New System.Windows.Forms.Padding(3)
         Me.TabÜbersicht.Size = New System.Drawing.Size(646, 563)
         Me.TabÜbersicht.TabIndex = 1
-        Me.TabÜbersicht.Text = "Highlights"
+        Me.TabÜbersicht.Text = "GUI Highlights"
         Me.TabÜbersicht.UseVisualStyleBackColor = True
         '
         'NumMaxDays
@@ -585,7 +690,7 @@ Partial Class Setup
         Me.TabCategories.Name = "TabCategories"
         Me.TabCategories.Size = New System.Drawing.Size(646, 563)
         Me.TabCategories.TabIndex = 2
-        Me.TabCategories.Text = "Kategorien"
+        Me.TabCategories.Text = "GUI Kategorien"
         Me.TabCategories.UseVisualStyleBackColor = True
         '
         'CheckBoxShowCategorieLocalSeries
@@ -675,21 +780,6 @@ Partial Class Setup
         Me.dgvCategories.Size = New System.Drawing.Size(582, 376)
         Me.dgvCategories.TabIndex = 0
         '
-        'openFileDialog
-        '
-        Me.openFileDialog.FileName = "OpenFileDialog1"
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.BackgroundImage = Global.ClickfinderProgramGuide.My.Resources.Resources.SetupIcon
-        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.PictureBox1.Location = New System.Drawing.Point(3, 4)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(75, 62)
-        Me.PictureBox1.TabIndex = 9
-        Me.PictureBox1.TabStop = False
-        '
         'C_id
         '
         Me.C_id.FillWeight = 50.0!
@@ -738,7 +828,6 @@ Partial Class Setup
         Me.C_sortOrder.Name = "C_sortOrder"
         Me.C_sortOrder.ReadOnly = True
         Me.C_sortOrder.Visible = False
-        Me.C_sortOrder.Width = 95
         '
         'C_SqlString
         '
@@ -757,6 +846,43 @@ Partial Class Setup
         Me.C_NowOffset.HeaderText = "Offset"
         Me.C_NowOffset.Name = "C_NowOffset"
         Me.C_NowOffset.Width = 52
+        '
+        'TabDetail
+        '
+        Me.TabDetail.Controls.Add(Me.CheckBoxUseSeriesDescribtion)
+        Me.TabDetail.Location = New System.Drawing.Point(4, 25)
+        Me.TabDetail.Name = "TabDetail"
+        Me.TabDetail.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabDetail.Size = New System.Drawing.Size(646, 563)
+        Me.TabDetail.TabIndex = 4
+        Me.TabDetail.Text = "GUI Details"
+        Me.TabDetail.UseVisualStyleBackColor = True
+        '
+        'CheckBoxUseSeriesDescribtion
+        '
+        Me.CheckBoxUseSeriesDescribtion.AutoSize = True
+        Me.CheckBoxUseSeriesDescribtion.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBoxUseSeriesDescribtion.Location = New System.Drawing.Point(24, 28)
+        Me.CheckBoxUseSeriesDescribtion.Name = "CheckBoxUseSeriesDescribtion"
+        Me.CheckBoxUseSeriesDescribtion.Size = New System.Drawing.Size(522, 20)
+        Me.CheckBoxUseSeriesDescribtion.TabIndex = 10
+        Me.CheckBoxUseSeriesDescribtion.Text = "Verwende MP-TvSeries Epsioden Beschreibung bei Serien (sofern aktiviert)" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.CheckBoxUseSeriesDescribtion.UseVisualStyleBackColor = True
+        '
+        'openFileDialog
+        '
+        Me.openFileDialog.FileName = "OpenFileDialog1"
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackgroundImage = Global.ClickfinderProgramGuide.My.Resources.Resources.SetupIcon
+        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox1.Location = New System.Drawing.Point(3, 4)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(75, 62)
+        Me.PictureBox1.TabIndex = 9
+        Me.PictureBox1.TabStop = False
         '
         'Setup
         '
@@ -777,6 +903,8 @@ Partial Class Setup
         Me.TabControl1.ResumeLayout(False)
         Me.TabAllgemeines.ResumeLayout(False)
         Me.TabAllgemeines.PerformLayout()
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox4.PerformLayout()
         Me.TabItems.ResumeLayout(False)
         Me.TabItems.PerformLayout()
         Me.TabÜbersicht.ResumeLayout(False)
@@ -794,6 +922,8 @@ Partial Class Setup
         Me.TabCategories.ResumeLayout(False)
         Me.TabCategories.PerformLayout()
         CType(Me.dgvCategories, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabDetail.ResumeLayout(False)
+        Me.TabDetail.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -862,4 +992,14 @@ Partial Class Setup
     Friend WithEvents C_SqlString As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents C_MinRuntime As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents C_NowOffset As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
+    Friend WithEvents Label6 As System.Windows.Forms.Label
+    Friend WithEvents tbTvMovieDatabasepath As System.Windows.Forms.TextBox
+    Private WithEvents CheckBoxClickfinderPG As MediaPortal.UserInterface.Controls.MPCheckBox
+    Private WithEvents CheckBoxVideoDB As MediaPortal.UserInterface.Controls.MPCheckBox
+    Private WithEvents CheckBoxMovingPictures As MediaPortal.UserInterface.Controls.MPCheckBox
+    Private WithEvents CheckBoxTvSeries As MediaPortal.UserInterface.Controls.MPCheckBox
+    Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents TabDetail As System.Windows.Forms.TabPage
+    Friend WithEvents CheckBoxUseSeriesDescribtion As System.Windows.Forms.CheckBox
 End Class

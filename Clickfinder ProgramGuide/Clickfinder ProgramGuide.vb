@@ -425,7 +425,6 @@ Namespace ClickfinderProgramGuide
 
             If control Is _btnHighlights Then
 
-                CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Preview)
                 GUIWindowManager.ActivateWindow(165654465)
             End If
 

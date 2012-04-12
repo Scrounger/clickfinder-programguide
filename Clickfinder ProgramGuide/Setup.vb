@@ -44,6 +44,12 @@ Public Class Setup
             CheckBoxDebugMode.Checked = _layer.GetSetting("ClickfinderDebugMode", "false").Value
             CheckBoxShowCategorieLocalMovies.Checked = _layer.GetSetting("ClickfinderCategorieShowLocalMovies", "false").Value
             CheckBoxShowCategorieLocalSeries.Checked = _layer.GetSetting("ClickfinderCategorieShowLocalSeries", "false").Value
+            tbTvMovieDatabasepath.Text = _layer.GetSetting("TvMovieMPDatabase", "%ProgramData%\Team MediaPortal\MediaPortal\database").Value
+            CheckBoxTvSeries.Checked = _layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value = "true"
+            CheckBoxMovingPictures.Checked = _layer.GetSetting("TvMovieImportMovingPicturesInfos", "false").Value = "true"
+            CheckBoxVideoDB.Checked = _layer.GetSetting("TvMovieImportVideoDatabaseInfos", "false").Value = "true"
+            CheckBoxClickfinderPG.Checked = _layer.GetSetting("ClickfinderDataAvailable", "false").Value = "true"
+            CheckBoxUseSeriesDescribtion.Checked = _layer.GetSetting("ClickfinderDetailUseSeriesDescribtion", "false").Value
 
             If CBool(_layer.GetSetting("TvMovieEnabled", "false").Value) = False Or CBool(_layer.GetSetting("ClickfinderEnabled", "true").Value) = False Then
                 Dim message As New TvMoviePluginError
@@ -242,12 +248,12 @@ Public Class Setup
         Try
 
             Dim _Categorie As New ClickfinderCategories("Movies", "Alle Filme nach Uhrzeit, Rating, TvMovieRating sortiert", True, 0, 80, 30)
-            _Categorie.SqlString = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE startTime >= #StartTime AND startTime <= #EndTime AND starRating >= 1 AND genre NOT LIKE '%Serie%' AND genre NOT LIKE '%Sitcom%' AND genre NOT LIKE '%Zeichentrick%' " & Helper.ORDERBYstartTime
+            _Categorie.SqlString = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE startTime >= #StartTime AND startTime <= #EndTime AND starRating >= 1 AND (genre NOT LIKE '%Serie' OR genre NOT LIKE '%Reihe' OR genre NOT LIKE '%Sitcom%' OR genre NOT LIKE '%Zeichentrick%') " & Helper.ORDERBYstartTime
             _Categorie.Image = _Categorie.Name & ".png"
             _Categorie.Persist()
 
             _Categorie = New ClickfinderCategories("Serien", "Alle Serien nach Uhrzeit, Rating und TvMovieRating sortiert", True, 1, 10, 15)
-            _Categorie.SqlString = "Select * FROM program LEFT JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE startTime >= #StartTime AND startTime <= #EndTime AND (Genre LIKE '%Serie%' OR genre LIKE '%Sitcom%' OR genre LIKE '%Zeichentrick%') " & Helper.ORDERBYstartTime
+            _Categorie.SqlString = "Select * FROM program LEFT JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE startTime >= #StartTime AND startTime <= #EndTime AND (Genre LIKE '%Serie' OR genre LIKE '%Reihe' OR genre LIKE '%Sitcom%') " & Helper.ORDERBYstartTime
             _Categorie.Image = _Categorie.Name & ".png"
             _Categorie.Persist()
 
@@ -257,7 +263,7 @@ Public Class Setup
             _Categorie.Persist()
 
             _Categorie = New ClickfinderCategories("Sport", "Alle Sport Sendungen nach Uhrzeit und TvMovieRating sortiert", True, 3, 10, 30)
-            _Categorie.SqlString = "Select * FROM program LEFT JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE startTime >= #StartTime AND startTime <= #EndTime AND (title LIKE '%Sport%' OR title LIKE '%Fußball%' OR episodeName LIKE '%Sport%' OR genre LIKE '%Sport%' OR genre LIKE '%football/soccer%' OR genre LIKE '%ball%' OR genre LIKE '%Automagazin%' OR genre LIKE '%Biathlon%' OR genre LIKE '%Billard%' OR genre LIKE '%Bobsport%' OR genre LIKE '%Bowling%' OR genre LIKE '%Boxen%' OR genre LIKE '%Darts%' OR genre LIKE '%Eishockey%' OR genre LIKE '%E-Sport%' OR genre LIKE '%Formel 1%' OR genre LIKE '%Fun- u. Extremsport%' OR genre LIKE '%Golf%' OR genre LIKE '%Leichtathletik%' OR genre LIKE '%Motorrad%' OR genre LIKE '%Nordische Kombination%' OR genre LIKE '%Poker%' OR genre LIKE '%Rennrodeln%' OR genre LIKE '%Segeln%' OR genre LIKE '%Ski%' or genre LIKE '%Snowboard%' OR genre LIKE '%Tennis%' OR genre LIKE '%Wrestling%') " & Helper.ORDERBYstartTime
+            _Categorie.SqlString = "Select * FROM program LEFT JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE startTime >= #StartTime AND startTime <= #EndTime AND (title LIKE '%Sport%' OR title LIKE '%Fußball%' OR episodeName LIKE '%Sport%' OR genre LIKE '%Sport%' OR genre LIKE '%football%soccer%' OR genre LIKE '%ball%' OR genre LIKE '%Automagazin%' OR genre LIKE '%Biathlon%' OR genre LIKE '%Billard%' OR genre LIKE '%Bobsport%' OR genre LIKE '%Bowling%' OR genre LIKE '%Boxen%' OR genre LIKE '%Darts%' OR genre LIKE '%Eishockey%' OR genre LIKE '%E-Sport%' OR genre LIKE '%Formel 1%' OR genre LIKE '%Fun- u. Extremsport%' OR genre LIKE '%Golf%' OR genre LIKE '%Leichtathletik%' OR genre LIKE '%Motorrad%' OR genre LIKE '%Nordische Kombination%' OR genre LIKE '%Poker%' OR genre LIKE '%Rennrodeln%' OR genre LIKE '%Segeln%' OR genre LIKE '%Ski%' or genre LIKE '%Snowboard%' OR genre LIKE '%Tennis%' OR genre LIKE '%Wrestling%' OR genre LIKE '%sports (general)%') " & Helper.ORDERBYstartTime
             _Categorie.Image = _Categorie.Name & ".png"
             _Categorie.Persist()
 
@@ -277,7 +283,7 @@ Public Class Setup
             _Categorie.Persist()
 
             _Categorie = New ClickfinderCategories("Sky Cinema", "Alle Sendungen des Packets Film von Sky nach Uhrzeit und TvMovieRating sortiert", True, 7, 80, 30)
-            _Categorie.SqlString = "Select * FROM (program LEFT JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram) INNER JOIN channel ON program.idChannel = channel.idChannel WHERE startTime >= #StartTime AND startTime <= #EndTime AND (displayName LIKE '%SKY Cinema%' OR displayName LIKE '%SKY Action%' OR displayName LIKE '%MGM%' OR displayName LIKE '%Disney Cinemagic%' OR displayName LIKE '%SKY Comedy%' OR displayName LIKE '%SKY Emotion%' OR displayName LIKE '%SKY Nostalgie%') " & Helper.ORDERBYstartTime
+            _Categorie.SqlString = "Select * FROM (program LEFT JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram) INNER JOIN channel ON program.idChannel = channel.idChannel WHERE startTime >= #StartTime AND startTime <= #EndTime AND (displayName LIKE '%SKY Cinema%' OR displayName LIKE '%SKY Cinema HD%' OR displayName LIKE '%SKY Action%' OR displayName LIKE '%SKY Action HD%' OR displayName LIKE '%MGM%' OR displayName LIKE '%Disney Cinemagic%' OR displayName LIKE '%Disney Cinemagic HD%' OR displayName LIKE '%SKY Comedy%' OR displayName LIKE '%SKY Emotion%' OR displayName LIKE '%SKY Nostalgie%') " & Helper.ORDERBYstartTime
             _Categorie.Image = _Categorie.Name & ".png"
             _Categorie.Persist()
 
@@ -538,6 +544,13 @@ Public Class Setup
         Dim _layer As New TvBusinessLayer
         Dim setting As Setting = _layer.GetSetting("ClickfinderCategorieShowLocalSeries", "false")
         setting.Value = CStr(CheckBoxShowCategorieLocalSeries.Checked)
+        setting.Persist()
+    End Sub
+
+    Private Sub CheckBoxUseSeriesDescribtion_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxUseSeriesDescribtion.CheckedChanged
+        Dim _layer As New TvBusinessLayer
+        Dim setting As Setting = _layer.GetSetting("ClickfinderDetailUseSeriesDescribtion", "false")
+        setting.Value = CStr(CheckBoxUseSeriesDescribtion.Checked)
         setting.Persist()
     End Sub
 End Class

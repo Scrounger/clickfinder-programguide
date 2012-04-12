@@ -159,10 +159,12 @@ Public Class EditCategorie
         Try
             Dim sqlstring As String
             Dim _result As New ArrayList
+            Dim _Now As Date = Date.Now
+
             sqlstring = CStr(Replace(Replace(tbSqlString.Text, "#startTime", Helper.MySqlDate(Date.Today.AddHours(20))), "#endTime", Helper.MySqlDate(Date.Now.AddHours(22))))
             _result.AddRange(Broker.Execute(sqlstring).TransposeToFieldList("idProgram", False))
 
-            MsgBox(_result.Count & " Einträge gefunden" & vbNewLine & vbNewLine & "SQL String funktioniert", MsgBoxStyle.Information)
+            MsgBox(_result.Count & " Einträge gefunden (Zeit: " & DateDiff(DateInterval.Second, _Now, Date.Now) & "s)" & vbNewLine & vbNewLine & "SQL String funktioniert", MsgBoxStyle.Information)
         Catch ex As Exception
             MsgBox("Fehler !" & vbNewLine & vbNewLine & ex.Message, MsgBoxStyle.Critical, "Warnung ...")
         End Try

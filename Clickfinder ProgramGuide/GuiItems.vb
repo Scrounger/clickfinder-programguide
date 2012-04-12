@@ -96,6 +96,7 @@ Namespace ClickfinderProgramGuide
 #Region "GUI Events"
 
         Protected Overrides Sub OnPageLoad()
+            MyBase.OnPageLoad()
             GUIWindowManager.NeedRefresh()
 
             MyLog.Info("")
@@ -126,7 +127,7 @@ Namespace ClickfinderProgramGuide
 
             '_Thread1.Join()
 
-            MyBase.OnPageLoad()
+
         End Sub
 
         Protected Overrides Sub OnPageDestroy(ByVal new_windowId As Integer)

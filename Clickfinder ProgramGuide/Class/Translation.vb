@@ -74,6 +74,9 @@ Public NotInheritable Class Translation
 
     Public Shared ActorsLabel = "Schauspieler:"
     Public Shared Critic = "Kritik:"
+    Public Shared LinkTo = "verknüpft mit:"
+
+    Public Shared NextLabel = "Gleich läuft:"
 
     ' A
 

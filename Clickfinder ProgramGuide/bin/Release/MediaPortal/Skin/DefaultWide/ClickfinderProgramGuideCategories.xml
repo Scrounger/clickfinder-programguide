@@ -180,7 +180,7 @@
       <id>1</id>
       <posX>670</posX>
       <posY>76</posY>
-      <label>#CategorieTimePeriode</label>
+      <label>#ClickfinderPG.Translation.NextLabel</label>
       <font>font12</font>
       <textcolor>FFdddddd</textcolor>
     </control>
