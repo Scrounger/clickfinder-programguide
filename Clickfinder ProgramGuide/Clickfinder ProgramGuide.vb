@@ -189,7 +189,16 @@ Namespace ClickfinderProgramGuide
                     MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", Action.m_key.KeyChar, Action.m_key.KeyCode, Action.wID.ToString)
 
                     If _MovieList.IsFocused = True Then ListControlClick(_MovieList.SelectedListItem.ItemId)
-                    If _HighlightsList.IsFocused = True Then ListControlClick(_HighlightsList.SelectedListItem.ItemId)
+
+                    If _HighlightsList.IsFocused = True Then
+                        'Falls im Label2 Translation.NewLabel gefunden -> Series Context Menu
+                        If _HighlightsList.SelectedListItem.Label2 = Translation.NewLabel Then
+                            ShowSeriesContextMenu(_HighlightsList.SelectedListItem.ItemId, True)
+                        Else
+                            ListControlClick(_HighlightsList.SelectedListItem.ItemId)
+                        End If
+                    End If
+
                 End If
 
                 'Next Item (F8) -> einen Tag vor
@@ -789,7 +798,7 @@ Namespace ClickfinderProgramGuide
 #End Region
 
 #Region "MediaPortal Funktionen / Dialogs"
-        Private Sub ShowSeriesContextMenu(ByVal idProgram As Integer)
+        Private Sub ShowSeriesContextMenu(ByVal idProgram As Integer, Optional ByVal SelectItem As Boolean = False)
             Dim dlgContext As GUIDialogSelect2Custom = CType(GUIWindowManager.GetWindow(CType(1656544655, Integer)), GUIDialogSelect2Custom)
             dlgContext.Reset()
             Try
@@ -813,38 +822,56 @@ Namespace ClickfinderProgramGuide
                     Dim _Result As New ArrayList
                     _Result.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", True))
 
-                    If _Result.Count > 0 Then
-                        For i = 0 To _Result.Count - 1
-                            Try
+                    If _Result.Count = 1 Then
 
-                                'ProgramDaten über TvMovieProgram laden
-                                Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_Result.Item(i))
+                        Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_Result.Item(0))
 
-                                Dim lItemEpisode As New GUIListItem
-                                lItemEpisode.Label = _TvMovieProgram.ReferencedProgram.EpisodeName
-                                lItemEpisode.Label2 = Format(_TvMovieProgram.ReferencedProgram.StartTime.Hour, "00") & _
-                                                    ":" & Format(_TvMovieProgram.ReferencedProgram.StartTime.Minute, "00") & " - " & _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName
-                                lItemEpisode.Label3 = "Staffel " & Format(CInt(_TvMovieProgram.ReferencedProgram.SeriesNum), "00") & ", Episode " & Format(CInt(_TvMovieProgram.ReferencedProgram.EpisodeNum), "00")
-                                lItemEpisode.IconImage = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieProgram.SeriesPosterImage
+                        If SelectItem = True Then
+                            ListControlClick(_TvMovieProgram.idProgram)
+                        Else
+                            ShowHighlightsMenu(_TvMovieProgram.idProgram)
+                        End If
+                        Exit Sub
+                    Else
+                        If _Result.Count > 0 Then
+                            For i = 0 To _Result.Count - 1
+                                Try
 
-                                lItemEpisode.PinImage = GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram)
+                                    'ProgramDaten über TvMovieProgram laden
+                                    Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_Result.Item(i))
 
-                                _idProgramContainer.Add(i, _TvMovieProgram.idProgram)
+                                    Dim lItemEpisode As New GUIListItem
+                                    lItemEpisode.Label = _TvMovieProgram.ReferencedProgram.EpisodeName
+                                    lItemEpisode.Label2 = Format(_TvMovieProgram.ReferencedProgram.StartTime.Hour, "00") & _
+                                                        ":" & Format(_TvMovieProgram.ReferencedProgram.StartTime.Minute, "00") & " - " & _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName
+                                    lItemEpisode.Label3 = "Staffel " & Format(CInt(_TvMovieProgram.ReferencedProgram.SeriesNum), "00") & ", Episode " & Format(CInt(_TvMovieProgram.ReferencedProgram.EpisodeNum), "00")
+                                    lItemEpisode.IconImage = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieProgram.SeriesPosterImage
 
-                                dlgContext.Add(lItemEpisode)
-                                lItemEpisode.Dispose()
-                            Catch ex As Exception
-                                MyLog.[Error]("[ShowSeriesContextMenu]: Loop: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
-                            End Try
-                        Next
+                                    lItemEpisode.PinImage = GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram)
 
-                        dlgContext.DoModal(GetID)
-                        ShowHighlightsMenu(_idProgramContainer.Item(dlgContext.SelectedLabel))
+                                    _idProgramContainer.Add(i, _TvMovieProgram.idProgram)
+
+                                    dlgContext.Add(lItemEpisode)
+                                    lItemEpisode.Dispose()
+                                Catch ex As Exception
+                                    MyLog.[Error]("[ShowSeriesContextMenu]: Loop: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                                End Try
+                            Next
+
+                            dlgContext.DoModal(GetID)
+
+                            If SelectItem = True Then
+                                ListControlClick(_idProgramContainer.Item(dlgContext.SelectedLabel))
+                            Else
+                                ShowHighlightsMenu(_idProgramContainer.Item(dlgContext.SelectedLabel))
+                            End If
+
+                        End If
 
                     End If
-                End If
+                    End If
 
-                _idProgramContainer.Clear()
+                    _idProgramContainer.Clear()
             Catch ex As Exception
                 MyLog.[Error]("[HighlightsGUIWindow] [ShowSeriesContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
             End Try

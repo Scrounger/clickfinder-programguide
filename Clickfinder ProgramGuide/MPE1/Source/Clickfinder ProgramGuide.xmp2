@@ -1046,7 +1046,7 @@ a lot of new features !
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\..\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R3.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{a1f83f8d-c427-4665-a696-5b43d696a2ce}-ClickfinderPG_R3.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{1c1fcc2c-7038-48da-8923-3878aa7b677a}-ClickfinderPG_R3.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
