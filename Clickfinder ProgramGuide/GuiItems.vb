@@ -111,6 +111,8 @@ Namespace ClickfinderProgramGuide
                 Translator.SetProperty("#SettingLastUpdate", GuiLayout.LastUpdateLabel)
             End If
 
+            _FilterByGroup = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value
+
             If _ItemsResult.Count = 0 Then
                 Dim _FillLists As New Threading.Thread(AddressOf GetItemsOnLoad)
                 _FillLists.Start()
@@ -120,10 +122,6 @@ Namespace ClickfinderProgramGuide
                 _Thread1.Start()
                 _Thread2.Start()
             End If
-
-            _FilterByGroup = "All Channels"
-
-
 
             '_Thread1.Join()
 
@@ -298,7 +296,6 @@ Namespace ClickfinderProgramGuide
 
                     Translator.SetProperty("#CurrentPageLabel", Translation.PageLabel & " " & CShort((_CurrentCounter + 12) / 12) & " / " & CShort((_ItemsResult.Count) / 12 + 0.5))
 
-
                     If _ClickfinderCategorieView = CategorieView.Now And _idCategorie > 0 Then
                         Dim key As New Gentle.Framework.Key(GetType(ClickfinderCategories), True, "idClickfinderCategories", _idCategorie)
                         Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(key)
@@ -306,13 +303,21 @@ Namespace ClickfinderProgramGuide
                         Translator.SetProperty("#ItemsLeftListLabel", _Categorie.Name & " " & Translation.von & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00") & " - " & Format(PeriodeEndTime.Hour, "00") & ":" & Format(PeriodeEndTime.Minute, "00"))
                         GUIWindowManager.ActivateWindow(1656544653)
                     Else
-                        _ThreadLeftList = New Thread(AddressOf FillLeftList)
-                        _ThreadRightList = New Thread(AddressOf FillRightList)
-                        _ThreadLeftList.IsBackground = True
-                        _ThreadRightList.IsBackground = True
+                        If Not _FilterByGroup = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value Then
+                            _FilterByGroup = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value
+                            Dim _FillLists As New Threading.Thread(AddressOf GetItemsOnLoad)
+                            GuiLayoutLoading()
+                            _FillLists.Start()
+                        Else
+                            _ThreadLeftList = New Thread(AddressOf FillLeftList)
+                            _ThreadRightList = New Thread(AddressOf FillRightList)
+                            _ThreadLeftList.IsBackground = True
+                            _ThreadRightList.IsBackground = True
 
-                        _ThreadLeftList.Start()
-                        _ThreadRightList.Start()
+                            _ThreadLeftList.Start()
+                            _ThreadRightList.Start()
+
+                        End If
                     End If
 
                 End If
@@ -440,22 +445,22 @@ Namespace ClickfinderProgramGuide
                             If String.Equals(_lastTitle, _Program.Title & _Program.EpisodeName) = False Then
 
                                 'Prüfen ob in Gruppe (Filter Fkt.)
-                                If Not _FilterByGroup = "All Channels" Then
+                                'If Not _FilterByGroup = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value Then
 
-                                    Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _FilterByGroup)
-                                    Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
+                                Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _FilterByGroup)
+                                Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
 
-                                    'Alle Gruppen des _program laden
-                                    Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
-                                    sb.AddConstraint([Operator].Equals, "idgroup", _Group.IdGroup)
-                                    sb.AddConstraint([Operator].Equals, "idChannel", _Program.IdChannel)
-                                    Dim stmt As SqlStatement = sb.GetStatement(True)
-                                    Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
+                                'Alle Gruppen des _program laden
+                                Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
+                                sb.AddConstraint([Operator].Equals, "idgroup", _Group.IdGroup)
+                                sb.AddConstraint([Operator].Equals, "idChannel", _Program.IdChannel)
+                                Dim stmt As SqlStatement = sb.GetStatement(True)
+                                Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
 
-                                    If _isInFavGroup.Count = 0 Then
-                                        Continue For
-                                    End If
+                                If _isInFavGroup.Count = 0 Then
+                                    Continue For
                                 End If
+                                'End If
 
                                 'Falls lokale Movies/Videos nicht angezeigt werden sollen -> aus Array entfernen
                                 If CBool(_layer.GetSetting("ClickfinderItemsShowLocalMovies", "false").Value) = True Then

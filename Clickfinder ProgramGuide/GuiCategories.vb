@@ -295,7 +295,7 @@ Namespace ClickfinderProgramGuide
 
                         Dim idCategorie As Integer = _CategorieList.SelectedListItemIndex
                         Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(idCategorie)
-                        _Categorie.groupName = "All Channels"
+                        _Categorie.groupName = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value
                         _Categorie.Persist()
 
                         ThreadPreviewListFill = New Threading.Thread(AddressOf FillPreviewList)
@@ -486,7 +486,7 @@ Namespace ClickfinderProgramGuide
                         'ProgramDaten über idProgram laden
                         Dim _ResultProgram As Program = Program.Retrieve(_result.Item(i))
 
-                        If Not _Categorie.groupName = "All Channels" Then
+                        If Not _Categorie.groupName = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value Then
                             'Alle Gruppen des _resultprogram laden
                             Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
                             sb.AddConstraint([Operator].Equals, "idgroup", _Categorie.Referencedgroup.IdGroup)

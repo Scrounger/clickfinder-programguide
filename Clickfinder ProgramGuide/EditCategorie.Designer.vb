@@ -214,7 +214,6 @@ Partial Class EditCategorie
         '
         Me.cbGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbGroup.FormattingEnabled = True
-        Me.cbGroup.Items.AddRange(New Object() {"Startzeit", "Rating Star", "TvMovie Bewertung"})
         Me.cbGroup.Location = New System.Drawing.Point(12, 254)
         Me.cbGroup.Name = "cbGroup"
         Me.cbGroup.Size = New System.Drawing.Size(100, 21)
@@ -234,7 +233,6 @@ Partial Class EditCategorie
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(528, 346)
-        Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.cbGroup)
         Me.Controls.Add(Me.NumNowOffset)
         Me.Controls.Add(Me.ButtonTestSQL)
@@ -254,6 +252,7 @@ Partial Class EditCategorie
         Me.Controls.Add(Me.Label18)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.Label5)
         Me.Name = "EditCategorie"
         Me.Text = "NewCategorie"
         CType(Me.picCategorie, System.ComponentModel.ISupportInitialize).EndInit()

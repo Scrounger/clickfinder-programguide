@@ -98,6 +98,18 @@ Public Class Setup
 
             Filldgv()
 
+
+            Dim _groups As List(Of ChannelGroup) = ChannelGroup.ListAll
+
+            For i = 0 To _groups.Count - 1
+                cbStandardGroup.Items.Add(_groups(i).GroupName)
+                If _groups(i).GroupName = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value Then
+                    cbStandardGroup.Text = _groups(i).GroupName
+                End If
+            Next
+
+
+
         Catch ex As Exception
             MyLog.[Error]("[Setup_Load]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
         End Try
@@ -145,6 +157,9 @@ Public Class Setup
             setting.Value = tbLateTime.Text
             setting.Persist()
 
+            setting = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels")
+            setting.Value = cbStandardGroup.Text
+            setting.Persist()
 
 
             SaveCategories()

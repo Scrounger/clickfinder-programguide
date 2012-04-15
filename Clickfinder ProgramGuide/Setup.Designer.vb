@@ -23,7 +23,7 @@ Partial Class Setup
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Setup))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.ButtonSave = New System.Windows.Forms.Button
         Me.Label2 = New System.Windows.Forms.Label
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel
@@ -97,6 +97,8 @@ Partial Class Setup
         Me.CheckBoxUseSeriesDescribtion = New System.Windows.Forms.CheckBox
         Me.openFileDialog = New System.Windows.Forms.OpenFileDialog
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
+        Me.cbStandardGroup = New System.Windows.Forms.ComboBox
+        Me.Label15 = New System.Windows.Forms.Label
         Me.TabControl1.SuspendLayout()
         Me.TabAllgemeines.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -165,6 +167,8 @@ Partial Class Setup
         '
         'TabAllgemeines
         '
+        Me.TabAllgemeines.Controls.Add(Me.Label15)
+        Me.TabAllgemeines.Controls.Add(Me.cbStandardGroup)
         Me.TabAllgemeines.Controls.Add(Me.GroupBox4)
         Me.TabAllgemeines.Controls.Add(Me.Label17)
         Me.TabAllgemeines.Controls.Add(Me.Label16)
@@ -774,8 +778,8 @@ Partial Class Setup
         Me.dgvCategories.Location = New System.Drawing.Point(9, 8)
         Me.dgvCategories.Name = "dgvCategories"
         Me.dgvCategories.RowHeadersVisible = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
-        Me.dgvCategories.RowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.White
+        Me.dgvCategories.RowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvCategories.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvCategories.Size = New System.Drawing.Size(582, 376)
         Me.dgvCategories.TabIndex = 0
@@ -883,6 +887,24 @@ Partial Class Setup
         Me.PictureBox1.Size = New System.Drawing.Size(75, 62)
         Me.PictureBox1.TabIndex = 9
         Me.PictureBox1.TabStop = False
+        '
+        'cbStandardGroup
+        '
+        Me.cbStandardGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbStandardGroup.FormattingEnabled = True
+        Me.cbStandardGroup.Location = New System.Drawing.Point(363, 171)
+        Me.cbStandardGroup.Name = "cbStandardGroup"
+        Me.cbStandardGroup.Size = New System.Drawing.Size(191, 24)
+        Me.cbStandardGroup.TabIndex = 24
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(212, 174)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(145, 16)
+        Me.Label15.TabIndex = 25
+        Me.Label15.Text = "standard Tv Gruppe:"
         '
         'Setup
         '
@@ -1002,4 +1024,6 @@ Partial Class Setup
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents TabDetail As System.Windows.Forms.TabPage
     Friend WithEvents CheckBoxUseSeriesDescribtion As System.Windows.Forms.CheckBox
+    Friend WithEvents Label15 As System.Windows.Forms.Label
+    Friend WithEvents cbStandardGroup As System.Windows.Forms.ComboBox
 End Class
