@@ -219,8 +219,29 @@ Namespace ClickfinderProgramGuide
         End Sub
 
         Public Overrides Sub OnAction(ByVal action As MediaPortal.GUI.Library.Action)
-
             MyBase.OnAction(action)
+
+            'Play Button (P) -> Start channel
+            If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_MUSIC_PLAY Then
+                Try
+                    MyLog.[Debug]("[DetailGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
+                    Helper.StartTv(_DetailTvMovieProgram.ReferencedProgram.ReferencedChannel)
+                Catch ex As Exception
+                    MyLog.[Error]("[Play Button]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                End Try
+            End If
+
+            'Record Button (R) -> MP TvProgramInfo aufrufen --Über keychar--
+            If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_KEY_PRESSED Then
+                If action.m_key IsNot Nothing Then
+                    If action.m_key.KeyChar = 114 Then
+                        MyLog.[Debug]("[DetailGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
+
+                        Helper.LoadTVProgramInfo(_DetailTvMovieProgram.ReferencedProgram)
+                    End If
+                End If
+            End If
+
         End Sub
 
         Protected Overrides Sub OnClicked(ByVal controlId As Integer, _

@@ -282,6 +282,34 @@
               <ZipFileName>Installer{CopyFile}\{9d2bca32-4145-4efd-9683-fcbb72ccfdfc}-ClickfinderPG_SepHor.png</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_SepHor.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\dolby.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{d020127f-e2dc-4c39-8bfa-3e8a5997d90e}-dolby.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Logos\ClickfinderPG\dolby.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\hd.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{e4295877-a7c7-49d6-8fc9-6ffbfa07603c}-hd.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Logos\ClickfinderPG\hd.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\sd.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{c713608f-5761-4219-b58c-a61507128576}-sd.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Logos\ClickfinderPG\sd.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\stereo.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{ef7325f7-da94-4141-b7e1-e80aca7c7d71}-stereo.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Logos\ClickfinderPG\stereo.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -416,6 +444,34 @@
               <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_SepHor.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{f12c36f4-94d5-47d3-b19e-838aea299a19}-ClickfinderPG_SepHor.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_SepHor.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\dolby.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{65ac879f-2cad-4a68-ba66-5b0d70002942}-dolby.png</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\Media\Logos\ClickfinderPG\dolby.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\hd.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{6dcb99ab-638a-4209-9836-0d0844c68d3a}-hd.png</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\Media\Logos\ClickfinderPG\hd.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\sd.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{38cc7488-b851-4030-ad5a-580e5c8745f4}-sd.png</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\Media\Logos\ClickfinderPG\sd.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\stereo.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{82852e02-2329-408f-a001-4253a48613a0}-stereo.png</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\Media\Logos\ClickfinderPG\stereo.png</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -634,7 +690,7 @@ a lot of new features !
 </VersionDescription>
     <DevelopmentStatus>Alpha</DevelopmentStatus>
     <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_0.1.0.0.beta.mpe1</OnlineLocation>
-    <ReleaseDate>2012-04-09T15:57:29</ReleaseDate>
+    <ReleaseDate>2012-04-15T15:57:29</ReleaseDate>
     <Tags>programguide, tv movie, clickfinder, epg, tv</Tags>
     <Location>D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPE1\Clickfinder ProgramGuide.mpe1</Location>
     <Params>
@@ -919,6 +975,34 @@ a lot of new features !
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\dolby.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{d020127f-e2dc-4c39-8bfa-3e8a5997d90e}-dolby.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\Logos\ClickfinderPG\dolby.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\hd.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{e4295877-a7c7-49d6-8fc9-6ffbfa07603c}-hd.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\Logos\ClickfinderPG\hd.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\sd.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{c713608f-5761-4219-b58c-a61507128576}-sd.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\Logos\ClickfinderPG\sd.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\stereo.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{ef7325f7-da94-4141-b7e1-e80aca7c7d71}-stereo.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\Logos\ClickfinderPG\stereo.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuide.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{9131b31f-9413-4b66-a114-f929e6ee55ae}-ClickfinderProgramGuide.xml</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\ClickfinderProgramGuide.xml</DestinationFilename>
@@ -1042,11 +1126,39 @@ a lot of new features !
         <ZipFileName>Installer{CopyFile}\{f12c36f4-94d5-47d3-b19e-838aea299a19}-ClickfinderPG_SepHor.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_SepHor.png</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\dolby.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{65ac879f-2cad-4a68-ba66-5b0d70002942}-dolby.png</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\Media\Logos\ClickfinderPG\dolby.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\hd.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{6dcb99ab-638a-4209-9836-0d0844c68d3a}-hd.png</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\Media\Logos\ClickfinderPG\hd.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\sd.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{38cc7488-b851-4030-ad5a-580e5c8745f4}-sd.png</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\Media\Logos\ClickfinderPG\sd.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\stereo.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{82852e02-2329-408f-a001-4253a48613a0}-stereo.png</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\Media\Logos\ClickfinderPG\stereo.png</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\..\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R3.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{1c1fcc2c-7038-48da-8923-3878aa7b677a}-ClickfinderPG_R3.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{7992aa0f-9a02-4e0a-8d97-8795e7e59a94}-ClickfinderPG_R3.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
