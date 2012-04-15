@@ -1,6 +1,6 @@
 ﻿<window>
   <id>1656544652</id>
-  <defaultcontrol>2</defaultcontrol>
+  <defaultcontrol>10</defaultcontrol>
   <allowoverlay>no</allowoverlay>
   <define>#header.label:Clickfinder Program Guide</define>
   <define>#header.BG.colordiffuse:ffffffff</define>
@@ -368,6 +368,7 @@
       <posX>90</posX>
       <posY>234</posY>
       <width>48</width>
+      <height>48</height>
       <texture></texture>
       <colorkey>0</colorkey>
       <filtered>yes</filtered>
@@ -503,8 +504,9 @@
       <type>image</type>
       <id>1</id>
       <posX>370</posX>
-      <posY>590</posY>
-      <width>50</width>
+      <posY>620</posY>
+      <width>80</width>
+      <height>50</height>
       <texture>#DetailAudioImage</texture>
       <colorkey>0</colorkey>
       <filtered>yes</filtered>
@@ -520,8 +522,9 @@
       <type>image</type>
       <id>1</id>
       <posX>470</posX>
-      <posY>590</posY>
-      <width>50</width>
+      <posY>620</posY>
+      <width>80</width>
+      <height>50</height>
       <texture>#DetailProgramFormat</texture>
       <colorkey>0</colorkey>
       <filtered>yes</filtered>
@@ -839,6 +842,88 @@
         </control>
       </control>
     </control>
+
+    <control>
+      <description>Remember</description>
+      <type>button</type>
+      <id>13</id>
+      <posX>110</posX>
+      <posY>540</posY>
+      <width>216</width>
+      <height>30</height>
+      <label>Erinnern</label>
+      <onleft>2</onleft>
+      <onright>2</onright>
+      <onup>10</onup>
+      <ondown>12</ondown>
+      <textalign>center</textalign>
+      <font>mediastream10</font>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Record</description>
+      <type>button</type>
+      <id>12</id>
+      <posX>110</posX>
+      <posY>570</posY>
+      <width>216</width>
+      <height>30</height>
+      <label>Aufnehmen</label>
+      <onleft>2</onleft>
+      <onright>2</onright>
+      <onup>13</onup>
+      <ondown>11</ondown>
+      <textalign>center</textalign>
+      <font>mediastream10</font>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Play / View Channel</description>
+      <type>button</type>
+      <id>11</id>
+      <posX>110</posX>
+      <posY>600</posY>
+      <width>216</width>
+      <height>30</height>
+      <label>Kanal einschalten</label>
+      <onleft>2</onleft>
+      <onright>2</onright>
+      <onup>12</onup>
+      <ondown>10</ondown>
+      <textalign>center</textalign>
+      <font>mediastream10</font>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Back</description>
+      <type>button</type>
+      <id>10</id>
+      <posX>110</posX>
+      <posY>644</posY>
+      <width>216</width>
+      <height>30</height>
+      <label>Zurück</label>
+      <onleft>2</onleft>
+      <onright>2</onright>
+      <onup>11</onup>
+      <ondown>13</ondown>
+      <textalign>center</textalign>
+      <font>mediastream10</font>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
   </controls>
+
 </window>
 

@@ -18,10 +18,16 @@ Namespace ClickfinderProgramGuide
         <SkinControlAttribute(5)> Protected _btnHighlights As GUIButtonControl = Nothing
         <SkinControlAttribute(6)> Protected _btnPreview As GUIButtonControl = Nothing
 
+
+        <SkinControlAttribute(10)> Protected _btnBack As GUIButtonControl = Nothing
+        <SkinControlAttribute(11)> Protected _btnPlay As GUIButtonControl = Nothing
+        <SkinControlAttribute(12)> Protected _btnRecord As GUIButtonControl = Nothing
+        <SkinControlAttribute(13)> Protected _btnRemember As GUIButtonControl = Nothing
+
 #End Region
 
 #Region "Members"
-        Friend Shared _tvMovieProgram As TVMovieProgram
+        Friend Shared _DetailTvMovieProgram As TVMovieProgram
         Private _layer As New TvBusinessLayer
 
 #End Region
@@ -32,7 +38,7 @@ Namespace ClickfinderProgramGuide
         End Sub
 
         Friend Shared Sub SetGuiProperties(ByVal TvMovieProgram As TVMovieProgram)
-            _tvMovieProgram = TvMovieProgram
+            _DetailTvMovieProgram = TvMovieProgram
         End Sub
 #End Region
 
@@ -66,55 +72,55 @@ Namespace ClickfinderProgramGuide
             MyLog.Info("")
             MyLog.Info("")
             MyLog.Info("[DetailGuiWindow] -------------[OPEN]-------------")
-            MyLog.Debug("[DetailGuiWindow] [OnPageLoad]: {0}, idProgram = {1}, needsUpdate = {2}", _tvMovieProgram.ReferencedProgram.Title, _tvMovieProgram.idProgram, _tvMovieProgram.needsUpdate)
+            MyLog.Debug("[DetailGuiWindow] [OnPageLoad]: {0}, idProgram = {1}, needsUpdate = {2}", _DetailTvMovieProgram.ReferencedProgram.Title, _DetailTvMovieProgram.idProgram, _DetailTvMovieProgram.needsUpdate)
 
-            If _tvMovieProgram.needsUpdate = True Then
-                Dim _ClickfinderDB As New ClickfinderDB(_tvMovieProgram.ReferencedProgram, True)
+            If _DetailTvMovieProgram.needsUpdate = True Then
+                Dim _ClickfinderDB As New ClickfinderDB(_DetailTvMovieProgram.ReferencedProgram, True)
 
                 'Wenn HD Sender -> Dolby = true, Hd = true
-                If InStr(_tvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, " HD") > 0 Then
-                    _tvMovieProgram.Dolby = True
-                    _tvMovieProgram.HDTV = True
+                If InStr(_DetailTvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, " HD") > 0 Then
+                    _DetailTvMovieProgram.Dolby = True
+                    _DetailTvMovieProgram.HDTV = True
                 Else
                     'Daten aus ClickfinderDB 
                     If _ClickfinderDB.Count > 0 Then
-                        _tvMovieProgram.Dolby = _ClickfinderDB(0).Dolby
-                        _tvMovieProgram.HDTV = _ClickfinderDB(0).KzHDTV
+                        _DetailTvMovieProgram.Dolby = _ClickfinderDB(0).Dolby
+                        _DetailTvMovieProgram.HDTV = _ClickfinderDB(0).KzHDTV
                     End If
                 End If
 
                 'Jahr
                 If Not String.IsNullOrEmpty(_ClickfinderDB(0).Herstellungsjahr) Then
-                    _tvMovieProgram.Year = CDate("01.01." & _ClickfinderDB(0).Herstellungsjahr)
+                    _DetailTvMovieProgram.Year = CDate("01.01." & _ClickfinderDB(0).Herstellungsjahr)
                 End If
 
                 'Country
                 If Not String.IsNullOrEmpty(_ClickfinderDB(0).Herstellungsland) Then
-                    _tvMovieProgram.Country = _ClickfinderDB(0).Herstellungsland
+                    _DetailTvMovieProgram.Country = _ClickfinderDB(0).Herstellungsland
                 End If
 
                 'Regie
                 If Not String.IsNullOrEmpty(_ClickfinderDB(0).Regie) Then
-                    _tvMovieProgram.Regie = _ClickfinderDB(0).Regie
+                    _DetailTvMovieProgram.Regie = _ClickfinderDB(0).Regie
                 End If
 
                 'Describtion
-                If _tvMovieProgram.idSeries > 0 And CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True And CBool(_layer.GetSetting("ClickfinderDetailUseSeriesDescribtion", "false").Value) = True Then
+                If _DetailTvMovieProgram.idSeries > 0 And CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True And CBool(_layer.GetSetting("ClickfinderDetailUseSeriesDescribtion", "false").Value) = True Then
                     'Wenn Serie erkannt dann -> Episoden Beschreibung aus TvSeriesDB laden (sofern aktiviert & vorhanden)
                     Dim _Series As New TVSeriesDB
-                    _Series.LoadEpisodebyEpsiodeID(_tvMovieProgram.idSeries, _tvMovieProgram.idEpisode)
-                    _tvMovieProgram.Describtion = "SeriesDescribtion" & vbNewLine & _Series.EpisodeSummary
+                    _Series.LoadEpisodebyEpsiodeID(_DetailTvMovieProgram.idSeries, _DetailTvMovieProgram.idEpisode)
+                    _DetailTvMovieProgram.Describtion = "SeriesDescribtion" & vbNewLine & _Series.EpisodeSummary
                 Else
                     If Not String.IsNullOrEmpty(_ClickfinderDB(0).Beschreibung) Then
-                        _tvMovieProgram.Describtion = "TvMovieDescribtion" & vbNewLine & Replace(_ClickfinderDB(0).Beschreibung, "<br>", vbNewLine)
-                    ElseIf Not String.IsNullOrEmpty(_tvMovieProgram.ReferencedProgram.Description) Then
-                        _tvMovieProgram.Describtion = "EPGDescribtion" & vbNewLine & _tvMovieProgram.ReferencedProgram.Description
+                        _DetailTvMovieProgram.Describtion = "TvMovieDescribtion" & vbNewLine & Replace(_ClickfinderDB(0).Beschreibung, "<br>", vbNewLine)
+                    ElseIf Not String.IsNullOrEmpty(_DetailTvMovieProgram.ReferencedProgram.Description) Then
+                        _DetailTvMovieProgram.Describtion = "EPGDescribtion" & vbNewLine & _DetailTvMovieProgram.ReferencedProgram.Description
                     End If
                 End If
 
                 'Short Describtion
                 If Not String.IsNullOrEmpty(_ClickfinderDB(0).KurzBeschreibung) Then
-                    _tvMovieProgram.ShortDescribtion = _ClickfinderDB(0).KurzBeschreibung
+                    _DetailTvMovieProgram.ShortDescribtion = _ClickfinderDB(0).KurzBeschreibung
                 End If
 
 
@@ -135,72 +141,72 @@ Namespace ClickfinderProgramGuide
 
                         Select Case Left(word, InStr(word, "=") - 1)
                             Case Is = "Spaß"
-                                _tvMovieProgram.Fun = CInt(Right(word, word.Length - InStr(word, "=")))
+                                _DetailTvMovieProgram.Fun = CInt(Right(word, word.Length - InStr(word, "=")))
                             Case Is = "Action"
-                                _tvMovieProgram.Action = CInt(Right(word, word.Length - InStr(word, "=")))
+                                _DetailTvMovieProgram.Action = CInt(Right(word, word.Length - InStr(word, "=")))
                             Case Is = "Erotik"
-                                _tvMovieProgram.Erotic = CInt(Right(word, word.Length - InStr(word, "=")))
+                                _DetailTvMovieProgram.Erotic = CInt(Right(word, word.Length - InStr(word, "=")))
                             Case Is = "Spannung"
-                                _tvMovieProgram.Tension = CInt(Right(word, word.Length - InStr(word, "=")))
+                                _DetailTvMovieProgram.Tension = CInt(Right(word, word.Length - InStr(word, "=")))
                             Case Is = "Anspruch"
-                                _tvMovieProgram.Requirement = CInt(Right(word, word.Length - InStr(word, "=")))
+                                _DetailTvMovieProgram.Requirement = CInt(Right(word, word.Length - InStr(word, "=")))
                             Case Is = "Gefühl"
-                                _tvMovieProgram.Feelings = CInt(Right(word, word.Length - InStr(word, "=")))
+                                _DetailTvMovieProgram.Feelings = CInt(Right(word, word.Length - InStr(word, "=")))
                         End Select
                     Next
                 End If
 
                 'Actors aus Clickfinder DB holen, sofern vorhanden
                 If Not String.IsNullOrEmpty(_ClickfinderDB(0).Darsteller) Then
-                    _tvMovieProgram.Actors = _ClickfinderDB(0).Darsteller
+                    _DetailTvMovieProgram.Actors = _ClickfinderDB(0).Darsteller
                 End If
 
-                _tvMovieProgram.needsUpdate = False
-                _tvMovieProgram.Persist()
+                _DetailTvMovieProgram.needsUpdate = False
+                _DetailTvMovieProgram.Persist()
             End If
 
-            Translator.SetProperty("#DetailTitle", _tvMovieProgram.ReferencedProgram.Title)
+            Translator.SetProperty("#DetailTitle", _DetailTvMovieProgram.ReferencedProgram.Title)
 
-            Translator.SetProperty("#DetailorgTitle", GuiLayout.DetailOrgTitle(_tvMovieProgram))
+            Translator.SetProperty("#DetailorgTitle", GuiLayout.DetailOrgTitle(_DetailTvMovieProgram))
 
-            Translator.SetProperty("#DetailImage", GuiLayout.Image(_tvMovieProgram))
-            Translator.SetProperty("#DetailTvMovieStar", GuiLayout.TvMovieStar(_tvMovieProgram))
-            Translator.SetProperty("#DetailRatingStar", GuiLayout.ratingStar(_tvMovieProgram.ReferencedProgram))
-            Translator.SetProperty("#DetailTime", GuiLayout.TimeLabel(_tvMovieProgram))
-            Translator.SetProperty("#DetailDuration", DateDiff(DateInterval.Minute, _tvMovieProgram.ReferencedProgram.StartTime, _tvMovieProgram.ReferencedProgram.EndTime) & " " & Translation.MinuteLabel)
-            Translator.SetProperty("#DetailChannel", _tvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName)
-            Translator.SetProperty("#DetailGenre", _tvMovieProgram.ReferencedProgram.Genre)
-            Translator.SetProperty("#DetailYear", _tvMovieProgram.Year.Year & " ")
-            Translator.SetProperty("#DetailCountry", _tvMovieProgram.Country)
-            Translator.SetProperty("#DetailRegie", _tvMovieProgram.Regie)
-            Translator.SetProperty("#DetailActors", Replace(_tvMovieProgram.Actors, ";", ", "))
-            Translator.SetProperty("#DetailKritik", _tvMovieProgram.KurzKritik)
-            Translator.SetProperty("#DetailDescribtion", _tvMovieProgram.Describtion)
+            Translator.SetProperty("#DetailImage", GuiLayout.Image(_DetailTvMovieProgram))
+            Translator.SetProperty("#DetailTvMovieStar", GuiLayout.TvMovieStar(_DetailTvMovieProgram))
+            Translator.SetProperty("#DetailRatingStar", GuiLayout.ratingStar(_DetailTvMovieProgram.ReferencedProgram))
+            Translator.SetProperty("#DetailTime", GuiLayout.TimeLabel(_DetailTvMovieProgram))
+            Translator.SetProperty("#DetailDuration", DateDiff(DateInterval.Minute, _DetailTvMovieProgram.ReferencedProgram.StartTime, _DetailTvMovieProgram.ReferencedProgram.EndTime) & " " & Translation.MinuteLabel)
+            Translator.SetProperty("#DetailChannel", _DetailTvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName)
+            Translator.SetProperty("#DetailGenre", _DetailTvMovieProgram.ReferencedProgram.Genre)
+            Translator.SetProperty("#DetailYear", _DetailTvMovieProgram.Year.Year & " ")
+            Translator.SetProperty("#DetailCountry", _DetailTvMovieProgram.Country)
+            Translator.SetProperty("#DetailRegie", _DetailTvMovieProgram.Regie)
+            Translator.SetProperty("#DetailActors", Replace(_DetailTvMovieProgram.Actors, ";", ", "))
+            Translator.SetProperty("#DetailKritik", _DetailTvMovieProgram.KurzKritik)
+            Translator.SetProperty("#DetailDescribtion", _DetailTvMovieProgram.Describtion)
 
-            If _tvMovieProgram.Dolby = True Then
-                Translator.SetProperty("#DetailAudioImage", "Logos\ac-3 dolby digital.png")
+            If _DetailTvMovieProgram.Dolby = True Then
+                Translator.SetProperty("#DetailAudioImage", "Logos\ClickfinderPG\dolby.png")
             Else
-                Translator.SetProperty("#DetailAudioImage", "Logos\stereo.png")
+                Translator.SetProperty("#DetailAudioImage", "Logos\ClickfinderPG\stereo.png")
             End If
 
-            If _tvMovieProgram.HDTV = True Then
-                Translator.SetProperty("#DetailProgramFormat", "Logos\hd.png")
+            If _DetailTvMovieProgram.HDTV = True Then
+                Translator.SetProperty("#DetailProgramFormat", "Logos\ClickfinderPG\hd.png")
             Else
-                Translator.SetProperty("#DetailProgramFormat", "Logos\sd.png")
+                Translator.SetProperty("#DetailProgramFormat", "Logos\ClickfinderPG\sd.png")
             End If
 
-            If Not String.IsNullOrEmpty(_tvMovieProgram.FanArt) Then
-                Translator.SetProperty("#DetailFanArt", Config.GetFile(Config.Dir.Thumbs, "") & _tvMovieProgram.FanArt)
+            If Not String.IsNullOrEmpty(_DetailTvMovieProgram.FanArt) Then
+                Translator.SetProperty("#DetailFanArt", Config.GetFile(Config.Dir.Thumbs, "") & _DetailTvMovieProgram.FanArt)
             Else
                 Translator.SetProperty("#DetailFanArt", "")
             End If
 
-            Translator.SetProperty("#DetailRatingFun", getRatingpercentage(_tvMovieProgram.Fun))
-            Translator.SetProperty("#DetailRatingAction", getRatingpercentage(_tvMovieProgram.Action))
-            Translator.SetProperty("#DetailRatingErotic", getRatingpercentage(_tvMovieProgram.Erotic))
-            Translator.SetProperty("#DetailRatingSpannung", getRatingpercentage(_tvMovieProgram.Tension))
-            Translator.SetProperty("#DetailRatingAnspruch", getRatingpercentage(_tvMovieProgram.Requirement))
-            Translator.SetProperty("#DetailRatingFeelings", getRatingpercentage(_tvMovieProgram.Feelings))
+            Translator.SetProperty("#DetailRatingFun", getRatingpercentage(_DetailTvMovieProgram.Fun))
+            Translator.SetProperty("#DetailRatingAction", getRatingpercentage(_DetailTvMovieProgram.Action))
+            Translator.SetProperty("#DetailRatingErotic", getRatingpercentage(_DetailTvMovieProgram.Erotic))
+            Translator.SetProperty("#DetailRatingSpannung", getRatingpercentage(_DetailTvMovieProgram.Tension))
+            Translator.SetProperty("#DetailRatingAnspruch", getRatingpercentage(_DetailTvMovieProgram.Requirement))
+            Translator.SetProperty("#DetailRatingFeelings", getRatingpercentage(_DetailTvMovieProgram.Feelings))
 
             'MsgBox(Details_idProgram)
 
@@ -250,6 +256,23 @@ Namespace ClickfinderProgramGuide
                 GUIWindowManager.ActivateWindow(1656544654)
             End If
 
+            If control Is _btnBack Then
+
+                GUIWindowManager.ShowPreviousWindow()
+
+            End If
+
+            If control Is _btnRecord Then
+                Helper.LoadTVProgramInfo(_DetailTvMovieProgram.ReferencedProgram)
+            End If
+
+            If control Is _btnRemember Then
+                Helper.SetNotify(_DetailTvMovieProgram.ReferencedProgram)
+            End If
+
+            If control Is _btnPlay Then
+                Helper.StartTv(_DetailTvMovieProgram.ReferencedProgram.ReferencedChannel)
+            End If
 
         End Sub
 

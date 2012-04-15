@@ -91,3 +91,11 @@ D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaP
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_ListBG.png
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_SepHor.png
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_SepHor.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\dolby.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\hd.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\sd.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\stereo.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\dolby.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\hd.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\stereo.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\sd.png
