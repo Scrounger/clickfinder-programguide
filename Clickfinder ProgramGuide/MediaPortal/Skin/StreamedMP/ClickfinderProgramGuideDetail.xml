@@ -851,7 +851,7 @@
       <posY>540</posY>
       <width>216</width>
       <height>30</height>
-      <label>Erinnern</label>
+      <label>#ClickfinderPG.Translation.Remember</label>
       <onleft>2</onleft>
       <onright>2</onright>
       <onup>10</onup>
@@ -871,7 +871,7 @@
       <posY>570</posY>
       <width>216</width>
       <height>30</height>
-      <label>Aufnehmen</label>
+      <label>#ClickfinderPG.Translation.Record</label>
       <onleft>2</onleft>
       <onright>2</onright>
       <onup>13</onup>
@@ -891,7 +891,7 @@
       <posY>600</posY>
       <width>216</width>
       <height>30</height>
-      <label>Kanal einschalten</label>
+      <label>#ClickfinderPG.Translation.ChannelON</label>
       <onleft>2</onleft>
       <onright>2</onright>
       <onup>12</onup>
@@ -911,7 +911,7 @@
       <posY>644</posY>
       <width>216</width>
       <height>30</height>
-      <label>Zurück</label>
+      <label>#ClickfinderPG.Translation.Back</label>
       <onleft>2</onleft>
       <onright>2</onright>
       <onup>11</onup>

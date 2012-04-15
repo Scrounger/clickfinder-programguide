@@ -11,7 +11,7 @@ Public NotInheritable Class Translation
 
     Public Shared Record As String = "Aufnehmen"
     Public Shared Remember As String = "Erinnern"
-    Public Shared ChannelON As String = "Kanal einschalten"
+    Public Shared ChannelON As String = "Play / Kanal einschalten"
     Public Shared SameGenre As String = "gleiches Genre:"
 
 
@@ -77,6 +77,11 @@ Public NotInheritable Class Translation
     Public Shared LinkTo = "verknüpft mit:"
 
     Public Shared NextLabel = "Gleich läuft:"
+
+
+    Public Shared Back = "Zurück"
+
+
 
     ' A
 
