@@ -92,9 +92,13 @@ Public Class Helper
     End Property
 
     Friend Shared Sub ListControlClick(ByVal idProgram As Integer)
-        Dim TvMovieProgram As TVMovieProgram = TvMovieProgram.Retrieve(idProgram)
-        DetailGuiWindow.SetGuiProperties(TvMovieProgram)
-        GUIWindowManager.ActivateWindow(1656544652)
+        Try
+            Dim TvMovieProgram As TVMovieProgram = TvMovieProgram.Retrieve(idProgram)
+            DetailGuiWindow.SetGuiProperties(TvMovieProgram)
+            GUIWindowManager.ActivateWindow(1656544652)
+        Catch ex As Exception
+            MyLog.[Error]("[ListControlClick]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
+        End Try
     End Sub
 
     Friend Shared Sub LoadTVProgramInfo(ByVal Program As Program)

@@ -186,10 +186,9 @@ Namespace ClickfinderProgramGuide
                 Translator.SetProperty("#PreviewListTvMovieStar" & i, "")
                 Translator.SetProperty("#PreviewListRatingStar" & i, 0)
             Next
-
+            MsgBox(_CategorieList.SelectedListItem.ItemId & vbNewLine & _PreviewList.SelectedListItem.ItemId)
             Try
                 If ThreadPreviewListFill.IsAlive = True Then ThreadPreviewListFill.Abort()
-
 
 
             Catch ex As Exception
@@ -293,6 +292,13 @@ Namespace ClickfinderProgramGuide
                     If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_5 Then
                         MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
 
+                        Try
+                            If ThreadPreviewListFill.IsAlive = True Then ThreadPreviewListFill.Abort()
+                        Catch ex As Exception
+                            'Eventuell auftretende Exception abfangen
+                            ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
+                        End Try
+
                         Dim idCategorie As Integer = _CategorieList.SelectedListItemIndex
                         Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(idCategorie)
                         _Categorie.groupName = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value
@@ -303,6 +309,51 @@ Namespace ClickfinderProgramGuide
                         ThreadPreviewListFill.Start()
 
                     End If
+
+                    'Remote 4 Button (4) -> Quick Filter 1
+                    If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_7 Then
+                        MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
+
+                        Try
+                            If ThreadPreviewListFill.IsAlive = True Then ThreadPreviewListFill.Abort()
+                        Catch ex As Exception
+                            'Eventuell auftretende Exception abfangen
+                            ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
+                        End Try
+
+                        Dim idCategorie As Integer = _CategorieList.SelectedListItemIndex
+                        Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(idCategorie)
+                        _Categorie.groupName = _layer.GetSetting("ClickfinderQuickTvGroup1", "All Channels").Value
+                        _Categorie.Persist()
+
+                        ThreadPreviewListFill = New Threading.Thread(AddressOf FillPreviewList)
+                        ThreadPreviewListFill.IsBackground = True
+                        ThreadPreviewListFill.Start()
+
+                    End If
+
+                    'Remote 6 Button (6) -> Quick Filter 2
+                    If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_9 Then
+                        MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
+
+                        Try
+                            If ThreadPreviewListFill.IsAlive = True Then ThreadPreviewListFill.Abort()
+                        Catch ex As Exception
+                            'Eventuell auftretende Exception abfangen
+                            ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
+                        End Try
+
+                        Dim idCategorie As Integer = _CategorieList.SelectedListItemIndex
+                        Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(idCategorie)
+                        _Categorie.groupName = _layer.GetSetting("ClickfinderQuickTvGroup2", "All Channels").Value
+                        _Categorie.Persist()
+
+                        ThreadPreviewListFill = New Threading.Thread(AddressOf FillPreviewList)
+                        ThreadPreviewListFill.IsBackground = True
+                        ThreadPreviewListFill.Start()
+
+                    End If
+
                 End If
 
                 'Play Button (P) -> Start channel
@@ -380,8 +431,10 @@ Namespace ClickfinderProgramGuide
 
             If control Is _btnPreview Then
 
-                CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Preview)
-                GUIWindowManager.ActivateWindow(1656544654)
+                GUIListControl.SelectItemControl(GetID, _CategorieList.GetID, 5)
+
+                'CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Preview)
+                'GUIWindowManager.ActivateWindow(1656544654)
             End If
 
         End Sub
@@ -439,6 +492,9 @@ Namespace ClickfinderProgramGuide
             Try
                 _PreviewList.Visible = False
                 _PreviewList.Clear()
+
+                Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowProgressbar)
+                _ProgressBarThread.Start()
 
                 MyLog.Debug("")
                 MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: Thread started")
@@ -749,8 +805,8 @@ Namespace ClickfinderProgramGuide
                 Categorie.groupName = dlgContext.SelectedLabelText
                 Categorie.Persist()
 
-                Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowProgressbar)
-                _ProgressBarThread.Start()
+                'Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowProgressbar)
+                '_ProgressBarThread.Start()
 
                 ThreadPreviewListFill = New Threading.Thread(AddressOf FillPreviewList)
                 ThreadPreviewListFill.IsBackground = True

@@ -103,9 +103,20 @@ Public Class Setup
 
             For i = 0 To _groups.Count - 1
                 cbStandardGroup.Items.Add(_groups(i).GroupName)
+                CbQuick1.Items.Add(_groups(i).GroupName)
+                CbQuick2.Items.Add(_groups(i).GroupName)
                 If _groups(i).GroupName = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value Then
                     cbStandardGroup.Text = _groups(i).GroupName
                 End If
+
+                If _groups(i).GroupName = _layer.GetSetting("ClickfinderQuickTvGroup1", "All Channels").Value Then
+                    CbQuick1.Text = _groups(i).GroupName
+                End If
+
+                If _groups(i).GroupName = _layer.GetSetting("ClickfinderQuickTvGroup2", "All Channels").Value Then
+                    CbQuick2.Text = _groups(i).GroupName
+                End If
+
             Next
 
 
@@ -161,8 +172,17 @@ Public Class Setup
             setting.Value = cbStandardGroup.Text
             setting.Persist()
 
+            setting = _layer.GetSetting("ClickfinderQuickTvGroup1", "All Channels")
+            setting.Value = CbQuick1.Text
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderQuickTvGroup2", "All Channels")
+            setting.Value = CbQuick2.Text
+            setting.Persist()
 
             SaveCategories()
+
+
 
             MyLog.Info("[Setup] close")
             MyLog.Info("")

@@ -23,12 +23,18 @@ Partial Class Setup
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Setup))
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.ButtonSave = New System.Windows.Forms.Button
         Me.Label2 = New System.Windows.Forms.Label
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel
         Me.TabControl1 = New System.Windows.Forms.TabControl
         Me.TabAllgemeines = New System.Windows.Forms.TabPage
+        Me.Label19 = New System.Windows.Forms.Label
+        Me.CbQuick2 = New System.Windows.Forms.ComboBox
+        Me.Label18 = New System.Windows.Forms.Label
+        Me.CbQuick1 = New System.Windows.Forms.ComboBox
+        Me.Label15 = New System.Windows.Forms.Label
+        Me.cbStandardGroup = New System.Windows.Forms.ComboBox
         Me.GroupBox4 = New System.Windows.Forms.GroupBox
         Me.Label9 = New System.Windows.Forms.Label
         Me.CheckBoxClickfinderPG = New MediaPortal.UserInterface.Controls.MPCheckBox
@@ -97,8 +103,6 @@ Partial Class Setup
         Me.CheckBoxUseSeriesDescribtion = New System.Windows.Forms.CheckBox
         Me.openFileDialog = New System.Windows.Forms.OpenFileDialog
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
-        Me.cbStandardGroup = New System.Windows.Forms.ComboBox
-        Me.Label15 = New System.Windows.Forms.Label
         Me.TabControl1.SuspendLayout()
         Me.TabAllgemeines.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -167,6 +171,10 @@ Partial Class Setup
         '
         'TabAllgemeines
         '
+        Me.TabAllgemeines.Controls.Add(Me.Label19)
+        Me.TabAllgemeines.Controls.Add(Me.CbQuick2)
+        Me.TabAllgemeines.Controls.Add(Me.Label18)
+        Me.TabAllgemeines.Controls.Add(Me.CbQuick1)
         Me.TabAllgemeines.Controls.Add(Me.Label15)
         Me.TabAllgemeines.Controls.Add(Me.cbStandardGroup)
         Me.TabAllgemeines.Controls.Add(Me.GroupBox4)
@@ -189,6 +197,60 @@ Partial Class Setup
         Me.TabAllgemeines.TabIndex = 0
         Me.TabAllgemeines.Text = "Allgemeines"
         Me.TabAllgemeines.UseVisualStyleBackColor = True
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(232, 191)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(101, 16)
+        Me.Label19.TabIndex = 29
+        Me.Label19.Text = "Quick Filter 2:"
+        '
+        'CbQuick2
+        '
+        Me.CbQuick2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CbQuick2.FormattingEnabled = True
+        Me.CbQuick2.Location = New System.Drawing.Point(383, 188)
+        Me.CbQuick2.Name = "CbQuick2"
+        Me.CbQuick2.Size = New System.Drawing.Size(191, 24)
+        Me.CbQuick2.TabIndex = 28
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(232, 154)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(101, 16)
+        Me.Label18.TabIndex = 27
+        Me.Label18.Text = "Quick Filter 1:"
+        '
+        'CbQuick1
+        '
+        Me.CbQuick1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CbQuick1.FormattingEnabled = True
+        Me.CbQuick1.Location = New System.Drawing.Point(383, 151)
+        Me.CbQuick1.Name = "CbQuick1"
+        Me.CbQuick1.Size = New System.Drawing.Size(191, 24)
+        Me.CbQuick1.TabIndex = 26
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(232, 117)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(145, 16)
+        Me.Label15.TabIndex = 25
+        Me.Label15.Text = "standard Tv Gruppe:"
+        '
+        'cbStandardGroup
+        '
+        Me.cbStandardGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbStandardGroup.FormattingEnabled = True
+        Me.cbStandardGroup.Location = New System.Drawing.Point(383, 114)
+        Me.cbStandardGroup.Name = "cbStandardGroup"
+        Me.cbStandardGroup.Size = New System.Drawing.Size(191, 24)
+        Me.cbStandardGroup.TabIndex = 24
         '
         'GroupBox4
         '
@@ -778,8 +840,8 @@ Partial Class Setup
         Me.dgvCategories.Location = New System.Drawing.Point(9, 8)
         Me.dgvCategories.Name = "dgvCategories"
         Me.dgvCategories.RowHeadersVisible = False
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.White
-        Me.dgvCategories.RowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
+        Me.dgvCategories.RowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvCategories.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvCategories.Size = New System.Drawing.Size(582, 376)
         Me.dgvCategories.TabIndex = 0
@@ -887,24 +949,6 @@ Partial Class Setup
         Me.PictureBox1.Size = New System.Drawing.Size(75, 62)
         Me.PictureBox1.TabIndex = 9
         Me.PictureBox1.TabStop = False
-        '
-        'cbStandardGroup
-        '
-        Me.cbStandardGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbStandardGroup.FormattingEnabled = True
-        Me.cbStandardGroup.Location = New System.Drawing.Point(363, 171)
-        Me.cbStandardGroup.Name = "cbStandardGroup"
-        Me.cbStandardGroup.Size = New System.Drawing.Size(191, 24)
-        Me.cbStandardGroup.TabIndex = 24
-        '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(212, 174)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(145, 16)
-        Me.Label15.TabIndex = 25
-        Me.Label15.Text = "standard Tv Gruppe:"
         '
         'Setup
         '
@@ -1026,4 +1070,8 @@ Partial Class Setup
     Friend WithEvents CheckBoxUseSeriesDescribtion As System.Windows.Forms.CheckBox
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents cbStandardGroup As System.Windows.Forms.ComboBox
+    Friend WithEvents Label19 As System.Windows.Forms.Label
+    Friend WithEvents CbQuick2 As System.Windows.Forms.ComboBox
+    Friend WithEvents Label18 As System.Windows.Forms.Label
+    Friend WithEvents CbQuick1 As System.Windows.Forms.ComboBox
 End Class
