@@ -93,7 +93,7 @@ Public Class Helper
 
     Friend Shared Sub ListControlClick(ByVal idProgram As Integer)
         Try
-            Dim TvMovieProgram As TVMovieProgram = TvMovieProgram.Retrieve(idProgram)
+            Dim TvMovieProgram As TVMovieProgram = getTvMovieProgram(Program.Retrieve(idProgram))
             DetailGuiWindow.SetGuiProperties(TvMovieProgram)
             GUIWindowManager.ActivateWindow(1656544652)
         Catch ex As Exception

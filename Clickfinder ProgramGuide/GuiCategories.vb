@@ -186,7 +186,7 @@ Namespace ClickfinderProgramGuide
                 Translator.SetProperty("#PreviewListTvMovieStar" & i, "")
                 Translator.SetProperty("#PreviewListRatingStar" & i, 0)
             Next
-            MsgBox(_CategorieList.SelectedListItem.ItemId & vbNewLine & _PreviewList.SelectedListItem.ItemId)
+            'MsgBox(_CategorieList.SelectedListItem.ItemId & vbNewLine & _PreviewList.SelectedListItem.ItemId)
             Try
                 If ThreadPreviewListFill.IsAlive = True Then ThreadPreviewListFill.Abort()
 
