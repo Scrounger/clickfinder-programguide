@@ -97,7 +97,7 @@ Public Class Helper
             DetailGuiWindow.SetGuiProperties(TvMovieProgram)
             GUIWindowManager.ActivateWindow(1656544652)
         Catch ex As Exception
-            MyLog.[Error]("[ListControlClick]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
+            MyLog.Error("[ListControlClick]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
         End Try
     End Sub
 
@@ -107,7 +107,7 @@ Public Class Helper
             TvPlugin.TVProgramInfo.CurrentProgram = Program
             GUIWindowManager.ActivateWindow(CInt(Window.WINDOW_TV_PROGRAM_INFO))
         Catch ex As Exception
-            MyLog.[Error]("[LoadTVProgramInfo]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+            MyLog.Error("[LoadTVProgramInfo]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
         End Try
 
     End Sub
@@ -470,7 +470,7 @@ Public Class Helper
             End Try
 
         Catch ex As Exception
-            MyLog.[Error]("[HighlightsGUIWindow] [ShowSeriesContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+            MyLog.Error("[HighlightsGUIWindow] [ShowSeriesContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
         End Try
     End Sub
 

@@ -362,7 +362,7 @@ Namespace ClickfinderProgramGuide
                     Try
                         If _PreviewList.IsFocused = True Then StartTv(Program.Retrieve(_PreviewList.SelectedListItem.ItemId).ReferencedChannel)
                     Catch ex As Exception
-                        MyLog.[Error]("[Play Button]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                        MyLog.Error("[Play Button]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
                     End Try
                 End If
 
@@ -471,7 +471,7 @@ Namespace ClickfinderProgramGuide
                 MyLog.Debug("")
 
             Catch ex As Exception
-                MyLog.[Error]("[CategoriesGuiWindow] [FillCategories]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
+                MyLog.Error("[CategoriesGuiWindow] [FillCategories]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
             End Try
 
         End Sub
@@ -610,7 +610,7 @@ Namespace ClickfinderProgramGuide
                         MyLog.Debug("")
                     Catch ex As GentleException
                     Catch ex As Exception
-                        MyLog.[Error]("[CategoriesGuiWindow] [FillPreviewList]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
+                        MyLog.Error("[CategoriesGuiWindow] [FillPreviewList]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
                     End Try
 
                 Next
@@ -635,7 +635,7 @@ Namespace ClickfinderProgramGuide
                 MyLog.Debug("")
             Catch ex2 As GentleException
             Catch ex2 As Exception
-                MyLog.[Error]("[CategoriesGuiWindow] [FillPreviewList]: exception err:" & ex2.Message & " stack:" & ex2.StackTrace)
+                MyLog.Error("[CategoriesGuiWindow] [FillPreviewList]: exception err:" & ex2.Message & " stack:" & ex2.StackTrace)
             End Try
         End Sub
 
@@ -717,7 +717,7 @@ Namespace ClickfinderProgramGuide
 
 
             Catch ex As Exception
-                MyLog.[Error]("[CategoriesGuiWindow] [ShowCategoriesContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                MyLog.Error("[CategoriesGuiWindow] [ShowCategoriesContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
             End Try
         End Sub
 
@@ -774,7 +774,7 @@ Namespace ClickfinderProgramGuide
                 _idCategorieContainer.Clear()
 
             Catch ex As Exception
-                MyLog.[Error]("[CategoriesGuiWindow] [showNotVisibleCategories]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                MyLog.Error("[CategoriesGuiWindow] [showNotVisibleCategories]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
             End Try
         End Sub
 

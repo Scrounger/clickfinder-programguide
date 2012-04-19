@@ -106,8 +106,8 @@ Public NotInheritable Class Translator
             If e.[GetType]() Is GetType(FileNotFoundException) Then
                 MyLog.Warn("Cannot find translation file {0}.  Falling back to German", langPath)
             Else
-                MyLog.[Error]("Error in translation xml file: {0}. Falling back to German", Lang)
-                MyLog.[Error](e.Message)
+                MyLog.Error("Error in translation xml file: {0}. Falling back to German", Lang)
+                MyLog.Error(e.Message)
             End If
 
             Lang = "de"
@@ -118,8 +118,8 @@ Public NotInheritable Class Translator
                 Try
                     TranslatedStrings.Add(stringEntry.Attributes.GetNamedItem("Field").Value, stringEntry.InnerText)
                 Catch ex As Exception
-                    MyLog.[Error]("Error in Translation Engine")
-                    MyLog.[Error](ex.Message)
+                    MyLog.Error("Error in Translation Engine")
+                    MyLog.Error(ex.Message)
                 End Try
             End If
         Next

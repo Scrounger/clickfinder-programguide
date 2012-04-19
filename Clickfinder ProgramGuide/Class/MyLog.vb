@@ -133,7 +133,7 @@ Public Class MyLog
     ''' <param name="format">The format.</param>
     ''' <param name="arg">The arg.</param>
     Public Shared Sub [Error](ByVal format As String, ByVal ParamArray arg As Object())
-        WriteToFile(LogType.[Error], format, arg)
+        WriteToFile(LogType.Error, format, arg)
     End Sub
 
     Public Shared Sub Warn(ByVal format As String, ByVal ParamArray arg As Object())
@@ -185,16 +185,8 @@ Public Class MyLog
 
     Private Shared Function GetFileName(ByVal logType__1 As LogType) As String
         Dim Path As String = GetPathName()
-        Select Case logType__1
-            Case LogType.Debug, LogType.Info
-                Return [String].Format("{0}\log\ClickfinderProgramGuide.log", Path)
+        Return [String].Format("{0}\log\ClickfinderProgramGuide.log", Path)
 
-            Case LogType.[Error]
-                Return [String].Format("{0}\log\ClickfinderProgramGuide.log", Path)
-
-            Case Else
-                Return [String].Format("{0}\log\ClickfinderProgramGuide.log", Path)
-        End Select
     End Function
 
     ''' <summary>
@@ -333,7 +325,7 @@ Public Class MyLog
         SyncLock GetType(MyLog)
             Try
                 Dim logFileName As String = GetFileName(logType)
-                Dim logLine As String = String.Format(format, arg)
+                Dim logLine As String = SafeString(String.Format(format, arg))
 
                 If IsRepetition(logLine) Then
                     Return

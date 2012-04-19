@@ -128,7 +128,7 @@ Namespace TvDatabase
                 Try
                     MyBase.Persist()
                 Catch ex As Exception
-                    MyLog.[Error]("Exception in TvMovieSeriesMapping.Persist() with Message {0}", ex.Message)
+                    MyLog.Error("Exception in TvMovieSeriesMapping.Persist() with Message {0}", ex.Message)
                     Return
                 End Try
                 m_isChanged = False

@@ -136,42 +136,52 @@ Namespace ClickfinderProgramGuide
             MyLog.Info("")
             MyLog.Info("[HighlightsGuiWindow] -------------[OPEN]-------------")
 
-            If _layer.GetSetting("TvMovieImportIsRunning", "false").Value = "true" Then
-                Translator.SetProperty("#SettingLastUpdate", Translation.ImportIsRunning)
-                MyLog.Debug("[HighlightsGuiWindow] [OnPageLoad]: {0}", "TvMovie++ Import is running !")
-            Else
-                Translator.SetProperty("#SettingLastUpdate", GuiLayout.LastUpdateLabel)
-            End If
+            Try
 
-            If CBool(_layer.GetSetting("ClickfinderDebugMode").Value) = True Then
-                _DebugModeOn = True
-            End If
 
-            Translator.SetProperty("#CurrentDate", Translation.Loading)
 
-            CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Highlights)
+                MsgBox(TvPlugin.TVHome.Connected)
 
-            Dim _Thread4 As New Thread(AddressOf Translator.TranslateSkin)
-            _Thread4.Start()
 
-            _DaysProgress.Percentage = _ProgressPercentagValue
-            If _ClickfinderCurrentDate = Nothing Then
-                _ClickfinderCurrentDate = Today
-                If Not _DaysProgress.Percentage = 1 * 100 / (CDbl(_layer.GetSetting("ClickfinderOverviewMaxDays", "10").Value) + 1) Then
-                    _DaysProgress.Percentage = 1 * 100 / (CDbl(_layer.GetSetting("ClickfinderOverviewMaxDays", "10").Value) + 1)
+                If _layer.GetSetting("TvMovieImportIsRunning", "false").Value = "true" Then
+                    Translator.SetProperty("#SettingLastUpdate", Translation.ImportIsRunning)
+                    MyLog.Debug("[HighlightsGuiWindow] [OnPageLoad]: {0}", "TvMovie++ Import is running !")
+                Else
+                    Translator.SetProperty("#SettingLastUpdate", GuiLayout.LastUpdateLabel)
                 End If
-            End If
 
-            Translator.SetProperty("#CurrentDate", getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
-            MyLog.Debug("[HighlightsGuiWindow] [OnPageLoad]: _ClickfinderCurrentDate = {0}", getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
+                If CBool(_layer.GetSetting("ClickfinderDebugMode").Value) = True Then
+                    _DebugModeOn = True
+                End If
 
-            Dim _Thread1 As New Thread(AddressOf FillMovieList)
-            Dim _Thread2 As New Thread(AddressOf FillHighlightsList)
+                Translator.SetProperty("#CurrentDate", Translation.Loading)
 
-            _Thread1.Start()
-            _Thread2.Start()
+                CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Highlights)
 
-            '_Thread1.Join()
+                Dim _Thread4 As New Thread(AddressOf Translator.TranslateSkin)
+                _Thread4.Start()
+
+                _DaysProgress.Percentage = _ProgressPercentagValue
+                If _ClickfinderCurrentDate = Nothing Then
+                    _ClickfinderCurrentDate = Today
+                    If Not _DaysProgress.Percentage = 1 * 100 / (CDbl(_layer.GetSetting("ClickfinderOverviewMaxDays", "10").Value) + 1) Then
+                        _DaysProgress.Percentage = 1 * 100 / (CDbl(_layer.GetSetting("ClickfinderOverviewMaxDays", "10").Value) + 1)
+                    End If
+                End If
+
+                Translator.SetProperty("#CurrentDate", getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
+                MyLog.Debug("[HighlightsGuiWindow] [OnPageLoad]: _ClickfinderCurrentDate = {0}", getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
+
+                Dim _Thread1 As New Thread(AddressOf FillMovieList)
+                Dim _Thread2 As New Thread(AddressOf FillHighlightsList)
+
+                _Thread1.Start()
+                _Thread2.Start()
+
+                '_Thread1.Join()
+            Catch ex As Exception
+                MyLog.Error("[HighlightsGUIWindow] [OnPageLoad]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
+            End Try
 
         End Sub
         Public Overrides Sub OnAction(ByVal Action As MediaPortal.GUI.Library.Action)
@@ -328,7 +338,7 @@ Namespace ClickfinderProgramGuide
                         If _MovieList.IsFocused = True Then StartTv(Program.Retrieve(_MovieList.SelectedListItem.ItemId).ReferencedChannel)
                         If _HighlightsList.IsFocused = True Then StartTv(Program.Retrieve(_HighlightsList.SelectedListItem.ItemId).ReferencedChannel)
                     Catch ex As Exception
-                        MyLog.[Error]("[Play Button]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                        MyLog.Error("[Play Button]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
                     End Try
                 End If
 
@@ -370,7 +380,7 @@ Namespace ClickfinderProgramGuide
                 '        If _MovieList.IsFocused = True Then LoadTVProgramInfo(Program.Retrieve(_MovieList.SelectedListItem.ItemId))
                 '        If _HighlightsList.IsFocused = True Then LoadTVProgramInfo(Program.Retrieve(_HighlightsList.SelectedListItem.ItemId))
                 '    Catch ex As Exception
-                '        MyLog.[Error]("[Record Button]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                '        MyLog.Error("[Record Button]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
                 '    End Try
                 'End If
             End If
@@ -620,7 +630,7 @@ Namespace ClickfinderProgramGuide
                             MyLog.Debug("")
                         Catch ex As GentleException
                         Catch ex As Exception
-                            MyLog.[Error]("[HighlightsGUIWindow] [FillMovieList]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
+                            MyLog.Error("[HighlightsGUIWindow] [FillMovieList]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
                         End Try
                     Next
                 End If
@@ -640,7 +650,7 @@ Namespace ClickfinderProgramGuide
                 MyLog.Debug("")
             Catch ex2 As GentleException
             Catch ex2 As Exception
-                MyLog.[Error]("[HighlightsGUIWindow] [FillMovieList]: exception err:" & ex2.Message & " stack:" & ex2.StackTrace)
+                MyLog.Error("[HighlightsGUIWindow] [FillMovieList]: exception err:" & ex2.Message & " stack:" & ex2.StackTrace)
             End Try
         End Sub
         Private Sub FillHighlightsList()
@@ -767,7 +777,7 @@ Namespace ClickfinderProgramGuide
                             MyLog.Debug("")
                         Catch ex As GentleException
                         Catch ex As Exception
-                            MyLog.[Error]("[HighlightsGUIWindow] [FillHighlightsList]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
+                            MyLog.Error("[HighlightsGUIWindow] [FillHighlightsList]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
                         End Try
                     Next
                 End If
@@ -783,7 +793,7 @@ Namespace ClickfinderProgramGuide
                 MyLog.Debug("[HighlightsGUIWindow] [FillHighlightsList]: --- THREAD ABORTED ---")
             Catch ex As GentleException
             Catch ex2 As Exception
-                MyLog.[Error]("[HighlightsGUIWindow] [FillHighlightsList]: exception err:" & ex2.Message & " stack:" & ex2.StackTrace)
+                MyLog.Error("[HighlightsGUIWindow] [FillHighlightsList]: exception err:" & ex2.Message & " stack:" & ex2.StackTrace)
             End Try
 
         End Sub
@@ -854,7 +864,7 @@ Namespace ClickfinderProgramGuide
                                     dlgContext.Add(lItemEpisode)
                                     lItemEpisode.Dispose()
                                 Catch ex As Exception
-                                    MyLog.[Error]("[ShowSeriesContextMenu]: Loop: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                                    MyLog.Error("[ShowSeriesContextMenu]: Loop: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
                                 End Try
                             Next
 
@@ -869,11 +879,11 @@ Namespace ClickfinderProgramGuide
                         End If
 
                     End If
-                    End If
+                End If
 
-                    _idProgramContainer.Clear()
+                _idProgramContainer.Clear()
             Catch ex As Exception
-                MyLog.[Error]("[HighlightsGUIWindow] [ShowSeriesContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                MyLog.Error("[HighlightsGUIWindow] [ShowSeriesContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
             End Try
         End Sub
         Private Sub ShowHighlightsMenu(ByVal idProgram As Integer)
@@ -962,7 +972,7 @@ Namespace ClickfinderProgramGuide
                 End Select
 
             Catch ex As Exception
-                MyLog.[Error]("[HighlightsGUIWindow] [ShowHighlightsContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                MyLog.Error("[HighlightsGUIWindow] [ShowHighlightsContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
             End Try
         End Sub
         Private Sub ShowMoviesMenu(ByVal idProgram As Integer)
@@ -1014,7 +1024,7 @@ Namespace ClickfinderProgramGuide
                     Case Is = 0
                         MyLog.Debug("[HighlightsGuiWindow] [ShowMoviesMenu]: selected -> sort menu")
                         ShowSortMenu()
-                        
+
                     Case Is = 1
                         MyLog.Debug("[HighlightsGuiWindow] [ShowMoviesMenu]:  selected -> " & Translation.allMoviesAt & " " & getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
                         MyLog.Debug("")
@@ -1059,7 +1069,7 @@ Namespace ClickfinderProgramGuide
                 End Select
 
             Catch ex As Exception
-                MyLog.[Error]("[HighlightsGUIWindow] [ShowMovieMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                MyLog.Error("[HighlightsGUIWindow] [ShowMovieMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
             End Try
         End Sub
         Private Sub ShowSortMenu()

@@ -413,7 +413,7 @@ Public Class ClickfinderDB
             _Table.PrimaryKey = New DataColumn() {_Table.Columns("Sendungen.Pos")}
 
         Catch ex As Exception
-            MyLog.[Error]("[ClickfinderDB]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
+            MyLog.Error("[ClickfinderDB]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
         End Try
 
     End Sub
@@ -468,7 +468,7 @@ Public Class ClickfinderDB
             _Table.PrimaryKey = New DataColumn() {_Table.Columns("Sendungen.Pos")}
 
         Catch ex As Exception
-            MyLog.[Error]("[ClickfinderDB]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
+            MyLog.Error("[ClickfinderDB]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
         End Try
     End Sub
 

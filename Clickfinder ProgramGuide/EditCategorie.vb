@@ -130,7 +130,7 @@ Public Class EditCategorie
                 MsgBox("Alle Felder müssen ausgefüllt werden !", MsgBoxStyle.Critical)
             End If
         Catch ex As Exception
-            MyLog.[Error]("[ButtonSave_Click]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
+            MyLog.Error("[ButtonSave_Click]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
         End Try
     End Sub
 
@@ -151,7 +151,7 @@ Public Class EditCategorie
                 imgStream.Dispose()
             End If
         Catch ex As Exception
-            MyLog.[Error]("[ButtonImage_Click]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
+            MyLog.Error("[ButtonImage_Click]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
         End Try
     End Sub
 

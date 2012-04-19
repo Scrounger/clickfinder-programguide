@@ -212,7 +212,7 @@ Namespace ClickfinderProgramGuide
 
 
             Catch ex As Exception
-                MyLog.[Error]("[DetailGuiWindow]: [OnPageLoad]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
+                MyLog.Error("[DetailGuiWindow]: [OnPageLoad]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
             End Try
 
             'MsgBox(Details_idProgram)
@@ -234,7 +234,7 @@ Namespace ClickfinderProgramGuide
                     MyLog.[Debug]("[DetailGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
                     Helper.StartTv(_DetailTvMovieProgram.ReferencedProgram.ReferencedChannel)
                 Catch ex As Exception
-                    MyLog.[Error]("[Play Button]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                    MyLog.Error("[Play Button]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
                 End Try
             End If
 

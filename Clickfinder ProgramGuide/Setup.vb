@@ -122,7 +122,7 @@ Public Class Setup
 
 
         Catch ex As Exception
-            MyLog.[Error]("[Setup_Load]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
+            MyLog.Error("[Setup_Load]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
         End Try
 
     End Sub
@@ -190,7 +190,7 @@ Public Class Setup
 
             Me.Close()
         Catch ex As Exception
-            MyLog.[Error]("[ButtonSave_Click]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
+            MyLog.Error("[ButtonSave_Click]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
         End Try
 
     End Sub
@@ -328,7 +328,7 @@ Public Class Setup
             _Categorie.Persist()
 
         Catch ex As Exception
-            MyLog.[Error]("[CreateClickfinderCategories]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
+            MyLog.Error("[CreateClickfinderCategories]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
         End Try
 
     End Sub
@@ -398,7 +398,7 @@ Public Class Setup
                     End If
             End Select
         Catch ex As Exception
-            MyLog.[Error]("[dgvCategories_CellClick]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
+            MyLog.Error("[dgvCategories_CellClick]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
         End Try
 
     End Sub
@@ -469,7 +469,7 @@ Public Class Setup
             End If
 
         Catch ex As Exception
-            MyLog.[Error]("[ButtonCategoriesDefault_Click]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
+            MyLog.Error("[ButtonCategoriesDefault_Click]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
         End Try
     End Sub
     Private Function CreateCloneImage(ByVal path As String) As Bitmap

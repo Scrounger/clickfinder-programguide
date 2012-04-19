@@ -258,7 +258,7 @@ Namespace ClickfinderProgramGuide
                         If _leftList.IsFocused = True Then StartTv(Program.Retrieve(_leftList.SelectedListItem.ItemId).ReferencedChannel)
                         If _rightList.IsFocused = True Then StartTv(Program.Retrieve(_rightList.SelectedListItem.ItemId).ReferencedChannel)
                     Catch ex As Exception
-                        MyLog.[Error]("[Play Button]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                        MyLog.Error("[Play Button]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
                     End Try
                 End If
 
@@ -504,7 +504,7 @@ Namespace ClickfinderProgramGuide
                         End If
                     End If
                 Catch ex As Exception
-                    MyLog.[Error]("[ItemsGuiWindow] [GetItemsOnLoad]: Loop: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                    MyLog.Error("[ItemsGuiWindow] [GetItemsOnLoad]: Loop: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
                 End Try
             Next
             MyLog.[Debug]("[ItemsGuiWindow] [GetItemsOnLoad]: _ItemsResult= {0}", _ItemsResult.Count)
@@ -590,7 +590,7 @@ Namespace ClickfinderProgramGuide
                         MyLog.Debug("")
                     Catch ex2 As GentleException
                     Catch ex2 As Exception
-                        MyLog.[Error]("[ItemsGuiWindow] [FillLeftList]: Loop: exception err: {0} stack: {1}", ex2.Message, ex2.StackTrace)
+                        MyLog.Error("[ItemsGuiWindow] [FillLeftList]: Loop: exception err: {0} stack: {1}", ex2.Message, ex2.StackTrace)
                     End Try
                 Next
 
@@ -605,7 +605,7 @@ Namespace ClickfinderProgramGuide
                 MyLog.Debug("")
             Catch ex As GentleException
             Catch ex As Exception
-                MyLog.[Error]("[ItemsGuiWindow] [FillLeftList]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                MyLog.Error("[ItemsGuiWindow] [FillLeftList]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
             End Try
         End Sub
         Private Sub FillRightList()
@@ -675,7 +675,7 @@ Namespace ClickfinderProgramGuide
                         MyLog.Debug("")
                     Catch ex2 As GentleException
                     Catch ex2 As Exception
-                        MyLog.[Error]("[ItemsGuiWindow] [FillRightList]: Loop: exception err: {0} stack: {1}", ex2.Message, ex2.StackTrace)
+                        MyLog.Error("[ItemsGuiWindow] [FillRightList]: Loop: exception err: {0} stack: {1}", ex2.Message, ex2.StackTrace)
                     End Try
                 Next
 
@@ -690,7 +690,7 @@ Namespace ClickfinderProgramGuide
                 MyLog.Debug("")
             Catch ex As GentleException
             Catch ex As Exception
-                MyLog.[Error]("[ItemsGuiWindow] [FillRightList]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+                MyLog.Error("[ItemsGuiWindow] [FillRightList]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
             End Try
         End Sub
 
