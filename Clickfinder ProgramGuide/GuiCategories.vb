@@ -144,6 +144,9 @@ Namespace ClickfinderProgramGuide
             MyLog.Info("")
             MyLog.Info("[CategoriesGuiWindow] -------------[OPEN]-------------")
 
+            Helper.CheckConnectionState(GetID)
+
+
             MyLog.Debug("[CategoriesGuiWindow] [OnPageLoad]: PeriodeStartTime = {0}, PeriodeEndTime = {1}", _
                         getTranslatedDayOfWeek(PeriodeStartTime.Date) & " " & Format(PeriodeStartTime, "dd.MM.yyyy") & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00"), Format(PeriodeEndTime.Hour, "00") & ":" & Format(PeriodeEndTime.Minute, "00"))
 

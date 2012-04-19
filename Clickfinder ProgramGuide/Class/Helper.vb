@@ -9,6 +9,7 @@ Imports Gentle.Framework
 Imports Gentle.Common
 Imports MediaPortal.Configuration
 Imports ClickfinderProgramGuide.TvDatabase
+Imports MediaPortal.GUI.Home
 
 Public Class Helper
 
@@ -528,5 +529,40 @@ Public Class Helper
         Return _Result
     End Function
 
+    Friend Shared Sub CheckConnectionState(ByVal idWindow As Integer)
+
+        Dim _layer As New TvBusinessLayer
+
+        'TvServer nicht verbunden / online
+        If TvPlugin.TVHome.Connected = False Then
+            ShowConnectionNotify(idWindow, Translation.TvServerOffline)
+            Exit Sub
+        End If
+
+        'Clickfinder DB nicht gefunden
+        If IO.File.Exists(ClickfinderDB.DatabasePath) = False Then
+            ShowConnectionNotify(idWindow, Translation.ClickfinderDBOffline)
+        End If
+
+        If CBool(_layer.GetSetting("TvMovieEnabled", "false").Value) = False Then
+            ShowConnectionNotify(idWindow, Translation.TvMovieEPGImportNotEnabled)
+        End If
+
+        If CBool(_layer.GetSetting("ClickfinderEnabled", "true").Value) = False Then
+            ShowConnectionNotify(idWindow, Translation.ClickfinderImportNotEnabled)
+        End If
+
+    End Sub
+
+    Private Shared Sub ShowConnectionNotify(ByVal idWindow As Integer, ByVal Message As String)
+        Dim dlgContext As GUIDialogOK = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_OK, Integer)), GUIDialogOK)
+        dlgContext.Reset()
+        dlgContext.SetHeading(Translation.Warning)
+        dlgContext.SetLine(1, Message)
+
+        dlgContext.DoModal(idWindow)
+        GUIWindowManager.CloseCurrentWindow()
+
+    End Sub
 
 End Class

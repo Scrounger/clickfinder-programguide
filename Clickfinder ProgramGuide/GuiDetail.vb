@@ -76,6 +76,8 @@ Namespace ClickfinderProgramGuide
                 MyLog.Info("[DetailGuiWindow] -------------[OPEN]-------------")
                 MyLog.Debug("[DetailGuiWindow] [OnPageLoad]: {0}, idProgram = {1}, needsUpdate = {2}", _DetailTvMovieProgram.ReferencedProgram.Title, _DetailTvMovieProgram.idProgram, _DetailTvMovieProgram.needsUpdate)
 
+                Helper.CheckConnectionState(GetID)
+
                 If _DetailTvMovieProgram.needsUpdate = True Then
                     Dim _ClickfinderDB As New ClickfinderDB(_DetailTvMovieProgram.ReferencedProgram, True)
 

@@ -80,6 +80,12 @@ Public NotInheritable Class Translation
 
 
     Public Shared Back = "Zurück"
+    Public Shared Warning = "Warnung"
+    Public Shared TvServerOffline = "Tv Server nicht erreichbar!"
+    Public Shared ClickfinderDBOffline = "Clickfinder Datenbank nicht erreichbar!"
+    Public Shared TvMovieEPGImportNotEnabled = "Tv Movie EPG Import++ nicht aktiviert / installiert!"
+    Public Shared ClickfinderImportNotEnabled = "Clickfinder ProgramGuide Import im Tv Movie EPG Import++ Plugin nicht aktiviert!"
+
 
 
 

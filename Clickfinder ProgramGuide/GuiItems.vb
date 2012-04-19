@@ -102,6 +102,8 @@ Namespace ClickfinderProgramGuide
             MyLog.Info("")
             MyLog.Info("[ItemsGuiWindow] -------------[OPEN]-------------")
 
+            Helper.CheckConnectionState(GetID)
+
             GuiLayoutLoading()
 
             If _layer.GetSetting("TvMovieImportIsRunning", "false").Value = "true" Then

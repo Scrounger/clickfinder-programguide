@@ -138,9 +138,8 @@ Namespace ClickfinderProgramGuide
 
             Try
 
+                CheckConnectionState(GetID)
 
-
-                MsgBox(TvPlugin.TVHome.Connected)
 
 
                 If _layer.GetSetting("TvMovieImportIsRunning", "false").Value = "true" Then
@@ -449,8 +448,10 @@ Namespace ClickfinderProgramGuide
 
             If control Is _btnPreview Then
                 Try
-                    CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Day, Today.AddDays(4))
-                    GUIWindowManager.ActivateWindow(1656544654)
+                    'CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Day, Today.AddDays(4))
+                    'GUIWindowManager.ActivateWindow(1656544654)
+
+                    GUIWindowManager.ActivateWindow(GUIWindow.Window.WINDOW_HOME)
 
                     'Dim sqlstring As String
                     'Dim _result As New ArrayList
