@@ -925,7 +925,6 @@ Namespace ClickfinderProgramGuide
                 'Action SubMenu
                 Dim lItemActionOn As New GUIListItem
                 lItemActionOn.Label = Translation.action
-                'lItemOn.IconImage = "play_enabled.png"
                 dlgContext.Add(lItemActionOn)
                 lItemActionOn.Dispose()
                 dlgContext.DoModal(GetID)
@@ -1015,7 +1014,6 @@ Namespace ClickfinderProgramGuide
                 'Action SubMenu
                 Dim lItemActionOn As New GUIListItem
                 lItemActionOn.Label = Translation.action
-                'lItemOn.IconImage = "play_enabled.png"
                 dlgContext.Add(lItemActionOn)
                 lItemActionOn.Dispose()
 

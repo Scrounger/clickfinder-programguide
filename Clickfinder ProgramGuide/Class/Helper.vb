@@ -330,21 +330,18 @@ Public Class Helper
         'Kanal einschalten
         Dim lItemOn As New GUIListItem
         lItemOn.Label = Translation.ChannelON
-        lItemOn.IconImage = "play_enabled.png"
         dlgContext.Add(lItemOn)
         lItemOn.Dispose()
 
         'Aufnehmen
         Dim lItemRec As New GUIListItem
         lItemRec.Label = Translation.Record
-        lItemRec.IconImage = "tvguide_record_button.png"
         dlgContext.Add(lItemRec)
         lItemOn.Dispose()
 
         'Erinnern
         Dim lItemRem As New GUIListItem
         lItemRem.Label = Translation.Remember
-        lItemRem.IconImage = "tvguide_notify_button.png"
         dlgContext.Add(lItemRem)
         lItemOn.Dispose()
 
@@ -372,28 +369,24 @@ Public Class Helper
         'Kanal einschalten
         Dim lItemOn As New GUIListItem
         lItemOn.Label = Translation.ChannelON
-        lItemOn.IconImage = "play_enabled.png"
         dlgContext.Add(lItemOn)
         lItemOn.Dispose()
 
         'Aufnehmen
         Dim lItemRec As New GUIListItem
         lItemRec.Label = Translation.Record
-        lItemRec.IconImage = "tvguide_record_button.png"
         dlgContext.Add(lItemRec)
         lItemOn.Dispose()
 
         'Erinnern
         Dim lItemRem As New GUIListItem
         lItemRem.Label = Translation.Remember
-        lItemRem.IconImage = "tvguide_notify_button.png"
         dlgContext.Add(lItemRem)
         lItemOn.Dispose()
 
         'mit Serie verlinken
         Dim lItemSerieLink As New GUIListItem
         lItemSerieLink.Label = Translation.SerieLinkLabel
-        'lItemSerieLink.IconImage = "tvguide_notify_button.png"
         dlgContext.Add(lItemSerieLink)
         lItemSerieLink.Dispose()
 

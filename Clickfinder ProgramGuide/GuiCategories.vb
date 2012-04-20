@@ -668,21 +668,18 @@ Namespace ClickfinderProgramGuide
                 'Categorie umbennenen
                 Dim lItemRename As New GUIListItem
                 lItemRename.Label = Translation.CategorieRename
-                'lItemOn.IconImage = "play_enabled.png"
                 dlgContext.Add(lItemRename)
                 lItemRename.Dispose()
 
                 'Categorie verstecken
                 Dim lItemHide As New GUIListItem
                 lItemHide.Label = Translation.CategorieHide
-                'lItemOn.IconImage = "play_enabled.png"
                 dlgContext.Add(lItemHide)
                 lItemHide.Dispose()
 
                 'versteckte Categorie anzeigen
                 Dim lItemShow As New GUIListItem
                 lItemShow.Label = Translation.CategorieShow
-                'lItemOn.IconImage = "play_enabled.png"
                 dlgContext.Add(lItemShow)
                 lItemShow.Dispose()
 
