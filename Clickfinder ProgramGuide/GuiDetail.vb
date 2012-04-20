@@ -213,7 +213,7 @@ Namespace ClickfinderProgramGuide
                 Translator.SetProperty("#DetailRegie", _DetailTvMovieProgram.Regie)
                 Translator.SetProperty("#DetailActors", Replace(_DetailTvMovieProgram.Actors, ";", ", "))
                 Translator.SetProperty("#DetailKritik", _DetailTvMovieProgram.KurzKritik)
-                Translator.SetProperty("#DetailDescribtion", _DetailTvMovieProgram.Describtion)
+                Translator.SetProperty("#DetailDescription", _DetailTvMovieProgram.Describtion)
 
                 If Not _DetailTvMovieProgram.Year < New Date(1900, 1, 1) Then
                     Translator.SetProperty("#DetailYear", _DetailTvMovieProgram.Year.Year & " ")
@@ -244,9 +244,9 @@ Namespace ClickfinderProgramGuide
                 Translator.SetProperty("#DetailRatingFun", getRatingpercentage(_DetailTvMovieProgram.Fun))
                 Translator.SetProperty("#DetailRatingAction", getRatingpercentage(_DetailTvMovieProgram.Action))
                 Translator.SetProperty("#DetailRatingErotic", getRatingpercentage(_DetailTvMovieProgram.Erotic))
-                Translator.SetProperty("#DetailRatingSpannung", getRatingpercentage(_DetailTvMovieProgram.Tension))
-                Translator.SetProperty("#DetailRatingAnspruch", getRatingpercentage(_DetailTvMovieProgram.Requirement))
-                Translator.SetProperty("#DetailRatingFeelings", getRatingpercentage(_DetailTvMovieProgram.Feelings))
+                Translator.SetProperty("#DetailRatingSuspense", getRatingpercentage(_DetailTvMovieProgram.Tension))
+                Translator.SetProperty("#DetailRatingLevel", getRatingpercentage(_DetailTvMovieProgram.Requirement))
+                Translator.SetProperty("#DetailRatingEmotions", getRatingpercentage(_DetailTvMovieProgram.Feelings))
 
             Catch ex As Exception
                 MyLog.Error("[DetailGuiWindow]: [ShowDetails]: exception err:" & ex.Message & " stack:" & ex.StackTrace)

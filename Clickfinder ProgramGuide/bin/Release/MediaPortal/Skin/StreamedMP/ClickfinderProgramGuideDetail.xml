@@ -334,7 +334,7 @@
       <posY>330</posY>
       <width>820</width>
       <height>280</height>
-      <label>#DetailDescribtion</label>
+      <label>#DetailDescription</label>
       <seperator>-------------------------------------------------------------------------------------------------------------------------------------------</seperator>
       <font>mediastream12</font>
       <visible></visible>
@@ -631,7 +631,7 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
-      <percentage>#DetailRatingFeelings</percentage>
+      <percentage>#DetailRatingEmotions</percentage>
       <visible></visible>
     </control>
 
@@ -697,7 +697,7 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
-      <percentage>#DetailRatingSpannung</percentage>
+      <percentage>#DetailRatingSuspense</percentage>
       <visible></visible>
     </control>
 
@@ -730,7 +730,7 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
-      <percentage>#DetailRatingAnspruch</percentage>
+      <percentage>#DetailRatingLevel</percentage>
       <visible></visible>
     </control>
 

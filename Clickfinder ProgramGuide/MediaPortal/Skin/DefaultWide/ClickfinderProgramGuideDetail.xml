@@ -342,7 +342,7 @@
       <posY>330</posY>
       <width>820</width>
       <height>280</height>
-      <label>#DetailDescribtion</label>
+      <label>#DetailDescription</label>
       <seperator>-------------------------------------------------------------------------------------------------------------------------------------------</seperator>
       <font>font12</font>
       <visible></visible>
@@ -639,8 +639,8 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
-      <percentage>#DetailRatingFeelings</percentage>
-      <visible>!string.starts(#DetailRatingFeelings,0)</visible>
+      <percentage>#DetailRatingEmotions</percentage>
+      <visible>!string.starts(#DetailRatingEmotions,0)</visible>
     </control>
 
     <control>
@@ -705,8 +705,8 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
-      <percentage>#DetailRatingSpannung</percentage>
-      <visible>!string.starts(#DetailRatingSpannung,0)</visible>
+      <percentage>#DetailRatingSuspense</percentage>
+      <visible>!string.starts(#DetailRatingSuspense,0)</visible>
     </control>
 
     <control>
@@ -738,8 +738,8 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
-      <percentage>#DetailRatingAnspruch</percentage>
-      <visible>!string.starts(#DetailRatingAnspruch,0)</visible>
+      <percentage>#DetailRatingLevel</percentage>
+      <visible>!string.starts(#DetailRatingLevel,0)</visible>
     </control>
 
     <!-- ActionGroup -->
