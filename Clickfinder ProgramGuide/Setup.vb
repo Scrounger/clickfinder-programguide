@@ -26,6 +26,8 @@ Public Class Setup
             MyLog.Info("")
             MyLog.Info("[Setup] load")
 
+
+            tbPluginName.Text = _layer.GetSetting("ClickfinderPluginName", "Clickfinder ProgramGuide").Value
             tbClickfinderDatabase.Text = _layer.GetSetting("ClickfinderDatabasePath", "").Value
             tbClickfinderImagePath.Text = _layer.GetSetting("ClickfinderImagePath", "").Value
             CheckBoxShowLocalMovies.Checked = _layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false").Value
@@ -178,6 +180,10 @@ Public Class Setup
 
             setting = _layer.GetSetting("ClickfinderQuickTvGroup2", "All Channels")
             setting.Value = CbQuick2.Text
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderPluginName", "Clickfinder ProgramGuide")
+            setting.Value = tbPluginName.Text
             setting.Persist()
 
             SaveCategories()

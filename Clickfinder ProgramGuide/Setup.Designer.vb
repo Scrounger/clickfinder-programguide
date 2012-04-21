@@ -103,6 +103,8 @@ Partial Class Setup
         Me.CheckBoxUseSeriesDescribtion = New System.Windows.Forms.CheckBox
         Me.openFileDialog = New System.Windows.Forms.OpenFileDialog
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
+        Me.tbPluginName = New System.Windows.Forms.TextBox
+        Me.Label20 = New System.Windows.Forms.Label
         Me.TabControl1.SuspendLayout()
         Me.TabAllgemeines.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -171,6 +173,8 @@ Partial Class Setup
         '
         'TabAllgemeines
         '
+        Me.TabAllgemeines.Controls.Add(Me.tbPluginName)
+        Me.TabAllgemeines.Controls.Add(Me.Label20)
         Me.TabAllgemeines.Controls.Add(Me.Label19)
         Me.TabAllgemeines.Controls.Add(Me.CbQuick2)
         Me.TabAllgemeines.Controls.Add(Me.Label18)
@@ -201,7 +205,7 @@ Partial Class Setup
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(232, 191)
+        Me.Label19.Location = New System.Drawing.Point(232, 225)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(101, 16)
         Me.Label19.TabIndex = 29
@@ -211,7 +215,7 @@ Partial Class Setup
         '
         Me.CbQuick2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CbQuick2.FormattingEnabled = True
-        Me.CbQuick2.Location = New System.Drawing.Point(383, 188)
+        Me.CbQuick2.Location = New System.Drawing.Point(383, 222)
         Me.CbQuick2.Name = "CbQuick2"
         Me.CbQuick2.Size = New System.Drawing.Size(191, 24)
         Me.CbQuick2.TabIndex = 28
@@ -219,7 +223,7 @@ Partial Class Setup
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(232, 154)
+        Me.Label18.Location = New System.Drawing.Point(232, 188)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(101, 16)
         Me.Label18.TabIndex = 27
@@ -229,7 +233,7 @@ Partial Class Setup
         '
         Me.CbQuick1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CbQuick1.FormattingEnabled = True
-        Me.CbQuick1.Location = New System.Drawing.Point(383, 151)
+        Me.CbQuick1.Location = New System.Drawing.Point(383, 185)
         Me.CbQuick1.Name = "CbQuick1"
         Me.CbQuick1.Size = New System.Drawing.Size(191, 24)
         Me.CbQuick1.TabIndex = 26
@@ -237,7 +241,7 @@ Partial Class Setup
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(232, 117)
+        Me.Label15.Location = New System.Drawing.Point(232, 151)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(145, 16)
         Me.Label15.TabIndex = 25
@@ -247,7 +251,7 @@ Partial Class Setup
         '
         Me.cbStandardGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbStandardGroup.FormattingEnabled = True
-        Me.cbStandardGroup.Location = New System.Drawing.Point(383, 114)
+        Me.cbStandardGroup.Location = New System.Drawing.Point(383, 148)
         Me.cbStandardGroup.Name = "cbStandardGroup"
         Me.cbStandardGroup.Size = New System.Drawing.Size(191, 24)
         Me.cbStandardGroup.TabIndex = 24
@@ -262,7 +266,7 @@ Partial Class Setup
         Me.GroupBox4.Controls.Add(Me.CheckBoxTvSeries)
         Me.GroupBox4.Controls.Add(Me.Label6)
         Me.GroupBox4.Controls.Add(Me.tbTvMovieDatabasepath)
-        Me.GroupBox4.Location = New System.Drawing.Point(12, 245)
+        Me.GroupBox4.Location = New System.Drawing.Point(12, 279)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(621, 245)
         Me.GroupBox4.TabIndex = 12
@@ -346,7 +350,7 @@ Partial Class Setup
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(6, 174)
+        Me.Label17.Location = New System.Drawing.Point(6, 208)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(85, 16)
         Me.Label17.TabIndex = 11
@@ -355,7 +359,7 @@ Partial Class Setup
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(6, 209)
+        Me.Label16.Location = New System.Drawing.Point(6, 243)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(79, 16)
         Me.Label16.TabIndex = 10
@@ -363,7 +367,7 @@ Partial Class Setup
         '
         'tbLateTime
         '
-        Me.tbLateTime.Location = New System.Drawing.Point(134, 206)
+        Me.tbLateTime.Location = New System.Drawing.Point(134, 240)
         Me.tbLateTime.Mask = "00:00"
         Me.tbLateTime.Name = "tbLateTime"
         Me.tbLateTime.Size = New System.Drawing.Size(42, 23)
@@ -371,7 +375,7 @@ Partial Class Setup
         '
         'tbPrimeTime
         '
-        Me.tbPrimeTime.Location = New System.Drawing.Point(134, 171)
+        Me.tbPrimeTime.Location = New System.Drawing.Point(134, 205)
         Me.tbPrimeTime.Mask = "00:00"
         Me.tbPrimeTime.Name = "tbPrimeTime"
         Me.tbPrimeTime.Size = New System.Drawing.Size(42, 23)
@@ -380,7 +384,7 @@ Partial Class Setup
         'CheckBoxDebugMode
         '
         Me.CheckBoxDebugMode.AutoSize = True
-        Me.CheckBoxDebugMode.Location = New System.Drawing.Point(9, 139)
+        Me.CheckBoxDebugMode.Location = New System.Drawing.Point(9, 173)
         Me.CheckBoxDebugMode.Name = "CheckBoxDebugMode"
         Me.CheckBoxDebugMode.Size = New System.Drawing.Size(103, 20)
         Me.CheckBoxDebugMode.TabIndex = 7
@@ -390,7 +394,7 @@ Partial Class Setup
         'CheckBoxUseSportLogos
         '
         Me.CheckBoxUseSportLogos.AutoSize = True
-        Me.CheckBoxUseSportLogos.Location = New System.Drawing.Point(9, 113)
+        Me.CheckBoxUseSportLogos.Location = New System.Drawing.Point(9, 147)
         Me.CheckBoxUseSportLogos.Name = "CheckBoxUseSportLogos"
         Me.CheckBoxUseSportLogos.Size = New System.Drawing.Size(183, 20)
         Me.CheckBoxUseSportLogos.TabIndex = 6
@@ -400,7 +404,7 @@ Partial Class Setup
         'ButtonOpenDlgImageFolder
         '
         Me.ButtonOpenDlgImageFolder.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonOpenDlgImageFolder.Location = New System.Drawing.Point(560, 65)
+        Me.ButtonOpenDlgImageFolder.Location = New System.Drawing.Point(560, 99)
         Me.ButtonOpenDlgImageFolder.Name = "ButtonOpenDlgImageFolder"
         Me.ButtonOpenDlgImageFolder.Size = New System.Drawing.Size(23, 23)
         Me.ButtonOpenDlgImageFolder.TabIndex = 5
@@ -410,7 +414,7 @@ Partial Class Setup
         'ButtonOpenDlgDatabase
         '
         Me.ButtonOpenDlgDatabase.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonOpenDlgDatabase.Location = New System.Drawing.Point(560, 24)
+        Me.ButtonOpenDlgDatabase.Location = New System.Drawing.Point(560, 58)
         Me.ButtonOpenDlgDatabase.Name = "ButtonOpenDlgDatabase"
         Me.ButtonOpenDlgDatabase.Size = New System.Drawing.Size(23, 23)
         Me.ButtonOpenDlgDatabase.TabIndex = 4
@@ -420,7 +424,7 @@ Partial Class Setup
         'tbClickfinderDatabase
         '
         Me.tbClickfinderDatabase.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbClickfinderDatabase.Location = New System.Drawing.Point(182, 24)
+        Me.tbClickfinderDatabase.Location = New System.Drawing.Point(182, 58)
         Me.tbClickfinderDatabase.Name = "tbClickfinderDatabase"
         Me.tbClickfinderDatabase.Size = New System.Drawing.Size(372, 23)
         Me.tbClickfinderDatabase.TabIndex = 3
@@ -428,7 +432,7 @@ Partial Class Setup
         'tbClickfinderImagePath
         '
         Me.tbClickfinderImagePath.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbClickfinderImagePath.Location = New System.Drawing.Point(182, 65)
+        Me.tbClickfinderImagePath.Location = New System.Drawing.Point(182, 99)
         Me.tbClickfinderImagePath.Name = "tbClickfinderImagePath"
         Me.tbClickfinderImagePath.Size = New System.Drawing.Size(372, 23)
         Me.tbClickfinderImagePath.TabIndex = 2
@@ -437,7 +441,7 @@ Partial Class Setup
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(6, 68)
+        Me.Label3.Location = New System.Drawing.Point(6, 102)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(170, 16)
         Me.Label3.TabIndex = 1
@@ -447,7 +451,7 @@ Partial Class Setup
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(6, 27)
+        Me.Label1.Location = New System.Drawing.Point(6, 61)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(148, 16)
         Me.Label1.TabIndex = 0
@@ -950,6 +954,24 @@ Partial Class Setup
         Me.PictureBox1.TabIndex = 9
         Me.PictureBox1.TabStop = False
         '
+        'tbPluginName
+        '
+        Me.tbPluginName.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbPluginName.Location = New System.Drawing.Point(182, 18)
+        Me.tbPluginName.Name = "tbPluginName"
+        Me.tbPluginName.Size = New System.Drawing.Size(372, 23)
+        Me.tbPluginName.TabIndex = 31
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label20.Location = New System.Drawing.Point(6, 21)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(93, 16)
+        Me.Label20.TabIndex = 30
+        Me.Label20.Text = "Plugin Name:"
+        '
         'Setup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
@@ -1074,4 +1096,6 @@ Partial Class Setup
     Friend WithEvents CbQuick2 As System.Windows.Forms.ComboBox
     Friend WithEvents Label18 As System.Windows.Forms.Label
     Friend WithEvents CbQuick1 As System.Windows.Forms.ComboBox
+    Friend WithEvents tbPluginName As System.Windows.Forms.TextBox
+    Friend WithEvents Label20 As System.Windows.Forms.Label
 End Class
