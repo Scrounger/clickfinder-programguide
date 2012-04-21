@@ -87,20 +87,22 @@
       <textureFocus>dialogmenubutton.png</textureFocus>
       <textureHeight>78</textureHeight>
       <keepaspectratio>yes</keepaspectratio>
-      <PinIconXOff>570</PinIconXOff>
-      <PinIconYOff>10</PinIconYOff>
+      <PinIconXOff>460</PinIconXOff>
+      <PinIconYOff>16</PinIconYOff>
+      <PinIconWidth>32</PinIconWidth>
+      <PinIconHeight>32</PinIconHeight>
       <IconXOff>4</IconXOff>
       <IconYOff>4</IconYOff>
       <textXOff>2</textXOff>
-      <textYOff>10</textYOff>
+      <textYOff>2</textYOff>
       <font>mediastream12</font>
       <textcolor>ffffffff</textcolor>
-      <textXOff2>300</textXOff2>
-      <textYOff2>30</textYOff2>
+      <textXOff2>500</textXOff2>
+      <textYOff2>50</textYOff2>
       <font2>mediastream10</font2>
       <textcolor2>ff909090</textcolor2>
-      <textXOff3>86</textXOff3>
-      <textYOff3>42</textYOff3>
+      <textXOff3>84</textXOff3>
+      <textYOff3>30</textYOff3>
       <font3>mediastream10</font3>
       <textcolor3>ff909090</textcolor3>
       <itemWidth>70</itemWidth>
@@ -112,4 +114,3 @@
     </control>
   </controls>
 </window>
-<!--Checksum:64033012321f4814d8d98e03edbc481c-->

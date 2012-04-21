@@ -254,7 +254,7 @@ Partial Class Setup
         '
         'GroupBox4
         '
-        Me.GroupBox4.BackColor = System.Drawing.Color.Gainsboro
+        Me.GroupBox4.BackColor = System.Drawing.Color.Transparent
         Me.GroupBox4.Controls.Add(Me.Label9)
         Me.GroupBox4.Controls.Add(Me.CheckBoxClickfinderPG)
         Me.GroupBox4.Controls.Add(Me.CheckBoxVideoDB)

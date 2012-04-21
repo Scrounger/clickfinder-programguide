@@ -290,74 +290,74 @@ Namespace ClickfinderProgramGuide
                         ThreadPreviewListFill.Start()
 
                     End If
+                End If
 
-                    'Remote 5 Button (5) -> Reset Filter Settings of selcted categorie-> AllChannels
-                    If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_5 Then
-                        MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
+                'Remote 5 Button (5) -> Reset Filter Settings of selcted categorie-> AllChannels
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_5 Then
+                    MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
 
-                        Try
-                            If ThreadPreviewListFill.IsAlive = True Then ThreadPreviewListFill.Abort()
-                        Catch ex As Exception
-                            'Eventuell auftretende Exception abfangen
-                            ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
-                        End Try
+                    Try
+                        If ThreadPreviewListFill.IsAlive = True Then ThreadPreviewListFill.Abort()
+                    Catch ex As Exception
+                        'Eventuell auftretende Exception abfangen
+                        ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
+                    End Try
 
-                        Dim idCategorie As Integer = _CategorieList.SelectedListItemIndex
-                        Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(idCategorie)
-                        _Categorie.groupName = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value
-                        _Categorie.Persist()
+                    Dim idCategorie As Integer = _CategorieList.SelectedListItemIndex
+                    Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(idCategorie)
+                    _Categorie.groupName = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value
+                    _Categorie.Persist()
 
-                        ThreadPreviewListFill = New Threading.Thread(AddressOf FillPreviewList)
-                        ThreadPreviewListFill.IsBackground = True
-                        ThreadPreviewListFill.Start()
-
-                    End If
-
-                    'Remote 4 Button (4) -> Quick Filter 1
-                    If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_7 Then
-                        MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
-
-                        Try
-                            If ThreadPreviewListFill.IsAlive = True Then ThreadPreviewListFill.Abort()
-                        Catch ex As Exception
-                            'Eventuell auftretende Exception abfangen
-                            ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
-                        End Try
-
-                        Dim idCategorie As Integer = _CategorieList.SelectedListItemIndex
-                        Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(idCategorie)
-                        _Categorie.groupName = _layer.GetSetting("ClickfinderQuickTvGroup1", "All Channels").Value
-                        _Categorie.Persist()
-
-                        ThreadPreviewListFill = New Threading.Thread(AddressOf FillPreviewList)
-                        ThreadPreviewListFill.IsBackground = True
-                        ThreadPreviewListFill.Start()
-
-                    End If
-
-                    'Remote 6 Button (6) -> Quick Filter 2
-                    If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_9 Then
-                        MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
-
-                        Try
-                            If ThreadPreviewListFill.IsAlive = True Then ThreadPreviewListFill.Abort()
-                        Catch ex As Exception
-                            'Eventuell auftretende Exception abfangen
-                            ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
-                        End Try
-
-                        Dim idCategorie As Integer = _CategorieList.SelectedListItemIndex
-                        Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(idCategorie)
-                        _Categorie.groupName = _layer.GetSetting("ClickfinderQuickTvGroup2", "All Channels").Value
-                        _Categorie.Persist()
-
-                        ThreadPreviewListFill = New Threading.Thread(AddressOf FillPreviewList)
-                        ThreadPreviewListFill.IsBackground = True
-                        ThreadPreviewListFill.Start()
-
-                    End If
+                    ThreadPreviewListFill = New Threading.Thread(AddressOf FillPreviewList)
+                    ThreadPreviewListFill.IsBackground = True
+                    ThreadPreviewListFill.Start()
 
                 End If
+
+                'Remote 7 Button (7) -> Quick Filter 1
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_7 Then
+                    MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
+
+                    Try
+                        If ThreadPreviewListFill.IsAlive = True Then ThreadPreviewListFill.Abort()
+                    Catch ex As Exception
+                        'Eventuell auftretende Exception abfangen
+                        ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
+                    End Try
+
+                    Dim idCategorie As Integer = _CategorieList.SelectedListItemIndex
+                    Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(idCategorie)
+                    _Categorie.groupName = _layer.GetSetting("ClickfinderQuickTvGroup1", "All Channels").Value
+                    _Categorie.Persist()
+
+                    ThreadPreviewListFill = New Threading.Thread(AddressOf FillPreviewList)
+                    ThreadPreviewListFill.IsBackground = True
+                    ThreadPreviewListFill.Start()
+
+                End If
+
+                'Remote 9 Button (9) -> Quick Filter 2
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_9 Then
+                    MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
+
+                    Try
+                        If ThreadPreviewListFill.IsAlive = True Then ThreadPreviewListFill.Abort()
+                    Catch ex As Exception
+                        'Eventuell auftretende Exception abfangen
+                        ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
+                    End Try
+
+                    Dim idCategorie As Integer = _CategorieList.SelectedListItemIndex
+                    Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(idCategorie)
+                    _Categorie.groupName = _layer.GetSetting("ClickfinderQuickTvGroup2", "All Channels").Value
+                    _Categorie.Persist()
+
+                    ThreadPreviewListFill = New Threading.Thread(AddressOf FillPreviewList)
+                    ThreadPreviewListFill.IsBackground = True
+                    ThreadPreviewListFill.Start()
+
+                End If
+
 
                 'Play Button (P) -> Start channel
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_MUSIC_PLAY Then

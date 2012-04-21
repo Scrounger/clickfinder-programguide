@@ -43,7 +43,7 @@
       <font>font12</font>
       <textcolor>FFdddddd</textcolor>
     </control>
-    
+
     <control>
       <description>Exit button</description>
       <type>button</type>
@@ -85,7 +85,7 @@
       <textureFocus>list_sub_focus.png</textureFocus>
       <textureNoFocus>list_sub_nofocus.png</textureNoFocus>
       <textureHeight>78</textureHeight>
-      <PinIconXOff>570</PinIconXOff>
+      <PinIconXOff>750</PinIconXOff>
       <PinIconYOff>10</PinIconYOff>
       <IconXOff>4</IconXOff>
       <IconYOff>4</IconYOff>
