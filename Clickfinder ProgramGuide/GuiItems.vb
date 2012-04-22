@@ -324,6 +324,27 @@ Namespace ClickfinderProgramGuide
 
                 End If
 
+                'Remote 7 Button (7) -> Quick Filter 1
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_7 Then
+                    MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
+
+                    _FilterByGroup = _layer.GetSetting("ClickfinderQuickTvGroup1", "All Channels").Value
+                    Dim _FillLists As New Threading.Thread(AddressOf GetItemsOnLoad)
+                    GuiLayoutLoading()
+                    _FillLists.Start()
+
+                End If
+
+                'Remote 9 Button (9) -> Quick Filter 2
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_9 Then
+                    MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
+
+                    _FilterByGroup = _layer.GetSetting("ClickfinderQuickTvGroup2", "All Channels").Value
+                    Dim _FillLists As New Threading.Thread(AddressOf GetItemsOnLoad)
+                    GuiLayoutLoading()
+                    _FillLists.Start()
+                End If
+
             End If
 
 
@@ -493,13 +514,7 @@ Namespace ClickfinderProgramGuide
                                     Continue For
                                 End If
 
-                                'Prüfen ob gleiches Program evtl. auf HDSender auch läuft
-                                Dim _idHDchannelProgram As Integer = GetHDChannel(_Program)
-                                If _idHDchannelProgram > 0 Then
-                                    _ItemsResult.Add(_idHDchannelProgram)
-                                Else
-                                    _ItemsResult.Add(_Program.IdProgram)
-                                End If
+                                _ItemsResult.Add(_Program.IdProgram)
 
                                 _lastTitle = _Program.Title & _Program.EpisodeName
                             End If

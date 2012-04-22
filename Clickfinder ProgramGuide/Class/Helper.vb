@@ -150,44 +150,6 @@ Public Class Helper
     ''' Prüft ob Program auf gleich gemappten (TvMovieMapping) HDSender existiert
     ''' </summary>
     ''' <returns>0 - kein Treffer, idprogram sofern treffer</returns>
-    Friend Shared Function GetHDChannel(ByVal program As Program) As Integer
-        'Zunächst prüfen ob HDchannel
-        If InStr(program.ReferencedChannel.DisplayName, " HD") = 0 Then
-            Dim _stationName As New Gentle.Framework.Key(False, "idChannel", program.ReferencedChannel.IdChannel)
-            Try
-                'Alle Sender mit gleichem TvMovieMapping laden
-                Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(TvMovieMapping))
-                sb.AddConstraint([Operator].Equals, "stationName", TvMovieMapping.Retrieve(_stationName).StationName)
-                Dim stmt As SqlStatement = sb.GetStatement(True)
-                Dim _Result As IList(Of TvMovieMapping) = ObjectFactory.GetCollection(GetType(TvMovieMapping), stmt.Execute())
-
-                'Nach Sender mit Endung " HD" suchen
-                If _Result.Count > 1 Then
-                    For d = 0 To _Result.Count - 1
-                        If InStr(_Result(d).ReferencedChannel.DisplayName, " HD") > 0 Then
-                            Try
-                                Dim _HDprogram As Program = program.RetrieveByTitleTimesAndChannel(program.Title, program.StartTime, program.EndTime, _Result(d).IdChannel)
-                                Return _HDprogram.IdProgram
-                                Exit Function
-                            Catch ex As Exception
-                                Return 0
-                                MyLog.Debug("TVMovie: [GetHDChannel]: program not found on mapped _HDchannel ({0}, {1}, {2}, {3} -> {4})", program.Title, program.StartTime, program.EndTime, program.ReferencedChannel.DisplayName, _Result(d).IdChannel)
-                                Exit Function
-                            End Try
-                        End If
-                    Next
-                End If
-
-                Return 0
-
-            Catch ex As Exception
-                Return 0
-                MyLog.Debug("TVMovie: [GetHDChannel]: {0} not mapped in TvMovieMapping", program.ReferencedChannel.DisplayName)
-            End Try
-        Else
-            Return 0
-        End If
-    End Function
 
     '''' <summary>
     '''' Prüft ob Program auf gleich gemappten (TvMovieMapping) HDSender existiert

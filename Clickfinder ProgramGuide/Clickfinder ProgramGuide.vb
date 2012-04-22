@@ -136,6 +136,8 @@ Namespace ClickfinderProgramGuide
             MyLog.Info("")
             MyLog.Info("[HighlightsGuiWindow] -------------[OPEN]-------------")
 
+            MsgBox(Config.GetFile(Config.Dir.Database, "TVSeriesDatabase4.db3"))
+
             Try
 
                 CheckConnectionState(GetID)
@@ -479,7 +481,6 @@ Namespace ClickfinderProgramGuide
             Dim _imagepath As String = String.Empty
             Dim _SQLstring As String = String.Empty
             Dim _idProgramTagesTipp As Integer = 0
-            Dim _program As Program = Nothing
             Dim _LogLocalMovies As String = String.Empty
             Dim _LogLocalSortedBy As String = String.Empty
             Dim _logShowTagesTipp As String = "false"
@@ -517,16 +518,10 @@ Namespace ClickfinderProgramGuide
                         For i = 0 To _TvMovieTagesTipps.Count - 1
                             Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_TvMovieTagesTipps.Item(i))
 
-                            Dim _idHDchannelProgram As Integer = GetHDChannel(_TvMovieProgram.ReferencedProgram)
-                            If _idHDchannelProgram > 0 Then
-                                _program = Program.Retrieve(_idHDchannelProgram)
-                                _Result.Add(_idHDchannelProgram)
-                                _idProgramTagesTipp = _idHDchannelProgram
-                            Else
-                                _Result.Add(_TvMovieTagesTipps.Item(i))
+                          
+                            _Result.Add(_TvMovieTagesTipps.Item(i))
 
-                                _idProgramTagesTipp = _TvMovieTagesTipps.Item(i)
-                            End If
+                            _idProgramTagesTipp = _TvMovieTagesTipps.Item(i)
 
                         Next
                         _logShowTagesTipp = "true"
@@ -598,23 +593,15 @@ Namespace ClickfinderProgramGuide
 
                                 _ItemCounter = _ItemCounter + 1
 
-                                'Prüfen ob gleiches Program evtl. auf HDSender auch läuft
-                                Dim _idHDchannelProgram As Integer = GetHDChannel(_TvMovieProgram.ReferencedProgram)
-                                If _idHDchannelProgram > 0 Then
-                                    _program = Program.Retrieve(_idHDchannelProgram)
-                                Else
-                                    _program = _TvMovieProgram.ReferencedProgram
-                                End If
-
                                 Translator.SetProperty("#MovieListRatingStar" & _ItemCounter, GuiLayout.ratingStar(_TvMovieProgram.ReferencedProgram))
                                 Translator.SetProperty("#MovieListTvMovieStar" & _ItemCounter, GuiLayout.TvMovieStar(_TvMovieProgram))
                                 Translator.SetProperty("#MovieListImage" & _ItemCounter, GuiLayout.Image(_TvMovieProgram))
 
-                                AddListControlItem(GetID, _MovieList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_program))
+                                AddListControlItem(GetID, _MovieList, _TvMovieProgram.ReferencedProgram.IdProgram, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieProgram.ReferencedProgram.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram))
 
                                 MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: Add ListItem {0} (Title: {1}, Channel: {2}, startTime: {3}, idprogram: {4}, ratingStar: {5}, TvMovieStar: {6}, image: {7})", _
-                                            _ItemCounter, _program.Title, _program.ReferencedChannel.DisplayName, _
-                                            _program.StartTime, _program.IdProgram, _
+                                            _ItemCounter, _TvMovieProgram.ReferencedProgram.Title, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _
+                                            _TvMovieProgram.ReferencedProgram.StartTime, _TvMovieProgram.ReferencedProgram.IdProgram, _
                                             GuiLayout.ratingStar(_TvMovieProgram.ReferencedProgram), _
                                             _TvMovieProgram.TVMovieBewertung, GuiLayout.Image(_TvMovieProgram))
 
@@ -662,7 +649,6 @@ Namespace ClickfinderProgramGuide
             Dim _infoLabel As String = String.Empty
             Dim _imagepath As String = String.Empty
             Dim SQLstring As String = String.Empty
-            Dim _program As Program = Nothing
             Dim _logNewShowSeries As String = "false"
             Dim _logNewSeriesCount As Integer = 0
             _isAbortException = False
@@ -724,26 +710,18 @@ Namespace ClickfinderProgramGuide
                                 If String.Equals(_lastTitle, _TvMovieProgram.ReferencedProgram.Title & _TvMovieProgram.ReferencedProgram.EpisodeName) = False Then
                                     _ItemCounter = _ItemCounter + 1
 
-                                    'Prüfen ob gleiches Program evtl. auf HDSender auch läuft
-                                    Dim _idHDchannelProgram As Integer = GetHDChannel(_TvMovieProgram.ReferencedProgram)
-                                    If _idHDchannelProgram > 0 Then
-                                        _program = Program.Retrieve(_idHDchannelProgram)
-                                    Else
-                                        _program = _TvMovieProgram.ReferencedProgram
-                                    End If
+                                    _timeLabel = Format(_TvMovieProgram.ReferencedProgram.StartTime.Hour, "00") & _
+                                                        ":" & Format(_TvMovieProgram.ReferencedProgram.StartTime.Minute, "00")
 
-                                    _timeLabel = Format(_program.StartTime.Hour, "00") & _
-                                                        ":" & Format(_program.StartTime.Minute, "00")
-
-                                    If String.IsNullOrEmpty(_program.EpisodeName) Then
-                                        _infoLabel = _program.Genre
+                                    If String.IsNullOrEmpty(_TvMovieProgram.ReferencedProgram.EpisodeName) Then
+                                        _infoLabel = _TvMovieProgram.ReferencedProgram.Genre
                                     Else
-                                        _infoLabel = _program.EpisodeName
+                                        _infoLabel = _TvMovieProgram.ReferencedProgram.EpisodeName
                                     End If
 
 
                                     'Image zunächst auf SenderLogo festlegen
-                                    _imagepath = Config.GetFile(Config.Dir.Thumbs, "tv\logos\") & Replace(_program.ReferencedChannel.DisplayName, "/", "_") & ".png"
+                                    _imagepath = Config.GetFile(Config.Dir.Thumbs, "tv\logos\") & Replace(_TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, "/", "_") & ".png"
 
                                     ''TvMovie Bewertung Image Property
                                     'If Not _TvMovieProgram.TVMovieBewertung = 0 Then
@@ -760,12 +738,12 @@ Namespace ClickfinderProgramGuide
                                     End If
 
                                     If CBool(_layer.GetSetting("ClickfinderUseSportLogos", "false").Value) = True Then
-                                        _imagepath = UseSportLogos(_program.Title, _imagepath)
+                                        _imagepath = UseSportLogos(_TvMovieProgram.ReferencedProgram.Title, _imagepath)
                                     End If
 
                                     'Translator.SetProperty("#HighlightsListImage" & _ItemCounter, _imagepath)
 
-                                    AddListControlItem(GetID, _HighlightsList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, _timeLabel, _infoLabel, _imagepath, , GuiLayout.RecordingStatus(_program))
+                                    AddListControlItem(GetID, _HighlightsList, _TvMovieProgram.ReferencedProgram.IdProgram, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieProgram.ReferencedProgram.Title, _timeLabel, _infoLabel, _imagepath, , GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram))
 
                                     _lastTitle = _TvMovieProgram.ReferencedProgram.Title & _TvMovieProgram.ReferencedProgram.EpisodeName
 

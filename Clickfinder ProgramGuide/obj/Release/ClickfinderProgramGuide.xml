@@ -195,11 +195,6 @@ ClickfinderProgramGuide
  </summary>
 	<param name="input">a string containing ${named} variables that represent the translation keys</param>
 	<returns>translated input string</returns>
-</member><member name="M:ClickfinderProgramGuide.Helper.GetHDChannel(TvDatabase.Program)">
-	<summary>
- Prüft ob Program auf gleich gemappten (TvMovieMapping) HDSender existiert
- </summary>
-	<returns>0 - kein Treffer, idprogram sofern treffer</returns>
 </member><member name="M:ClickfinderProgramGuide.Helper.getTvMovieProgram(TvDatabase.Program)">
 	<summary>
  Holt / erstellt TvMovieProgram

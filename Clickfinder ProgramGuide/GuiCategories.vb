@@ -486,7 +486,6 @@ Namespace ClickfinderProgramGuide
             Dim _timeLabel As String = String.Empty
             Dim _infoLabel As String = String.Empty
             Dim _imagepath As String = String.Empty
-            Dim _program As Program = Nothing
             Dim _startTime As Date = Nothing
             Dim _endTime As Date = Nothing
             Dim _LogLocalMovies As String = Nothing
@@ -543,13 +542,13 @@ Namespace ClickfinderProgramGuide
                         Dim SaveChanges As Boolean = False
 
                         'ProgramDaten über idProgram laden
-                        Dim _ResultProgram As Program = Program.Retrieve(_result.Item(i))
+                        Dim _Program As Program = Program.Retrieve(_result.Item(i))
 
                         If Not _Categorie.groupName = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value Then
                             'Alle Gruppen des _resultprogram laden
                             Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
                             sb.AddConstraint([Operator].Equals, "idgroup", _Categorie.Referencedgroup.IdGroup)
-                            sb.AddConstraint([Operator].Equals, "idChannel", _ResultProgram.IdChannel)
+                            sb.AddConstraint([Operator].Equals, "idChannel", _Program.IdChannel)
                             Dim stmt As SqlStatement = sb.GetStatement(True)
                             Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
 
@@ -558,7 +557,7 @@ Namespace ClickfinderProgramGuide
                             End If
                         End If
 
-                        Dim _TvMovieProgram As TVMovieProgram = getTvMovieProgram(_ResultProgram)
+                        Dim _TvMovieProgram As TVMovieProgram = getTvMovieProgram(_Program)
 
                         'Falls lokale Movies/Videos nicht angezeigt werden sollen -> aus Array entfernen
                         If CBool(_layer.GetSetting("ClickfinderCategorieShowLocalMovies", "false").Value) = True Then
@@ -576,32 +575,25 @@ Namespace ClickfinderProgramGuide
                             End If
                         End If
 
-                        If DateDiff(DateInterval.Minute, _ResultProgram.StartTime, _ResultProgram.EndTime) > _SelectedCategorieMinRunTime Then
+                        If DateDiff(DateInterval.Minute, _Program.StartTime, _Program.EndTime) > _SelectedCategorieMinRunTime Then
 
-                            If String.Equals(_lastTitle, _ResultProgram.Title & _ResultProgram.EpisodeName) = False And _ResultProgram.ReferencedChannel.IsTv = True Then
+                            If String.Equals(_lastTitle, _Program.Title & _Program.EpisodeName) = False And _Program.ReferencedChannel.IsTv = True Then
 
-                                'Prüfen ob gleiches Program evtl. auf HDSender (mapping gleich) auch läuft
-                                Dim _idHDchannelProgram As Integer = GetHDChannel(_ResultProgram)
-                                If _idHDchannelProgram > 0 Then
-                                    _program = Program.Retrieve(_idHDchannelProgram)
-                                Else
-                                    _program = _ResultProgram
-                                End If
 
-                                Translator.SetProperty("#PreviewListRatingStar" & _ItemCounter, GuiLayout.ratingStar(_program))
+                                Translator.SetProperty("#PreviewListRatingStar" & _ItemCounter, GuiLayout.ratingStar(_Program))
                                 Translator.SetProperty("#PreviewListTvMovieStar" & _ItemCounter, GuiLayout.TvMovieStar(_TvMovieProgram))
                                 Translator.SetProperty("#PreviewListImage" & _ItemCounter, GuiLayout.Image(_TvMovieProgram))
 
-                                AddListControlItem(GetID, _PreviewList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_program))
+                                AddListControlItem(GetID, _PreviewList, _Program.IdProgram, _Program.ReferencedChannel.DisplayName, _Program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_Program))
 
                                 MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: Add ListItem {0} (Title: {1}, Channel: {2}, startTime: {3}, idprogram: {4}, ratingStar: {5}, TvMovieStar: {6}, image: {7})", _
-                                            _ItemCounter, _program.Title, _program.ReferencedChannel.DisplayName, _
-                                            _program.StartTime, _program.IdProgram, _
+                                            _ItemCounter, _Program.Title, _Program.ReferencedChannel.DisplayName, _
+                                            _Program.StartTime, _Program.IdProgram, _
                                             GuiLayout.ratingStar(_TvMovieProgram.ReferencedProgram), _
                                             _TvMovieProgram.TVMovieBewertung, GuiLayout.Image(_TvMovieProgram))
 
                                 _ItemCounter = _ItemCounter + 1
-                                _lastTitle = _program.Title & _program.EpisodeName
+                                _lastTitle = _Program.Title & _Program.EpisodeName
                             End If
                         End If
 
