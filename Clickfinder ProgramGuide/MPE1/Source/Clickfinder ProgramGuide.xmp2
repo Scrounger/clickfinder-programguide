@@ -698,7 +698,7 @@ a lot of new features !
     <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_0.1.0.0.beta.mpe1</OnlineLocation>
     <ReleaseDate>2012-04-17T15:57:29</ReleaseDate>
     <Tags>programguide, tv movie, clickfinder, epg, tv</Tags>
-    <Location>D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPE1\Clickfinder ProgramGuide_MSSQL2008.mpe1</Location>
+    <Location>D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPE1\Clickfinder ProgramGuide.mpe1</Location>
     <Params>
       <Items>
         <SectionParam Name="Icon">
@@ -1164,7 +1164,7 @@ a lot of new features !
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\..\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R3.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{a86a2a7b-be9c-420f-b1c1-0853110cbea5}-ClickfinderPG_R3.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{5246c429-9cdf-471a-beec-57a35f997524}-ClickfinderPG_R3.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
