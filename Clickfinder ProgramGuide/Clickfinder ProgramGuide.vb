@@ -136,8 +136,6 @@ Namespace ClickfinderProgramGuide
             MyLog.Info("")
             MyLog.Info("[HighlightsGuiWindow] -------------[OPEN]-------------")
 
-            MsgBox(Config.GetFile(Config.Dir.Database, "TVSeriesDatabase4.db3"))
-
             Try
 
                 CheckConnectionState(GetID)

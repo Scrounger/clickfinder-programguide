@@ -46,12 +46,13 @@ Public Class Setup
             CheckBoxDebugMode.Checked = _layer.GetSetting("ClickfinderDebugMode", "false").Value
             CheckBoxShowCategorieLocalMovies.Checked = _layer.GetSetting("ClickfinderCategorieShowLocalMovies", "false").Value
             CheckBoxShowCategorieLocalSeries.Checked = _layer.GetSetting("ClickfinderCategorieShowLocalSeries", "false").Value
-            tbTvMovieDatabasepath.Text = _layer.GetSetting("TvMovieMPDatabase", "%ProgramData%\Team MediaPortal\MediaPortal\database").Value
             CheckBoxTvSeries.Checked = _layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value = "true"
             CheckBoxMovingPictures.Checked = _layer.GetSetting("TvMovieImportMovingPicturesInfos", "false").Value = "true"
             CheckBoxVideoDB.Checked = _layer.GetSetting("TvMovieImportVideoDatabaseInfos", "false").Value = "true"
             CheckBoxClickfinderPG.Checked = _layer.GetSetting("ClickfinderDataAvailable", "false").Value = "true"
             CheckBoxUseSeriesDescribtion.Checked = _layer.GetSetting("ClickfinderDetailUseSeriesDescribtion", "false").Value
+            tbMPDatabasePath.Text = Config.GetFile(Config.Dir.Database, "")
+
 
             If CBool(_layer.GetSetting("TvMovieEnabled", "false").Value) = False Or CBool(_layer.GetSetting("ClickfinderEnabled", "true").Value) = False Then
                 Dim message As New TvMoviePluginError
