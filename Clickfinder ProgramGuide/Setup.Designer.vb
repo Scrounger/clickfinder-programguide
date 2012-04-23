@@ -29,6 +29,9 @@ Partial Class Setup
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel
         Me.TabControl1 = New System.Windows.Forms.TabControl
         Me.TabAllgemeines = New System.Windows.Forms.TabPage
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox
+        Me.tbMPDatabasePath = New System.Windows.Forms.TextBox
+        Me.Label6 = New System.Windows.Forms.Label
         Me.tbPluginName = New System.Windows.Forms.TextBox
         Me.Label20 = New System.Windows.Forms.Label
         Me.Label19 = New System.Windows.Forms.Label
@@ -103,11 +106,14 @@ Partial Class Setup
         Me.CheckBoxUseSeriesDescribtion = New System.Windows.Forms.CheckBox
         Me.openFileDialog = New System.Windows.Forms.OpenFileDialog
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.tbMPDatabasePath = New System.Windows.Forms.TextBox
+        Me.GroupDetailSeriesImage = New System.Windows.Forms.GroupBox
+        Me.RBSeriesCover = New System.Windows.Forms.RadioButton
+        Me.RBSeriesFanArt = New System.Windows.Forms.RadioButton
+        Me.RBEpisodeImage = New System.Windows.Forms.RadioButton
+        Me.RBTvMovieImage = New System.Windows.Forms.RadioButton
         Me.TabControl1.SuspendLayout()
         Me.TabAllgemeines.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.TabItems.SuspendLayout()
         Me.TabÜbersicht.SuspendLayout()
@@ -122,7 +128,7 @@ Partial Class Setup
         CType(Me.dgvCategories, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabDetail.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox5.SuspendLayout()
+        Me.GroupDetailSeriesImage.SuspendLayout()
         Me.SuspendLayout()
         '
         'ButtonSave
@@ -204,6 +210,35 @@ Partial Class Setup
         Me.TabAllgemeines.TabIndex = 0
         Me.TabAllgemeines.Text = "Allgemeines"
         Me.TabAllgemeines.UseVisualStyleBackColor = True
+        '
+        'GroupBox5
+        '
+        Me.GroupBox5.Controls.Add(Me.tbMPDatabasePath)
+        Me.GroupBox5.Controls.Add(Me.Label6)
+        Me.GroupBox5.Location = New System.Drawing.Point(12, 269)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Size = New System.Drawing.Size(621, 92)
+        Me.GroupBox5.TabIndex = 32
+        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "MediaPortal database path (zur Info)"
+        '
+        'tbMPDatabasePath
+        '
+        Me.tbMPDatabasePath.Enabled = False
+        Me.tbMPDatabasePath.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbMPDatabasePath.Location = New System.Drawing.Point(16, 55)
+        Me.tbMPDatabasePath.Name = "tbMPDatabasePath"
+        Me.tbMPDatabasePath.Size = New System.Drawing.Size(588, 23)
+        Me.tbMPDatabasePath.TabIndex = 79
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(13, 28)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(433, 16)
+        Me.Label6.TabIndex = 78
+        Me.Label6.Text = "MediaPortal Datenbank Pfad aus der lokalen MediaPortalDirs.xml "
         '
         'tbPluginName
         '
@@ -921,6 +956,7 @@ Partial Class Setup
         '
         'TabDetail
         '
+        Me.TabDetail.Controls.Add(Me.GroupDetailSeriesImage)
         Me.TabDetail.Controls.Add(Me.CheckBoxUseSeriesDescribtion)
         Me.TabDetail.Location = New System.Drawing.Point(4, 25)
         Me.TabDetail.Name = "TabDetail"
@@ -956,34 +992,64 @@ Partial Class Setup
         Me.PictureBox1.TabIndex = 9
         Me.PictureBox1.TabStop = False
         '
-        'GroupBox5
+        'GroupDetailSeriesImage
         '
-        Me.GroupBox5.Controls.Add(Me.tbMPDatabasePath)
-        Me.GroupBox5.Controls.Add(Me.Label6)
-        Me.GroupBox5.Location = New System.Drawing.Point(12, 269)
-        Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(621, 92)
-        Me.GroupBox5.TabIndex = 32
-        Me.GroupBox5.TabStop = False
-        Me.GroupBox5.Text = "MediaPortal database path (zur Info)"
+        Me.GroupDetailSeriesImage.Controls.Add(Me.RBTvMovieImage)
+        Me.GroupDetailSeriesImage.Controls.Add(Me.RBEpisodeImage)
+        Me.GroupDetailSeriesImage.Controls.Add(Me.RBSeriesFanArt)
+        Me.GroupDetailSeriesImage.Controls.Add(Me.RBSeriesCover)
+        Me.GroupDetailSeriesImage.Location = New System.Drawing.Point(24, 67)
+        Me.GroupDetailSeriesImage.Name = "GroupDetailSeriesImage"
+        Me.GroupDetailSeriesImage.Size = New System.Drawing.Size(547, 63)
+        Me.GroupDetailSeriesImage.TabIndex = 11
+        Me.GroupDetailSeriesImage.TabStop = False
+        Me.GroupDetailSeriesImage.Text = "Serien Bild:"
         '
-        'Label6
+        'RBSeriesCover
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(13, 28)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(433, 16)
-        Me.Label6.TabIndex = 78
-        Me.Label6.Text = "MediaPortal Datenbank Pfad aus der lokalen MediaPortalDirs.xml "
+        Me.RBSeriesCover.AccessibleDescription = "RBSeriesCover"
+        Me.RBSeriesCover.AutoSize = True
+        Me.RBSeriesCover.Location = New System.Drawing.Point(23, 31)
+        Me.RBSeriesCover.Name = "RBSeriesCover"
+        Me.RBSeriesCover.Size = New System.Drawing.Size(110, 20)
+        Me.RBSeriesCover.TabIndex = 12
+        Me.RBSeriesCover.TabStop = True
+        Me.RBSeriesCover.Text = "Serien Cover"
+        Me.RBSeriesCover.UseVisualStyleBackColor = True
         '
-        'tbMPDatabasePath
+        'RBSeriesFanArt
         '
-        Me.tbMPDatabasePath.Enabled = False
-        Me.tbMPDatabasePath.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbMPDatabasePath.Location = New System.Drawing.Point(16, 55)
-        Me.tbMPDatabasePath.Name = "tbMPDatabasePath"
-        Me.tbMPDatabasePath.Size = New System.Drawing.Size(588, 23)
-        Me.tbMPDatabasePath.TabIndex = 79
+        Me.RBSeriesFanArt.AccessibleDescription = "RBSeriesFanArt"
+        Me.RBSeriesFanArt.AutoSize = True
+        Me.RBSeriesFanArt.Location = New System.Drawing.Point(139, 31)
+        Me.RBSeriesFanArt.Name = "RBSeriesFanArt"
+        Me.RBSeriesFanArt.Size = New System.Drawing.Size(116, 20)
+        Me.RBSeriesFanArt.TabIndex = 13
+        Me.RBSeriesFanArt.TabStop = True
+        Me.RBSeriesFanArt.Text = "Serien FanArt"
+        Me.RBSeriesFanArt.UseVisualStyleBackColor = True
+        '
+        'RBEpisodeImage
+        '
+        Me.RBEpisodeImage.AutoSize = True
+        Me.RBEpisodeImage.Location = New System.Drawing.Point(261, 31)
+        Me.RBEpisodeImage.Name = "RBEpisodeImage"
+        Me.RBEpisodeImage.Size = New System.Drawing.Size(129, 20)
+        Me.RBEpisodeImage.TabIndex = 14
+        Me.RBEpisodeImage.TabStop = True
+        Me.RBEpisodeImage.Text = "Episoden Image"
+        Me.RBEpisodeImage.UseVisualStyleBackColor = True
+        '
+        'RBTvMovieImage
+        '
+        Me.RBTvMovieImage.AutoSize = True
+        Me.RBTvMovieImage.Location = New System.Drawing.Point(396, 31)
+        Me.RBTvMovieImage.Name = "RBTvMovieImage"
+        Me.RBTvMovieImage.Size = New System.Drawing.Size(126, 20)
+        Me.RBTvMovieImage.TabIndex = 15
+        Me.RBTvMovieImage.TabStop = True
+        Me.RBTvMovieImage.Text = "TvMovie Image"
+        Me.RBTvMovieImage.UseVisualStyleBackColor = True
         '
         'Setup
         '
@@ -1004,6 +1070,8 @@ Partial Class Setup
         Me.TabControl1.ResumeLayout(False)
         Me.TabAllgemeines.ResumeLayout(False)
         Me.TabAllgemeines.PerformLayout()
+        Me.GroupBox5.ResumeLayout(False)
+        Me.GroupBox5.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
         Me.TabItems.ResumeLayout(False)
@@ -1026,8 +1094,8 @@ Partial Class Setup
         Me.TabDetail.ResumeLayout(False)
         Me.TabDetail.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox5.ResumeLayout(False)
-        Me.GroupBox5.PerformLayout()
+        Me.GroupDetailSeriesImage.ResumeLayout(False)
+        Me.GroupDetailSeriesImage.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1114,4 +1182,9 @@ Partial Class Setup
     Friend WithEvents GroupBox5 As System.Windows.Forms.GroupBox
     Friend WithEvents tbMPDatabasePath As System.Windows.Forms.TextBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
+    Friend WithEvents GroupDetailSeriesImage As System.Windows.Forms.GroupBox
+    Friend WithEvents RBTvMovieImage As System.Windows.Forms.RadioButton
+    Friend WithEvents RBEpisodeImage As System.Windows.Forms.RadioButton
+    Friend WithEvents RBSeriesFanArt As System.Windows.Forms.RadioButton
+    Friend WithEvents RBSeriesCover As System.Windows.Forms.RadioButton
 End Class

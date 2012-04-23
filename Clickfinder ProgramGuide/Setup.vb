@@ -54,10 +54,26 @@ Public Class Setup
             tbMPDatabasePath.Text = Config.GetFile(Config.Dir.Database, "")
 
 
+            Select Case _layer.GetSetting("ClickfinderDetailsSeriesImage", "Cover").Value
+                Case Is = "Cover"
+                    RBSeriesCover.Checked = True
+                Case Is = "FanArt"
+                    RBSeriesFanArt.Checked = True
+                Case Is = "Episode"
+                    RBEpisodeImage.Checked = True
+                Case Is = "TvMovie"
+                    RBTvMovieImage.Checked = True
+            End Select
+
+
             If CBool(_layer.GetSetting("TvMovieEnabled", "false").Value) = False Or CBool(_layer.GetSetting("ClickfinderEnabled", "true").Value) = False Then
                 Dim message As New TvMoviePluginError
                 message.ShowDialog()
                 Me.Close()
+            End If
+
+            If Not _layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value = "true" Then
+                GroupDetailSeriesImage.Enabled = False
             End If
 
             Select Case (_layer.GetSetting("ClickfinderOverviewMovieSort", "startTime").Value)
@@ -593,6 +609,34 @@ Public Class Setup
         Dim _layer As New TvBusinessLayer
         Dim setting As Setting = _layer.GetSetting("ClickfinderDetailUseSeriesDescribtion", "false")
         setting.Value = CStr(CheckBoxUseSeriesDescribtion.Checked)
+        setting.Persist()
+    End Sub
+
+    Private Sub RBSeriesCover_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBSeriesCover.CheckedChanged
+        Dim _layer As New TvBusinessLayer
+        Dim setting As Setting = _layer.GetSetting("ClickfinderDetailsSeriesImage", "Cover")
+        setting.Value = "Cover"
+        setting.Persist()
+    End Sub
+
+    Private Sub RBSeriesFanArt_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBSeriesFanArt.CheckedChanged
+        Dim _layer As New TvBusinessLayer
+        Dim setting As Setting = _layer.GetSetting("ClickfinderDetailsSeriesImage", "Cover")
+        setting.Value = "FanArt"
+        setting.Persist()
+    End Sub
+
+    Private Sub RBEpisodeImage_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBEpisodeImage.CheckedChanged
+        Dim _layer As New TvBusinessLayer
+        Dim setting As Setting = _layer.GetSetting("ClickfinderDetailsSeriesImage", "Cover")
+        setting.Value = "Episode"
+        setting.Persist()
+    End Sub
+
+    Private Sub RBTvMovieImage_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBTvMovieImage.CheckedChanged
+        Dim _layer As New TvBusinessLayer
+        Dim setting As Setting = _layer.GetSetting("ClickfinderDetailsSeriesImage", "Cover")
+        setting.Value = "TvMovie"
         setting.Persist()
     End Sub
 End Class
