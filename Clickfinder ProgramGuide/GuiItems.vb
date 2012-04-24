@@ -21,13 +21,15 @@ Namespace ClickfinderProgramGuide
         <SkinControlAttribute(2)> Protected _btnNow As GUIButtonControl = Nothing
         <SkinControlAttribute(3)> Protected _btnPrimeTime As GUIButtonControl = Nothing
         <SkinControlAttribute(4)> Protected _btnLateTime As GUIButtonControl = Nothing
-        <SkinControlAttribute(5)> Protected _btnHighlights As GUIButtonControl = Nothing
-        <SkinControlAttribute(6)> Protected _btnPreview As GUIButtonControl = Nothing
+        <SkinControlAttribute(5)> Protected _btnAllMovies As GUIButtonControl = Nothing
+        <SkinControlAttribute(6)> Protected _btnHighlights As GUIButtonControl = Nothing
+        <SkinControlAttribute(7)> Protected _btnPreview As GUIButtonControl = Nothing
 
         'ProgressBar
         'ProgressBar
-        <SkinControlAttribute(9)> Protected _LeftProgressBar As GUIAnimation = Nothing
         <SkinControlAttribute(8)> Protected _RightProgressBar As GUIAnimation = Nothing
+        <SkinControlAttribute(9)> Protected _LeftProgressBar As GUIAnimation = Nothing
+
         <SkinControlAttribute(11)> Protected _PageProgress As GUIProgressControl = Nothing
 
         'ListControl

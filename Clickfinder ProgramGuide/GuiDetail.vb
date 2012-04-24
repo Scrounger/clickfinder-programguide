@@ -11,12 +11,14 @@ Namespace ClickfinderProgramGuide
         Inherits GUIWindow
 
 #Region "Skin Controls"
+
         'Buttons
         <SkinControlAttribute(2)> Protected _btnNow As GUIButtonControl = Nothing
         <SkinControlAttribute(3)> Protected _btnPrimeTime As GUIButtonControl = Nothing
         <SkinControlAttribute(4)> Protected _btnLateTime As GUIButtonControl = Nothing
-        <SkinControlAttribute(5)> Protected _btnHighlights As GUIButtonControl = Nothing
-        <SkinControlAttribute(6)> Protected _btnPreview As GUIButtonControl = Nothing
+        <SkinControlAttribute(5)> Protected _btnAllMovies As GUIButtonControl = Nothing
+        <SkinControlAttribute(6)> Protected _btnHighlights As GUIButtonControl = Nothing
+        <SkinControlAttribute(7)> Protected _btnPreview As GUIButtonControl = Nothing
 
 
         <SkinControlAttribute(10)> Protected _btnBack As GUIButtonControl = Nothing

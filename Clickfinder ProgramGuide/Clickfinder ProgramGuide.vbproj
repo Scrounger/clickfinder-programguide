@@ -113,6 +113,7 @@
   <ItemGroup>
     <Compile Include="Class\ClickfinderCategories.vb" />
     <Compile Include="Class\ClickfinderDB.vb" />
+    <Compile Include="Class\GuiButtons.vb" />
     <Compile Include="Class\Helper.vb" />
     <Compile Include="Class\GuiLayout.vb" />
     <Compile Include="Class\MyLog.vb" />

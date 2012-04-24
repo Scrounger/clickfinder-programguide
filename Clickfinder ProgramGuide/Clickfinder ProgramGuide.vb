@@ -43,8 +43,9 @@ Namespace ClickfinderProgramGuide
         <SkinControlAttribute(2)> Protected _btnNow As GUIButtonControl = Nothing
         <SkinControlAttribute(3)> Protected _btnPrimeTime As GUIButtonControl = Nothing
         <SkinControlAttribute(4)> Protected _btnLateTime As GUIButtonControl = Nothing
-        <SkinControlAttribute(5)> Protected _btnHighlights As GUIButtonControl = Nothing
-        <SkinControlAttribute(6)> Protected _btnPreview As GUIButtonControl = Nothing
+        <SkinControlAttribute(5)> Protected _btnAllMovies As GUIButtonControl = Nothing
+        <SkinControlAttribute(6)> Protected _btnHighlights As GUIButtonControl = Nothing
+        <SkinControlAttribute(7)> Protected _btnPreview As GUIButtonControl = Nothing
 
 
         'ProgressBar
@@ -444,24 +445,12 @@ Namespace ClickfinderProgramGuide
                 GUIWindowManager.ActivateWindow(165654465)
             End If
 
+            If control Is _btnAllMovies Then
+                GuiButtons.Button_AllMovies()
+            End If
+
             If control Is _btnPreview Then
-                Try
-                    'CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Day, Today.AddDays(4))
-                    'GUIWindowManager.ActivateWindow(1656544654)
-
-                    GUIWindowManager.ActivateWindow(GUIWindow.Window.WINDOW_HOME)
-
-                    'Dim sqlstring As String
-                    'Dim _result As New ArrayList
-                    'sqlstring = CStr(Replace(Replace("Select * FROM program LEFT JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE startTime >= #StartTime AND startTime <= #EndTime AND (Genre LIKE '%Serie%' OR genre LIKE '%Sitcom%' OR genre LIKE '%Zeichentrick%') ORDER BY startTime ASC, starRating DESC", "#startTime", MySqlDate(Date.Today.AddHours(20))), "#endTime", MySqlDate(Date.Now.AddHours(22))))
-
-
-                    '_result.AddRange(Broker.Execute(sqlstring).TransposeToFieldList("idProgram", False))
-
-                    'MsgBox(_result.Count - 1)
-                Catch ex As Exception
-                    MsgBox(ex.Message & vbNewLine & ex.StackTrace)
-                End Try
+                
                 'CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Preview)
                 'GUIWindowManager.ActivateWindow(1656544654)
             End If

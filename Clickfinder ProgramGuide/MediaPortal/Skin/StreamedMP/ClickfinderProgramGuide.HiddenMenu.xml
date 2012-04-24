@@ -44,7 +44,7 @@
         <type>label</type>
         <font>mediastream12tc</font>
         <posX>1040</posX>
-        <posY>225</posY>
+        <posY>125</posY>
         <visible>!control.hasfocus(10)|!control.isvisible(30)</visible>
         <animation effect="slide" time="100" start="300,0">visible</animation>
         <animation effect="slide" time="0" end="300,0">hidden</animation>
@@ -56,7 +56,7 @@
         <type>label</type>
         <font>mediastream12tc</font>
         <posX>1040</posX>
-        <posY>337</posY>
+        <posY>269</posY>
         <visible>!control.hasfocus(10)|!control.isvisible(30)</visible>
         <animation effect="slide" time="100" start="300,0">visible</animation>
         <animation effect="slide" time="0" end="300,0">hidden</animation>
@@ -68,7 +68,7 @@
         <type>label</type>
         <font>mediastream12tc</font>
         <posX>1040</posX>
-        <posY>421</posY>
+        <posY>353</posY>
         <visible>!control.hasfocus(10)|!control.isvisible(30)</visible>
         <animation effect="slide" time="100" start="300,0">visible</animation>
         <animation effect="slide" time="0" end="300,0">hidden</animation>
@@ -80,7 +80,7 @@
         <animation effect="slide" time="100" start="300,0">visible</animation>
         <animation effect="slide" time="0" end="300,0">hidden</animation>
         <posX>1040</posX>
-        <posY>250</posY>
+        <posY>150</posY>
         <width>220</width>
         <height>720</height>
         <layout>StackLayout(0, Vertical, true)</layout>
@@ -109,6 +109,14 @@
           <ondown>5</ondown>
         </control>
         <control>
+          <description>All Movies</description>
+          <type>button</type>
+          <id>5</id>
+          <label>Filme ab Jetzt</label>
+          <onup>4</onup>
+          <ondown>6</ondown>
+        </control>  
+        <control>
           <description>Empty button</description>
           <type>button</type>
           <id>0</id>
@@ -118,17 +126,17 @@
         <control>
           <description>Highlights</description>
           <type>button</type>
-          <id>5</id>
+          <id>6</id>
           <label>#ClickfinderPG.Translation.Highlights</label>
-          <onup>4</onup>
-          <ondown>6</ondown>
+          <onup>5</onup>
+          <ondown>7</ondown>
         </control>
         <control>
           <description>Preview</description>
           <type>button</type>
-          <id>6</id>
+          <id>7</id>
           <label>#ClickfinderPG.Translation.Preview</label>
-          <onup>5</onup>
+          <onup>6</onup>
           <ondown>50</ondown>
         </control>
         <control>
@@ -144,7 +152,7 @@
           <id>50</id>
           <label>600</label>
           <hyperlink>600</hyperlink>
-          <onup>6</onup>
+          <onup>7</onup>
           <ondown>51</ondown>
         </control>
         <control>
