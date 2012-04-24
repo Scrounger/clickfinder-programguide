@@ -514,6 +514,20 @@ Namespace ClickfinderProgramGuide
                         For i = 0 To _TvMovieTagesTipps.Count - 1
                             Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_TvMovieTagesTipps.Item(i))
 
+                            'Prüfen ob in Standard Tv Gruppe
+                            Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value)
+                            Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
+
+                            'Alle Gruppen des _program laden
+                            Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
+                            sb.AddConstraint([Operator].Equals, "idgroup", _Group.IdGroup)
+                            sb.AddConstraint([Operator].Equals, "idChannel", _TvMovieProgram.ReferencedProgram.IdChannel)
+                            Dim stmt As SqlStatement = sb.GetStatement(True)
+                            Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
+
+                            If _isInFavGroup.Count = 0 Then
+                                Continue For
+                            End If
                           
                             _Result.Add(_TvMovieTagesTipps.Item(i))
 
@@ -581,6 +595,21 @@ Namespace ClickfinderProgramGuide
 
                             'Wenn TagesTipp immer anzeigen aktiviert, prüfen ob TagesTipp, dann weiter
                             If _TvMovieProgram.idProgram = _idProgramTagesTipp And _ItemCounter > 1 Then
+                                Continue For
+                            End If
+
+                            'Prüfen ob in Standard Tv Gruppe
+                            Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value)
+                            Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
+
+                            'Alle Gruppen des _program laden
+                            Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
+                            sb.AddConstraint([Operator].Equals, "idgroup", _Group.IdGroup)
+                            sb.AddConstraint([Operator].Equals, "idChannel", _TvMovieProgram.ReferencedProgram.IdChannel)
+                            Dim stmt As SqlStatement = sb.GetStatement(True)
+                            Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
+
+                            If _isInFavGroup.Count = 0 Then
                                 Continue For
                             End If
 
@@ -719,25 +748,34 @@ Namespace ClickfinderProgramGuide
                                     'Image zunächst auf SenderLogo festlegen
                                     _imagepath = Config.GetFile(Config.Dir.Thumbs, "tv\logos\") & Replace(_TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, "/", "_") & ".png"
 
-                                    ''TvMovie Bewertung Image Property
-                                    'If Not _TvMovieProgram.TVMovieBewertung = 0 Then
-                                    '    Translator.SetProperty("#HighlightsListTvMovieStar" & _ItemCounter, "ClickfinderPG_R" & _TvMovieProgram.TVMovieBewertung & ".png")
-                                    'Else
-                                    '    Translator.SetProperty("#HighlightsListTvMovieStar" & _ItemCounter, "")
-                                    'End If
-
                                     'Falls TvSeries Import an & ist TvSeries, poster Image anzeigen
                                     If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True And _TvMovieProgram.idSeries > 0 Then
                                         _timeLabel = Translation.NewLabel
                                         _infoLabel = Translation.NewEpisodeFound
                                         _imagepath = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieProgram.SeriesPosterImage
+                                    Else
+                                        'Prüfen ob in Standard Tv Gruppe
+                                        Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value)
+                                        Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
+
+                                        'Alle Gruppen des _program laden
+                                        Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
+                                        sb.AddConstraint([Operator].Equals, "idgroup", _Group.IdGroup)
+                                        sb.AddConstraint([Operator].Equals, "idChannel", _TvMovieProgram.ReferencedProgram.IdChannel)
+                                        Dim stmt As SqlStatement = sb.GetStatement(True)
+                                        Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
+
+                                        If _isInFavGroup.Count = 0 Then
+                                            Continue For
+                                        End If
                                     End If
 
                                     If CBool(_layer.GetSetting("ClickfinderUseSportLogos", "false").Value) = True Then
                                         _imagepath = UseSportLogos(_TvMovieProgram.ReferencedProgram.Title, _imagepath)
                                     End If
 
-                                    'Translator.SetProperty("#HighlightsListImage" & _ItemCounter, _imagepath)
+
+
 
                                     AddListControlItem(GetID, _HighlightsList, _TvMovieProgram.ReferencedProgram.IdProgram, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieProgram.ReferencedProgram.Title, _timeLabel, _infoLabel, _imagepath, , GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram))
 

@@ -202,14 +202,11 @@ Namespace ClickfinderProgramGuide
 
                 Translator.SetProperty("#DetailorgTitle", GuiLayout.DetailOrgTitle(_DetailTvMovieProgram))
 
-                If _DetailTvMovieProgram.idSeries > 0 And CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True Then
-                    Translator.SetProperty("#DetailImage", "")
-                Else
-                    Translator.SetProperty("#DetailImage", GuiLayout.Image(_DetailTvMovieProgram))
-                End If
-
-
-
+                'If _DetailTvMovieProgram.idSeries > 0 And CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True Then
+                '    Translator.SetProperty("#DetailImage", "")
+                'Else
+                Translator.SetProperty("#DetailImage", GuiLayout.Image(_DetailTvMovieProgram))
+                'End If
 
                 Translator.SetProperty("#DetailTvMovieStar", GuiLayout.TvMovieStar(_DetailTvMovieProgram))
                 Translator.SetProperty("#DetailRatingStar", GuiLayout.ratingStar(_DetailTvMovieProgram.ReferencedProgram))

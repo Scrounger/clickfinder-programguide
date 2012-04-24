@@ -81,7 +81,6 @@ Namespace ClickfinderProgramGuide
                             If Not String.IsNullOrEmpty(TvMovieProgram.Cover) Then
                                 'Movie/Video existiert lokal -> Cover zeigen
                                 Return _Cover
-
                             Else
                                 'Kein Cover existiert -> SenderLogo / Clickfinder Bild anzeigen
                                 If Not String.IsNullOrEmpty(TvMovieProgram.BildDateiname) Then

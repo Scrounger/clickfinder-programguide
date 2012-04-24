@@ -468,8 +468,6 @@ Namespace ClickfinderProgramGuide
                             If String.Equals(_lastTitle, _Program.Title & _Program.EpisodeName) = False Then
 
                                 'Prüfen ob in Gruppe (Filter Fkt.)
-                                'If Not _FilterByGroup = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value Then
-
                                 Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _FilterByGroup)
                                 Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
 
@@ -483,7 +481,7 @@ Namespace ClickfinderProgramGuide
                                 If _isInFavGroup.Count = 0 Then
                                     Continue For
                                 End If
-                                'End If
+
 
                                 'Falls lokale Movies/Videos nicht angezeigt werden sollen -> aus Array entfernen
                                 If CBool(_layer.GetSetting("ClickfinderItemsShowLocalMovies", "false").Value) = True Then
