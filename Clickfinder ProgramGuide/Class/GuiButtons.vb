@@ -3,7 +3,21 @@ Imports MediaPortal.GUI.Library
 
 
 Public Class GuiButtons
-    Friend Shared Sub Button_AllMovies()
+
+    Friend Shared Sub Now()
+        CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Now)
+        GUIWindowManager.ActivateWindow(1656544654)
+    End Sub
+    Friend Shared Sub PrimeTime()
+        CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.PrimeTime)
+        GUIWindowManager.ActivateWindow(1656544654)
+    End Sub
+    Friend Shared Sub LateTime()
+        CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.LateTime)
+        GUIWindowManager.ActivateWindow(1656544654)
+    End Sub
+
+    Friend Shared Sub AllMovies()
         Try
             Dim _endTime As New Date(Date.Now.Year, Date.Now.Month, Date.Now.AddDays(1).Day)
 
@@ -25,4 +39,14 @@ Public Class GuiButtons
         End Try
 
     End Sub
+
+    Friend Shared Sub Highlights()
+        GUIWindowManager.ActivateWindow(165654465)
+    End Sub
+
+    Friend Shared Sub Preview()
+
+    End Sub
+
+
 End Class

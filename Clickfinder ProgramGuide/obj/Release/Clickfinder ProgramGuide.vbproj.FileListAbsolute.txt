@@ -100,3 +100,4 @@ D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaP
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\stereo.png
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\sd.png
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuide.HiddenMenu.xml
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.HiddenMenu.xml

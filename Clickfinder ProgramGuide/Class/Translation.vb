@@ -35,6 +35,7 @@ Public NotInheritable Class Translation
     Public Shared CategorieHideNotFound = "Keine versteckten Kategorien gefunden..."
     Public Shared PageLabel = "Seite"
     Public Shared allMoviesAt = "Alle Filme von"
+    Public Shared allMoviesNow = "Alle Filme ab Jetzt"
     Public Shared allHighlightsAt = "Alle Highlights von"
     Public Shared allCategoriesAt = "Alle Kategorien von"
     Public Shared All = "Alle"

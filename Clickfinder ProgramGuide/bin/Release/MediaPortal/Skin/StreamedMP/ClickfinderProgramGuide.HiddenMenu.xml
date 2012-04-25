@@ -112,7 +112,7 @@
           <description>All Movies</description>
           <type>button</type>
           <id>5</id>
-          <label>Filme ab Jetzt</label>
+          <label>#ClickfinderPG.Translation.allMoviesNow</label>
           <onup>4</onup>
           <ondown>6</ondown>
         </control>  

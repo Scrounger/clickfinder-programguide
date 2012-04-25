@@ -190,6 +190,9 @@
     <Content Include="MediaPortal\language\ClickfinderPG\de.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.HiddenMenu.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

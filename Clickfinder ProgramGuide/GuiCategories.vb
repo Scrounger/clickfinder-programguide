@@ -413,34 +413,27 @@ Namespace ClickfinderProgramGuide
             MyBase.OnClicked(controlId, control, actionType)
 
             If control Is _btnNow Then
-
-                CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Now)
-                GUIWindowManager.ActivateWindow(1656544654)
+                GuiButtons.Now()
             End If
 
             If control Is _btnPrimeTime Then
-
-                CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.PrimeTime)
-                GUIWindowManager.ActivateWindow(1656544654)
+                GuiButtons.PrimeTime()
             End If
-            If control Is _btnLateTime Then
 
-                CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.LateTime)
-                GUIWindowManager.ActivateWindow(1656544654)
+            If control Is _btnLateTime Then
+                GuiButtons.LateTime()
+            End If
+
+            If control Is _btnAllMovies Then
+                GuiButtons.AllMovies()
             End If
 
             If control Is _btnHighlights Then
-
-                CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Preview)
-                GUIWindowManager.ActivateWindow(165654465)
+                GuiButtons.Highlights()
             End If
 
             If control Is _btnPreview Then
-
-                GUIListControl.SelectItemControl(GetID, _CategorieList.GetID, 5)
-
-                'CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Preview)
-                'GUIWindowManager.ActivateWindow(1656544654)
+                GuiButtons.Preview()
             End If
 
         End Sub
