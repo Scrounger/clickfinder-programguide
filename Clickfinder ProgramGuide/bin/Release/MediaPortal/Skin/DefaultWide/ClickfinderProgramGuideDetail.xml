@@ -763,7 +763,6 @@
     <!-- ActionGroup -->
     <import>ClickfinderProgramGuide.HiddenMenu.xml</import>
     
-
     <control>
       <description>Remember</description>
       <type>button</type>

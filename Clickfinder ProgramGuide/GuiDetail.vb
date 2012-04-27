@@ -164,6 +164,10 @@ Namespace ClickfinderProgramGuide
                 Helper.StartTv(_DetailTvMovieProgram.ReferencedProgram.ReferencedChannel)
             End If
 
+            If control Is _btnBack Then
+                GUIWindowManager.ShowPreviousWindow()
+            End If
+
         End Sub
 
         Private Function getRatingpercentage(ByVal TvMovieRating As Integer) As Integer
