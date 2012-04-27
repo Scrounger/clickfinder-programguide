@@ -151,7 +151,8 @@
         </Files>
       </GroupItem>
       <GroupItem Name="Skin: Default Wide">
-        <DisplayName>Group3</DisplayName>
+        <ParentGroup />
+        <DisplayName>Default Wide</DisplayName>
         <DefaulChecked>true</DefaulChecked>
         <Description>Skin: Default Wide</Description>
         <Files>
@@ -310,11 +311,19 @@
               <ZipFileName>Installer{CopyFile}\{ef7325f7-da94-4141-b7e1-e80aca7c7d71}-stereo.png</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\Media\Logos\ClickfinderPG\stereo.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.HiddenMenu.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{c47c5e6b-ab62-475a-be90-e04b12b9216e}-ClickfinderProgramGuide.HiddenMenu.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\ClickfinderProgramGuide.HiddenMenu.xml</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
       <GroupItem Name="Skin: StreamedMP">
-        <DisplayName>Skin: StreamedMP</DisplayName>
+        <ParentGroup />
+        <DisplayName>StreamedMP</DisplayName>
         <DefaulChecked>true</DefaulChecked>
         <Description>Skin: StreamedMP</Description>
         <Files>
@@ -473,6 +482,13 @@
               <ZipFileName>Installer{CopyFile}\{82852e02-2329-408f-a001-4253a48613a0}-stereo.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\Media\Logos\ClickfinderPG\stereo.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuide.HiddenMenu.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{02ae4a01-6c4e-49d0-be99-0b95d0d8f7e0}-ClickfinderProgramGuide.HiddenMenu.xml</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\ClickfinderProgramGuide.HiddenMenu.xml</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -513,6 +529,41 @@
         <IncludedGroups />
         <PanelName>Welcome Screen</PanelName>
         <WizardButtonsEnum>NextCancel</WizardButtonsEnum>
+      </SectionItem>
+      <SectionItem Guid="42e6b368-70dd-475c-a908-e2c3edec5f4f" Name="Tree View Selector" ConditionGroup="">
+        <Params>
+          <Items>
+            <SectionParam Name="Header Title">
+              <Value>Select your Skin:</Value>
+              <ValueType>String</ValueType>
+              <Description>Header title</Description>
+            </SectionParam>
+            <SectionParam Name="Header description">
+              <Value />
+              <ValueType>String</ValueType>
+              <Description>Description of section, shown in under section title</Description>
+            </SectionParam>
+            <SectionParam Name="Header image">
+              <Value />
+              <ValueType>File</ValueType>
+              <Description>Image in upper right part</Description>
+            </SectionParam>
+            <SectionParam Name="Description ">
+              <Value />
+              <ValueType>String</ValueType>
+              <Description>Description of this operation</Description>
+            </SectionParam>
+          </Items>
+        </Params>
+        <Actions>
+          <Items />
+        </Actions>
+        <IncludedGroups>
+          <string>Skin: Default Wide</string>
+          <string>Skin: StreamedMP</string>
+        </IncludedGroups>
+        <PanelName>Tree View Selector</PanelName>
+        <WizardButtonsEnum>BackNextCancel</WizardButtonsEnum>
       </SectionItem>
       <SectionItem Guid="92eac883-1e0f-427f-a7ed-bcc532cb7c2b" Name="Install Section" ConditionGroup="">
         <Params>
@@ -603,7 +654,7 @@
               <Description />
             </SectionParam>
             <SectionParam Name="Show radio buttons">
-              <Value />
+              <Value>NO</Value>
               <ValueType>Bool</ValueType>
               <Description>Use radiobutton in place of combobox</Description>
             </SectionParam>
@@ -1009,6 +1060,13 @@ a lot of new features !
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.HiddenMenu.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{c47c5e6b-ab62-475a-be90-e04b12b9216e}-ClickfinderProgramGuide.HiddenMenu.xml</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\ClickfinderProgramGuide.HiddenMenu.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuide.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{9131b31f-9413-4b66-a114-f929e6ee55ae}-ClickfinderProgramGuide.xml</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\ClickfinderProgramGuide.xml</DestinationFilename>
@@ -1160,11 +1218,18 @@ a lot of new features !
         <ZipFileName>Installer{CopyFile}\{82852e02-2329-408f-a001-4253a48613a0}-stereo.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\Media\Logos\ClickfinderPG\stereo.png</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuide.HiddenMenu.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{02ae4a01-6c4e-49d0-be99-0b95d0d8f7e0}-ClickfinderProgramGuide.HiddenMenu.xml</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\ClickfinderProgramGuide.HiddenMenu.xml</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\..\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R3.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{5246c429-9cdf-471a-beec-57a35f997524}-ClickfinderPG_R3.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{0fb35c5b-cb4b-4629-a4d9-48646fe6e89c}-ClickfinderPG_R3.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
