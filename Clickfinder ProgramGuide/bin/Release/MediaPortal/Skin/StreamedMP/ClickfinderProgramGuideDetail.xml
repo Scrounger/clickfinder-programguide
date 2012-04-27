@@ -380,7 +380,25 @@
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
-
+    <control>
+      <description>Detail RecordingState</description>
+      <type>image</type>
+      <id>37</id>
+      <posX>300</posX>
+      <posY>244</posY>
+      <width>26</width>
+      <height>26</height>
+      <texture></texture>
+      <colorkey>0</colorkey>
+      <filtered>yes</filtered>
+      <centered>no</centered>
+      <keepaspectratio>yes</keepaspectratio>
+      <texture>#DetailRecordingState</texture>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+    
     <control>
       <description>Label Zeit</description>
       <type>label</type>
@@ -609,7 +627,7 @@
       <posX>770</posX>
       <posY>640</posY>
       <width>100</width>
-      <label>#ClickfinderPG.Translation.FeelingsLabel</label>
+      <label>#ClickfinderPG.Translation.EmotionsLabel</label>
       <font>mediastream10</font>
       <align>center</align>
       <textcolor>FFdddddd</textcolor>
@@ -675,7 +693,7 @@
       <posX>970</posX>
       <posY>640</posY>
       <width>100</width>
-      <label>#ClickfinderPG.Translation.TensionLabel</label>
+      <label>#ClickfinderPG.Translation.SuspenseLabel</label>
       <font>mediastream10</font>
       <align>center</align>
       <textcolor>FFdddddd</textcolor>
@@ -708,7 +726,7 @@
       <posX>1070</posX>
       <posY>640</posY>
       <width>100</width>
-      <label>#ClickfinderPG.Translation.RequirementLabel</label>
+      <label>#ClickfinderPG.Translation.LevelLabel</label>
       <font>mediastream10</font>
       <align>center</align>
       <textcolor>FFdddddd</textcolor>

@@ -129,13 +129,27 @@ Namespace ClickfinderProgramGuide
 #End Region
 
 #Region "GUI Events"
+        Public Overrides Sub PreInit()
+            MyBase.PreInit()
+            'Wenn Plugin initialisiert wird -> verwenden für globale variablen
+
+            Translator.SetProperty("#ClickfinderProgramGuide.Movie1", "Es funktioniert")
+
+        End Sub
         Protected Overrides Sub OnPageLoad()
             MyBase.OnPageLoad()
             GUIWindowManager.NeedRefresh()
 
+
+            'CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Now)
+            'GUIWindowManager.ReplaceWindow(1656544654)
+            'GUIWindowManager.ActivateWindow(1656544654)
+
             MyLog.Info("")
             MyLog.Info("")
             MyLog.Info("[HighlightsGuiWindow] -------------[OPEN]-------------")
+
+
 
             Try
 
@@ -510,7 +524,7 @@ Namespace ClickfinderProgramGuide
                             If _isInFavGroup.Count = 0 Then
                                 Continue For
                             End If
-                          
+
                             _Result.Add(_TvMovieTagesTipps.Item(i))
 
                             _idProgramTagesTipp = _TvMovieTagesTipps.Item(i)

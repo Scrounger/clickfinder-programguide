@@ -5,18 +5,29 @@ Imports MediaPortal.GUI.Library
 Public Class GuiButtons
 
     Friend Shared Sub Now()
-        CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Now)
-        GUIWindowManager.ActivateWindow(1656544654)
+        Try
+            CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Now)
+            GUIWindowManager.ActivateWindow(1656544654)
+        Catch ex As Exception
+            MyLog.Error("[Button] [Now]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
+        End Try
     End Sub
     Friend Shared Sub PrimeTime()
-        CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.PrimeTime)
-        GUIWindowManager.ActivateWindow(1656544654)
+        Try
+            CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.PrimeTime)
+            GUIWindowManager.ActivateWindow(1656544654)
+        Catch ex As Exception
+            MyLog.Error("[Button] [PrimeTime]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
+        End Try
     End Sub
     Friend Shared Sub LateTime()
-        CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.LateTime)
-        GUIWindowManager.ActivateWindow(1656544654)
+        Try
+            CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.LateTime)
+            GUIWindowManager.ActivateWindow(1656544654)
+        Catch ex As Exception
+            MyLog.Error("[Button] [LateTime]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
+        End Try
     End Sub
-
     Friend Shared Sub AllMovies()
         Try
             Dim _endTime As New Date(Date.Now.Year, Date.Now.Month, Date.Now.AddDays(1).Day)
@@ -35,13 +46,16 @@ Public Class GuiButtons
             Translator.SetProperty("#ItemsLeftListLabel", Translation.allMoviesAt & " " & Format(Date.Now.AddMinutes(-60).Hour, "00") & ":" & Format(Date.Now.AddMinutes(-60).Minute, "00") & " - " & Format(_endTime.Hour, "00") & ":" & Format(_endTime.Minute, "00"))
             GUIWindowManager.ActivateWindow(1656544653)
         Catch ex As Exception
-            MyLog.Error("[HighlightsGUIWindow] [_btnAllMovies]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
+            MyLog.Error("[Button] [AllMovies]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
         End Try
 
     End Sub
-
     Friend Shared Sub Highlights()
-        GUIWindowManager.ActivateWindow(165654465)
+        Try
+            GUIWindowManager.ActivateWindow(165654465)
+        Catch ex As Exception
+            MyLog.Error("[Button] [Highlights]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
+        End Try
     End Sub
 
     Friend Shared Sub Preview()
