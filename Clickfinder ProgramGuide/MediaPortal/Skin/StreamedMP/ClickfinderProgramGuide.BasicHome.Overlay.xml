@@ -1,0 +1,446 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<window>
+  <controls>
+    <control>
+      <description>GROUP: Clickfinder ProgramGuide: Movie 1</description>
+      <type>group</type>
+      <dimColor>0xffffffff</dimColor>
+      <visible>[control.isvisible(1004)|control.isvisible(1007)]+[string.equals(#latestMediaHandler.tvrecordings.latest.enabled,true)]</visible>
+      <animation effect="fade" start="100" end="0" time="250" reversible="false">Hidden</animation>
+      <animation effect="fade" start="0" end="100" delay="700" time="500" reversible="false">Visible</animation>
+      <animation effect="fade" start="0" end="100" time="4000" reversible="false">WindowOpen</animation>
+      <animation effect="slide" end="300,0" time="1500" acceleration="-0.1" reversible="false">Hidden</animation>
+      <animation effect="slide" start="300,0" end="0,0" time="1000" acceleration="-0.1" reversible="false">Visible</animation>
+      <animation effect="slide" start="400,0" end="0,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowOpen</animation>
+      <animation effect="slide" end="400,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowClose</animation>
+      <control>
+        <description>Movie 1 BG</description>
+        <posX>860</posX>
+        <posY>50</posY>
+        <type>image</type>
+        <id>0</id>
+        <width>420</width>
+        <height>96</height>
+        <texture>pic_preview_thumb_background.png</texture>
+        <colordiffuse>EEFFFFFF</colordiffuse>
+        <visible>!string.equals(#ClickfinderPG.Movie1.Title,)</visible>
+      </control>
+      <control>
+        <description>MovieImage 1</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>872</posX>
+        <posY>54</posY>
+        <width>100</width>
+        <height>86</height>
+        <texture>#ClickfinderPG.Movie1.Image</texture>
+        <filtered>yes</filtered>
+        <centered>yes</centered>
+        <keepaspectratio>yes</keepaspectratio>
+        <visible>!string.equals(#ClickfinderPG.Movie1.Title,)</visible>
+      </control>
+      <control>
+        <description>MovieRatingStar Image 1</description>
+        <type>imagelist</type>
+        <id>1</id>
+        <posX>980</posX>
+        <posY>80</posY>
+        <width>120</width>
+        <height>10</height>
+        <textureWidth>12</textureWidth>
+        <textureHeight>12</textureHeight>
+        <subitems>
+          <subitem>UserRatingStarOff.png</subitem>
+          <subitem>stargood.png</subitem>
+        </subitems>
+        <orientation>horizontal</orientation>
+        <align>left</align>
+        <imagesToDraw>10</imagesToDraw>
+        <percentage>#ClickfinderPG.Movie1.RatingStar</percentage>
+        <visible>!string.equals(#ClickfinderPG.Movie1.Title,)</visible>
+      </control>
+      <control>
+        <description>MovieTvMovieStar1</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>860</posX>
+        <posY>116</posY>
+        <width>32</width>
+        <height>32</height>
+        <texture>#ClickfinderPG.Movie1.TvMovieStar</texture>
+        <centered>no</centered>
+        <keepaspectratio>no</keepaspectratio>
+        <visible>!string.equals(#ClickfinderPG.Movie1.Title,)</visible>
+      </control>
+      <control>
+        <description>MovieTitle 1</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>980</posX>
+        <posY>58</posY>
+        <width>280</width>
+        <label>#ClickfinderPG.Movie1.Title</label>
+        <font>mediastream10tc</font>
+        <textcolor>White</textcolor>
+        <visible>!string.equals(#ClickfinderPG.Movie1.Title,)</visible>
+      </control>
+      <control>
+        <description>MovieGenre 1</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>980</posX>
+        <posY>94</posY>
+        <width>280</width>
+        <label>#ClickfinderPG.Movie1.Genre</label>
+        <font>mediastream10</font>
+        <textcolor>ff909090</textcolor>
+        <visible>!string.equals(#ClickfinderPG.Movie1.Title,)</visible>
+      </control>
+      <control>
+        <description>MovieTime 1</description>
+        <type>label</type>
+        <id>0</id>
+        <posX>1260</posX>
+        <posY>120</posY>
+        <align>right</align>
+        <width>255</width>
+        <scrollStartDelaySec>30</scrollStartDelaySec>
+        <label>#ClickfinderPG.Movie1.Channel - #ClickfinderPG.Movie1.Time</label>
+        <font>mediastream10</font>
+        <textcolor>ff909090</textcolor>
+        <visible>!string.equals(#ClickfinderPG.Movie1.Title,)</visible>
+
+      </control>
+    </control>
+    <control>
+      <description>GROUP: Clickfinder ProgramGuide: Movie 2</description>
+      <type>group</type>
+      <dimColor>0xffffffff</dimColor>
+      <visible>[control.isvisible(1004)|control.isvisible(1007)]+[string.equals(#latestMediaHandler.tvrecordings.latest.enabled,true)]</visible>
+      <animation effect="fade" start="100" end="0" time="250" reversible="false">Hidden</animation>
+      <animation effect="fade" start="0" end="100" delay="700" time="500" reversible="false">Visible</animation>
+      <animation effect="fade" start="0" end="100" time="4000" reversible="false">WindowOpen</animation>
+      <animation effect="slide" end="300,0" time="1500" acceleration="-0.1" reversible="false">Hidden</animation>
+      <animation effect="slide" start="300,0" end="0,0" time="1000" acceleration="-0.1" reversible="false">Visible</animation>
+      <animation effect="slide" start="400,0" end="0,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowOpen</animation>
+      <animation effect="slide" end="400,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowClose</animation>
+      <control>
+        <description>Movie 2 BG</description>
+        <posX>860</posX>
+        <posY>150</posY>
+        <type>image</type>
+        <id>0</id>
+        <width>420</width>
+        <height>96</height>
+        <texture>pic_preview_thumb_background.png</texture>
+        <visible>!string.equals(#ClickfinderPG.Movie2.Title,)</visible>
+        <colordiffuse>EEFFFFFF</colordiffuse>
+      </control>
+      <control>
+        <description>MovieImage 2</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>872</posX>
+        <posY>154</posY>
+        <width>100</width>
+        <height>86</height>
+        <texture>#ClickfinderPG.Movie2.Image</texture>
+        <filtered>yes</filtered>
+        <centered>yes</centered>
+        <keepaspectratio>yes</keepaspectratio>
+        <visible>!string.equals(#ClickfinderPG.Movie2.Title,)</visible>
+      </control>
+      <control>
+        <description>MovieRatingStar Image 2</description>
+        <type>imagelist</type>
+        <id>1</id>
+        <posX>980</posX>
+        <posY>180</posY>
+        <width>120</width>
+        <height>10</height>
+        <textureWidth>12</textureWidth>
+        <textureHeight>12</textureHeight>
+        <subitems>
+          <subitem>UserRatingStarOff.png</subitem>
+          <subitem>stargood.png</subitem>
+        </subitems>
+        <orientation>horizontal</orientation>
+        <align>left</align>
+        <imagesToDraw>10</imagesToDraw>
+        <percentage>#ClickfinderPG.Movie2.RatingStar</percentage>
+        <visible>!string.equals(#ClickfinderPG.Movie2.Title,)</visible>
+      </control>
+      <control>
+        <description>MovieTvMovieStar2</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>860</posX>
+        <posY>216</posY>
+        <width>32</width>
+        <height>32</height>
+        <texture>#ClickfinderPG.Movie2.TvMovieStar</texture>
+        <centered>no</centered>
+        <keepaspectratio>no</keepaspectratio>
+        <visible>!string.equals(#ClickfinderPG.Movie2.Title,)</visible>
+      </control>
+      <control>
+        <description>MovieTitle 2</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>980</posX>
+        <posY>158</posY>
+        <width>280</width>
+        <label>#ClickfinderPG.Movie2.Title</label>
+        <font>mediastream10tc</font>
+        <textcolor>White</textcolor>
+        <visible>!string.equals(#ClickfinderPG.Movie2.Title,)</visible>
+      </control>
+      <control>
+        <description>MovieGenre 2</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>980</posX>
+        <posY>194</posY>
+        <width>280</width>
+        <label>#ClickfinderPG.Movie2.Genre</label>
+        <font>mediastream10</font>
+        <textcolor>ff909090</textcolor>
+        <visible>!string.equals(#ClickfinderPG.Movie2.Title,)</visible>
+      </control>
+      <control>
+        <description>MovieTime 2</description>
+        <type>label</type>
+        <id>0</id>
+        <posX>1260</posX>
+        <posY>220</posY>
+        <align>right</align>
+        <width>255</width>
+        <scrollStartDelaySec>30</scrollStartDelaySec>
+        <label>#ClickfinderPG.Movie2.Channel - #ClickfinderPG.Movie2.Time</label>
+        <font>mediastream10c</font>
+        <textcolor>ff909090</textcolor>
+        <visible>!string.equals(#ClickfinderPG.Movie2.Title,)</visible>
+      </control>
+    </control>
+    <control>
+      <description>GROUP: Clickfinder ProgramGuide: Movie 3</description>
+      <type>group</type>
+      <dimColor>0xffffffff</dimColor>
+      <visible>[control.isvisible(1004)|control.isvisible(1007)]+[string.equals(#latestMediaHandler.tvrecordings.latest.enabled,true)]</visible>
+      <animation effect="fade" start="100" end="0" time="250" reversible="false">Hidden</animation>
+      <animation effect="fade" start="0" end="100" delay="700" time="500" reversible="false">Visible</animation>
+      <animation effect="fade" start="0" end="100" time="4000" reversible="false">WindowOpen</animation>
+      <animation effect="slide" end="300,0" time="1500" acceleration="-0.1" reversible="false">Hidden</animation>
+      <animation effect="slide" start="300,0" end="0,0" time="1000" acceleration="-0.1" reversible="false">Visible</animation>
+      <animation effect="slide" start="400,0" end="0,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowOpen</animation>
+      <animation effect="slide" end="400,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowClose</animation>
+      <control>
+        <description>Movie 3 BG</description>
+        <posX>860</posX>
+        <posY>250</posY>
+        <type>image</type>
+        <id>0</id>
+        <width>420</width>
+        <height>96</height>
+        <texture>pic_preview_thumb_background.png</texture>
+        <visible>!string.equals(#ClickfinderPG.Movie3.Title,)</visible>
+        <colordiffuse>EEFFFFFF</colordiffuse>
+      </control>
+      <control>
+        <description>MovieImage 3</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>872</posX>
+        <posY>254</posY>
+        <width>100</width>
+        <height>86</height>
+        <texture>#ClickfinderPG.Movie3.Image</texture>
+        <filtered>yes</filtered>
+        <centered>yes</centered>
+        <keepaspectratio>yes</keepaspectratio>
+        <visible>!string.equals(#ClickfinderPG.Movie3.Title,)</visible>
+      </control>
+      <control>
+        <description>MovieRatingStar Image 3</description>
+        <type>imagelist</type>
+        <id>1</id>
+        <posX>980</posX>
+        <posY>280</posY>
+        <width>120</width>
+        <height>10</height>
+        <textureWidth>12</textureWidth>
+        <textureHeight>12</textureHeight>
+        <subitems>
+          <subitem>UserRatingStarOff.png</subitem>
+          <subitem>stargood.png</subitem>
+        </subitems>
+        <orientation>horizontal</orientation>
+        <align>left</align>
+        <imagesToDraw>10</imagesToDraw>
+        <percentage>#ClickfinderPG.Movie3.RatingStar</percentage>
+        <visible>!string.equals(#ClickfinderPG.Movie3.Title,)</visible>
+      </control>
+      <control>
+        <description>MovieTvMovieStar3</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>860</posX>
+        <posY>316</posY>
+        <width>32</width>
+        <height>32</height>
+        <texture>#ClickfinderPG.Movie3.TvMovieStar</texture>
+        <centered>no</centered>
+        <keepaspectratio>no</keepaspectratio>
+        <visible>!string.equals(#ClickfinderPG.Movie3.Title,)</visible>
+      </control>
+      <control>
+        <description>MovieTitle 3</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>980</posX>
+        <posY>258</posY>
+        <width>280</width>
+        <label>#ClickfinderPG.Movie3.Title</label>
+        <font>mediastream10tc</font>
+        <textcolor>White</textcolor>
+        <visible>!string.equals(#ClickfinderPG.Movie3.Title,)</visible>
+      </control>
+      <control>
+        <description>MovieGenre 3</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>980</posX>
+        <posY>294</posY>
+        <width>280</width>
+        <label>#ClickfinderPG.Movie3.Genre</label>
+        <font>mediastream10</font>
+        <textcolor>ff909090</textcolor>
+        <visible>!string.equals(#ClickfinderPG.Movie3.Title,)</visible>
+      </control>
+      <control>
+        <description>MovieTime 3</description>
+        <type>label</type>
+        <id>0</id>
+        <posX>1260</posX>
+        <posY>320</posY>
+        <align>right</align>
+        <width>255</width>
+        <scrollStartDelaySec>30</scrollStartDelaySec>
+        <label>#ClickfinderPG.Movie3.Channel - #ClickfinderPG.Movie3.Time</label>
+        <font>mediastream10c</font>
+        <textcolor>ff909090</textcolor>
+        <visible>!string.equals(#ClickfinderPG.Movie3.Title,)</visible>
+      </control>
+    </control>
+    <control>
+      <description>GROUP: Clickfinder ProgramGuide: Movie 4</description>
+      <type>group</type>
+      <dimColor>0xffffffff</dimColor>
+      <visible>[control.isvisible(1004)|control.isvisible(1007)]+[string.equals(#latestMediaHandler.tvrecordings.latest.enabled,true)]</visible>
+      <animation effect="fade" start="100" end="0" time="250" reversible="false">Hidden</animation>
+      <animation effect="fade" start="0" end="100" delay="700" time="500" reversible="false">Visible</animation>
+      <animation effect="fade" start="0" end="100" time="4000" reversible="false">WindowOpen</animation>
+      <animation effect="slide" end="300,0" time="1500" acceleration="-0.1" reversible="false">Hidden</animation>
+      <animation effect="slide" start="300,0" end="0,0" time="1000" acceleration="-0.1" reversible="false">Visible</animation>
+      <animation effect="slide" start="400,0" end="0,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowOpen</animation>
+      <animation effect="slide" end="400,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowClose</animation>
+      <control>
+        <description>Movie 4 BG</description>
+        <posX>860</posX>
+        <posY>350</posY>
+        <type>image</type>
+        <id>0</id>
+        <width>420</width>
+        <height>96</height>
+        <texture>pic_preview_thumb_background.png</texture>
+        <colordiffuse>EEFFFFFF</colordiffuse>
+        <visible>!string.equals(#ClickfinderPG.Movie4.Title,)</visible>
+      </control>
+      <control>
+        <description>MovieImage 4</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>872</posX>
+        <posY>354</posY>
+        <width>100</width>
+        <height>86</height>
+        <texture>#ClickfinderPG.Movie4.Image</texture>
+        <filtered>yes</filtered>
+        <centered>yes</centered>
+        <keepaspectratio>yes</keepaspectratio>
+        <visible>!string.equals(#ClickfinderPG.Movie4.Title,)</visible>
+      </control>
+      <control>
+        <description>MovieRatingStar Image 4</description>
+        <type>imagelist</type>
+        <id>1</id>
+        <posX>980</posX>
+        <posY>380</posY>
+        <width>120</width>
+        <height>10</height>
+        <textureWidth>12</textureWidth>
+        <textureHeight>12</textureHeight>
+        <subitems>
+          <subitem>UserRatingStarOff.png</subitem>
+          <subitem>stargood.png</subitem>
+        </subitems>
+        <orientation>horizontal</orientation>
+        <align>left</align>
+        <imagesToDraw>10</imagesToDraw>
+        <percentage>#ClickfinderPG.Movie4.RatingStar</percentage>
+        <visible>!string.equals(#ClickfinderPG.Movie4.Title,)</visible>
+      </control>
+      <control>
+        <description>MovieTvMovieStar4</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>860</posX>
+        <posY>416</posY>
+        <width>32</width>
+        <height>32</height>
+        <texture>#ClickfinderPG.Movie4.TvMovieStar</texture>
+        <centered>no</centered>
+        <keepaspectratio>no</keepaspectratio>
+        <visible>!string.equals(#ClickfinderPG.Movie4.Title,)</visible>
+      </control>
+      <control>
+        <description>MovieTitle 4</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>980</posX>
+        <posY>358</posY>
+        <width>280</width>
+        <label>#ClickfinderPG.Movie4.Title</label>
+        <font>mediastream10tc</font>
+        <textcolor>White</textcolor>
+        <visible>!string.equals(#ClickfinderPG.Movie4.Title,)</visible>
+      </control>
+      <control>
+        <description>MovieGenre 4</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>980</posX>
+        <posY>394</posY>
+        <width>280</width>
+        <label>#ClickfinderPG.Movie4.Genre</label>
+        <font>mediastream10</font>
+        <textcolor>ff909090</textcolor>
+        <visible>!string.equals(#ClickfinderPG.Movie4.Title,)</visible>
+      </control>
+      <control>
+        <description>MovieTime 4</description>
+        <type>label</type>
+        <id>0</id>
+        <posX>1260</posX>
+        <posY>420</posY>
+        <align>right</align>
+        <width>255</width>
+        <scrollStartDelaySec>30</scrollStartDelaySec>
+        <label>#ClickfinderPG.Movie4.Channel - #ClickfinderPG.Movie4.Time</label>
+        <font>mediastream10c</font>
+        <textcolor>ff909090</textcolor>
+        <visible>!string.equals(#ClickfinderPG.Movie4.Title,)</visible>
+      </control>
+    </control>
+  </controls>
+</window>

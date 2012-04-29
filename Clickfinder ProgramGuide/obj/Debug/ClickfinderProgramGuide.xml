@@ -135,6 +135,40 @@ ClickfinderProgramGuide
  if the selected lang file is not found, it will first try to load en(us).xml as a backup
  if that also fails it will use the hardcoded strings as a last resort.
  </summary>
+</member><member name="M:ClickfinderProgramGuide.TvDatabase.TvMovieSeriesMapping.#ctor(System.Int32)">
+	<summary> 
+ Create an object from an existing row of data. This will be used by Gentle to 
+ construct objects from retrieved rows. 
+ </summary>
+</member><member name="P:ClickfinderProgramGuide.TvDatabase.TvMovieSeriesMapping.IsChanged">
+	<summary>
+ Indicates whether the entity is changed and requires saving or not.
+ </summary>
+</member><member name="P:ClickfinderProgramGuide.TvDatabase.TvMovieSeriesMapping.idSeries">
+	<summary>
+ Property relating to database column idSeries
+ </summary>
+</member><member name="M:ClickfinderProgramGuide.TvDatabase.TvMovieSeriesMapping.ListAll">
+	<summary>
+ Static method to retrieve all instances that are stored in the database in one call
+ </summary>
+</member><member name="M:ClickfinderProgramGuide.TvDatabase.TvMovieSeriesMapping.Retrieve(System.Int32)">
+	<summary>
+ Retrieves an entity given it's id.
+ </summary>
+</member><member name="M:ClickfinderProgramGuide.TvDatabase.TvMovieSeriesMapping.Retrieve(Gentle.Framework.Key)">
+	<summary>
+ Retrieves an entity given it's id, using Gentle.Framework.Key class.
+ This allows retrieval based on multi-column keys.
+ </summary>
+</member><member name="M:ClickfinderProgramGuide.TvDatabase.TvMovieSeriesMapping.Persist">
+	<summary>
+ Persists the entity if it was never persisted or was changed.
+ </summary>
+</member><member name="T:ClickfinderProgramGuide.TvDatabase.TvMovieSeriesMapping">
+	<summary>
+ Instances of this class represent the properties and methods of a row in the table <b>TvMovieSeriesMapping</b>.
+ </summary>
 </member><member name="P:ClickfinderProgramGuide.My.Resources.Resources.ResourceManager">
 	<summary>
   Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
@@ -161,11 +195,6 @@ ClickfinderProgramGuide
  </summary>
 	<param name="input">a string containing ${named} variables that represent the translation keys</param>
 	<returns>translated input string</returns>
-</member><member name="M:ClickfinderProgramGuide.Helper.GetHDChannel(TvDatabase.Program)">
-	<summary>
- Prüft ob Program auf gleich gemappten (TvMovieMapping) HDSender existiert
- </summary>
-	<returns>0 - kein Treffer, idprogram sofern treffer</returns>
 </member><member name="M:ClickfinderProgramGuide.Helper.getTvMovieProgram(TvDatabase.Program)">
 	<summary>
  Holt / erstellt TvMovieProgram

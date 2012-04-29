@@ -89,3 +89,15 @@ D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPor
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_overlay.png
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_TopBarBG.png
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\Media\hover_ClickfinderProgramGuide.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.HiddenMenu.xml
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_SepHor.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\dolby.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\hd.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\sd.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\stereo.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_SepHor.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\dolby.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\hd.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\stereo.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\sd.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuide.HiddenMenu.xml

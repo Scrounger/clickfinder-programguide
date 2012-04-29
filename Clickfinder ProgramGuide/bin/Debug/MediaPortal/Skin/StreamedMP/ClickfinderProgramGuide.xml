@@ -157,6 +157,8 @@
       <textureDownFocus>arrow_round_down_focus.png</textureDownFocus>
       <keepaspectratio>yes</keepaspectratio>
       <textureHeight>97</textureHeight>
+      <PinIconXOff>570</PinIconXOff>
+      <PinIconYOff>10</PinIconYOff>
       <IconXOff>4</IconXOff>
       <IconYOff>4</IconYOff>
       <textXOff>20</textXOff>
@@ -527,6 +529,8 @@
       <textureHeight>60</textureHeight>
       <keepaspectratio>yes</keepaspectratio>
       <spaceBetweenItems>4</spaceBetweenItems>
+      <PinIconXOff>570</PinIconXOff>
+      <PinIconYOff>10</PinIconYOff>
       <IconXOff>4</IconXOff>
       <IconYOff>4</IconYOff>
       <textXOff>2</textXOff>
@@ -549,116 +553,10 @@
       <visible></visible>
     </control>
 
-
     <!-- ActionGroup -->
-    <!-- ActionGroup -->
-    <control>
-      <type>actiongroup</type>
-      <description>action menu</description>
-      <defaultcontrol>2</defaultcontrol>
-      <onexit>10</onexit>
-      <buttonX>1232</buttonX>
-      <buttonY>50</buttonY>
-      <buttonwidth>48</buttonwidth>
-      <buttonheight>144</buttonheight>
-      <textureFocus>#StreamedMP.ActionMenu.Image</textureFocus>
-      <textureNoFocus>#StreamedMP.ActionMenu.Image</textureNoFocus>
-      <dimColor>00ffffff</dimColor>
-      <animation effect="fade" time="250">WindowOpen</animation>
-      <animation effect="fade" time="250">WindowClose</animation>
-      <control>
-        <type>image</type>
-        <posX>1002</posX>
-        <posY>0</posY>
-        <width>278</width>
-        <height>720</height>
-        <texture>hiddenmenu_right.png</texture>
-        <visible>!control.hasfocus(10)|control.isvisible(30)</visible>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>
-      <control>
-        <type>group</type>
-        <description>group element</description>
-        <posX>1012</posX>
-        <posY>130</posY>
-        <layout>Stacklayout(Vertical,50,false)</layout>
-        <visible>!control.hasfocus(10)|!control.isvisible(30)</visible>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-
-      </control>
-      <control>
-        <type>group</type>
-        <description>group element</description>
-        <posX>1012</posX>
-        <posY>130</posY>
-        <layout>Stacklayout(Vertical,50,false)</layout>
-        <visible>!control.hasfocus(10)|!control.hasfocus(30)</visible>
-        <animation effect="slide" time="100" start="-300,0">visible</animation>
-        <animation effect="slide" time="0" end="-300,0">hidden</animation>
-        <control>
-          <description>Now</description>
-          <type>button</type>
-          <id>2</id>
-          <width>263</width>
-          <textalign>center</textalign>
-          <label>#ClickfinderPG.Translation.Now</label>
-          <font>mediastream10</font>
-          <onup>5</onup>
-          <ondown>3</ondown>
-          <onright>10</onright>
-        </control>
-        <control>
-          <description>20:15</description>
-          <type>button</type>
-          <id>3</id>
-          <width>263</width>
-          <textalign>center</textalign>
-          <label>#ClickfinderPG.Translation.PrimeTime</label>
-          <font>mediastream10</font>
-          <onup>2</onup>
-          <ondown>4</ondown>
-          <onright>10</onright>
-        </control>
-        <control>
-          <description>22:00 Movies</description>
-          <type>button</type>
-          <id>4</id>
-          <width>263</width>
-          <textalign>center</textalign>
-          <label>#ClickfinderPG.Translation.LateTime</label>
-          <font>mediastream10</font>
-          <onup>3</onup>
-          <ondown>5</ondown>
-          <onright>10</onright>
-        </control>
-        <control>
-          <description>Highlights</description>
-          <type>button</type>
-          <id>5</id>
-          <width>263</width>
-          <textalign>center</textalign>
-          <label>#ClickfinderPG.Translation.Highlights</label>
-          <font>mediastream10</font>
-          <onup>4</onup>
-          <ondown>6</ondown>
-          <onright>10</onright>
-        </control>
-        <control>
-          <description>Preview</description>
-          <type>button</type>
-          <id>6</id>
-          <width>263</width>
-          <textalign>center</textalign>
-          <label>#ClickfinderPG.Translation.Preview</label>
-          <font>mediastream10</font>
-          <onup>5</onup>
-          <ondown>2</ondown>
-          <onright>10</onright>
-        </control>
-      </control>
-    </control>
+    <import>ClickfinderProgramGuide.HiddenMenu.xml</import>
+    
+    
     <control>
       <id>1</id>
       <description>Time Progressbar Background Image</description>

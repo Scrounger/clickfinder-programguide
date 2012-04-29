@@ -79,7 +79,7 @@ Public NotInheritable Class Translation
 
     Public Shared NextLabel = "Gleich läuft:"
 
-
+    Public Shared OverlayTitle = "Heute im Fernsehen"
     Public Shared Back = "Zurück"
     Public Shared Warning = "Warnung"
     Public Shared TvServerOffline = "Tv Server nicht erreichbar!"
