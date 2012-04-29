@@ -180,20 +180,20 @@ Namespace ClickfinderProgramGuide
                         For i = 0 To _TvMovieTagesTipps.Count - 1
                             Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_TvMovieTagesTipps.Item(i))
 
-                            'Prüfen ob in Standard Tv Gruppe
-                            Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value)
-                            Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
+                            ''Prüfen ob in Standard Tv Gruppe
+                            'Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _layer.GetSetting("ClickfinderOverlayTvGroup", "All Channels").Value)
+                            'Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
 
-                            'Alle Gruppen des _program laden
-                            Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
-                            sb.AddConstraint([Operator].Equals, "idgroup", _Group.IdGroup)
-                            sb.AddConstraint([Operator].Equals, "idChannel", _TvMovieProgram.ReferencedProgram.IdChannel)
-                            Dim stmt As SqlStatement = sb.GetStatement(True)
-                            Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
+                            ''Alle Gruppen des _program laden
+                            'Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
+                            'sb.AddConstraint([Operator].Equals, "idgroup", _Group.IdGroup)
+                            'sb.AddConstraint([Operator].Equals, "idChannel", _TvMovieProgram.ReferencedProgram.IdChannel)
+                            'Dim stmt As SqlStatement = sb.GetStatement(True)
+                            'Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
 
-                            If _isInFavGroup.Count = 0 Then
-                                Continue For
-                            End If
+                            'If _isInFavGroup.Count = 0 Then
+                            '    Continue For
+                            'End If
 
                             _Result.Add(_TvMovieTagesTipps.Item(i))
 
@@ -231,22 +231,21 @@ Namespace ClickfinderProgramGuide
                    "AND genre NOT LIKE '%Sitcom%' " & _
                    "AND genre NOT LIKE '%Zeichentrick%' "
 
-                Select Case (_layer.GetSetting("ClickfinderOverviewMovieSort", SortMethode.startTime.ToString).Value)
+                Select Case (_layer.GetSetting("ClickfinderOverlayMovieSort", SortMethode.startTime.ToString).Value)
                     Case Is = SortMethode.startTime.ToString
                         _LogLocalSortedBy = SortMethode.startTime.ToString
-                        _SQLstring = _SQLstring & Helper.ORDERBYstartTime & _
-                                                  " LIMIT 25"
+                        _SQLstring = _SQLstring & Helper.ORDERBYstartTime 
 
                     Case Is = SortMethode.TvMovieStar.ToString
                         _LogLocalSortedBy = SortMethode.TvMovieStar.ToString
-                        _SQLstring = _SQLstring & Helper.ORDERBYtvMovieBewertung & _
-                                                  " LIMIT 25"
+                        _SQLstring = _SQLstring & Helper.ORDERBYtvMovieBewertung 
 
                     Case Is = SortMethode.RatingStar.ToString
                         _LogLocalSortedBy = SortMethode.RatingStar.ToString
-                        _SQLstring = _SQLstring & Helper.ORDERBYstarRating & _
-                                                  " LIMIT 25"
+                        _SQLstring = _SQLstring & Helper.ORDERBYstarRating 
                 End Select
+
+                _SQLstring = _SQLstring & " LIMIT " & _layer.GetSetting("ClickfinderOverlayMovieLimit", "10").Value
 
                 Log.Debug("[PreInit] [BasicHomeOverlay]: sorted by {0}, show TvMovie TagesTipp = {1}, SQLString: {2}", _LogLocalSortedBy, _logShowTagesTipp, _SQLstring)
 
@@ -276,20 +275,23 @@ Namespace ClickfinderProgramGuide
                                 Continue For
                             End If
 
-                            'Prüfen ob in Standard Tv Gruppe
-                            Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value)
-                            Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
+                            'Prüfen ob in Standard Tv Gruppe, nur wenn nicht Tagestipp
+                            If Not _TvMovieProgram.idProgram = _idProgramTagesTipp Then
+                                Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _layer.GetSetting("ClickfinderOverlayTvGroup", "All Channels").Value)
+                                Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
 
-                            'Alle Gruppen des _program laden
-                            Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
-                            sb.AddConstraint([Operator].Equals, "idgroup", _Group.IdGroup)
-                            sb.AddConstraint([Operator].Equals, "idChannel", _TvMovieProgram.ReferencedProgram.IdChannel)
-                            Dim stmt As SqlStatement = sb.GetStatement(True)
-                            Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
+                                'Alle Gruppen des _program laden
+                                Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
+                                sb.AddConstraint([Operator].Equals, "idgroup", _Group.IdGroup)
+                                sb.AddConstraint([Operator].Equals, "idChannel", _TvMovieProgram.ReferencedProgram.IdChannel)
+                                Dim stmt As SqlStatement = sb.GetStatement(True)
+                                Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
 
-                            If _isInFavGroup.Count = 0 Then
-                                Continue For
+                                If _isInFavGroup.Count = 0 Then
+                                    Continue For
+                                End If
                             End If
+
 
                             'Prüfen ob schon in der Liste vorhanden
                             If String.Equals(_lastTitle, _TvMovieProgram.ReferencedProgram.Title & _TvMovieProgram.ReferencedProgram.EpisodeName) = False Then

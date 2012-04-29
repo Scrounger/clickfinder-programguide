@@ -55,6 +55,8 @@ Public Class Setup
 
             CheckBoxOverlayShowTagesTipp.Checked = _layer.GetSetting("ClickfinderOverlayShowTagesTipp", "false").Value
             CheckBoxOverlayShowLocalMovies.Checked = _layer.GetSetting("ClickfinderOverlayShowLocalMovies", "false").Value
+            NumOverlayLimit.Value = _layer.GetSetting("ClickfinderOverlayMovieLimit", "10").Value
+
 
             Select Case _layer.GetSetting("ClickfinderDetailsSeriesImage", "Cover").Value
                 Case Is = "Cover"
@@ -85,6 +87,15 @@ Public Class Setup
                     RBTvMovieStar.Checked = True
                 Case Is = Helper.SortMethode.RatingStar.ToString
                     RBRatingStar.Checked = True
+            End Select
+
+            Select Case (_layer.GetSetting("ClickfinderOverlayMovieSort", Helper.SortMethode.RatingStar.ToString).Value)
+                Case Is = Helper.SortMethode.startTime.ToString
+                    RBOverlayStartTime.Checked = True
+                Case Is = Helper.SortMethode.TvMovieStar.ToString
+                    RBOverlayTvMovieStar.Checked = True
+                Case Is = Helper.SortMethode.RatingStar.ToString
+                    RBOverlayRatingStar.Checked = True
             End Select
 
             Select Case (_layer.GetSetting("ClickfinderOverlayTime", "PrimeTime").Value)
@@ -137,6 +148,8 @@ Public Class Setup
                 cbStandardGroup.Items.Add(_groups(i).GroupName)
                 CbQuick1.Items.Add(_groups(i).GroupName)
                 CbQuick2.Items.Add(_groups(i).GroupName)
+                CBOverlayGroup.Items.Add(_groups(i).GroupName)
+
                 If _groups(i).GroupName = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value Then
                     cbStandardGroup.Text = _groups(i).GroupName
                 End If
@@ -147,6 +160,10 @@ Public Class Setup
 
                 If _groups(i).GroupName = _layer.GetSetting("ClickfinderQuickTvGroup2", "All Channels").Value Then
                     CbQuick2.Text = _groups(i).GroupName
+                End If
+
+                If _groups(i).GroupName = _layer.GetSetting("ClickfinderOverlayTvGroup", "All Channels").Value Then
+                    CBOverlayGroup.Text = _groups(i).GroupName
                 End If
 
             Next
@@ -214,6 +231,14 @@ Public Class Setup
 
             setting = _layer.GetSetting("ClickfinderPluginName", "Clickfinder ProgramGuide")
             setting.Value = tbPluginName.Text
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderOverlayMovieLimit", "10")
+            setting.Value = NumOverlayLimit.Value
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderOverlayTvGroup", "All Channels")
+            setting.Value = CBOverlayGroup.Text
             setting.Persist()
 
             SaveCategories()
@@ -692,6 +717,27 @@ Public Class Setup
         Dim _layer As New TvBusinessLayer
         Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayTime", "PrimeTime")
         setting.Value = "LateTime"
+        setting.Persist()
+    End Sub
+
+    Private Sub RBOverlayStartTime_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBOverlayStartTime.CheckedChanged
+        Dim _layer As New TvBusinessLayer
+        Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayMovieSort", Helper.SortMethode.RatingStar.ToString)
+        setting.Value = Helper.SortMethode.startTime.ToString
+        setting.Persist()
+    End Sub
+
+    Private Sub RBOverlayTvMovieStar_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBOverlayTvMovieStar.CheckedChanged
+        Dim _layer As New TvBusinessLayer
+        Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayMovieSort", Helper.SortMethode.RatingStar.ToString)
+        setting.Value = Helper.SortMethode.TvMovieStar.ToString
+        setting.Persist()
+    End Sub
+
+    Private Sub RBOverlayRatingStar_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBOverlayRatingStar.CheckedChanged
+        Dim _layer As New TvBusinessLayer
+        Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayMovieSort", Helper.SortMethode.RatingStar.ToString)
+        setting.Value = Helper.SortMethode.RatingStar.ToString
         setting.Persist()
     End Sub
 End Class

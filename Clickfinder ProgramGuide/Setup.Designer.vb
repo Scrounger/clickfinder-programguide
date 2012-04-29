@@ -109,16 +109,25 @@ Partial Class Setup
         Me.RBSeriesFanArt = New System.Windows.Forms.RadioButton
         Me.RBSeriesCover = New System.Windows.Forms.RadioButton
         Me.CheckBoxUseSeriesDescribtion = New System.Windows.Forms.CheckBox
+        Me.TabOverlay = New System.Windows.Forms.TabPage
+        Me.GroupBox8 = New System.Windows.Forms.GroupBox
+        Me.CBOverlayGroup = New System.Windows.Forms.ComboBox
+        Me.NumOverlayLimit = New System.Windows.Forms.NumericUpDown
+        Me.Label21 = New System.Windows.Forms.Label
+        Me.CheckBoxOverlayShowLocalMovies = New System.Windows.Forms.CheckBox
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox
+        Me.RBOverlayStartTime = New System.Windows.Forms.RadioButton
+        Me.RBOverlayTvMovieStar = New System.Windows.Forms.RadioButton
+        Me.RBOverlayRatingStar = New System.Windows.Forms.RadioButton
+        Me.CheckBoxOverlayShowTagesTipp = New System.Windows.Forms.CheckBox
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox
+        Me.RBOverlayLateTime = New System.Windows.Forms.RadioButton
+        Me.RBOverlayPrimeTime = New System.Windows.Forms.RadioButton
+        Me.RBOverlayNow = New System.Windows.Forms.RadioButton
+        Me.RBOverlayHeute = New System.Windows.Forms.RadioButton
         Me.openFileDialog = New System.Windows.Forms.OpenFileDialog
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
-        Me.TabOverlay = New System.Windows.Forms.TabPage
-        Me.CheckBoxOverlayShowTagesTipp = New System.Windows.Forms.CheckBox
-        Me.CheckBoxOverlayShowLocalMovies = New System.Windows.Forms.CheckBox
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox
-        Me.RBOverlayHeute = New System.Windows.Forms.RadioButton
-        Me.RBOverlayNow = New System.Windows.Forms.RadioButton
-        Me.RBOverlayPrimeTime = New System.Windows.Forms.RadioButton
-        Me.RBOverlayLateTime = New System.Windows.Forms.RadioButton
+        Me.Label22 = New System.Windows.Forms.Label
         Me.TabControl1.SuspendLayout()
         Me.TabAllgemeines.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -136,9 +145,12 @@ Partial Class Setup
         CType(Me.dgvCategories, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabDetail.SuspendLayout()
         Me.GroupDetailSeriesImage.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabOverlay.SuspendLayout()
+        Me.GroupBox8.SuspendLayout()
+        CType(Me.NumOverlayLimit, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox7.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ButtonSave
@@ -274,15 +286,15 @@ Partial Class Setup
         Me.Label19.AutoSize = True
         Me.Label19.Location = New System.Drawing.Point(232, 225)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(101, 16)
+        Me.Label19.Size = New System.Drawing.Size(174, 16)
         Me.Label19.TabIndex = 29
-        Me.Label19.Text = "Quick Filter 2:"
+        Me.Label19.Text = "Quick Tv Gruppe Filter 2:"
         '
         'CbQuick2
         '
         Me.CbQuick2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CbQuick2.FormattingEnabled = True
-        Me.CbQuick2.Location = New System.Drawing.Point(383, 222)
+        Me.CbQuick2.Location = New System.Drawing.Point(412, 222)
         Me.CbQuick2.Name = "CbQuick2"
         Me.CbQuick2.Size = New System.Drawing.Size(191, 24)
         Me.CbQuick2.TabIndex = 28
@@ -292,15 +304,15 @@ Partial Class Setup
         Me.Label18.AutoSize = True
         Me.Label18.Location = New System.Drawing.Point(232, 188)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(101, 16)
+        Me.Label18.Size = New System.Drawing.Size(174, 16)
         Me.Label18.TabIndex = 27
-        Me.Label18.Text = "Quick Filter 1:"
+        Me.Label18.Text = "Quick Tv Gruppe Filter 1:"
         '
         'CbQuick1
         '
         Me.CbQuick1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CbQuick1.FormattingEnabled = True
-        Me.CbQuick1.Location = New System.Drawing.Point(383, 185)
+        Me.CbQuick1.Location = New System.Drawing.Point(412, 185)
         Me.CbQuick1.Name = "CbQuick1"
         Me.CbQuick1.Size = New System.Drawing.Size(191, 24)
         Me.CbQuick1.TabIndex = 26
@@ -318,7 +330,7 @@ Partial Class Setup
         '
         Me.cbStandardGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbStandardGroup.FormattingEnabled = True
-        Me.cbStandardGroup.Location = New System.Drawing.Point(383, 148)
+        Me.cbStandardGroup.Location = New System.Drawing.Point(412, 148)
         Me.cbStandardGroup.Name = "cbStandardGroup"
         Me.cbStandardGroup.Size = New System.Drawing.Size(191, 24)
         Me.cbStandardGroup.TabIndex = 24
@@ -702,7 +714,7 @@ Partial Class Setup
         Me.GroupBox3.Controls.Add(Me.RBstartTime)
         Me.GroupBox3.Controls.Add(Me.RBTvMovieStar)
         Me.GroupBox3.Controls.Add(Me.RBRatingStar)
-        Me.GroupBox3.Location = New System.Drawing.Point(17, 110)
+        Me.GroupBox3.Location = New System.Drawing.Point(17, 112)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(335, 57)
         Me.GroupBox3.TabIndex = 7
@@ -1047,6 +1059,188 @@ Partial Class Setup
         Me.CheckBoxUseSeriesDescribtion.Text = "Verwende MP-TvSeries Epsioden Beschreibung bei Serien (sofern aktiviert)" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         Me.CheckBoxUseSeriesDescribtion.UseVisualStyleBackColor = True
         '
+        'TabOverlay
+        '
+        Me.TabOverlay.Controls.Add(Me.GroupBox8)
+        Me.TabOverlay.Location = New System.Drawing.Point(4, 25)
+        Me.TabOverlay.Name = "TabOverlay"
+        Me.TabOverlay.Size = New System.Drawing.Size(646, 563)
+        Me.TabOverlay.TabIndex = 5
+        Me.TabOverlay.Text = "Overlay"
+        Me.TabOverlay.UseVisualStyleBackColor = True
+        '
+        'GroupBox8
+        '
+        Me.GroupBox8.Controls.Add(Me.Label22)
+        Me.GroupBox8.Controls.Add(Me.CBOverlayGroup)
+        Me.GroupBox8.Controls.Add(Me.NumOverlayLimit)
+        Me.GroupBox8.Controls.Add(Me.Label21)
+        Me.GroupBox8.Controls.Add(Me.CheckBoxOverlayShowLocalMovies)
+        Me.GroupBox8.Controls.Add(Me.GroupBox7)
+        Me.GroupBox8.Controls.Add(Me.CheckBoxOverlayShowTagesTipp)
+        Me.GroupBox8.Controls.Add(Me.GroupBox6)
+        Me.GroupBox8.Location = New System.Drawing.Point(13, 13)
+        Me.GroupBox8.Name = "GroupBox8"
+        Me.GroupBox8.Size = New System.Drawing.Size(620, 308)
+        Me.GroupBox8.TabIndex = 11
+        Me.GroupBox8.TabStop = False
+        Me.GroupBox8.Text = "Filme Overlay"
+        '
+        'CBOverlayGroup
+        '
+        Me.CBOverlayGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBOverlayGroup.FormattingEnabled = True
+        Me.CBOverlayGroup.Location = New System.Drawing.Point(107, 129)
+        Me.CBOverlayGroup.Name = "CBOverlayGroup"
+        Me.CBOverlayGroup.Size = New System.Drawing.Size(191, 24)
+        Me.CBOverlayGroup.TabIndex = 25
+        '
+        'NumOverlayLimit
+        '
+        Me.NumOverlayLimit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.NumOverlayLimit.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NumOverlayLimit.Location = New System.Drawing.Point(374, 95)
+        Me.NumOverlayLimit.Maximum = New Decimal(New Integer() {50, 0, 0, 0})
+        Me.NumOverlayLimit.Minimum = New Decimal(New Integer() {4, 0, 0, 0})
+        Me.NumOverlayLimit.Name = "NumOverlayLimit"
+        Me.NumOverlayLimit.Size = New System.Drawing.Size(42, 23)
+        Me.NumOverlayLimit.TabIndex = 13
+        Me.NumOverlayLimit.Value = New Decimal(New Integer() {4, 0, 0, 0})
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label21.Location = New System.Drawing.Point(19, 97)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(349, 16)
+        Me.Label21.TabIndex = 14
+        Me.Label21.Text = "Limit (max. Einträge die durchsucht werden sollen):"
+        '
+        'CheckBoxOverlayShowLocalMovies
+        '
+        Me.CheckBoxOverlayShowLocalMovies.AutoSize = True
+        Me.CheckBoxOverlayShowLocalMovies.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBoxOverlayShowLocalMovies.Location = New System.Drawing.Point(22, 41)
+        Me.CheckBoxOverlayShowLocalMovies.Name = "CheckBoxOverlayShowLocalMovies"
+        Me.CheckBoxOverlayShowLocalMovies.Size = New System.Drawing.Size(278, 20)
+        Me.CheckBoxOverlayShowLocalMovies.TabIndex = 8
+        Me.CheckBoxOverlayShowLocalMovies.Text = "Keine Filme zeigen, die lokal existieren"
+        Me.CheckBoxOverlayShowLocalMovies.UseVisualStyleBackColor = True
+        '
+        'GroupBox7
+        '
+        Me.GroupBox7.Controls.Add(Me.RBOverlayStartTime)
+        Me.GroupBox7.Controls.Add(Me.RBOverlayTvMovieStar)
+        Me.GroupBox7.Controls.Add(Me.RBOverlayRatingStar)
+        Me.GroupBox7.Location = New System.Drawing.Point(22, 238)
+        Me.GroupBox7.Name = "GroupBox7"
+        Me.GroupBox7.Size = New System.Drawing.Size(579, 57)
+        Me.GroupBox7.TabIndex = 10
+        Me.GroupBox7.TabStop = False
+        Me.GroupBox7.Text = "sortieren nach:"
+        '
+        'RBOverlayStartTime
+        '
+        Me.RBOverlayStartTime.AutoSize = True
+        Me.RBOverlayStartTime.Location = New System.Drawing.Point(18, 25)
+        Me.RBOverlayStartTime.Name = "RBOverlayStartTime"
+        Me.RBOverlayStartTime.Size = New System.Drawing.Size(86, 20)
+        Me.RBOverlayStartTime.TabIndex = 2
+        Me.RBOverlayStartTime.TabStop = True
+        Me.RBOverlayStartTime.Text = "StartZeit"
+        Me.RBOverlayStartTime.UseVisualStyleBackColor = True
+        '
+        'RBOverlayTvMovieStar
+        '
+        Me.RBOverlayTvMovieStar.AutoSize = True
+        Me.RBOverlayTvMovieStar.Location = New System.Drawing.Point(206, 25)
+        Me.RBOverlayTvMovieStar.Name = "RBOverlayTvMovieStar"
+        Me.RBOverlayTvMovieStar.Size = New System.Drawing.Size(114, 20)
+        Me.RBOverlayTvMovieStar.TabIndex = 1
+        Me.RBOverlayTvMovieStar.TabStop = True
+        Me.RBOverlayTvMovieStar.Text = "TvMovie Star"
+        Me.RBOverlayTvMovieStar.UseVisualStyleBackColor = True
+        '
+        'RBOverlayRatingStar
+        '
+        Me.RBOverlayRatingStar.AutoSize = True
+        Me.RBOverlayRatingStar.Location = New System.Drawing.Point(422, 25)
+        Me.RBOverlayRatingStar.Name = "RBOverlayRatingStar"
+        Me.RBOverlayRatingStar.Size = New System.Drawing.Size(95, 20)
+        Me.RBOverlayRatingStar.TabIndex = 0
+        Me.RBOverlayRatingStar.TabStop = True
+        Me.RBOverlayRatingStar.Text = "RatingStar"
+        Me.RBOverlayRatingStar.UseVisualStyleBackColor = True
+        '
+        'CheckBoxOverlayShowTagesTipp
+        '
+        Me.CheckBoxOverlayShowTagesTipp.AutoSize = True
+        Me.CheckBoxOverlayShowTagesTipp.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBoxOverlayShowTagesTipp.Location = New System.Drawing.Point(22, 67)
+        Me.CheckBoxOverlayShowTagesTipp.Name = "CheckBoxOverlayShowTagesTipp"
+        Me.CheckBoxOverlayShowTagesTipp.Size = New System.Drawing.Size(327, 20)
+        Me.CheckBoxOverlayShowTagesTipp.TabIndex = 7
+        Me.CheckBoxOverlayShowTagesTipp.Text = "Zeige Tv Movie Tages Tipp als ersten Eintrag"
+        Me.CheckBoxOverlayShowTagesTipp.UseVisualStyleBackColor = True
+        '
+        'GroupBox6
+        '
+        Me.GroupBox6.Controls.Add(Me.RBOverlayLateTime)
+        Me.GroupBox6.Controls.Add(Me.RBOverlayPrimeTime)
+        Me.GroupBox6.Controls.Add(Me.RBOverlayNow)
+        Me.GroupBox6.Controls.Add(Me.RBOverlayHeute)
+        Me.GroupBox6.Location = New System.Drawing.Point(22, 170)
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.Size = New System.Drawing.Size(579, 62)
+        Me.GroupBox6.TabIndex = 9
+        Me.GroupBox6.TabStop = False
+        Me.GroupBox6.Text = "Zeige Film Empfehlungen:"
+        '
+        'RBOverlayLateTime
+        '
+        Me.RBOverlayLateTime.AutoSize = True
+        Me.RBOverlayLateTime.Location = New System.Drawing.Point(423, 27)
+        Me.RBOverlayLateTime.Name = "RBOverlayLateTime"
+        Me.RBOverlayLateTime.Size = New System.Drawing.Size(112, 20)
+        Me.RBOverlayLateTime.TabIndex = 3
+        Me.RBOverlayLateTime.TabStop = True
+        Me.RBOverlayLateTime.Text = "ab Late Time"
+        Me.RBOverlayLateTime.UseVisualStyleBackColor = True
+        '
+        'RBOverlayPrimeTime
+        '
+        Me.RBOverlayPrimeTime.AutoSize = True
+        Me.RBOverlayPrimeTime.Location = New System.Drawing.Point(257, 27)
+        Me.RBOverlayPrimeTime.Name = "RBOverlayPrimeTime"
+        Me.RBOverlayPrimeTime.Size = New System.Drawing.Size(118, 20)
+        Me.RBOverlayPrimeTime.TabIndex = 2
+        Me.RBOverlayPrimeTime.TabStop = True
+        Me.RBOverlayPrimeTime.Text = "ab Prime Time"
+        Me.RBOverlayPrimeTime.UseVisualStyleBackColor = True
+        '
+        'RBOverlayNow
+        '
+        Me.RBOverlayNow.AutoSize = True
+        Me.RBOverlayNow.Location = New System.Drawing.Point(131, 27)
+        Me.RBOverlayNow.Name = "RBOverlayNow"
+        Me.RBOverlayNow.Size = New System.Drawing.Size(78, 20)
+        Me.RBOverlayNow.TabIndex = 1
+        Me.RBOverlayNow.TabStop = True
+        Me.RBOverlayNow.Text = "ab jetzt"
+        Me.RBOverlayNow.UseVisualStyleBackColor = True
+        '
+        'RBOverlayHeute
+        '
+        Me.RBOverlayHeute.AutoSize = True
+        Me.RBOverlayHeute.Location = New System.Drawing.Point(18, 27)
+        Me.RBOverlayHeute.Name = "RBOverlayHeute"
+        Me.RBOverlayHeute.Size = New System.Drawing.Size(65, 20)
+        Me.RBOverlayHeute.TabIndex = 0
+        Me.RBOverlayHeute.TabStop = True
+        Me.RBOverlayHeute.Text = "Heute"
+        Me.RBOverlayHeute.UseVisualStyleBackColor = True
+        '
         'openFileDialog
         '
         Me.openFileDialog.FileName = "OpenFileDialog1"
@@ -1062,96 +1256,14 @@ Partial Class Setup
         Me.PictureBox1.TabIndex = 9
         Me.PictureBox1.TabStop = False
         '
-        'TabOverlay
+        'Label22
         '
-        Me.TabOverlay.Controls.Add(Me.GroupBox6)
-        Me.TabOverlay.Controls.Add(Me.CheckBoxOverlayShowLocalMovies)
-        Me.TabOverlay.Controls.Add(Me.CheckBoxOverlayShowTagesTipp)
-        Me.TabOverlay.Location = New System.Drawing.Point(4, 25)
-        Me.TabOverlay.Name = "TabOverlay"
-        Me.TabOverlay.Size = New System.Drawing.Size(646, 563)
-        Me.TabOverlay.TabIndex = 5
-        Me.TabOverlay.Text = "Overlay"
-        Me.TabOverlay.UseVisualStyleBackColor = True
-        '
-        'CheckBoxOverlayShowTagesTipp
-        '
-        Me.CheckBoxOverlayShowTagesTipp.AutoSize = True
-        Me.CheckBoxOverlayShowTagesTipp.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBoxOverlayShowTagesTipp.Location = New System.Drawing.Point(22, 55)
-        Me.CheckBoxOverlayShowTagesTipp.Name = "CheckBoxOverlayShowTagesTipp"
-        Me.CheckBoxOverlayShowTagesTipp.Size = New System.Drawing.Size(327, 20)
-        Me.CheckBoxOverlayShowTagesTipp.TabIndex = 7
-        Me.CheckBoxOverlayShowTagesTipp.Text = "Zeige Tv Movie Tages Tipp als ersten Eintrag"
-        Me.CheckBoxOverlayShowTagesTipp.UseVisualStyleBackColor = True
-        '
-        'CheckBoxOverlayShowLocalMovies
-        '
-        Me.CheckBoxOverlayShowLocalMovies.AutoSize = True
-        Me.CheckBoxOverlayShowLocalMovies.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBoxOverlayShowLocalMovies.Location = New System.Drawing.Point(22, 29)
-        Me.CheckBoxOverlayShowLocalMovies.Name = "CheckBoxOverlayShowLocalMovies"
-        Me.CheckBoxOverlayShowLocalMovies.Size = New System.Drawing.Size(278, 20)
-        Me.CheckBoxOverlayShowLocalMovies.TabIndex = 8
-        Me.CheckBoxOverlayShowLocalMovies.Text = "Keine Filme zeigen, die lokal existieren"
-        Me.CheckBoxOverlayShowLocalMovies.UseVisualStyleBackColor = True
-        '
-        'GroupBox6
-        '
-        Me.GroupBox6.Controls.Add(Me.RBOverlayLateTime)
-        Me.GroupBox6.Controls.Add(Me.RBOverlayPrimeTime)
-        Me.GroupBox6.Controls.Add(Me.RBOverlayNow)
-        Me.GroupBox6.Controls.Add(Me.RBOverlayHeute)
-        Me.GroupBox6.Location = New System.Drawing.Point(85, 310)
-        Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(558, 91)
-        Me.GroupBox6.TabIndex = 9
-        Me.GroupBox6.TabStop = False
-        Me.GroupBox6.Text = "Zeige Film Empfehlungen:"
-        '
-        'RBOverlayHeute
-        '
-        Me.RBOverlayHeute.AutoSize = True
-        Me.RBOverlayHeute.Location = New System.Drawing.Point(59, 35)
-        Me.RBOverlayHeute.Name = "RBOverlayHeute"
-        Me.RBOverlayHeute.Size = New System.Drawing.Size(65, 20)
-        Me.RBOverlayHeute.TabIndex = 0
-        Me.RBOverlayHeute.TabStop = True
-        Me.RBOverlayHeute.Text = "Heute"
-        Me.RBOverlayHeute.UseVisualStyleBackColor = True
-        '
-        'RBOverlayNow
-        '
-        Me.RBOverlayNow.AutoSize = True
-        Me.RBOverlayNow.Location = New System.Drawing.Point(173, 35)
-        Me.RBOverlayNow.Name = "RBOverlayNow"
-        Me.RBOverlayNow.Size = New System.Drawing.Size(78, 20)
-        Me.RBOverlayNow.TabIndex = 1
-        Me.RBOverlayNow.TabStop = True
-        Me.RBOverlayNow.Text = "ab jetzt"
-        Me.RBOverlayNow.UseVisualStyleBackColor = True
-        '
-        'RBOverlayPrimeTime
-        '
-        Me.RBOverlayPrimeTime.AutoSize = True
-        Me.RBOverlayPrimeTime.Location = New System.Drawing.Point(285, 35)
-        Me.RBOverlayPrimeTime.Name = "RBOverlayPrimeTime"
-        Me.RBOverlayPrimeTime.Size = New System.Drawing.Size(118, 20)
-        Me.RBOverlayPrimeTime.TabIndex = 2
-        Me.RBOverlayPrimeTime.TabStop = True
-        Me.RBOverlayPrimeTime.Text = "ab Prime Time"
-        Me.RBOverlayPrimeTime.UseVisualStyleBackColor = True
-        '
-        'RBOverlayLateTime
-        '
-        Me.RBOverlayLateTime.AutoSize = True
-        Me.RBOverlayLateTime.Location = New System.Drawing.Point(425, 35)
-        Me.RBOverlayLateTime.Name = "RBOverlayLateTime"
-        Me.RBOverlayLateTime.Size = New System.Drawing.Size(112, 20)
-        Me.RBOverlayLateTime.TabIndex = 3
-        Me.RBOverlayLateTime.TabStop = True
-        Me.RBOverlayLateTime.Text = "ab Late Time"
-        Me.RBOverlayLateTime.UseVisualStyleBackColor = True
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(19, 132)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(82, 16)
+        Me.Label22.TabIndex = 26
+        Me.Label22.Text = "Tv Gruppe:"
         '
         'Setup
         '
@@ -1197,11 +1309,15 @@ Partial Class Setup
         Me.TabDetail.PerformLayout()
         Me.GroupDetailSeriesImage.ResumeLayout(False)
         Me.GroupDetailSeriesImage.PerformLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabOverlay.ResumeLayout(False)
-        Me.TabOverlay.PerformLayout()
+        Me.GroupBox8.ResumeLayout(False)
+        Me.GroupBox8.PerformLayout()
+        CType(Me.NumOverlayLimit, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox7.ResumeLayout(False)
+        Me.GroupBox7.PerformLayout()
         Me.GroupBox6.ResumeLayout(False)
         Me.GroupBox6.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1301,4 +1417,13 @@ Partial Class Setup
     Friend WithEvents RBOverlayPrimeTime As System.Windows.Forms.RadioButton
     Friend WithEvents RBOverlayNow As System.Windows.Forms.RadioButton
     Friend WithEvents RBOverlayHeute As System.Windows.Forms.RadioButton
+    Friend WithEvents GroupBox7 As System.Windows.Forms.GroupBox
+    Friend WithEvents RBOverlayStartTime As System.Windows.Forms.RadioButton
+    Friend WithEvents RBOverlayTvMovieStar As System.Windows.Forms.RadioButton
+    Friend WithEvents RBOverlayRatingStar As System.Windows.Forms.RadioButton
+    Friend WithEvents GroupBox8 As System.Windows.Forms.GroupBox
+    Friend WithEvents Label21 As System.Windows.Forms.Label
+    Friend WithEvents NumOverlayLimit As System.Windows.Forms.NumericUpDown
+    Friend WithEvents CBOverlayGroup As System.Windows.Forms.ComboBox
+    Friend WithEvents Label22 As System.Windows.Forms.Label
 End Class
