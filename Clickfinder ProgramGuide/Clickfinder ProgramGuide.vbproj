@@ -190,6 +190,9 @@
     <Content Include="MediaPortal\language\ClickfinderPG\de.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\BasicHomeExtraInfos.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.HiddenMenu.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -223,7 +226,9 @@
     <Content Include="MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\stereo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="MediaPortal\Skin\StreamedMP\ClickfinderProgramGuide.BasicHome.Overlay.xml" />
+    <Content Include="MediaPortal\Skin\StreamedMP\ClickfinderProgramGuide.BasicHome.Overlay.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideCategories.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
