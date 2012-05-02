@@ -58,6 +58,7 @@ Public Class Setup
             NumOverlayLimit.Value = _layer.GetSetting("ClickfinderOverlayMovieLimit", "10").Value
 
             CheckBoxEnableMovieOverlay.Checked = _layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false").Value
+            CheckBoxEnableSeriesOverlay.Checked = _layer.GetSetting("ClickfinderOverlaySeriesEnabled", "false").Value
 
             If CheckBoxEnableMovieOverlay.Checked = True Then
                 GroupBoxMovieOverlay.Enabled = True
@@ -760,6 +761,13 @@ Public Class Setup
             GroupBoxMovieOverlay.Enabled = False
         End If
 
+    End Sub
+
+    Private Sub CheckBoxEnableSeriesOverlay_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxEnableSeriesOverlay.CheckedChanged
+        Dim _layer As New TvBusinessLayer
+        Dim setting As Setting = _layer.GetSetting("ClickfinderOverlaySeriesEnabled", "false")
+        setting.Value = CStr(CheckBoxEnableSeriesOverlay.Checked)
+        setting.Persist()
     End Sub
 End Class
 

@@ -129,6 +129,7 @@ Partial Class Setup
         Me.openFileDialog = New System.Windows.Forms.OpenFileDialog
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
         Me.CheckBoxEnableMovieOverlay = New System.Windows.Forms.CheckBox
+        Me.CheckBoxEnableSeriesOverlay = New System.Windows.Forms.CheckBox
         Me.TabControl1.SuspendLayout()
         Me.TabAllgemeines.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -1062,6 +1063,7 @@ Partial Class Setup
         '
         'TabOverlay
         '
+        Me.TabOverlay.Controls.Add(Me.CheckBoxEnableSeriesOverlay)
         Me.TabOverlay.Controls.Add(Me.CheckBoxEnableMovieOverlay)
         Me.TabOverlay.Controls.Add(Me.GroupBoxMovieOverlay)
         Me.TabOverlay.Location = New System.Drawing.Point(4, 25)
@@ -1278,6 +1280,17 @@ Partial Class Setup
         Me.CheckBoxEnableMovieOverlay.Text = "Filme Overlay aktivieren"
         Me.CheckBoxEnableMovieOverlay.UseVisualStyleBackColor = True
         '
+        'CheckBoxEnableSeriesOverlay
+        '
+        Me.CheckBoxEnableSeriesOverlay.AutoSize = True
+        Me.CheckBoxEnableSeriesOverlay.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBoxEnableSeriesOverlay.Location = New System.Drawing.Point(17, 362)
+        Me.CheckBoxEnableSeriesOverlay.Name = "CheckBoxEnableSeriesOverlay"
+        Me.CheckBoxEnableSeriesOverlay.Size = New System.Drawing.Size(247, 20)
+        Me.CheckBoxEnableSeriesOverlay.TabIndex = 13
+        Me.CheckBoxEnableSeriesOverlay.Text = "Neue Episoden Overlay aktivieren"
+        Me.CheckBoxEnableSeriesOverlay.UseVisualStyleBackColor = True
+        '
         'Setup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
@@ -1441,4 +1454,5 @@ Partial Class Setup
     Friend WithEvents CBOverlayGroup As System.Windows.Forms.ComboBox
     Friend WithEvents Label22 As System.Windows.Forms.Label
     Friend WithEvents CheckBoxEnableMovieOverlay As System.Windows.Forms.CheckBox
+    Friend WithEvents CheckBoxEnableSeriesOverlay As System.Windows.Forms.CheckBox
 End Class
