@@ -110,7 +110,8 @@ Partial Class Setup
         Me.RBSeriesCover = New System.Windows.Forms.RadioButton
         Me.CheckBoxUseSeriesDescribtion = New System.Windows.Forms.CheckBox
         Me.TabOverlay = New System.Windows.Forms.TabPage
-        Me.GroupBox8 = New System.Windows.Forms.GroupBox
+        Me.GroupBoxMovieOverlay = New System.Windows.Forms.GroupBox
+        Me.Label22 = New System.Windows.Forms.Label
         Me.CBOverlayGroup = New System.Windows.Forms.ComboBox
         Me.NumOverlayLimit = New System.Windows.Forms.NumericUpDown
         Me.Label21 = New System.Windows.Forms.Label
@@ -127,7 +128,7 @@ Partial Class Setup
         Me.RBOverlayHeute = New System.Windows.Forms.RadioButton
         Me.openFileDialog = New System.Windows.Forms.OpenFileDialog
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
-        Me.Label22 = New System.Windows.Forms.Label
+        Me.CheckBoxEnableMovieOverlay = New System.Windows.Forms.CheckBox
         Me.TabControl1.SuspendLayout()
         Me.TabAllgemeines.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -146,7 +147,7 @@ Partial Class Setup
         Me.TabDetail.SuspendLayout()
         Me.GroupDetailSeriesImage.SuspendLayout()
         Me.TabOverlay.SuspendLayout()
-        Me.GroupBox8.SuspendLayout()
+        Me.GroupBoxMovieOverlay.SuspendLayout()
         CType(Me.NumOverlayLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox7.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
@@ -1061,7 +1062,8 @@ Partial Class Setup
         '
         'TabOverlay
         '
-        Me.TabOverlay.Controls.Add(Me.GroupBox8)
+        Me.TabOverlay.Controls.Add(Me.CheckBoxEnableMovieOverlay)
+        Me.TabOverlay.Controls.Add(Me.GroupBoxMovieOverlay)
         Me.TabOverlay.Location = New System.Drawing.Point(4, 25)
         Me.TabOverlay.Name = "TabOverlay"
         Me.TabOverlay.Size = New System.Drawing.Size(646, 563)
@@ -1069,28 +1071,37 @@ Partial Class Setup
         Me.TabOverlay.Text = "Overlay"
         Me.TabOverlay.UseVisualStyleBackColor = True
         '
-        'GroupBox8
+        'GroupBoxMovieOverlay
         '
-        Me.GroupBox8.Controls.Add(Me.Label22)
-        Me.GroupBox8.Controls.Add(Me.CBOverlayGroup)
-        Me.GroupBox8.Controls.Add(Me.NumOverlayLimit)
-        Me.GroupBox8.Controls.Add(Me.Label21)
-        Me.GroupBox8.Controls.Add(Me.CheckBoxOverlayShowLocalMovies)
-        Me.GroupBox8.Controls.Add(Me.GroupBox7)
-        Me.GroupBox8.Controls.Add(Me.CheckBoxOverlayShowTagesTipp)
-        Me.GroupBox8.Controls.Add(Me.GroupBox6)
-        Me.GroupBox8.Location = New System.Drawing.Point(13, 13)
-        Me.GroupBox8.Name = "GroupBox8"
-        Me.GroupBox8.Size = New System.Drawing.Size(620, 308)
-        Me.GroupBox8.TabIndex = 11
-        Me.GroupBox8.TabStop = False
-        Me.GroupBox8.Text = "Filme Overlay"
+        Me.GroupBoxMovieOverlay.Controls.Add(Me.Label22)
+        Me.GroupBoxMovieOverlay.Controls.Add(Me.CBOverlayGroup)
+        Me.GroupBoxMovieOverlay.Controls.Add(Me.NumOverlayLimit)
+        Me.GroupBoxMovieOverlay.Controls.Add(Me.Label21)
+        Me.GroupBoxMovieOverlay.Controls.Add(Me.CheckBoxOverlayShowLocalMovies)
+        Me.GroupBoxMovieOverlay.Controls.Add(Me.GroupBox7)
+        Me.GroupBoxMovieOverlay.Controls.Add(Me.CheckBoxOverlayShowTagesTipp)
+        Me.GroupBoxMovieOverlay.Controls.Add(Me.GroupBox6)
+        Me.GroupBoxMovieOverlay.Location = New System.Drawing.Point(13, 48)
+        Me.GroupBoxMovieOverlay.Name = "GroupBoxMovieOverlay"
+        Me.GroupBoxMovieOverlay.Size = New System.Drawing.Size(620, 293)
+        Me.GroupBoxMovieOverlay.TabIndex = 11
+        Me.GroupBoxMovieOverlay.TabStop = False
+        Me.GroupBoxMovieOverlay.Text = "Filme Overlay"
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(19, 115)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(82, 16)
+        Me.Label22.TabIndex = 26
+        Me.Label22.Text = "Tv Gruppe:"
         '
         'CBOverlayGroup
         '
         Me.CBOverlayGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CBOverlayGroup.FormattingEnabled = True
-        Me.CBOverlayGroup.Location = New System.Drawing.Point(107, 129)
+        Me.CBOverlayGroup.Location = New System.Drawing.Point(107, 112)
         Me.CBOverlayGroup.Name = "CBOverlayGroup"
         Me.CBOverlayGroup.Size = New System.Drawing.Size(191, 24)
         Me.CBOverlayGroup.TabIndex = 25
@@ -1099,7 +1110,7 @@ Partial Class Setup
         '
         Me.NumOverlayLimit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.NumOverlayLimit.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NumOverlayLimit.Location = New System.Drawing.Point(374, 95)
+        Me.NumOverlayLimit.Location = New System.Drawing.Point(374, 78)
         Me.NumOverlayLimit.Maximum = New Decimal(New Integer() {50, 0, 0, 0})
         Me.NumOverlayLimit.Minimum = New Decimal(New Integer() {4, 0, 0, 0})
         Me.NumOverlayLimit.Name = "NumOverlayLimit"
@@ -1111,7 +1122,7 @@ Partial Class Setup
         '
         Me.Label21.AutoSize = True
         Me.Label21.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label21.Location = New System.Drawing.Point(19, 97)
+        Me.Label21.Location = New System.Drawing.Point(19, 80)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(349, 16)
         Me.Label21.TabIndex = 14
@@ -1121,7 +1132,7 @@ Partial Class Setup
         '
         Me.CheckBoxOverlayShowLocalMovies.AutoSize = True
         Me.CheckBoxOverlayShowLocalMovies.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBoxOverlayShowLocalMovies.Location = New System.Drawing.Point(22, 41)
+        Me.CheckBoxOverlayShowLocalMovies.Location = New System.Drawing.Point(22, 24)
         Me.CheckBoxOverlayShowLocalMovies.Name = "CheckBoxOverlayShowLocalMovies"
         Me.CheckBoxOverlayShowLocalMovies.Size = New System.Drawing.Size(278, 20)
         Me.CheckBoxOverlayShowLocalMovies.TabIndex = 8
@@ -1133,7 +1144,7 @@ Partial Class Setup
         Me.GroupBox7.Controls.Add(Me.RBOverlayStartTime)
         Me.GroupBox7.Controls.Add(Me.RBOverlayTvMovieStar)
         Me.GroupBox7.Controls.Add(Me.RBOverlayRatingStar)
-        Me.GroupBox7.Location = New System.Drawing.Point(22, 238)
+        Me.GroupBox7.Location = New System.Drawing.Point(22, 221)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Size = New System.Drawing.Size(579, 57)
         Me.GroupBox7.TabIndex = 10
@@ -1177,7 +1188,7 @@ Partial Class Setup
         '
         Me.CheckBoxOverlayShowTagesTipp.AutoSize = True
         Me.CheckBoxOverlayShowTagesTipp.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBoxOverlayShowTagesTipp.Location = New System.Drawing.Point(22, 67)
+        Me.CheckBoxOverlayShowTagesTipp.Location = New System.Drawing.Point(22, 50)
         Me.CheckBoxOverlayShowTagesTipp.Name = "CheckBoxOverlayShowTagesTipp"
         Me.CheckBoxOverlayShowTagesTipp.Size = New System.Drawing.Size(327, 20)
         Me.CheckBoxOverlayShowTagesTipp.TabIndex = 7
@@ -1190,7 +1201,7 @@ Partial Class Setup
         Me.GroupBox6.Controls.Add(Me.RBOverlayPrimeTime)
         Me.GroupBox6.Controls.Add(Me.RBOverlayNow)
         Me.GroupBox6.Controls.Add(Me.RBOverlayHeute)
-        Me.GroupBox6.Location = New System.Drawing.Point(22, 170)
+        Me.GroupBox6.Location = New System.Drawing.Point(22, 153)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Size = New System.Drawing.Size(579, 62)
         Me.GroupBox6.TabIndex = 9
@@ -1256,14 +1267,16 @@ Partial Class Setup
         Me.PictureBox1.TabIndex = 9
         Me.PictureBox1.TabStop = False
         '
-        'Label22
+        'CheckBoxEnableMovieOverlay
         '
-        Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(19, 132)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(82, 16)
-        Me.Label22.TabIndex = 26
-        Me.Label22.Text = "Tv Gruppe:"
+        Me.CheckBoxEnableMovieOverlay.AutoSize = True
+        Me.CheckBoxEnableMovieOverlay.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBoxEnableMovieOverlay.Location = New System.Drawing.Point(17, 19)
+        Me.CheckBoxEnableMovieOverlay.Name = "CheckBoxEnableMovieOverlay"
+        Me.CheckBoxEnableMovieOverlay.Size = New System.Drawing.Size(184, 20)
+        Me.CheckBoxEnableMovieOverlay.TabIndex = 12
+        Me.CheckBoxEnableMovieOverlay.Text = "Filme Overlay aktivieren"
+        Me.CheckBoxEnableMovieOverlay.UseVisualStyleBackColor = True
         '
         'Setup
         '
@@ -1310,8 +1323,9 @@ Partial Class Setup
         Me.GroupDetailSeriesImage.ResumeLayout(False)
         Me.GroupDetailSeriesImage.PerformLayout()
         Me.TabOverlay.ResumeLayout(False)
-        Me.GroupBox8.ResumeLayout(False)
-        Me.GroupBox8.PerformLayout()
+        Me.TabOverlay.PerformLayout()
+        Me.GroupBoxMovieOverlay.ResumeLayout(False)
+        Me.GroupBoxMovieOverlay.PerformLayout()
         CType(Me.NumOverlayLimit, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox7.ResumeLayout(False)
         Me.GroupBox7.PerformLayout()
@@ -1421,9 +1435,10 @@ Partial Class Setup
     Friend WithEvents RBOverlayStartTime As System.Windows.Forms.RadioButton
     Friend WithEvents RBOverlayTvMovieStar As System.Windows.Forms.RadioButton
     Friend WithEvents RBOverlayRatingStar As System.Windows.Forms.RadioButton
-    Friend WithEvents GroupBox8 As System.Windows.Forms.GroupBox
+    Friend WithEvents GroupBoxMovieOverlay As System.Windows.Forms.GroupBox
     Friend WithEvents Label21 As System.Windows.Forms.Label
     Friend WithEvents NumOverlayLimit As System.Windows.Forms.NumericUpDown
     Friend WithEvents CBOverlayGroup As System.Windows.Forms.ComboBox
     Friend WithEvents Label22 As System.Windows.Forms.Label
+    Friend WithEvents CheckBoxEnableMovieOverlay As System.Windows.Forms.CheckBox
 End Class

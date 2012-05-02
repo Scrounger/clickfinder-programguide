@@ -132,7 +132,12 @@ Namespace ClickfinderProgramGuide
         Public Overrides Sub PreInit()
             MyBase.PreInit()
 
-            ClickfinderProgramGuideOverlayMovies()
+
+            If CBool(_layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false").Value) = True Then
+                ClickfinderProgramGuideOverlayMovies()
+            End If
+
+
             ClickfinderProgramGuideOverlaySeries()
 
         End Sub

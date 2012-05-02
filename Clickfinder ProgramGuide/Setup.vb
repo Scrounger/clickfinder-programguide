@@ -57,6 +57,13 @@ Public Class Setup
             CheckBoxOverlayShowLocalMovies.Checked = _layer.GetSetting("ClickfinderOverlayShowLocalMovies", "false").Value
             NumOverlayLimit.Value = _layer.GetSetting("ClickfinderOverlayMovieLimit", "10").Value
 
+            CheckBoxEnableMovieOverlay.Checked = _layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false").Value
+
+            If CheckBoxEnableMovieOverlay.Checked = True Then
+                GroupBoxMovieOverlay.Enabled = True
+            Else
+                GroupBoxMovieOverlay.Enabled = False
+            End If
 
             Select Case _layer.GetSetting("ClickfinderDetailsSeriesImage", "Cover").Value
                 Case Is = "Cover"
@@ -739,6 +746,20 @@ Public Class Setup
         Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayMovieSort", Helper.SortMethode.RatingStar.ToString)
         setting.Value = Helper.SortMethode.RatingStar.ToString
         setting.Persist()
+    End Sub
+
+    Private Sub CheckBoxEnableMovieOverlay_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxEnableMovieOverlay.CheckedChanged
+        Dim _layer As New TvBusinessLayer
+        Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false")
+        setting.Value = CStr(CheckBoxEnableMovieOverlay.Checked)
+        setting.Persist()
+
+        If CheckBoxEnableMovieOverlay.Checked = True Then
+            GroupBoxMovieOverlay.Enabled = True
+        Else
+            GroupBoxMovieOverlay.Enabled = False
+        End If
+
     End Sub
 End Class
 
