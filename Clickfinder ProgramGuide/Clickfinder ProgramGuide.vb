@@ -688,16 +688,76 @@ Namespace ClickfinderProgramGuide
 
                 If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True Then
 
+                    Dim _SeriesResult As New ArrayList
+                    Dim _SeriesName As String = String.Empty
+                    Dim _EpisodeName As String = String.Empty
+                    Dim _NewEpisodeCounter As Integer = 1
+                    Dim _ListItemIndex As Integer = -1
+                    Dim _RecordingStatus As String = String.Empty
+
                     SQLstring = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
                                         "WHERE idSeries > 0 " & _
                                         "AND local = 0 " & _
                                         "AND startTime > " & MySqlDate(_ClickfinderCurrentDate.AddHours(0)) & " " & _
                                         "AND startTime < " & MySqlDate(_ClickfinderCurrentDate.AddHours(24)) & " " & _
-                                        "GROUP BY title " & _
-                                        Helper.ORDERBYstartTime
+                                        "ORDER BY title ASC, episodeName ASC, startTime ASC"
+
+
                     _logNewShowSeries = "true"
-                    _Result.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", True))
-                    _logNewSeriesCount = _Result.Count
+                    _SeriesResult.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", True))
+                    '_logNewSeriesCount = _Result.Count
+
+                    For i = 0 To _SeriesResult.Count - 1
+
+                        'ProgramDaten über TvMovieProgram laden
+                        Dim _TvMovieSeriesProgram As TVMovieProgram = TVMovieProgram.Retrieve(_SeriesResult.Item(i))
+
+                        'Sofern andere Serie, Werte zurücksetzen
+                        If Not _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title Then
+                            _NewEpisodeCounter = 1
+                            _RecordingStatus = String.Empty
+                        End If
+
+                        'Sofern gleiche Episode dann weiter
+                        If _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title And _EpisodeName = _TvMovieSeriesProgram.ReferencedProgram.EpisodeName Then
+
+                            'Prüfen ob als Aufnahme geplant (z.B. wenn auf SD & HD Sender läuft)
+                            If _RecordingStatus = String.Empty Then
+                                _HighlightsList.ListItems(_ListItemIndex).PinImage = GuiLayout.RecordingStatus(_TvMovieSeriesProgram.ReferencedProgram)
+                            End If
+
+                            Continue For
+                        End If
+
+                        'Sofern nicht gleiche Episode -> Zähler hoch und weiter
+                        If _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title And Not _EpisodeName = _TvMovieSeriesProgram.ReferencedProgram.EpisodeName Then
+                            _NewEpisodeCounter = _NewEpisodeCounter + 1            
+                            _HighlightsList.ListItems(_ListItemIndex).Label3 = _NewEpisodeCounter & " " & Translation.NewEpisodeFound
+
+                            'Prüfen ob als Aufnahme geplant
+                            If _RecordingStatus = String.Empty Then
+                                _HighlightsList.ListItems(_ListItemIndex).PinImage = GuiLayout.RecordingStatus(_TvMovieSeriesProgram.ReferencedProgram)
+                            End If
+
+                            Continue For
+                        End If
+
+                        _timeLabel = Translation.NewLabel
+                        _infoLabel = _NewEpisodeCounter & " " & Translation.NewEpisodeFound
+                        _imagepath = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieSeriesProgram.SeriesPosterImage
+
+                        'Prüfen ob als Aufnahme geplant
+                        If _RecordingStatus = String.Empty Then
+                            _RecordingStatus = GuiLayout.RecordingStatus(_TvMovieSeriesProgram.ReferencedProgram)
+                        End If
+
+                        AddListControlItem(GetID, _HighlightsList, _TvMovieSeriesProgram.ReferencedProgram.IdProgram, _TvMovieSeriesProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieSeriesProgram.ReferencedProgram.Title, _timeLabel, _infoLabel, _imagepath, , _RecordingStatus)
+
+                        _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title
+                        _EpisodeName = _TvMovieSeriesProgram.ReferencedProgram.EpisodeName
+                        _ListItemIndex = _ListItemIndex + 1
+
+                    Next
                 End If
 
                 'Manuelle Sqlabfrage starten (wegen InnerJoin) -> idprogram 
@@ -747,33 +807,30 @@ Namespace ClickfinderProgramGuide
                                     _imagepath = Config.GetFile(Config.Dir.Thumbs, "tv\logos\") & Replace(_TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, "/", "_") & ".png"
 
                                     'Falls TvSeries Import an & ist TvSeries, poster Image anzeigen
-                                    If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True And _TvMovieProgram.idSeries > 0 Then
-                                        _timeLabel = Translation.NewLabel
-                                        _infoLabel = Translation.NewEpisodeFound
-                                        _imagepath = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieProgram.SeriesPosterImage
-                                    Else
-                                        'Prüfen ob in Standard Tv Gruppe
-                                        Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value)
-                                        Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
+                                    'If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True And _TvMovieProgram.idSeries > 0 Then
+                                    '    _timeLabel = Translation.NewLabel
+                                    '    _infoLabel = Translation.NewEpisodeFound
+                                    '    _imagepath = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieProgram.SeriesPosterImage
+                                    'Else
+                                    'Prüfen ob in Standard Tv Gruppe
+                                    Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value)
+                                    Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
 
-                                        'Alle Gruppen des _program laden
-                                        Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
-                                        sb.AddConstraint([Operator].Equals, "idgroup", _Group.IdGroup)
-                                        sb.AddConstraint([Operator].Equals, "idChannel", _TvMovieProgram.ReferencedProgram.IdChannel)
-                                        Dim stmt As SqlStatement = sb.GetStatement(True)
-                                        Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
+                                    'Alle Gruppen des _program laden
+                                    Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
+                                    sb.AddConstraint([Operator].Equals, "idgroup", _Group.IdGroup)
+                                    sb.AddConstraint([Operator].Equals, "idChannel", _TvMovieProgram.ReferencedProgram.IdChannel)
+                                    Dim stmt As SqlStatement = sb.GetStatement(True)
+                                    Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
 
-                                        If _isInFavGroup.Count = 0 Then
-                                            Continue For
-                                        End If
+                                    If _isInFavGroup.Count = 0 Then
+                                        Continue For
                                     End If
+                                    'End If
 
                                     If CBool(_layer.GetSetting("ClickfinderUseSportLogos", "false").Value) = True Then
                                         _imagepath = UseSportLogos(_TvMovieProgram.ReferencedProgram.Title, _imagepath)
                                     End If
-
-
-
 
                                     AddListControlItem(GetID, _HighlightsList, _TvMovieProgram.ReferencedProgram.IdProgram, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieProgram.ReferencedProgram.Title, _timeLabel, _infoLabel, _imagepath, , GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram))
 

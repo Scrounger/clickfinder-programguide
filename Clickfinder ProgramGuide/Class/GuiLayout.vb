@@ -206,7 +206,7 @@ Namespace ClickfinderProgramGuide
                 ElseIf program.IsRecordingSeries = True Or program.IsRecordingSeriesPending = True Then
                     Return "tvguide_recordserie_button.png"
                 Else
-                    Return ""
+                    Return String.Empty
                 End If
 
             End Get

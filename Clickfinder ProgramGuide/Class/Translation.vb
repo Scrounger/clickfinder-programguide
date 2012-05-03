@@ -123,7 +123,7 @@ Public NotInheritable Class Translation
 
     ' N
     Public Shared NewLabel As String = "Neu !!!"
-    Public Shared NewEpisodeFound As String = "Neu Episode(n) gefunden"
+    Public Shared NewEpisodeFound As String = "neue Episode(n) gefunden"
 
 
     ' O

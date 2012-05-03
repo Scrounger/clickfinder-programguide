@@ -17,7 +17,7 @@
   <string Field="MovieListTitle">Movie Higlights</string>
   <string Field="HighlightsListTitle">weitere Higlights</string>
   <string Field="NewLabel">Neu !!!</string>
-  <string Field="NewEpisodeFound">Neu Episode(n) gefunden</string>
+  <string Field="NewEpisodeFound">neue Episode(n) gefunden</string>
   <string Field="Record">Aufnehmen</string>
   <string Field="Remember">Erinnern</string>
   <string Field="ChannelON">Kanal einschalten</string>
