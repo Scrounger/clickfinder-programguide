@@ -52,7 +52,7 @@ Public Class GuiButtons
     End Sub
     Friend Shared Sub Highlights()
         Try
-            GUIWindowManager.ActivateWindow(165654465)
+            GUIWindowManager.ActivateWindow(1656544656)
         Catch ex As Exception
             MyLog.Error("[Button] [Highlights]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
         End Try

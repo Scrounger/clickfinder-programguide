@@ -21,6 +21,9 @@ Public Class Setup
     Private Sub Setup_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
             Dim _layer As New TvBusinessLayer
+            Dim _StartGuiList As New ArrayList
+
+
 
             MyLog.Info("")
             MyLog.Info("")
@@ -177,6 +180,22 @@ Public Class Setup
             Next
 
 
+            _StartGuiList.Clear()
+            CBStartGui.Items.Clear()
+
+            _StartGuiList.Add("Highlights")
+            _StartGuiList.Add("Now")
+            _StartGuiList.Add("PrimeTime")
+            _StartGuiList.Add("LateTime")
+            _StartGuiList.Add("PrimeTimeMovies")
+            _StartGuiList.Add("LateTimeMovies")
+
+            For i = 0 To _StartGuiList.Count - 1
+                CBStartGui.Items.Add(_StartGuiList(i))
+                If _StartGuiList(i) = _layer.GetSetting("ClickfinderStartGui", "Highlights").Value Then
+                    CBStartGui.Text = _StartGuiList(i)
+                End If
+            Next
 
         Catch ex As Exception
             MyLog.Error("[Setup_Load]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
@@ -247,6 +266,10 @@ Public Class Setup
 
             setting = _layer.GetSetting("ClickfinderOverlayTvGroup", "All Channels")
             setting.Value = CBOverlayGroup.Text
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderStartGui", "Highlights")
+            setting.Value = CBStartGui.Text
             setting.Persist()
 
             SaveCategories()

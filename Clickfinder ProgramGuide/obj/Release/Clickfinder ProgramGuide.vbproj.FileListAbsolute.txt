@@ -103,3 +103,5 @@ D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaP
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.HiddenMenu.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\DefaultWide\BasicHomeExtraInfos.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuide.BasicHome.Overlay.xml
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuideHighlights.xml
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideHighlights.xml
