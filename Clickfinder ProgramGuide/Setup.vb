@@ -769,5 +769,10 @@ Public Class Setup
         setting.Value = CStr(CheckBoxEnableSeriesOverlay.Checked)
         setting.Persist()
     End Sub
+
+    Private Sub PictureBox2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PictureBox2.Click
+        Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WUTCGQGMATVB4")
+    End Sub
+
 End Class
 

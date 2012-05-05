@@ -89,9 +89,7 @@ Partial Class Setup
         Me.CheckBoxShowCategorieLocalMovies = New System.Windows.Forms.CheckBox
         Me.CheckBoxSelect = New System.Windows.Forms.CheckBox
         Me.ButtonCategoriesDefault = New System.Windows.Forms.Button
-        Me.ButtonDown = New System.Windows.Forms.Button
         Me.ButtonNewCategorie = New System.Windows.Forms.Button
-        Me.ButtonUp = New System.Windows.Forms.Button
         Me.dgvCategories = New System.Windows.Forms.DataGridView
         Me.C_id = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.C_Image = New System.Windows.Forms.DataGridViewImageColumn
@@ -102,6 +100,8 @@ Partial Class Setup
         Me.C_SqlString = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.C_MinRuntime = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.C_NowOffset = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.ButtonDown = New System.Windows.Forms.Button
+        Me.ButtonUp = New System.Windows.Forms.Button
         Me.TabDetail = New System.Windows.Forms.TabPage
         Me.GroupDetailSeriesImage = New System.Windows.Forms.GroupBox
         Me.RBTvMovieImage = New System.Windows.Forms.RadioButton
@@ -110,6 +110,8 @@ Partial Class Setup
         Me.RBSeriesCover = New System.Windows.Forms.RadioButton
         Me.CheckBoxUseSeriesDescribtion = New System.Windows.Forms.CheckBox
         Me.TabOverlay = New System.Windows.Forms.TabPage
+        Me.CheckBoxEnableSeriesOverlay = New System.Windows.Forms.CheckBox
+        Me.CheckBoxEnableMovieOverlay = New System.Windows.Forms.CheckBox
         Me.GroupBoxMovieOverlay = New System.Windows.Forms.GroupBox
         Me.Label22 = New System.Windows.Forms.Label
         Me.CBOverlayGroup = New System.Windows.Forms.ComboBox
@@ -127,9 +129,8 @@ Partial Class Setup
         Me.RBOverlayNow = New System.Windows.Forms.RadioButton
         Me.RBOverlayHeute = New System.Windows.Forms.RadioButton
         Me.openFileDialog = New System.Windows.Forms.OpenFileDialog
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
-        Me.CheckBoxEnableMovieOverlay = New System.Windows.Forms.CheckBox
-        Me.CheckBoxEnableSeriesOverlay = New System.Windows.Forms.CheckBox
         Me.TabControl1.SuspendLayout()
         Me.TabAllgemeines.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -152,6 +153,7 @@ Partial Class Setup
         CType(Me.NumOverlayLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox7.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -181,7 +183,7 @@ Partial Class Setup
         '
         Me.LinkLabel1.AutoSize = True
         Me.LinkLabel1.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LinkLabel1.Location = New System.Drawing.Point(13, 684)
+        Me.LinkLabel1.Location = New System.Drawing.Point(127, 687)
         Me.LinkLabel1.Name = "LinkLabel1"
         Me.LinkLabel1.Size = New System.Drawing.Size(194, 14)
         Me.LinkLabel1.TabIndex = 38
@@ -814,10 +816,10 @@ Partial Class Setup
         Me.TabCategories.Controls.Add(Me.CheckBoxShowCategorieLocalMovies)
         Me.TabCategories.Controls.Add(Me.CheckBoxSelect)
         Me.TabCategories.Controls.Add(Me.ButtonCategoriesDefault)
-        Me.TabCategories.Controls.Add(Me.ButtonDown)
         Me.TabCategories.Controls.Add(Me.ButtonNewCategorie)
-        Me.TabCategories.Controls.Add(Me.ButtonUp)
         Me.TabCategories.Controls.Add(Me.dgvCategories)
+        Me.TabCategories.Controls.Add(Me.ButtonDown)
+        Me.TabCategories.Controls.Add(Me.ButtonUp)
         Me.TabCategories.Location = New System.Drawing.Point(4, 25)
         Me.TabCategories.Name = "TabCategories"
         Me.TabCategories.Size = New System.Drawing.Size(646, 563)
@@ -866,16 +868,6 @@ Partial Class Setup
         Me.ButtonCategoriesDefault.Text = "Default"
         Me.ButtonCategoriesDefault.UseVisualStyleBackColor = True
         '
-        'ButtonDown
-        '
-        Me.ButtonDown.BackgroundImage = Global.ClickfinderProgramGuide.My.Resources.Resources.arrow_Down_48
-        Me.ButtonDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.ButtonDown.Location = New System.Drawing.Point(605, 206)
-        Me.ButtonDown.Name = "ButtonDown"
-        Me.ButtonDown.Size = New System.Drawing.Size(28, 61)
-        Me.ButtonDown.TabIndex = 4
-        Me.ButtonDown.UseVisualStyleBackColor = True
-        '
         'ButtonNewCategorie
         '
         Me.ButtonNewCategorie.Location = New System.Drawing.Point(449, 390)
@@ -884,16 +876,6 @@ Partial Class Setup
         Me.ButtonNewCategorie.TabIndex = 2
         Me.ButtonNewCategorie.Text = "New"
         Me.ButtonNewCategorie.UseVisualStyleBackColor = True
-        '
-        'ButtonUp
-        '
-        Me.ButtonUp.BackgroundImage = Global.ClickfinderProgramGuide.My.Resources.Resources.arrow_UP_48
-        Me.ButtonUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.ButtonUp.Location = New System.Drawing.Point(605, 139)
-        Me.ButtonUp.Name = "ButtonUp"
-        Me.ButtonUp.Size = New System.Drawing.Size(28, 61)
-        Me.ButtonUp.TabIndex = 3
-        Me.ButtonUp.UseVisualStyleBackColor = True
         '
         'dgvCategories
         '
@@ -978,6 +960,26 @@ Partial Class Setup
         Me.C_NowOffset.HeaderText = "Offset"
         Me.C_NowOffset.Name = "C_NowOffset"
         Me.C_NowOffset.Width = 52
+        '
+        'ButtonDown
+        '
+        Me.ButtonDown.BackgroundImage = Global.ClickfinderProgramGuide.My.Resources.Resources.arrow_Down_48
+        Me.ButtonDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.ButtonDown.Location = New System.Drawing.Point(605, 206)
+        Me.ButtonDown.Name = "ButtonDown"
+        Me.ButtonDown.Size = New System.Drawing.Size(28, 61)
+        Me.ButtonDown.TabIndex = 4
+        Me.ButtonDown.UseVisualStyleBackColor = True
+        '
+        'ButtonUp
+        '
+        Me.ButtonUp.BackgroundImage = Global.ClickfinderProgramGuide.My.Resources.Resources.arrow_UP_48
+        Me.ButtonUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.ButtonUp.Location = New System.Drawing.Point(605, 139)
+        Me.ButtonUp.Name = "ButtonUp"
+        Me.ButtonUp.Size = New System.Drawing.Size(28, 61)
+        Me.ButtonUp.TabIndex = 3
+        Me.ButtonUp.UseVisualStyleBackColor = True
         '
         'TabDetail
         '
@@ -1072,6 +1074,28 @@ Partial Class Setup
         Me.TabOverlay.TabIndex = 5
         Me.TabOverlay.Text = "Overlay"
         Me.TabOverlay.UseVisualStyleBackColor = True
+        '
+        'CheckBoxEnableSeriesOverlay
+        '
+        Me.CheckBoxEnableSeriesOverlay.AutoSize = True
+        Me.CheckBoxEnableSeriesOverlay.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBoxEnableSeriesOverlay.Location = New System.Drawing.Point(17, 362)
+        Me.CheckBoxEnableSeriesOverlay.Name = "CheckBoxEnableSeriesOverlay"
+        Me.CheckBoxEnableSeriesOverlay.Size = New System.Drawing.Size(247, 20)
+        Me.CheckBoxEnableSeriesOverlay.TabIndex = 13
+        Me.CheckBoxEnableSeriesOverlay.Text = "Neue Episoden Overlay aktivieren"
+        Me.CheckBoxEnableSeriesOverlay.UseVisualStyleBackColor = True
+        '
+        'CheckBoxEnableMovieOverlay
+        '
+        Me.CheckBoxEnableMovieOverlay.AutoSize = True
+        Me.CheckBoxEnableMovieOverlay.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBoxEnableMovieOverlay.Location = New System.Drawing.Point(17, 19)
+        Me.CheckBoxEnableMovieOverlay.Name = "CheckBoxEnableMovieOverlay"
+        Me.CheckBoxEnableMovieOverlay.Size = New System.Drawing.Size(184, 20)
+        Me.CheckBoxEnableMovieOverlay.TabIndex = 12
+        Me.CheckBoxEnableMovieOverlay.Text = "Filme Overlay aktivieren"
+        Me.CheckBoxEnableMovieOverlay.UseVisualStyleBackColor = True
         '
         'GroupBoxMovieOverlay
         '
@@ -1258,6 +1282,19 @@ Partial Class Setup
         '
         Me.openFileDialog.FileName = "OpenFileDialog1"
         '
+        'PictureBox2
+        '
+        Me.PictureBox2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox2.Image = Global.ClickfinderProgramGuide.My.Resources.Resources.btn_donate_LG1
+        Me.PictureBox2.Location = New System.Drawing.Point(14, 681)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(98, 26)
+        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.PictureBox2.TabIndex = 40
+        Me.PictureBox2.TabStop = False
+        '
         'PictureBox1
         '
         Me.PictureBox1.BackgroundImage = Global.ClickfinderProgramGuide.My.Resources.Resources.SetupIcon
@@ -1269,34 +1306,13 @@ Partial Class Setup
         Me.PictureBox1.TabIndex = 9
         Me.PictureBox1.TabStop = False
         '
-        'CheckBoxEnableMovieOverlay
-        '
-        Me.CheckBoxEnableMovieOverlay.AutoSize = True
-        Me.CheckBoxEnableMovieOverlay.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBoxEnableMovieOverlay.Location = New System.Drawing.Point(17, 19)
-        Me.CheckBoxEnableMovieOverlay.Name = "CheckBoxEnableMovieOverlay"
-        Me.CheckBoxEnableMovieOverlay.Size = New System.Drawing.Size(184, 20)
-        Me.CheckBoxEnableMovieOverlay.TabIndex = 12
-        Me.CheckBoxEnableMovieOverlay.Text = "Filme Overlay aktivieren"
-        Me.CheckBoxEnableMovieOverlay.UseVisualStyleBackColor = True
-        '
-        'CheckBoxEnableSeriesOverlay
-        '
-        Me.CheckBoxEnableSeriesOverlay.AutoSize = True
-        Me.CheckBoxEnableSeriesOverlay.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBoxEnableSeriesOverlay.Location = New System.Drawing.Point(17, 362)
-        Me.CheckBoxEnableSeriesOverlay.Name = "CheckBoxEnableSeriesOverlay"
-        Me.CheckBoxEnableSeriesOverlay.Size = New System.Drawing.Size(247, 20)
-        Me.CheckBoxEnableSeriesOverlay.TabIndex = 13
-        Me.CheckBoxEnableSeriesOverlay.Text = "Neue Episoden Overlay aktivieren"
-        Me.CheckBoxEnableSeriesOverlay.UseVisualStyleBackColor = True
-        '
         'Setup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(678, 724)
+        Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.Label2)
@@ -1344,6 +1360,7 @@ Partial Class Setup
         Me.GroupBox7.PerformLayout()
         Me.GroupBox6.ResumeLayout(False)
         Me.GroupBox6.PerformLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -1455,4 +1472,5 @@ Partial Class Setup
     Friend WithEvents Label22 As System.Windows.Forms.Label
     Friend WithEvents CheckBoxEnableMovieOverlay As System.Windows.Forms.CheckBox
     Friend WithEvents CheckBoxEnableSeriesOverlay As System.Windows.Forms.CheckBox
+    Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
 End Class

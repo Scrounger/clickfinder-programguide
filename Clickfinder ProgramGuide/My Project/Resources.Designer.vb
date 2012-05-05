@@ -74,6 +74,20 @@ Namespace My.Resources
             End Get
         End Property
         
+        Public ReadOnly Property btn_donate_LG() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("btn_donate_LG", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Public ReadOnly Property btn_donate_LG1() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("btn_donate_LG1", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
         Public ReadOnly Property Das_Erste_HD_3() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Das Erste HD_3", resourceCulture)

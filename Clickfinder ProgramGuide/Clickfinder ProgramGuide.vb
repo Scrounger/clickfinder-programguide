@@ -32,7 +32,7 @@ Imports ClickfinderProgramGuide.TvDatabase
 
 Namespace ClickfinderProgramGuide
     <PluginIcons("ClickfinderProgramGuide.Config.png", "ClickfinderProgramGuide.Config_disable.png")> _
-    Public Class HighlightsGUIWindow
+    Public Class StartGuiWindow
 
         Inherits GUIWindow
         Implements ISetupForm
@@ -62,7 +62,6 @@ Namespace ClickfinderProgramGuide
 #Region "Members"
         Private _ThreadFillMovieList As Threading.Thread
         Private _ThreadFillHighlightsList As Threading.Thread
-        Private _isAbortException As Boolean = False
         Friend _ClickfinderCurrentDate As Date = Nothing
         Friend _ProgressPercentagValue As Single
         Private _layer As New TvBusinessLayer
@@ -462,6 +461,7 @@ Namespace ClickfinderProgramGuide
 
             If control Is _btnPreview Then
                 GuiButtons.Preview()
+
             End If
 
         End Sub
@@ -479,8 +479,6 @@ Namespace ClickfinderProgramGuide
             Dim _LogLocalMovies As String = String.Empty
             Dim _LogLocalSortedBy As String = String.Empty
             Dim _logShowTagesTipp As String = "false"
-
-            _isAbortException = False
 
             _MovieList.Visible = False
 
@@ -731,7 +729,7 @@ Namespace ClickfinderProgramGuide
 
                         'Sofern nicht gleiche Episode -> Zähler hoch und weiter
                         If _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title And Not _EpisodeName = _TvMovieSeriesProgram.ReferencedProgram.EpisodeName Then
-                            _NewEpisodeCounter = _NewEpisodeCounter + 1            
+                            _NewEpisodeCounter = _NewEpisodeCounter + 1
                             _HighlightsList.ListItems(_ListItemIndex).Label3 = _NewEpisodeCounter & " " & Translation.NewEpisodeFound
 
                             'Prüfen ob als Aufnahme geplant

@@ -138,15 +138,6 @@ Namespace TvDatabase
         ''' Create an object from an existing row of data. This will be used by Gentle to 
         ''' construct objects from retrieved rows. 
         ''' </summary> 
-        'public TVMovieProgram(int idClickfinderMapping, int idProgram, string idSeries, string timeSharingStart, string timeSharingEnd)
-        '{
-        '  isChanged = true;
-        '  this.idClickfinderMapping = idClickfinderMapping;
-        '  this.idProgram = idProgram;
-        '  this.idSeries = idSeries;
-        '  this.timeSharingStart = timeSharingStart;
-        '  this.timeSharingEnd = timeSharingEnd;
-        '}
         Public Sub New(ByVal idProgram As Integer)
             Me.m_idProgram = idProgram
         End Sub
