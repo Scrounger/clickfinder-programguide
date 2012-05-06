@@ -498,7 +498,7 @@ Namespace ClickfinderProgramGuide
                         'Sofern nicht gleiche Episode -> Zähler hoch und weiter
                         If _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title And Not _EpisodeName = _TvMovieSeriesProgram.ReferencedProgram.EpisodeName Then
                             _NewEpisodeCounter = _NewEpisodeCounter + 1
-                            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter - 1 & ".CountNewEpisode", _NewEpisodeCounter & " " & Translation.NewEpisodeFound)
+                            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter - 1 & ".CountNewEpisodes", _NewEpisodeCounter & " " & Translation.NewEpisodeFound)
 
                             _NewEpisodesNumbers = _NewEpisodesNumbers & ", S" & Format(CInt(_TvMovieSeriesProgram.ReferencedProgram.SeriesNum), "00") & "E" & Format(CInt(_TvMovieSeriesProgram.ReferencedProgram.EpisodeNum), "00")
                             Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter - 1 & ".NewEpisodesNumbers", _NewEpisodesNumbers)
@@ -509,7 +509,7 @@ Namespace ClickfinderProgramGuide
                         Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".Image", Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieSeriesProgram.SeriesPosterImage)
                         Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".Title", _TvMovieSeriesProgram.ReferencedProgram.Title)
                         Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".RatingStar", _TvMovieSeriesProgram.ReferencedProgram.StarRating)
-                        Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".CountNewEpisode", _NewEpisodeCounter & " " & Translation.NewEpisodeFound)
+                        Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".CountNewEpisodes", _NewEpisodeCounter & " " & Translation.NewEpisodeFound)
 
                         _NewEpisodesNumbers = "S" & Format(CInt(_TvMovieSeriesProgram.ReferencedProgram.SeriesNum), "00") & "E" & Format(CInt(_TvMovieSeriesProgram.ReferencedProgram.EpisodeNum), "00")
                         Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".NewEpisodesNumbers", _NewEpisodesNumbers)

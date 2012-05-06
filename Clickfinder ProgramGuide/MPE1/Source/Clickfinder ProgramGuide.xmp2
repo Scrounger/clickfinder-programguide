@@ -325,6 +325,13 @@
               <ZipFileName>Installer{CopyFile}\{d3536eb0-4a91-4559-a6d9-e8a8d1ec17de}-BasicHomeExtraInfos.xml</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\BasicHomeExtraInfos.xml</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuideHighlights.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{bd32cbfa-76ec-4099-b29c-3dbf3e9e8eeb}-ClickfinderProgramGuideHighlights.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\ClickfinderProgramGuideHighlights.xml</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -502,6 +509,13 @@
               <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuide.BasicHome.Overlay.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{db101683-eb9c-495b-9dc7-c7071368500c}-ClickfinderProgramGuide.BasicHome.Overlay.xml</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\ClickfinderProgramGuide.BasicHome.Overlay.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideHighlights.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{b64037d8-4b48-4f0e-a845-e44c3ac8e150}-ClickfinderProgramGuideHighlights.xml</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\ClickfinderProgramGuideHighlights.xml</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -1088,6 +1102,13 @@ a lot of new features !
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuideHighlights.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{bd32cbfa-76ec-4099-b29c-3dbf3e9e8eeb}-ClickfinderProgramGuideHighlights.xml</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\ClickfinderProgramGuideHighlights.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuide.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{9131b31f-9413-4b66-a114-f929e6ee55ae}-ClickfinderProgramGuide.xml</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\ClickfinderProgramGuide.xml</DestinationFilename>
@@ -1253,11 +1274,18 @@ a lot of new features !
         <ZipFileName>Installer{CopyFile}\{db101683-eb9c-495b-9dc7-c7071368500c}-ClickfinderProgramGuide.BasicHome.Overlay.xml</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\ClickfinderProgramGuide.BasicHome.Overlay.xml</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideHighlights.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{b64037d8-4b48-4f0e-a845-e44c3ac8e150}-ClickfinderProgramGuideHighlights.xml</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\ClickfinderProgramGuideHighlights.xml</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\..\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R3.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{1ce68d5e-8f74-4019-9210-9c3b525ba214}-ClickfinderPG_R3.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{a9dfe8fb-9354-4f1b-b237-8fc82f6d9496}-ClickfinderPG_R3.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
