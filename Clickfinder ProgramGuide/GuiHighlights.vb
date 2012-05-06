@@ -79,11 +79,6 @@ Namespace ClickfinderProgramGuide
             MyBase.OnPageLoad()
             GUIWindowManager.NeedRefresh()
 
-
-            'CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Now)
-            'GUIWindowManager.ReplaceWindow(1656544654)
-            'GUIWindowManager.ActivateWindow(1656544654)
-
             MyLog.Info("")
             MyLog.Info("")
             MyLog.Info("[HighlightsGuiWindow] -------------[OPEN]-------------")
@@ -92,8 +87,6 @@ Namespace ClickfinderProgramGuide
                 Translator.SetProperty("#CurrentDate", Translation.Loading)
 
                 CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Highlights)
-
-               
 
                 _DaysProgress.Percentage = _ProgressPercentagValue
                 If _ClickfinderCurrentDate = Nothing Then
@@ -106,11 +99,24 @@ Namespace ClickfinderProgramGuide
                 Translator.SetProperty("#CurrentDate", getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
                 MyLog.Debug("[HighlightsGuiWindow] [OnPageLoad]: _ClickfinderCurrentDate = {0}", getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
 
-                Dim _Thread1 As New Thread(AddressOf FillMovieList)
-                Dim _Thread2 As New Thread(AddressOf FillHighlightsList)
+                Try
+                    If _ThreadFillMovieList.IsAlive = True Or _ThreadFillHighlightsList.IsAlive = True Then
+                        MyLog.Debug("")
+                        _ThreadFillMovieList.Abort()
+                        _ThreadFillHighlightsList.Abort()
+                    End If
 
-                _Thread1.Start()
-                _Thread2.Start()
+                Catch ex3 As Exception ' Ignore this exception
+                    'Eventuell auftretende Exception abfangen
+                    ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
+                End Try
+
+                _ThreadFillMovieList = New Thread(AddressOf FillMovieList)
+                _ThreadFillHighlightsList = New Thread(AddressOf FillHighlightsList)
+                _ThreadFillMovieList.IsBackground = True
+                _ThreadFillHighlightsList.IsBackground = True
+                _ThreadFillMovieList.Start()
+                _ThreadFillHighlightsList.Start()
 
                 '_Thread1.Join()
             Catch ex As Exception
@@ -487,6 +493,7 @@ Namespace ClickfinderProgramGuide
 
                 _Result.AddRange(Broker.Execute(_SQLstring).TransposeToFieldList("idProgram", False))
 
+
                 MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: {0} program found", _Result.Count)
 
                 If _Result.Count > 0 Then
@@ -534,6 +541,7 @@ Namespace ClickfinderProgramGuide
                                 Translator.SetProperty("#MovieListRatingStar" & _ItemCounter, GuiLayout.ratingStar(_TvMovieProgram.ReferencedProgram))
                                 Translator.SetProperty("#MovieListTvMovieStar" & _ItemCounter, GuiLayout.TvMovieStar(_TvMovieProgram))
                                 Translator.SetProperty("#MovieListImage" & _ItemCounter, GuiLayout.Image(_TvMovieProgram))
+
 
                                 AddListControlItem(GetID, _MovieList, _TvMovieProgram.ReferencedProgram.IdProgram, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieProgram.ReferencedProgram.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram))
 

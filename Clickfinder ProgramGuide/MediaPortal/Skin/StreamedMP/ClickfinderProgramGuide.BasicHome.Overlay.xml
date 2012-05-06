@@ -16,20 +16,20 @@
       <control>
         <description>Movie 1 BG</description>
         <posX>860</posX>
-        <posY>50</posY>
+        <posY>70</posY>
         <type>image</type>
         <id>0</id>
         <width>420</width>
         <height>96</height>
         <texture>pic_preview_thumb_background.png</texture>
-        <colordiffuse>EEFFFFFF</colordiffuse>
+        <colordiffuse>99FFFFFF</colordiffuse>
       </control>
       <control>
         <description>MovieImage 1</description>
         <type>image</type>
         <id>1</id>
         <posX>872</posX>
-        <posY>54</posY>
+        <posY>74</posY>
         <width>100</width>
         <height>86</height>
         <texture>#ClickfinderPG.Movie1.Image</texture>
@@ -42,7 +42,7 @@
         <type>imagelist</type>
         <id>1</id>
         <posX>980</posX>
-        <posY>80</posY>
+        <posY>100</posY>
         <width>120</width>
         <height>10</height>
         <textureWidth>12</textureWidth>
@@ -61,7 +61,7 @@
         <type>image</type>
         <id>1</id>
         <posX>860</posX>
-        <posY>116</posY>
+        <posY>136</posY>
         <width>32</width>
         <height>32</height>
         <texture>#ClickfinderPG.Movie1.TvMovieStar</texture>
@@ -73,7 +73,7 @@
         <type>fadelabel</type>
         <id>0</id>
         <posX>980</posX>
-        <posY>58</posY>
+        <posY>78</posY>
         <width>280</width>
         <label>#ClickfinderPG.Movie1.Title</label>
         <font>mediastream10tc</font>
@@ -84,7 +84,7 @@
         <type>fadelabel</type>
         <id>0</id>
         <posX>980</posX>
-        <posY>94</posY>
+        <posY>114</posY>
         <width>280</width>
         <label>#ClickfinderPG.Movie1.Genre</label>
         <font>mediastream10</font>
@@ -95,7 +95,7 @@
         <type>label</type>
         <id>0</id>
         <posX>1260</posX>
-        <posY>120</posY>
+        <posY>140</posY>
         <align>right</align>
         <width>255</width>
         <scrollStartDelaySec>30</scrollStartDelaySec>
@@ -119,20 +119,20 @@
       <control>
         <description>Movie 2 BG</description>
         <posX>860</posX>
-        <posY>150</posY>
+        <posY>165</posY>
         <type>image</type>
         <id>0</id>
         <width>420</width>
         <height>96</height>
         <texture>pic_preview_thumb_background.png</texture>
-        <colordiffuse>EEFFFFFF</colordiffuse>
+        <colordiffuse>99FFFFFF</colordiffuse>
       </control>
       <control>
         <description>MovieImage 2</description>
         <type>image</type>
         <id>1</id>
         <posX>872</posX>
-        <posY>154</posY>
+        <posY>169</posY>
         <width>100</width>
         <height>86</height>
         <texture>#ClickfinderPG.Movie2.Image</texture>
@@ -145,7 +145,7 @@
         <type>imagelist</type>
         <id>1</id>
         <posX>980</posX>
-        <posY>180</posY>
+        <posY>195</posY>
         <width>120</width>
         <height>10</height>
         <textureWidth>12</textureWidth>
@@ -164,7 +164,7 @@
         <type>image</type>
         <id>1</id>
         <posX>860</posX>
-        <posY>216</posY>
+        <posY>231</posY>
         <width>32</width>
         <height>32</height>
         <texture>#ClickfinderPG.Movie2.TvMovieStar</texture>
@@ -176,7 +176,7 @@
         <type>fadelabel</type>
         <id>0</id>
         <posX>980</posX>
-        <posY>158</posY>
+        <posY>173</posY>
         <width>280</width>
         <label>#ClickfinderPG.Movie2.Title</label>
         <font>mediastream10tc</font>
@@ -187,7 +187,7 @@
         <type>fadelabel</type>
         <id>0</id>
         <posX>980</posX>
-        <posY>194</posY>
+        <posY>209</posY>
         <width>280</width>
         <label>#ClickfinderPG.Movie2.Genre</label>
         <font>mediastream10</font>
@@ -198,7 +198,7 @@
         <type>label</type>
         <id>0</id>
         <posX>1260</posX>
-        <posY>220</posY>
+        <posY>235</posY>
         <align>right</align>
         <width>255</width>
         <scrollStartDelaySec>30</scrollStartDelaySec>
@@ -222,20 +222,20 @@
       <control>
         <description>Movie 3 BG</description>
         <posX>860</posX>
-        <posY>250</posY>
+        <posY>260</posY>
         <type>image</type>
         <id>0</id>
         <width>420</width>
         <height>96</height>
         <texture>pic_preview_thumb_background.png</texture>
-        <colordiffuse>EEFFFFFF</colordiffuse>
+        <colordiffuse>99FFFFFF</colordiffuse>
       </control>
       <control>
         <description>MovieImage 3</description>
         <type>image</type>
         <id>1</id>
         <posX>872</posX>
-        <posY>254</posY>
+        <posY>264</posY>
         <width>100</width>
         <height>86</height>
         <texture>#ClickfinderPG.Movie3.Image</texture>
@@ -248,7 +248,7 @@
         <type>imagelist</type>
         <id>1</id>
         <posX>980</posX>
-        <posY>280</posY>
+        <posY>290</posY>
         <width>120</width>
         <height>10</height>
         <textureWidth>12</textureWidth>
@@ -267,7 +267,7 @@
         <type>image</type>
         <id>1</id>
         <posX>860</posX>
-        <posY>316</posY>
+        <posY>326</posY>
         <width>32</width>
         <height>32</height>
         <texture>#ClickfinderPG.Movie3.TvMovieStar</texture>
@@ -279,7 +279,7 @@
         <type>fadelabel</type>
         <id>0</id>
         <posX>980</posX>
-        <posY>258</posY>
+        <posY>268</posY>
         <width>280</width>
         <label>#ClickfinderPG.Movie3.Title</label>
         <font>mediastream10tc</font>
@@ -290,7 +290,7 @@
         <type>fadelabel</type>
         <id>0</id>
         <posX>980</posX>
-        <posY>294</posY>
+        <posY>304</posY>
         <width>280</width>
         <label>#ClickfinderPG.Movie3.Genre</label>
         <font>mediastream10</font>
@@ -301,7 +301,7 @@
         <type>label</type>
         <id>0</id>
         <posX>1260</posX>
-        <posY>320</posY>
+        <posY>330</posY>
         <align>right</align>
         <width>255</width>
         <scrollStartDelaySec>30</scrollStartDelaySec>
@@ -325,20 +325,20 @@
       <control>
         <description>Movie 4 BG</description>
         <posX>860</posX>
-        <posY>350</posY>
+        <posY>355</posY>
         <type>image</type>
         <id>0</id>
         <width>420</width>
         <height>96</height>
         <texture>pic_preview_thumb_background.png</texture>
-        <colordiffuse>EEFFFFFF</colordiffuse>
+        <colordiffuse>99FFFFFF</colordiffuse>
       </control>
       <control>
         <description>MovieImage 4</description>
         <type>image</type>
         <id>1</id>
         <posX>872</posX>
-        <posY>354</posY>
+        <posY>359</posY>
         <width>100</width>
         <height>86</height>
         <texture>#ClickfinderPG.Movie4.Image</texture>
@@ -351,7 +351,7 @@
         <type>imagelist</type>
         <id>1</id>
         <posX>980</posX>
-        <posY>380</posY>
+        <posY>385</posY>
         <width>120</width>
         <height>10</height>
         <textureWidth>12</textureWidth>
@@ -370,7 +370,7 @@
         <type>image</type>
         <id>1</id>
         <posX>860</posX>
-        <posY>416</posY>
+        <posY>421</posY>
         <width>32</width>
         <height>32</height>
         <texture>#ClickfinderPG.Movie4.TvMovieStar</texture>
@@ -382,7 +382,7 @@
         <type>fadelabel</type>
         <id>0</id>
         <posX>980</posX>
-        <posY>358</posY>
+        <posY>363</posY>
         <width>280</width>
         <label>#ClickfinderPG.Movie4.Title</label>
         <font>mediastream10tc</font>
@@ -393,7 +393,7 @@
         <type>fadelabel</type>
         <id>0</id>
         <posX>980</posX>
-        <posY>394</posY>
+        <posY>401</posY>
         <width>280</width>
         <label>#ClickfinderPG.Movie4.Genre</label>
         <font>mediastream10</font>
@@ -404,7 +404,7 @@
         <type>label</type>
         <id>0</id>
         <posX>1260</posX>
-        <posY>420</posY>
+        <posY>425</posY>
         <align>right</align>
         <width>255</width>
         <scrollStartDelaySec>30</scrollStartDelaySec>
@@ -431,20 +431,20 @@
       <control>
         <description>Series 1 BG</description>
         <posX>0</posX>
-        <posY>50</posY>
+        <posY>70</posY>
         <type>image</type>
         <id>0</id>
         <width>420</width>
         <height>96</height>
         <texture>pic_preview_thumb_background.png</texture>
-        <colordiffuse>EEFFFFFF</colordiffuse>
+        <colordiffuse>99FFFFFF</colordiffuse>
       </control>
       <control>
         <description>SeriesImage 1</description>
         <type>image</type>
         <id>1</id>
         <posX>10</posX>
-        <posY>58</posY>
+        <posY>78</posY>
         <width>60</width>
         <height>78</height>
         <texture>#ClickfinderPG.Series1.Image</texture>
@@ -457,7 +457,7 @@
         <type>fadelabel</type>
         <id>0</id>
         <posX>80</posX>
-        <posY>58</posY>
+        <posY>78</posY>
         <width>320</width>
         <label>#ClickfinderPG.Series1.Title</label>
         <font>mediastream10tc</font>
@@ -468,7 +468,7 @@
         <type>imagelist</type>
         <id>1</id>
         <posX>80</posX>
-        <posY>80</posY>
+        <posY>100</posY>
         <width>120</width>
         <height>10</height>
         <textureWidth>12</textureWidth>
@@ -498,20 +498,20 @@
       <control>
         <description>Series 2 BG</description>
         <posX>0</posX>
-        <posY>150</posY>
+        <posY>165</posY>
         <type>image</type>
         <id>0</id>
         <width>420</width>
         <height>96</height>
         <texture>pic_preview_thumb_background.png</texture>
-        <colordiffuse>EEFFFFFF</colordiffuse>
+        <colordiffuse>99FFFFFF</colordiffuse>
       </control>
       <control>
         <description>SeriesImage 2</description>
         <type>image</type>
         <id>1</id>
         <posX>10</posX>
-        <posY>158</posY>
+        <posY>173</posY>
         <width>60</width>
         <height>78</height>
         <texture>#ClickfinderPG.Series2.Image</texture>
@@ -524,7 +524,7 @@
         <type>fadelabel</type>
         <id>0</id>
         <posX>80</posX>
-        <posY>158</posY>
+        <posY>173</posY>
         <width>320</width>
         <label>#ClickfinderPG.Series2.Title</label>
         <font>mediastream10tc</font>
@@ -535,7 +535,7 @@
         <type>imagelist</type>
         <id>1</id>
         <posX>80</posX>
-        <posY>180</posY>
+        <posY>195</posY>
         <width>120</width>
         <height>10</height>
         <textureWidth>12</textureWidth>
@@ -565,20 +565,20 @@
       <control>
         <description>Series 3 BG</description>
         <posX>0</posX>
-        <posY>250</posY>
+        <posY>260</posY>
         <type>image</type>
         <id>0</id>
         <width>420</width>
         <height>96</height>
         <texture>pic_preview_thumb_background.png</texture>
-        <colordiffuse>EEFFFFFF</colordiffuse>
+        <colordiffuse>99FFFFFF</colordiffuse>
       </control>
       <control>
         <description>SeriesImage 3</description>
         <type>image</type>
         <id>1</id>
         <posX>10</posX>
-        <posY>258</posY>
+        <posY>268</posY>
         <width>60</width>
         <height>78</height>
         <texture>#ClickfinderPG.Series3.Image</texture>
@@ -591,7 +591,7 @@
         <type>fadelabel</type>
         <id>0</id>
         <posX>80</posX>
-        <posY>258</posY>
+        <posY>268</posY>
         <width>320</width>
         <label>#ClickfinderPG.Series3.Title</label>
         <font>mediastream10tc</font>
@@ -602,7 +602,7 @@
         <type>imagelist</type>
         <id>1</id>
         <posX>80</posX>
-        <posY>280</posY>
+        <posY>290</posY>
         <width>120</width>
         <height>10</height>
         <textureWidth>12</textureWidth>
@@ -632,20 +632,20 @@
       <control>
         <description>Series 4 BG</description>
         <posX>0</posX>
-        <posY>350</posY>
+        <posY>355</posY>
         <type>image</type>
         <id>0</id>
         <width>420</width>
         <height>96</height>
         <texture>pic_preview_thumb_background.png</texture>
-        <colordiffuse>EEFFFFFF</colordiffuse>
+        <colordiffuse>99FFFFFF</colordiffuse>
       </control>
       <control>
         <description>SeriesImage 4</description>
         <type>image</type>
         <id>1</id>
         <posX>10</posX>
-        <posY>358</posY>
+        <posY>363</posY>
         <width>60</width>
         <height>78</height>
         <texture>#ClickfinderPG.Series4.Image</texture>
@@ -658,7 +658,7 @@
         <type>fadelabel</type>
         <id>0</id>
         <posX>80</posX>
-        <posY>358</posY>
+        <posY>363</posY>
         <width>320</width>
         <label>#ClickfinderPG.Series4.Title</label>
         <font>mediastream10tc</font>
@@ -669,7 +669,7 @@
         <type>imagelist</type>
         <id>1</id>
         <posX>80</posX>
-        <posY>380</posY>
+        <posY>385</posY>
         <width>120</width>
         <height>10</height>
         <textureWidth>12</textureWidth>
