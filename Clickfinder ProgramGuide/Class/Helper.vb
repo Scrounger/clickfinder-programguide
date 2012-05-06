@@ -271,7 +271,7 @@ Public Class Helper
                 Return _TvMovieProgram
             Else
                 _TvMovieProgram.Persist()
-                MyLog.[Warn]("[ItemsGuiWindow] [FillList]: Program {0} not found in ClickfinderDB (Title: {1}, Channel: {2}, startTime: {3}, starRating: {4})", _
+                MyLog.[Warn]("[getTvMovieProgram]: Program {0} not found in ClickfinderDB (Title: {1}, Channel: {2}, startTime: {3}, starRating: {4})", _
                                         _TvMovieProgram.ReferencedProgram.IdProgram, _TvMovieProgram.ReferencedProgram.Title, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieProgram.ReferencedProgram.StartTime, _TvMovieProgram.ReferencedProgram.StarRating)
                 Return _TvMovieProgram
             End If
