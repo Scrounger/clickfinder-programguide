@@ -447,7 +447,9 @@ Namespace ClickfinderProgramGuide
                 Log.Error("[PreInit] [BasicHomeOverlay]: exception err:" & ex2.Message & " stack:" & ex2.StackTrace)
             End Try
         End Sub
-        Private Sub ClickfinderProgramGuideOverlaySeries()
+        Friend Shared Sub ClickfinderProgramGuideOverlaySeries()
+
+            Dim _layer As New TvBusinessLayer
 
             For i = 1 To 4
                 Translator.SetProperty("#ClickfinderPG.Series" & i & ".Title", "")
@@ -463,14 +465,13 @@ Namespace ClickfinderProgramGuide
                 Dim _ItemCounter As Integer = 1
                 Dim _NewEpisodesNumbers As String = String.Empty
 
-              
 
                 _SQLstring = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
                                     "WHERE idSeries > 0 " & _
                                     "AND local = 0 " & _
                                     "AND startTime > " & MySqlDate(Date.Today.AddHours(0)) & " " & _
                                     "AND startTime < " & MySqlDate(Date.Today.AddHours(24)) & " " & _
-                                    "ORDER BY title ASC, episodeName ASC, startTime ASC"
+                                    "ORDER BY title ASC, seriesNum ASC, episodeNum ASC, startTime ASC"
 
 
                 _SeriesResult.AddRange(Broker.Execute(_SQLstring).TransposeToFieldList("idProgram", True))
@@ -479,9 +480,10 @@ Namespace ClickfinderProgramGuide
                 For i = 0 To _SeriesResult.Count - 1
 
                     'ProgramDaten über TvMovieProgram laden
-                    Dim _TvMovieSeriesProgram As TVMovieProgram = getTvMovieProgram(Program.Retrieve(_SeriesResult.Item(i)))
+                    Dim _TvMovieSeriesProgram As TVMovieProgram = TVMovieProgram.Retrieve(_SeriesResult.Item(i))
 
-                    'Prüfen ob noch immer lokal nicht vorhanden (wg. gettvmovieprogram)
+                    'Prüfen ob noch immer lokal nicht vorhanden
+                    CheckSeriesLocalStatus(_TvMovieSeriesProgram)
                     If _TvMovieSeriesProgram.local = False Then
 
                         'Sofern andere Serie, Werte zurücksetzen

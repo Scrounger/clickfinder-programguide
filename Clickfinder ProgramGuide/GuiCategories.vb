@@ -555,6 +555,10 @@ Namespace ClickfinderProgramGuide
 
                         Dim _TvMovieProgram As TVMovieProgram = getTvMovieProgram(_Program)
 
+                        If _TvMovieProgram.idSeries > 0 Then
+                            Helper.CheckSeriesLocalStatus(_TvMovieProgram)
+                        End If
+
                         'Falls lokale Movies/Videos nicht angezeigt werden sollen -> aus Array entfernen
                         If CBool(_layer.GetSetting("ClickfinderCategorieShowLocalMovies", "false").Value) = True Then
                             If _TvMovieProgram.local = True And _TvMovieProgram.idSeries = 0 Then

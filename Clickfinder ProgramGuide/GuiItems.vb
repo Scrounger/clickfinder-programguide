@@ -587,6 +587,10 @@ Namespace ClickfinderProgramGuide
                         'TvMovieProgram laden / erstellen wenn nicht vorhanden
                         Dim _TvMovieProgram As TVMovieProgram = getTvMovieProgram(_program)
 
+                        If _TvMovieProgram.idSeries > 0 Then
+                            Helper.CheckSeriesLocalStatus(_TvMovieProgram)
+                        End If
+
                         Translator.SetProperty("#ItemsListRatingStar" & _ItemCounter, GuiLayout.ratingStar(_program))
                         Translator.SetProperty("#ItemsListTvMovieStar" & _ItemCounter, GuiLayout.TvMovieStar(_TvMovieProgram))
                         Translator.SetProperty("#ItemsListImage" & _ItemCounter, GuiLayout.Image(_TvMovieProgram))
@@ -671,6 +675,10 @@ Namespace ClickfinderProgramGuide
 
                         'TvMovieProgram laden / erstellen wenn nicht vorhanden
                         Dim _TvMovieProgram As TVMovieProgram = getTvMovieProgram(_program)
+
+                        If _TvMovieProgram.idSeries > 0 Then
+                            Helper.CheckSeriesLocalStatus(_TvMovieProgram)
+                        End If
 
                         Translator.SetProperty("#ItemsListRatingStar" & _ItemCounter, GuiLayout.ratingStar(_program))
                         Translator.SetProperty("#ItemsListTvMovieStar" & _ItemCounter, GuiLayout.TvMovieStar(_TvMovieProgram))

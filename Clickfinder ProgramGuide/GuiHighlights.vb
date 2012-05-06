@@ -622,7 +622,7 @@ Namespace ClickfinderProgramGuide
                                         "AND local = 0 " & _
                                         "AND startTime > " & MySqlDate(_ClickfinderCurrentDate.AddHours(0)) & " " & _
                                         "AND startTime < " & MySqlDate(_ClickfinderCurrentDate.AddHours(24)) & " " & _
-                                        "ORDER BY title ASC, episodeName ASC, startTime ASC"
+                                        "ORDER BY title ASC, seriesNum ASC, episodeNum ASC, startTime ASC"
 
 
                     _logNewShowSeries = "true"
@@ -631,11 +631,11 @@ Namespace ClickfinderProgramGuide
 
                     For i = 0 To _SeriesResult.Count - 1
 
-
                         'ProgramDaten über TvMovieProgram laden
-                        Dim _TvMovieSeriesProgram As TVMovieProgram = getTvMovieProgram(Program.Retrieve(_SeriesResult.Item(i)))
+                        Dim _TvMovieSeriesProgram As TVMovieProgram = TVMovieProgram.Retrieve(_SeriesResult.Item(i))
 
-                        'Prüfen ob noch immer lokal nicht vorhanden (wg. gettvmovieprogram)
+                        'Prüfen ob noch immer lokal nicht vorhanden
+                        CheckSeriesLocalStatus(_TvMovieSeriesProgram)
                         If _TvMovieSeriesProgram.local = False Then
 
                             'Sofern andere Serie, Werte zurücksetzen

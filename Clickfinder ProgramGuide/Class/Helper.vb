@@ -202,32 +202,7 @@ Public Class Helper
     Friend Shared Function getTvMovieProgram(ByVal Program As Program) As TVMovieProgram
         Try
             Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(Program.IdProgram)
-            Dim _layer As New TvBusinessLayer
-
-            If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True Then
-                If _TvMovieProgram.idSeries > 0 And _TvMovieProgram.local = False Then
-                    If Not _TvMovieProgram.ReferencedProgram.SeriesNum = "" And Not _TvMovieProgram.ReferencedProgram.EpisodeNum = "" Then
-                        Try
-                            Dim _Series As New TVSeriesDB
-
-                            _Series.LoadEpisode(_TvMovieProgram.ReferencedProgram.Title, _TvMovieProgram.ReferencedProgram.SeriesNum, _TvMovieProgram.ReferencedProgram.EpisodeNum)
-
-                            If _Series.EpisodeExistLocal = True Then
-                                _TvMovieProgram.local = True
-                                _TvMovieProgram.Persist()
-                                MyLog.Debug("[getTvMovieProgram] [SeriesLocalCheck]: Episode found local: {0} - S{1}E{2}", _TvMovieProgram.ReferencedProgram.Title, _TvMovieProgram.ReferencedProgram.SeriesNum, _TvMovieProgram.ReferencedProgram.EpisodeNum)
-
-                            End If
-                            _Series.Dispose()
-                        Catch ex As Exception
-                            MyLog.Error("[getTvMovieProgram] [SeriesLocalCheck]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
-                        End Try
-                    End If
-                End If
-            End If
-
             Return _TvMovieProgram
-
         Catch ex As Exception
             Dim _ClickfinderDB As New ClickfinderDB(Program)
             Dim _TvMovieProgram As New TVMovieProgram(Program.IdProgram)
@@ -544,4 +519,33 @@ Public Class Helper
 
     End Sub
 
+    Friend Shared Sub CheckSeriesLocalStatus(ByVal TvMovieProgram As TVMovieProgram)
+
+        Dim _layer As New TvBusinessLayer
+
+        If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True Then
+            If TvMovieProgram.idSeries > 0 And TvMovieProgram.local = False Then
+                If Not TvMovieProgram.ReferencedProgram.SeriesNum = "" And Not TvMovieProgram.ReferencedProgram.EpisodeNum = "" Then
+                    Try
+                        Dim _Series As New TVSeriesDB
+
+                        _Series.LoadEpisode(TvMovieProgram.ReferencedProgram.Title, TvMovieProgram.ReferencedProgram.SeriesNum, TvMovieProgram.ReferencedProgram.EpisodeNum)
+
+                        If _Series.EpisodeExistLocal = True Then
+
+                            TvMovieProgram.local = True
+                            TvMovieProgram.ReferencedProgram.Description = Replace(TvMovieProgram.ReferencedProgram.Description, "Neue Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName, "Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName)
+                            TvMovieProgram.ReferencedProgram.Persist()
+                            TvMovieProgram.Persist()
+                            MyLog.Info("[CheckSeriesLocalStatus]: Episode found local: {0} - S{1}E{2}", TvMovieProgram.ReferencedProgram.Title, TvMovieProgram.ReferencedProgram.SeriesNum, TvMovieProgram.ReferencedProgram.EpisodeNum)
+
+                        End If
+                        _Series.Dispose()
+                    Catch ex As Exception
+                        MyLog.Error("[CheckSeriesLocalStatus]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
+                    End Try
+                End If
+            End If
+        End If
+    End Sub
 End Class

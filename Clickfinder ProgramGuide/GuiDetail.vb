@@ -196,6 +196,11 @@ Namespace ClickfinderProgramGuide
                     UpdateProgramData()
                 End If
 
+
+                If _DetailTvMovieProgram.idSeries > 0 Then
+                    Helper.CheckSeriesLocalStatus(_DetailTvMovieProgram)
+                End If
+
                 Translator.SetProperty("#DetailTitle", _DetailTvMovieProgram.ReferencedProgram.Title)
 
                 Translator.SetProperty("#DetailorgTitle", GuiLayout.DetailOrgTitle(_DetailTvMovieProgram))
