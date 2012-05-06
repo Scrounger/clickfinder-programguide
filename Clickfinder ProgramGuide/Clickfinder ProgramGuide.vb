@@ -125,13 +125,36 @@ Namespace ClickfinderProgramGuide
         Public Overrides Sub PreInit()
             MyBase.PreInit()
 
-            If CBool(_layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false").Value) = True Then
-                ClickfinderProgramGuideOverlayMovies()
+            If TvPlugin.TVHome.Connected = True Then
+
+                If CBool(_layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false").Value) = True Then
+                    ClickfinderProgramGuideOverlayMovies()
+                End If
+
+                If CBool(_layer.GetSetting("ClickfinderOverlaySeriesEnabled", "false").Value) = True Then
+                    ClickfinderProgramGuideOverlaySeries()
+                End If
+            Else
+
+                For i = 1 To 4
+                    Translator.SetProperty("#ClickfinderPG.Movie" & i & ".Title", "")
+                    Translator.SetProperty("#ClickfinderPG.Movie" & i & ".RatingStar", "")
+                    Translator.SetProperty("#ClickfinderPG.Movie" & i & ".Time", "")
+                    Translator.SetProperty("#ClickfinderPG.Movie" & i & ".Channel", "")
+                    Translator.SetProperty("#ClickfinderPG.Movie" & i & ".Image", "")
+                    Translator.SetProperty("#ClickfinderPG.Movie" & i & ".TvMovieStar", "")
+                    Translator.SetProperty("#ClickfinderPG.Movie" & i & ".Genre", "")
+                Next
+
+                For i = 1 To 4
+                    Translator.SetProperty("#ClickfinderPG.Series" & i & ".Image", "")
+                    Translator.SetProperty("#ClickfinderPG.Series" & i & ".Title", "")
+                Next
+
+                Log.Warn("[PreInit] [BasicHomeOverlay]: TvServer not online")
+
             End If
 
-            If CBool(_layer.GetSetting("ClickfinderOverlaySeriesEnabled", "false").Value) = True Then
-                ClickfinderProgramGuideOverlaySeries()
-            End If
 
         End Sub
         Protected Overrides Sub OnPageLoad()
@@ -154,7 +177,7 @@ Namespace ClickfinderProgramGuide
                 _DebugModeOn = True
             End If
 
-
+            'Start GUI
             Select Case _layer.GetSetting("ClickfinderStartGui", "Highlights").Value
                 Case Is = "Highlights"
                     GUIWindowManager.ReplaceWindow(1656544656)
