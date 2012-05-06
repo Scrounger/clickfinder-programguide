@@ -106,7 +106,7 @@ Public Class TVSeriesDB
 
             _SeriesInfos = m_db.Execute( _
                                 [String].Format("SELECT * FROM online_series WHERE Pretty_Name LIKE '{0}' OR SortName LIKE '{0}' OR origName LIKE '{0}'", _
-                                serieName))
+                                allowedSigns(serieName)))
 
             _EpisodeInfos = m_db.Execute( _
                                 [String].Format("SELECT * FROM online_episodes WHERE SeriesID = '{0}' AND SeasonIndex = '{1}' AND EpisodeIndex = '{2}'", _
@@ -118,6 +118,9 @@ Public Class TVSeriesDB
         End Try
 
     End Sub
+    Private Function allowedSigns(ByVal expression As String) As String
+        Return Replace(Replace(expression, "'", "''"), ":", "%")
+    End Function
 
     Public Sub LoadEpisodebyEpsiodeID(ByVal seriesID As Integer, ByVal episodeID As String)
 

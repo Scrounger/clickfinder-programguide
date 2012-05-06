@@ -632,52 +632,56 @@ Namespace ClickfinderProgramGuide
                     For i = 0 To _SeriesResult.Count - 1
 
                         'ProgramDaten über TvMovieProgram laden
-                        Dim _TvMovieSeriesProgram As TVMovieProgram = TVMovieProgram.Retrieve(_SeriesResult.Item(i))
+                        Dim _TvMovieSeriesProgram As TVMovieProgram = getTvMovieProgram(Program.Retrieve(_SeriesResult.Item(i)))
 
-                        'Sofern andere Serie, Werte zurücksetzen
-                        If Not _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title Then
-                            _NewEpisodeCounter = 1
-                            _RecordingStatus = String.Empty
-                        End If
+                        'Prüfen ob noch immer lokal nicht vorhanden (wg. gettvmovieprogram)
+                        If _TvMovieSeriesProgram.local = False Then
 
-                        'Sofern gleiche Episode dann weiter
-                        If _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title And _EpisodeName = _TvMovieSeriesProgram.ReferencedProgram.EpisodeName Then
-
-                            'Prüfen ob als Aufnahme geplant (z.B. wenn auf SD & HD Sender läuft)
-                            If _RecordingStatus = String.Empty Then
-                                _HighlightsList.ListItems(_ListItemIndex).PinImage = GuiLayout.RecordingStatus(_TvMovieSeriesProgram.ReferencedProgram)
+                            'Sofern andere Serie, Werte zurücksetzen
+                            If Not _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title Then
+                                _NewEpisodeCounter = 1
+                                _RecordingStatus = String.Empty
                             End If
 
-                            Continue For
-                        End If
+                            'Sofern gleiche Episode dann weiter
+                            If _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title And _EpisodeName = _TvMovieSeriesProgram.ReferencedProgram.EpisodeName Then
 
-                        'Sofern nicht gleiche Episode -> Zähler hoch und weiter
-                        If _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title And Not _EpisodeName = _TvMovieSeriesProgram.ReferencedProgram.EpisodeName Then
-                            _NewEpisodeCounter = _NewEpisodeCounter + 1
-                            _HighlightsList.ListItems(_ListItemIndex).Label3 = _NewEpisodeCounter & " " & Translation.NewEpisodeFound
+                                'Prüfen ob als Aufnahme geplant (z.B. wenn auf SD & HD Sender läuft)
+                                If _RecordingStatus = String.Empty Then
+                                    _HighlightsList.ListItems(_ListItemIndex).PinImage = GuiLayout.RecordingStatus(_TvMovieSeriesProgram.ReferencedProgram)
+                                End If
+
+                                Continue For
+                            End If
+
+                            'Sofern nicht gleiche Episode -> Zähler hoch und weiter
+                            If _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title And Not _EpisodeName = _TvMovieSeriesProgram.ReferencedProgram.EpisodeName Then
+                                _NewEpisodeCounter = _NewEpisodeCounter + 1
+                                _HighlightsList.ListItems(_ListItemIndex).Label3 = _NewEpisodeCounter & " " & Translation.NewEpisodeFound
+
+                                'Prüfen ob als Aufnahme geplant
+                                If _RecordingStatus = String.Empty Then
+                                    _HighlightsList.ListItems(_ListItemIndex).PinImage = GuiLayout.RecordingStatus(_TvMovieSeriesProgram.ReferencedProgram)
+                                End If
+
+                                Continue For
+                            End If
+
+                            _timeLabel = Translation.NewLabel
+                            _infoLabel = _NewEpisodeCounter & " " & Translation.NewEpisodeFound
+                            _imagepath = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieSeriesProgram.SeriesPosterImage
 
                             'Prüfen ob als Aufnahme geplant
                             If _RecordingStatus = String.Empty Then
-                                _HighlightsList.ListItems(_ListItemIndex).PinImage = GuiLayout.RecordingStatus(_TvMovieSeriesProgram.ReferencedProgram)
+                                _RecordingStatus = GuiLayout.RecordingStatus(_TvMovieSeriesProgram.ReferencedProgram)
                             End If
 
-                            Continue For
+                            AddListControlItem(GetID, _HighlightsList, _TvMovieSeriesProgram.ReferencedProgram.IdProgram, _TvMovieSeriesProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieSeriesProgram.ReferencedProgram.Title, _timeLabel, _infoLabel, _imagepath, , _RecordingStatus)
+
+                            _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title
+                            _EpisodeName = _TvMovieSeriesProgram.ReferencedProgram.EpisodeName
+                            _ListItemIndex = _ListItemIndex + 1
                         End If
-
-                        _timeLabel = Translation.NewLabel
-                        _infoLabel = _NewEpisodeCounter & " " & Translation.NewEpisodeFound
-                        _imagepath = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieSeriesProgram.SeriesPosterImage
-
-                        'Prüfen ob als Aufnahme geplant
-                        If _RecordingStatus = String.Empty Then
-                            _RecordingStatus = GuiLayout.RecordingStatus(_TvMovieSeriesProgram.ReferencedProgram)
-                        End If
-
-                        AddListControlItem(GetID, _HighlightsList, _TvMovieSeriesProgram.ReferencedProgram.IdProgram, _TvMovieSeriesProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieSeriesProgram.ReferencedProgram.Title, _timeLabel, _infoLabel, _imagepath, , _RecordingStatus)
-
-                        _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title
-                        _EpisodeName = _TvMovieSeriesProgram.ReferencedProgram.EpisodeName
-                        _ListItemIndex = _ListItemIndex + 1
 
                     Next
                 End If
