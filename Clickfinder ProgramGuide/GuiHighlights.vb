@@ -631,6 +631,7 @@ Namespace ClickfinderProgramGuide
 
                     For i = 0 To _SeriesResult.Count - 1
 
+
                         'ProgramDaten über TvMovieProgram laden
                         Dim _TvMovieSeriesProgram As TVMovieProgram = getTvMovieProgram(Program.Retrieve(_SeriesResult.Item(i)))
 
