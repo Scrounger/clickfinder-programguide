@@ -797,5 +797,8 @@ Public Class Setup
         Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WUTCGQGMATVB4")
     End Sub
 
+    Private Sub LinkLabel1_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
+        Process.Start("https://code.google.com/p/clickfinder-programguide/wiki/Manual_de")
+    End Sub
 End Class
 

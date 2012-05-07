@@ -29,6 +29,8 @@ Partial Class Setup
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel
         Me.TabControl1 = New System.Windows.Forms.TabControl
         Me.TabAllgemeines = New System.Windows.Forms.TabPage
+        Me.Label23 = New System.Windows.Forms.Label
+        Me.CBStartGui = New System.Windows.Forms.ComboBox
         Me.GroupBox5 = New System.Windows.Forms.GroupBox
         Me.tbMPDatabasePath = New System.Windows.Forms.TextBox
         Me.Label6 = New System.Windows.Forms.Label
@@ -131,8 +133,6 @@ Partial Class Setup
         Me.openFileDialog = New System.Windows.Forms.OpenFileDialog
         Me.PictureBox2 = New System.Windows.Forms.PictureBox
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
-        Me.Label23 = New System.Windows.Forms.Label
-        Me.CBStartGui = New System.Windows.Forms.ComboBox
         Me.TabControl1.SuspendLayout()
         Me.TabAllgemeines.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -185,7 +185,7 @@ Partial Class Setup
         '
         Me.LinkLabel1.AutoSize = True
         Me.LinkLabel1.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LinkLabel1.Location = New System.Drawing.Point(127, 702)
+        Me.LinkLabel1.Location = New System.Drawing.Point(125, 713)
         Me.LinkLabel1.Name = "LinkLabel1"
         Me.LinkLabel1.Size = New System.Drawing.Size(194, 14)
         Me.LinkLabel1.TabIndex = 38
@@ -241,6 +241,25 @@ Partial Class Setup
         Me.TabAllgemeines.TabIndex = 0
         Me.TabAllgemeines.Text = "Allgemeines"
         Me.TabAllgemeines.UseVisualStyleBackColor = True
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Location = New System.Drawing.Point(30, 151)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(76, 16)
+        Me.Label23.TabIndex = 34
+        Me.Label23.Text = "Start GUI:"
+        '
+        'CBStartGui
+        '
+        Me.CBStartGui.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBStartGui.FormattingEnabled = True
+        Me.CBStartGui.Items.AddRange(New Object() {""})
+        Me.CBStartGui.Location = New System.Drawing.Point(112, 149)
+        Me.CBStartGui.Name = "CBStartGui"
+        Me.CBStartGui.Size = New System.Drawing.Size(191, 24)
+        Me.CBStartGui.TabIndex = 33
         '
         'GroupBox5
         '
@@ -462,7 +481,7 @@ Partial Class Setup
         'CheckBoxUseSportLogos
         '
         Me.CheckBoxUseSportLogos.AutoSize = True
-        Me.CheckBoxUseSportLogos.Location = New System.Drawing.Point(28, 547)
+        Me.CheckBoxUseSportLogos.Location = New System.Drawing.Point(409, 151)
         Me.CheckBoxUseSportLogos.Name = "CheckBoxUseSportLogos"
         Me.CheckBoxUseSportLogos.Size = New System.Drawing.Size(183, 20)
         Me.CheckBoxUseSportLogos.TabIndex = 6
@@ -1309,25 +1328,6 @@ Partial Class Setup
         Me.PictureBox1.Size = New System.Drawing.Size(75, 62)
         Me.PictureBox1.TabIndex = 9
         Me.PictureBox1.TabStop = False
-        '
-        'Label23
-        '
-        Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(30, 151)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(76, 16)
-        Me.Label23.TabIndex = 34
-        Me.Label23.Text = "Start GUI:"
-        '
-        'CBStartGui
-        '
-        Me.CBStartGui.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CBStartGui.FormattingEnabled = True
-        Me.CBStartGui.Items.AddRange(New Object() {""})
-        Me.CBStartGui.Location = New System.Drawing.Point(112, 149)
-        Me.CBStartGui.Name = "CBStartGui"
-        Me.CBStartGui.Size = New System.Drawing.Size(191, 24)
-        Me.CBStartGui.TabIndex = 33
         '
         'Setup
         '
