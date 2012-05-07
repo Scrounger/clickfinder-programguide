@@ -152,6 +152,31 @@ Namespace ClickfinderProgramGuide
                 _DebugModeOn = True
             End If
 
+
+            If TvPlugin.TVHome.Connected = True Then
+
+                If CBool(_layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false").Value) = True Then
+                    ClickfinderProgramGuideOverlayMovies()
+                End If
+
+                If CBool(_layer.GetSetting("ClickfinderOverlaySeriesEnabled", "false").Value) = True Then
+                    ClickfinderProgramGuideOverlaySeries()
+                End If
+            Else
+
+                For i = 1 To 4
+                    Translator.SetProperty("#ClickfinderPG.Movie" & i & ".Title", "")
+                Next
+
+                For i = 1 To 4
+                    Translator.SetProperty("#ClickfinderPG.Series" & i & ".Title", "")
+                Next
+
+                Log.Warn("[PreInit] [BasicHomeOverlay]: TvServer not online")
+
+            End If
+
+
             'Start GUI
             Select Case _layer.GetSetting("ClickfinderStartGui", "Highlights").Value
                 Case Is = "Highlights"

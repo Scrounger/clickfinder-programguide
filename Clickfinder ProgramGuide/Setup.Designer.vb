@@ -653,9 +653,9 @@ Partial Class Setup
         Me.GroupBox1.Controls.Add(Me.Label7)
         Me.GroupBox1.Controls.Add(Me.Label8)
         Me.GroupBox1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox1.Location = New System.Drawing.Point(17, 263)
+        Me.GroupBox1.Location = New System.Drawing.Point(17, 252)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(554, 98)
+        Me.GroupBox1.Size = New System.Drawing.Size(612, 98)
         Me.GroupBox1.TabIndex = 10
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "weitere Highlights"
@@ -731,7 +731,7 @@ Partial Class Setup
         Me.GroupBox2.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox2.Location = New System.Drawing.Point(17, 60)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(554, 175)
+        Me.GroupBox2.Size = New System.Drawing.Size(612, 175)
         Me.GroupBox2.TabIndex = 11
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Movie Highlights"
@@ -1022,9 +1022,9 @@ Partial Class Setup
         Me.GroupDetailSeriesImage.Controls.Add(Me.RBEpisodeImage)
         Me.GroupDetailSeriesImage.Controls.Add(Me.RBSeriesFanArt)
         Me.GroupDetailSeriesImage.Controls.Add(Me.RBSeriesCover)
-        Me.GroupDetailSeriesImage.Location = New System.Drawing.Point(24, 67)
+        Me.GroupDetailSeriesImage.Location = New System.Drawing.Point(22, 67)
         Me.GroupDetailSeriesImage.Name = "GroupDetailSeriesImage"
-        Me.GroupDetailSeriesImage.Size = New System.Drawing.Size(547, 63)
+        Me.GroupDetailSeriesImage.Size = New System.Drawing.Size(603, 63)
         Me.GroupDetailSeriesImage.TabIndex = 11
         Me.GroupDetailSeriesImage.TabStop = False
         Me.GroupDetailSeriesImage.Text = "Serien Bild:"
@@ -1032,7 +1032,7 @@ Partial Class Setup
         'RBTvMovieImage
         '
         Me.RBTvMovieImage.AutoSize = True
-        Me.RBTvMovieImage.Location = New System.Drawing.Point(396, 31)
+        Me.RBTvMovieImage.Location = New System.Drawing.Point(456, 31)
         Me.RBTvMovieImage.Name = "RBTvMovieImage"
         Me.RBTvMovieImage.Size = New System.Drawing.Size(126, 20)
         Me.RBTvMovieImage.TabIndex = 15
@@ -1043,7 +1043,7 @@ Partial Class Setup
         'RBEpisodeImage
         '
         Me.RBEpisodeImage.AutoSize = True
-        Me.RBEpisodeImage.Location = New System.Drawing.Point(261, 31)
+        Me.RBEpisodeImage.Location = New System.Drawing.Point(301, 31)
         Me.RBEpisodeImage.Name = "RBEpisodeImage"
         Me.RBEpisodeImage.Size = New System.Drawing.Size(129, 20)
         Me.RBEpisodeImage.TabIndex = 14
@@ -1055,7 +1055,7 @@ Partial Class Setup
         '
         Me.RBSeriesFanArt.AccessibleDescription = "RBSeriesFanArt"
         Me.RBSeriesFanArt.AutoSize = True
-        Me.RBSeriesFanArt.Location = New System.Drawing.Point(139, 31)
+        Me.RBSeriesFanArt.Location = New System.Drawing.Point(159, 31)
         Me.RBSeriesFanArt.Name = "RBSeriesFanArt"
         Me.RBSeriesFanArt.Size = New System.Drawing.Size(116, 20)
         Me.RBSeriesFanArt.TabIndex = 13
@@ -1333,7 +1333,7 @@ Partial Class Setup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(678, 751)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.TabControl1)
