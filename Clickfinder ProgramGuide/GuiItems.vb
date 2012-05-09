@@ -440,6 +440,11 @@ Namespace ClickfinderProgramGuide
                     _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
                         Helper.ORDERBYparentalRating
                     Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortparentalRating)
+                Case Is = SortMethode.Series.ToString
+                    _LogLocalSortedBy = SortMethode.Series.ToString
+                    _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
+                        "ORDER BY title ASC, seriesNum ASC, episodeNum ASC, startTime ASC"
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.Episode)
             End Select
 
             _Result.AddRange(Broker.Execute(_ItemsSqlString).TransposeToFieldList("idProgram", False))

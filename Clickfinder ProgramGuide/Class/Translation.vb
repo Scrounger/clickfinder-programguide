@@ -86,8 +86,8 @@ Public NotInheritable Class Translation
     Public Shared ClickfinderDBOffline = "Clickfinder Datenbank nicht erreichbar!"
     Public Shared TvMovieEPGImportNotEnabled = "Tv Movie EPG Import++ nicht aktiviert / installiert!"
     Public Shared ClickfinderImportNotEnabled = "Clickfinder ProgramGuide Import im Tv Movie EPG Import++ Plugin nicht aktiviert!"
-
-
+    Public Shared MyMovies = "Meine Filme"
+    Public Shared NewEpisodes = "Neue Episoden"
 
 
     ' A

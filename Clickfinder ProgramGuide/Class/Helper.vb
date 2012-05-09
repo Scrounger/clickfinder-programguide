@@ -19,6 +19,7 @@ Public Class Helper
         RatingStar
         Genre
         parentalRating
+        Series
     End Enum
     Friend Shared Sub AddListControlItem(ByVal WindowId As Integer, ByVal Listcontrol As GUIListControl, ByVal idProgram As Integer, ByVal ChannelName As String, ByVal titelLabel As String, Optional ByVal timeLabel As String = "", Optional ByVal infoLabel As String = "", Optional ByVal ImagePath As String = "", Optional ByVal MinRunTime As Integer = 0, Optional ByVal isRecording As String = "")
 
