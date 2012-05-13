@@ -399,7 +399,7 @@ Namespace ClickfinderProgramGuide
 
             Dim _lastTitle As String = String.Empty
             Dim _Result As New ArrayList
-            Dim _layer As New TvBusinessLayer
+
             Dim _LogLocalSortedBy As String = String.Empty
             Dim _LogLocalMovies As String = String.Empty
             Dim _LogLocalSeries As String = String.Empty
@@ -768,17 +768,17 @@ Namespace ClickfinderProgramGuide
             dlgContext.Add(lItemActionOn)
             lItemActionOn.Dispose()
 
-            'Aufnehmen
-            Dim lItemRec As New GUIListItem
-            lItemRec.Label = "Alle Filme der #Categorie (ändern)"
-            dlgContext.Add(lItemRec)
-            lItemRec.Dispose()
+            ''Aufnehmen
+            'Dim lItemRec As New GUIListItem
+            'lItemRec.Label = "Alle Filme der #Categorie (ändern)"
+            'dlgContext.Add(lItemRec)
+            'lItemRec.Dispose()
 
-            'Erinnern
-            Dim lItemRem As New GUIListItem
-            lItemRem.Label = "gleiches Genre, gleicher Zeitraum)"
-            dlgContext.Add(lItemRem)
-            lItemRem.Dispose()
+            ''Erinnern
+            'Dim lItemRem As New GUIListItem
+            'lItemRem.Label = "gleiches Genre, gleicher Zeitraum)"
+            'dlgContext.Add(lItemRem)
+            'lItemRem.Dispose()
 
 
             dlgContext.DoModal(idWindow)

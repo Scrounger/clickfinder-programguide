@@ -94,7 +94,7 @@
       <width>1080</width>
       <height>590</height>
 
-      <texture>ClickfinderPG_ListBG.png</texture>
+      <texture>ClickfinderPG_DetailBG.png</texture>
     </control>
 
     <!--rechts vom Separator-->
@@ -121,7 +121,7 @@
       <id>1</id>
       <posX>350</posX>
       <posY>100</posY>
-      <width>840</width>
+      <width>750</width>
       <align>left</align>
       <font>font14</font>
       <textcolor>ffffffff</textcolor>
@@ -137,7 +137,7 @@
       <id>1</id>
       <posX>352</posX>
       <posY>130</posY>
-      <width>840</width>
+      <width>750</width>
       <align>left</align>
       <font>font11</font>
       <textcolor>ff909090</textcolor>
@@ -168,6 +168,27 @@
       <percentage>#DetailRatingStar</percentage>
       <visible>!string.starts(#DetailRatingStar,0)</visible>
     </control>
+
+
+    <control>
+      <description>Detail FSK Logo</description>
+      <type>image</type>
+      <id>37</id>
+      <posX>1110</posX>
+      <posY>100</posY>
+      <width>60</width>
+      <height>60</height>
+      <texture></texture>
+      <colorkey>0</colorkey>
+      <filtered>yes</filtered>
+      <centered>no</centered>
+      <keepaspectratio>yes</keepaspectratio>
+      <texture>#DetailFSK</texture>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
 
     <control>
       <description>Label Genre</description>
@@ -406,7 +427,7 @@
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
-    
+
     <control>
       <description>Label Zeit</description>
       <type>label</type>
@@ -503,7 +524,6 @@
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
-
 
     <!-- Program Infos / Einzelbewertung-->
 
@@ -762,7 +782,7 @@
 
     <!-- ActionGroup -->
     <import>ClickfinderProgramGuide.HiddenMenu.xml</import>
-    
+
     <control>
       <description>Remember</description>
       <type>button</type>

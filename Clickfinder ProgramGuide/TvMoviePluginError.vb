@@ -13,10 +13,14 @@ Imports System.Threading
 Imports System.Windows.Forms
 Imports TvDatabase
 
+
 Public Class TvMoviePluginError
+#Region "Members"
+    Private Shared _layer As New TvBusinessLayer
+#End Region
 
     Private Sub TvMoviePluginError_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Dim _layer As New TvBusinessLayer
+
 
         If CBool(_layer.GetSetting("TvMovieEnabled", "false").Value) = False Then
             Label1.Visible = True

@@ -1,6 +1,8 @@
 ﻿Imports ClickfinderProgramGuide.ClickfinderProgramGuide
 Imports MediaPortal.GUI.Library
-
+Imports TvControl
+Imports TvDatabase
+Imports TvLibrary.Interfaces
 
 Public Class GuiButtons
 
@@ -59,6 +61,9 @@ Public Class GuiButtons
     End Sub
 
     Friend Shared Sub Preview()
+
+
+
 
 
 

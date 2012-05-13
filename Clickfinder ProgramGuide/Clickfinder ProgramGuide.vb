@@ -42,7 +42,7 @@ Namespace ClickfinderProgramGuide
 #End Region
 
 #Region "Members"
-        Private _layer As New TvBusinessLayer
+        Private Shared _layer As New TvBusinessLayer
         Friend Shared _DebugModeOn As Boolean = False
 #End Region
 
@@ -106,6 +106,7 @@ Namespace ClickfinderProgramGuide
 #Region "GUI Events"
         Public Overrides Sub PreInit()
             MyBase.PreInit()
+
 
             If TvPlugin.TVHome.Connected = True Then
 
@@ -274,7 +275,6 @@ Namespace ClickfinderProgramGuide
             Dim _startTime As Date = Nothing
             Dim _endTime As Date = Nothing
 
-            Dim _layer As New TvBusinessLayer
 
             Dim _PrimeTime As Date = CDate(_layer.GetSetting("ClickfinderPrimeTime", "20:15").Value)
             Dim _LateTime As Date = CDate(_layer.GetSetting("ClickfinderLateTime", "22:00").Value)
@@ -473,8 +473,6 @@ Namespace ClickfinderProgramGuide
             End Try
         End Sub
         Friend Shared Sub ClickfinderProgramGuideOverlaySeries()
-
-            Dim _layer As New TvBusinessLayer
 
             For i = 1 To 4
                 Translator.SetProperty("#ClickfinderPG.Series" & i & ".Title", "")

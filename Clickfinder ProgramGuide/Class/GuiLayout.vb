@@ -5,6 +5,11 @@ Imports MediaPortal.Configuration
 Namespace ClickfinderProgramGuide
 
     Public Class GuiLayout
+
+#Region "Members"
+        Private Shared _layer As New TvBusinessLayer
+#End Region
+
         Friend Shared ReadOnly Property ratingStar(ByVal Program As Program) As Integer
             Get
                 If Program.StarRating > 0 Then
@@ -131,7 +136,7 @@ Namespace ClickfinderProgramGuide
             Get
                 Dim _infoLabel As String = String.Empty
 
-                Select TvMovieProgram.idSeries
+                Select Case TvMovieProgram.idSeries
                     Case Is = 0
                         'infoLabel format
                         If String.IsNullOrEmpty(TvMovieProgram.ReferencedProgram.EpisodeName) Then
@@ -172,7 +177,7 @@ Namespace ClickfinderProgramGuide
 
         Friend Shared ReadOnly Property LastUpdateLabel() As String
             Get
-                Dim _layer As New TvBusinessLayer
+
                 Dim LastUpdate As Date = _layer.GetSetting("TvMovieLastUpdate").Value
 
                 Select Case (DateDiff(DateInterval.Day, Date.Now, LastUpdate))
@@ -229,6 +234,28 @@ Namespace ClickfinderProgramGuide
                 End If
             End Get
         End Property
+
+        Friend Shared ReadOnly Property DetailFSK(ByVal Program As Program) As String
+            Get
+                If Program.StarRating > 0 Then
+                    Select Case Program.ParentalRating
+                        Case Is = 0
+                            Return "Logos\ClickfinderPG\fsk0.png"
+                        Case Is < 12
+                            Return "Logos\ClickfinderPG\fsk6.png"
+                        Case Is < 18
+                            Return "Logos\ClickfinderPG\fsk12.png"
+                        Case Is = 18
+                            Return "Logos\ClickfinderPG\fsk18.png"
+                    End Select
+                Else
+                    Return String.Empty
+                End If
+
+            End Get
+
+        End Property
+
     End Class
 
 End Namespace

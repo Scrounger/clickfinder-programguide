@@ -17,10 +17,13 @@ Imports ClickfinderProgramGuide.TvDatabase
 
 
 Public Class Setup
+#Region "Members"
+    Private Shared _layer As New TvBusinessLayer
+#End Region
 
     Private Sub Setup_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
-            Dim _layer As New TvBusinessLayer
+
             Dim _StartGuiList As New ArrayList
 
 
@@ -205,7 +208,7 @@ Public Class Setup
 
     Private Sub ButtonSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonSave.Click
         Try
-            Dim _layer As New TvBusinessLayer
+
             Dim setting As Setting = _layer.GetSetting("ClickfinderDatabasePath", "")
             setting.Value = tbClickfinderDatabase.Text
             setting.Persist()
@@ -322,21 +325,21 @@ Public Class Setup
 
 
     Private Sub CheckBoxShowLocalMovies_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxShowLocalMovies.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false")
         setting.Value = CStr(CheckBoxShowLocalMovies.Checked)
         setting.Persist()
     End Sub
 
     Private Sub CheckBoxShowTagesTipp_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxShowTagesTipp.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderOverviewShowTagesTipp", "false")
         setting.Value = CStr(CheckBoxShowTagesTipp.Checked)
         setting.Persist()
     End Sub
 
     Private Sub CheckBoxUseSportLogos_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxUseSportLogos.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderUseSportLogos", "false")
         setting.Value = CStr(CheckBoxUseSportLogos.Checked)
         setting.Persist()
@@ -611,49 +614,49 @@ Public Class Setup
     End Sub
 
     Private Sub CheckBoxFilterShowLocalMovies_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxFilterShowLocalMovies.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderItemsShowLocalMovies", "false")
         setting.Value = CStr(CheckBoxFilterShowLocalMovies.Checked)
         setting.Persist()
     End Sub
 
     Private Sub CheckBoxFilterShowLocalSeries_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxFilterShowLocalSeries.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderItemsShowLocalSeries", "false")
         setting.Value = CStr(CheckBoxFilterShowLocalSeries.Checked)
         setting.Persist()
     End Sub
 
     Private Sub RBstartTime_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBstartTime.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderOverviewMovieSort", "startTime")
         setting.Value = Helper.SortMethode.startTime.ToString
         setting.Persist()
     End Sub
 
     Private Sub RBTvMovieStar_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBTvMovieStar.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderOverviewMovieSort", "startTime")
         setting.Value = Helper.SortMethode.TvMovieStar.ToString
         setting.Persist()
     End Sub
 
     Private Sub RBRatingStar_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBRatingStar.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderOverviewMovieSort", "startTime")
         setting.Value = Helper.SortMethode.RatingStar.ToString
         setting.Persist()
     End Sub
 
     Private Sub CheckBoxRemberSortedBy_CheckedChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxRemberSortedBy.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderRemberSortedBy", "true")
         setting.Value = CStr(CheckBoxRemberSortedBy.Checked)
         setting.Persist()
     End Sub
 
     Private Sub CheckBoxDebugMode_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxDebugMode.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderDebugMode", "false")
         setting.Value = CStr(CheckBoxDebugMode.Checked)
         setting.Persist()
@@ -661,119 +664,119 @@ Public Class Setup
 
 
     Private Sub CheckBoxShowCategorieLocalMovies_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxShowCategorieLocalMovies.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderCategorieShowLocalMovies", "false")
         setting.Value = CStr(CheckBoxShowCategorieLocalMovies.Checked)
         setting.Persist()
     End Sub
 
     Private Sub CheckBoxShowCategorieLocalSeries_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxShowCategorieLocalSeries.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderCategorieShowLocalSeries", "false")
         setting.Value = CStr(CheckBoxShowCategorieLocalSeries.Checked)
         setting.Persist()
     End Sub
 
     Private Sub CheckBoxUseSeriesDescribtion_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxUseSeriesDescribtion.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderDetailUseSeriesDescribtion", "false")
         setting.Value = CStr(CheckBoxUseSeriesDescribtion.Checked)
         setting.Persist()
     End Sub
 
     Private Sub RBSeriesCover_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBSeriesCover.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderDetailsSeriesImage", "Cover")
         setting.Value = "Cover"
         setting.Persist()
     End Sub
 
     Private Sub RBSeriesFanArt_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBSeriesFanArt.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderDetailsSeriesImage", "Cover")
         setting.Value = "FanArt"
         setting.Persist()
     End Sub
 
     Private Sub RBEpisodeImage_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBEpisodeImage.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderDetailsSeriesImage", "Cover")
         setting.Value = "Episode"
         setting.Persist()
     End Sub
 
     Private Sub RBTvMovieImage_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBTvMovieImage.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderDetailsSeriesImage", "Cover")
         setting.Value = "TvMovie"
         setting.Persist()
     End Sub
 
     Private Sub CheckBoxOverlayShowTagesTipp_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxOverlayShowTagesTipp.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayShowTagesTipp", "false")
         setting.Value = CStr(CheckBoxOverlayShowTagesTipp.Checked)
         setting.Persist()
     End Sub
 
     Private Sub CheckBoxOverlayShowLocalMovies_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxOverlayShowLocalMovies.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayShowLocalMovies", "false")
         setting.Value = CStr(CheckBoxOverlayShowLocalMovies.Checked)
         setting.Persist()
     End Sub
 
     Private Sub RBOverlayHeute_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBOverlayHeute.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayTime", "PrimeTime")
         setting.Value = "Today"
         setting.Persist()
     End Sub
 
     Private Sub RBOverlayNow_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBOverlayNow.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayTime", "PrimeTime")
         setting.Value = "Now"
         setting.Persist()
     End Sub
 
     Private Sub RBOverlayPrimeTime_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBOverlayPrimeTime.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayTime", "PrimeTime")
         setting.Value = "PrimeTime"
         setting.Persist()
     End Sub
 
     Private Sub RBOverlayLateTime_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBOverlayLateTime.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayTime", "PrimeTime")
         setting.Value = "LateTime"
         setting.Persist()
     End Sub
 
     Private Sub RBOverlayStartTime_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBOverlayStartTime.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayMovieSort", Helper.SortMethode.RatingStar.ToString)
         setting.Value = Helper.SortMethode.startTime.ToString
         setting.Persist()
     End Sub
 
     Private Sub RBOverlayTvMovieStar_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBOverlayTvMovieStar.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayMovieSort", Helper.SortMethode.RatingStar.ToString)
         setting.Value = Helper.SortMethode.TvMovieStar.ToString
         setting.Persist()
     End Sub
 
     Private Sub RBOverlayRatingStar_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBOverlayRatingStar.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayMovieSort", Helper.SortMethode.RatingStar.ToString)
         setting.Value = Helper.SortMethode.RatingStar.ToString
         setting.Persist()
     End Sub
 
     Private Sub CheckBoxEnableMovieOverlay_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxEnableMovieOverlay.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false")
         setting.Value = CStr(CheckBoxEnableMovieOverlay.Checked)
         setting.Persist()
@@ -787,7 +790,7 @@ Public Class Setup
     End Sub
 
     Private Sub CheckBoxEnableSeriesOverlay_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxEnableSeriesOverlay.CheckedChanged
-        Dim _layer As New TvBusinessLayer
+
         Dim setting As Setting = _layer.GetSetting("ClickfinderOverlaySeriesEnabled", "false")
         setting.Value = CStr(CheckBoxEnableSeriesOverlay.Checked)
         setting.Persist()

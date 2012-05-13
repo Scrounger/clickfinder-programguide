@@ -244,6 +244,8 @@ Namespace ClickfinderProgramGuide
                     Translator.SetProperty("#DetailProgramFormat", "Logos\ClickfinderPG\sd.png")
                 End If
 
+                Translator.SetProperty("#DetailFSK", GuiLayout.DetailFSK(_DetailTvMovieProgram.ReferencedProgram))
+
                 If Not String.IsNullOrEmpty(_DetailTvMovieProgram.FanArt) Then
                     Translator.SetProperty("#DetailFanArt", Config.GetFile(Config.Dir.Thumbs, "") & _DetailTvMovieProgram.FanArt)
                 Else

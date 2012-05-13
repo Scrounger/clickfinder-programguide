@@ -12,6 +12,9 @@ Imports ClickfinderProgramGuide.TvDatabase
 Imports MediaPortal.GUI.Home
 
 Public Class Helper
+#Region "Members"
+    Private Shared _layer As New TvBusinessLayer
+#End Region
 
     Friend Enum SortMethode
         startTime
@@ -379,7 +382,7 @@ Public Class Helper
         Dim dlgContext As GUIDialogSelect2Custom = CType(GUIWindowManager.GetWindow(CType(1656544655, Integer)), GUIDialogSelect2Custom)
         dlgContext.Reset()
         Try
-            Dim _layer As New TvBusinessLayer
+
             Dim _idSeriesContainer As Dictionary(Of Integer, Integer) = New Dictionary(Of Integer, Integer)
 
             If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True Then
@@ -486,7 +489,7 @@ Public Class Helper
 
     Friend Shared Sub CheckConnectionState(ByVal idWindow As Integer)
 
-        Dim _layer As New TvBusinessLayer
+
 
         'TvServer nicht verbunden / online
         If TvPlugin.TVHome.Connected = False Then
@@ -521,8 +524,6 @@ Public Class Helper
     End Sub
 
     Friend Shared Sub CheckSeriesLocalStatus(ByVal TvMovieProgram As TVMovieProgram)
-
-        Dim _layer As New TvBusinessLayer
 
         If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True Then
             If TvMovieProgram.idSeries > 0 And TvMovieProgram.local = False Then

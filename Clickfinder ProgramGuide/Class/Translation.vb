@@ -13,8 +13,6 @@ Public NotInheritable Class Translation
     Public Shared Remember As String = "Erinnern"
     Public Shared ChannelON As String = "Play / Kanal einschalten"
     Public Shared SameGenre As String = "gleiches Genre:"
-
-
     Public Shared Season As String = "Staffel"
     Public Shared Episode As String = "Episode"
     Public Shared NewEpisode As String = "Neu Episode !!!"
@@ -24,141 +22,81 @@ Public NotInheritable Class Translation
     Public Shared PrimeTime As String = "Prime Time"
     Public Shared LateTime As String = "Late Time"
     Public Shared Preview As String = "Preview"
-    Public Shared CategoriePreviewLabel = "ab:"
-    Public Shared Highlights = "Highlights"
-    Public Shared Categorie = "Kategorie"
-    Public Shared CategorieEdit = "bearbeiten"
-    Public Shared CategorieRename = "umbennen"
-    Public Shared CategorieHide = "verstecken"
-    Public Shared CategorieShow = "versteckte Kategorie anzeigen"
-    Public Shared CategorieChoose = "wähle die Kategorie aus, die angezeigt werden soll"
-    Public Shared CategorieHideNotFound = "Keine versteckten Kategorien gefunden..."
-    Public Shared PageLabel = "Seite"
-    Public Shared allMoviesAt = "Alle Filme von"
-    Public Shared allMoviesNow = "Alle Filme ab Jetzt"
-    Public Shared allHighlightsAt = "Alle Highlights von"
-    Public Shared allCategoriesAt = "Alle Kategorien von"
-    Public Shared All = "Alle"
-    Public Shared TwoDaysAgo = "Vorgestern"
-    Public Shared at = "um"
-    Public Shared before = "vor"
-    Public Shared Days = "Tagen"
-    Public Shared Loading = "Daten werden geladen ..."
-    Public Shared existlocal = "lokal"
-    Public Shared SortStartTime = "Startzeit"
-    Public Shared SortTvMovieStar = "Tv Movie Bewertung"
-    Public Shared SortRatingStar = "Rating"
-    Public Shared SortGenre = "Genre"
-    Public Shared SortparentalRating = "Altersfreigabe"
-    Public Shared Sortby = "Sortieren nach ..."
-    Public Shared SortbyGuiItems = "Sortiert nach"
-    Public Shared von = "von"
-    Public Shared action = "Aktion ..."
-    Public Shared Refresh = "Aktualisieren"
-    Public Shared ImportIsRunning = "Import wird zur Zeit durchgeführt !"
-    Public Shared Filterby = "Nach Tv-Gruppe filtern ..."
-    Public Shared MinuteLabel = "min"
-    Public Shared DurationLabel = "Dauer:"
-    Public Shared TimeLabel = "Uhrzeit:"
-    Public Shared ChannelLabel = "Sender:"
-
-    Public Shared LevelLabel = "Anspruch"
-    Public Shared FunLabel = "Spaß"
-    Public Shared ActionLabel = "Action"
-    Public Shared EroticLabel = "Erotik"
-    Public Shared SuspenseLabel = "Spannung"
-    Public Shared EmotionsLabel = "Gefühl"
-    Public Shared SerieLinkLabel = "mit Serie verknüpfen ..."
-    Public Shared YearLabel = "Jahr:"
-    Public Shared GenreLabel = "Genre:"
-    Public Shared RegieLabel = "Regie:"
-
-    Public Shared ActorsLabel = "Schauspieler:"
-    Public Shared Critic = "Kritik:"
-    Public Shared LinkTo = "verknüpft mit:"
-
-    Public Shared NextLabel = "Gleich läuft:"
-
-    Public Shared OverlayTitle = "Heute im Fernsehen"
-    Public Shared Back = "Zurück"
-    Public Shared Warning = "Warnung"
-    Public Shared TvServerOffline = "Tv Server nicht erreichbar!"
+    Public Shared CategoriePreviewLabel As String = "ab:"
+    Public Shared Highlights As String = "Highlights"
+    Public Shared Categorie As String = "Kategorie"
+    Public Shared CategorieEdit As String = "bearbeiten"
+    Public Shared CategorieRename As String = "umbennen"
+    Public Shared CategorieHide As String = "verstecken"
+    Public Shared CategorieShow As String = "versteckte Kategorie anzeigen"
+    Public Shared CategorieChoose As String = "wähle die Kategorie aus, die angezeigt werden soll"
+    Public Shared CategorieHideNotFound As String = "Keine versteckten Kategorien gefunden..."
+    Public Shared PageLabel As String = "Seite"
+    Public Shared allMoviesAt As String = "Alle Filme von"
+    Public Shared allMoviesNow As String = "Alle Filme ab Jetzt"
+    Public Shared allHighlightsAt As String = "Alle Highlights von"
+    Public Shared allCategoriesAt As String = "Alle Kategorien von"
+    Public Shared All As String = "Alle"
+    Public Shared TwoDaysAgo As String = "Vorgestern"
+    Public Shared at As String = "um"
+    Public Shared before As String = "vor"
+    Public Shared Days As String = "Tagen"
+    Public Shared Loading As String = "Daten werden geladen ..."
+    Public Shared existlocal As String = "lokal"
+    Public Shared SortStartTime As String = "Startzeit"
+    Public Shared SortTvMovieStar As String = "Tv Movie Bewertung"
+    Public Shared SortRatingStar As String = "Rating"
+    Public Shared SortGenre As String = "Genre"
+    Public Shared SortparentalRating As String = "Altersfreigabe"
+    Public Shared Sortby As String = "Sortieren nach ..."
+    Public Shared SortbyGuiItems As String = "Sortiert nach"
+    Public Shared von As String = "von"
+    Public Shared action As String = "Aktion ..."
+    Public Shared Refresh As String = "Aktualisieren"
+    Public Shared ImportIsRunning As String = "Import wird zur Zeit durchgeführt !"
+    Public Shared Filterby As String = "Nach Tv-Gruppe filtern ..."
+    Public Shared MinuteLabel As String = "min"
+    Public Shared DurationLabel As String = "Dauer:"
+    Public Shared TimeLabel As String = "Uhrzeit:"
+    Public Shared ChannelLabel As String = "Sender:"
+    Public Shared LevelLabel As String = "Anspruch"
+    Public Shared FunLabel As String = "Spaß"
+    Public Shared ActionLabel As String = "Action"
+    Public Shared EroticLabel As String = "Erotik"
+    Public Shared SuspenseLabel As String = "Spannung"
+    Public Shared EmotionsLabel As String = "Gefühl"
+    Public Shared SerieLinkLabel As String = "mit Serie verknüpfen ..."
+    Public Shared YearLabel As String = "Jahr:"
+    Public Shared GenreLabel As String = "Genre:"
+    Public Shared RegieLabel As String = "Regie:"
+    Public Shared ActorsLabel As String = "Schauspieler:"
+    Public Shared Critic As String = "Kritik:"
+    Public Shared LinkTo As String = "verknüpft mit:"
+    Public Shared NextLabel As String = "Gleich läuft:"
+    Public Shared OverlayTitle As String = "Heute im Fernsehen"
+    Public Shared Back As String = "Zurück"
+    Public Shared Warning As String = "Warnung"
+    Public Shared TvServerOffline As String = "Tv Server nicht erreichbar!"
     Public Shared ClickfinderDBOffline = "Clickfinder Datenbank nicht erreichbar!"
-    Public Shared TvMovieEPGImportNotEnabled = "Tv Movie EPG Import++ nicht aktiviert / installiert!"
-    Public Shared ClickfinderImportNotEnabled = "Clickfinder ProgramGuide Import im Tv Movie EPG Import++ Plugin nicht aktiviert!"
-    Public Shared MyMovies = "Meine Filme"
-    Public Shared NewEpisodes = "Neue Episoden"
-
-
-    ' A
-
-    ' B
-
-    ' C
-
-    ' D
-
-    ' E
-
-    ' F
+    Public Shared TvMovieEPGImportNotEnabled As String = "Tv Movie EPG Import++ nicht aktiviert / installiert!"
+    Public Shared ClickfinderImportNotEnabled As String = "Clickfinder ProgramGuide Import im Tv Movie EPG Import++ Plugin nicht aktiviert!"
+    Public Shared MyMovies As String = "Meine Filme"
+    Public Shared NewEpisodes As String = "Neue Episoden"
     Public Shared Friday As String = "Freitag"
-
-    ' G
     Public Shared MovieListTitle As String = "Movie Higlights"
     Public Shared HighlightsListTitle As String = "weitere Higlights"
-
-
-
-    ' H
-
-
-    ' I
-
-
-    ' L
     Public Shared LastUpdate As String = "Letztes Update:"
-
-    ' M
     Public Shared Monday As String = "Montag"
-
-    ' N
     Public Shared NewLabel As String = "Neu !!!"
     Public Shared NewEpisodeFound As String = "neue Episode(n) gefunden"
-
-
-    ' O
-
-
-    ' P
-
-
-    ' R
-
-
-    ' S
     Public Shared Saturday As String = "Samstag"
     Public Shared Sunday As String = "Sonntag"
-
-    ' T
     Public Shared Today As String = "Heute"
     Public Shared Tomorrow As String = "Morgen"
     Public Shared Tuesday As String = "Dienstag"
     Public Shared Thursday As String = "Donnerstag"
-
-    ' U
-   
-
-    ' V
-
-
-    ' W
     Public Shared Wednesday As String = "Mittwoch"
-
-    ' X
-
-    ' Y
     Public Shared Yesterday As String = "Gestern"
 
-    ' Z
 End Class
 
