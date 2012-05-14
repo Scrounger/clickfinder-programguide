@@ -195,8 +195,6 @@ Namespace ClickfinderProgramGuide
             'MsgBox(_CategorieList.SelectedListItem.ItemId & vbNewLine & _PreviewList.SelectedListItem.ItemId)
             Try
                 If ThreadPreviewListFill.IsAlive = True Then ThreadPreviewListFill.Abort()
-
-
             Catch ex As Exception
                 'Eventuell auftretende Exception abfangen
                 ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html

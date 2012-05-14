@@ -69,8 +69,6 @@ Namespace ClickfinderProgramGuide
 
         End Sub
 
-
-
 #End Region
 
 #Region "GUI Properties"
@@ -139,16 +137,7 @@ Namespace ClickfinderProgramGuide
                 Translator.SetProperty("#ItemsListRatingStar" & i, 0)
             Next
 
-            Try
-
-                If _ThreadLeftList.IsAlive = True And _ThreadRightList.IsAlive = True Then
-                    _ThreadLeftList.Abort()
-                    _ThreadRightList.Abort()
-                End If
-            Catch ex3 As Exception ' Ignore this exception
-                'Eventuell auftretende Exception abfangen
-                ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
-            End Try
+            AbortRunningThreads()
 
             MyBase.OnPageDestroy(new_windowId)
         End Sub
@@ -181,16 +170,7 @@ Namespace ClickfinderProgramGuide
                     Dim _ProgressBarThread2 As New Threading.Thread(AddressOf ShowRightProgressBar)
                     _ProgressBarThread2.Start()
 
-                    Try
-
-                        If _ThreadLeftList.IsAlive = True And _ThreadRightList.IsAlive = True Then
-                            _ThreadLeftList.Abort()
-                            _ThreadRightList.Abort()
-                        End If
-                    Catch ex3 As Exception ' Ignore this exception
-                        'Eventuell auftretende Exception abfangen
-                        ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
-                    End Try
+                   AbortRunningThreads
 
                     If CInt(_CurrentCounter / 12) * 12 + 12 > _ItemsResult.Count - 1 Then
                         _CurrentCounter = 0
@@ -224,15 +204,7 @@ Namespace ClickfinderProgramGuide
                     Dim _ProgressBarThread2 As New Threading.Thread(AddressOf ShowRightProgressBar)
                     _ProgressBarThread2.Start()
 
-                    Try
-
-                        If _ThreadLeftList.IsAlive = True And _ThreadRightList.IsAlive = True Then
-                            _ThreadLeftList.Abort()
-                            _ThreadRightList.Abort()
-                        End If
-                    Catch ex3 As Exception ' Ignore this exception
-                        'Eventuell auftretende Exception abfangen
-                    End Try
+                    AbortRunningThreads()
 
                     If _CurrentCounter <= 0 Then
                         _CurrentCounter = Int(_ItemsResult.Count / 12) * 12
@@ -291,6 +263,7 @@ Namespace ClickfinderProgramGuide
                         End If
                     End If
                 End If
+
                 'Remote 5 Button (5) -> zu Heute springen
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_5 Then
                     MyLog.[Debug]("[ItemsGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
@@ -313,6 +286,9 @@ Namespace ClickfinderProgramGuide
                             GuiLayoutLoading()
                             _FillLists.Start()
                         Else
+
+                            AbortRunningThreads()
+
                             _ThreadLeftList = New Thread(AddressOf FillLeftList)
                             _ThreadRightList = New Thread(AddressOf FillRightList)
                             _ThreadLeftList.IsBackground = True
@@ -725,10 +701,31 @@ Namespace ClickfinderProgramGuide
         Private Sub ShowLeftProgressBar()
             _LeftProgressBar.Visible = True
         End Sub
-
         Private Sub ShowRightProgressBar()
             _RightProgressBar.Visible = True
         End Sub
+
+        Private Sub AbortRunningThreads()
+
+            Try
+                If _ThreadLeftList.IsAlive = True Then
+                    _ThreadLeftList.Abort()
+                    _ThreadRightList.Abort()
+                ElseIf _ThreadRightList.IsAlive = True Then
+                    _ThreadRightList.Abort()
+                    _ThreadLeftList.Abort()
+                ElseIf _ThreadLeftList.IsAlive = True And _ThreadRightList.IsAlive = True Then
+                    _ThreadLeftList.Abort()
+                    _ThreadRightList.Abort()
+                End If
+
+            Catch ex3 As Exception ' Ignore this exception
+                'Eventuell auftretende Exception abfangen
+                ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
+            End Try
+        End Sub
+
+
 #End Region
 
 #Region "MediaPortal Funktionen / Dialogs"

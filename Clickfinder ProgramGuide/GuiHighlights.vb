@@ -161,17 +161,7 @@ Namespace ClickfinderProgramGuide
                     Dim _ProgressBarThread2 As New Threading.Thread(AddressOf ShowMoviesProgressBar)
                     _ProgressBarThread2.Start()
 
-                    Try
-                        If _ThreadFillMovieList.IsAlive = True Or _ThreadFillHighlightsList.IsAlive = True Then
-                            MyLog.Debug("")
-                            _ThreadFillMovieList.Abort()
-                            _ThreadFillHighlightsList.Abort()
-                        End If
-
-                    Catch ex3 As Exception ' Ignore this exception
-                        'Eventuell auftretende Exception abfangen
-                        ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
-                    End Try
+                    AbortRunningThreads
 
                     If Not Date.Equals(_ClickfinderCurrentDate, Today.AddDays(CDbl(_layer.GetSetting("ClickfinderOverviewMaxDays", "10").Value))) Then
                         _ClickfinderCurrentDate = _ClickfinderCurrentDate.AddDays(1)
@@ -204,16 +194,7 @@ Namespace ClickfinderProgramGuide
                     Dim _ProgressBarThread2 As New Threading.Thread(AddressOf ShowMoviesProgressBar)
                     _ProgressBarThread2.Start()
 
-                    Try
-                        If _ThreadFillMovieList.IsAlive = True Or _ThreadFillHighlightsList.IsAlive = True Then
-                            _ThreadFillMovieList.Abort()
-                            _ThreadFillHighlightsList.Abort()
-                        End If
-
-                    Catch ex3 As Exception
-                        'Eventuell auftretende Exception abfangen
-                        ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
-                    End Try
+                    AbortRunningThreads
 
                     If Not Date.Equals(_ClickfinderCurrentDate, Today.AddDays(-1)) Then
                         _ClickfinderCurrentDate = _ClickfinderCurrentDate.AddDays(-1)
@@ -305,6 +286,14 @@ Namespace ClickfinderProgramGuide
                     End If
                     Translator.SetProperty("#CurrentDate", getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
 
+                    Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowHighlightsProgressBar)
+                    _ProgressBarThread.Start()
+
+                    Dim _ProgressBarThread2 As New Threading.Thread(AddressOf ShowMoviesProgressBar)
+                    _ProgressBarThread2.Start()
+
+                    AbortRunningThreads()
+
                     _ThreadFillMovieList = New Thread(AddressOf FillMovieList)
                     _ThreadFillHighlightsList = New Thread(AddressOf FillHighlightsList)
                     _ThreadFillMovieList.IsBackground = True
@@ -313,16 +302,6 @@ Namespace ClickfinderProgramGuide
                     _ThreadFillHighlightsList.Start()
                 End If
 
-                ''Record Button -> MP TvProgramInfo aufrufen --- geht nicht???!?
-                'If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_RECORD Then
-                '    Try
-                '        MsgBox("Record Button")
-                '        If _MovieList.IsFocused = True Then LoadTVProgramInfo(Program.Retrieve(_MovieList.SelectedListItem.ItemId))
-                '        If _HighlightsList.IsFocused = True Then LoadTVProgramInfo(Program.Retrieve(_HighlightsList.SelectedListItem.ItemId))
-                '    Catch ex As Exception
-                '        MyLog.Error("[Record Button]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
-                '    End Try
-                'End If
             End If
 
 
@@ -339,16 +318,7 @@ Namespace ClickfinderProgramGuide
 
             _ProgressPercentagValue = _DaysProgress.Percentage
 
-            Try
-                If _ThreadFillMovieList.IsAlive = True Or _ThreadFillHighlightsList.IsAlive = True Then
-                    _ThreadFillMovieList.Abort()
-                    _ThreadFillHighlightsList.Abort()
-                End If
-
-            Catch ex3 As Exception ' Ignore this exception
-                'Eventuell auftretende Exception abfangen
-                ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
-            End Try
+            AbortRunningThreads()
 
             MyBase.OnPageDestroy(new_windowId)
 
@@ -798,6 +768,26 @@ Namespace ClickfinderProgramGuide
         End Sub
         Private Sub ShowMoviesProgressBar()
             _MoviesProgressBar.Visible = True
+        End Sub
+
+        Private Sub AbortRunningThreads()
+
+            Try
+                If _ThreadFillMovieList.IsAlive = True Then
+                    _ThreadFillMovieList.Abort()
+                    _ThreadFillHighlightsList.Abort()
+                ElseIf _ThreadFillHighlightsList.IsAlive = True Then
+                    _ThreadFillHighlightsList.Abort()
+                    _ThreadFillMovieList.Abort()
+                ElseIf _ThreadFillMovieList.IsAlive = True And _ThreadFillHighlightsList.IsAlive = True Then
+                    _ThreadFillMovieList.Abort()
+                    _ThreadFillHighlightsList.Abort()
+                End If
+
+            Catch ex3 As Exception ' Ignore this exception
+                'Eventuell auftretende Exception abfangen
+                ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
+            End Try
         End Sub
 #End Region
 

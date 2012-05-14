@@ -5,7 +5,7 @@
   
   <string Field="Record">Aufnehmen</string>
   <string Field="Remember">Erinnern</string>
-  <string Field="ChannelON">Play / Kanal einschalten</string>
+  <string Field="ChannelON">Kanal einschalten</string>
   <string Field="SameGenre">gleiches Genre:</string>
   <string Field="Season">Staffel</string>
   <string Field="Episode">Episode</string>
