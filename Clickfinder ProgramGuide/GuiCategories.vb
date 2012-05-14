@@ -637,6 +637,7 @@ Namespace ClickfinderProgramGuide
         End Sub
 
 #End Region
+
 #Region "MediaPortal Funktionen / Dialogs"
         Private Sub ShowCategoriesContextMenu(ByVal idCategorie As Integer)
             Try
