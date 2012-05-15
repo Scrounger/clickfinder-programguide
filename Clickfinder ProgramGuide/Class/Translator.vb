@@ -17,7 +17,6 @@ Public NotInheritable Class Translator
     Private Shared _translations As Dictionary(Of String, String)
     Private Shared ReadOnly _path As String = String.Empty
 
-
 #End Region
 
 #Region "Constructor"

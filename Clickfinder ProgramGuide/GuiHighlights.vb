@@ -86,7 +86,7 @@ Namespace ClickfinderProgramGuide
             Try
                 Translator.SetProperty("#CurrentDate", Translation.Loading)
 
-                CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Highlights)
+                'CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Highlights)
 
                 _DaysProgress.Percentage = _ProgressPercentagValue
                 If _ClickfinderCurrentDate = Nothing Then
