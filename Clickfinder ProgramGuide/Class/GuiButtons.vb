@@ -61,11 +61,12 @@ Public Class GuiButtons
     End Sub
 
     Friend Shared Sub Preview()
-
-
-
-
-
+        Try
+            CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Preview)
+            GUIWindowManager.ActivateWindow(1656544654)
+        Catch ex As Exception
+            MyLog.Error("[Button] [PrimeTime]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
+        End Try
 
     End Sub
 

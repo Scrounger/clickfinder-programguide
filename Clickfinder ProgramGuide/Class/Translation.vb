@@ -21,7 +21,7 @@ Public NotInheritable Class Translation
     Public Shared Now As String = "Jetzt"
     Public Shared PrimeTime As String = "Prime Time"
     Public Shared LateTime As String = "Late Time"
-    Public Shared Preview As String = "Preview"
+    Public Shared Preview As String = "Vorschau"
     Public Shared CategoriePreviewLabel As String = "ab:"
     Public Shared Highlights As String = "Highlights"
     Public Shared Categorie As String = "Kategorie"
@@ -97,6 +97,10 @@ Public NotInheritable Class Translation
     Public Shared Thursday As String = "Donnerstag"
     Public Shared Wednesday As String = "Mittwoch"
     Public Shared Yesterday As String = "Gestern"
+    Public Shared Day As String = "Tage"
+    Public Shared [for] As String = "für"
+
+
 
 End Class
 

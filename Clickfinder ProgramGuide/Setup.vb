@@ -66,6 +66,9 @@ Public Class Setup
             CheckBoxEnableMovieOverlay.Checked = _layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false").Value
             CheckBoxEnableSeriesOverlay.Checked = _layer.GetSetting("ClickfinderOverlaySeriesEnabled", "false").Value
 
+            NumPreviewDays.Value = _layer.GetSetting("ClickfinderPreviewMaxDays", "7").Value
+            NumPreviewMinTvMovieRating.Value = _layer.GetSetting("ClickfinderPreviewMinTvMovieRating", "1").Value
+
             If CheckBoxEnableMovieOverlay.Checked = True Then
                 GroupBoxMovieOverlay.Enabled = True
             Else
@@ -273,6 +276,14 @@ Public Class Setup
 
             setting = _layer.GetSetting("ClickfinderStartGui", "Highlights")
             setting.Value = CBStartGui.Text
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderPreviewMaxDays", "7")
+            setting.Value = CStr(NumPreviewDays.Value)
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderPreviewMinTvMovieRating", "1")
+            setting.Value = CStr(NumPreviewMinTvMovieRating.Value)
             setting.Persist()
 
             SaveCategories()

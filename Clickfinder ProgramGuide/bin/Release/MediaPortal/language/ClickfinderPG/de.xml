@@ -15,7 +15,7 @@
   <string Field="Now">Jetzt</string>
   <string Field="PrimeTime">Prime Time</string>
   <string Field="LateTime">Late Time</string>
-  <string Field="Preview">Preview</string>
+  <string Field="Preview">Vorschau</string>
   <string Field="CategoriePreviewLabel">ab:</string>
   <string Field="Highlights">Highlights</string>
   <string Field="Categorie">Kategorie</string>
@@ -91,5 +91,7 @@
   <string Field="Thursday">Donnerstag</string>
   <string Field="Wednesday">Mittwoch</string>
   <string Field="Yesterday">Gestern</string>
-
+  <string Field="Day">Tage</string>
+  <string Field="for">für</string>
+  
 </strings>

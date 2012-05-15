@@ -2,6 +2,7 @@
 Imports TvDatabase
 Imports MediaPortal.Configuration
 
+
 Namespace ClickfinderProgramGuide
 
     Public Class GuiLayout
@@ -48,7 +49,12 @@ Namespace ClickfinderProgramGuide
                                 'CStr(Format(TvMovieProgram.ReferencedProgram.StartTime.Hour, "00") & ":" & Format(TvMovieProgram.ReferencedProgram.StartTime.Minute, "00"))
                             Else
                                 'Keine Serie/Movie/Video -> Nur TimeLabel
-                                Return CStr(Format(TvMovieProgram.ReferencedProgram.StartTime.Hour, "00") & ":" & Format(TvMovieProgram.ReferencedProgram.StartTime.Minute, "00"))
+                                If CategoriesGuiWindow._ClickfinderCategorieView = CategoriesGuiWindow.CategorieView.Preview Then
+                                    Return CStr(Left(Helper.getTranslatedDayOfWeek(TvMovieProgram.ReferencedProgram.StartTime), 2) & ". " & Format(TvMovieProgram.ReferencedProgram.StartTime.Day, "00") & "." & Format(TvMovieProgram.ReferencedProgram.StartTime.Month, "00") & " - " & Format(TvMovieProgram.ReferencedProgram.StartTime.Hour, "00") & ":" & Format(TvMovieProgram.ReferencedProgram.StartTime.Minute, "00"))
+                                Else
+                                    Return CStr(Format(TvMovieProgram.ReferencedProgram.StartTime.Hour, "00") & ":" & Format(TvMovieProgram.ReferencedProgram.StartTime.Minute, "00"))
+                                End If
+
                             End If
                         End If
                     Case Is > 0
@@ -61,7 +67,11 @@ Namespace ClickfinderProgramGuide
                                 Return Translation.NewLabel & " " & CStr(CInt(_percentX * 100 / _percent100) & "%")
                             Else
                                 'Neue Episode
-                                Return Translation.NewLabel & " " & CStr(Format(TvMovieProgram.ReferencedProgram.StartTime.Hour, "00") & ":" & Format(TvMovieProgram.ReferencedProgram.StartTime.Minute, "00"))
+                                If CategoriesGuiWindow._ClickfinderCategorieView = CategoriesGuiWindow.CategorieView.Preview Then
+                                    Return Translation.NewLabel & " " & CStr(Left(Helper.getTranslatedDayOfWeek(TvMovieProgram.ReferencedProgram.StartTime), 2) & ". " & Format(TvMovieProgram.ReferencedProgram.StartTime.Day, "00") & "." & Format(TvMovieProgram.ReferencedProgram.StartTime.Month, "00") & " - " & Format(TvMovieProgram.ReferencedProgram.StartTime.Hour, "00") & ":" & Format(TvMovieProgram.ReferencedProgram.StartTime.Minute, "00"))
+                                Else
+                                    Return Translation.NewLabel & " " & CStr(Format(TvMovieProgram.ReferencedProgram.StartTime.Hour, "00") & ":" & Format(TvMovieProgram.ReferencedProgram.StartTime.Minute, "00"))
+                                End If
                             End If
                         End If
                     Case Else

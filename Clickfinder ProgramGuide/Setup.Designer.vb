@@ -133,6 +133,12 @@ Partial Class Setup
         Me.openFileDialog = New System.Windows.Forms.OpenFileDialog
         Me.PictureBox2 = New System.Windows.Forms.PictureBox
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
+        Me.NumPreviewDays = New System.Windows.Forms.NumericUpDown
+        Me.Label24 = New System.Windows.Forms.Label
+        Me.Label25 = New System.Windows.Forms.Label
+        Me.Label26 = New System.Windows.Forms.Label
+        Me.GroupBox8 = New System.Windows.Forms.GroupBox
+        Me.NumPreviewMinTvMovieRating = New System.Windows.Forms.NumericUpDown
         Me.TabControl1.SuspendLayout()
         Me.TabAllgemeines.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -157,6 +163,9 @@ Partial Class Setup
         Me.GroupBox6.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumPreviewDays, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox8.SuspendLayout()
+        CType(Me.NumPreviewMinTvMovieRating, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ButtonSave
@@ -210,6 +219,7 @@ Partial Class Setup
         '
         'TabAllgemeines
         '
+        Me.TabAllgemeines.Controls.Add(Me.GroupBox8)
         Me.TabAllgemeines.Controls.Add(Me.Label23)
         Me.TabAllgemeines.Controls.Add(Me.CBStartGui)
         Me.TabAllgemeines.Controls.Add(Me.GroupBox5)
@@ -245,7 +255,7 @@ Partial Class Setup
         'Label23
         '
         Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(30, 151)
+        Me.Label23.Location = New System.Drawing.Point(9, 141)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(76, 16)
         Me.Label23.TabIndex = 34
@@ -256,7 +266,7 @@ Partial Class Setup
         Me.CBStartGui.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CBStartGui.FormattingEnabled = True
         Me.CBStartGui.Items.AddRange(New Object() {""})
-        Me.CBStartGui.Location = New System.Drawing.Point(112, 149)
+        Me.CBStartGui.Location = New System.Drawing.Point(91, 139)
         Me.CBStartGui.Name = "CBStartGui"
         Me.CBStartGui.Size = New System.Drawing.Size(191, 24)
         Me.CBStartGui.TabIndex = 33
@@ -265,9 +275,9 @@ Partial Class Setup
         '
         Me.GroupBox5.Controls.Add(Me.tbMPDatabasePath)
         Me.GroupBox5.Controls.Add(Me.Label6)
-        Me.GroupBox5.Location = New System.Drawing.Point(12, 320)
+        Me.GroupBox5.Location = New System.Drawing.Point(12, 346)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(621, 92)
+        Me.GroupBox5.Size = New System.Drawing.Size(621, 85)
         Me.GroupBox5.TabIndex = 32
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "MediaPortal database path (zur Info)"
@@ -276,7 +286,7 @@ Partial Class Setup
         '
         Me.tbMPDatabasePath.Enabled = False
         Me.tbMPDatabasePath.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbMPDatabasePath.Location = New System.Drawing.Point(16, 55)
+        Me.tbMPDatabasePath.Location = New System.Drawing.Point(16, 51)
         Me.tbMPDatabasePath.Name = "tbMPDatabasePath"
         Me.tbMPDatabasePath.Size = New System.Drawing.Size(588, 23)
         Me.tbMPDatabasePath.TabIndex = 79
@@ -284,7 +294,7 @@ Partial Class Setup
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(13, 28)
+        Me.Label6.Location = New System.Drawing.Point(13, 24)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(433, 16)
         Me.Label6.TabIndex = 78
@@ -311,7 +321,7 @@ Partial Class Setup
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(229, 280)
+        Me.Label19.Location = New System.Drawing.Point(388, 280)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(174, 16)
         Me.Label19.TabIndex = 29
@@ -321,7 +331,7 @@ Partial Class Setup
         '
         Me.CbQuick2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CbQuick2.FormattingEnabled = True
-        Me.CbQuick2.Location = New System.Drawing.Point(409, 277)
+        Me.CbQuick2.Location = New System.Drawing.Point(400, 302)
         Me.CbQuick2.Name = "CbQuick2"
         Me.CbQuick2.Size = New System.Drawing.Size(191, 24)
         Me.CbQuick2.TabIndex = 28
@@ -329,7 +339,7 @@ Partial Class Setup
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(229, 243)
+        Me.Label18.Location = New System.Drawing.Point(388, 228)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(174, 16)
         Me.Label18.TabIndex = 27
@@ -339,7 +349,7 @@ Partial Class Setup
         '
         Me.CbQuick1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CbQuick1.FormattingEnabled = True
-        Me.CbQuick1.Location = New System.Drawing.Point(409, 240)
+        Me.CbQuick1.Location = New System.Drawing.Point(400, 250)
         Me.CbQuick1.Name = "CbQuick1"
         Me.CbQuick1.Size = New System.Drawing.Size(191, 24)
         Me.CbQuick1.TabIndex = 26
@@ -347,7 +357,7 @@ Partial Class Setup
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(229, 206)
+        Me.Label15.Location = New System.Drawing.Point(388, 176)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(145, 16)
         Me.Label15.TabIndex = 25
@@ -357,7 +367,7 @@ Partial Class Setup
         '
         Me.cbStandardGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbStandardGroup.FormattingEnabled = True
-        Me.cbStandardGroup.Location = New System.Drawing.Point(409, 203)
+        Me.cbStandardGroup.Location = New System.Drawing.Point(400, 198)
         Me.cbStandardGroup.Name = "cbStandardGroup"
         Me.cbStandardGroup.Size = New System.Drawing.Size(191, 24)
         Me.cbStandardGroup.TabIndex = 24
@@ -370,7 +380,7 @@ Partial Class Setup
         Me.GroupBox4.Controls.Add(Me.CheckBoxVideoDB)
         Me.GroupBox4.Controls.Add(Me.CheckBoxMovingPictures)
         Me.GroupBox4.Controls.Add(Me.CheckBoxTvSeries)
-        Me.GroupBox4.Location = New System.Drawing.Point(12, 426)
+        Me.GroupBox4.Location = New System.Drawing.Point(12, 440)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(621, 115)
         Me.GroupBox4.TabIndex = 12
@@ -437,7 +447,7 @@ Partial Class Setup
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(38, 206)
+        Me.Label17.Location = New System.Drawing.Point(48, 176)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(85, 16)
         Me.Label17.TabIndex = 11
@@ -446,7 +456,7 @@ Partial Class Setup
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(38, 243)
+        Me.Label16.Location = New System.Drawing.Point(48, 213)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(79, 16)
         Me.Label16.TabIndex = 10
@@ -454,7 +464,7 @@ Partial Class Setup
         '
         'tbLateTime
         '
-        Me.tbLateTime.Location = New System.Drawing.Point(129, 240)
+        Me.tbLateTime.Location = New System.Drawing.Point(139, 210)
         Me.tbLateTime.Mask = "00:00"
         Me.tbLateTime.Name = "tbLateTime"
         Me.tbLateTime.Size = New System.Drawing.Size(42, 23)
@@ -462,7 +472,7 @@ Partial Class Setup
         '
         'tbPrimeTime
         '
-        Me.tbPrimeTime.Location = New System.Drawing.Point(129, 203)
+        Me.tbPrimeTime.Location = New System.Drawing.Point(139, 173)
         Me.tbPrimeTime.Mask = "00:00"
         Me.tbPrimeTime.Name = "tbPrimeTime"
         Me.tbPrimeTime.Size = New System.Drawing.Size(42, 23)
@@ -471,7 +481,7 @@ Partial Class Setup
         'CheckBoxDebugMode
         '
         Me.CheckBoxDebugMode.AutoSize = True
-        Me.CheckBoxDebugMode.Location = New System.Drawing.Point(530, 552)
+        Me.CheckBoxDebugMode.Location = New System.Drawing.Point(530, 562)
         Me.CheckBoxDebugMode.Name = "CheckBoxDebugMode"
         Me.CheckBoxDebugMode.Size = New System.Drawing.Size(103, 20)
         Me.CheckBoxDebugMode.TabIndex = 7
@@ -481,7 +491,7 @@ Partial Class Setup
         'CheckBoxUseSportLogos
         '
         Me.CheckBoxUseSportLogos.AutoSize = True
-        Me.CheckBoxUseSportLogos.Location = New System.Drawing.Point(409, 151)
+        Me.CheckBoxUseSportLogos.Location = New System.Drawing.Point(368, 143)
         Me.CheckBoxUseSportLogos.Name = "CheckBoxUseSportLogos"
         Me.CheckBoxUseSportLogos.Size = New System.Drawing.Size(183, 20)
         Me.CheckBoxUseSportLogos.TabIndex = 6
@@ -620,9 +630,11 @@ Partial Class Setup
         Me.NumMaxDays.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.NumMaxDays.Location = New System.Drawing.Point(209, 21)
         Me.NumMaxDays.Maximum = New Decimal(New Integer() {14, 0, 0, 0})
+        Me.NumMaxDays.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NumMaxDays.Name = "NumMaxDays"
         Me.NumMaxDays.Size = New System.Drawing.Size(42, 23)
         Me.NumMaxDays.TabIndex = 12
+        Me.NumMaxDays.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'Label12
         '
@@ -1329,6 +1341,74 @@ Partial Class Setup
         Me.PictureBox1.TabIndex = 9
         Me.PictureBox1.TabStop = False
         '
+        'NumPreviewDays
+        '
+        Me.NumPreviewDays.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.NumPreviewDays.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NumPreviewDays.Location = New System.Drawing.Point(151, 22)
+        Me.NumPreviewDays.Maximum = New Decimal(New Integer() {14, 0, 0, 0})
+        Me.NumPreviewDays.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NumPreviewDays.Name = "NumPreviewDays"
+        Me.NumPreviewDays.Size = New System.Drawing.Size(42, 23)
+        Me.NumPreviewDays.TabIndex = 35
+        Me.NumPreviewDays.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label24.Location = New System.Drawing.Point(17, 24)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(128, 16)
+        Me.Label24.TabIndex = 36
+        Me.Label24.Text = "Zeige für maximal "
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label25.Location = New System.Drawing.Point(199, 24)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(41, 16)
+        Me.Label25.TabIndex = 37
+        Me.Label25.Text = "Tage"
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label26.Location = New System.Drawing.Point(17, 55)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(190, 16)
+        Me.Label26.TabIndex = 38
+        Me.Label26.Text = "Minimal TvMovie Bewertung"
+        '
+        'GroupBox8
+        '
+        Me.GroupBox8.Controls.Add(Me.NumPreviewMinTvMovieRating)
+        Me.GroupBox8.Controls.Add(Me.NumPreviewDays)
+        Me.GroupBox8.Controls.Add(Me.Label24)
+        Me.GroupBox8.Controls.Add(Me.Label26)
+        Me.GroupBox8.Controls.Add(Me.Label25)
+        Me.GroupBox8.Location = New System.Drawing.Point(42, 243)
+        Me.GroupBox8.Name = "GroupBox8"
+        Me.GroupBox8.Size = New System.Drawing.Size(310, 83)
+        Me.GroupBox8.TabIndex = 39
+        Me.GroupBox8.TabStop = False
+        Me.GroupBox8.Text = "Vorschau"
+        '
+        'NumPreviewMinTvMovieRating
+        '
+        Me.NumPreviewMinTvMovieRating.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.NumPreviewMinTvMovieRating.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NumPreviewMinTvMovieRating.Location = New System.Drawing.Point(213, 53)
+        Me.NumPreviewMinTvMovieRating.Maximum = New Decimal(New Integer() {3, 0, 0, 0})
+        Me.NumPreviewMinTvMovieRating.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NumPreviewMinTvMovieRating.Name = "NumPreviewMinTvMovieRating"
+        Me.NumPreviewMinTvMovieRating.Size = New System.Drawing.Size(42, 23)
+        Me.NumPreviewMinTvMovieRating.TabIndex = 39
+        Me.NumPreviewMinTvMovieRating.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
         'Setup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
@@ -1385,6 +1465,10 @@ Partial Class Setup
         Me.GroupBox6.PerformLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumPreviewDays, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox8.ResumeLayout(False)
+        Me.GroupBox8.PerformLayout()
+        CType(Me.NumPreviewMinTvMovieRating, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1498,4 +1582,10 @@ Partial Class Setup
     Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
     Friend WithEvents Label23 As System.Windows.Forms.Label
     Friend WithEvents CBStartGui As System.Windows.Forms.ComboBox
+    Friend WithEvents NumPreviewDays As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label24 As System.Windows.Forms.Label
+    Friend WithEvents Label25 As System.Windows.Forms.Label
+    Friend WithEvents GroupBox8 As System.Windows.Forms.GroupBox
+    Friend WithEvents Label26 As System.Windows.Forms.Label
+    Friend WithEvents NumPreviewMinTvMovieRating As System.Windows.Forms.NumericUpDown
 End Class

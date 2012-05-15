@@ -108,6 +108,8 @@ Namespace ClickfinderProgramGuide
                 Select Case _ClickfinderCategorieView
                     Case CategorieView.Day
                         Return PeriodeStartTime.AddHours(24)
+                    Case CategorieView.Preview
+                        Return PeriodeStartTime.AddDays(CDbl(_layer.GetSetting("ClickfinderPreviewMaxDays", "7").Value))
                     Case Else
                         Return PeriodeStartTime.AddHours(4)
                 End Select
@@ -168,6 +170,8 @@ Namespace ClickfinderProgramGuide
 
             If _ClickfinderCategorieView = CategorieView.Day Then
                 Translator.SetProperty("#CategorieView", getTranslatedDayOfWeek(_Day) & " " & Format(_Day, "dd.MM.yyyy"))
+            ElseIf _ClickfinderCategorieView = CategorieView.Preview Then
+                Translator.SetProperty("#CategorieView", Translation.Preview & " " & Translation.for & " " & DateDiff(DateInterval.Day, PeriodeStartTime, PeriodeEndTime) & " " & Translation.Day)
             Else
                 Translator.SetProperty("#CategorieView", CategorieViewName & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00"))
             End If
@@ -218,14 +222,19 @@ Namespace ClickfinderProgramGuide
                     If _CategorieList.IsFocused = True Then
 
                         Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(_SelectedCategorieItemId)
+
                         If _ClickfinderCategorieView = CategorieView.Now Then
                             ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime.AddMinutes(CDbl((-1) * _Categorie.NowOffset)))), "#endTime", MySqlDate(PeriodeEndTime))), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
+                        ElseIf _ClickfinderCategorieView = CategorieView.Preview Then
+                            ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime)), "#endTime", MySqlDate(PeriodeEndTime)), "WHERE", "WHERE TVMovieBewertung >= " & CInt(_layer.GetSetting("ClickfinderPreviewMinTvMovieRating", "1").Value) & " AND ")), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
                         Else
                             ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime)), "#endTime", MySqlDate(PeriodeEndTime))), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
                         End If
 
                         If _ClickfinderCategorieView = CategorieView.Day Then
                             Translator.SetProperty("#ItemsLeftListLabel", Translation.All & " " & _Categorie.Name & " " & Translation.von & " " & getTranslatedDayOfWeek(_Day) & " " & Format(_Day.AddMinutes(-1), "dd.MM.yyyy"))
+                        ElseIf _ClickfinderCategorieView = CategorieView.Preview Then
+                            Translator.SetProperty("#ItemsLeftListLabel", _Categorie.Name & " " & Translation.Preview & " " & Translation.for & " " & DateDiff(DateInterval.Day, PeriodeStartTime, PeriodeEndTime) & " " & Translation.Day)
                         Else
                             Translator.SetProperty("#ItemsLeftListLabel", _Categorie.Name & " " & Translation.von & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00") & " - " & Format(PeriodeEndTime.Hour, "00") & ":" & Format(PeriodeEndTime.Minute, "00"))
                         End If
@@ -234,7 +243,6 @@ Namespace ClickfinderProgramGuide
                     End If
 
                     If _PreviewList.IsFocused = True Then ListControlClick(_PreviewList.SelectedListItem.ItemId)
-
 
                 End If
 
