@@ -332,6 +332,41 @@
               <ZipFileName>Installer{CopyFile}\{bd32cbfa-76ec-4099-b29c-3dbf3e9e8eeb}-ClickfinderProgramGuideHighlights.xml</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\ClickfinderProgramGuideHighlights.xml</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_DetailBG.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{a3ca6a21-a685-4c78-8662-30407f4a54b2}-ClickfinderPG_DetailBG.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_DetailBG.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\FSK0.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{c204b9b3-099b-4573-93e4-da7f9fd3a490}-FSK0.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Logos\ClickfinderPG\FSK0.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\FSK12.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{f3c606ff-9972-49b9-9752-d5b5c2c69188}-FSK12.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Logos\ClickfinderPG\FSK12.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\FSK18.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{249b0a62-5400-455f-8ffc-32ce2807a67a}-FSK18.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Logos\ClickfinderPG\FSK18.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\FSK6.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{96c7b607-130e-403f-b267-7b522eb99339}-FSK6.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Logos\ClickfinderPG\FSK6.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -516,6 +551,41 @@
               <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideHighlights.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{b64037d8-4b48-4f0e-a845-e44c3ac8e150}-ClickfinderProgramGuideHighlights.xml</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\ClickfinderProgramGuideHighlights.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_DetailBG.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{d09edc47-6697-4937-b45d-cc524c6c8777}-ClickfinderPG_DetailBG.png</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_DetailBG.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\FSK0.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{c6dccff5-497b-4e59-81e0-76215a1ef5a2}-FSK0.png</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\Media\Logos\ClickfinderPG\FSK0.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\FSK12.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{d41f8203-946f-4222-96dd-1d4541f6cd54}-FSK12.png</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\Media\Logos\ClickfinderPG\FSK12.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\FSK18.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{787b0c2c-247a-42f3-8f3e-68561ffdfd64}-FSK18.png</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\Media\Logos\ClickfinderPG\FSK18.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\FSK6.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{78d033c0-3677-482c-b27e-3b99fd9a758f}-FSK6.png</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\Media\Logos\ClickfinderPG\FSK6.png</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -1109,6 +1179,41 @@ a lot of new features !
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_DetailBG.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{a3ca6a21-a685-4c78-8662-30407f4a54b2}-ClickfinderPG_DetailBG.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_DetailBG.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\FSK0.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{c204b9b3-099b-4573-93e4-da7f9fd3a490}-FSK0.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\Logos\ClickfinderPG\FSK0.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\FSK12.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{f3c606ff-9972-49b9-9752-d5b5c2c69188}-FSK12.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\Logos\ClickfinderPG\FSK12.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\FSK18.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{249b0a62-5400-455f-8ffc-32ce2807a67a}-FSK18.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\Logos\ClickfinderPG\FSK18.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\Logos\ClickfinderPG\FSK6.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{96c7b607-130e-403f-b267-7b522eb99339}-FSK6.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\Logos\ClickfinderPG\FSK6.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuide.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{9131b31f-9413-4b66-a114-f929e6ee55ae}-ClickfinderProgramGuide.xml</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\ClickfinderProgramGuide.xml</DestinationFilename>
@@ -1280,6 +1385,41 @@ a lot of new features !
         <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideHighlights.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{b64037d8-4b48-4f0e-a845-e44c3ac8e150}-ClickfinderProgramGuideHighlights.xml</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\ClickfinderProgramGuideHighlights.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_DetailBG.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{d09edc47-6697-4937-b45d-cc524c6c8777}-ClickfinderPG_DetailBG.png</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_DetailBG.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\FSK0.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{c6dccff5-497b-4e59-81e0-76215a1ef5a2}-FSK0.png</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\Media\Logos\ClickfinderPG\FSK0.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\FSK12.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{d41f8203-946f-4222-96dd-1d4541f6cd54}-FSK12.png</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\Media\Logos\ClickfinderPG\FSK12.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\FSK18.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{787b0c2c-247a-42f3-8f3e-68561ffdfd64}-FSK18.png</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\Media\Logos\ClickfinderPG\FSK18.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\Logos\ClickfinderPG\FSK6.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{78d033c0-3677-482c-b27e-3b99fd9a758f}-FSK6.png</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\Media\Logos\ClickfinderPG\FSK6.png</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
