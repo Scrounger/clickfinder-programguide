@@ -162,7 +162,6 @@
     <Compile Include="Setup.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="tmp.vb" />
     <Compile Include="TvMoviePluginError.Designer.vb">
       <DependentUpon>TvMoviePluginError.vb</DependentUpon>
     </Compile>

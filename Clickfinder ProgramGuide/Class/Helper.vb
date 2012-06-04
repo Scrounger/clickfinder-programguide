@@ -527,22 +527,74 @@ Public Class Helper
 
         If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True Then
             If TvMovieProgram.idSeries > 0 And TvMovieProgram.local = False Then
-                If Not TvMovieProgram.ReferencedProgram.SeriesNum = "" And Not TvMovieProgram.ReferencedProgram.EpisodeNum = "" Then
+                If String.IsNullOrEmpty(TvMovieProgram.ReferencedProgram.SeriesNum) = False And String.IsNullOrEmpty(TvMovieProgram.ReferencedProgram.EpisodeNum) = False Then
                     Try
-                        Dim _Series As New TVSeriesDB
 
-                        _Series.LoadEpisode(TvMovieProgram.ReferencedProgram.Title, TvMovieProgram.ReferencedProgram.SeriesNum, TvMovieProgram.ReferencedProgram.EpisodeNum)
+                        'prüfen ob inzwischen aufgenommen -> Tv Server table recording
+                        Dim sbRecording As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(Recording))
+                        sbRecording.AddConstraint([Operator].Equals, "title", TvMovieProgram.ReferencedProgram.Title)
+                        sbRecording.AddConstraint([Operator].Equals, "episodeName", TvMovieProgram.ReferencedProgram.EpisodeName)
+                        sbRecording.AddConstraint([Operator].Equals, "seriesNum", TvMovieProgram.ReferencedProgram.SeriesNum)
+                        sbRecording.AddConstraint([Operator].Equals, "episodeNum", TvMovieProgram.ReferencedProgram.EpisodeNum)
+                        Dim stmtRecording As SqlStatement = sbRecording.GetStatement(True)
+                        Dim _Recording_found As IList(Of Recording) = ObjectFactory.GetCollection(GetType(Recording), stmtRecording.Execute())
 
-                        If _Series.EpisodeExistLocal = True Then
-
+                        If _Recording_found.Count > 0 Then
+                            'wenn gefunden -> TvMovieProgram update
                             TvMovieProgram.local = True
                             TvMovieProgram.ReferencedProgram.Description = Replace(TvMovieProgram.ReferencedProgram.Description, "Neue Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName, "Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName)
                             TvMovieProgram.ReferencedProgram.Persist()
                             TvMovieProgram.Persist()
-                            MyLog.Info("[CheckSeriesLocalStatus]: Episode found local: {0} - S{1}E{2}", TvMovieProgram.ReferencedProgram.Title, TvMovieProgram.ReferencedProgram.SeriesNum, TvMovieProgram.ReferencedProgram.EpisodeNum)
+                            MyLog.Info("[CheckSeriesLocalStatus]: Episode found in records: {0} - S{1}E{2}", TvMovieProgram.ReferencedProgram.Title, TvMovieProgram.ReferencedProgram.SeriesNum, TvMovieProgram.ReferencedProgram.EpisodeNum)
+                        Else
+
+                            Dim _logSeriesIsLinked As String = String.Empty
+                            Dim _SeriesIsLinked As Boolean = False
+
+                            'Prüfen ob die Serie evtl. verlinkt ist.
+                            Dim sbSeries As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(TvMovieSeriesMapping))
+                            sbSeries.AddConstraint([Operator].Equals, "EpgTitle", TvMovieProgram.ReferencedProgram.Title)
+                            Dim stmtSeries As SqlStatement = sbSeries.GetStatement(True)
+                            Dim _TvMovieSeriesMapping As IList(Of TvMovieSeriesMapping) = ObjectFactory.GetCollection(GetType(TvMovieSeriesMapping), stmtSeries.Execute())
+
+                            Dim _SeriesName As String = String.Empty
+
+                            'Serie ist verlinkt -> org. SerienName anstatt EPG Name verwenden
+                            If _TvMovieSeriesMapping.Count > 0 Then
+
+                                Dim _TvSeriesName As New TVSeriesDB
+
+                                _TvSeriesName.LoadSeriesName(_TvMovieSeriesMapping(0).idSeries)
+                                _SeriesName = _TvSeriesName(0).SeriesName
+
+                                _SeriesIsLinked = True
+                                _logSeriesIsLinked = "TVMovie: [CheckSeriesLocalStatus]: manuel mapping found: " & _TvSeriesName(0).SeriesName & " -> " & _TvMovieSeriesMapping(0).EpgTitle
+
+                                _TvSeriesName.Dispose()
+
+                            Else
+                                'Nicht verlinkt -> EPG Name verwenden
+                                _SeriesName = TvMovieProgram.ReferencedProgram.Title
+                            End If
+
+                            Dim _TvSeriesDB As New TVSeriesDB
+                            _TvSeriesDB.LoadEpisode(_SeriesName, CInt(TvMovieProgram.ReferencedProgram.SeriesNum), CInt(TvMovieProgram.ReferencedProgram.EpisodeNum))
+
+
+                            If _TvSeriesDB.EpisodeExistLocal = True Then
+
+                                TvMovieProgram.local = True
+                                TvMovieProgram.ReferencedProgram.Description = Replace(TvMovieProgram.ReferencedProgram.Description, "Neue Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName, "Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName)
+                                TvMovieProgram.ReferencedProgram.Persist()
+                                TvMovieProgram.Persist()
+                                If _SeriesIsLinked = True Then
+                                    MyLog.[Info](_logSeriesIsLinked)
+                                End If
+                                MyLog.Info("[CheckSeriesLocalStatus]: Episode found in TvSeries database: {0} - S{1}E{2}", TvMovieProgram.ReferencedProgram.Title, TvMovieProgram.ReferencedProgram.SeriesNum, TvMovieProgram.ReferencedProgram.EpisodeNum)
+                            End If
+                            _TvSeriesDB.Dispose()
 
                         End If
-                        _Series.Dispose()
                     Catch ex As Exception
                         MyLog.Error("[CheckSeriesLocalStatus]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
                     End Try

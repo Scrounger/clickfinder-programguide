@@ -160,6 +160,19 @@ Public Class TVSeriesDB
         End Try
 
     End Function
+    Public Sub LoadSeriesName(ByVal seriesID As Integer)
+
+        Try
+            _SeriesInfos = m_db.Execute( _
+                                [String].Format("SELECT * FROM online_series WHERE ID = {0}", _
+                                seriesID))
+
+        Catch ex As Exception
+            MyLog.[Error]("TVMovie: [LoadSeriesName]: exception err:{0} stack:{1}", ex.Message, ex.StackTrace)
+            OpenTvSeriesDB()
+        End Try
+
+    End Sub
 #End Region
 
 #Region "Properties"
@@ -320,6 +333,8 @@ Public Class TVSeriesDB
             End If
         End Get
     End Property
+
+
 
 #End Region
 
