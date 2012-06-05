@@ -389,7 +389,7 @@ Public Class Setup
         Try
 
             Dim _Categorie As New ClickfinderCategories("Movies", "Alle Filme nach Uhrzeit, Rating, TvMovieRating sortiert", True, 0, 80, 30)
-            _Categorie.SqlString = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE startTime >= #StartTime AND startTime <= #EndTime AND starRating >= 1 AND (genre NOT LIKE '%Serie' OR genre NOT LIKE '%Reihe' OR genre NOT LIKE '%Sitcom%' OR genre NOT LIKE '%Zeichentrick%') " & Helper.ORDERBYstartTime
+            _Categorie.SqlString = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE startTime >= #StartTime AND startTime <= #EndTime AND starRating >= 1 AND TvMovieBewertung < 6 AND (genre NOT LIKE '%Serie' OR genre NOT LIKE '%Reihe' OR genre NOT LIKE '%Sitcom%' OR genre NOT LIKE '%Zeichentrick%') " & Helper.ORDERBYstartTime
             _Categorie.Image = _Categorie.Name & ".png"
             _Categorie.Persist()
 

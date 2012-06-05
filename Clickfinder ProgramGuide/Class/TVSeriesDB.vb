@@ -131,7 +131,7 @@ Public Class TVSeriesDB
                                 seriesID))
 
             _EpisodeInfos = m_db.Execute( _
-                                [String].Format("SELECT * FROM online_episodes WHERE CompositeID = '{0}'", _
+                                [String].Format("SELECT * FROM online_episodes WHERE CompositeID LIKE '{0}'", _
                                                 episodeID))
 
         Catch ex As Exception
@@ -297,7 +297,7 @@ Public Class TVSeriesDB
         Get
             Try
                 Dim _result As SQLiteResultSet
-                Dim strSQL As String = [String].Format("SELECT Count (CompositeID) FROM local_episodes WHERE CompositeID = '{0}'", EpisodeCompositeID)
+                Dim strSQL As String = [String].Format("SELECT Count (CompositeID) FROM local_episodes WHERE CompositeID LIKE '{0}'", Me.EpisodeCompositeID)
 
                 _result = m_db.Execute(strSQL)
 

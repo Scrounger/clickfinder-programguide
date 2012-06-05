@@ -432,7 +432,7 @@ Namespace ClickfinderProgramGuide
                 'Manuelle Sqlabfrage starten (wegen InnerJoin) -> idprogram 
                 _SQLstring = _
                     "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
-                    "WHERE starRating > 1 " & _
+                    "WHERE starRating > 1 AND TvMovieBewertung < 6 " & _
                     "AND startTime > " & MySqlDate(_ClickfinderCurrentDate.AddHours(CDbl(_layer.GetSetting("ClickfinderOverviewShowMoviesAfter", "12").Value))) & " " & _
                     "AND startTime < " & MySqlDate(_ClickfinderCurrentDate.AddHours(24)) & " " & _
                     "AND genre NOT LIKE '%Serie%' " & _
