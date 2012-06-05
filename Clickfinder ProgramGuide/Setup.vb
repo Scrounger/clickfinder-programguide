@@ -814,5 +814,9 @@ Public Class Setup
     Private Sub LinkLabel1_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
         Process.Start("https://code.google.com/p/clickfinder-programguide/wiki/Manual_de")
     End Sub
+
+    Private Sub ToolStripButton1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+    End Sub
 End Class
 
