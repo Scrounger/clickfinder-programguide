@@ -43,12 +43,12 @@ Partial Class Setup
         Me.Label6 = New System.Windows.Forms.Label
         Me.Panel11 = New System.Windows.Forms.Panel
         Me.Panel6 = New System.Windows.Forms.Panel
-        Me.cbStandardGroup = New System.Windows.Forms.ComboBox
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.CbQuick1 = New System.Windows.Forms.ComboBox
-        Me.Label18 = New System.Windows.Forms.Label
         Me.CbQuick2 = New System.Windows.Forms.ComboBox
         Me.Label19 = New System.Windows.Forms.Label
+        Me.CbQuick1 = New System.Windows.Forms.ComboBox
+        Me.Label18 = New System.Windows.Forms.Label
+        Me.cbStandardGroup = New System.Windows.Forms.ComboBox
+        Me.Label15 = New System.Windows.Forms.Label
         Me.CheckBoxUseSportLogos = New System.Windows.Forms.CheckBox
         Me.Panel7 = New System.Windows.Forms.Panel
         Me.GroupBox8 = New System.Windows.Forms.GroupBox
@@ -86,79 +86,42 @@ Partial Class Setup
         Me.CheckBoxFilterShowLocalMovies = New System.Windows.Forms.CheckBox
         Me.Label14 = New System.Windows.Forms.Label
         Me.TabÜbersicht = New System.Windows.Forms.TabPage
-        Me.NumMaxDays = New System.Windows.Forms.NumericUpDown
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.Label13 = New System.Windows.Forms.Label
+        Me.Panel18 = New System.Windows.Forms.Panel
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
+        Me.Panel20 = New System.Windows.Forms.Panel
         Me.Label11 = New System.Windows.Forms.Label
-        Me.Label10 = New System.Windows.Forms.Label
         Me.NumHighlightsMinRuntime = New System.Windows.Forms.NumericUpDown
-        Me.NumShowHighlightsAfter = New System.Windows.Forms.NumericUpDown
+        Me.Label10 = New System.Windows.Forms.Label
+        Me.Panel19 = New System.Windows.Forms.Panel
         Me.Label7 = New System.Windows.Forms.Label
+        Me.NumShowHighlightsAfter = New System.Windows.Forms.NumericUpDown
         Me.Label8 = New System.Windows.Forms.Label
+        Me.Panel15 = New System.Windows.Forms.Panel
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
+        Me.Panel17 = New System.Windows.Forms.Panel
         Me.GroupBox3 = New System.Windows.Forms.GroupBox
         Me.RBstartTime = New System.Windows.Forms.RadioButton
         Me.RBTvMovieStar = New System.Windows.Forms.RadioButton
         Me.RBRatingStar = New System.Windows.Forms.RadioButton
-        Me.CheckBoxShowTagesTipp = New System.Windows.Forms.CheckBox
+        Me.Panel16 = New System.Windows.Forms.Panel
+        Me.Label5 = New System.Windows.Forms.Label
         Me.NumShowMoviesAfter = New System.Windows.Forms.NumericUpDown
         Me.Label4 = New System.Windows.Forms.Label
-        Me.Label5 = New System.Windows.Forms.Label
+        Me.CheckBoxShowTagesTipp = New System.Windows.Forms.CheckBox
         Me.CheckBoxShowLocalMovies = New System.Windows.Forms.CheckBox
+        Me.Panel14 = New System.Windows.Forms.Panel
+        Me.Label13 = New System.Windows.Forms.Label
+        Me.NumMaxDays = New System.Windows.Forms.NumericUpDown
+        Me.Label12 = New System.Windows.Forms.Label
         Me.TabCategories = New System.Windows.Forms.TabPage
         Me.CheckBoxShowCategorieLocalSeries = New System.Windows.Forms.CheckBox
         Me.CheckBoxShowCategorieLocalMovies = New System.Windows.Forms.CheckBox
-        Me.CheckBoxSelect = New System.Windows.Forms.CheckBox
+        Me.Panel27 = New System.Windows.Forms.Panel
         Me.ButtonCategoriesDefault = New System.Windows.Forms.Button
         Me.ButtonNewCategorie = New System.Windows.Forms.Button
+        Me.CheckBoxSelect = New System.Windows.Forms.CheckBox
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
         Me.dgvCategories = New System.Windows.Forms.DataGridView
-        Me.ButtonDown = New System.Windows.Forms.Button
-        Me.ButtonUp = New System.Windows.Forms.Button
-        Me.TabDetail = New System.Windows.Forms.TabPage
-        Me.GroupDetailSeriesImage = New System.Windows.Forms.GroupBox
-        Me.RBTvMovieImage = New System.Windows.Forms.RadioButton
-        Me.RBEpisodeImage = New System.Windows.Forms.RadioButton
-        Me.RBSeriesFanArt = New System.Windows.Forms.RadioButton
-        Me.RBSeriesCover = New System.Windows.Forms.RadioButton
-        Me.CheckBoxUseSeriesDescribtion = New System.Windows.Forms.CheckBox
-        Me.TabOverlay = New System.Windows.Forms.TabPage
-        Me.CheckBoxEnableSeriesOverlay = New System.Windows.Forms.CheckBox
-        Me.CheckBoxEnableMovieOverlay = New System.Windows.Forms.CheckBox
-        Me.GroupBoxMovieOverlay = New System.Windows.Forms.GroupBox
-        Me.Label22 = New System.Windows.Forms.Label
-        Me.CBOverlayGroup = New System.Windows.Forms.ComboBox
-        Me.NumOverlayLimit = New System.Windows.Forms.NumericUpDown
-        Me.Label21 = New System.Windows.Forms.Label
-        Me.CheckBoxOverlayShowLocalMovies = New System.Windows.Forms.CheckBox
-        Me.GroupBox7 = New System.Windows.Forms.GroupBox
-        Me.RBOverlayStartTime = New System.Windows.Forms.RadioButton
-        Me.RBOverlayTvMovieStar = New System.Windows.Forms.RadioButton
-        Me.RBOverlayRatingStar = New System.Windows.Forms.RadioButton
-        Me.CheckBoxOverlayShowTagesTipp = New System.Windows.Forms.CheckBox
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox
-        Me.RBOverlayLateTime = New System.Windows.Forms.RadioButton
-        Me.RBOverlayPrimeTime = New System.Windows.Forms.RadioButton
-        Me.RBOverlayNow = New System.Windows.Forms.RadioButton
-        Me.RBOverlayHeute = New System.Windows.Forms.RadioButton
-        Me.openFileDialog = New System.Windows.Forms.OpenFileDialog
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox
-        Me.Panel1 = New System.Windows.Forms.Panel
-        Me.Panel2 = New System.Windows.Forms.Panel
-        Me.Panel14 = New System.Windows.Forms.Panel
-        Me.Panel15 = New System.Windows.Forms.Panel
-        Me.Panel16 = New System.Windows.Forms.Panel
-        Me.Panel17 = New System.Windows.Forms.Panel
-        Me.Panel18 = New System.Windows.Forms.Panel
-        Me.Panel19 = New System.Windows.Forms.Panel
-        Me.Panel20 = New System.Windows.Forms.Panel
-        Me.Panel21 = New System.Windows.Forms.Panel
-        Me.Panel22 = New System.Windows.Forms.Panel
-        Me.Panel23 = New System.Windows.Forms.Panel
-        Me.Panel24 = New System.Windows.Forms.Panel
-        Me.Panel25 = New System.Windows.Forms.Panel
-        Me.Panel26 = New System.Windows.Forms.Panel
         Me.C_id = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.C_Image = New System.Windows.Forms.DataGridViewImageColumn
         Me.C_visible = New System.Windows.Forms.DataGridViewCheckBoxColumn
@@ -169,8 +132,45 @@ Partial Class Setup
         Me.C_MinRuntime = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.C_NowOffset = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.Panel28 = New System.Windows.Forms.Panel
-        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
-        Me.Panel27 = New System.Windows.Forms.Panel
+        Me.ButtonDown = New System.Windows.Forms.Button
+        Me.ButtonUp = New System.Windows.Forms.Button
+        Me.TabDetail = New System.Windows.Forms.TabPage
+        Me.Panel21 = New System.Windows.Forms.Panel
+        Me.GroupDetailSeriesImage = New System.Windows.Forms.GroupBox
+        Me.RBTvMovieImage = New System.Windows.Forms.RadioButton
+        Me.RBEpisodeImage = New System.Windows.Forms.RadioButton
+        Me.RBSeriesFanArt = New System.Windows.Forms.RadioButton
+        Me.RBSeriesCover = New System.Windows.Forms.RadioButton
+        Me.CheckBoxUseSeriesDescribtion = New System.Windows.Forms.CheckBox
+        Me.TabOverlay = New System.Windows.Forms.TabPage
+        Me.Panel22 = New System.Windows.Forms.Panel
+        Me.GroupBoxMovieOverlay = New System.Windows.Forms.GroupBox
+        Me.Panel26 = New System.Windows.Forms.Panel
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox
+        Me.RBOverlayStartTime = New System.Windows.Forms.RadioButton
+        Me.RBOverlayTvMovieStar = New System.Windows.Forms.RadioButton
+        Me.RBOverlayRatingStar = New System.Windows.Forms.RadioButton
+        Me.Panel25 = New System.Windows.Forms.Panel
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox
+        Me.RBOverlayLateTime = New System.Windows.Forms.RadioButton
+        Me.RBOverlayPrimeTime = New System.Windows.Forms.RadioButton
+        Me.RBOverlayNow = New System.Windows.Forms.RadioButton
+        Me.RBOverlayHeute = New System.Windows.Forms.RadioButton
+        Me.Panel24 = New System.Windows.Forms.Panel
+        Me.CBOverlayGroup = New System.Windows.Forms.ComboBox
+        Me.Label22 = New System.Windows.Forms.Label
+        Me.Panel23 = New System.Windows.Forms.Panel
+        Me.NumOverlayLimit = New System.Windows.Forms.NumericUpDown
+        Me.Label21 = New System.Windows.Forms.Label
+        Me.CheckBoxOverlayShowLocalMovies = New System.Windows.Forms.CheckBox
+        Me.CheckBoxOverlayShowTagesTipp = New System.Windows.Forms.CheckBox
+        Me.CheckBoxEnableSeriesOverlay = New System.Windows.Forms.CheckBox
+        Me.CheckBoxEnableMovieOverlay = New System.Windows.Forms.CheckBox
+        Me.openFileDialog = New System.Windows.Forms.OpenFileDialog
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox
+        Me.Panel1 = New System.Windows.Forms.Panel
+        Me.Panel2 = New System.Windows.Forms.Panel
         Me.TabControl1.SuspendLayout()
         Me.TabAllgemeines.SuspendLayout()
         Me.Panel13.SuspendLayout()
@@ -191,44 +191,44 @@ Partial Class Setup
         Me.Panel3.SuspendLayout()
         Me.TabItems.SuspendLayout()
         Me.TabÜbersicht.SuspendLayout()
-        CType(Me.NumMaxDays, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel18.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        Me.Panel20.SuspendLayout()
         CType(Me.NumHighlightsMinRuntime, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel19.SuspendLayout()
         CType(Me.NumShowHighlightsAfter, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel15.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        Me.Panel17.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
+        Me.Panel16.SuspendLayout()
         CType(Me.NumShowMoviesAfter, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel14.SuspendLayout()
+        CType(Me.NumMaxDays, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabCategories.SuspendLayout()
+        Me.Panel27.SuspendLayout()
+        Me.SplitContainer1.Panel1.SuspendLayout()
+        Me.SplitContainer1.Panel2.SuspendLayout()
+        Me.SplitContainer1.SuspendLayout()
         CType(Me.dgvCategories, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel28.SuspendLayout()
         Me.TabDetail.SuspendLayout()
+        Me.Panel21.SuspendLayout()
         Me.GroupDetailSeriesImage.SuspendLayout()
         Me.TabOverlay.SuspendLayout()
+        Me.Panel22.SuspendLayout()
         Me.GroupBoxMovieOverlay.SuspendLayout()
-        CType(Me.NumOverlayLimit, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel26.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
+        Me.Panel25.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
+        Me.Panel24.SuspendLayout()
+        Me.Panel23.SuspendLayout()
+        CType(Me.NumOverlayLimit, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
-        Me.Panel14.SuspendLayout()
-        Me.Panel15.SuspendLayout()
-        Me.Panel16.SuspendLayout()
-        Me.Panel17.SuspendLayout()
-        Me.Panel18.SuspendLayout()
-        Me.Panel19.SuspendLayout()
-        Me.Panel20.SuspendLayout()
-        Me.Panel21.SuspendLayout()
-        Me.Panel22.SuspendLayout()
-        Me.Panel23.SuspendLayout()
-        Me.Panel24.SuspendLayout()
-        Me.Panel25.SuspendLayout()
-        Me.Panel26.SuspendLayout()
-        Me.Panel28.SuspendLayout()
-        Me.SplitContainer1.Panel1.SuspendLayout()
-        Me.SplitContainer1.Panel2.SuspendLayout()
-        Me.SplitContainer1.SuspendLayout()
-        Me.Panel27.SuspendLayout()
         Me.SuspendLayout()
         '
         'ButtonSave
@@ -481,26 +481,26 @@ Partial Class Setup
         Me.Panel6.Size = New System.Drawing.Size(388, 258)
         Me.Panel6.TabIndex = 43
         '
-        'cbStandardGroup
+        'CbQuick2
         '
-        Me.cbStandardGroup.Dock = System.Windows.Forms.DockStyle.Top
-        Me.cbStandardGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbStandardGroup.FormattingEnabled = True
-        Me.cbStandardGroup.Location = New System.Drawing.Point(10, 70)
-        Me.cbStandardGroup.Name = "cbStandardGroup"
-        Me.cbStandardGroup.Size = New System.Drawing.Size(368, 24)
-        Me.cbStandardGroup.TabIndex = 24
+        Me.CbQuick2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.CbQuick2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CbQuick2.FormattingEnabled = True
+        Me.CbQuick2.Location = New System.Drawing.Point(10, 178)
+        Me.CbQuick2.Name = "CbQuick2"
+        Me.CbQuick2.Size = New System.Drawing.Size(368, 24)
+        Me.CbQuick2.TabIndex = 28
         '
-        'Label15
+        'Label19
         '
-        Me.Label15.AutoSize = True
-        Me.Label15.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Label15.Location = New System.Drawing.Point(10, 40)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Padding = New System.Windows.Forms.Padding(0, 10, 0, 4)
-        Me.Label15.Size = New System.Drawing.Size(145, 30)
-        Me.Label15.TabIndex = 25
-        Me.Label15.Text = "standard Tv Gruppe:"
+        Me.Label19.AutoSize = True
+        Me.Label19.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Label19.Location = New System.Drawing.Point(10, 148)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Padding = New System.Windows.Forms.Padding(0, 10, 0, 4)
+        Me.Label19.Size = New System.Drawing.Size(174, 30)
+        Me.Label19.TabIndex = 29
+        Me.Label19.Text = "Quick Tv Gruppe Filter 2:"
         '
         'CbQuick1
         '
@@ -523,26 +523,26 @@ Partial Class Setup
         Me.Label18.TabIndex = 27
         Me.Label18.Text = "Quick Tv Gruppe Filter 1:"
         '
-        'CbQuick2
+        'cbStandardGroup
         '
-        Me.CbQuick2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.CbQuick2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CbQuick2.FormattingEnabled = True
-        Me.CbQuick2.Location = New System.Drawing.Point(10, 178)
-        Me.CbQuick2.Name = "CbQuick2"
-        Me.CbQuick2.Size = New System.Drawing.Size(368, 24)
-        Me.CbQuick2.TabIndex = 28
+        Me.cbStandardGroup.Dock = System.Windows.Forms.DockStyle.Top
+        Me.cbStandardGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbStandardGroup.FormattingEnabled = True
+        Me.cbStandardGroup.Location = New System.Drawing.Point(10, 70)
+        Me.cbStandardGroup.Name = "cbStandardGroup"
+        Me.cbStandardGroup.Size = New System.Drawing.Size(368, 24)
+        Me.cbStandardGroup.TabIndex = 24
         '
-        'Label19
+        'Label15
         '
-        Me.Label19.AutoSize = True
-        Me.Label19.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Label19.Location = New System.Drawing.Point(10, 148)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Padding = New System.Windows.Forms.Padding(0, 10, 0, 4)
-        Me.Label19.Size = New System.Drawing.Size(174, 30)
-        Me.Label19.TabIndex = 29
-        Me.Label19.Text = "Quick Tv Gruppe Filter 2:"
+        Me.Label15.AutoSize = True
+        Me.Label15.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Label15.Location = New System.Drawing.Point(10, 40)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Padding = New System.Windows.Forms.Padding(0, 10, 0, 4)
+        Me.Label15.Size = New System.Drawing.Size(145, 30)
+        Me.Label15.TabIndex = 25
+        Me.Label15.Text = "standard Tv Gruppe:"
         '
         'CheckBoxUseSportLogos
         '
@@ -952,43 +952,15 @@ Partial Class Setup
         Me.TabÜbersicht.Text = "GUI Highlights"
         Me.TabÜbersicht.UseVisualStyleBackColor = True
         '
-        'NumMaxDays
+        'Panel18
         '
-        Me.NumMaxDays.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.NumMaxDays.Dock = System.Windows.Forms.DockStyle.Left
-        Me.NumMaxDays.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NumMaxDays.Location = New System.Drawing.Point(220, 20)
-        Me.NumMaxDays.Maximum = New Decimal(New Integer() {14, 0, 0, 0})
-        Me.NumMaxDays.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.NumMaxDays.Name = "NumMaxDays"
-        Me.NumMaxDays.Size = New System.Drawing.Size(42, 23)
-        Me.NumMaxDays.TabIndex = 12
-        Me.NumMaxDays.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.NumMaxDays.Value = New Decimal(New Integer() {1, 0, 0, 0})
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Label12.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(20, 20)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Padding = New System.Windows.Forms.Padding(0, 3, 5, 0)
-        Me.Label12.Size = New System.Drawing.Size(200, 19)
-        Me.Label12.TabIndex = 13
-        Me.Label12.Text = "Zeige Übersicht für maximal "
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Label13.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(262, 20)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Padding = New System.Windows.Forms.Padding(5, 3, 0, 0)
-        Me.Label13.Size = New System.Drawing.Size(46, 19)
-        Me.Label13.TabIndex = 14
-        Me.Label13.Text = "Tage"
+        Me.Panel18.Controls.Add(Me.GroupBox1)
+        Me.Panel18.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel18.Location = New System.Drawing.Point(3, 295)
+        Me.Panel18.Name = "Panel18"
+        Me.Panel18.Padding = New System.Windows.Forms.Padding(10)
+        Me.Panel18.Size = New System.Drawing.Size(779, 127)
+        Me.Panel18.TabIndex = 17
         '
         'GroupBox1
         '
@@ -1004,6 +976,18 @@ Partial Class Setup
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "weitere Highlights"
         '
+        'Panel20
+        '
+        Me.Panel20.Controls.Add(Me.Label11)
+        Me.Panel20.Controls.Add(Me.NumHighlightsMinRuntime)
+        Me.Panel20.Controls.Add(Me.Label10)
+        Me.Panel20.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel20.Location = New System.Drawing.Point(10, 60)
+        Me.Panel20.Name = "Panel20"
+        Me.Panel20.Padding = New System.Windows.Forms.Padding(4)
+        Me.Panel20.Size = New System.Drawing.Size(739, 35)
+        Me.Panel20.TabIndex = 13
+        '
         'Label11
         '
         Me.Label11.AutoSize = True
@@ -1015,6 +999,17 @@ Partial Class Setup
         Me.Label11.Size = New System.Drawing.Size(65, 19)
         Me.Label11.TabIndex = 11
         Me.Label11.Text = "Minuten"
+        '
+        'NumHighlightsMinRuntime
+        '
+        Me.NumHighlightsMinRuntime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.NumHighlightsMinRuntime.Dock = System.Windows.Forms.DockStyle.Left
+        Me.NumHighlightsMinRuntime.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NumHighlightsMinRuntime.Location = New System.Drawing.Point(172, 4)
+        Me.NumHighlightsMinRuntime.Maximum = New Decimal(New Integer() {59, 0, 0, 0})
+        Me.NumHighlightsMinRuntime.Name = "NumHighlightsMinRuntime"
+        Me.NumHighlightsMinRuntime.Size = New System.Drawing.Size(42, 23)
+        Me.NumHighlightsMinRuntime.TabIndex = 9
         '
         'Label10
         '
@@ -1028,27 +1023,17 @@ Partial Class Setup
         Me.Label10.TabIndex = 10
         Me.Label10.Text = "Ignoriere wenn Dauer <"
         '
-        'NumHighlightsMinRuntime
+        'Panel19
         '
-        Me.NumHighlightsMinRuntime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.NumHighlightsMinRuntime.Dock = System.Windows.Forms.DockStyle.Left
-        Me.NumHighlightsMinRuntime.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NumHighlightsMinRuntime.Location = New System.Drawing.Point(172, 4)
-        Me.NumHighlightsMinRuntime.Maximum = New Decimal(New Integer() {59, 0, 0, 0})
-        Me.NumHighlightsMinRuntime.Name = "NumHighlightsMinRuntime"
-        Me.NumHighlightsMinRuntime.Size = New System.Drawing.Size(42, 23)
-        Me.NumHighlightsMinRuntime.TabIndex = 9
-        '
-        'NumShowHighlightsAfter
-        '
-        Me.NumShowHighlightsAfter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.NumShowHighlightsAfter.Dock = System.Windows.Forms.DockStyle.Left
-        Me.NumShowHighlightsAfter.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NumShowHighlightsAfter.Location = New System.Drawing.Point(173, 4)
-        Me.NumShowHighlightsAfter.Maximum = New Decimal(New Integer() {23, 0, 0, 0})
-        Me.NumShowHighlightsAfter.Name = "NumShowHighlightsAfter"
-        Me.NumShowHighlightsAfter.Size = New System.Drawing.Size(42, 23)
-        Me.NumShowHighlightsAfter.TabIndex = 3
+        Me.Panel19.Controls.Add(Me.Label7)
+        Me.Panel19.Controls.Add(Me.NumShowHighlightsAfter)
+        Me.Panel19.Controls.Add(Me.Label8)
+        Me.Panel19.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel19.Location = New System.Drawing.Point(10, 26)
+        Me.Panel19.Name = "Panel19"
+        Me.Panel19.Padding = New System.Windows.Forms.Padding(4)
+        Me.Panel19.Size = New System.Drawing.Size(739, 34)
+        Me.Panel19.TabIndex = 12
         '
         'Label7
         '
@@ -1062,6 +1047,17 @@ Partial Class Setup
         Me.Label7.TabIndex = 7
         Me.Label7.Text = "Uhr"
         '
+        'NumShowHighlightsAfter
+        '
+        Me.NumShowHighlightsAfter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.NumShowHighlightsAfter.Dock = System.Windows.Forms.DockStyle.Left
+        Me.NumShowHighlightsAfter.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NumShowHighlightsAfter.Location = New System.Drawing.Point(173, 4)
+        Me.NumShowHighlightsAfter.Maximum = New Decimal(New Integer() {23, 0, 0, 0})
+        Me.NumShowHighlightsAfter.Name = "NumShowHighlightsAfter"
+        Me.NumShowHighlightsAfter.Size = New System.Drawing.Size(42, 23)
+        Me.NumShowHighlightsAfter.TabIndex = 3
+        '
         'Label8
         '
         Me.Label8.AutoSize = True
@@ -1073,6 +1069,16 @@ Partial Class Setup
         Me.Label8.Size = New System.Drawing.Size(169, 19)
         Me.Label8.TabIndex = 8
         Me.Label8.Text = "Zeige Highlights erst ab"
+        '
+        'Panel15
+        '
+        Me.Panel15.Controls.Add(Me.GroupBox2)
+        Me.Panel15.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel15.Location = New System.Drawing.Point(3, 61)
+        Me.Panel15.Name = "Panel15"
+        Me.Panel15.Padding = New System.Windows.Forms.Padding(10)
+        Me.Panel15.Size = New System.Drawing.Size(779, 234)
+        Me.Panel15.TabIndex = 16
         '
         'GroupBox2
         '
@@ -1089,6 +1095,16 @@ Partial Class Setup
         Me.GroupBox2.TabIndex = 11
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Movie Highlights"
+        '
+        'Panel17
+        '
+        Me.Panel17.Controls.Add(Me.GroupBox3)
+        Me.Panel17.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel17.Location = New System.Drawing.Point(10, 125)
+        Me.Panel17.Name = "Panel17"
+        Me.Panel17.Padding = New System.Windows.Forms.Padding(10)
+        Me.Panel17.Size = New System.Drawing.Size(739, 76)
+        Me.Panel17.TabIndex = 9
         '
         'GroupBox3
         '
@@ -1142,18 +1158,29 @@ Partial Class Setup
         Me.RBRatingStar.Text = "RatingStar"
         Me.RBRatingStar.UseVisualStyleBackColor = True
         '
-        'CheckBoxShowTagesTipp
+        'Panel16
         '
-        Me.CheckBoxShowTagesTipp.AutoSize = True
-        Me.CheckBoxShowTagesTipp.Dock = System.Windows.Forms.DockStyle.Top
-        Me.CheckBoxShowTagesTipp.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBoxShowTagesTipp.Location = New System.Drawing.Point(10, 56)
-        Me.CheckBoxShowTagesTipp.Name = "CheckBoxShowTagesTipp"
-        Me.CheckBoxShowTagesTipp.Padding = New System.Windows.Forms.Padding(10, 5, 10, 5)
-        Me.CheckBoxShowTagesTipp.Size = New System.Drawing.Size(739, 30)
-        Me.CheckBoxShowTagesTipp.TabIndex = 6
-        Me.CheckBoxShowTagesTipp.Text = "Zeige Tv Movie Tages Tipp als ersten Eintrag"
-        Me.CheckBoxShowTagesTipp.UseVisualStyleBackColor = True
+        Me.Panel16.Controls.Add(Me.Label5)
+        Me.Panel16.Controls.Add(Me.NumShowMoviesAfter)
+        Me.Panel16.Controls.Add(Me.Label4)
+        Me.Panel16.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel16.Location = New System.Drawing.Point(10, 86)
+        Me.Panel16.Name = "Panel16"
+        Me.Panel16.Padding = New System.Windows.Forms.Padding(10, 10, 10, 5)
+        Me.Panel16.Size = New System.Drawing.Size(739, 39)
+        Me.Panel16.TabIndex = 8
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Label5.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(259, 10)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Padding = New System.Windows.Forms.Padding(0, 3, 0, 0)
+        Me.Label5.Size = New System.Drawing.Size(30, 19)
+        Me.Label5.TabIndex = 5
+        Me.Label5.Text = "Uhr"
         '
         'NumShowMoviesAfter
         '
@@ -1178,17 +1205,18 @@ Partial Class Setup
         Me.Label4.TabIndex = 4
         Me.Label4.Text = "Zeige Movie Highlights erst ab"
         '
-        'Label5
+        'CheckBoxShowTagesTipp
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Label5.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(259, 10)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Padding = New System.Windows.Forms.Padding(0, 3, 0, 0)
-        Me.Label5.Size = New System.Drawing.Size(30, 19)
-        Me.Label5.TabIndex = 5
-        Me.Label5.Text = "Uhr"
+        Me.CheckBoxShowTagesTipp.AutoSize = True
+        Me.CheckBoxShowTagesTipp.Dock = System.Windows.Forms.DockStyle.Top
+        Me.CheckBoxShowTagesTipp.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBoxShowTagesTipp.Location = New System.Drawing.Point(10, 56)
+        Me.CheckBoxShowTagesTipp.Name = "CheckBoxShowTagesTipp"
+        Me.CheckBoxShowTagesTipp.Padding = New System.Windows.Forms.Padding(10, 5, 10, 5)
+        Me.CheckBoxShowTagesTipp.Size = New System.Drawing.Size(739, 30)
+        Me.CheckBoxShowTagesTipp.TabIndex = 6
+        Me.CheckBoxShowTagesTipp.Text = "Zeige Tv Movie Tages Tipp als ersten Eintrag"
+        Me.CheckBoxShowTagesTipp.UseVisualStyleBackColor = True
         '
         'CheckBoxShowLocalMovies
         '
@@ -1202,6 +1230,56 @@ Partial Class Setup
         Me.CheckBoxShowLocalMovies.TabIndex = 0
         Me.CheckBoxShowLocalMovies.Text = "Keine Filme zeigen, die lokal existieren"
         Me.CheckBoxShowLocalMovies.UseVisualStyleBackColor = True
+        '
+        'Panel14
+        '
+        Me.Panel14.Controls.Add(Me.Label13)
+        Me.Panel14.Controls.Add(Me.NumMaxDays)
+        Me.Panel14.Controls.Add(Me.Label12)
+        Me.Panel14.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel14.Location = New System.Drawing.Point(3, 3)
+        Me.Panel14.Name = "Panel14"
+        Me.Panel14.Padding = New System.Windows.Forms.Padding(20, 20, 20, 10)
+        Me.Panel14.Size = New System.Drawing.Size(779, 58)
+        Me.Panel14.TabIndex = 15
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Label13.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.Location = New System.Drawing.Point(262, 20)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Padding = New System.Windows.Forms.Padding(5, 3, 0, 0)
+        Me.Label13.Size = New System.Drawing.Size(46, 19)
+        Me.Label13.TabIndex = 14
+        Me.Label13.Text = "Tage"
+        '
+        'NumMaxDays
+        '
+        Me.NumMaxDays.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.NumMaxDays.Dock = System.Windows.Forms.DockStyle.Left
+        Me.NumMaxDays.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NumMaxDays.Location = New System.Drawing.Point(220, 20)
+        Me.NumMaxDays.Maximum = New Decimal(New Integer() {14, 0, 0, 0})
+        Me.NumMaxDays.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NumMaxDays.Name = "NumMaxDays"
+        Me.NumMaxDays.Size = New System.Drawing.Size(42, 23)
+        Me.NumMaxDays.TabIndex = 12
+        Me.NumMaxDays.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.NumMaxDays.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Label12.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.Location = New System.Drawing.Point(20, 20)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Padding = New System.Windows.Forms.Padding(0, 3, 5, 0)
+        Me.Label12.Size = New System.Drawing.Size(200, 19)
+        Me.Label12.TabIndex = 13
+        Me.Label12.Text = "Zeige Übersicht für maximal "
         '
         'TabCategories
         '
@@ -1242,16 +1320,17 @@ Partial Class Setup
         Me.CheckBoxShowCategorieLocalMovies.Text = "Keine Filme zeigen, die lokal existieren"
         Me.CheckBoxShowCategorieLocalMovies.UseVisualStyleBackColor = True
         '
-        'CheckBoxSelect
+        'Panel27
         '
-        Me.CheckBoxSelect.AutoSize = True
-        Me.CheckBoxSelect.Dock = System.Windows.Forms.DockStyle.Left
-        Me.CheckBoxSelect.Location = New System.Drawing.Point(20, 10)
-        Me.CheckBoxSelect.Name = "CheckBoxSelect"
-        Me.CheckBoxSelect.Size = New System.Drawing.Size(88, 27)
-        Me.CheckBoxSelect.TabIndex = 6
-        Me.CheckBoxSelect.Text = "Select all"
-        Me.CheckBoxSelect.UseVisualStyleBackColor = True
+        Me.Panel27.Controls.Add(Me.ButtonCategoriesDefault)
+        Me.Panel27.Controls.Add(Me.ButtonNewCategorie)
+        Me.Panel27.Controls.Add(Me.CheckBoxSelect)
+        Me.Panel27.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel27.Location = New System.Drawing.Point(0, 383)
+        Me.Panel27.Name = "Panel27"
+        Me.Panel27.Padding = New System.Windows.Forms.Padding(20, 10, 40, 10)
+        Me.Panel27.Size = New System.Drawing.Size(785, 47)
+        Me.Panel27.TabIndex = 15
         '
         'ButtonCategoriesDefault
         '
@@ -1273,6 +1352,37 @@ Partial Class Setup
         Me.ButtonNewCategorie.Text = "New"
         Me.ButtonNewCategorie.UseVisualStyleBackColor = True
         '
+        'CheckBoxSelect
+        '
+        Me.CheckBoxSelect.AutoSize = True
+        Me.CheckBoxSelect.Dock = System.Windows.Forms.DockStyle.Left
+        Me.CheckBoxSelect.Location = New System.Drawing.Point(20, 10)
+        Me.CheckBoxSelect.Name = "CheckBoxSelect"
+        Me.CheckBoxSelect.Size = New System.Drawing.Size(88, 27)
+        Me.CheckBoxSelect.TabIndex = 6
+        Me.CheckBoxSelect.Text = "Select all"
+        Me.CheckBoxSelect.UseVisualStyleBackColor = True
+        '
+        'SplitContainer1
+        '
+        Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.SplitContainer1.Location = New System.Drawing.Point(0, 0)
+        Me.SplitContainer1.Name = "SplitContainer1"
+        '
+        'SplitContainer1.Panel1
+        '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.dgvCategories)
+        Me.SplitContainer1.Panel1.Padding = New System.Windows.Forms.Padding(10, 10, 2, 10)
+        '
+        'SplitContainer1.Panel2
+        '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.Panel28)
+        Me.SplitContainer1.Panel2.Padding = New System.Windows.Forms.Padding(0, 0, 10, 0)
+        Me.SplitContainer1.Size = New System.Drawing.Size(785, 383)
+        Me.SplitContainer1.SplitterDistance = 749
+        Me.SplitContainer1.SplitterWidth = 1
+        Me.SplitContainer1.TabIndex = 14
+        '
         'dgvCategories
         '
         Me.dgvCategories.AllowUserToAddRows = False
@@ -1291,6 +1401,85 @@ Partial Class Setup
         Me.dgvCategories.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvCategories.Size = New System.Drawing.Size(737, 363)
         Me.dgvCategories.TabIndex = 0
+        '
+        'C_id
+        '
+        Me.C_id.FillWeight = 50.0!
+        Me.C_id.HeaderText = "id"
+        Me.C_id.Name = "C_id"
+        Me.C_id.ReadOnly = True
+        Me.C_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.C_id.Visible = False
+        '
+        'C_Image
+        '
+        Me.C_Image.HeaderText = ""
+        Me.C_Image.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom
+        Me.C_Image.Name = "C_Image"
+        Me.C_Image.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.C_Image.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.C_Image.Width = 40
+        '
+        'C_visible
+        '
+        Me.C_visible.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.C_visible.HeaderText = ""
+        Me.C_visible.Name = "C_visible"
+        Me.C_visible.Width = 5
+        '
+        'C_Name
+        '
+        Me.C_Name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.C_Name.HeaderText = "Name"
+        Me.C_Name.Name = "C_Name"
+        Me.C_Name.ReadOnly = True
+        Me.C_Name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.C_Name.Width = 50
+        '
+        'C_Beschreibung
+        '
+        Me.C_Beschreibung.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.C_Beschreibung.HeaderText = "Beschreibung"
+        Me.C_Beschreibung.Name = "C_Beschreibung"
+        Me.C_Beschreibung.ReadOnly = True
+        Me.C_Beschreibung.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'C_sortOrder
+        '
+        Me.C_sortOrder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
+        Me.C_sortOrder.HeaderText = "sortOrder"
+        Me.C_sortOrder.Name = "C_sortOrder"
+        Me.C_sortOrder.ReadOnly = True
+        Me.C_sortOrder.Visible = False
+        '
+        'C_SqlString
+        '
+        Me.C_SqlString.HeaderText = "SqlString"
+        Me.C_SqlString.Name = "C_SqlString"
+        Me.C_SqlString.Visible = False
+        '
+        'C_MinRuntime
+        '
+        Me.C_MinRuntime.HeaderText = "Min"
+        Me.C_MinRuntime.Name = "C_MinRuntime"
+        Me.C_MinRuntime.Width = 40
+        '
+        'C_NowOffset
+        '
+        Me.C_NowOffset.HeaderText = "Offset"
+        Me.C_NowOffset.Name = "C_NowOffset"
+        Me.C_NowOffset.Width = 52
+        '
+        'Panel28
+        '
+        Me.Panel28.Controls.Add(Me.ButtonDown)
+        Me.Panel28.Controls.Add(Me.ButtonUp)
+        Me.Panel28.Dock = System.Windows.Forms.DockStyle.Right
+        Me.Panel28.Location = New System.Drawing.Point(2, 0)
+        Me.Panel28.Name = "Panel28"
+        Me.Panel28.Padding = New System.Windows.Forms.Padding(2, 130, 2, 2)
+        Me.Panel28.Size = New System.Drawing.Size(23, 383)
+        Me.Panel28.TabIndex = 14
         '
         'ButtonDown
         '
@@ -1327,6 +1516,16 @@ Partial Class Setup
         Me.TabDetail.TabIndex = 4
         Me.TabDetail.Text = "GUI Details"
         Me.TabDetail.UseVisualStyleBackColor = True
+        '
+        'Panel21
+        '
+        Me.Panel21.Controls.Add(Me.GroupDetailSeriesImage)
+        Me.Panel21.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel21.Location = New System.Drawing.Point(3, 53)
+        Me.Panel21.Name = "Panel21"
+        Me.Panel21.Padding = New System.Windows.Forms.Padding(10)
+        Me.Panel21.Size = New System.Drawing.Size(779, 83)
+        Me.Panel21.TabIndex = 12
         '
         'GroupDetailSeriesImage
         '
@@ -1423,31 +1622,15 @@ Partial Class Setup
         Me.TabOverlay.Text = "Overlay"
         Me.TabOverlay.UseVisualStyleBackColor = True
         '
-        'CheckBoxEnableSeriesOverlay
+        'Panel22
         '
-        Me.CheckBoxEnableSeriesOverlay.AutoSize = True
-        Me.CheckBoxEnableSeriesOverlay.Dock = System.Windows.Forms.DockStyle.Top
-        Me.CheckBoxEnableSeriesOverlay.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBoxEnableSeriesOverlay.Location = New System.Drawing.Point(3, 53)
-        Me.CheckBoxEnableSeriesOverlay.Name = "CheckBoxEnableSeriesOverlay"
-        Me.CheckBoxEnableSeriesOverlay.Padding = New System.Windows.Forms.Padding(20, 10, 20, 10)
-        Me.CheckBoxEnableSeriesOverlay.Size = New System.Drawing.Size(779, 40)
-        Me.CheckBoxEnableSeriesOverlay.TabIndex = 13
-        Me.CheckBoxEnableSeriesOverlay.Text = "Episoden Overlay aktivieren"
-        Me.CheckBoxEnableSeriesOverlay.UseVisualStyleBackColor = True
-        '
-        'CheckBoxEnableMovieOverlay
-        '
-        Me.CheckBoxEnableMovieOverlay.AutoSize = True
-        Me.CheckBoxEnableMovieOverlay.Dock = System.Windows.Forms.DockStyle.Top
-        Me.CheckBoxEnableMovieOverlay.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBoxEnableMovieOverlay.Location = New System.Drawing.Point(3, 3)
-        Me.CheckBoxEnableMovieOverlay.Name = "CheckBoxEnableMovieOverlay"
-        Me.CheckBoxEnableMovieOverlay.Padding = New System.Windows.Forms.Padding(20, 20, 20, 10)
-        Me.CheckBoxEnableMovieOverlay.Size = New System.Drawing.Size(779, 50)
-        Me.CheckBoxEnableMovieOverlay.TabIndex = 12
-        Me.CheckBoxEnableMovieOverlay.Text = "Filme Overlay aktivieren"
-        Me.CheckBoxEnableMovieOverlay.UseVisualStyleBackColor = True
+        Me.Panel22.Controls.Add(Me.GroupBoxMovieOverlay)
+        Me.Panel22.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel22.Location = New System.Drawing.Point(3, 93)
+        Me.Panel22.Name = "Panel22"
+        Me.Panel22.Padding = New System.Windows.Forms.Padding(10)
+        Me.Panel22.Size = New System.Drawing.Size(779, 344)
+        Me.Panel22.TabIndex = 14
         '
         'GroupBoxMovieOverlay
         '
@@ -1466,63 +1649,15 @@ Partial Class Setup
         Me.GroupBoxMovieOverlay.TabStop = False
         Me.GroupBoxMovieOverlay.Text = "Filme Overlay"
         '
-        'Label22
+        'Panel26
         '
-        Me.Label22.AutoSize = True
-        Me.Label22.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Label22.Location = New System.Drawing.Point(10, 10)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Padding = New System.Windows.Forms.Padding(0, 3, 5, 0)
-        Me.Label22.Size = New System.Drawing.Size(87, 19)
-        Me.Label22.TabIndex = 26
-        Me.Label22.Text = "Tv Gruppe:"
-        '
-        'CBOverlayGroup
-        '
-        Me.CBOverlayGroup.Dock = System.Windows.Forms.DockStyle.Left
-        Me.CBOverlayGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CBOverlayGroup.FormattingEnabled = True
-        Me.CBOverlayGroup.Location = New System.Drawing.Point(97, 10)
-        Me.CBOverlayGroup.Name = "CBOverlayGroup"
-        Me.CBOverlayGroup.Size = New System.Drawing.Size(191, 24)
-        Me.CBOverlayGroup.TabIndex = 25
-        '
-        'NumOverlayLimit
-        '
-        Me.NumOverlayLimit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.NumOverlayLimit.Dock = System.Windows.Forms.DockStyle.Left
-        Me.NumOverlayLimit.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NumOverlayLimit.Location = New System.Drawing.Point(359, 10)
-        Me.NumOverlayLimit.Maximum = New Decimal(New Integer() {50, 0, 0, 0})
-        Me.NumOverlayLimit.Minimum = New Decimal(New Integer() {4, 0, 0, 0})
-        Me.NumOverlayLimit.Name = "NumOverlayLimit"
-        Me.NumOverlayLimit.Size = New System.Drawing.Size(42, 23)
-        Me.NumOverlayLimit.TabIndex = 13
-        Me.NumOverlayLimit.Value = New Decimal(New Integer() {4, 0, 0, 0})
-        '
-        'Label21
-        '
-        Me.Label21.AutoSize = True
-        Me.Label21.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Label21.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label21.Location = New System.Drawing.Point(10, 10)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(349, 16)
-        Me.Label21.TabIndex = 14
-        Me.Label21.Text = "Limit (max. Einträge die durchsucht werden sollen):"
-        '
-        'CheckBoxOverlayShowLocalMovies
-        '
-        Me.CheckBoxOverlayShowLocalMovies.AutoSize = True
-        Me.CheckBoxOverlayShowLocalMovies.Dock = System.Windows.Forms.DockStyle.Top
-        Me.CheckBoxOverlayShowLocalMovies.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBoxOverlayShowLocalMovies.Location = New System.Drawing.Point(10, 56)
-        Me.CheckBoxOverlayShowLocalMovies.Name = "CheckBoxOverlayShowLocalMovies"
-        Me.CheckBoxOverlayShowLocalMovies.Padding = New System.Windows.Forms.Padding(10, 5, 10, 5)
-        Me.CheckBoxOverlayShowLocalMovies.Size = New System.Drawing.Size(739, 30)
-        Me.CheckBoxOverlayShowLocalMovies.TabIndex = 8
-        Me.CheckBoxOverlayShowLocalMovies.Text = "Keine Filme zeigen, die lokal existieren"
-        Me.CheckBoxOverlayShowLocalMovies.UseVisualStyleBackColor = True
+        Me.Panel26.Controls.Add(Me.GroupBox7)
+        Me.Panel26.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel26.Location = New System.Drawing.Point(10, 241)
+        Me.Panel26.Name = "Panel26"
+        Me.Panel26.Padding = New System.Windows.Forms.Padding(10)
+        Me.Panel26.Size = New System.Drawing.Size(739, 70)
+        Me.Panel26.TabIndex = 30
         '
         'GroupBox7
         '
@@ -1576,18 +1711,15 @@ Partial Class Setup
         Me.RBOverlayRatingStar.Text = "RatingStar"
         Me.RBOverlayRatingStar.UseVisualStyleBackColor = True
         '
-        'CheckBoxOverlayShowTagesTipp
+        'Panel25
         '
-        Me.CheckBoxOverlayShowTagesTipp.AutoSize = True
-        Me.CheckBoxOverlayShowTagesTipp.Dock = System.Windows.Forms.DockStyle.Top
-        Me.CheckBoxOverlayShowTagesTipp.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBoxOverlayShowTagesTipp.Location = New System.Drawing.Point(10, 26)
-        Me.CheckBoxOverlayShowTagesTipp.Name = "CheckBoxOverlayShowTagesTipp"
-        Me.CheckBoxOverlayShowTagesTipp.Padding = New System.Windows.Forms.Padding(10, 5, 10, 5)
-        Me.CheckBoxOverlayShowTagesTipp.Size = New System.Drawing.Size(739, 30)
-        Me.CheckBoxOverlayShowTagesTipp.TabIndex = 7
-        Me.CheckBoxOverlayShowTagesTipp.Text = "Zeige Tv Movie Tages Tipp als ersten Eintrag"
-        Me.CheckBoxOverlayShowTagesTipp.UseVisualStyleBackColor = True
+        Me.Panel25.Controls.Add(Me.GroupBox6)
+        Me.Panel25.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel25.Location = New System.Drawing.Point(10, 171)
+        Me.Panel25.Name = "Panel25"
+        Me.Panel25.Padding = New System.Windows.Forms.Padding(10)
+        Me.Panel25.Size = New System.Drawing.Size(739, 70)
+        Me.Panel25.TabIndex = 29
         '
         'GroupBox6
         '
@@ -1655,6 +1787,125 @@ Partial Class Setup
         Me.RBOverlayHeute.Text = "Heute"
         Me.RBOverlayHeute.UseVisualStyleBackColor = True
         '
+        'Panel24
+        '
+        Me.Panel24.Controls.Add(Me.CBOverlayGroup)
+        Me.Panel24.Controls.Add(Me.Label22)
+        Me.Panel24.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel24.Location = New System.Drawing.Point(10, 127)
+        Me.Panel24.Name = "Panel24"
+        Me.Panel24.Padding = New System.Windows.Forms.Padding(10, 10, 10, 5)
+        Me.Panel24.Size = New System.Drawing.Size(739, 44)
+        Me.Panel24.TabIndex = 28
+        '
+        'CBOverlayGroup
+        '
+        Me.CBOverlayGroup.Dock = System.Windows.Forms.DockStyle.Left
+        Me.CBOverlayGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBOverlayGroup.FormattingEnabled = True
+        Me.CBOverlayGroup.Location = New System.Drawing.Point(97, 10)
+        Me.CBOverlayGroup.Name = "CBOverlayGroup"
+        Me.CBOverlayGroup.Size = New System.Drawing.Size(191, 24)
+        Me.CBOverlayGroup.TabIndex = 25
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Label22.Location = New System.Drawing.Point(10, 10)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Padding = New System.Windows.Forms.Padding(0, 3, 5, 0)
+        Me.Label22.Size = New System.Drawing.Size(87, 19)
+        Me.Label22.TabIndex = 26
+        Me.Label22.Text = "Tv Gruppe:"
+        '
+        'Panel23
+        '
+        Me.Panel23.Controls.Add(Me.NumOverlayLimit)
+        Me.Panel23.Controls.Add(Me.Label21)
+        Me.Panel23.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel23.Location = New System.Drawing.Point(10, 86)
+        Me.Panel23.Name = "Panel23"
+        Me.Panel23.Padding = New System.Windows.Forms.Padding(10, 10, 10, 5)
+        Me.Panel23.Size = New System.Drawing.Size(739, 41)
+        Me.Panel23.TabIndex = 27
+        '
+        'NumOverlayLimit
+        '
+        Me.NumOverlayLimit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.NumOverlayLimit.Dock = System.Windows.Forms.DockStyle.Left
+        Me.NumOverlayLimit.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NumOverlayLimit.Location = New System.Drawing.Point(359, 10)
+        Me.NumOverlayLimit.Maximum = New Decimal(New Integer() {50, 0, 0, 0})
+        Me.NumOverlayLimit.Minimum = New Decimal(New Integer() {4, 0, 0, 0})
+        Me.NumOverlayLimit.Name = "NumOverlayLimit"
+        Me.NumOverlayLimit.Size = New System.Drawing.Size(42, 23)
+        Me.NumOverlayLimit.TabIndex = 13
+        Me.NumOverlayLimit.Value = New Decimal(New Integer() {4, 0, 0, 0})
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Label21.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label21.Location = New System.Drawing.Point(10, 10)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(349, 16)
+        Me.Label21.TabIndex = 14
+        Me.Label21.Text = "Limit (max. Einträge die durchsucht werden sollen):"
+        '
+        'CheckBoxOverlayShowLocalMovies
+        '
+        Me.CheckBoxOverlayShowLocalMovies.AutoSize = True
+        Me.CheckBoxOverlayShowLocalMovies.Dock = System.Windows.Forms.DockStyle.Top
+        Me.CheckBoxOverlayShowLocalMovies.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBoxOverlayShowLocalMovies.Location = New System.Drawing.Point(10, 56)
+        Me.CheckBoxOverlayShowLocalMovies.Name = "CheckBoxOverlayShowLocalMovies"
+        Me.CheckBoxOverlayShowLocalMovies.Padding = New System.Windows.Forms.Padding(10, 5, 10, 5)
+        Me.CheckBoxOverlayShowLocalMovies.Size = New System.Drawing.Size(739, 30)
+        Me.CheckBoxOverlayShowLocalMovies.TabIndex = 8
+        Me.CheckBoxOverlayShowLocalMovies.Text = "Keine Filme zeigen, die lokal existieren"
+        Me.CheckBoxOverlayShowLocalMovies.UseVisualStyleBackColor = True
+        '
+        'CheckBoxOverlayShowTagesTipp
+        '
+        Me.CheckBoxOverlayShowTagesTipp.AutoSize = True
+        Me.CheckBoxOverlayShowTagesTipp.Dock = System.Windows.Forms.DockStyle.Top
+        Me.CheckBoxOverlayShowTagesTipp.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBoxOverlayShowTagesTipp.Location = New System.Drawing.Point(10, 26)
+        Me.CheckBoxOverlayShowTagesTipp.Name = "CheckBoxOverlayShowTagesTipp"
+        Me.CheckBoxOverlayShowTagesTipp.Padding = New System.Windows.Forms.Padding(10, 5, 10, 5)
+        Me.CheckBoxOverlayShowTagesTipp.Size = New System.Drawing.Size(739, 30)
+        Me.CheckBoxOverlayShowTagesTipp.TabIndex = 7
+        Me.CheckBoxOverlayShowTagesTipp.Text = "Zeige Tv Movie Tages Tipp als ersten Eintrag"
+        Me.CheckBoxOverlayShowTagesTipp.UseVisualStyleBackColor = True
+        '
+        'CheckBoxEnableSeriesOverlay
+        '
+        Me.CheckBoxEnableSeriesOverlay.AutoSize = True
+        Me.CheckBoxEnableSeriesOverlay.Dock = System.Windows.Forms.DockStyle.Top
+        Me.CheckBoxEnableSeriesOverlay.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBoxEnableSeriesOverlay.Location = New System.Drawing.Point(3, 53)
+        Me.CheckBoxEnableSeriesOverlay.Name = "CheckBoxEnableSeriesOverlay"
+        Me.CheckBoxEnableSeriesOverlay.Padding = New System.Windows.Forms.Padding(20, 10, 20, 10)
+        Me.CheckBoxEnableSeriesOverlay.Size = New System.Drawing.Size(779, 40)
+        Me.CheckBoxEnableSeriesOverlay.TabIndex = 13
+        Me.CheckBoxEnableSeriesOverlay.Text = "Episoden Overlay aktivieren"
+        Me.CheckBoxEnableSeriesOverlay.UseVisualStyleBackColor = True
+        '
+        'CheckBoxEnableMovieOverlay
+        '
+        Me.CheckBoxEnableMovieOverlay.AutoSize = True
+        Me.CheckBoxEnableMovieOverlay.Dock = System.Windows.Forms.DockStyle.Top
+        Me.CheckBoxEnableMovieOverlay.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBoxEnableMovieOverlay.Location = New System.Drawing.Point(3, 3)
+        Me.CheckBoxEnableMovieOverlay.Name = "CheckBoxEnableMovieOverlay"
+        Me.CheckBoxEnableMovieOverlay.Padding = New System.Windows.Forms.Padding(20, 20, 20, 10)
+        Me.CheckBoxEnableMovieOverlay.Size = New System.Drawing.Size(779, 50)
+        Me.CheckBoxEnableMovieOverlay.TabIndex = 12
+        Me.CheckBoxEnableMovieOverlay.Text = "Filme Overlay aktivieren"
+        Me.CheckBoxEnableMovieOverlay.UseVisualStyleBackColor = True
+        '
         'openFileDialog
         '
         Me.openFileDialog.FileName = "OpenFileDialog1"
@@ -1700,258 +1951,6 @@ Partial Class Setup
         Me.Panel2.Padding = New System.Windows.Forms.Padding(10, 10, 10, 20)
         Me.Panel2.Size = New System.Drawing.Size(813, 781)
         Me.Panel2.TabIndex = 42
-        '
-        'Panel14
-        '
-        Me.Panel14.Controls.Add(Me.Label13)
-        Me.Panel14.Controls.Add(Me.NumMaxDays)
-        Me.Panel14.Controls.Add(Me.Label12)
-        Me.Panel14.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel14.Location = New System.Drawing.Point(3, 3)
-        Me.Panel14.Name = "Panel14"
-        Me.Panel14.Padding = New System.Windows.Forms.Padding(20, 20, 20, 10)
-        Me.Panel14.Size = New System.Drawing.Size(779, 58)
-        Me.Panel14.TabIndex = 15
-        '
-        'Panel15
-        '
-        Me.Panel15.Controls.Add(Me.GroupBox2)
-        Me.Panel15.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel15.Location = New System.Drawing.Point(3, 61)
-        Me.Panel15.Name = "Panel15"
-        Me.Panel15.Padding = New System.Windows.Forms.Padding(10)
-        Me.Panel15.Size = New System.Drawing.Size(779, 234)
-        Me.Panel15.TabIndex = 16
-        '
-        'Panel16
-        '
-        Me.Panel16.Controls.Add(Me.Label5)
-        Me.Panel16.Controls.Add(Me.NumShowMoviesAfter)
-        Me.Panel16.Controls.Add(Me.Label4)
-        Me.Panel16.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel16.Location = New System.Drawing.Point(10, 86)
-        Me.Panel16.Name = "Panel16"
-        Me.Panel16.Padding = New System.Windows.Forms.Padding(10, 10, 10, 5)
-        Me.Panel16.Size = New System.Drawing.Size(739, 39)
-        Me.Panel16.TabIndex = 8
-        '
-        'Panel17
-        '
-        Me.Panel17.Controls.Add(Me.GroupBox3)
-        Me.Panel17.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel17.Location = New System.Drawing.Point(10, 125)
-        Me.Panel17.Name = "Panel17"
-        Me.Panel17.Padding = New System.Windows.Forms.Padding(10)
-        Me.Panel17.Size = New System.Drawing.Size(739, 76)
-        Me.Panel17.TabIndex = 9
-        '
-        'Panel18
-        '
-        Me.Panel18.Controls.Add(Me.GroupBox1)
-        Me.Panel18.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel18.Location = New System.Drawing.Point(3, 295)
-        Me.Panel18.Name = "Panel18"
-        Me.Panel18.Padding = New System.Windows.Forms.Padding(10)
-        Me.Panel18.Size = New System.Drawing.Size(779, 127)
-        Me.Panel18.TabIndex = 17
-        '
-        'Panel19
-        '
-        Me.Panel19.Controls.Add(Me.Label7)
-        Me.Panel19.Controls.Add(Me.NumShowHighlightsAfter)
-        Me.Panel19.Controls.Add(Me.Label8)
-        Me.Panel19.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel19.Location = New System.Drawing.Point(10, 26)
-        Me.Panel19.Name = "Panel19"
-        Me.Panel19.Padding = New System.Windows.Forms.Padding(4)
-        Me.Panel19.Size = New System.Drawing.Size(739, 34)
-        Me.Panel19.TabIndex = 12
-        '
-        'Panel20
-        '
-        Me.Panel20.Controls.Add(Me.Label11)
-        Me.Panel20.Controls.Add(Me.NumHighlightsMinRuntime)
-        Me.Panel20.Controls.Add(Me.Label10)
-        Me.Panel20.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel20.Location = New System.Drawing.Point(10, 60)
-        Me.Panel20.Name = "Panel20"
-        Me.Panel20.Padding = New System.Windows.Forms.Padding(4)
-        Me.Panel20.Size = New System.Drawing.Size(739, 35)
-        Me.Panel20.TabIndex = 13
-        '
-        'Panel21
-        '
-        Me.Panel21.Controls.Add(Me.GroupDetailSeriesImage)
-        Me.Panel21.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel21.Location = New System.Drawing.Point(3, 53)
-        Me.Panel21.Name = "Panel21"
-        Me.Panel21.Padding = New System.Windows.Forms.Padding(10)
-        Me.Panel21.Size = New System.Drawing.Size(779, 83)
-        Me.Panel21.TabIndex = 12
-        '
-        'Panel22
-        '
-        Me.Panel22.Controls.Add(Me.GroupBoxMovieOverlay)
-        Me.Panel22.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel22.Location = New System.Drawing.Point(3, 93)
-        Me.Panel22.Name = "Panel22"
-        Me.Panel22.Padding = New System.Windows.Forms.Padding(10)
-        Me.Panel22.Size = New System.Drawing.Size(779, 344)
-        Me.Panel22.TabIndex = 14
-        '
-        'Panel23
-        '
-        Me.Panel23.Controls.Add(Me.NumOverlayLimit)
-        Me.Panel23.Controls.Add(Me.Label21)
-        Me.Panel23.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel23.Location = New System.Drawing.Point(10, 86)
-        Me.Panel23.Name = "Panel23"
-        Me.Panel23.Padding = New System.Windows.Forms.Padding(10, 10, 10, 5)
-        Me.Panel23.Size = New System.Drawing.Size(739, 41)
-        Me.Panel23.TabIndex = 27
-        '
-        'Panel24
-        '
-        Me.Panel24.Controls.Add(Me.CBOverlayGroup)
-        Me.Panel24.Controls.Add(Me.Label22)
-        Me.Panel24.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel24.Location = New System.Drawing.Point(10, 127)
-        Me.Panel24.Name = "Panel24"
-        Me.Panel24.Padding = New System.Windows.Forms.Padding(10, 10, 10, 5)
-        Me.Panel24.Size = New System.Drawing.Size(739, 44)
-        Me.Panel24.TabIndex = 28
-        '
-        'Panel25
-        '
-        Me.Panel25.Controls.Add(Me.GroupBox6)
-        Me.Panel25.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel25.Location = New System.Drawing.Point(10, 171)
-        Me.Panel25.Name = "Panel25"
-        Me.Panel25.Padding = New System.Windows.Forms.Padding(10)
-        Me.Panel25.Size = New System.Drawing.Size(739, 70)
-        Me.Panel25.TabIndex = 29
-        '
-        'Panel26
-        '
-        Me.Panel26.Controls.Add(Me.GroupBox7)
-        Me.Panel26.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel26.Location = New System.Drawing.Point(10, 241)
-        Me.Panel26.Name = "Panel26"
-        Me.Panel26.Padding = New System.Windows.Forms.Padding(10)
-        Me.Panel26.Size = New System.Drawing.Size(739, 70)
-        Me.Panel26.TabIndex = 30
-        '
-        'C_id
-        '
-        Me.C_id.FillWeight = 50.0!
-        Me.C_id.HeaderText = "id"
-        Me.C_id.Name = "C_id"
-        Me.C_id.ReadOnly = True
-        Me.C_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.C_id.Visible = False
-        '
-        'C_Image
-        '
-        Me.C_Image.HeaderText = ""
-        Me.C_Image.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom
-        Me.C_Image.Name = "C_Image"
-        Me.C_Image.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.C_Image.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.C_Image.Width = 40
-        '
-        'C_visible
-        '
-        Me.C_visible.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.C_visible.HeaderText = ""
-        Me.C_visible.Name = "C_visible"
-        Me.C_visible.Width = 5
-        '
-        'C_Name
-        '
-        Me.C_Name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.C_Name.HeaderText = "Name"
-        Me.C_Name.Name = "C_Name"
-        Me.C_Name.ReadOnly = True
-        Me.C_Name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.C_Name.Width = 50
-        '
-        'C_Beschreibung
-        '
-        Me.C_Beschreibung.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.C_Beschreibung.HeaderText = "Beschreibung"
-        Me.C_Beschreibung.Name = "C_Beschreibung"
-        Me.C_Beschreibung.ReadOnly = True
-        Me.C_Beschreibung.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'C_sortOrder
-        '
-        Me.C_sortOrder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        Me.C_sortOrder.HeaderText = "sortOrder"
-        Me.C_sortOrder.Name = "C_sortOrder"
-        Me.C_sortOrder.ReadOnly = True
-        Me.C_sortOrder.Visible = False
-        Me.C_sortOrder.Width = 95
-        '
-        'C_SqlString
-        '
-        Me.C_SqlString.HeaderText = "SqlString"
-        Me.C_SqlString.Name = "C_SqlString"
-        Me.C_SqlString.Visible = False
-        '
-        'C_MinRuntime
-        '
-        Me.C_MinRuntime.HeaderText = "Min"
-        Me.C_MinRuntime.Name = "C_MinRuntime"
-        Me.C_MinRuntime.Width = 40
-        '
-        'C_NowOffset
-        '
-        Me.C_NowOffset.HeaderText = "Offset"
-        Me.C_NowOffset.Name = "C_NowOffset"
-        Me.C_NowOffset.Width = 52
-        '
-        'Panel28
-        '
-        Me.Panel28.Controls.Add(Me.ButtonDown)
-        Me.Panel28.Controls.Add(Me.ButtonUp)
-        Me.Panel28.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel28.Location = New System.Drawing.Point(2, 0)
-        Me.Panel28.Name = "Panel28"
-        Me.Panel28.Padding = New System.Windows.Forms.Padding(2, 130, 2, 2)
-        Me.Panel28.Size = New System.Drawing.Size(23, 383)
-        Me.Panel28.TabIndex = 14
-        '
-        'SplitContainer1
-        '
-        Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.SplitContainer1.Location = New System.Drawing.Point(0, 0)
-        Me.SplitContainer1.Name = "SplitContainer1"
-        '
-        'SplitContainer1.Panel1
-        '
-        Me.SplitContainer1.Panel1.Controls.Add(Me.dgvCategories)
-        Me.SplitContainer1.Panel1.Padding = New System.Windows.Forms.Padding(10, 10, 2, 10)
-        '
-        'SplitContainer1.Panel2
-        '
-        Me.SplitContainer1.Panel2.Controls.Add(Me.Panel28)
-        Me.SplitContainer1.Panel2.Padding = New System.Windows.Forms.Padding(0, 0, 10, 0)
-        Me.SplitContainer1.Size = New System.Drawing.Size(785, 383)
-        Me.SplitContainer1.SplitterDistance = 749
-        Me.SplitContainer1.SplitterWidth = 1
-        Me.SplitContainer1.TabIndex = 14
-        '
-        'Panel27
-        '
-        Me.Panel27.Controls.Add(Me.ButtonCategoriesDefault)
-        Me.Panel27.Controls.Add(Me.ButtonNewCategorie)
-        Me.Panel27.Controls.Add(Me.CheckBoxSelect)
-        Me.Panel27.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel27.Location = New System.Drawing.Point(0, 383)
-        Me.Panel27.Name = "Panel27"
-        Me.Panel27.Padding = New System.Windows.Forms.Padding(20, 10, 40, 10)
-        Me.Panel27.Size = New System.Drawing.Size(785, 47)
-        Me.Panel27.TabIndex = 15
         '
         'Setup
         '
@@ -2004,60 +2003,60 @@ Partial Class Setup
         Me.TabItems.ResumeLayout(False)
         Me.TabItems.PerformLayout()
         Me.TabÜbersicht.ResumeLayout(False)
-        CType(Me.NumMaxDays, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel18.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
+        Me.Panel20.ResumeLayout(False)
+        Me.Panel20.PerformLayout()
         CType(Me.NumHighlightsMinRuntime, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel19.ResumeLayout(False)
+        Me.Panel19.PerformLayout()
         CType(Me.NumShowHighlightsAfter, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel15.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        Me.Panel17.ResumeLayout(False)
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
+        Me.Panel16.ResumeLayout(False)
+        Me.Panel16.PerformLayout()
         CType(Me.NumShowMoviesAfter, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel14.ResumeLayout(False)
+        Me.Panel14.PerformLayout()
+        CType(Me.NumMaxDays, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabCategories.ResumeLayout(False)
         Me.TabCategories.PerformLayout()
+        Me.Panel27.ResumeLayout(False)
+        Me.Panel27.PerformLayout()
+        Me.SplitContainer1.Panel1.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.ResumeLayout(False)
+        Me.SplitContainer1.ResumeLayout(False)
         CType(Me.dgvCategories, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel28.ResumeLayout(False)
         Me.TabDetail.ResumeLayout(False)
         Me.TabDetail.PerformLayout()
+        Me.Panel21.ResumeLayout(False)
         Me.GroupDetailSeriesImage.ResumeLayout(False)
         Me.GroupDetailSeriesImage.PerformLayout()
         Me.TabOverlay.ResumeLayout(False)
         Me.TabOverlay.PerformLayout()
+        Me.Panel22.ResumeLayout(False)
         Me.GroupBoxMovieOverlay.ResumeLayout(False)
         Me.GroupBoxMovieOverlay.PerformLayout()
-        CType(Me.NumOverlayLimit, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel26.ResumeLayout(False)
         Me.GroupBox7.ResumeLayout(False)
         Me.GroupBox7.PerformLayout()
+        Me.Panel25.ResumeLayout(False)
         Me.GroupBox6.ResumeLayout(False)
         Me.GroupBox6.PerformLayout()
+        Me.Panel24.ResumeLayout(False)
+        Me.Panel24.PerformLayout()
+        Me.Panel23.ResumeLayout(False)
+        Me.Panel23.PerformLayout()
+        CType(Me.NumOverlayLimit, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
-        Me.Panel14.ResumeLayout(False)
-        Me.Panel14.PerformLayout()
-        Me.Panel15.ResumeLayout(False)
-        Me.Panel16.ResumeLayout(False)
-        Me.Panel16.PerformLayout()
-        Me.Panel17.ResumeLayout(False)
-        Me.Panel18.ResumeLayout(False)
-        Me.Panel19.ResumeLayout(False)
-        Me.Panel19.PerformLayout()
-        Me.Panel20.ResumeLayout(False)
-        Me.Panel20.PerformLayout()
-        Me.Panel21.ResumeLayout(False)
-        Me.Panel22.ResumeLayout(False)
-        Me.Panel23.ResumeLayout(False)
-        Me.Panel23.PerformLayout()
-        Me.Panel24.ResumeLayout(False)
-        Me.Panel24.PerformLayout()
-        Me.Panel25.ResumeLayout(False)
-        Me.Panel26.ResumeLayout(False)
-        Me.Panel28.ResumeLayout(False)
-        Me.SplitContainer1.Panel1.ResumeLayout(False)
-        Me.SplitContainer1.Panel2.ResumeLayout(False)
-        Me.SplitContainer1.ResumeLayout(False)
-        Me.Panel27.ResumeLayout(False)
-        Me.Panel27.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

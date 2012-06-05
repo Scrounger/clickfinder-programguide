@@ -66,7 +66,7 @@ Namespace ClickfinderProgramGuide
         End Function
         Public Sub ShowPlugin() Implements MediaPortal.GUI.Library.ISetupForm.ShowPlugin
             Dim setup As New Setup
-            setup.Show()
+            setup.ShowDialog()
         End Sub
         Public Function CanEnable() As Boolean Implements MediaPortal.GUI.Library.ISetupForm.CanEnable
             Return True
