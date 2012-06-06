@@ -356,7 +356,7 @@ Namespace ClickfinderProgramGuide
 
                 _SQLstring = _
                    "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
-                   "WHERE starRating > 1 " & _
+                   "WHERE starRating > 1 AND TvMovieBewertung < 6 " & _
                    "AND startTime >= " & MySqlDate(_startTime) & " " & _
                    "AND startTime <= " & MySqlDate(_endTime) & " " & _
                    "AND genre NOT LIKE '%Serie%' " & _
