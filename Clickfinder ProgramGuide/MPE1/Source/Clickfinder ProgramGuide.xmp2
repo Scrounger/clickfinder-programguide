@@ -820,7 +820,7 @@
     <Id>304bc464-97b0-49e5-a6b7-fc9a1b95fa5d</Id>
     <Author>Scrounger</Author>
     <HomePage>https://code.google.com/p/clickfinder-programguide/</HomePage>
-    <ForumPage>http://forum.team-mediaportal.com/plugins-erweiterungen-178/clickfinder-programguide-0-0-5-7-beta-103217/</ForumPage>
+    <ForumPage>http://forum.team-mediaportal.com/threads/clickfinder-programguide-v1-0-0-0-beta.108586/</ForumPage>
     <UpdateUrl>https://clickfinder-programguide.googlecode.com/git/Clickfinder%20ProgramGuide/MPEI/Source/update.xml</UpdateUrl>
     <Version>
       <Major>1</Major>
@@ -830,16 +830,27 @@
     </Version>
     <ExtensionDescription>This Plugin is a ProgramGuide based on the german EPG Data from the Tv Movie Clickfinder Provider (Software). It shows you information for different categories (e.g. Movies, Series, Doku,...), which television program is broadcasting now, at PrimeTime or at LateTime. There is also a Preview for the whole EPG timespan. The Data are sorted by the Rating of the TV Movie Clickfinder Plugin. This Plugin has a lot of configuration options, that gives the user the possibility to personalize the different views.
 
+
+
+
+
 Requirements:
-Tv Movie Clickfinder v.5.3 (free or premium)
-Tv Movie EPG Import++ plugin (newest version)</ExtensionDescription>
+
+
+- Tv Movie Clickfinder v.5.3 (free or premium)
+
+
+- Tv Movie EPG Import++ plugin (newest version)</ExtensionDescription>
     <VersionDescription>=== Version: 1.0.0.0 beta ===
 
-Requirements:
-Tv Movie Clickfinder v.5.3
-Tv Movie EPG Import++ plugin v.1.2.7.5
-
 Completly rewriten plugin with a lot of new features !
+
+Requirements:
+- Tv Movie Clickfinder v.5.3
+- Tv Movie EPG Import++ plugin v.1.2.7.5
+- MediaPortal 1.2.3
+
+New features:
 - new Gui layout
 - new Highlights Gui screen
 - new plugin configuration
@@ -858,7 +869,7 @@ Supported Skins:
 Read the manual for more information !</VersionDescription>
     <DevelopmentStatus>Beta</DevelopmentStatus>
     <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_1.0.0.0.beta.mpe1</OnlineLocation>
-    <ReleaseDate>2012-04-17T15:57:29</ReleaseDate>
+    <ReleaseDate>2012-06-06T15:57:29</ReleaseDate>
     <Tags>programguide, tv movie, clickfinder, epg, tv</Tags>
     <Location>D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPE1\Clickfinder ProgramGuide.mpe1</Location>
     <Params>
@@ -881,7 +892,7 @@ Read the manual for more information !</VersionDescription>
  If have .dll extension used like MP plugin configuration</Description>
         </SectionParam>
         <SectionParam Name="Online Screenshots">
-          <Value>https://clickfinder-programguide.googlecode.com/git/Wiki/Screenshots/Gui/GUIHighlights.jpg;https://clickfinder-programguide.googlecode.com/git/Wiki/Screenshots/Gui/GUICategories.jpg;https://clickfinder-programguide.googlecode.com/git/Wiki/Screenshots/Gui/GUIItems.jpg;https://clickfinder-programguide.googlecode.com/git/Wiki/Screenshots/Gui/GUIDetail.jpg;</Value>
+          <Value>https://clickfinder-programguide.googlecode.com/git/Wiki/Screenshots/Gui/GUIHighlights.jpg;https://clickfinder-programguide.googlecode.com/git/Wiki/Screenshots/Gui/GUICategories.jpg;https://clickfinder-programguide.googlecode.com/git/Wiki/Screenshots/Gui/GUIItems.jpg;https://clickfinder-programguide.googlecode.com/git/Wiki/Screenshots/Gui/GUIDetail.jpg;https://clickfinder-programguide.googlecode.com/git/Wiki/Screenshots/Gui/BasicHomeOverlay.jpg;https://clickfinder-programguide.googlecode.com/git/Wiki/Screenshots/Gui/GUIHighlights.StreamedMP.jpg;https://clickfinder-programguide.googlecode.com/git/Wiki/Screenshots/Gui/GuiCategories.StreamedMP.jpg;https://clickfinder-programguide.googlecode.com/git/Wiki/Screenshots/Gui/GuiItems.StreamedMP.jpg;https://clickfinder-programguide.googlecode.com/git/Wiki/Screenshots/Gui/GiDetail.StreamedMP.jpg;https://clickfinder-programguide.googlecode.com/git/Wiki/Screenshots/Gui/BasicHomeOverlay.StreamedMP.jpg</Value>
           <ValueType>String</ValueType>
           <Description>Online stored screenshot urls separated by ; </Description>
         </SectionParam>
@@ -1438,7 +1449,7 @@ Read the manual for more information !</VersionDescription>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\..\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R3.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{a9dfe8fb-9354-4f1b-b237-8fc82f6d9496}-ClickfinderPG_R3.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{c895333c-1c95-4d54-a422-55d5ecfbbfa4}-ClickfinderPG_R3.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
