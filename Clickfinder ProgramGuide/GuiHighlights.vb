@@ -356,6 +356,18 @@ Namespace ClickfinderProgramGuide
                 GuiButtons.Preview()
             End If
 
+            If control Is _MovieList Then
+                ListControlClick(_MovieList.SelectedListItem.ItemId)
+            End If
+
+            If control Is _HighlightsList Then
+                'Falls im Label2 Translation.NewLabel gefunden -> Series Context Menu
+                If _HighlightsList.SelectedListItem.Label2 = Translation.NewLabel Then
+                    ShowSeriesContextMenu(_HighlightsList.SelectedListItem.ItemId, True)
+                Else
+                    ListControlClick(_HighlightsList.SelectedListItem.ItemId)
+                End If
+            End If
         End Sub
 
 #End Region

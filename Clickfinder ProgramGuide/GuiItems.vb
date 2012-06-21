@@ -363,6 +363,15 @@ Namespace ClickfinderProgramGuide
                 GuiButtons.Preview()
             End If
 
+            If control Is _leftList Then
+                ListControlClick(_leftList.SelectedListItem.ItemId)
+            End If
+            If control Is _rightList Then
+                ListControlClick(_rightList.SelectedListItem.ItemId)
+            End If
+
+
+
 
         End Sub
 
