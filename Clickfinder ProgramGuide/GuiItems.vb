@@ -162,7 +162,7 @@ Namespace ClickfinderProgramGuide
 
                 'Next Item (F8) -> eine Seite vor
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_NEXT_ITEM _
-                                And (_leftList.IsFocused Or _rightList.IsFocused) Then
+                                Then
 
                     Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowLeftProgressBar)
                     _ProgressBarThread.Start()
@@ -170,7 +170,7 @@ Namespace ClickfinderProgramGuide
                     Dim _ProgressBarThread2 As New Threading.Thread(AddressOf ShowRightProgressBar)
                     _ProgressBarThread2.Start()
 
-                   AbortRunningThreads
+                    AbortRunningThreads()
 
                     If CInt(_CurrentCounter / 12) * 12 + 12 > _ItemsResult.Count - 1 Then
                         _CurrentCounter = 0
@@ -196,7 +196,7 @@ Namespace ClickfinderProgramGuide
 
                 'Prev. Item (F7) -> einen Tag zurück
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_PREV_ITEM _
-                                And (_leftList.IsFocused Or _rightList.IsFocused) Then
+                                Then
 
                     Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowLeftProgressBar)
                     _ProgressBarThread.Start()

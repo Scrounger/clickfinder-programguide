@@ -143,6 +143,11 @@ Namespace ClickfinderProgramGuide
 
             Try
 
+                Dim bla As IList(Of Server) = Server.ListAll
+
+                'MsgBox(bla(0).HostName)
+
+
                 Dim _Thread4 As New Thread(AddressOf Translator.TranslateSkin)
                 _Thread4.Start()
 

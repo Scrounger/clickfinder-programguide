@@ -9,6 +9,7 @@ Imports ClickfinderProgramGuide.TvDatabase
 Imports MediaPortal.Dialogs
 Imports System.Threading
 Imports Gentle.Common
+Imports MediaPortal.GUI.Library.Action
 
 Namespace ClickfinderProgramGuide
     Public Class HighlightsGuiWindow
@@ -83,6 +84,7 @@ Namespace ClickfinderProgramGuide
             MyLog.Info("")
             MyLog.Info("[HighlightsGuiWindow] -------------[OPEN]-------------")
 
+
             Try
                 Translator.SetProperty("#CurrentDate", Translation.Loading)
 
@@ -115,7 +117,6 @@ Namespace ClickfinderProgramGuide
                 _ThreadFillHighlightsList.IsBackground = True
                 _ThreadFillMovieList.Start()
                 _ThreadFillHighlightsList.Start()
-
                 '_Thread1.Join()
             Catch ex As Exception
                 MyLog.Error("[HighlightsGUIWindow] [OnPageLoad]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
@@ -136,7 +137,9 @@ Namespace ClickfinderProgramGuide
                 If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM Then
                     MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", Action.m_key.KeyChar, Action.m_key.KeyCode, Action.wID.ToString)
 
-                    If _MovieList.IsFocused = True Then ListControlClick(_MovieList.SelectedListItem.ItemId)
+                    If _MovieList.IsFocused = True Then
+                        ListControlClick(_MovieList.SelectedListItem.ItemId)
+                    End If
 
                     If _HighlightsList.IsFocused = True Then
                         'Falls im Label2 Translation.NewLabel gefunden -> Series Context Menu
@@ -149,9 +152,10 @@ Namespace ClickfinderProgramGuide
 
                 End If
 
+
                 'Next Item (F8) -> einen Tag vor
                 If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_NEXT_ITEM _
-                                And (_MovieList.IsFocused Or _HighlightsList.IsFocused) Then
+                                Then
 
                     Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowHighlightsProgressBar)
                     _ProgressBarThread.Start()
@@ -159,7 +163,7 @@ Namespace ClickfinderProgramGuide
                     Dim _ProgressBarThread2 As New Threading.Thread(AddressOf ShowMoviesProgressBar)
                     _ProgressBarThread2.Start()
 
-                    AbortRunningThreads
+                    AbortRunningThreads()
 
                     If Not Date.Equals(_ClickfinderCurrentDate, Today.AddDays(CDbl(_layer.GetSetting("ClickfinderOverviewMaxDays", "10").Value))) Then
                         _ClickfinderCurrentDate = _ClickfinderCurrentDate.AddDays(1)
@@ -184,7 +188,7 @@ Namespace ClickfinderProgramGuide
 
                 'Prev. Item (F7) -> einen Tag zurück
                 If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_PREV_ITEM _
-                                And (_MovieList.IsFocused Or _HighlightsList.IsFocused) Then
+                                 Then
 
                     Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowHighlightsProgressBar)
                     _ProgressBarThread.Start()
@@ -192,7 +196,7 @@ Namespace ClickfinderProgramGuide
                     Dim _ProgressBarThread2 As New Threading.Thread(AddressOf ShowMoviesProgressBar)
                     _ProgressBarThread2.Start()
 
-                    AbortRunningThreads
+                    AbortRunningThreads()
 
                     If Not Date.Equals(_ClickfinderCurrentDate, Today.AddDays(-1)) Then
                         _ClickfinderCurrentDate = _ClickfinderCurrentDate.AddDays(-1)
@@ -353,7 +357,6 @@ Namespace ClickfinderProgramGuide
             End If
 
         End Sub
-
 
 #End Region
 
@@ -539,6 +542,7 @@ Namespace ClickfinderProgramGuide
 
                 _MoviesProgressBar.Visible = False
                 _MovieList.Visible = True
+
 
                 If CBool(_layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false").Value) = True Then
                     MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: Movies exist local and will not be displayed ({0})", _LogLocalMovies)
@@ -1152,12 +1156,10 @@ Namespace ClickfinderProgramGuide
             _Thread1.Start()
 
         End Sub
-
         Private Sub InfoMenu()
             Dim dlgContext As GUIDialogExif = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_EXIF, Integer)), GUIDialogExif)
             dlgContext.Reset()
         End Sub
-
 #End Region
 
 

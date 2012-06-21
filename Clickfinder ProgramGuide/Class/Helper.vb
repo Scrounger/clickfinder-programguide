@@ -489,8 +489,6 @@ Public Class Helper
 
     Friend Shared Sub CheckConnectionState(ByVal idWindow As Integer)
 
-
-
         'TvServer nicht verbunden / online
         If TvPlugin.TVHome.Connected = False Then
             ShowConnectionNotify(idWindow, Translation.TvServerOffline)
@@ -602,4 +600,9 @@ Public Class Helper
             End If
         End If
     End Sub
+
+    'Friend Shared Sub ManualWebBrowser()
+    '    Dim webBrowserWindowID As Integer = InfoServiceUtils.GetWebBrowserWindowId(FeedService.Feeds(FeedService.ActiveFeedIndex).Items(_feedListcontrol.SelectedListItemIndex).Url, zoomlevel)
+    'End Sub
+
 End Class

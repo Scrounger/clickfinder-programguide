@@ -826,7 +826,7 @@
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>0</Build>
-      <Revision>0</Revision>
+      <Revision>1</Revision>
     </Version>
     <ExtensionDescription>This Plugin is a ProgramGuide based on the german EPG Data from the Tv Movie Clickfinder Provider (Software). It shows you information for different categories (e.g. Movies, Series, Doku,...), which television program is broadcasting now, at PrimeTime or at LateTime. There is also a Preview for the whole EPG timespan. The Data are sorted by the Rating of the TV Movie Clickfinder Plugin. This Plugin has a lot of configuration options, that gives the user the possibility to personalize the different views.
 
@@ -842,34 +842,12 @@ Requirements:
 
 - Tv Movie EPG Import++ plugin (newest version)</ExtensionDescription>
     <VersionDescription>=== Version: 1.0.0.0 beta ===
+  * bug fixed: next / prev item &lt;action&gt; xml control 
 
-Completly rewriten plugin with a lot of new features !
-
-Requirements:
-- Tv Movie Clickfinder v.5.3
-- Tv Movie EPG Import++ plugin v.1.2.7.5
-- MediaPortal 1.2.3
-
-New features:
-- new Gui layout
-- new Highlights Gui screen
-- new plugin configuration
-- global settings - same for all your clients
-- displays also channels with grabbed EPG
-- sort function
-- filter function
-- show / hide local existing movies / series
-- language file, skin properties and BasicHome Overlay supported
-- ...
-
-Supported Skins:
-- Deault Wide
-- StreamedMP
-
-Read the manual for more information !</VersionDescription>
+</VersionDescription>
     <DevelopmentStatus>Beta</DevelopmentStatus>
     <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_1.0.0.0.beta.mpe1</OnlineLocation>
-    <ReleaseDate>2012-06-06T15:57:29</ReleaseDate>
+    <ReleaseDate>2012-06-21T15:57:29</ReleaseDate>
     <Tags>programguide, tv movie, clickfinder, epg, tv</Tags>
     <Location>D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPE1\Clickfinder ProgramGuide.mpe1</Location>
     <Params>
@@ -1449,7 +1427,7 @@ Read the manual for more information !</VersionDescription>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\..\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R3.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{c895333c-1c95-4d54-a422-55d5ecfbbfa4}-ClickfinderPG_R3.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{ff2df706-6b34-4885-b597-40e713e57d86}-ClickfinderPG_R3.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
