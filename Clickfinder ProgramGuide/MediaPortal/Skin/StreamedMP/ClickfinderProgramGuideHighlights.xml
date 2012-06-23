@@ -102,6 +102,32 @@
       <font>mediastream10tc</font>
       <textcolor>FFdddddd</textcolor>
     </control>
+    <control>
+      <description>next Page</description>
+      <type>button</type>
+      <id>132</id>
+      <posX>750</posX>
+      <posY>18</posY>
+      <label></label>
+      <width>24</width>
+      <height>24</height>
+      <action>14</action>
+      <textureFocus>arrow_round_right_focus.png</textureFocus>
+      <textureNoFocus>arrow_round_right_nofocus.png</textureNoFocus>
+    </control>
+    <control>
+      <description>previous Page</description>
+      <type>button</type>
+      <id>133</id>
+      <posX>506</posX>
+      <posY>18</posY>
+      <label></label>
+      <width>24</width>
+      <height>24</height>
+      <action>15</action>
+      <textureFocus>arrow_round_left_focus.png</textureFocus>
+      <textureNoFocus>arrow_round_left_nofocus.png</textureNoFocus>
+    </control>
 
     <!-- MovieList & Controls-->
     <control>

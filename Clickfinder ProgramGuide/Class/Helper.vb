@@ -46,6 +46,7 @@ Public Class Helper
         lItem.Duration = MinRunTime
         lItem.PinImage = isRecording
 
+
         'If Not String.IsNullOrEmpty(ImagePath) Then
         '    Try
 

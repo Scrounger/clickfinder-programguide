@@ -787,6 +787,28 @@
       <description>Remember</description>
       <type>button</type>
       <id>13</id>
+      <hyperlink>4755</hyperlink>
+      <hyperlinkParameter>site:IMDb Movie Trailers|search:#DetailTitle|return:Locked</hyperlinkParameter>
+      <posX>110</posX>
+      <posY>510</posY>
+      <width>216</width>
+      <height>30</height>
+      <label>#ClickfinderPG.Translation.IMDB</label>
+      <onleft>2</onleft>
+      <onright>2</onright>
+      <onup>10</onup>
+      <ondown>12</ondown>
+      <textalign>center</textalign>
+      <font>font10</font>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+    
+    <control>
+      <description>Remember</description>
+      <type>button</type>
+      <id>13</id>
       <posX>110</posX>
       <posY>540</posY>
       <width>216</width>

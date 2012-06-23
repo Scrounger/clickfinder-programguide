@@ -771,7 +771,27 @@
 
     <!-- ActionGroup -->
     <import>ClickfinderProgramGuide.HiddenMenu.xml</import>
-
+    <control>
+      <description>Online Videos IMDB</description>
+      <type>button</type>
+      <id>130</id>
+      <hyperlink>4755</hyperlink>
+      <hyperlinkParameter>site:IMDb Movie Trailers|search:#DetailTitle|return:Locked</hyperlinkParameter>
+      <posX>110</posX>
+      <posY>510</posY>
+      <width>216</width>
+      <height>30</height>
+      <label>#ClickfinderPG.Translation.IMDB</label>
+      <onleft>2</onleft>
+      <onright>2</onright>
+      <onup>10</onup>
+      <ondown>13</ondown>
+      <textalign>center</textalign>
+      <font>mediastream10</font>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+      <visible>plugin.isenabled(OnlineVideos)</visible>
+    </control>
 
     <control>
       <description>Remember</description>
@@ -784,7 +804,7 @@
       <label>#ClickfinderPG.Translation.Remember</label>
       <onleft>2</onleft>
       <onright>2</onright>
-      <onup>10</onup>
+      <onup>130</onup>
       <ondown>12</ondown>
       <textalign>center</textalign>
       <font>mediastream10</font>
@@ -845,7 +865,7 @@
       <onleft>2</onleft>
       <onright>2</onright>
       <onup>11</onup>
-      <ondown>13</ondown>
+      <ondown>130</ondown>
       <textalign>center</textalign>
       <font>mediastream10</font>
       <visible></visible>

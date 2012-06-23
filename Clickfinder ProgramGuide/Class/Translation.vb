@@ -99,7 +99,7 @@ Public NotInheritable Class Translation
     Public Shared Yesterday As String = "Gestern"
     Public Shared Day As String = "Tage"
     Public Shared [for] As String = "für"
-
+    Public Shared IMDB As String = "IMDb Movie Trailers"
 
 
 End Class
