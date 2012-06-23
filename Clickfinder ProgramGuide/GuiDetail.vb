@@ -78,7 +78,7 @@ Namespace ClickfinderProgramGuide
                 MyLog.Info("[DetailGuiWindow] -------------[OPEN]-------------")
                 MyLog.Debug("[DetailGuiWindow] [OnPageLoad]: {0}, idProgram = {1}, needsUpdate = {2}", _DetailTvMovieProgram.ReferencedProgram.Title, _DetailTvMovieProgram.idProgram, _DetailTvMovieProgram.needsUpdate)
 
-                Helper.CheckConnectionState(GetID)
+                Helper.CheckConnectionState()
                 ShowDetails()
 
             Catch ex As Exception
@@ -102,7 +102,7 @@ Namespace ClickfinderProgramGuide
             If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_MUSIC_PLAY Then
                 Try
                     MyLog.[Debug]("[DetailGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
-                    Helper.StartTv(_DetailTvMovieProgram.ReferencedProgram.ReferencedChannel)
+                    Helper.StartTv(_DetailTvMovieProgram.ReferencedProgram)
                 Catch ex As Exception
                     MyLog.Error("[Play Button]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
                 End Try
@@ -161,7 +161,7 @@ Namespace ClickfinderProgramGuide
             End If
 
             If control Is _btnPlay Then
-                Helper.StartTv(_DetailTvMovieProgram.ReferencedProgram.ReferencedChannel)
+                Helper.StartTv(_DetailTvMovieProgram.ReferencedProgram)
             End If
 
             If control Is _btnBack Then

@@ -237,11 +237,6 @@ ClickfinderProgramGuide
 	<summary>
  Instances of this class represent the properties and methods of a row in the table <b>ClickfinderCategories</b>.
  </summary>
-</member><member name="M:ClickfinderProgramGuide.TvDatabase.TVMovieProgram.#ctor(System.Int32)">
-	<summary> 
- Create an object from an existing row of data. This will be used by Gentle to 
- construct objects from retrieved rows. 
- </summary>
 </member><member name="P:ClickfinderProgramGuide.TvDatabase.TVMovieProgram.IsChanged">
 	<summary>
  Indicates whether the entity is changed and requires saving or not.

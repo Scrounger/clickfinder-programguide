@@ -10,6 +10,7 @@ Imports Gentle.Common
 Imports MediaPortal.Configuration
 Imports ClickfinderProgramGuide.TvDatabase
 Imports MediaPortal.GUI.Home
+Imports MediaPortal.Player
 
 Public Class Helper
 #Region "Members"
@@ -24,18 +25,9 @@ Public Class Helper
         parentalRating
         Series
     End Enum
-    Friend Shared Sub AddListControlItem(ByVal WindowId As Integer, ByVal Listcontrol As GUIListControl, ByVal idProgram As Integer, ByVal ChannelName As String, ByVal titelLabel As String, Optional ByVal timeLabel As String = "", Optional ByVal infoLabel As String = "", Optional ByVal ImagePath As String = "", Optional ByVal MinRunTime As Integer = 0, Optional ByVal isRecording As String = "")
+    Friend Shared Sub AddListControlItem(ByVal Listcontrol As GUIListControl, ByVal idProgram As Integer, ByVal ChannelName As String, ByVal titelLabel As String, Optional ByVal timeLabel As String = "", Optional ByVal infoLabel As String = "", Optional ByVal ImagePath As String = "", Optional ByVal MinRunTime As Integer = 0, Optional ByVal isRecording As String = "")
 
         Dim lItem As New GUIListItem
-
-        'Dim test As New GUIImage(idProgram)
-        'test.FileName = ImagePath
-        'test.Centered = True
-        'test.KeepAspectRatio = True
-        'test.Size = New MediaPortal.Drawing.Size(Listcontrol.ImageWidth, Listcontrol.ImageHeight)
-        'test.SetPosition(Listcontrol.IconOffsetX, Listcontrol.IconOffsetY)
-        'test.Render(1)
-        'test.AllocResources()
 
         lItem.Label = titelLabel
         lItem.Label2 = timeLabel
@@ -46,23 +38,7 @@ Public Class Helper
         lItem.Duration = MinRunTime
         lItem.PinImage = isRecording
 
-
-        'If Not String.IsNullOrEmpty(ImagePath) Then
-        '    Try
-
-        'GUITextureManager.LoadFromMemory(System.Drawing.Image.FromFile(ImagePath), "bildchen", 1, 20, 20)
-
-
-
-        '    Catch ex As Exception
-        '        MsgBox("Hallo" & vbNewLine & ex.Message)
-        '    End Try
-        'End If
-
-
-        GUIControl.AddListItemControl(WindowId, Listcontrol.GetID, lItem)
-
-        'MyLog.Debug("[AddListControlItem]: ImagePath: " & ImagePath)
+        GUIControl.AddListItemControl(GUIWindowManager.ActiveWindow, Listcontrol.GetID, lItem)
 
     End Sub
 
@@ -129,15 +105,25 @@ Public Class Helper
 
     End Sub
     'MP Tv Kanal einschalten
-    Friend Shared Sub StartTv(ByVal Channel As Channel)
+    Friend Shared Sub StartTv(ByVal program As Program)
         Try
 
-            Dim changeChannel As Channel = DirectCast(Channel, Channel)
-            MediaPortal.GUI.Library.GUIWindowManager.ActivateWindow(CInt(MediaPortal.GUI.Library.GUIWindow.Window.WINDOW_TVFULLSCREEN))
-            TVHome.ViewChannelAndCheck(changeChannel)
+            Dim _TvMovieprogram As TVMovieProgram = getTvMovieProgram(program)
+
+            If Not String.IsNullOrEmpty(_TvMovieprogram.FileName) Then
+                g_Player.Play(_TvMovieprogram.FileName, g_Player.MediaType.Video)
+                g_Player.ShowFullScreenWindowVideoDefault()
+            Else
+                Dim changeChannel As Channel = DirectCast(program.ReferencedChannel, Channel)
+                MediaPortal.GUI.Library.GUIWindowManager.ActivateWindow(CInt(MediaPortal.GUI.Library.GUIWindow.Window.WINDOW_TVFULLSCREEN))
+                TVHome.ViewChannelAndCheck(changeChannel)
+            End If
+
+
 
         Catch ex As Exception
-            Log.Error("Clickfinder ProgramGuide: [Button_ViewChannel] " & ex.Message)
+            MyLog.Error("Clickfinder ProgramGuide: [Button_ViewChannel] " & ex.Message)
+            ShowNotify(ex.Message)
         End Try
     End Sub
 
@@ -284,7 +270,7 @@ Public Class Helper
         End Try
     End Function
 
-    Friend Shared Sub ShowContextMenu(ByVal idProgram As Integer, ByVal idWindow As Integer)
+    Friend Shared Sub ShowContextMenu(ByVal idProgram As Integer)
         Dim dlgContext As GUIDialogMenu = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_MENU, Integer)), GUIDialogMenu)
         dlgContext.Reset()
 
@@ -311,11 +297,11 @@ Public Class Helper
         dlgContext.Add(lItemRem)
         lItemOn.Dispose()
 
-        dlgContext.DoModal(idWindow)
+        dlgContext.DoModal(GUIWindowManager.ActiveWindow)
 
         Select Case dlgContext.SelectedLabel
             Case Is = 0
-                StartTv(_Program.ReferencedChannel)
+                StartTv(_Program)
             Case Is = 1
                 LoadTVProgramInfo(_Program)
             Case Is = 2
@@ -324,7 +310,7 @@ Public Class Helper
 
     End Sub
 
-    Friend Shared Sub ShowActionMenu(ByVal Program As Program, ByVal idWindow As Integer)
+    Friend Shared Sub ShowActionMenu(ByVal Program As Program)
         Dim dlgContext As GUIDialogMenu = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_MENU, Integer)), GUIDialogMenu)
         dlgContext.Reset()
 
@@ -356,11 +342,11 @@ Public Class Helper
         dlgContext.Add(lItemSerieLink)
         lItemSerieLink.Dispose()
 
-        dlgContext.DoModal(idWindow)
+        dlgContext.DoModal(GUIWindowManager.ActiveWindow)
 
         Select Case dlgContext.SelectedLabel
             Case Is = 0
-                StartTv(Program.ReferencedChannel)
+                StartTv(Program)
                 MyLog.Debug("[ShowActionMenu]: selected -> start tv (channel)")
                 MyLog.Debug("")
             Case Is = 1
@@ -372,14 +358,14 @@ Public Class Helper
                 MyLog.Debug("[ShowActionMenu]: selected -> set notify")
                 MyLog.Debug("")
             Case Is = 3
-                ShowSerieLinkContextMenu(Program, idWindow)
+                ShowSerieLinkContextMenu(Program)
             Case Else
                 MyLog.Debug("[ShowActionMenu]: exit")
                 MyLog.Debug("")
         End Select
     End Sub
 
-    Private Shared Sub ShowSerieLinkContextMenu(ByVal program As Program, ByVal idWindow As Integer)
+    Private Shared Sub ShowSerieLinkContextMenu(ByVal program As Program)
         Dim dlgContext As GUIDialogSelect2Custom = CType(GUIWindowManager.GetWindow(CType(1656544655, Integer)), GUIDialogSelect2Custom)
         dlgContext.Reset()
         Try
@@ -417,7 +403,7 @@ Public Class Helper
                 Next
             End If
 
-            dlgContext.DoModal(idWindow)
+            dlgContext.DoModal(GUIWindowManager.ActiveWindow)
 
             Try
                 Dim _SeriesMapping As TvMovieSeriesMapping = TvMovieSeriesMapping.Retrieve(_idSeriesContainer.Item(dlgContext.SelectedLabel))
@@ -488,36 +474,36 @@ Public Class Helper
         Return _Result
     End Function
 
-    Friend Shared Sub CheckConnectionState(ByVal idWindow As Integer)
+    Friend Shared Sub CheckConnectionState()
 
         'TvServer nicht verbunden / online
         If TvPlugin.TVHome.Connected = False Then
-            ShowConnectionNotify(idWindow, Translation.TvServerOffline)
+            ShowNotify(Translation.TvServerOffline)
             Exit Sub
         End If
 
         'Clickfinder DB nicht gefunden
         If IO.File.Exists(ClickfinderDB.DatabasePath) = False Then
-            ShowConnectionNotify(idWindow, Translation.ClickfinderDBOffline)
+            ShowNotify(Translation.ClickfinderDBOffline)
         End If
 
         If CBool(_layer.GetSetting("TvMovieEnabled", "false").Value) = False Then
-            ShowConnectionNotify(idWindow, Translation.TvMovieEPGImportNotEnabled)
+            ShowNotify(Translation.TvMovieEPGImportNotEnabled)
         End If
 
         If CBool(_layer.GetSetting("ClickfinderEnabled", "true").Value) = False Then
-            ShowConnectionNotify(idWindow, Translation.ClickfinderImportNotEnabled)
+            ShowNotify(Translation.ClickfinderImportNotEnabled)
         End If
 
     End Sub
 
-    Private Shared Sub ShowConnectionNotify(ByVal idWindow As Integer, ByVal Message As String)
+    Private Shared Sub ShowNotify(ByVal Message As String)
         Dim dlgContext As GUIDialogOK = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_OK, Integer)), GUIDialogOK)
         dlgContext.Reset()
         dlgContext.SetHeading(Translation.Warning)
         dlgContext.SetLine(1, Message)
 
-        dlgContext.DoModal(idWindow)
+        dlgContext.DoModal(GUIWindowManager.ActiveWindow)
         GUIWindowManager.CloseCurrentWindow()
 
     End Sub
@@ -583,6 +569,7 @@ Public Class Helper
                             If _TvSeriesDB.EpisodeExistLocal = True Then
 
                                 TvMovieProgram.local = True
+                                TvMovieProgram.FileName = _TvSeriesDB.EpisodeFilename
                                 TvMovieProgram.ReferencedProgram.Description = Replace(TvMovieProgram.ReferencedProgram.Description, "Neue Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName, "Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName)
                                 TvMovieProgram.ReferencedProgram.Persist()
                                 TvMovieProgram.Persist()

@@ -149,7 +149,7 @@ Namespace ClickfinderProgramGuide
             MyLog.Info("")
             MyLog.Info("[CategoriesGuiWindow] -------------[OPEN]-------------")
 
-            Helper.CheckConnectionState(GetID)
+            Helper.CheckConnectionState()
 
 
             MyLog.Debug("[CategoriesGuiWindow] [OnPageLoad]: PeriodeStartTime = {0}, PeriodeEndTime = {1}", _
@@ -349,7 +349,7 @@ Namespace ClickfinderProgramGuide
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_MUSIC_PLAY Then
                     MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
                     Try
-                        If _PreviewList.IsFocused = True Then StartTv(Program.Retrieve(_PreviewList.SelectedListItem.ItemId).ReferencedChannel)
+                        If _PreviewList.IsFocused = True Then StartTv(Program.Retrieve(_PreviewList.SelectedListItem.ItemId))
                     Catch ex As Exception
                         MyLog.Error("[Play Button]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
                     End Try
@@ -368,7 +368,7 @@ Namespace ClickfinderProgramGuide
                 'Menu Button (F9) -> Context Menu open
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_CONTEXT_MENU Then
                     MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
-                    If _PreviewList.IsFocused = True Then ShowContextMenu(_PreviewList.SelectedListItem.ItemId, GetID)
+                    If _PreviewList.IsFocused = True Then ShowContextMenu(_PreviewList.SelectedListItem.ItemId)
                     If _CategorieList.IsFocused = True Then ShowCategoriesContextMenu(_CategorieList.SelectedListItem.ItemId)
                 End If
 
@@ -377,7 +377,7 @@ Namespace ClickfinderProgramGuide
                     If action.m_key IsNot Nothing Then
                         If action.m_key.KeyChar = 121 Then
                             MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
-                            If _PreviewList.IsFocused = True Then ShowContextMenu(_PreviewList.SelectedListItem.ItemId, GetID)
+                            If _PreviewList.IsFocused = True Then ShowContextMenu(_PreviewList.SelectedListItem.ItemId)
                             If _CategorieList.IsFocused = True Then ShowCategoriesContextMenu(_CategorieList.SelectedListItem.ItemId)
                         End If
                     End If
@@ -484,7 +484,7 @@ Namespace ClickfinderProgramGuide
 
                 For i = 0 To _Categories.Count - 1
                     If _Categories(i).isVisible = True Then
-                        AddListControlItem(GetID, _CategorieList, _Categories(i).SortOrder, String.Empty, _Categories(i).Name, , , Config.GetFile(Config.Dir.Thumbs, "Clickfinder ProgramGuide\Categories\") & _Categories(i).Name & ".png", _Categories(i).MinRunTime)
+                        AddListControlItem(_CategorieList, _Categories(i).SortOrder, String.Empty, _Categories(i).Name, , , Config.GetFile(Config.Dir.Thumbs, "Clickfinder ProgramGuide\Categories\") & _Categories(i).Name & ".png", _Categories(i).MinRunTime)
                         _logCategories = _logCategories & _Categories(i).Name & ", "
                     Else
                         _logHiddenCategories = _logHiddenCategories & _Categories(i).Name & ", "
@@ -611,7 +611,7 @@ Namespace ClickfinderProgramGuide
                                 Translator.SetProperty("#PreviewListTvMovieStar" & _ItemCounter, GuiLayout.TvMovieStar(_TvMovieProgram))
                                 Translator.SetProperty("#PreviewListImage" & _ItemCounter, GuiLayout.Image(_TvMovieProgram))
 
-                                AddListControlItem(GetID, _PreviewList, _Program.IdProgram, _Program.ReferencedChannel.DisplayName, _Program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_Program))
+                                AddListControlItem(_PreviewList, _Program.IdProgram, _Program.ReferencedChannel.DisplayName, _Program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_Program))
 
                                 MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: Add ListItem {0} (Title: {1}, Channel: {2}, startTime: {3}, idprogram: {4}, ratingStar: {5}, TvMovieStar: {6}, image: {7})", _
                                             _ItemCounter, _Program.Title, _Program.ReferencedChannel.DisplayName, _

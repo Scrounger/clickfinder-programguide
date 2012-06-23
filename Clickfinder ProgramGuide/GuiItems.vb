@@ -102,7 +102,7 @@ Namespace ClickfinderProgramGuide
             MyLog.Info("")
             MyLog.Info("[ItemsGuiWindow] -------------[OPEN]-------------")
 
-            Helper.CheckConnectionState(GetID)
+            Helper.CheckConnectionState()
 
             GuiLayoutLoading()
 
@@ -228,8 +228,8 @@ Namespace ClickfinderProgramGuide
                 'Play Button (P) -> Start channel
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_MUSIC_PLAY Then
                     Try
-                        If _leftList.IsFocused = True Then StartTv(Program.Retrieve(_leftList.SelectedListItem.ItemId).ReferencedChannel)
-                        If _rightList.IsFocused = True Then StartTv(Program.Retrieve(_rightList.SelectedListItem.ItemId).ReferencedChannel)
+                        If _leftList.IsFocused = True Then StartTv(Program.Retrieve(_leftList.SelectedListItem.ItemId))
+                        If _rightList.IsFocused = True Then StartTv(Program.Retrieve(_rightList.SelectedListItem.ItemId))
                     Catch ex As Exception
                         MyLog.Error("[Play Button]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
                     End Try
@@ -247,16 +247,16 @@ Namespace ClickfinderProgramGuide
 
                 'Menu Button (F9) -> Context Menu open
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_CONTEXT_MENU Then
-                    If _leftList.IsFocused = True Then ShowItemsContextMenu(_leftList.SelectedListItem.ItemId, GetID)
-                    If _rightList.IsFocused = True Then ShowItemsContextMenu(_rightList.SelectedListItem.ItemId, GetID)
+                    If _leftList.IsFocused = True Then ShowItemsContextMenu(_leftList.SelectedListItem.ItemId)
+                    If _rightList.IsFocused = True Then ShowItemsContextMenu(_rightList.SelectedListItem.ItemId)
                 End If
 
                 'OSD Info Button (Y) -> Context Menu open (gleiche Fkt. wie Menu Button)
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_KEY_PRESSED Then
                     If action.m_key IsNot Nothing Then
                         If action.m_key.KeyChar = 121 Then
-                            If _leftList.IsFocused = True Then ShowItemsContextMenu(_leftList.SelectedListItem.ItemId, GetID)
-                            If _rightList.IsFocused = True Then ShowItemsContextMenu(_rightList.SelectedListItem.ItemId, GetID)
+                            If _leftList.IsFocused = True Then ShowItemsContextMenu(_leftList.SelectedListItem.ItemId)
+                            If _rightList.IsFocused = True Then ShowItemsContextMenu(_rightList.SelectedListItem.ItemId)
                         End If
                     End If
                 End If
@@ -580,7 +580,7 @@ Namespace ClickfinderProgramGuide
                         Translator.SetProperty("#ItemsListTvMovieStar" & _ItemCounter, GuiLayout.TvMovieStar(_TvMovieProgram))
                         Translator.SetProperty("#ItemsListImage" & _ItemCounter, GuiLayout.Image(_TvMovieProgram))
 
-                        AddListControlItem(GetID, _leftList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_program))
+                        AddListControlItem(_leftList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_program))
 
                         MyLog.Debug("[ItemsGuiWindow] [FillLeftList]: Add ListItem {0} (Title: {1}, Channel: {2}, startTime: {3}, idprogram: {4}, ratingStar: {5}, TvMovieStar: {6}, image: {7})", _
                                             _ItemCounter, _program.Title, _program.ReferencedChannel.DisplayName, _
@@ -669,7 +669,7 @@ Namespace ClickfinderProgramGuide
                         Translator.SetProperty("#ItemsListTvMovieStar" & _ItemCounter, GuiLayout.TvMovieStar(_TvMovieProgram))
                         Translator.SetProperty("#ItemsListImage" & _ItemCounter, GuiLayout.Image(_TvMovieProgram))
 
-                        AddListControlItem(GetID, _rightList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_program))
+                        AddListControlItem(_rightList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_program))
 
                         MyLog.Debug("[ItemsGuiWindow] [FillRightList]: Add ListItem {0} (Title: {1}, Channel: {2}, startTime: {3}, idprogram: {4}, ratingStar: {5}, TvMovieStar: {6}, image: {7})", _
                                             _ItemCounter, _program.Title, _program.ReferencedChannel.DisplayName, _
@@ -733,7 +733,7 @@ Namespace ClickfinderProgramGuide
 #End Region
 
 #Region "MediaPortal Funktionen / Dialogs"
-        Private Sub ShowItemsContextMenu(ByVal idProgram As Integer, ByVal idWindow As Integer)
+        Private Sub ShowItemsContextMenu(ByVal idProgram As Integer)
             Dim dlgContext As GUIDialogMenu = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_MENU, Integer)), GUIDialogMenu)
             dlgContext.Reset()
 
@@ -782,13 +782,13 @@ Namespace ClickfinderProgramGuide
             'lItemRem.Dispose()
 
 
-            dlgContext.DoModal(idWindow)
+            dlgContext.DoModal(GUIWindowManager.ActiveWindow)
 
             Select Case dlgContext.SelectedLabelText
                 Case Is = Translation.Sortby
                     ShowSortMenu()
                 Case Is = Translation.action
-                    ShowActionMenu(_Program, GetID)
+                    ShowActionMenu(_Program)
                 Case Is = Translation.Refresh
                     Dim key As New Gentle.Framework.Key(GetType(ClickfinderCategories), True, "idClickfinderCategories", _idCategorie)
                     Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(key)

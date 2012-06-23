@@ -244,8 +244,8 @@ Namespace ClickfinderProgramGuide
                     Try
                         MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", Action.m_key.KeyChar, Action.m_key.KeyCode, Action.wID.ToString)
 
-                        If _MovieList.IsFocused = True Then StartTv(Program.Retrieve(_MovieList.SelectedListItem.ItemId).ReferencedChannel)
-                        If _HighlightsList.IsFocused = True Then StartTv(Program.Retrieve(_HighlightsList.SelectedListItem.ItemId).ReferencedChannel)
+                        If _MovieList.IsFocused = True Then StartTv(Program.Retrieve(_MovieList.SelectedListItem.ItemId))
+                        If _HighlightsList.IsFocused = True Then StartTv(Program.Retrieve(_HighlightsList.SelectedListItem.ItemId))
                     Catch ex As Exception
                         MyLog.Error("[Play Button]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
                     End Try
@@ -520,7 +520,7 @@ Namespace ClickfinderProgramGuide
                                 Translator.SetProperty("#MovieListImage" & _ItemCounter, GuiLayout.Image(_TvMovieProgram))
 
 
-                                AddListControlItem(GetID, _MovieList, _TvMovieProgram.ReferencedProgram.IdProgram, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieProgram.ReferencedProgram.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram))
+                                AddListControlItem(_MovieList, _TvMovieProgram.ReferencedProgram.IdProgram, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieProgram.ReferencedProgram.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram))
 
                                 MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: Add ListItem {0} (Title: {1}, Channel: {2}, startTime: {3}, idprogram: {4}, ratingStar: {5}, TvMovieStar: {6}, image: {7})", _
                                             _ItemCounter, _TvMovieProgram.ReferencedProgram.Title, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _
@@ -655,7 +655,7 @@ Namespace ClickfinderProgramGuide
                                 _RecordingStatus = GuiLayout.RecordingStatus(_TvMovieSeriesProgram.ReferencedProgram)
                             End If
 
-                            AddListControlItem(GetID, _HighlightsList, _TvMovieSeriesProgram.ReferencedProgram.IdProgram, _TvMovieSeriesProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieSeriesProgram.ReferencedProgram.Title, _timeLabel, _infoLabel, _imagepath, , _RecordingStatus)
+                            AddListControlItem(_HighlightsList, _TvMovieSeriesProgram.ReferencedProgram.IdProgram, _TvMovieSeriesProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieSeriesProgram.ReferencedProgram.Title, _timeLabel, _infoLabel, _imagepath, , _RecordingStatus)
 
                             _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title
                             _EpisodeName = _TvMovieSeriesProgram.ReferencedProgram.EpisodeName
@@ -737,7 +737,7 @@ Namespace ClickfinderProgramGuide
                                         _imagepath = UseSportLogos(_TvMovieProgram.ReferencedProgram.Title, _imagepath)
                                     End If
 
-                                    AddListControlItem(GetID, _HighlightsList, _TvMovieProgram.ReferencedProgram.IdProgram, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieProgram.ReferencedProgram.Title, _timeLabel, _infoLabel, _imagepath, , GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram))
+                                    AddListControlItem(_HighlightsList, _TvMovieProgram.ReferencedProgram.IdProgram, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieProgram.ReferencedProgram.Title, _timeLabel, _infoLabel, _imagepath, , GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram))
 
                                     _lastTitle = _TvMovieProgram.ReferencedProgram.Title & _TvMovieProgram.ReferencedProgram.EpisodeName
 
@@ -980,7 +980,7 @@ Namespace ClickfinderProgramGuide
                     Case Is = 4
                         MyLog.Debug("[HighlightsGuiWindow] [ShowHighlightsMenu]:  selected -> action menu")
                         MyLog.Debug("")
-                        ShowActionMenu(_Program, GetID)
+                        ShowActionMenu(_Program)
                     Case Else
                         MyLog.Debug("[HighlightsGuiWindow] [ShowHighlightsMenu]: exit")
                         MyLog.Debug("")
@@ -1104,7 +1104,7 @@ Namespace ClickfinderProgramGuide
 
                     Case Is = 5
                         MyLog.Debug("[HighlightsGuiWindow] [ShowMoviesMenu]: selected -> action menu")
-                        ShowActionMenu(_Program, GetID)
+                        ShowActionMenu(_Program)
                     
                     Case Else
                         MyLog.Debug("[HighlightsGuiWindow] [ShowMoviesMenu]: exit")

@@ -21,6 +21,7 @@
 Imports System
 Imports System.Collections.Generic
 Imports Gentle.Framework
+Imports TvLibrary.Log
 Imports TvDatabase
 
 Namespace TvDatabase
@@ -76,9 +77,6 @@ Namespace TvDatabase
         <TableColumn("Cover", NotNull:=True)> _
         Private m_Cover As String
 
-
-
-
         <TableColumn("Fun", NotNull:=True)> _
         Private m_Fun As Integer
 
@@ -123,9 +121,11 @@ Namespace TvDatabase
         <TableColumn("Describtion", NotNull:=True)> _
        Private m_Describtion As String
 
-
         <TableColumn("ShortDescribtion", NotNull:=True)> _
        Private m_ShortDescribtion As String
+
+        <TableColumn("FileName", NotNull:=True)> _
+       Private m_FileName As String
 
         '<TableColumn("RatingString", NotNull:=True)> _
         'Private m_RatingString As String
@@ -138,6 +138,15 @@ Namespace TvDatabase
         ''' Create an object from an existing row of data. This will be used by Gentle to 
         ''' construct objects from retrieved rows. 
         ''' </summary> 
+        'public TVMovieProgram(int idClickfinderMapping, int idProgram, string idSeries, string timeSharingStart, string timeSharingEnd)
+        '{
+        '  isChanged = true;
+        '  this.idClickfinderMapping = idClickfinderMapping;
+        '  this.idProgram = idProgram;
+        '  this.idSeries = idSeries;
+        '  this.timeSharingStart = timeSharingStart;
+        '  this.timeSharingEnd = timeSharingEnd;
+        '}
         Public Sub New(ByVal idProgram As Integer)
             Me.m_idProgram = idProgram
         End Sub
@@ -449,7 +458,6 @@ Namespace TvDatabase
         End Property
 
 
-
         Public Property Describtion() As String
             Get
                 Return m_Describtion
@@ -469,6 +477,15 @@ Namespace TvDatabase
             End Set
         End Property
 
+        Public Property FileName() As String
+            Get
+                Return m_FileName
+            End Get
+            Set(ByVal value As String)
+                m_isChanged = m_isChanged Or m_FileName <> value
+                m_FileName = value
+            End Set
+        End Property
 
 #End Region
 
@@ -505,7 +522,7 @@ Namespace TvDatabase
                 Try
                     MyBase.Persist()
                 Catch ex As Exception
-                    MyLog.Error("Exception in TVMovieProgram.Persist() with Message {0}", ex.Message)
+                    MyLog.[Error]("Exception in TVMovieProgram.Persist() with Message {0}", ex.Message)
                     Return
                 End Try
                 m_isChanged = False
