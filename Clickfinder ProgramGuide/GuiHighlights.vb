@@ -137,25 +137,12 @@ Namespace ClickfinderProgramGuide
                 If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM Then
                     MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", Action.m_key.KeyChar, Action.m_key.KeyCode, Action.wID.ToString)
 
-                    If _MovieList.IsFocused = True Then
-                        ListControlClick(_MovieList.SelectedListItem.ItemId)
-                    End If
-
-                    If _HighlightsList.IsFocused = True Then
-                        'Falls im Label2 Translation.NewLabel gefunden -> Series Context Menu
-                        If _HighlightsList.SelectedListItem.Label2 = Translation.NewLabel Then
-                            ShowSeriesContextMenu(_HighlightsList.SelectedListItem.ItemId, True)
-                        Else
-                            ListControlClick(_HighlightsList.SelectedListItem.ItemId)
-                        End If
-                    End If
+                    Action_SelectItem
 
                 End If
 
-
                 'Next Item (F8) -> einen Tag vor
-                If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_NEXT_ITEM _
-                                Then
+                If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_NEXT_ITEM Then
 
                     Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowHighlightsProgressBar)
                     _ProgressBarThread.Start()
@@ -187,8 +174,7 @@ Namespace ClickfinderProgramGuide
                 End If
 
                 'Prev. Item (F7) -> einen Tag zurück
-                If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_PREV_ITEM _
-                                 Then
+                If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_PREV_ITEM Then
 
                     Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowHighlightsProgressBar)
                     _ProgressBarThread.Start()
@@ -356,11 +342,19 @@ Namespace ClickfinderProgramGuide
                 GuiButtons.Preview()
             End If
 
-            If control Is _MovieList Then
+            If control Is _MovieList Or control Is _HighlightsList Then
+                If actionType = MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM Then
+                    Action_SelectItem()
+                End If
+            End If
+        End Sub
+
+        Private Sub Action_SelectItem()
+            If _MovieList.IsFocused = True Then
                 ListControlClick(_MovieList.SelectedListItem.ItemId)
             End If
 
-            If control Is _HighlightsList Then
+            If _HighlightsList.IsFocused = True Then
                 'Falls im Label2 Translation.NewLabel gefunden -> Series Context Menu
                 If _HighlightsList.SelectedListItem.Label2 = Translation.NewLabel Then
                     ShowSeriesContextMenu(_HighlightsList.SelectedListItem.ItemId, True)

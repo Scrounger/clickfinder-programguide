@@ -156,13 +156,11 @@ Namespace ClickfinderProgramGuide
 
                     MyLog.[Debug]("[ItemsGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
 
-                    If _leftList.IsFocused = True Then ListControlClick(_leftList.SelectedListItem.ItemId)
-                    If _rightList.IsFocused = True Then ListControlClick(_rightList.SelectedListItem.ItemId)
+                    Action_SelectItem()
                 End If
 
                 'Next Item (F8) -> eine Seite vor
-                If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_NEXT_ITEM _
-                                Then
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_NEXT_ITEM Then
 
                     Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowLeftProgressBar)
                     _ProgressBarThread.Start()
@@ -195,8 +193,7 @@ Namespace ClickfinderProgramGuide
                 End If
 
                 'Prev. Item (F7) -> einen Tag zurück
-                If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_PREV_ITEM _
-                                Then
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_PREV_ITEM Then
 
                     Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowLeftProgressBar)
                     _ProgressBarThread.Start()
@@ -323,11 +320,8 @@ Namespace ClickfinderProgramGuide
                     _FillLists.Start()
                 End If
 
+
             End If
-
-
-
-
 
             MyBase.OnAction(action)
         End Sub
@@ -363,16 +357,17 @@ Namespace ClickfinderProgramGuide
                 GuiButtons.Preview()
             End If
 
-            If control Is _leftList Then
-                ListControlClick(_leftList.SelectedListItem.ItemId)
+            If control Is _leftList Or control Is _rightList Then
+                If actionType = MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM Then
+                    Action_SelectItem()
+                End If
             End If
-            If control Is _rightList Then
-                ListControlClick(_rightList.SelectedListItem.ItemId)
-            End If
 
+        End Sub
 
-
-
+        Private Sub Action_SelectItem()
+            If _leftList.IsFocused = True Then ListControlClick(_leftList.SelectedListItem.ItemId)
+            If _rightList.IsFocused = True Then ListControlClick(_rightList.SelectedListItem.ItemId)
         End Sub
 
 #End Region

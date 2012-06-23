@@ -111,7 +111,8 @@ Public Class TVSeriesDB
             _EpisodeInfos = m_db.Execute( _
                                 [String].Format("SELECT * FROM online_episodes WHERE SeriesID = '{0}' AND SeasonIndex = '{1}' AND EpisodeIndex = '{2}'", _
                                                 Me.Series(0).SeriesID, seriesNum, episodeNum))
-
+        Catch ex As ThreadAbortException
+            m_db.Dispose()
         Catch ex As Exception
             MyLog.Error("TVMovie: [LoadEpisode]: exception err:{0} stack:{1}", ex.Message, ex.StackTrace)
             OpenTvSeriesDB()

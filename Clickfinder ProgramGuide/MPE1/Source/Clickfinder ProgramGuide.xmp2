@@ -826,25 +826,27 @@
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>0</Build>
-      <Revision>2</Revision>
+      <Revision>5</Revision>
     </Version>
-    <ExtensionDescription>This Plugin is a ProgramGuide based on the german EPG Data from the Tv Movie Clickfinder Provider (Software). It shows you information for different categories (e.g. Movies, Series, Doku,...), which television program is broadcasting now, at PrimeTime or at LateTime. There is also a Preview for the whole EPG timespan. The Data are sorted by the Rating of the TV Movie Clickfinder Plugin. This Plugin has a lot of configuration options, that gives the user the possibility to personalize the different views.
-
-
-
-
-
-Requirements:
-
-
-- Tv Movie Clickfinder v.5.3 (free or premium)
-
-
+    <ExtensionDescription>This Plugin is a ProgramGuide based on the german EPG Data from the Tv Movie Clickfinder Provider (Software). It shows you information for different categories (e.g. Movies, Series, Doku,...), which television program is broadcasting now, at PrimeTime or at LateTime. There is also a Preview for the whole EPG timespan. The Data are sorted by the Rating of the TV Movie Clickfinder Plugin. This Plugin has a lot of configuration options, that gives the user the possibility to personalize the different views.
+
+
+
+
+
+Requirements:
+
+
+- Tv Movie Clickfinder v.5.3 (free or premium)
+
+
 - Tv Movie EPG Import++ plugin (newest version)</ExtensionDescription>
-    <VersionDescription>=== Version: 1.0.0.0 beta ===
-  * bug fixed: next / prev item &lt;action&gt; xml control 
-  * mouse control added
-
+    <VersionDescription>=== Version: 1.0.0.5 beta ===
+  * bug fixed: next / prev item &lt;action&gt; xml control 
+  * mouse controls / buttons added
+  * Skin Button: Online Videos - IMDB
+  * bug fixed: [OnAction], [OnClick]
+
 </VersionDescription>
     <DevelopmentStatus>Beta</DevelopmentStatus>
     <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_1.0.0.0.beta.mpe1</OnlineLocation>
@@ -1428,7 +1430,7 @@ Requirements:
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\..\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R3.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{ff2df706-6b34-4885-b597-40e713e57d86}-ClickfinderPG_R3.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{0dde174b-77d0-4f3c-a89c-a1f9cfc510ef}-ClickfinderPG_R3.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>

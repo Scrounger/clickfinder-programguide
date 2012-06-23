@@ -219,36 +219,12 @@ Namespace ClickfinderProgramGuide
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM Then
                     MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
 
-                    If _CategorieList.IsFocused = True Then
-
-                        Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(_SelectedCategorieItemId)
-
-                        If _ClickfinderCategorieView = CategorieView.Now Then
-                            ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime.AddMinutes(CDbl((-1) * _Categorie.NowOffset)))), "#endTime", MySqlDate(PeriodeEndTime))), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
-                        ElseIf _ClickfinderCategorieView = CategorieView.Preview Then
-                            ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime)), "#endTime", MySqlDate(PeriodeEndTime)), "WHERE", "WHERE TVMovieBewertung >= " & CInt(_layer.GetSetting("ClickfinderPreviewMinTvMovieRating", "1").Value) & " AND ")), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
-                        Else
-                            ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime)), "#endTime", MySqlDate(PeriodeEndTime))), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
-                        End If
-
-                        If _ClickfinderCategorieView = CategorieView.Day Then
-                            Translator.SetProperty("#ItemsLeftListLabel", Translation.All & " " & _Categorie.Name & " " & Translation.von & " " & getTranslatedDayOfWeek(_Day) & " " & Format(_Day.AddMinutes(-1), "dd.MM.yyyy"))
-                        ElseIf _ClickfinderCategorieView = CategorieView.Preview Then
-                            Translator.SetProperty("#ItemsLeftListLabel", _Categorie.Name & " " & Translation.Preview & " " & Translation.for & " " & DateDiff(DateInterval.Day, PeriodeStartTime, PeriodeEndTime) & " " & Translation.Day)
-                        Else
-                            Translator.SetProperty("#ItemsLeftListLabel", _Categorie.Name & " " & Translation.von & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00") & " - " & Format(PeriodeEndTime.Hour, "00") & ":" & Format(PeriodeEndTime.Minute, "00"))
-                        End If
-
-                        GUIWindowManager.ActivateWindow(1656544653)
-                    End If
-
-                    If _PreviewList.IsFocused = True Then ListControlClick(_PreviewList.SelectedListItem.ItemId)
+                    Action_SelectItem()
 
                 End If
 
-                If _CategorieList.IsFocused = True Then
-
-                    If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_MOVE_UP Then
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_MOVE_UP Then
+                    If _CategorieList.IsFocused = True Then
                         MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
                         Try
                             If ThreadPreviewListFill.IsAlive = True Then ThreadPreviewListFill.Abort()
@@ -273,8 +249,11 @@ Namespace ClickfinderProgramGuide
                         ThreadPreviewListFill.IsBackground = True
                         ThreadPreviewListFill.Start()
                     End If
+                End If
 
-                    If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_MOVE_DOWN Then
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_MOVE_DOWN Then
+                    If _CategorieList.IsFocused = True Then
+
                         MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
                         Try
                             If ThreadPreviewListFill.IsAlive = True Then ThreadPreviewListFill.Abort()
@@ -297,8 +276,9 @@ Namespace ClickfinderProgramGuide
                         ThreadPreviewListFill = New Threading.Thread(AddressOf FillPreviewList)
                         ThreadPreviewListFill.IsBackground = True
                         ThreadPreviewListFill.Start()
-
+                        EndInit()
                     End If
+
                 End If
 
                 'Remote 5 Button (5) -> Reset Filter Settings of selcted categorie-> AllChannels
@@ -312,8 +292,7 @@ Namespace ClickfinderProgramGuide
                         ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
                     End Try
 
-                    Dim idCategorie As Integer = _CategorieList.SelectedListItemIndex
-                    Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(idCategorie)
+                    Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(_CategorieList.SelectedListItem.ItemId)
                     _Categorie.groupName = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value
                     _Categorie.Persist()
 
@@ -334,8 +313,7 @@ Namespace ClickfinderProgramGuide
                         ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
                     End Try
 
-                    Dim idCategorie As Integer = _CategorieList.SelectedListItemIndex
-                    Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(idCategorie)
+                    Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(_CategorieList.SelectedListItem.ItemId)
                     _Categorie.groupName = _layer.GetSetting("ClickfinderQuickTvGroup1", "All Channels").Value
                     _Categorie.Persist()
 
@@ -356,8 +334,7 @@ Namespace ClickfinderProgramGuide
                         ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
                     End Try
 
-                    Dim idCategorie As Integer = _CategorieList.SelectedListItemIndex
-                    Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(idCategorie)
+                    Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(_CategorieList.SelectedListItem.ItemId)
                     _Categorie.groupName = _layer.GetSetting("ClickfinderQuickTvGroup2", "All Channels").Value
                     _Categorie.Persist()
 
@@ -443,9 +420,23 @@ Namespace ClickfinderProgramGuide
             End If
 
 
-            If control Is _CategorieList Then
+            If control Is _CategorieList Or control Is _PreviewList Then
+                If actionType = MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM Then
+                    Action_SelectItem()
+                End If
+            End If
 
-                Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(_SelectedCategorieItemId)
+
+        End Sub
+
+        'Actions die für Listcontrolclick (mouse) & Action events benötigt werder
+
+        'categorie aufrufen (GuiItems)
+        Private Sub Action_SelectItem()
+
+            If _CategorieList.IsFocused = True Then
+
+                Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(_CategorieList.SelectedListItem.ItemId)
 
                 If _ClickfinderCategorieView = CategorieView.Now Then
                     ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime.AddMinutes(CDbl((-1) * _Categorie.NowOffset)))), "#endTime", MySqlDate(PeriodeEndTime))), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
@@ -466,14 +457,14 @@ Namespace ClickfinderProgramGuide
                 GUIWindowManager.ActivateWindow(1656544653)
             End If
 
-            If control Is _PreviewList Then
-                ListControlClick(_PreviewList.SelectedListItem.ItemId)
-            End If
-
-
+            If _PreviewList.IsFocused = True Then ListControlClick(_PreviewList.SelectedListItem.ItemId)
 
         End Sub
+
+
 #End Region
+
+
 
 #Region "Functions"
 
