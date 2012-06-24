@@ -610,12 +610,12 @@
               <Description />
             </SectionParam>
             <SectionParam Name="Left part image">
-              <Value />
+              <Value>..\..\Grafiken\Installer_logo.png</Value>
               <ValueType>File</ValueType>
               <Description />
             </SectionParam>
             <SectionParam Name="Header image">
-              <Value />
+              <Value>..\..\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R3.png</Value>
               <ValueType>File</ValueType>
               <Description>Image in upper right part</Description>
             </SectionParam>
@@ -626,6 +626,52 @@
         </Actions>
         <IncludedGroups />
         <PanelName>Welcome Screen</PanelName>
+        <WizardButtonsEnum>NextCancel</WizardButtonsEnum>
+      </SectionItem>
+      <SectionItem Guid="6f0e8305-3d38-46a6-ae4d-84552d39fc99" Name="Readme Information" ConditionGroup="">
+        <Params>
+          <Items>
+            <SectionParam Name="Header Title">
+              <Value>Plugin Informationen</Value>
+              <ValueType>String</ValueType>
+              <Description>Header title</Description>
+            </SectionParam>
+            <SectionParam Name="Header description">
+              <Value>Der [Name] benötigt folgende plugins:</Value>
+              <ValueType>String</ValueType>
+              <Description>Description of section, shown in under section title</Description>
+            </SectionParam>
+            <SectionParam Name="Header image">
+              <Value>..\..\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R3.png</Value>
+              <ValueType>File</ValueType>
+              <Description>Image in upper right part</Description>
+            </SectionParam>
+            <SectionParam Name="Readme text">
+              <Value>zwingend benötigt:
+ - Tv Movie EPG Import++ (installiert auf eurem TvServer)
+ - Tv Movie Clickfinder Software
+
+optional:
+ - MP-TvSeries
+ - MovingPictures
+ - OnlineVideos
+
+mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
+              <ValueType>String</ValueType>
+              <Description>The readme text</Description>
+            </SectionParam>
+            <SectionParam Name="Rreadme text file">
+              <Value />
+              <ValueType>File</ValueType>
+              <Description>The readme file should be RTF file</Description>
+            </SectionParam>
+          </Items>
+        </Params>
+        <Actions>
+          <Items />
+        </Actions>
+        <IncludedGroups />
+        <PanelName>Readme Information</PanelName>
         <WizardButtonsEnum>NextCancel</WizardButtonsEnum>
       </SectionItem>
       <SectionItem Guid="42e6b368-70dd-475c-a908-e2c3edec5f4f" Name="Tree View Selector" ConditionGroup="">
@@ -642,7 +688,7 @@
               <Description>Description of section, shown in under section title</Description>
             </SectionParam>
             <SectionParam Name="Header image">
-              <Value />
+              <Value>..\..\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R3.png</Value>
               <ValueType>File</ValueType>
               <Description>Image in upper right part</Description>
             </SectionParam>
@@ -677,7 +723,7 @@
               <Description>Description of section, shown in under section title</Description>
             </SectionParam>
             <SectionParam Name="Header image">
-              <Value />
+              <Value>..\..\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R3.png</Value>
               <ValueType>File</ValueType>
               <Description>Image in upper right part</Description>
             </SectionParam>
@@ -747,7 +793,7 @@
               <Description />
             </SectionParam>
             <SectionParam Name="Left part image">
-              <Value />
+              <Value>..\..\Grafiken\Installer_logo.png</Value>
               <ValueType>File</ValueType>
               <Description />
             </SectionParam>
@@ -757,7 +803,7 @@
               <Description>Use radiobutton in place of combobox</Description>
             </SectionParam>
             <SectionParam Name="Header image">
-              <Value />
+              <Value>..\..\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R3.png</Value>
               <ValueType>File</ValueType>
               <Description>Image in upper right part</Description>
             </SectionParam>
@@ -826,7 +872,7 @@
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>1</Build>
-      <Revision>0</Revision>
+      <Revision>1</Revision>
     </Version>
     <ExtensionDescription>This Plugin is a ProgramGuide based on the german EPG Data from the Tv Movie Clickfinder Provider (Software). It shows you information for different categories (e.g. Movies, Series, Doku,...), which television program is broadcasting now, at PrimeTime or at LateTime. There is also a Preview for the whole EPG timespan. The Data are sorted by the Rating of the TV Movie Clickfinder Plugin. This Plugin has a lot of configuration options, that gives the user the possibility to personalize the different views.
 
@@ -925,18 +971,12 @@ Requirements:
 
 
 - Tv Movie EPG Import++ plugin (newest version)</ExtensionDescription>
-    <VersionDescription>=== Version: 1.0.1.0 beta ===
-
-Requiered: TvMovie EPG Import++ v1.2.8.0 !!!
-  * control bug fixed
-  * small bug fixes in skin files 
-
-  * New Features:
-   * mouse / touchscreen control
-   * search trailor on IMDB (OnlineVideos requiered)
-   * play directly local existing programs</VersionDescription>
+    <VersionDescription>=== Version: 1.0.1.1 beta ===
+  
+  * Installer überarbeitet
+  * Installer update bug fixed</VersionDescription>
     <DevelopmentStatus>Beta</DevelopmentStatus>
-    <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_1.0.1.0.beta.mpe1</OnlineLocation>
+    <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_1.0.1.1.beta.mpe1</OnlineLocation>
     <ReleaseDate>2012-06-24T15:57:29</ReleaseDate>
     <Tags>programguide, tv movie, clickfinder, epg, tv</Tags>
     <Location>D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPE1\Clickfinder ProgramGuide_[Version].beta.mpe1</Location>
@@ -1516,8 +1556,15 @@ Requiered: TvMovie EPG Import++ v1.2.8.0 !!!
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\Grafiken\Installer_logo.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{ef055e02-5d5e-4d26-b88c-e90d18e65a6d}-Installer_logo.png</ZipFileName>
+        <DestinationFilename />
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\..\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R3.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{5cf01e20-13d7-4ae2-a099-1c9f098caca2}-ClickfinderPG_R3.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{524add9f-6bcd-4110-9e7c-9647099b3c02}-ClickfinderPG_R3.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
