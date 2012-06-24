@@ -1088,7 +1088,7 @@ Namespace ClickfinderProgramGuide
                         MyLog.Debug("")
 
                         ItemsGuiWindow.SetGuiProperties("Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
-                                                            "WHERE startTime >= " & MySqlDate(_ClickfinderCurrentDate) & " " & _
+                                                            "WHERE startTime >= " & MySqlDate(_ClickfinderCurrentDate.AddHours(0).AddMinutes(0)) & " " & _
                                                             "AND startTime <= " & MySqlDate(_ClickfinderCurrentDate.AddHours(24)) & " " & _
                                                             "AND TVMovieBewertung > 1 " & _
                                                             "AND NOT TVMovieBewertung = 6 " & _

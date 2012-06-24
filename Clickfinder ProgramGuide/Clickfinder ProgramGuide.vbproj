@@ -117,6 +117,12 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Class1.vb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ClassMovPicPlayer.vb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Compile Include="Class\ClickfinderCategories.vb" />
     <Compile Include="Class\ClickfinderDB.vb" />
     <Compile Include="Class\GuiButtons.vb" />

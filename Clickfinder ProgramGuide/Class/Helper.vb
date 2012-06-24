@@ -10,11 +10,16 @@ Imports Gentle.Common
 Imports MediaPortal.Configuration
 Imports ClickfinderProgramGuide.TvDatabase
 Imports MediaPortal.GUI.Home
+Imports MediaPortal.GUI.Video
 Imports MediaPortal.Player
+Imports MediaPortal.Playlists
+Imports MediaPortal.TagReader
+Imports System.Threading
 
 Public Class Helper
 #Region "Members"
     Private Shared _layer As New TvBusinessLayer
+    Private Shared _PlayedFile As TVMovieProgram
 #End Region
 
     Friend Enum SortMethode
@@ -107,19 +112,43 @@ Public Class Helper
     'MP Tv Kanal einschalten
     Friend Shared Sub StartTv(ByVal program As Program)
         Try
-
             Dim _TvMovieprogram As TVMovieProgram = getTvMovieProgram(program)
 
             If Not String.IsNullOrEmpty(_TvMovieprogram.FileName) Then
-                g_Player.Play(_TvMovieprogram.FileName, g_Player.MediaType.Video)
+                _PlayedFile = _TvMovieprogram
+
+                'GUIPropertyManager.SetProperty("#Play.Current.Title", _TvMovieprogram.ReferencedProgram.Title)
+
+
+                'Dim _playlistPlayer As New PlayListPlayer
+                '_playlistPlayer.Reset()
+                '_playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_VIDEO_TEMP
+
+                'Dim playlist As PlayList = _playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO_TEMP)
+                'playlist.Clear()
+
+                'Dim itemNew As New PlayListItem()
+                'itemNew.FileName = _TvMovieprogram.FileName
+                'itemNew.Description = _TvMovieprogram.ReferencedProgram.Description
+                'itemNew.Type = PlayListItem.PlayListItemType.Video
+                'playlist.Add(itemNew)
+
+                '' play movie...
+                '_playlistPlayer.PlayNext(True)
+
+
+                ' Update OSD (delayed)
+                'Dim newThread As New Thread(AddressOf UpdatePlaybackInfo)
+                'newThread.Start()
+
+                g_Player.Play(_TvMovieprogram.FileName)
                 g_Player.ShowFullScreenWindowVideoDefault()
+
             Else
                 Dim changeChannel As Channel = DirectCast(program.ReferencedChannel, Channel)
                 MediaPortal.GUI.Library.GUIWindowManager.ActivateWindow(CInt(MediaPortal.GUI.Library.GUIWindow.Window.WINDOW_TVFULLSCREEN))
                 TVHome.ViewChannelAndCheck(changeChannel)
             End If
-
-
 
         Catch ex As Exception
             MyLog.Error("Clickfinder ProgramGuide: [Button_ViewChannel] " & ex.Message)
@@ -592,5 +621,21 @@ Public Class Helper
     'Friend Shared Sub ManualWebBrowser()
     '    Dim webBrowserWindowID As Integer = InfoServiceUtils.GetWebBrowserWindowId(FeedService.Feeds(FeedService.ActiveFeedIndex).Items(_feedListcontrol.SelectedListItemIndex).Url, zoomlevel)
     'End Sub
+
+
+    ' Updates the movie metadata on the playback screen (for when the user clicks info). 
+    ' The delay is necessary because Player tries to use metadata from the MyVideos database.
+    ' We want to update this after that happens so the correct info is there.
+    Private Shared Sub UpdatePlaybackInfo()
+        Thread.Sleep(5000)
+
+        GUIPropertyManager.SetProperty("#Play.Current.Title", "Test")
+
+        'GUIPropertyManager.SetProperty("#Play.Current.Plot", CurrentMovie.Summary)
+        GUIPropertyManager.SetProperty("#Play.Current.Thumb", _PlayedFile.Cover)
+    
+
+    End Sub
+
 
 End Class
