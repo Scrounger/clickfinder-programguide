@@ -103,53 +103,29 @@
         <Version>
           <Major>1</Major>
           <Minor>0</Minor>
-          <Build>0</Build>
+          <Build>1</Build>
           <Revision>0</Revision>
         </Version>
         <ExtensionDescription>This Plugin is a ProgramGuide based on the german EPG Data from the Tv Movie Clickfinder Provider (Software). It shows you information for different categories (e.g. Movies, Series, Doku,...), which television program is broadcasting now, at PrimeTime or at LateTime. There is also a Preview for the whole EPG timespan. The Data are sorted by the Rating of the TV Movie Clickfinder Plugin. This Plugin has a lot of configuration options, that gives the user the possibility to personalize the different views.
 
-
-
-
-
 Requirements:
-
-
 - Tv Movie Clickfinder v.5.3 (free or premium)
-
-
 - Tv Movie EPG Import++ plugin (newest version)</ExtensionDescription>
-        <VersionDescription>=== Version: 1.0.0.0 beta ===
+        <VersionDescription>=== Version: 1.0.1.0 beta ===
 
-Completly rewriten plugin with a lot of new features !
+Requiered: TvMovie EPG Import++ v1.2.8.0 !!!
+  * control bug fixed
+  * small bug fixes in skin files 
 
-Requirements:
-- Tv Movie Clickfinder v.5.3
-- Tv Movie EPG Import++ plugin v.1.2.7.5
-- MediaPortal 1.2.3
-
-New features:
-- new Gui layout
-- new Highlights Gui screen
-- new plugin configuration
-- global settings - same for all your clients
-- displays also channels with grabbed EPG
-- sort function
-- filter function
-- show / hide local existing movies / series
-- language file, skin properties and BasicHome Overlay supported
-- ...
-
-Supported Skins:
-- Deault Wide
-- StreamedMP
-
-Read the manual for more information !</VersionDescription>
+  * New Features:
+   * mouse / touchscreen control
+   * search trailor on IMDB (OnlineVideos requiered)
+   * play directly local existing programs</VersionDescription>
         <DevelopmentStatus>Beta</DevelopmentStatus>
-        <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_1.0.0.0.beta.mpe1</OnlineLocation>
-        <ReleaseDate>2012-06-06T15:57:29</ReleaseDate>
+        <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_1.0.1.0.beta.mpe1</OnlineLocation>
+        <ReleaseDate>2012-06-24T15:57:29</ReleaseDate>
         <Tags>programguide, tv movie, clickfinder, epg, tv</Tags>
-        <Location>D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPE1\Clickfinder ProgramGuide.mpe1</Location>
+        <Location>D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPE1\Clickfinder ProgramGuide_[Version].beta.mpe1</Location>
         <Params>
           <Items>
             <SectionParam Name="Online Icon">
