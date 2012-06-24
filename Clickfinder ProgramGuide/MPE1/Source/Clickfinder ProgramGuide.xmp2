@@ -821,7 +821,7 @@
     <Author>Scrounger</Author>
     <HomePage>https://code.google.com/p/clickfinder-programguide/</HomePage>
     <ForumPage>http://forum.team-mediaportal.com/threads/clickfinder-programguide-v1-0-0-0-beta.108586/</ForumPage>
-    <UpdateUrl>https://clickfinder-programguide.googlecode.com/git/Clickfinder%20ProgramGuide/MPEI/Source/update.xml</UpdateUrl>
+    <UpdateUrl>https://clickfinder-programguide.googlecode.com/git/Clickfinder%20ProgramGuide/MPE1/Source/update.xml</UpdateUrl>
     <Version>
       <Major>1</Major>
       <Minor>0</Minor>
