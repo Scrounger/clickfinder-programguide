@@ -365,13 +365,22 @@ Public Class Helper
         dlgContext.Add(lItemRem)
         lItemOn.Dispose()
 
+        'IMDB OnlineVideos
+        Dim lItemIMDB As New GUIListItem
+        lItemIMDB.Label = Translation.IMDB
+        dlgContext.Add(lItemIMDB)
+        lItemIMDB.Dispose()
+
         'mit Serie verlinken
         Dim lItemSerieLink As New GUIListItem
         lItemSerieLink.Label = Translation.SerieLinkLabel
         dlgContext.Add(lItemSerieLink)
         lItemSerieLink.Dispose()
 
+
+
         dlgContext.DoModal(GUIWindowManager.ActiveWindow)
+
 
         Select Case dlgContext.SelectedLabel
             Case Is = 0
@@ -387,6 +396,12 @@ Public Class Helper
                 MyLog.Debug("[ShowActionMenu]: selected -> set notify")
                 MyLog.Debug("")
             Case Is = 3
+                If PluginManager.IsPlugInEnabled("OnlineVideos") Then
+                    GUIWindowManager.ActivateWindow(4755, "site:IMDb Movie Trailers|search:" & Program.Title & "|return:Locked")
+                Else
+                    ShowNotify("OnlineVideos plugin nicht verfügbar!")
+                End If
+            Case Is = 4
                 ShowSerieLinkContextMenu(Program)
             Case Else
                 MyLog.Debug("[ShowActionMenu]: exit")

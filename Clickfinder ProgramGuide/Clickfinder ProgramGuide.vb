@@ -159,7 +159,6 @@ Namespace ClickfinderProgramGuide
                     _DebugModeOn = True
                 End If
 
-
                 If TvPlugin.TVHome.Connected = True Then
 
                     If CBool(_layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false").Value) = True Then
