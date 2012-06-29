@@ -796,8 +796,6 @@
         <description>MP-TvSeries oder Mov.Pic aufrufen</description>
         <type>button</type>
         <id>14</id>
-        <hyperlink>4755</hyperlink>
-        <hyperlinkParameter>site:IMDb Movie Trailers|search:#DetailTitle|return:Locked</hyperlinkParameter>
         <width>216</width>
         <height>30</height>
         <label>#DetailJumpToLabel</label>
@@ -807,7 +805,7 @@
         <ondown>130</ondown>
         <textalign>center</textalign>
         <font>font10</font>
-        <visible>!string.equals(#DetailSeriesID,0)|!string.equals(#DetailMovPicID,0)</visible>
+        <visible>!string.equals(#DetailSeriesID,0)+plugin.isenabled(MP-TV Series)|!string.equals(#DetailMovPicID,0)+plugin.isenabled(Moving Pictures)</visible>
       </control>
 
       <control>

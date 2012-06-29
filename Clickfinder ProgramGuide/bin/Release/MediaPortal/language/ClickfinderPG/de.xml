@@ -93,7 +93,7 @@
   <string Field="Yesterday">Gestern</string>
   <string Field="Day">Tage</string>
   <string Field="for">für</string>
-  <string Field="IMDB">IMDb Movie Trailers</string>
+  <string Field="IMDB">Trailer</string>
   <string Field="MovingPictures">MovingPictures</string>
   <string Field="MPtvSeries">MP-TvSeries</string>
 
