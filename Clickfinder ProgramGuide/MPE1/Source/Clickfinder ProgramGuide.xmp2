@@ -871,10 +871,58 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
     <Version>
       <Major>1</Major>
       <Minor>0</Minor>
-      <Build>1</Build>
-      <Revision>1</Revision>
+      <Build>2</Build>
+      <Revision>0</Revision>
     </Version>
     <ExtensionDescription>This Plugin is a ProgramGuide based on the german EPG Data from the Tv Movie Clickfinder Provider (Software). It shows you information for different categories (e.g. Movies, Series, Doku,...), which television program is broadcasting now, at PrimeTime or at LateTime. There is also a Preview for the whole EPG timespan. The Data are sorted by the Rating of the TV Movie Clickfinder Plugin. This Plugin has a lot of configuration options, that gives the user the possibility to personalize the different views.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -946,6 +994,30 @@ Requirements:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 - Tv Movie Clickfinder v.5.3 (free or premium)
 
 
@@ -970,16 +1042,44 @@ Requirements:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 - Tv Movie EPG Import++ plugin (newest version)</ExtensionDescription>
-    <VersionDescription>=== Version: 1.0.1.1 beta ===
-  
-  * Installer überarbeitet
-  * Installer update bug fixed</VersionDescription>
-    <DevelopmentStatus>Beta</DevelopmentStatus>
-    <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_1.0.1.1.beta.mpe1</OnlineLocation>
-    <ReleaseDate>2012-06-24T15:57:29</ReleaseDate>
+    <VersionDescription>=== Version: 1.0.2.0 ===
+
+  * MPE1 installer (update.xml bug fixed, MP 1.3 comp., Layout)
+  * IMDB Trailer link added to Action context menu
+  * ForTheRecord works ? (untested!)
+  * Gui Details:
+   * new button(14): open Mov.Pic/TvSeries if file i local
+   * new skin properties</VersionDescription>
+    <DevelopmentStatus>Stable</DevelopmentStatus>
+    <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_1.0.2.0.mpe1</OnlineLocation>
+    <ReleaseDate>2012-06-29T15:57:29</ReleaseDate>
     <Tags>programguide, tv movie, clickfinder, epg, tv</Tags>
-    <Location>D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPE1\Clickfinder ProgramGuide_[Version].beta.mpe1</Location>
+    <Location>D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPE1\Clickfinder ProgramGuide_[Version].mpe1</Location>
     <Params>
       <Items>
         <SectionParam Name="Icon">
@@ -1557,14 +1657,14 @@ Requirements:
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\..\Grafiken\Installer_logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{ef055e02-5d5e-4d26-b88c-e90d18e65a6d}-Installer_logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{d8b8e53a-8c74-402b-9241-bc67365aedd2}-Installer_logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\..\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_R3.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{524add9f-6bcd-4110-9e7c-9647099b3c02}-ClickfinderPG_R3.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{8ed476c4-41f6-4ee7-a539-3e37c0478a9f}-ClickfinderPG_R3.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
