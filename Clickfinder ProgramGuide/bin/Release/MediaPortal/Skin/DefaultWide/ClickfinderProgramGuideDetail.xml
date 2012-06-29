@@ -783,108 +783,114 @@
     <!-- ActionGroup -->
     <import>ClickfinderProgramGuide.HiddenMenu.xml</import>
 
-    <control>
-      <description>Remember</description>
-      <type>button</type>
-      <id>13</id>
-      <hyperlink>4755</hyperlink>
-      <hyperlinkParameter>site:IMDb Movie Trailers|search:#DetailTitle|return:Locked</hyperlinkParameter>
-      <posX>110</posX>
-      <posY>510</posY>
-      <width>216</width>
-      <height>30</height>
-      <label>#ClickfinderPG.Translation.IMDB</label>
-      <onleft>2</onleft>
-      <onright>2</onright>
-      <onup>10</onup>
-      <ondown>12</ondown>
-      <textalign>center</textalign>
-      <font>font10</font>
-      <visible></visible>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
-    </control>
-    
-    <control>
-      <description>Remember</description>
-      <type>button</type>
-      <id>13</id>
-      <posX>110</posX>
-      <posY>540</posY>
-      <width>216</width>
-      <height>30</height>
-      <label>#ClickfinderPG.Translation.Remember</label>
-      <onleft>2</onleft>
-      <onright>2</onright>
-      <onup>10</onup>
-      <ondown>12</ondown>
-      <textalign>center</textalign>
-      <font>font10</font>
-      <visible></visible>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
-    </control>
 
     <control>
-      <description>Record</description>
-      <type>button</type>
-      <id>12</id>
+      <description>button group</description>
+      <type>group</type>
       <posX>110</posX>
-      <posY>570</posY>
-      <width>216</width>
-      <height>30</height>
-      <label>#ClickfinderPG.Translation.Record</label>
-      <onleft>2</onleft>
-      <onright>2</onright>
-      <onup>13</onup>
-      <ondown>11</ondown>
-      <textalign>center</textalign>
-      <font>font10</font>
-      <visible></visible>
+      <posY>490</posY>
+      <layout>Stacklayout</layout>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
-    </control>
+      <control>
+        <description>MP-TvSeries oder Mov.Pic aufrufen</description>
+        <type>button</type>
+        <id>14</id>
+        <hyperlink>4755</hyperlink>
+        <hyperlinkParameter>site:IMDb Movie Trailers|search:#DetailTitle|return:Locked</hyperlinkParameter>
+        <width>216</width>
+        <height>30</height>
+        <label>#DetailJumpToLabel</label>
+        <onleft>2</onleft>
+        <onright>2</onright>
+        <onup>10</onup>
+        <ondown>130</ondown>
+        <textalign>center</textalign>
+        <font>font10</font>
+        <visible>!string.equals(#DetailSeriesID,0)|!string.equals(#DetailMovPicID,0)</visible>
+      </control>
 
-    <control>
-      <description>Play / View Channel</description>
-      <type>button</type>
-      <id>11</id>
-      <posX>110</posX>
-      <posY>600</posY>
-      <width>216</width>
-      <height>30</height>
-      <label>#ClickfinderPG.Translation.ChannelON</label>
-      <onleft>2</onleft>
-      <onright>2</onright>
-      <onup>12</onup>
-      <ondown>10</ondown>
-      <textalign>center</textalign>
-      <font>font10</font>
-      <visible></visible>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
-    </control>
+      <control>
+        <description>IMDB</description>
+        <type>button</type>
+        <id>130</id>
+        <hyperlink>4755</hyperlink>
+        <hyperlinkParameter>site:IMDb Movie Trailers|search:#DetailTitle|return:Locked</hyperlinkParameter>
+        <width>216</width>
+        <height>30</height>
+        <label>#ClickfinderPG.Translation.IMDB</label>
+        <onleft>2</onleft>
+        <onright>2</onright>
+        <onup>14</onup>
+        <ondown>13</ondown>
+        <textalign>center</textalign>
+        <font>font10</font>
+        <visible>plugin.isenabled(OnlineVideos)</visible>
+      </control>
+      <control>
+        <description>Remember</description>
+        <type>button</type>
+        <id>13</id>
+        <width>216</width>
+        <height>30</height>
+        <label>#ClickfinderPG.Translation.Remember</label>
+        <onleft>2</onleft>
+        <onright>2</onright>
+        <onup>130</onup>
+        <ondown>12</ondown>
+        <textalign>center</textalign>
+        <font>font10</font>
+        <visible></visible>
+      </control>
 
-    <control>
-      <description>Back</description>
-      <type>button</type>
-      <id>10</id>
-      <posX>110</posX>
-      <posY>644</posY>
-      <width>216</width>
-      <height>30</height>
-      <label>#ClickfinderPG.Translation.Back</label>
-      <onleft>2</onleft>
-      <onright>2</onright>
-      <onup>11</onup>
-      <ondown>13</ondown>
-      <textalign>center</textalign>
-      <font>font10</font>
-      <visible></visible>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <control>
+        <description>Record</description>
+        <type>button</type>
+        <id>12</id>
+        <width>216</width>
+        <height>30</height>
+        <label>#ClickfinderPG.Translation.Record</label>
+        <onleft>2</onleft>
+        <onright>2</onright>
+        <onup>13</onup>
+        <ondown>11</ondown>
+        <textalign>center</textalign>
+        <font>font10</font>
+      </control>
+
+      <control>
+        <description>Play / View Channel</description>
+        <type>button</type>
+        <id>11</id>
+        <width>216</width>
+        <height>30</height>
+        <label>#ClickfinderPG.Translation.ChannelON</label>
+        <onleft>2</onleft>
+        <onright>2</onright>
+        <onup>12</onup>
+        <ondown>10</ondown>
+        <textalign>center</textalign>
+        <font>font10</font>
+        <visible></visible>
+      </control>
+
+      <control>
+        <description>Back</description>
+        <type>button</type>
+        <id>10</id>
+        <width>216</width>
+        <height>30</height>
+        <label>#ClickfinderPG.Translation.Back</label>
+        <onleft>2</onleft>
+        <onright>2</onright>
+        <onup>11</onup>
+        <ondown>14</ondown>
+        <textalign>center</textalign>
+        <font>font10</font>
+        <visible></visible>
+      </control>
+
     </control>
 
   </controls>
 </window>
-

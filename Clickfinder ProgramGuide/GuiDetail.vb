@@ -25,6 +25,7 @@ Namespace ClickfinderProgramGuide
         <SkinControlAttribute(11)> Protected _btnPlay As GUIButtonControl = Nothing
         <SkinControlAttribute(12)> Protected _btnRecord As GUIButtonControl = Nothing
         <SkinControlAttribute(13)> Protected _btnRemember As GUIButtonControl = Nothing
+        <SkinControlAttribute(14)> Protected _btnJumpTo As GUIButtonControl = Nothing
 
 #End Region
 
@@ -168,6 +169,18 @@ Namespace ClickfinderProgramGuide
                 GUIWindowManager.ShowPreviousWindow()
             End If
 
+            If control Is _btnJumpTo Then
+                Select Case GUIPropertyManager.GetProperty("#DetailJumpToLabel")
+                    Case Is = Translation.MovingPictures
+                        GUIWindowManager.ActivateWindow(96742, "movieid:" & GUIPropertyManager.GetProperty("#DetailMovPicID"))
+                    Case Is = Translation.MPtvSeries
+                        GUIWindowManager.ActivateWindow(9811, "seriesid:" & _
+                                                        GUIPropertyManager.GetProperty("#DetailSeriesID") & _
+                                                        "|seasonidx:" & GUIPropertyManager.GetProperty("#Detailseasonidx") & _
+                                                        "|episodeidx:" & GUIPropertyManager.GetProperty("#Detailepisodeidx"))
+                End Select
+            End If
+
         End Sub
 
         Private Function getRatingpercentage(ByVal TvMovieRating As Integer) As Integer
@@ -236,6 +249,26 @@ Namespace ClickfinderProgramGuide
                 Translator.SetProperty("#DetailActors", Replace(_DetailTvMovieProgram.Actors, ";", ", "))
                 Translator.SetProperty("#DetailKritik", _DetailTvMovieProgram.KurzKritik)
                 Translator.SetProperty("#DetailDescription", _DetailTvMovieProgram.Describtion)
+
+                If _DetailTvMovieProgram.idSeries > 1 Then
+                    Translator.SetProperty("#DetailSeriesID", _DetailTvMovieProgram.idSeries)
+                    Translator.SetProperty("#Detailseasonidx", _DetailTvMovieProgram.ReferencedProgram.SeriesNum)
+                    Translator.SetProperty("#Detailepisodeidx", _DetailTvMovieProgram.ReferencedProgram.EpisodeNum)
+                    Translator.SetProperty("#DetailJumpToLabel", Translation.MPtvSeries)
+                Else
+                    Translator.SetProperty("#DetailSeriesID", 0)
+                    Translator.SetProperty("#DetailEpisodeID", 0)
+                    If _DetailTvMovieProgram.idMovingPictures > 0 Then
+                        Translator.SetProperty("#DetailMovPicID", _DetailTvMovieProgram.idMovingPictures)
+                        Translator.SetProperty("#DetailJumpToLabel", Translation.MovingPictures)
+                    Else
+                        Translator.SetProperty("#DetailMovPicID", 0)
+                    End If
+                End If
+
+
+
+                
 
                 If Not _DetailTvMovieProgram.Year < New Date(1900, 1, 1) Then
                     Translator.SetProperty("#DetailYear", _DetailTvMovieProgram.Year.Year & " ")

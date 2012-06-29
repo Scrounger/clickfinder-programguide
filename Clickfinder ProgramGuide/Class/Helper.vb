@@ -396,7 +396,7 @@ Public Class Helper
                 MyLog.Debug("[ShowActionMenu]: selected -> set notify")
                 MyLog.Debug("")
             Case Is = 3
-                If PluginManager.IsPlugInEnabled("OnlineVideos") Then
+                If PluginManager.IsPlugInEnabled(4755) = True Then
                     GUIWindowManager.ActivateWindow(4755, "site:IMDb Movie Trailers|search:" & Program.Title & "|return:Locked")
                 Else
                     ShowNotify("OnlineVideos plugin nicht verfügbar!")

@@ -771,25 +771,49 @@
 
     <!-- ActionGroup -->
     <import>ClickfinderProgramGuide.HiddenMenu.xml</import>
+
     <control>
+      <description>button group</description>
+      <type>group</type>
+      <posX>110</posX>
+      <posY>490</posY>
+      <layout>Stacklayout</layout>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    <control>
+      
+      <control>
+        <description>MP-TvSeries oder Mov.Pic aufrufen</description>
+        <type>button</type>
+        <id>14</id>
+        <hyperlink>4755</hyperlink>
+        <hyperlinkParameter>site:IMDb Movie Trailers|search:#DetailTitle|return:Locked</hyperlinkParameter>
+        <width>216</width>
+        <height>30</height>
+        <label>#DetailJumpToLabel</label>
+        <onleft>2</onleft>
+        <onright>2</onright>
+        <onup>10</onup>
+        <ondown>130</ondown>
+        <textalign>center</textalign>
+        <font>mediastream10</font>
+        <visible>!string.equals(#DetailSeriesID,0)|!string.equals(#DetailMovPicID,0)</visible>
+      </control>
+      
       <description>Online Videos IMDB</description>
       <type>button</type>
       <id>130</id>
       <hyperlink>4755</hyperlink>
       <hyperlinkParameter>site:IMDb Movie Trailers|search:#DetailTitle|return:Locked</hyperlinkParameter>
-      <posX>110</posX>
-      <posY>510</posY>
       <width>216</width>
       <height>30</height>
       <label>#ClickfinderPG.Translation.IMDB</label>
       <onleft>2</onleft>
       <onright>2</onright>
-      <onup>10</onup>
+      <onup>14</onup>
       <ondown>13</ondown>
       <textalign>center</textalign>
       <font>mediastream10</font>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
       <visible>plugin.isenabled(OnlineVideos)</visible>
     </control>
 
@@ -797,8 +821,6 @@
       <description>Remember</description>
       <type>button</type>
       <id>13</id>
-      <posX>110</posX>
-      <posY>540</posY>
       <width>216</width>
       <height>30</height>
       <label>#ClickfinderPG.Translation.Remember</label>
@@ -817,8 +839,6 @@
       <description>Record</description>
       <type>button</type>
       <id>12</id>
-      <posX>110</posX>
-      <posY>570</posY>
       <width>216</width>
       <height>30</height>
       <label>#ClickfinderPG.Translation.Record</label>
@@ -837,8 +857,6 @@
       <description>Play / View Channel</description>
       <type>button</type>
       <id>11</id>
-      <posX>110</posX>
-      <posY>600</posY>
       <width>216</width>
       <height>30</height>
       <label>#ClickfinderPG.Translation.ChannelON</label>
@@ -857,15 +875,13 @@
       <description>Back</description>
       <type>button</type>
       <id>10</id>
-      <posX>110</posX>
-      <posY>644</posY>
       <width>216</width>
       <height>30</height>
       <label>#ClickfinderPG.Translation.Back</label>
       <onleft>2</onleft>
       <onright>2</onright>
       <onup>11</onup>
-      <ondown>130</ondown>
+      <ondown>14</ondown>
       <textalign>center</textalign>
       <font>mediastream10</font>
       <visible></visible>
@@ -873,6 +889,7 @@
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
+      </control>
   </controls>
 
 </window>

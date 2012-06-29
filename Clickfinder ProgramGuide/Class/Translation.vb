@@ -100,7 +100,8 @@ Public NotInheritable Class Translation
     Public Shared Day As String = "Tage"
     Public Shared [for] As String = "für"
     Public Shared IMDB As String = "IMDb Movie Trailers"
-
+    Public Shared MovingPictures As String = "MovingPictures"
+    Public Shared MPtvSeries As String = "MP-TvSeries"
 
 End Class
 
