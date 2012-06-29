@@ -521,7 +521,7 @@ Public Class Helper
     Friend Shared Sub CheckConnectionState()
 
         'TvServer nicht verbunden / online
-        If TvPlugin.TVHome.Connected = False Then
+        If Helper.TvServerConnected = False Then
             ShowNotify(Translation.TvServerOffline)
             Exit Sub
         End If
@@ -652,5 +652,16 @@ Public Class Helper
 
     End Sub
 
+    Friend Shared Function TvServerConnected() As Boolean
+        'Prüfen ob TvServer online ist
+        Try
+            Dim _server As IList(Of Server) = Server.ListAll
+            MyLog.Debug("TvServer found: {0}", _server(0).HostName)
+            Return True
+        Catch ex As Exception
+            MyLog.Error("Server not found")
+            Return False
+        End Try
+    End Function
 
 End Class

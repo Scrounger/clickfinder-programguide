@@ -109,7 +109,7 @@ Namespace ClickfinderProgramGuide
 
             Try
 
-                If TvPlugin.TVHome.Connected = True Then
+                If Helper.TvServerConnected = True Then
 
                     If CBool(_layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false").Value) = True Then
                         ClickfinderProgramGuideOverlayMovies()
@@ -159,7 +159,7 @@ Namespace ClickfinderProgramGuide
                     _DebugModeOn = True
                 End If
 
-                If TvPlugin.TVHome.Connected = True Then
+                If Helper.TvServerConnected = True Then
 
                     If CBool(_layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false").Value) = True Then
                         ClickfinderProgramGuideOverlayMovies()
