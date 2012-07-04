@@ -45,6 +45,8 @@ Namespace ClickfinderProgramGuide
         Private _layer As New TvBusinessLayer
         Friend Shared _DebugModeOn As Boolean = False
 
+        Private _LastFocusedItemIndex As Integer
+        Private _LastFocusedControlID As Integer
 
 #End Region
 
@@ -125,7 +127,6 @@ Namespace ClickfinderProgramGuide
         End Sub
         Public Overrides Sub OnAction(ByVal Action As MediaPortal.GUI.Library.Action)
 
-
             If GUIWindowManager.ActiveWindow = GetID Then
                 'Try
                 '    MyLog.[Debug]("[OnAction] Keypress KeyChar={0} ; KeyCode={1} ; Actiontype={2}", Action.m_key.KeyChar, Action.m_key.KeyCode, Action.wID.ToString)
@@ -137,12 +138,15 @@ Namespace ClickfinderProgramGuide
                 If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM Then
                     MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", Action.m_key.KeyChar, Action.m_key.KeyCode, Action.wID.ToString)
 
-                    Action_SelectItem
+                    Action_SelectItem()
 
                 End If
 
                 'Next Item (F8) -> einen Tag vor
                 If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_NEXT_ITEM Then
+
+                    _LastFocusedItemIndex = 0
+                    _LastFocusedControlID = _MovieList.GetID
 
                     Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowHighlightsProgressBar)
                     _ProgressBarThread.Start()
@@ -175,6 +179,9 @@ Namespace ClickfinderProgramGuide
 
                 'Prev. Item (F7) -> einen Tag zurück
                 If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_PREV_ITEM Then
+
+                    _LastFocusedItemIndex = 0
+                    _LastFocusedControlID = _MovieList.GetID
 
                     Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowHighlightsProgressBar)
                     _ProgressBarThread.Start()
@@ -302,8 +309,20 @@ Namespace ClickfinderProgramGuide
                 Translator.SetProperty("#MovieListImage" & i, "")
                 Translator.SetProperty("#MovieListRatingStar" & i, 0)
             Next
-            _MovieList.Clear()
 
+            If _MovieList.IsFocused Then
+                'MsgBox(_MovieList.SelectedListItemIndex)
+                _LastFocusedItemIndex = _MovieList.SelectedListItemIndex
+                _LastFocusedControlID = _MovieList.GetID
+            ElseIf _HighlightsList.IsFocused Then
+                _LastFocusedItemIndex = _HighlightsList.SelectedListItemIndex
+                _LastFocusedControlID = _HighlightsList.GetID
+            Else
+                _LastFocusedItemIndex = 0
+                _LastFocusedControlID = _MovieList.GetID
+            End If
+
+            _MovieList.Clear()
             _ProgressPercentagValue = _DaysProgress.Percentage
 
             AbortRunningThreads()
@@ -549,10 +568,12 @@ Namespace ClickfinderProgramGuide
                 _MoviesProgressBar.Visible = False
                 _MovieList.Visible = True
 
-
                 If CBool(_layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false").Value) = True Then
                     MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: Movies exist local and will not be displayed ({0})", _LogLocalMovies)
                 End If
+
+                GUIListControl.SelectItemControl(GetID, _LastFocusedControlID, _LastFocusedItemIndex)
+                GUIListControl.FocusControl(GetID, _LastFocusedControlID)
 
                 MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: Thread finished")
                 MyLog.Debug("")
@@ -760,6 +781,9 @@ Namespace ClickfinderProgramGuide
 
                 MyLog.Debug("[HighlightsGUIWindow] [FillHighlightsList]: Thread finished")
                 MyLog.Debug("")
+
+                GUIListControl.SelectItemControl(GetID, _LastFocusedControlID, _LastFocusedItemIndex)
+                GUIListControl.FocusControl(GetID, _LastFocusedControlID)
 
                 'log Ausgabe abfangen, falls der Thread abgebrochen wird
             Catch ex2 As ThreadAbortException ' Ignore this exception

@@ -49,6 +49,9 @@ Namespace ClickfinderProgramGuide
         Friend Shared _idCategorie As Integer = 0
         Friend Shared _sortedBy As String = String.Empty
         Private _FilterByGroup As String = String.Empty
+        Private _LastFocusedIndex As Integer
+        Private _LastFocusedControlID As Integer
+
 
         Friend Shared _ItemsSqlString As String = String.Empty
 #End Region
@@ -137,6 +140,19 @@ Namespace ClickfinderProgramGuide
                 Translator.SetProperty("#ItemsListRatingStar" & i, 0)
             Next
 
+
+            If _leftList.IsFocused Then
+                'MsgBox(_MovieList.SelectedListItemIndex)
+                _LastFocusedIndex = _leftList.SelectedListItemIndex
+                _LastFocusedControlID = _leftList.GetID
+            ElseIf _rightList.IsFocused Then
+                _LastFocusedIndex = _rightList.SelectedListItemIndex
+                _LastFocusedControlID = _rightList.GetID
+            Else
+                _LastFocusedIndex = 0
+                _LastFocusedControlID = _leftList.GetID
+            End If
+
             AbortRunningThreads()
 
             MyBase.OnPageDestroy(new_windowId)
@@ -161,6 +177,9 @@ Namespace ClickfinderProgramGuide
 
                 'Next Item (F8) -> eine Seite vor
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_NEXT_ITEM Then
+
+                    _LastFocusedIndex = 0
+                    _LastFocusedControlID = _leftList.GetID
 
                     Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowLeftProgressBar)
                     _ProgressBarThread.Start()
@@ -194,6 +213,9 @@ Namespace ClickfinderProgramGuide
 
                 'Prev. Item (F7) -> einen Tag zurück
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_PREV_ITEM Then
+
+                    _LastFocusedIndex = 0
+                    _LastFocusedControlID = _leftList.GetID
 
                     Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowLeftProgressBar)
                     _ProgressBarThread.Start()
@@ -369,6 +391,14 @@ Namespace ClickfinderProgramGuide
             If _leftList.IsFocused = True Then ListControlClick(_leftList.SelectedListItem.ItemId)
             If _rightList.IsFocused = True Then ListControlClick(_rightList.SelectedListItem.ItemId)
         End Sub
+
+
+        Protected Overrides Sub OnPreviousWindow()
+            MyBase.OnPreviousWindow()
+            _LastFocusedIndex = 0
+            _LastFocusedControlID = _leftList.GetID
+        End Sub
+
 
 #End Region
 
@@ -603,6 +633,9 @@ Namespace ClickfinderProgramGuide
                 MyLog.Debug("[ItemsGuiWindow] [FillLeftList]: Thread finished")
                 MyLog.Debug("")
 
+                GUIListControl.SelectItemControl(GetID, _LastFocusedControlID, _LastFocusedIndex)
+                GUIListControl.FocusControl(GetID, _LastFocusedControlID)
+
             Catch ex As ThreadAbortException
                 MyLog.Debug("[ItemsGuiWindow] [FillLeftList]: --- THREAD ABORTED ---")
                 MyLog.Debug("")
@@ -691,6 +724,9 @@ Namespace ClickfinderProgramGuide
 
                 MyLog.Debug("[ItemsGuiWindow] [FillRightList]: Thread finished")
                 MyLog.Debug("")
+
+                GUIListControl.SelectItemControl(GetID, _LastFocusedControlID, _LastFocusedIndex)
+                GUIListControl.FocusControl(GetID, _LastFocusedControlID)
 
             Catch ex As ThreadAbortException
                 MyLog.Debug("[ItemsGuiWindow] [FillRightList]: --- THREAD ABORTED ---")

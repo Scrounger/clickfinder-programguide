@@ -49,6 +49,8 @@ Namespace ClickfinderProgramGuide
         Private ThreadPreviewListFill As Threading.Thread
         Private Shared _layer As New TvBusinessLayer
         Private _CategorieFilterByGroup As String
+        Private _LastFocusedIndex As Integer
+        Private _LastFocusedControlID As Integer
 
 #End Region
 
@@ -59,7 +61,6 @@ Namespace ClickfinderProgramGuide
 
         Public Shared Sub SetGuiProperties(ByVal View As CategorieView, Optional ByVal Day As Date = Nothing)
             _ClickfinderCategorieView = View
-            _SelectedCategorieItemId = 0
             _Day = Day
 
         End Sub
@@ -151,7 +152,6 @@ Namespace ClickfinderProgramGuide
 
             Helper.CheckConnectionState()
 
-
             MyLog.Debug("[CategoriesGuiWindow] [OnPageLoad]: PeriodeStartTime = {0}, PeriodeEndTime = {1}", _
                         getTranslatedDayOfWeek(PeriodeStartTime.Date) & " " & Format(PeriodeStartTime, "dd.MM.yyyy") & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00"), Format(PeriodeEndTime.Hour, "00") & ":" & Format(PeriodeEndTime.Minute, "00"))
 
@@ -176,9 +176,13 @@ Namespace ClickfinderProgramGuide
                 Translator.SetProperty("#CategorieView", CategorieViewName & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00"))
             End If
 
-            Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(0)
+            If Not _SelectedCategorieItemId >= 0 Then
+                _SelectedCategorieItemId = _CategorieList.SelectedListItemIndex
+            End If
+
+            Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(_SelectedCategorieItemId)
             _SelectedCategorieMinRunTime = _Categorie.MinRunTime
-            _SelectedCategorieItemId = 0
+
 
             Dim _Thread1 As New Thread(AddressOf FillCategories)
             Dim _Thread2 As New Thread(AddressOf FillPreviewList)
@@ -196,7 +200,21 @@ Namespace ClickfinderProgramGuide
                 Translator.SetProperty("#PreviewListTvMovieStar" & i, "")
                 Translator.SetProperty("#PreviewListRatingStar" & i, 0)
             Next
-            'MsgBox(_CategorieList.SelectedListItem.ItemId & vbNewLine & _PreviewList.SelectedListItem.ItemId)
+
+            If _CategorieList.IsFocused Then
+                'MsgBox(_MovieList.SelectedListItemIndex)
+                _LastFocusedIndex = _CategorieList.SelectedListItemIndex
+                _LastFocusedControlID = _CategorieList.GetID
+                _SelectedCategorieItemId = _CategorieList.SelectedListItemIndex
+            ElseIf _PreviewList.IsFocused Then
+                _LastFocusedIndex = _PreviewList.SelectedListItemIndex
+                _LastFocusedControlID = _PreviewList.GetID
+                _SelectedCategorieItemId = _CategorieList.SelectedListItemIndex
+            Else
+                _LastFocusedIndex = 0
+                _LastFocusedControlID = _CategorieList.GetID
+            End If
+
             Try
                 If ThreadPreviewListFill.IsAlive = True Then ThreadPreviewListFill.Abort()
             Catch ex As Exception
@@ -225,6 +243,9 @@ Namespace ClickfinderProgramGuide
 
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_MOVE_UP Then
                     If _CategorieList.IsFocused = True Then
+
+                       
+
                         MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
                         Try
                             If ThreadPreviewListFill.IsAlive = True Then ThreadPreviewListFill.Abort()
@@ -244,6 +265,8 @@ Namespace ClickfinderProgramGuide
                             _SelectedCategorieMinRunTime = _CategorieList.Item(_CategorieList.SelectedListItemIndex - 1).Duration
                         End If
 
+                        _LastFocusedIndex = _SelectedCategorieItemId
+                        _LastFocusedControlID = _CategorieList.GetID
 
                         ThreadPreviewListFill = New Threading.Thread(AddressOf FillPreviewList)
                         ThreadPreviewListFill.IsBackground = True
@@ -272,6 +295,9 @@ Namespace ClickfinderProgramGuide
                             _SelectedCategorieItemId = _CategorieList.Item(_CategorieList.SelectedListItemIndex + 1).ItemId
                             _SelectedCategorieMinRunTime = _CategorieList.Item(_CategorieList.SelectedListItemIndex + 1).Duration
                         End If
+
+                        _LastFocusedIndex = _SelectedCategorieItemId
+                        _LastFocusedControlID = _CategorieList.GetID
 
                         ThreadPreviewListFill = New Threading.Thread(AddressOf FillPreviewList)
                         ThreadPreviewListFill.IsBackground = True
@@ -429,12 +455,21 @@ Namespace ClickfinderProgramGuide
 
         End Sub
 
+        Protected Overrides Sub OnPreviousWindow()
+            MyBase.OnPreviousWindow()
+            _LastFocusedIndex = 0
+            _LastFocusedControlID = _CategorieList.GetID
+        End Sub
+
         'Actions die für Listcontrolclick (mouse) & Action events benötigt werder
 
         'categorie aufrufen (GuiItems)
         Private Sub Action_SelectItem()
 
             If _CategorieList.IsFocused = True Then
+
+                'ItemsGuiWindow._LastFocusedItemsIndex = 0
+                'ItemsGuiWindow._LastFocusedItemsControlID = 10
 
                 Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(_CategorieList.SelectedListItem.ItemId)
 
@@ -490,6 +525,11 @@ Namespace ClickfinderProgramGuide
                         _logHiddenCategories = _logHiddenCategories & _Categories(i).Name & ", "
                     End If
                 Next
+
+                GUIListControl.SelectItemControl(GetID, _CategorieList.GetID, _SelectedCategorieItemId)
+
+                GUIListControl.SelectItemControl(GetID, _LastFocusedControlID, _LastFocusedIndex)
+                GUIListControl.FocusControl(GetID, _LastFocusedControlID)
 
                 MyLog.Debug("[CategoriesGuiWindow] [FillCategories]: categories ({0})", _logCategories)
                 MyLog.Debug("[CategoriesGuiWindow] [FillCategories]: hidden categories ({0})", _logHiddenCategories)
@@ -649,6 +689,9 @@ Namespace ClickfinderProgramGuide
 
                 MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: Thread finished")
                 MyLog.Debug("")
+
+                GUIListControl.SelectItemControl(GetID, _LastFocusedControlID, _LastFocusedIndex)
+                GUIListControl.FocusControl(GetID, _LastFocusedControlID)
 
 
                 'log Ausgabe abfangen, falls der Thread abgebrochen wird

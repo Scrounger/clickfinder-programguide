@@ -26,8 +26,6 @@ Public Class Setup
 
             Dim _StartGuiList As New ArrayList
 
-
-
             MyLog.Info("")
             MyLog.Info("")
             MyLog.Info("[Setup] load")

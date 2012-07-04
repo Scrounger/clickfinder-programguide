@@ -197,7 +197,7 @@
       <textcolor3>ff909090</textcolor3>
       <itemWidth>89</itemWidth>
       <itemHeight>89</itemHeight>
-      <scrollOffset>2</scrollOffset>
+      <scrollOffset>0</scrollOffset>
       <scrollbarXOff>0</scrollbarXOff>
       <scrollbarwidth>15</scrollbarwidth>
       <visible></visible>
@@ -578,7 +578,7 @@
       <textcolor3>ff909090</textcolor3>
       <itemWidth>89</itemWidth>
       <itemHeight>89</itemHeight>
-      <scrollOffset>2</scrollOffset>
+      <scrollOffset>0</scrollOffset>
       <scrollbarXOff>0</scrollbarXOff>
       <scrollbarwidth>15</scrollbarwidth>
       <visible></visible>
