@@ -5,7 +5,7 @@
       <type>actiongroup</type>
       <description>action menu</description>
       <defaultcontrol>2</defaultcontrol>
-      <onexit>30</onexit>
+      <onexit>10</onexit>
       <buttonX>1232</buttonX>
       <buttonY>20</buttonY>
       <buttonwidth>48</buttonwidth>

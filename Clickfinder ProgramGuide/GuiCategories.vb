@@ -394,7 +394,10 @@ Namespace ClickfinderProgramGuide
                 'Menu Button (F9) -> Context Menu open
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_CONTEXT_MENU Then
                     MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
-                    If _PreviewList.IsFocused = True Then ShowContextMenu(_PreviewList.SelectedListItem.ItemId)
+                    If _PreviewList.IsFocused = True Then
+                        Dim _program As Program = Program.Retrieve(_PreviewList.SelectedListItem.ItemId)
+                        Helper.ShowActionMenu(_program)
+                    End If
                     If _CategorieList.IsFocused = True Then ShowCategoriesContextMenu(_CategorieList.SelectedListItem.ItemId)
                 End If
 
