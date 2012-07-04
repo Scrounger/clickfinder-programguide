@@ -383,12 +383,21 @@ Public Class Setup
 
         MyLog.Debug("TvServer provider: {0}", Gentle.Framework.Broker.ProviderName)
 
-        Try
-            Broker.Execute("drop table mptvdb.ClickfinderCategories")
-            Broker.Execute("CREATE TABLE mptvdb.ClickfinderCategories ( idClickfinderCategories INT NOT NULL AUTO_INCREMENT , Name VARCHAR(255) , Beschreibung VARCHAR(255) , isVisible BIT(1) NOT NULL DEFAULT 0 , Image VARCHAR(255) , SqlString TEXT , sortOrder INT NOT NULL DEFAULT 0 , MinRunTime INT NOT NULL DEFAULT 0 , NowOffset INT NOT NULL DEFAULT 0 , sortedBy VARCHAR(100) , groupName VARCHAR(100) , PRIMARY KEY (idClickfinderCategories) )")
-        Catch ex As Exception
-            Broker.Execute("CREATE TABLE mptvdb.ClickfinderCategories ( idClickfinderCategories INT NOT NULL AUTO_INCREMENT , Name VARCHAR(255) , Beschreibung VARCHAR(255) , isVisible BIT(1) NOT NULL DEFAULT 0 , Image VARCHAR(255) , SqlString TEXT , sortOrder INT NOT NULL DEFAULT 0 , MinRunTime INT NOT NULL DEFAULT 0 , NowOffset INT NOT NULL DEFAULT 0 , sortedBy VARCHAR(100) , groupName VARCHAR(100) , PRIMARY KEY (idClickfinderCategories) )")
-        End Try
+        If Gentle.Framework.Broker.ProviderName = "MySQL" Then
+            Try
+                Broker.Execute("drop table mptvdb.ClickfinderCategories")
+                Broker.Execute("CREATE TABLE mptvdb.ClickfinderCategories ( idClickfinderCategories INT NOT NULL AUTO_INCREMENT , Name VARCHAR(255) , Beschreibung VARCHAR(255) , isVisible BIT(1) NOT NULL DEFAULT 0 , Image VARCHAR(255) , SqlString TEXT , sortOrder INT NOT NULL DEFAULT 0 , MinRunTime INT NOT NULL DEFAULT 0 , NowOffset INT NOT NULL DEFAULT 0 , sortedBy VARCHAR(100) , groupName VARCHAR(100) , PRIMARY KEY (idClickfinderCategories) )")
+            Catch ex As Exception
+                Broker.Execute("CREATE TABLE mptvdb.ClickfinderCategories ( idClickfinderCategories INT NOT NULL AUTO_INCREMENT , Name VARCHAR(255) , Beschreibung VARCHAR(255) , isVisible BIT(1) NOT NULL DEFAULT 0 , Image VARCHAR(255) , SqlString TEXT , sortOrder INT NOT NULL DEFAULT 0 , MinRunTime INT NOT NULL DEFAULT 0 , NowOffset INT NOT NULL DEFAULT 0 , sortedBy VARCHAR(100) , groupName VARCHAR(100) , PRIMARY KEY (idClickfinderCategories) )")
+            End Try
+        Else
+            Try
+                Broker.Execute("drop table mptvdb.[dbo].ClickfinderCategories")
+                Broker.Execute("CREATE TABLE mptvdb.[dbo].ClickfinderCategories ( idClickfinderCategories INT NOT NULL IDENTITY , Name VARCHAR(255) , Beschreibung VARCHAR(255) , isVisible BIT NOT NULL DEFAULT 0 , Image VARCHAR(255) , SqlString TEXT , sortOrder INT NOT NULL DEFAULT 0 , MinRunTime INT NOT NULL DEFAULT 0 , NowOffset INT NOT NULL DEFAULT 0 , sortedBy VARCHAR(100) , groupName VARCHAR(100) , PRIMARY KEY (idClickfinderCategories) )")
+            Catch ex As Exception
+                Broker.Execute("CREATE TABLE mptvdb.[dbo].ClickfinderCategories ( idClickfinderCategories INT NOT NULL IDENTITY , Name VARCHAR(255) , Beschreibung VARCHAR(255) , isVisible BIT NOT NULL DEFAULT 0 , Image VARCHAR(255) , SqlString TEXT , sortOrder INT NOT NULL DEFAULT 0 , MinRunTime INT NOT NULL DEFAULT 0 , NowOffset INT NOT NULL DEFAULT 0 , sortedBy VARCHAR(100) , groupName VARCHAR(100) , PRIMARY KEY (idClickfinderCategories) )")
+            End Try
+        End If
 
     End Sub
 
