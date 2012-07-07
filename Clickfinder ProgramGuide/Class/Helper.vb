@@ -16,6 +16,7 @@ Imports MediaPortal.Playlists
 Imports MediaPortal.TagReader
 Imports System.Threading
 
+
 Public Class Helper
 #Region "Members"
     Private Shared _layer As New TvBusinessLayer
@@ -663,5 +664,24 @@ Public Class Helper
             Return False
         End Try
     End Function
+
+
+    Friend Shared Sub LogSettings()
+        Dim _tvbLayer As New TvBusinessLayer
+        MyLog.Debug("")
+        MyLog.Debug("******* Settings *******")
+        MyLog.Debug("[TvMovie++] TvServer provider: {0}", Gentle.Framework.Broker.ProviderName)
+        MyLog.Debug("[TvMovie++] MediaPortal database path: {0}", _tvbLayer.GetSetting("TvMovieMPDatabase").Value)
+        MyLog.Debug("[TvMovie++] TvMovie database path: {0}", _tvbLayer.GetSetting("TvMoviedatabasepath").Value)
+        MyLog.Debug("[TvMovie++] run App after: {0}", _tvbLayer.GetSetting("TvMovieRunAppAfter").Value)
+        MyLog.Debug("[TvMovie++] is EpisodenScanner: {0}", _tvbLayer.GetSetting("TvMovieIsEpisodenScanner").Value)
+        MyLog.Debug("[TvMovie++] Import Mp-TvSeries Infos: {0}", _tvbLayer.GetSetting("TvMovieImportTvSeriesInfos").Value)
+        MyLog.Debug("[TvMovie++] Import MovingPictures Infos: {0}", _tvbLayer.GetSetting("TvMovieImportMovingPicturesInfos").Value)
+        MyLog.Debug("[TvMovie++] Import VideoDatabase Infos: {0}", _tvbLayer.GetSetting("TvMovieImportVideoDatabaseInfos").Value)
+        MyLog.Debug("[TvMovie++] Import Clickfinder ProgramGuide Infos: {0}", _tvbLayer.GetSetting("ClickfinderDataAvailable").Value)
+
+
+
+    End Sub
 
 End Class

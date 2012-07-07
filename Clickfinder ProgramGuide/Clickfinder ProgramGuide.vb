@@ -183,6 +183,9 @@ Namespace ClickfinderProgramGuide
                 End If
 
 
+                Helper.LogSettings()
+
+
                 'Start GUI
                 Select Case _layer.GetSetting("ClickfinderStartGui", "Highlights").Value
                     Case Is = "Highlights"

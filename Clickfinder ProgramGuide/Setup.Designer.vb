@@ -288,6 +288,7 @@ Partial Class Setup
         '
         'TabAllgemeines
         '
+        Me.TabAllgemeines.AutoScroll = True
         Me.TabAllgemeines.Controls.Add(Me.CheckBoxDebugMode)
         Me.TabAllgemeines.Controls.Add(Me.Panel13)
         Me.TabAllgemeines.Controls.Add(Me.Panel12)
@@ -878,6 +879,7 @@ Partial Class Setup
         '
         'TabItems
         '
+        Me.TabItems.AutoScroll = True
         Me.TabItems.Controls.Add(Me.CheckBoxRemberSortedBy)
         Me.TabItems.Controls.Add(Me.CheckBoxFilterShowLocalSeries)
         Me.TabItems.Controls.Add(Me.CheckBoxFilterShowLocalMovies)
@@ -941,6 +943,7 @@ Partial Class Setup
         '
         'TabÜbersicht
         '
+        Me.TabÜbersicht.AutoScroll = True
         Me.TabÜbersicht.Controls.Add(Me.Panel18)
         Me.TabÜbersicht.Controls.Add(Me.Panel15)
         Me.TabÜbersicht.Controls.Add(Me.Panel14)
@@ -1283,6 +1286,7 @@ Partial Class Setup
         '
         'TabCategories
         '
+        Me.TabCategories.AutoScroll = True
         Me.TabCategories.Controls.Add(Me.CheckBoxShowCategorieLocalSeries)
         Me.TabCategories.Controls.Add(Me.CheckBoxShowCategorieLocalMovies)
         Me.TabCategories.Controls.Add(Me.Panel27)
@@ -1507,6 +1511,7 @@ Partial Class Setup
         '
         'TabDetail
         '
+        Me.TabDetail.AutoScroll = True
         Me.TabDetail.Controls.Add(Me.Panel21)
         Me.TabDetail.Controls.Add(Me.CheckBoxUseSeriesDescribtion)
         Me.TabDetail.Location = New System.Drawing.Point(4, 25)
@@ -1611,6 +1616,7 @@ Partial Class Setup
         '
         'TabOverlay
         '
+        Me.TabOverlay.AutoScroll = True
         Me.TabOverlay.Controls.Add(Me.Panel22)
         Me.TabOverlay.Controls.Add(Me.CheckBoxEnableSeriesOverlay)
         Me.TabOverlay.Controls.Add(Me.CheckBoxEnableMovieOverlay)
@@ -1944,6 +1950,7 @@ Partial Class Setup
         '
         'Panel2
         '
+        Me.Panel2.AutoScroll = True
         Me.Panel2.Controls.Add(Me.TabControl1)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(0, 65)

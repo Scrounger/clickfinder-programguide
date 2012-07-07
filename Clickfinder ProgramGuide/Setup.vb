@@ -201,6 +201,8 @@ Public Class Setup
                 End If
             Next
 
+            Helper.LogSettings()
+
         Catch ex As Exception
             MyLog.Error("[Setup_Load]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
         End Try
