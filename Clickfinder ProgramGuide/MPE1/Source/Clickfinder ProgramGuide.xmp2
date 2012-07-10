@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <PackageClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Version>2.0</Version>
   <Groups>
@@ -831,9 +831,9 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
         </MinVersion>
         <MaxVersion>
           <Major>1</Major>
-          <Minor>3</Minor>
-          <Build>0</Build>
-          <Revision>0</Revision>
+          <Minor>1</Minor>
+          <Build>6</Build>
+          <Revision>27644</Revision>
         </MaxVersion>
         <WarnOnly>false</WarnOnly>
         <Message>requires MediaPortal version 1.1.6.27644 to 1.1.6.27644.</Message>
@@ -872,7 +872,7 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>2</Build>
-      <Revision>4</Revision>
+      <Revision>5</Revision>
     </Version>
     <ExtensionDescription>This Plugin is a ProgramGuide based on the german EPG Data from the Tv Movie Clickfinder Provider (Software). It shows you information for different categories (e.g. Movies, Series, Doku,...), which television program is broadcasting now, at PrimeTime or at LateTime. There is also a Preview for the whole EPG timespan. The Data are sorted by the Rating of the TV Movie Clickfinder Plugin. This Plugin has a lot of configuration options, that gives the user the possibility to personalize the different views.
 

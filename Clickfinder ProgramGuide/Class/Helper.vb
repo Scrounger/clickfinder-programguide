@@ -49,9 +49,12 @@ Public Class Helper
     End Sub
 
     Friend Shared Function MySqlDate(ByVal Datum As Date) As String
+        MyLog.Debug("Provider: {0}", Gentle.Framework.Broker.ProviderName)
         If Gentle.Framework.Broker.ProviderName = "MySQL" Then
+            MyLog.Debug("'" & Datum.Year & "-" & Format(Datum.Month, "00") & "-" & Format(Datum.Day, "00") & " " & Format(Datum.Hour, "00") & ":" & Format(Datum.Minute, "00"))
             Return "'" & Datum.Year & "-" & Format(Datum.Month, "00") & "-" & Format(Datum.Day, "00") & " " & Format(Datum.Hour, "00") & ":" & Format(Datum.Minute, "00")
         Else
+            MyLog.Debug("'" & Format(Datum.Day, "00") & "." & Format(Datum.Month, "00") & "." & Datum.Year & " " & Format(Datum.Hour, "00") & ":" & Format(Datum.Minute, "00"))
             Return "'" & Format(Datum.Day, "00") & "." & Format(Datum.Month, "00") & "." & Datum.Year & " " & Format(Datum.Hour, "00") & ":" & Format(Datum.Minute, "00")
         End If
 
