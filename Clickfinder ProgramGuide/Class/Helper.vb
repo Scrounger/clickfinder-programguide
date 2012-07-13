@@ -53,10 +53,7 @@ Public Class Helper
         If Gentle.Framework.Broker.ProviderName = "MySQL" Then
             Return "'" & Datum.Year & "-" & Format(Datum.Month, "00") & "-" & Format(Datum.Day, "00") & " " & Format(Datum.Hour, "00") & ":" & Format(Datum.Minute, "00") & ":00'"
         Else
-            MyLog.Debug("'" & Format(Datum.Day, "00") & "." & Format(Datum.Month, "00") & "." & Datum.Year & " " & Format(Datum.Hour, "00") & ":" & Format(Datum.Minute, "00") & "'")
-            'Return "'" & Format(Datum.Day, "00") & "." & Format(Datum.Month, "00") & "." & Datum.Year & " " & Format(Datum.Hour, "00") & ":" & Format(Datum.Minute, "00") & "'"
             Return "'" & Datum.Year & Format(Datum.Month, "00") & Format(Datum.Day, "00") & " " & Format(Datum.Hour, "00") & ":" & Format(Datum.Minute, "00") & ":" & Format(Datum.Second, "00") & "'"
-
         End If
 
     End Function
@@ -68,8 +65,6 @@ Public Class Helper
         Else
             Return Replace(sqlstring, "Select *", "Select top " & limit & " *")
         End If
-
-
 
     End Function
 
