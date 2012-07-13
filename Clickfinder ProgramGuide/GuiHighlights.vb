@@ -470,18 +470,17 @@ Namespace ClickfinderProgramGuide
                 Select Case (_layer.GetSetting("ClickfinderOverviewMovieSort", SortMethode.startTime.ToString).Value)
                     Case Is = SortMethode.startTime.ToString
                         _LogLocalSortedBy = SortMethode.startTime.ToString
-                        _SQLstring = _SQLstring & Helper.ORDERBYstartTime & _
-                                                  " LIMIT 25"
+                        _SQLstring = AppendSqlLimit(_SQLstring & Helper.ORDERBYstartTime, 25)
+
 
                     Case Is = SortMethode.TvMovieStar.ToString
                         _LogLocalSortedBy = SortMethode.TvMovieStar.ToString
-                        _SQLstring = _SQLstring & Helper.ORDERBYtvMovieBewertung & _
-                                                  " LIMIT 25"
+                        _SQLstring = AppendSqlLimit(_SQLstring & Helper.ORDERBYtvMovieBewertung, 25)
 
                     Case Is = SortMethode.RatingStar.ToString
                         _LogLocalSortedBy = SortMethode.RatingStar.ToString
-                        _SQLstring = _SQLstring & Helper.ORDERBYstarRating & _
-                                                  " LIMIT 25"
+                        _SQLstring = AppendSqlLimit(_SQLstring & Helper.ORDERBYstarRating, 25)
+
                 End Select
 
 

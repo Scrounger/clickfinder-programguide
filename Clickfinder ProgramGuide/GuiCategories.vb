@@ -595,7 +595,7 @@ Namespace ClickfinderProgramGuide
                 End If
 
 
-                _SqlString = _SqlString & " LIMIT 25"
+                _SqlString = AppendSqlLimit(_SqlString, 25)
 
 
                 Dim _result As New ArrayList

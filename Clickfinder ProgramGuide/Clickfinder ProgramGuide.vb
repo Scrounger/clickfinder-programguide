@@ -378,7 +378,7 @@ Namespace ClickfinderProgramGuide
                         _SQLstring = _SQLstring & Helper.ORDERBYstarRating
                 End Select
 
-                _SQLstring = _SQLstring & " LIMIT " & _layer.GetSetting("ClickfinderOverlayMovieLimit", "10").Value
+                _SQLstring = AppendSqlLimit(_SQLstring, _layer.GetSetting("ClickfinderOverlayMovieLimit", "10").Value)
 
                 Log.Debug("[PreInit] [BasicHomeOverlay]: sorted by {0}, show TvMovie TagesTipp = {1}, SQLString: {2}", _LogLocalSortedBy, _logShowTagesTipp, _SQLstring)
 

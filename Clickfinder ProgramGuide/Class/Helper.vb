@@ -61,6 +61,18 @@ Public Class Helper
 
     End Function
 
+
+    Friend Shared Function AppendSqlLimit(ByVal sqlstring As String, ByVal limit As Integer) As String
+        If Gentle.Framework.Broker.ProviderName = "MySQL" Then
+            Return sqlstring & " LIMIT " & limit
+        Else
+            Return Replace(sqlstring, "Select *", "Select top " & limit & " *")
+        End If
+
+
+
+    End Function
+
     Friend Shared ReadOnly Property ORDERBYstartTime() As String
         Get
             Return "ORDER BY startTime ASC, starRating DESC, title ASC"
