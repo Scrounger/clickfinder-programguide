@@ -58,7 +58,6 @@ Public Class Helper
 
     End Function
 
-
     Friend Shared Function AppendSqlLimit(ByVal sqlstring As String, ByVal limit As Integer) As String
         If Gentle.Framework.Broker.ProviderName = "MySQL" Then
             Return sqlstring & " LIMIT " & limit
