@@ -519,15 +519,15 @@ Public Class Helper
                 _Result = Translation.Sunday
         End Select
 
-        If Datum = Today Then
+        If Datum.Date = Today Then
             _Result = Translation.Today
         End If
 
-        If Datum = Today.AddDays(1) Then
+        If Datum.Date = Today.AddDays(1) Then
             _Result = Translation.Tomorrow
         End If
 
-        If Datum = Today.AddDays(-1) Then
+        If Datum.Date = Today.AddDays(-1) Then
             _Result = Translation.Yesterday
         End If
 

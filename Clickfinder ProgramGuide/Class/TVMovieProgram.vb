@@ -134,10 +134,7 @@ Namespace TvDatabase
 
 #Region "Constructors"
 
-        ''' <summary> 
-        ''' Create an object from an existing row of data. This will be used by Gentle to 
-        ''' construct objects from retrieved rows. 
-        ''' </summary> 
+
         'public TVMovieProgram(int idClickfinderMapping, int idProgram, string idSeries, string timeSharingStart, string timeSharingEnd)
         '{
         '  isChanged = true;

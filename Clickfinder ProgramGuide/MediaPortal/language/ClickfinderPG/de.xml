@@ -77,8 +77,8 @@
   <string Field="MyMovies">Meine Filme</string>
   <string Field="NewEpisodes">Neue Episoden</string>
   <string Field="Friday">Freitag</string>
-  <string Field="MovieListTitle">Movie Higlights</string>
-  <string Field="HighlightsListTitle">weitere Higlights</string>
+  <string Field="MovieListTitle">Movie Highlights</string>
+  <string Field="HighlightsListTitle">weitere Highlights</string>
   <string Field="LastUpdate">Letztes Update:</string>
   <string Field="Monday">Montag</string>
   <string Field="NewLabel">Neu !!!</string>
@@ -96,5 +96,7 @@
   <string Field="IMDB">Trailer</string>
   <string Field="MovingPictures">MovingPictures</string>
   <string Field="MPtvSeries">MP-TvSeries</string>
+  <string Field="InTheNext">in den nächsten</string>
+  
 
 </strings>

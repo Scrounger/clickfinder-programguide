@@ -116,3 +116,4 @@ D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Release\Clickf
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Release\ClickfinderProgramGuide.dll
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Release\ClickfinderProgramGuide.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Release\ClickfinderProgramGuide.pdb
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuideEpisodePreview.xml

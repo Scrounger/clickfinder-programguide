@@ -257,11 +257,12 @@ Namespace ClickfinderProgramGuide
                             Return "Logos\ClickfinderPG\fsk12.png"
                         Case Is = 18
                             Return "Logos\ClickfinderPG\fsk18.png"
+                        Case Else
+                            Return String.Empty
                     End Select
                 Else
                     Return String.Empty
                 End If
-
             End Get
 
         End Property

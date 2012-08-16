@@ -25,7 +25,6 @@ Namespace ClickfinderProgramGuide
         <SkinControlAttribute(6)> Protected _btnHighlights As GUIButtonControl = Nothing
         <SkinControlAttribute(7)> Protected _btnPreview As GUIButtonControl = Nothing
 
-
         'ProgressBar
         <SkinControlAttribute(9)> Protected _HighlightsProgressBar As GUIAnimation = Nothing
         <SkinControlAttribute(8)> Protected _MoviesProgressBar As GUIAnimation = Nothing
@@ -135,12 +134,12 @@ Namespace ClickfinderProgramGuide
                 'End Try
 
                 'Select Item (Enter) -> MP TvProgramInfo aufrufen --Über keychar--
-                If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM Then
-                    MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", Action.m_key.KeyChar, Action.m_key.KeyCode, Action.wID.ToString)
+                'If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM Then
+                '    MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", Action.m_key.KeyChar, Action.m_key.KeyCode, Action.wID.ToString)
 
-                    Action_SelectItem()
+                '    Action_SelectItem()
 
-                End If
+                'End If
 
                 'Next Item (F8) -> einen Tag vor
                 If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_NEXT_ITEM Then

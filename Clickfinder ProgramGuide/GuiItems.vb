@@ -168,12 +168,12 @@ Namespace ClickfinderProgramGuide
                 'End Try
 
                 'Select Item (Enter) -> MP TvProgramInfo aufrufen --Über keychar--
-                If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM Then
+                'If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM Then
 
-                    MyLog.[Debug]("[ItemsGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
+                '    MyLog.[Debug]("[ItemsGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
 
-                    Action_SelectItem()
-                End If
+                '    Action_SelectItem()
+                'End If
 
                 'Next Item (F8) -> eine Seite vor
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_NEXT_ITEM Then

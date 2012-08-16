@@ -83,8 +83,8 @@ Public NotInheritable Class Translation
     Public Shared MyMovies As String = "Meine Filme"
     Public Shared NewEpisodes As String = "Neue Episoden"
     Public Shared Friday As String = "Freitag"
-    Public Shared MovieListTitle As String = "Movie Higlights"
-    Public Shared HighlightsListTitle As String = "weitere Higlights"
+    Public Shared MovieListTitle As String = "Movie Highlights"
+    Public Shared HighlightsListTitle As String = "weitere Highlights"
     Public Shared LastUpdate As String = "Letztes Update:"
     Public Shared Monday As String = "Montag"
     Public Shared NewLabel As String = "Neu !!!"
@@ -102,6 +102,7 @@ Public NotInheritable Class Translation
     Public Shared IMDB As String = "IMDb Movie Trailers"
     Public Shared MovingPictures As String = "MovingPictures"
     Public Shared MPtvSeries As String = "MP-TvSeries"
+    Public Shared InTheNext As String = "in den nächsten"
 
 End Class
 

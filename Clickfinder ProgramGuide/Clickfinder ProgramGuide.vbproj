@@ -138,6 +138,7 @@
     </Compile>
     <Compile Include="GuiCategories.vb" />
     <Compile Include="GuiDetail.vb" />
+    <Compile Include="GuiEpisodePreview.vb" />
     <Compile Include="GuiHighlights.vb" />
     <Compile Include="GuiItems.vb" />
     <Compile Include="GUISetting.vb" />
@@ -219,6 +220,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MediaPortal\Skin\DefaultWide\ClickfinderProgramGuideHighlights.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\DefaultWide\ClickfinderProgramGuideEpisodePreview.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_DetailBG.png">
