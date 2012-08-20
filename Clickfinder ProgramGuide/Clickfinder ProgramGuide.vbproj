@@ -381,6 +381,9 @@
     <Content Include="MediaPortal\Skin\StreamedMP\ClickfinderProgramGuide.HiddenMenu.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="MediaPortal\thumbs\Clickfinder ProgramGuide\Arrow back.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MediaPortal\thumbs\Clickfinder ProgramGuide\Categories\Dokumentationen.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

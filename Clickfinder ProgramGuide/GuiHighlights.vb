@@ -570,8 +570,10 @@ Namespace ClickfinderProgramGuide
                     MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: Movies exist local and will not be displayed ({0})", _LogLocalMovies)
                 End If
 
-                GUIListControl.SelectItemControl(GetID, _LastFocusedControlID, _LastFocusedItemIndex)
-                GUIListControl.FocusControl(GetID, _LastFocusedControlID)
+                If _ThreadFillHighlightsList.IsAlive = False Then
+                    GUIListControl.SelectItemControl(GetID, _LastFocusedControlID, _LastFocusedItemIndex)
+                    GUIListControl.FocusControl(GetID, _LastFocusedControlID)
+                End If
 
                 MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: Thread finished")
                 MyLog.Debug("")
@@ -780,8 +782,10 @@ Namespace ClickfinderProgramGuide
                 MyLog.Debug("[HighlightsGUIWindow] [FillHighlightsList]: Thread finished")
                 MyLog.Debug("")
 
-                GUIListControl.SelectItemControl(GetID, _LastFocusedControlID, _LastFocusedItemIndex)
-                GUIListControl.FocusControl(GetID, _LastFocusedControlID)
+                If _ThreadFillMovieList.IsAlive = False Then
+                    GUIListControl.SelectItemControl(GetID, _LastFocusedControlID, _LastFocusedItemIndex)
+                    GUIListControl.FocusControl(GetID, _LastFocusedControlID)
+                End If
 
                 'log Ausgabe abfangen, falls der Thread abgebrochen wird
             Catch ex2 As ThreadAbortException ' Ignore this exception
