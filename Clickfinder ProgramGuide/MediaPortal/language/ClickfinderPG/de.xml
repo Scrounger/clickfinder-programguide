@@ -97,6 +97,7 @@
   <string Field="MovingPictures">MovingPictures</string>
   <string Field="MPtvSeries">MP-TvSeries</string>
   <string Field="InTheNext">in den nächsten</string>
+  <string Field="Repeats">Wiederholungen</string>
   
-
+  
 </strings>

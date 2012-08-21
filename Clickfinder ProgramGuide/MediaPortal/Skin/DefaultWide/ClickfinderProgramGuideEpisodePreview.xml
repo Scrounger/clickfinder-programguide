@@ -142,6 +142,8 @@
       <textureFocus>list_sub_focus.png</textureFocus>
       <textureNoFocus>list_sub_nofocus.png</textureNoFocus>
       <textureHeight>97</textureHeight>
+      <PinIconXOff>570</PinIconXOff>
+      <PinIconYOff>10</PinIconYOff>
       <IconXOff>10</IconXOff>
       <IconYOff>4</IconYOff>
       <textXOff>20</textXOff>
@@ -166,6 +168,7 @@
 
     
     <!-- RepeatsList & Controls-->
+    
     <control>
       <id>1</id>
       <description>Background Image</description>
@@ -182,7 +185,7 @@
       <id>1</id>
       <posX>670</posX>
       <posY>76</posY>
-      <label>#ClickfinderPG.Translation.HighlightsListTitle</label>
+      <label>#ClickfinderPG.Translation.Repeats</label>
       <font>font12</font>
       <textcolor>FFdddddd</textcolor>
     </control>
@@ -196,6 +199,44 @@
       <height>2</height>
       <texture>ClickfinderPG_Sep.png</texture>
     </control>
+
+
+
+    <control>
+      <description>Series Poster Image</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>670</posX>
+      <posY>120</posY>
+      <width>200</width>
+      <height>172</height>
+      <texture>#EpisodesPreviewSeriesPosterImage</texture>
+      <filtered>yes</filtered>
+      <centered>no</centered>
+      <keepaspectratio>yes</keepaspectratio>
+      <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Series Titel Label</description>
+      <type>fadelabel</type>
+      <id>1</id>
+      <posX>800</posX>
+      <posY>120</posY>
+      <width>440</width>
+      <align>left</align>
+      <font>font14</font>
+      <textcolor>ffffffff</textcolor>
+      <label>#EpisodesPreviewTitle</label>
+      <wrapString> | </wrapString>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+    
+    
     <control>
       <type>listcontrol</type>
       <id>30</id>
@@ -203,9 +244,9 @@
       <onleft>10</onleft>
       <onup>30</onup>
       <posX>660</posX>
-      <posY>118</posY>
+      <posY>418</posY>
       <width>590</width>
-      <height>636</height>
+      <height>336</height>
       <spinWidth>30</spinWidth>
       <spinHeight>30</spinHeight>
       <spinPosX>1190</spinPosX>

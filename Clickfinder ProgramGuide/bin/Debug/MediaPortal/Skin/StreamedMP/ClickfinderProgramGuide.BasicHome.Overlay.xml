@@ -1,0 +1,776 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<window>
+  <controls>
+    <control>
+      <description>GROUP: Clickfinder ProgramGuide: Movie 1</description>
+      <type>group</type>
+      <dimColor>0xffffffff</dimColor>
+      <visible>[control.isvisible(1003)|control.isvisible(40001)]+[!string.equals(#ClickfinderPG.Movie1.Title,)]</visible>
+      <animation effect="fade" start="100" end="0" time="250" reversible="false">Hidden</animation>
+      <animation effect="fade" start="0" end="100" delay="700" time="500" reversible="false">Visible</animation>
+      <animation effect="fade" start="0" end="100" time="4000" reversible="false">WindowOpen</animation>
+      <animation effect="slide" end="300,0" time="1500" acceleration="-0.1" reversible="false">Hidden</animation>
+      <animation effect="slide" start="300,0" end="0,0" time="1000" acceleration="-0.1" reversible="false">Visible</animation>
+      <animation effect="slide" start="400,0" end="0,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowOpen</animation>
+      <animation effect="slide" end="400,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowClose</animation>
+      <control>
+        <description>Movie 1 BG</description>
+        <posX>860</posX>
+        <posY>70</posY>
+        <type>image</type>
+        <id>0</id>
+        <width>420</width>
+        <height>96</height>
+        <texture>pic_preview_thumb_background.png</texture>
+        <colordiffuse>99FFFFFF</colordiffuse>
+      </control>
+      <control>
+        <description>MovieImage 1</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>872</posX>
+        <posY>74</posY>
+        <width>100</width>
+        <height>86</height>
+        <texture>#ClickfinderPG.Movie1.Image</texture>
+        <filtered>yes</filtered>
+        <centered>yes</centered>
+        <keepaspectratio>yes</keepaspectratio>
+      </control>
+      <control>
+        <description>MovieRatingStar Image 1</description>
+        <type>imagelist</type>
+        <id>1</id>
+        <posX>980</posX>
+        <posY>100</posY>
+        <width>120</width>
+        <height>10</height>
+        <textureWidth>12</textureWidth>
+        <textureHeight>12</textureHeight>
+        <subitems>
+          <subitem>UserRatingStarOff.png</subitem>
+          <subitem>stargood.png</subitem>
+        </subitems>
+        <orientation>horizontal</orientation>
+        <align>left</align>
+        <imagesToDraw>10</imagesToDraw>
+        <percentage>#ClickfinderPG.Movie1.RatingStar</percentage>
+      </control>
+      <control>
+        <description>MovieTvMovieStar1</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>860</posX>
+        <posY>136</posY>
+        <width>32</width>
+        <height>32</height>
+        <texture>#ClickfinderPG.Movie1.TvMovieStar</texture>
+        <centered>no</centered>
+        <keepaspectratio>no</keepaspectratio>
+      </control>
+      <control>
+        <description>MovieTitle 1</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>980</posX>
+        <posY>78</posY>
+        <width>280</width>
+        <label>#ClickfinderPG.Movie1.Title</label>
+        <font>mediastream10tc</font>
+        <textcolor>White</textcolor>
+      </control>
+      <control>
+        <description>MovieGenre 1</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>980</posX>
+        <posY>114</posY>
+        <width>280</width>
+        <label>#ClickfinderPG.Movie1.Genre</label>
+        <font>mediastream10</font>
+        <textcolor>ff909090</textcolor>
+      </control>
+      <control>
+        <description>MovieTime 1</description>
+        <type>label</type>
+        <id>0</id>
+        <posX>1260</posX>
+        <posY>140</posY>
+        <align>right</align>
+        <width>255</width>
+        <scrollStartDelaySec>30</scrollStartDelaySec>
+        <label>#ClickfinderPG.Movie1.Channel - #ClickfinderPG.Movie1.Time</label>
+        <font>mediastream10</font>
+        <textcolor>ff909090</textcolor>
+      </control>
+    </control>
+    <control>
+      <description>GROUP: Clickfinder ProgramGuide: Movie 2</description>
+      <type>group</type>
+      <dimColor>0xffffffff</dimColor>
+      <visible>[control.isvisible(1003)|control.isvisible(40001)]+[!string.equals(#ClickfinderPG.Movie2.Title,)]</visible>
+      <animation effect="fade" start="100" end="0" time="250" reversible="false">Hidden</animation>
+      <animation effect="fade" start="0" end="100" delay="700" time="500" reversible="false">Visible</animation>
+      <animation effect="fade" start="0" end="100" time="4000" reversible="false">WindowOpen</animation>
+      <animation effect="slide" end="300,0" time="1500" acceleration="-0.1" reversible="false">Hidden</animation>
+      <animation effect="slide" start="300,0" end="0,0" time="1000" acceleration="-0.1" reversible="false">Visible</animation>
+      <animation effect="slide" start="400,0" end="0,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowOpen</animation>
+      <animation effect="slide" end="400,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowClose</animation>
+      <control>
+        <description>Movie 2 BG</description>
+        <posX>860</posX>
+        <posY>165</posY>
+        <type>image</type>
+        <id>0</id>
+        <width>420</width>
+        <height>96</height>
+        <texture>pic_preview_thumb_background.png</texture>
+        <colordiffuse>99FFFFFF</colordiffuse>
+      </control>
+      <control>
+        <description>MovieImage 2</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>872</posX>
+        <posY>169</posY>
+        <width>100</width>
+        <height>86</height>
+        <texture>#ClickfinderPG.Movie2.Image</texture>
+        <filtered>yes</filtered>
+        <centered>yes</centered>
+        <keepaspectratio>yes</keepaspectratio>
+      </control>
+      <control>
+        <description>MovieRatingStar Image 2</description>
+        <type>imagelist</type>
+        <id>1</id>
+        <posX>980</posX>
+        <posY>195</posY>
+        <width>120</width>
+        <height>10</height>
+        <textureWidth>12</textureWidth>
+        <textureHeight>12</textureHeight>
+        <subitems>
+          <subitem>UserRatingStarOff.png</subitem>
+          <subitem>stargood.png</subitem>
+        </subitems>
+        <orientation>horizontal</orientation>
+        <align>left</align>
+        <imagesToDraw>10</imagesToDraw>
+        <percentage>#ClickfinderPG.Movie2.RatingStar</percentage>
+      </control>
+      <control>
+        <description>MovieTvMovieStar2</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>860</posX>
+        <posY>231</posY>
+        <width>32</width>
+        <height>32</height>
+        <texture>#ClickfinderPG.Movie2.TvMovieStar</texture>
+        <centered>no</centered>
+        <keepaspectratio>no</keepaspectratio>
+      </control>
+      <control>
+        <description>MovieTitle 2</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>980</posX>
+        <posY>173</posY>
+        <width>280</width>
+        <label>#ClickfinderPG.Movie2.Title</label>
+        <font>mediastream10tc</font>
+        <textcolor>White</textcolor>
+      </control>
+      <control>
+        <description>MovieGenre 2</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>980</posX>
+        <posY>209</posY>
+        <width>280</width>
+        <label>#ClickfinderPG.Movie2.Genre</label>
+        <font>mediastream10</font>
+        <textcolor>ff909090</textcolor>
+      </control>
+      <control>
+        <description>MovieTime 2</description>
+        <type>label</type>
+        <id>0</id>
+        <posX>1260</posX>
+        <posY>235</posY>
+        <align>right</align>
+        <width>255</width>
+        <scrollStartDelaySec>30</scrollStartDelaySec>
+        <label>#ClickfinderPG.Movie2.Channel - #ClickfinderPG.Movie2.Time</label>
+        <font>mediastream10c</font>
+        <textcolor>ff909090</textcolor>
+      </control>
+    </control>
+    <control>
+      <description>GROUP: Clickfinder ProgramGuide: Movie 3</description>
+      <type>group</type>
+      <dimColor>0xffffffff</dimColor>
+      <visible>[control.isvisible(1003)|control.isvisible(40001)]+[!string.equals(#ClickfinderPG.Movie3.Title,)]</visible>
+      <animation effect="fade" start="100" end="0" time="250" reversible="false">Hidden</animation>
+      <animation effect="fade" start="0" end="100" delay="700" time="500" reversible="false">Visible</animation>
+      <animation effect="fade" start="0" end="100" time="4000" reversible="false">WindowOpen</animation>
+      <animation effect="slide" end="300,0" time="1500" acceleration="-0.1" reversible="false">Hidden</animation>
+      <animation effect="slide" start="300,0" end="0,0" time="1000" acceleration="-0.1" reversible="false">Visible</animation>
+      <animation effect="slide" start="400,0" end="0,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowOpen</animation>
+      <animation effect="slide" end="400,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowClose</animation>
+      <control>
+        <description>Movie 3 BG</description>
+        <posX>860</posX>
+        <posY>260</posY>
+        <type>image</type>
+        <id>0</id>
+        <width>420</width>
+        <height>96</height>
+        <texture>pic_preview_thumb_background.png</texture>
+        <colordiffuse>99FFFFFF</colordiffuse>
+      </control>
+      <control>
+        <description>MovieImage 3</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>872</posX>
+        <posY>264</posY>
+        <width>100</width>
+        <height>86</height>
+        <texture>#ClickfinderPG.Movie3.Image</texture>
+        <filtered>yes</filtered>
+        <centered>yes</centered>
+        <keepaspectratio>yes</keepaspectratio>
+      </control>
+      <control>
+        <description>MovieRatingStar Image 3</description>
+        <type>imagelist</type>
+        <id>1</id>
+        <posX>980</posX>
+        <posY>290</posY>
+        <width>120</width>
+        <height>10</height>
+        <textureWidth>12</textureWidth>
+        <textureHeight>12</textureHeight>
+        <subitems>
+          <subitem>UserRatingStarOff.png</subitem>
+          <subitem>stargood.png</subitem>
+        </subitems>
+        <orientation>horizontal</orientation>
+        <align>left</align>
+        <imagesToDraw>10</imagesToDraw>
+        <percentage>#ClickfinderPG.Movie3.RatingStar</percentage>
+      </control>
+      <control>
+        <description>MovieTvMovieStar3</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>860</posX>
+        <posY>326</posY>
+        <width>32</width>
+        <height>32</height>
+        <texture>#ClickfinderPG.Movie3.TvMovieStar</texture>
+        <centered>no</centered>
+        <keepaspectratio>no</keepaspectratio>
+      </control>
+      <control>
+        <description>MovieTitle 3</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>980</posX>
+        <posY>268</posY>
+        <width>280</width>
+        <label>#ClickfinderPG.Movie3.Title</label>
+        <font>mediastream10tc</font>
+        <textcolor>White</textcolor>
+      </control>
+      <control>
+        <description>MovieGenre 3</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>980</posX>
+        <posY>304</posY>
+        <width>280</width>
+        <label>#ClickfinderPG.Movie3.Genre</label>
+        <font>mediastream10</font>
+        <textcolor>ff909090</textcolor>
+      </control>
+      <control>
+        <description>MovieTime 3</description>
+        <type>label</type>
+        <id>0</id>
+        <posX>1260</posX>
+        <posY>330</posY>
+        <align>right</align>
+        <width>255</width>
+        <scrollStartDelaySec>30</scrollStartDelaySec>
+        <label>#ClickfinderPG.Movie3.Channel - #ClickfinderPG.Movie3.Time</label>
+        <font>mediastream10c</font>
+        <textcolor>ff909090</textcolor>
+      </control>
+    </control>
+    <control>
+      <description>GROUP: Clickfinder ProgramGuide: Movie 4</description>
+      <type>group</type>
+      <dimColor>0xffffffff</dimColor>
+      <visible>[control.isvisible(1003)|control.isvisible(40001)]+[!string.equals(#ClickfinderPG.Movie4.Title,)]</visible>
+      <animation effect="fade" start="100" end="0" time="250" reversible="false">Hidden</animation>
+      <animation effect="fade" start="0" end="100" delay="700" time="500" reversible="false">Visible</animation>
+      <animation effect="fade" start="0" end="100" time="4000" reversible="false">WindowOpen</animation>
+      <animation effect="slide" end="300,0" time="1500" acceleration="-0.1" reversible="false">Hidden</animation>
+      <animation effect="slide" start="300,0" end="0,0" time="1000" acceleration="-0.1" reversible="false">Visible</animation>
+      <animation effect="slide" start="400,0" end="0,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowOpen</animation>
+      <animation effect="slide" end="400,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowClose</animation>
+      <control>
+        <description>Movie 4 BG</description>
+        <posX>860</posX>
+        <posY>355</posY>
+        <type>image</type>
+        <id>0</id>
+        <width>420</width>
+        <height>96</height>
+        <texture>pic_preview_thumb_background.png</texture>
+        <colordiffuse>99FFFFFF</colordiffuse>
+      </control>
+      <control>
+        <description>MovieImage 4</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>872</posX>
+        <posY>359</posY>
+        <width>100</width>
+        <height>86</height>
+        <texture>#ClickfinderPG.Movie4.Image</texture>
+        <filtered>yes</filtered>
+        <centered>yes</centered>
+        <keepaspectratio>yes</keepaspectratio>
+      </control>
+      <control>
+        <description>MovieRatingStar Image 4</description>
+        <type>imagelist</type>
+        <id>1</id>
+        <posX>980</posX>
+        <posY>385</posY>
+        <width>120</width>
+        <height>10</height>
+        <textureWidth>12</textureWidth>
+        <textureHeight>12</textureHeight>
+        <subitems>
+          <subitem>UserRatingStarOff.png</subitem>
+          <subitem>stargood.png</subitem>
+        </subitems>
+        <orientation>horizontal</orientation>
+        <align>left</align>
+        <imagesToDraw>10</imagesToDraw>
+        <percentage>#ClickfinderPG.Movie4.RatingStar</percentage>
+      </control>
+      <control>
+        <description>MovieTvMovieStar4</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>860</posX>
+        <posY>421</posY>
+        <width>32</width>
+        <height>32</height>
+        <texture>#ClickfinderPG.Movie4.TvMovieStar</texture>
+        <centered>no</centered>
+        <keepaspectratio>no</keepaspectratio>
+      </control>
+      <control>
+        <description>MovieTitle 4</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>980</posX>
+        <posY>363</posY>
+        <width>280</width>
+        <label>#ClickfinderPG.Movie4.Title</label>
+        <font>mediastream10tc</font>
+        <textcolor>White</textcolor>
+      </control>
+      <control>
+        <description>MovieGenre 4</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>980</posX>
+        <posY>401</posY>
+        <width>280</width>
+        <label>#ClickfinderPG.Movie4.Genre</label>
+        <font>mediastream10</font>
+        <textcolor>ff909090</textcolor>
+      </control>
+      <control>
+        <description>MovieTime 4</description>
+        <type>label</type>
+        <id>0</id>
+        <posX>1260</posX>
+        <posY>425</posY>
+        <align>right</align>
+        <width>255</width>
+        <scrollStartDelaySec>30</scrollStartDelaySec>
+        <label>#ClickfinderPG.Movie4.Channel - #ClickfinderPG.Movie4.Time</label>
+        <font>mediastream10c</font>
+        <textcolor>ff909090</textcolor>
+      </control>
+    </control>
+
+    <!-- Series Overlay-->
+
+    <control>
+      <description>GROUP: Clickfinder ProgramGuide: Series 1</description>
+      <type>group</type>
+      <dimColor>0xffffffff</dimColor>
+      <visible>[control.isvisible(1003)|control.isvisible(40001)]+[!string.equals(#ClickfinderPG.Series1.Title,)]</visible>
+      <animation effect="fade" start="100" end="0" time="250" reversible="false">Hidden</animation>
+      <animation effect="fade" start="0" end="100" delay="700" time="500" reversible="false">Visible</animation>
+      <animation effect="fade" start="0" end="100" time="4000" reversible="false">WindowOpen</animation>
+      <animation effect="slide" end="-300,0" time="1500" acceleration="-0.1" reversible="false">Hidden</animation>
+      <animation effect="slide" start="-300,0" end="0,0" time="1000" acceleration="-0.1" reversible="false">Visible</animation>
+      <animation effect="slide" start="-400,0" end="0,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowOpen</animation>
+      <animation effect="slide" end="-400,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowClose</animation>
+      <control>
+        <description>Series 1 BG</description>
+        <posX>0</posX>
+        <posY>70</posY>
+        <type>image</type>
+        <id>0</id>
+        <width>420</width>
+        <height>96</height>
+        <texture>pic_preview_thumb_background.png</texture>
+        <colordiffuse>99FFFFFF</colordiffuse>
+      </control>
+      <control>
+        <description>SeriesImage 1</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>10</posX>
+        <posY>78</posY>
+        <width>60</width>
+        <height>78</height>
+        <texture>#ClickfinderPG.Series1.Image</texture>
+        <filtered>yes</filtered>
+        <centered>yes</centered>
+        <keepaspectratio>yes</keepaspectratio>
+      </control>
+      <control>
+        <description>SeriesTitle 1</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>80</posX>
+        <posY>78</posY>
+        <width>320</width>
+        <label>#ClickfinderPG.Series1.Title</label>
+        <font>mediastream10tc</font>
+        <textcolor>White</textcolor>
+      </control>
+      <control>
+        <description>SeriesRatingStar Image 1</description>
+        <type>imagelist</type>
+        <id>1</id>
+        <posX>80</posX>
+        <posY>100</posY>
+        <width>120</width>
+        <height>10</height>
+        <textureWidth>12</textureWidth>
+        <textureHeight>12</textureHeight>
+        <subitems>
+          <subitem>UserRatingStarOff.png</subitem>
+          <subitem>stargood.png</subitem>
+        </subitems>
+        <orientation>horizontal</orientation>
+        <align>left</align>
+        <imagesToDraw>10</imagesToDraw>
+        <percentage>#ClickfinderPG.Series1.RatingStar</percentage>
+      </control>
+      <control>
+        <description>CountNewEpisodes 1</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>80</posX>
+        <posY>116</posY>
+        <width>320</width>
+        <label>#ClickfinderPG.Series1.CountNewEpisodes</label>
+        <font>mediastream10</font>
+        <textcolor>ff909090</textcolor>
+      </control>
+      <control>
+        <description>NewEpisodesNumbers 1</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>80</posX>
+        <posY>138</posY>
+        <width>320</width>
+        <label>#ClickfinderPG.Series1.NewEpisodesNumbers</label>
+        <font>mediastream10</font>
+        <textcolor>ff909090</textcolor>
+      </control>
+    </control>
+    <control>
+      <description>GROUP: Clickfinder ProgramGuide: Series 2</description>
+      <type>group</type>
+      <dimColor>0xffffffff</dimColor>
+      <visible>[control.isvisible(1003)|control.isvisible(40001)]+[!string.equals(#ClickfinderPG.Series2.Title,)]</visible>
+      <animation effect="fade" start="100" end="0" time="250" reversible="false">Hidden</animation>
+      <animation effect="fade" start="0" end="100" delay="700" time="500" reversible="false">Visible</animation>
+      <animation effect="fade" start="0" end="100" time="4000" reversible="false">WindowOpen</animation>
+      <animation effect="slide" end="-300,0" time="1500" acceleration="-0.1" reversible="false">Hidden</animation>
+      <animation effect="slide" start="-300,0" end="0,0" time="1000" acceleration="-0.1" reversible="false">Visible</animation>
+      <animation effect="slide" start="-400,0" end="0,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowOpen</animation>
+      <animation effect="slide" end="-400,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowClose</animation>
+      <control>
+        <description>Series 2 BG</description>
+        <posX>0</posX>
+        <posY>165</posY>
+        <type>image</type>
+        <id>0</id>
+        <width>420</width>
+        <height>96</height>
+        <texture>pic_preview_thumb_background.png</texture>
+        <colordiffuse>99FFFFFF</colordiffuse>
+      </control>
+      <control>
+        <description>SeriesImage 2</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>10</posX>
+        <posY>173</posY>
+        <width>60</width>
+        <height>78</height>
+        <texture>#ClickfinderPG.Series2.Image</texture>
+        <filtered>yes</filtered>
+        <centered>yes</centered>
+        <keepaspectratio>yes</keepaspectratio>
+      </control>
+      <control>
+        <description>SeriesTitle 2</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>80</posX>
+        <posY>173</posY>
+        <width>320</width>
+        <label>#ClickfinderPG.Series2.Title</label>
+        <font>mediastream10tc</font>
+        <textcolor>White</textcolor>
+      </control>
+      <control>
+        <description>SeriesRatingStar Image 2</description>
+        <type>imagelist</type>
+        <id>1</id>
+        <posX>80</posX>
+        <posY>195</posY>
+        <width>120</width>
+        <height>10</height>
+        <textureWidth>12</textureWidth>
+        <textureHeight>12</textureHeight>
+        <subitems>
+          <subitem>UserRatingStarOff.png</subitem>
+          <subitem>stargood.png</subitem>
+        </subitems>
+        <orientation>horizontal</orientation>
+        <align>left</align>
+        <imagesToDraw>10</imagesToDraw>
+        <percentage>#ClickfinderPG.Series2.RatingStar</percentage>
+      </control>
+      <control>
+        <description>CountNewEpisodes 2</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>80</posX>
+        <posY>211</posY>
+        <width>320</width>
+        <label>#ClickfinderPG.Series2.CountNewEpisodes</label>
+        <font>mediastream10</font>
+        <textcolor>ff909090</textcolor>
+      </control>
+      <control>
+        <description>NewEpisodesNumbers 2</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>80</posX>
+        <posY>231</posY>
+        <width>320</width>
+        <label>#ClickfinderPG.Series2.NewEpisodesNumbers</label>
+        <font>mediastream10</font>
+        <textcolor>ff909090</textcolor>
+      </control>
+    </control>
+    <control>
+      <description>GROUP: Clickfinder ProgramGuide: Series 3</description>
+      <type>group</type>
+      <dimColor>0xffffffff</dimColor>
+      <visible>[control.isvisible(1003)|control.isvisible(40001)]+[!string.equals(#ClickfinderPG.Series3.Title,)]</visible>
+      <animation effect="fade" start="100" end="0" time="250" reversible="false">Hidden</animation>
+      <animation effect="fade" start="0" end="100" delay="700" time="500" reversible="false">Visible</animation>
+      <animation effect="fade" start="0" end="100" time="4000" reversible="false">WindowOpen</animation>
+      <animation effect="slide" end="-300,0" time="1500" acceleration="-0.1" reversible="false">Hidden</animation>
+      <animation effect="slide" start="-300,0" end="0,0" time="1000" acceleration="-0.1" reversible="false">Visible</animation>
+      <animation effect="slide" start="-400,0" end="0,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowOpen</animation>
+      <animation effect="slide" end="-400,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowClose</animation>
+      <control>
+        <description>Series 3 BG</description>
+        <posX>0</posX>
+        <posY>260</posY>
+        <type>image</type>
+        <id>0</id>
+        <width>420</width>
+        <height>96</height>
+        <texture>pic_preview_thumb_background.png</texture>
+        <colordiffuse>99FFFFFF</colordiffuse>
+      </control>
+      <control>
+        <description>SeriesImage 3</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>10</posX>
+        <posY>268</posY>
+        <width>60</width>
+        <height>78</height>
+        <texture>#ClickfinderPG.Series3.Image</texture>
+        <filtered>yes</filtered>
+        <centered>yes</centered>
+        <keepaspectratio>yes</keepaspectratio>
+      </control>
+      <control>
+        <description>SeriesTitle 3</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>80</posX>
+        <posY>268</posY>
+        <width>320</width>
+        <label>#ClickfinderPG.Series3.Title</label>
+        <font>mediastream10tc</font>
+        <textcolor>White</textcolor>
+      </control>
+      <control>
+        <description>SeriesRatingStar Image 3</description>
+        <type>imagelist</type>
+        <id>1</id>
+        <posX>80</posX>
+        <posY>290</posY>
+        <width>120</width>
+        <height>10</height>
+        <textureWidth>12</textureWidth>
+        <textureHeight>12</textureHeight>
+        <subitems>
+          <subitem>UserRatingStarOff.png</subitem>
+          <subitem>stargood.png</subitem>
+        </subitems>
+        <orientation>horizontal</orientation>
+        <align>left</align>
+        <imagesToDraw>10</imagesToDraw>
+        <percentage>#ClickfinderPG.Series3.RatingStar</percentage>
+      </control>
+      <control>
+        <description>CountNewEpisodes 3</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>80</posX>
+        <posY>306</posY>
+        <width>320</width>
+        <label>#ClickfinderPG.Series3.CountNewEpisodes</label>
+        <font>mediastream10</font>
+        <textcolor>ff909090</textcolor>
+      </control>
+      <control>
+        <description>NewEpisodesNumbers 3</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>80</posX>
+        <posY>326</posY>
+        <width>320</width>
+        <label>#ClickfinderPG.Series3.NewEpisodesNumbers</label>
+        <font>mediastream10</font>
+        <textcolor>ff909090</textcolor>
+      </control>
+    </control>
+    <control>
+      <description>GROUP: Clickfinder ProgramGuide: Series 4</description>
+      <type>group</type>
+      <dimColor>0xffffffff</dimColor>
+      <visible>[control.isvisible(1003)|control.isvisible(40001)]+[!string.equals(#ClickfinderPG.Series4.Title,)]</visible>
+      <animation effect="fade" start="100" end="0" time="250" reversible="false">Hidden</animation>
+      <animation effect="fade" start="0" end="100" delay="700" time="500" reversible="false">Visible</animation>
+      <animation effect="fade" start="0" end="100" time="4000" reversible="false">WindowOpen</animation>
+      <animation effect="slide" end="-300,0" time="1500" acceleration="-0.1" reversible="false">Hidden</animation>
+      <animation effect="slide" start="-300,0" end="0,0" time="1000" acceleration="-0.1" reversible="false">Visible</animation>
+      <animation effect="slide" start="-400,0" end="0,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowOpen</animation>
+      <animation effect="slide" end="-400,0" tween="quadratic" easing="in" time=" 400" delay="200">WindowClose</animation>
+      <control>
+        <description>Series 4 BG</description>
+        <posX>0</posX>
+        <posY>355</posY>
+        <type>image</type>
+        <id>0</id>
+        <width>420</width>
+        <height>96</height>
+        <texture>pic_preview_thumb_background.png</texture>
+        <colordiffuse>99FFFFFF</colordiffuse>
+      </control>
+      <control>
+        <description>SeriesImage 4</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>10</posX>
+        <posY>363</posY>
+        <width>60</width>
+        <height>78</height>
+        <texture>#ClickfinderPG.Series4.Image</texture>
+        <filtered>yes</filtered>
+        <centered>yes</centered>
+        <keepaspectratio>yes</keepaspectratio>
+      </control>
+      <control>
+        <description>SeriesTitle 4</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>80</posX>
+        <posY>363</posY>
+        <width>320</width>
+        <label>#ClickfinderPG.Series4.Title</label>
+        <font>mediastream10tc</font>
+        <textcolor>White</textcolor>
+      </control>
+      <control>
+        <description>SeriesRatingStar Image 4</description>
+        <type>imagelist</type>
+        <id>1</id>
+        <posX>80</posX>
+        <posY>385</posY>
+        <width>120</width>
+        <height>10</height>
+        <textureWidth>12</textureWidth>
+        <textureHeight>12</textureHeight>
+        <subitems>
+          <subitem>UserRatingStarOff.png</subitem>
+          <subitem>stargood.png</subitem>
+        </subitems>
+        <orientation>horizontal</orientation>
+        <align>left</align>
+        <imagesToDraw>10</imagesToDraw>
+        <percentage>#ClickfinderPG.Series4.RatingStar</percentage>
+      </control>
+      <control>
+        <description>CountNewEpisodes 4</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>80</posX>
+        <posY>401</posY>
+        <width>320</width>
+        <label>#ClickfinderPG.Series4.CountNewEpisodes</label>
+        <font>mediastream10</font>
+        <textcolor>ff909090</textcolor>
+      </control>
+      <control>
+        <description>NewEpisodesNumbers 4</description>
+        <type>fadelabel</type>
+        <id>0</id>
+        <posX>80</posX>
+        <posY>421</posY>
+        <width>320</width>
+        <label>#ClickfinderPG.Series4.NewEpisodesNumbers</label>
+        <font>mediastream10</font>
+        <textcolor>ff909090</textcolor>
+      </control>
+    </control>
+  </controls>
+</window>

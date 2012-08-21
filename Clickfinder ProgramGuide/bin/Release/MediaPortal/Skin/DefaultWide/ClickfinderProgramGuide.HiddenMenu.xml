@@ -106,6 +106,7 @@
           <onup>7</onup>
           <ondown>2</ondown>
           <onright>10</onright>
+          <visible>plugin.isenabled(MP-TV Series)</visible>
         </control>
       </control>
     </control>

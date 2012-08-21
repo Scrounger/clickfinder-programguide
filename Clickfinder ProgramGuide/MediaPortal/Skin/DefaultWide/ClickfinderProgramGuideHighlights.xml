@@ -220,6 +220,8 @@
       <centered>yes</centered>
       <keepaspectratio>yes</keepaspectratio>
       <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <control>
@@ -241,6 +243,8 @@
       <imagesToDraw>10</imagesToDraw>
       <percentage>#MovieListRatingStar1</percentage>
       <visible>!string.starts(#MovieListRatingStar1,0)+control.isvisible(10)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <control>
@@ -256,6 +260,8 @@
       <centered>yes</centered>
       <keepaspectratio>yes</keepaspectratio>
       <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <control>
@@ -277,6 +283,8 @@
       <imagesToDraw>10</imagesToDraw>
       <percentage>#MovieListRatingStar2</percentage>
       <visible>!string.starts(#MovieListRatingStar2,0)+control.isvisible(10)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <control>
@@ -292,6 +300,8 @@
       <centered>yes</centered>
       <keepaspectratio>yes</keepaspectratio>
       <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <control>
@@ -313,6 +323,8 @@
       <imagesToDraw>10</imagesToDraw>
       <percentage>#MovieListRatingStar3</percentage>
       <visible>!string.starts(#MovieListRatingStar3,0)+control.isvisible(10)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <control>
@@ -328,6 +340,8 @@
       <centered>yes</centered>
       <keepaspectratio>yes</keepaspectratio>
       <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
     <control>
       <description>MovieListRatingStar Image 4</description>
@@ -348,6 +362,8 @@
       <imagesToDraw>10</imagesToDraw>
       <percentage>#MovieListRatingStar4</percentage>
       <visible>!string.starts(#MovieListRatingStar4,0)+control.isvisible(10)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
     <control>
@@ -363,6 +379,8 @@
       <centered>yes</centered>
       <keepaspectratio>yes</keepaspectratio>
       <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
     <control>
       <description>MovieListRatingStar Image 5</description>
@@ -383,6 +401,8 @@
       <imagesToDraw>10</imagesToDraw>
       <percentage>#MovieListRatingStar5</percentage>
       <visible>!string.starts(#MovieListRatingStar5,0)+control.isvisible(10)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
     <control>
       <description>MovieListImage 6</description>
@@ -397,6 +417,8 @@
       <centered>yes</centered>
       <keepaspectratio>yes</keepaspectratio>
       <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
     <control>
       <description>MovieListRatingStar Image 6</description>
@@ -417,6 +439,8 @@
       <imagesToDraw>10</imagesToDraw>
       <percentage>#MovieListRatingStar6</percentage>
       <visible>!string.starts(#MovieListRatingStar6,0)+control.isvisible(10)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
 
@@ -433,6 +457,8 @@
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
       <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
     <control>
       <description>MovieListTvMovieStar2</description>
@@ -446,6 +472,8 @@
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
       <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
     <control>
       <description>MovieListTvMovieStar3</description>
@@ -459,6 +487,8 @@
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
       <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
     <control>
       <description>MovieListTvMovieStar4</description>
@@ -472,6 +502,8 @@
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
       <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
     <control>
       <description>MovieListTvMovieStar5</description>
@@ -485,6 +517,8 @@
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
       <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
     <control>
       <description>MovieListTvMovieStar6</description>
@@ -498,6 +532,8 @@
       <centered>no</centered>
       <keepaspectratio>no</keepaspectratio>
       <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
     </control>
     <!-- HighlightsList & Controls-->
     <control>
