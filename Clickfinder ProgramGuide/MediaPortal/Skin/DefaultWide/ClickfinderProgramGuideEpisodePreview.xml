@@ -16,16 +16,16 @@
       <texture>hover_ClickfinderProgramGuide.png</texture>
     </control>
 
-    <!--<control>
-      <id>45</id>
+    <control>
+      <id>1</id>
       <description>Background FanArt Image</description>
       <type>image</type>
       <posX>0</posX>
       <posY>0</posY>
       <width>1280</width>
       <height>720</height>
-      <visible>no</visible>
-    </control>-->
+      <texture>#EpisodesPreviewFanArt</texture>
+    </control>
 
     <control>
       <description>Overlay Image</description>
@@ -166,9 +166,9 @@
       <visible></visible>
     </control>
 
-    
+
     <!-- RepeatsList & Controls-->
-    
+
     <control>
       <id>1</id>
       <description>Background Image</description>
@@ -185,7 +185,7 @@
       <id>1</id>
       <posX>670</posX>
       <posY>76</posY>
-      <label>#ClickfinderPG.Translation.Repeats</label>
+      <label>#EpisodesPreviewSeriesHeaderLabel</label>
       <font>font12</font>
       <textcolor>FFdddddd</textcolor>
     </control>
@@ -201,7 +201,57 @@
     </control>
 
 
+    <control>
+      <type>listcontrol</type>
+      <id>30</id>
+      <onright>2</onright>
+      <onleft>10</onleft>
+      <onup>30</onup>
+      <posX>680</posX>
+      <posY>490</posY>
+      <width>550</width>
+      <height>236</height>
+      <spinWidth>20</spinWidth>
+      <spinHeight>20</spinHeight>
+      <spinPosX>1190</spinPosX>
+      <spinPosY>670</spinPosY>
+      <spinAlign>Right</spinAlign>
+      <spinColor>ff006698</spinColor>
+      <spinCanFocus>no</spinCanFocus>
+      <textureUp>page_up_nofocus.png</textureUp>
+      <textureDown>page_down_nofocus.png</textureDown>
+      <textureUpFocus>page_up_focus.png</textureUpFocus>
+      <textureDownFocus>page_down_focus.png</textureDownFocus>
+      <textureFocus>list_sub_focus.png</textureFocus>
+      <textureNoFocus>list_sub_nofocus.png</textureNoFocus>
+      <textureHeight>60</textureHeight>
+      <PinIconXOff>510</PinIconXOff>
+      <PinIconYOff>10</PinIconYOff>
+      <spaceBetweenItems>4</spaceBetweenItems>
+      <IconXOff>4</IconXOff>
+      <IconYOff>4</IconYOff>
+      <textXOff>2</textXOff>
+      <textYOff>2</textYOff>
+      <font>font11</font>
+      <textcolor>ffffffff</textcolor>
+      <textXOff2>590</textXOff2>
+      <textYOff2>30</textYOff2>
+      <font2>font10</font2>
+      <textcolor2>ff909090</textcolor2>
+      <textXOff3>68</textXOff3>
+      <textYOff3>30</textYOff3>
+      <font3>font9</font3>
+      <textcolor3>ff909090</textcolor3>
+      <itemWidth>52</itemWidth>
+      <itemHeight>52</itemHeight>
+      <scrollOffset>2</scrollOffset>
+      <scrollbarXOff>630</scrollbarXOff>
+      <scrollbarwidth>15</scrollbarwidth>
+      <border texture="image_border.png" textureRotate="yes" textureRepeat="no">5</border>
+      <visible></visible>
+    </control>
 
+    <!-- Infos -->
     <control>
       <description>Series Poster Image</description>
       <type>image</type>
@@ -235,56 +285,111 @@
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
-    
-    
+
     <control>
-      <type>listcontrol</type>
-      <id>30</id>
-      <onright>2</onright>
-      <onleft>10</onleft>
-      <onup>30</onup>
-      <posX>660</posX>
-      <posY>418</posY>
-      <width>590</width>
-      <height>336</height>
-      <spinWidth>30</spinWidth>
-      <spinHeight>30</spinHeight>
-      <spinPosX>1190</spinPosX>
-      <spinPosY>80</spinPosY>
-      <spinAlign>Right</spinAlign>
-      <spinColor>ff006698</spinColor>
-      <spinCanFocus>no</spinCanFocus>
-      <textureUp>page_up_nofocus.png</textureUp>
-      <textureDown>page_down_nofocus.png</textureDown>
-      <textureUpFocus>page_up_focus.png</textureUpFocus>
-      <textureDownFocus>page_down_focus.png</textureDownFocus>
-      <textureFocus>list_sub_focus.png</textureFocus>
-      <textureNoFocus>list_sub_nofocus.png</textureNoFocus>
-      <textureHeight>60</textureHeight>
-      <PinIconXOff>550</PinIconXOff>
-      <PinIconYOff>10</PinIconYOff>
-      <spaceBetweenItems>4</spaceBetweenItems>
-      <IconXOff>4</IconXOff>
-      <IconYOff>4</IconYOff>
-      <textXOff>2</textXOff>
-      <textYOff>2</textYOff>
-      <font>font11</font>
-      <textcolor>ffffffff</textcolor>
-      <textXOff2>590</textXOff2>
-      <textYOff2>30</textYOff2>
-      <font2>font10</font2>
-      <textcolor2>ff909090</textcolor2>
-      <textXOff3>68</textXOff3>
-      <textYOff3>30</textYOff3>
-      <font3>font9</font3>
-      <textcolor3>ff909090</textcolor3>
-      <itemWidth>52</itemWidth>
-      <itemHeight>52</itemHeight>
-      <scrollOffset>2</scrollOffset>
-      <scrollbarXOff>630</scrollbarXOff>
-      <scrollbarwidth>15</scrollbarwidth>
-      <visible></visible>
+      <description>Series RatingStars</description>
+      <type>imagelist</type>
+      <id>44</id>
+      <posX>800</posX>
+      <posY>166</posY>
+      <width>120</width>
+      <height>40</height>
+      <textureWidth>28</textureWidth>
+      <textureHeight>28</textureHeight>
+      <subitems>
+        <subitem>UserRatingStarOff.png</subitem>
+        <subitem>stargood.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>10</imagesToDraw>
+      <percentage>#EpisodesPreviewSeriesRatingStar</percentage>
+      <visible>!string.starts(#DetailRatingStar,0)</visible>
     </control>
+
+    <control>
+      <description>Series Label1</description>
+      <type>fadelabel</type>
+      <id>1</id>
+      <posX>800</posX>
+      <posY>200</posY>
+      <width>440</width>
+      <align>left</align>
+      <font>font12</font>
+      <textcolor>ff909090</textcolor>
+      <label>#EpisodesPreviewLabel1</label>
+      <wrapString> | </wrapString>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Series Label2</description>
+      <type>fadelabel</type>
+      <id>1</id>
+      <posX>800</posX>
+      <posY>232</posY>
+      <width>440</width>
+      <align>left</align>
+      <font>font12</font>
+      <textcolor>ff909090</textcolor>
+      <label>#EpisodesPreviewLabel2</label>
+      <wrapString> | </wrapString>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Series Label3</description>
+      <type>fadelabel</type>
+      <id>1</id>
+      <posX>800</posX>
+      <posY>264</posY>
+      <width>440</width>
+      <align>left</align>
+      <font>font10</font>
+      <textcolor>ff909090</textcolor>
+      <label>#EpisodesPreviewLabel3</label>
+      <wrapString> | </wrapString>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Series Summary</description>
+      <type>textboxscrollup</type>
+      <id>1</id>
+      <posX>670</posX>
+      <posY>310</posY>
+      <width>570</width>
+      <height>360</height>
+      <label>#EpisodesPreviewSeriesSummary</label>
+      <seperator>-------------------------------------------------------------------------------------------------------------------------------------------</seperator>
+      <font>font12</font>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Episode Description</description>
+      <type>textboxscrollup</type>
+      <id>1</id>
+      <posX>670</posX>
+      <posY>310</posY>
+      <width>570</width>
+      <height>170</height>
+      <label>#EpisodesPreviewEpisodeDescription</label>
+      <seperator>-------------------------------------------------------------------------------------------------------------------------------------------</seperator>
+      <font>font10</font>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
 
     <!-- ActionGroup -->
     <import>ClickfinderProgramGuide.HiddenMenu.xml</import>

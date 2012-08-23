@@ -255,6 +255,47 @@ Public Class TVSeriesDB
 
             End Get
         End Property
+
+        Public ReadOnly Property Summary() As String
+            Get
+                If _SeriesInfos IsNot Nothing AndAlso _SeriesInfos.Rows.Count > 0 Then
+                    Return DatabaseUtility.[Get](_SeriesInfos, _Index, "Summary")
+                Else
+                    Return ""
+                End If
+            End Get
+        End Property
+
+        Public ReadOnly Property Rating() As Integer
+            Get
+                If _SeriesInfos IsNot Nothing AndAlso _SeriesInfos.Rows.Count > 0 Then
+                    Return CInt(Replace(DatabaseUtility.[Get](_SeriesInfos, _Index, "Rating"), ".", ","))
+                Else
+                    Return 0
+                End If
+            End Get
+        End Property
+
+        Public ReadOnly Property Network() As String
+            Get
+                If _SeriesInfos IsNot Nothing AndAlso _SeriesInfos.Rows.Count > 0 Then
+                    Return DatabaseUtility.[Get](_SeriesInfos, _Index, "Network")
+                Else
+                    Return ""
+                End If
+            End Get
+        End Property
+
+        Public ReadOnly Property Status() As String
+            Get
+                If _SeriesInfos IsNot Nothing AndAlso _SeriesInfos.Rows.Count > 0 Then
+                    Return DatabaseUtility.[Get](_SeriesInfos, _Index, "Status")
+                Else
+                    Return ""
+                End If
+            End Get
+        End Property
+
     End Class
 
 

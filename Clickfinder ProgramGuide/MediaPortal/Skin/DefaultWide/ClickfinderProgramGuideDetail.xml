@@ -358,7 +358,7 @@
     <control>
       <description>Detail Describtion</description>
       <type>textboxscrollup</type>
-      <id>32</id>
+      <id>1</id>
       <posX>350</posX>
       <posY>330</posY>
       <width>820</width>

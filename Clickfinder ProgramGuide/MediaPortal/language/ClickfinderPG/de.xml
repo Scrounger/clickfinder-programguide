@@ -98,6 +98,6 @@
   <string Field="MPtvSeries">MP-TvSeries</string>
   <string Field="InTheNext">in den nächsten</string>
   <string Field="Repeats">Wiederholungen</string>
-  
+  <string Field="SeriesInfos">Infos zur Serie</string>
   
 </strings>

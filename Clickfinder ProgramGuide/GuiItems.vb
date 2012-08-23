@@ -633,8 +633,10 @@ Namespace ClickfinderProgramGuide
                 MyLog.Debug("[ItemsGuiWindow] [FillLeftList]: Thread finished")
                 MyLog.Debug("")
 
-                GUIListControl.SelectItemControl(GetID, _LastFocusedControlID, _LastFocusedIndex)
-                GUIListControl.FocusControl(GetID, _LastFocusedControlID)
+                If _ThreadRightList.IsAlive = False Then
+                    GUIListControl.SelectItemControl(GetID, _LastFocusedControlID, _LastFocusedIndex)
+                    GUIListControl.FocusControl(GetID, _LastFocusedControlID)
+                End If
 
             Catch ex As ThreadAbortException
                 MyLog.Debug("[ItemsGuiWindow] [FillLeftList]: --- THREAD ABORTED ---")
@@ -725,8 +727,10 @@ Namespace ClickfinderProgramGuide
                 MyLog.Debug("[ItemsGuiWindow] [FillRightList]: Thread finished")
                 MyLog.Debug("")
 
-                GUIListControl.SelectItemControl(GetID, _LastFocusedControlID, _LastFocusedIndex)
-                GUIListControl.FocusControl(GetID, _LastFocusedControlID)
+                If _ThreadLeftList.IsAlive = False Then
+                    GUIListControl.SelectItemControl(GetID, _LastFocusedControlID, _LastFocusedIndex)
+                    GUIListControl.FocusControl(GetID, _LastFocusedControlID)
+                End If
 
             Catch ex As ThreadAbortException
                 MyLog.Debug("[ItemsGuiWindow] [FillRightList]: --- THREAD ABORTED ---")

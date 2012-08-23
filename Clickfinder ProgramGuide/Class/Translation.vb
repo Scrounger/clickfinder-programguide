@@ -104,6 +104,7 @@ Public NotInheritable Class Translation
     Public Shared MPtvSeries As String = "MP-TvSeries"
     Public Shared InTheNext As String = "in den nächsten"
     Public Shared Repeats As String = "Wiederholungen"
+    Public Shared SeriesInfos As String = "Infos zur Serie"
 
 
 End Class

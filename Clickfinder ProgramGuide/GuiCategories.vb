@@ -500,8 +500,6 @@ Namespace ClickfinderProgramGuide
 
 #End Region
 
-
-
 #Region "Functions"
 
         Private Sub FillCategories()
@@ -527,10 +525,10 @@ Namespace ClickfinderProgramGuide
                     End If
                 Next
 
-                GUIListControl.SelectItemControl(GetID, _CategorieList.GetID, _SelectedCategorieItemId)
-
-                GUIListControl.SelectItemControl(GetID, _LastFocusedControlID, _LastFocusedIndex)
-                GUIListControl.FocusControl(GetID, _LastFocusedControlID)
+                If ThreadPreviewListFill.IsAlive = False Then
+                    GUIListControl.SelectItemControl(GetID, _LastFocusedControlID, _LastFocusedIndex)
+                    GUIListControl.FocusControl(GetID, _LastFocusedControlID)
+                End If
 
                 MyLog.Debug("[CategoriesGuiWindow] [FillCategories]: categories ({0})", _logCategories)
                 MyLog.Debug("[CategoriesGuiWindow] [FillCategories]: hidden categories ({0})", _logHiddenCategories)

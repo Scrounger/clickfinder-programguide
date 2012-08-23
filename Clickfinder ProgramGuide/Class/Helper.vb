@@ -31,7 +31,7 @@ Public Class Helper
         parentalRating
         Series
     End Enum
-    Friend Shared Sub AddListControlItem(ByVal Listcontrol As GUIListControl, ByVal idProgram As Integer, ByVal ChannelName As String, ByVal titelLabel As String, Optional ByVal timeLabel As String = "", Optional ByVal infoLabel As String = "", Optional ByVal ImagePath As String = "", Optional ByVal MinRunTime As Integer = 0, Optional ByVal isRecording As String = "")
+    Friend Shared Sub AddListControlItem(ByVal Listcontrol As GUIListControl, ByVal idProgram As Integer, ByVal ChannelName As String, ByVal titelLabel As String, Optional ByVal timeLabel As String = "", Optional ByVal infoLabel As String = "", Optional ByVal ImagePath As String = "", Optional ByVal MinRunTime As Integer = 0, Optional ByVal isRecording As String = "", Optional ByVal tmpInfo As String = "")
 
         Dim lItem As New GUIListItem
 
@@ -43,6 +43,7 @@ Public Class Helper
         lItem.IconImage = ImagePath
         lItem.Duration = MinRunTime
         lItem.PinImage = isRecording
+        lItem.TVTag = tmpInfo
 
         GUIControl.AddListItemControl(GUIWindowManager.ActiveWindow, Listcontrol.GetID, lItem)
 
@@ -696,6 +697,117 @@ Public Class Helper
         MyLog.Debug("[TvMovie++] Import Clickfinder ProgramGuide Infos: {0}", _tvbLayer.GetSetting("ClickfinderDataAvailable").Value)
 
 
+
+    End Sub
+
+    Friend Shared Sub UpdateProgramData(ByVal TvMovieProgram As TVMovieProgram)
+
+        Try
+
+            MyLog.Debug("[Helper]: [UpdateProgramData]: program needs update")
+
+            Dim _ClickfinderDB As New ClickfinderDB(TvMovieProgram.ReferencedProgram, True)
+
+            'Wenn HD Sender -> Dolby = true, Hd = true
+            If InStr(TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, " HD") > 0 Then
+                TvMovieProgram.Dolby = True
+                TvMovieProgram.HDTV = True
+            Else
+                'Daten aus ClickfinderDB 
+                If _ClickfinderDB.Count > 0 Then
+                    TvMovieProgram.Dolby = _ClickfinderDB(0).Dolby
+                    TvMovieProgram.HDTV = _ClickfinderDB(0).KzHDTV
+                End If
+            End If
+
+            'Jahr
+            If Not String.IsNullOrEmpty(_ClickfinderDB(0).Herstellungsjahr) Then
+                TvMovieProgram.Year = CDate("01.01." & _ClickfinderDB(0).Herstellungsjahr)
+            End If
+
+            'Country
+            If Not String.IsNullOrEmpty(_ClickfinderDB(0).Herstellungsland) Then
+                TvMovieProgram.Country = _ClickfinderDB(0).Herstellungsland
+            End If
+
+            'Regie
+            If Not String.IsNullOrEmpty(_ClickfinderDB(0).Regie) Then
+                TvMovieProgram.Regie = _ClickfinderDB(0).Regie
+            End If
+
+            'Describtion
+            If TvMovieProgram.idSeries > 0 And CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True And CBool(_layer.GetSetting("ClickfinderDetailUseSeriesDescribtion", "false").Value) = True Then
+                'Wenn Serie erkannt dann -> Episoden Beschreibung aus TvSeriesDB laden (sofern aktiviert & vorhanden)
+                Dim _Series As New TVSeriesDB
+                _Series.LoadEpisodebyEpsiodeID(TvMovieProgram.idSeries, TvMovieProgram.idEpisode)
+                If Not String.IsNullOrEmpty(_Series.EpisodeSummary) Then
+                    TvMovieProgram.Describtion = _Series.EpisodeSummary & vbNewLine & "(Beschreibung von MP-TvSeries)"
+                Else
+                    If Not String.IsNullOrEmpty(_ClickfinderDB(0).Beschreibung) Then
+                        TvMovieProgram.Describtion = Replace(_ClickfinderDB(0).Beschreibung, "<br>", vbNewLine) & vbNewLine & "(Beschreibung von TvMovie)"
+                    ElseIf Not String.IsNullOrEmpty(TvMovieProgram.ReferencedProgram.Description) Then
+                        TvMovieProgram.Describtion = TvMovieProgram.ReferencedProgram.Description & vbNewLine & "(Beschreibung aus EPG)"
+                    End If
+                End If
+
+            Else
+                If Not String.IsNullOrEmpty(_ClickfinderDB(0).Beschreibung) Then
+                    TvMovieProgram.Describtion = Replace(_ClickfinderDB(0).Beschreibung, "<br>", vbNewLine) & vbNewLine & "(Beschreibung von TvMovie)"
+                ElseIf Not String.IsNullOrEmpty(TvMovieProgram.ReferencedProgram.Description) Then
+                    TvMovieProgram.Describtion = TvMovieProgram.ReferencedProgram.Description & vbNewLine & "(Beschreibung aus EPG)"
+                End If
+            End If
+
+            'Short Describtion
+            If Not String.IsNullOrEmpty(_ClickfinderDB(0).KurzBeschreibung) Then
+                TvMovieProgram.ShortDescribtion = _ClickfinderDB(0).KurzBeschreibung
+            End If
+
+
+            'Bewertungen String aus Clickfinder DB holen, zerlegen, einzel Bewertungen extrahieren
+            If Not String.IsNullOrEmpty(_ClickfinderDB(0).Bewertungen) Then
+                ' We want to split this input string
+                Dim s As String = _ClickfinderDB(0).Bewertungen
+
+                ' Split string based on spaces
+                Dim words As String() = s.Split(New Char() {";"c})
+
+                ' Use For Each loop over words and display them
+                Dim word As String
+                For Each word In words
+                    'MsgBox(Left(word, InStr(word, "=") - 1))
+
+                    'MsgBox(CInt(Right(word, word.Length - InStr(word, "="))))
+
+                    Select Case Left(word, InStr(word, "=") - 1)
+                        Case Is = "Spaß"
+                            TvMovieProgram.Fun = CInt(Right(word, word.Length - InStr(word, "=")))
+                        Case Is = "Action"
+                            TvMovieProgram.Action = CInt(Right(word, word.Length - InStr(word, "=")))
+                        Case Is = "Erotik"
+                            TvMovieProgram.Erotic = CInt(Right(word, word.Length - InStr(word, "=")))
+                        Case Is = "Spannung"
+                            TvMovieProgram.Tension = CInt(Right(word, word.Length - InStr(word, "=")))
+                        Case Is = "Anspruch"
+                            TvMovieProgram.Requirement = CInt(Right(word, word.Length - InStr(word, "=")))
+                        Case Is = "Gefühl"
+                            TvMovieProgram.Feelings = CInt(Right(word, word.Length - InStr(word, "=")))
+                    End Select
+                Next
+            End If
+
+            'Actors aus Clickfinder DB holen, sofern vorhanden
+            If Not String.IsNullOrEmpty(_ClickfinderDB(0).Darsteller) Then
+                TvMovieProgram.Actors = _ClickfinderDB(0).Darsteller
+            End If
+
+            TvMovieProgram.needsUpdate = False
+            TvMovieProgram.Persist()
+
+
+        Catch ex As Exception
+            MyLog.Error("[DetailGuiWindow]: [UpdateProgramData]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
+        End Try
 
     End Sub
 
