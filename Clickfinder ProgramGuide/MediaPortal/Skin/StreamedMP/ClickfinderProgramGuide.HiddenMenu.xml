@@ -38,42 +38,6 @@
         <animation effect="slide" time="0" end="300,0">hidden</animation>
       </control>
       <control>
-        <description>Today</description>
-        <id>0</id>
-        <label>#ClickfinderPG.Translation.Today</label>
-        <type>label</type>
-        <font>mediastream12tc</font>
-        <posX>1040</posX>
-        <posY>125</posY>
-        <visible>!control.hasfocus(10)|!control.isvisible(30)</visible>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>
-      <control>
-        <description>Preview</description>
-        <id>0</id>
-        <label>#ClickfinderPG.Translation.Preview</label>
-        <type>label</type>
-        <font>mediastream12tc</font>
-        <posX>1040</posX>
-        <posY>269</posY>
-        <visible>!control.hasfocus(10)|!control.isvisible(30)</visible>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>
-      <control>
-        <description>Jump To</description>
-        <id>0</id>
-        <label>1065</label>
-        <type>label</type>
-        <font>mediastream12tc</font>
-        <posX>1040</posX>
-        <posY>353</posY>
-        <visible>!control.hasfocus(10)|!control.isvisible(30)</visible>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>
-      <control>
         <type>group</type>
         <description>group element</description>
         <visible>!control.hasfocus(10)|!control.isvisible(30)</visible>
@@ -85,12 +49,28 @@
         <height>720</height>
         <layout>StackLayout(0, Vertical, true)</layout>
         <control>
+          <description>Today</description>
+          <id>0</id>
+          <label>#ClickfinderPG.Translation.Today</label>
+          <type>label</type>
+          <font>mediastream12tc</font>
+        </control>
+        <control>
+          <description>Empty button</description>
+          <type>button</type>
+          <id>0</id>
+          <label>-</label>
+          <visible>true</visible>
+        </control>
+        <control>
           <description>Now</description>
           <type>button</type>
           <id>2</id>
           <label>#ClickfinderPG.Translation.Now</label>
           <onup>99000</onup>
           <ondown>3</ondown>
+          <onright>10</onright>
+          <onleft>30</onleft>
         </control>
         <control>
           <description>20:15</description>
@@ -99,6 +79,8 @@
           <label>#ClickfinderPG.Translation.PrimeTime</label>
           <onup>2</onup>
           <ondown>4</ondown>
+          <onright>10</onright>
+          <onleft>30</onleft>
         </control>
         <control>
           <description>22:00 Movies</description>
@@ -107,6 +89,8 @@
           <label>#ClickfinderPG.Translation.LateTime</label>
           <onup>3</onup>
           <ondown>5</ondown>
+          <onright>10</onright>
+          <onleft>30</onleft>
         </control>
         <control>
           <description>All Movies</description>
@@ -115,7 +99,23 @@
           <label>#ClickfinderPG.Translation.allMoviesNow</label>
           <onup>4</onup>
           <ondown>6</ondown>
-        </control>  
+          <onright>10</onright>
+          <onleft>30</onleft>
+        </control>
+        <control>
+          <description>Empty button</description>
+          <type>button</type>
+          <id>0</id>
+          <label>-</label>
+          <visible>true</visible>
+        </control>
+        <control>
+          <description>Preview</description>
+          <id>0</id>
+          <label>#ClickfinderPG.Translation.Preview</label>
+          <type>label</type>
+          <font>mediastream12tc</font>
+        </control>
         <control>
           <description>Empty button</description>
           <type>button</type>
@@ -130,6 +130,8 @@
           <label>#ClickfinderPG.Translation.Highlights</label>
           <onup>5</onup>
           <ondown>7</ondown>
+          <onright>10</onright>
+          <onleft>30</onleft>
         </control>
         <control>
           <description>Preview</description>
@@ -137,7 +139,35 @@
           <id>7</id>
           <label>#ClickfinderPG.Translation.Preview</label>
           <onup>6</onup>
+          <ondown>200</ondown>
+          <onright>10</onright>
+          <onleft>30</onleft>
+        </control>
+        <control>
+          <description>EpisodesPreview</description>
+          <type>button</type>
+          <id>200</id>
+          <hyperlink>1656544657</hyperlink>
+          <label>#ClickfinderPG.Translation.NewEpisodes</label>
+          <onup>7</onup>
           <ondown>50</ondown>
+          <onright>10</onright>
+          <onleft>30</onleft>
+          <visible>plugin.isenabled(MP-TV Series)</visible>
+        </control>
+        <control>
+          <description>Empty button</description>
+          <type>button</type>
+          <id>0</id>
+          <label>-</label>
+          <visible>true</visible>
+        </control>
+        <control>
+          <description>Jump To Label</description>
+          <id>0</id>
+          <label>1065</label>
+          <type>label</type>
+          <font>mediastream12tc</font>
         </control>
         <control>
           <description>Empty button</description>
@@ -152,8 +182,11 @@
           <id>50</id>
           <label>600</label>
           <hyperlink>600</hyperlink>
-          <onup>7</onup>
+          <onup>200</onup>
           <ondown>51</ondown>
+          <onleft>10</onleft>
+          <onright>10</onright>
+          <onleft>30</onleft>
         </control>
         <control>
           <description>Scheduler</description>
@@ -163,6 +196,8 @@
           <hyperlink>601</hyperlink>
           <onup>50</onup>
           <ondown>99000</ondown>
+          <onright>10</onright>
+          <onleft>30</onleft>
         </control>
         <control>
           <description>MPEIUPDATE:304bc464_97b0_49e5_a6b7_fc9a1b95fa5d</description>
@@ -171,10 +206,11 @@
           <label>#MPEI.Translation.UpdateAvailable.Label</label>
           <onup>51</onup>
           <ondown>2</ondown>
+          <onright>10</onright>
+          <onleft>30</onleft>
           <visible>string.equals(#mpei.304bc464_97b0_49e5_a6b7_fc9a1b95fa5d.haveupdate, true)</visible>
         </control>
       </control>
     </control>
   </controls>
 </window>
-<!--Checksum:e960a6d6b71b51dc422f1081caa51691-->

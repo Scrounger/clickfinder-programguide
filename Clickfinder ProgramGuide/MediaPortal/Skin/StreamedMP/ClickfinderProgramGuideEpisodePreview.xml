@@ -2,9 +2,12 @@
   <id>1656544657</id>
   <defaultcontrol>10</defaultcontrol>
   <allowoverlay>no</allowoverlay>
+  <define>#header.label:Clickfinder Program Guide</define>
+  <define>#header.BG.colordiffuse:ffffffff</define>
+  <!-- <define>#header.BG.overlay:osdbackground1.png</define> -->
   <controls>
 
-    <!-- Background & Layout -->
+    <!-- Background & StreamedMP Layout -->
     <control>
       <id>1</id>
       <description>Background Image</description>
@@ -41,18 +44,7 @@
 
     <control>
       <id>1</id>
-      <description>Overlay Image</description>
-      <type>image</type>
-      <posX>0</posX>
-      <posY>0</posY>
-      <width>1280</width>
-      <height>720</height>
-      <texture>ClickfinderPG_overlay.png</texture>
-    </control>
-
-    <control>
-      <id>1</id>
-      <description>Background Image</description>
+      <description>TopBar Image</description>
       <type>image</type>
       <posX>20</posX>
       <posY>14</posY>
@@ -69,7 +61,7 @@
       <posY>25</posY>
       <label>#date | #time</label>
       <align>right</align>
-      <font>font10</font>
+      <font>mediastream12</font>
       <textcolor>ffa9d0f7</textcolor>
     </control>
 
@@ -81,7 +73,7 @@
       <posX>40</posX>
       <posY>25</posY>
       <label>#SettingLastUpdate</label>
-      <font>font10</font>
+      <font>mediastream10</font>
       <align>left</align>
       <textcolor>FFdddddd</textcolor>
     </control>
@@ -105,7 +97,7 @@
       <posX>40</posX>
       <posY>76</posY>
       <label>#EpisodePreviewLabel</label>
-      <font>font12</font>
+      <font>mediastream12</font>
       <textcolor>FFdddddd</textcolor>
     </control>
     <control>
@@ -118,6 +110,7 @@
       <height>2</height>
       <texture>ClickfinderPG_Sep.png</texture>
     </control>
+
     <control>
       <type>listcontrol</type>
       <id>10</id>
@@ -135,28 +128,27 @@
       <spinAlign>Right</spinAlign>
       <spinColor>ff006698</spinColor>
       <spinCanFocus>no</spinCanFocus>
-      <textureUp>page_up_nofocus.png</textureUp>
-      <textureDown>page_down_nofocus.png</textureDown>
-      <textureUpFocus>page_up_focus.png</textureUpFocus>
-      <textureDownFocus>page_down_focus.png</textureDownFocus>
-      <textureFocus>list_sub_focus.png</textureFocus>
-      <textureNoFocus>list_sub_nofocus.png</textureNoFocus>
+      <textureUp>arrow_round_up_nofocus.png</textureUp>
+      <textureDown>arrow_round_down_nofocus.png</textureDown>
+      <textureUpFocus>arrow_round_up_focus.png</textureUpFocus>
+      <textureDownFocus>arrow_round_down_focus.png</textureDownFocus>
+      <keepaspectratio>yes</keepaspectratio>
       <textureHeight>97</textureHeight>
       <PinIconXOff>570</PinIconXOff>
       <PinIconYOff>10</PinIconYOff>
-      <IconXOff>10</IconXOff>
+      <IconXOff>4</IconXOff>
       <IconYOff>4</IconYOff>
-      <textXOff>20</textXOff>
-      <textYOff>20</textYOff>
-      <font>font11</font>
+      <textXOff>4</textXOff>
+      <textYOff>10</textYOff>
+      <font>mediastream12</font>
       <textcolor>ffffffff</textcolor>
       <textXOff2>590</textXOff2>
-      <textYOff2>40</textYOff2>
-      <font2>font10</font2>
+      <textYOff2>50</textYOff2>
+      <font2>mediastream12tc</font2>
       <textcolor2>ff909090</textcolor2>
-      <textXOff3>124</textXOff3>
+      <textXOff3>110</textXOff3>
       <textYOff3>50</textYOff3>
-      <font3>font9</font3>
+      <font3>mediastream10</font3>
       <textcolor3>ff909090</textcolor3>
       <itemWidth>89</itemWidth>
       <itemHeight>89</itemHeight>
@@ -168,7 +160,6 @@
 
 
     <!-- RepeatsList & Controls-->
-
     <control>
       <id>1</id>
       <description>Background Image</description>
@@ -186,12 +177,12 @@
       <posX>670</posX>
       <posY>76</posY>
       <label>#EpisodesPreviewSeriesHeaderLabel</label>
-      <font>font12</font>
+      <font>mediastream12</font>
       <textcolor>FFdddddd</textcolor>
     </control>
     <control>
       <id>1</id>
-      <description>Background Image</description>
+      <description>Separator Image</description>
       <type>image</type>
       <posX>650</posX>
       <posY>110</posY>
@@ -199,7 +190,6 @@
       <height>2</height>
       <texture>ClickfinderPG_Sep.png</texture>
     </control>
-
 
     <control>
       <type>listcontrol</type>
@@ -218,29 +208,29 @@
       <spinAlign>Right</spinAlign>
       <spinColor>ff006698</spinColor>
       <spinCanFocus>no</spinCanFocus>
-      <textureUp>page_up_nofocus.png</textureUp>
-      <textureDown>page_down_nofocus.png</textureDown>
-      <textureUpFocus>page_up_focus.png</textureUpFocus>
-      <textureDownFocus>page_down_focus.png</textureDownFocus>
-      <textureFocus>list_sub_focus.png</textureFocus>
-      <textureNoFocus>list_sub_nofocus.png</textureNoFocus>
+      <textureUp>arrow_round_up_nofocus.png</textureUp>
+      <textureDown>arrow_round_down_nofocus.png</textureDown>
+      <textureUpFocus>arrow_round_up_focus.png</textureUpFocus>
+      <textureDownFocus>arrow_round_down_focus.png</textureDownFocus>
+      <keepaspectratio>yes</keepaspectratio>
       <textureHeight>60</textureHeight>
+      <keepaspectratio>yes</keepaspectratio>
+      <spaceBetweenItems>4</spaceBetweenItems>
       <PinIconXOff>510</PinIconXOff>
       <PinIconYOff>10</PinIconYOff>
-      <spaceBetweenItems>4</spaceBetweenItems>
       <IconXOff>4</IconXOff>
       <IconYOff>4</IconYOff>
       <textXOff>2</textXOff>
       <textYOff>2</textYOff>
-      <font>font11</font>
+      <font>mediastream12</font>
       <textcolor>ffffffff</textcolor>
       <textXOff2>590</textXOff2>
       <textYOff2>30</textYOff2>
-      <font2>font10</font2>
+      <font2>mediastream12tc</font2>
       <textcolor2>ff909090</textcolor2>
       <textXOff3>68</textXOff3>
       <textYOff3>30</textYOff3>
-      <font3>font9</font3>
+      <font3>mediastream10</font3>
       <textcolor3>ff909090</textcolor3>
       <itemWidth>52</itemWidth>
       <itemHeight>52</itemHeight>
@@ -276,7 +266,7 @@
       <posY>120</posY>
       <width>440</width>
       <align>left</align>
-      <font>font14</font>
+      <font>mediastream14tc</font>
       <textcolor>ffffffff</textcolor>
       <label>#EpisodesPreviewTitle</label>
       <wrapString> | </wrapString>
@@ -290,7 +280,7 @@
       <type>imagelist</type>
       <id>44</id>
       <posX>800</posX>
-      <posY>166</posY>
+      <posY>160</posY>
       <width>120</width>
       <height>40</height>
       <textureWidth>28</textureWidth>
@@ -314,7 +304,7 @@
       <posY>200</posY>
       <width>440</width>
       <align>left</align>
-      <font>font12</font>
+      <font>mediastream12</font>
       <textcolor>ff909090</textcolor>
       <label>#EpisodesPreviewLabel1</label>
       <wrapString> | </wrapString>
@@ -331,7 +321,7 @@
       <posY>232</posY>
       <width>440</width>
       <align>left</align>
-      <font>font12</font>
+      <font>mediastream12</font>
       <textcolor>ff909090</textcolor>
       <label>#EpisodesPreviewLabel2</label>
       <wrapString> | </wrapString>
@@ -348,7 +338,7 @@
       <posY>264</posY>
       <width>440</width>
       <align>left</align>
-      <font>font10</font>
+      <font>mediastream12</font>
       <textcolor>ff909090</textcolor>
       <label>#EpisodesPreviewLabel3</label>
       <wrapString> | </wrapString>
@@ -367,7 +357,7 @@
       <height>360</height>
       <label>#EpisodesPreviewSeriesSummary</label>
       <seperator>-------------------------------------------------------------------------------------------------------------------------------------------</seperator>
-      <font>font12</font>
+      <font>mediastream12</font>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
@@ -383,7 +373,7 @@
       <height>170</height>
       <label>#EpisodesPreviewEpisodeDescription</label>
       <seperator>-------------------------------------------------------------------------------------------------------------------------------------------</seperator>
-      <font>font10</font>
+      <font>mediastream12</font>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
@@ -398,9 +388,9 @@
       <id>9</id>
       <type>animation</type>
       <posX>920</posX>
-      <posY>344</posY>
-      <width>70</width>
-      <height>70</height>
+      <posY>560</posY>
+      <width>80</width>
+      <height>24</height>
       <textures>
         common.waiting.1.png;common.waiting.2.png;common.waiting.3.png;common.waiting.4.png;common.waiting.5.png;
         common.waiting.6.png;common.waiting.7.png;common.waiting.8.png
@@ -412,8 +402,8 @@
       <type>animation</type>
       <posX>290</posX>
       <posY>344</posY>
-      <width>70</width>
-      <height>70</height>
+      <width>80</width>
+      <height>24</height>
       <textures>
         common.waiting.1.png;common.waiting.2.png;common.waiting.3.png;common.waiting.4.png;common.waiting.5.png;
         common.waiting.6.png;common.waiting.7.png;common.waiting.8.png

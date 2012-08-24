@@ -190,19 +190,21 @@ Namespace ClickfinderProgramGuide
                                 _selectedListItemIndex = _SeriesList.SelectedListItemIndex - 1
                             End If
 
-                            Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowRepeatsProgressBar)
-                            _ProgressBarThread.Start()
+                            FillSeriesInfos()
 
-                            Try
-                                If ThreadSeriesInfoFill.IsAlive = True Then ThreadSeriesInfoFill.Abort()
-                            Catch ex As Exception
-                                'Eventuell auftretende Exception abfangen
-                                ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
-                            End Try
+                            'Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowRepeatsProgressBar)
+                            '_ProgressBarThread.Start()
 
-                            ThreadSeriesInfoFill = New Threading.Thread(AddressOf FillSeriesInfos)
-                            ThreadSeriesInfoFill.IsBackground = True
-                            ThreadSeriesInfoFill.Start()
+                            'Try
+                            '    If ThreadSeriesInfoFill.IsAlive = True Then ThreadSeriesInfoFill.Abort()
+                            'Catch ex As Exception
+                            '    'Eventuell auftretende Exception abfangen
+                            '    ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
+                            'End Try
+
+                            'ThreadSeriesInfoFill = New Threading.Thread(AddressOf FillSeriesInfos)
+                            'ThreadSeriesInfoFill.IsBackground = True
+                            'ThreadSeriesInfoFill.Start()
 
                         End If
                     End If
@@ -241,19 +243,21 @@ Namespace ClickfinderProgramGuide
                                 _selectedListItemIndex = _SeriesList.SelectedListItemIndex + 1
                             End If
 
-                            Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowRepeatsProgressBar)
-                            _ProgressBarThread.Start()
+                            FillSeriesInfos()
 
-                            Try
-                                If ThreadSeriesInfoFill.IsAlive = True Then ThreadSeriesInfoFill.Abort()
-                            Catch ex As Exception
-                                'Eventuell auftretende Exception abfangen
-                                ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
-                            End Try
+                            'Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowRepeatsProgressBar)
+                            '_ProgressBarThread.Start()
 
-                            ThreadSeriesInfoFill = New Threading.Thread(AddressOf FillSeriesInfos)
-                            ThreadSeriesInfoFill.IsBackground = True
-                            ThreadSeriesInfoFill.Start()
+                            'Try
+                            '    If ThreadSeriesInfoFill.IsAlive = True Then ThreadSeriesInfoFill.Abort()
+                            'Catch ex As Exception
+                            '    'Eventuell auftretende Exception abfangen
+                            '    ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
+                            'End Try
+
+                            'ThreadSeriesInfoFill = New Threading.Thread(AddressOf FillSeriesInfos)
+                            'ThreadSeriesInfoFill.IsBackground = True
+                            'ThreadSeriesInfoFill.Start()
 
                         End If
                     End If
@@ -658,21 +662,20 @@ Namespace ClickfinderProgramGuide
         End Sub
 
         Private Sub FillSeriesInfos()
-            Dim _TvSeries As New TVSeriesDB
+
             Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_SeriesList.Item(_selectedListItemIndex).TVTag)
-            Dim _SeriesPosterPath As String = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieProgram.SeriesPosterImage
 
-            Translator.SetProperty("#EpisodesPreviewSeriesPosterImage", _SeriesPosterPath)
-            Translator.SetProperty("#EpisodesPreviewTitle", _TvMovieProgram.ReferencedProgram.Title)
+            Translator.SetProperty("#EpisodesPreviewSeriesPosterImage", _SeriesList.Item(_selectedListItemIndex).IconImage)
+            Translator.SetProperty("#EpisodesPreviewTitle", _SeriesList.Item(_selectedListItemIndex).Label)
 
-            _TvSeries.LoadSeriesName(_TvMovieProgram.idSeries)
+            Dim _TvSeries As New TVSeriesDB
+            _TvSeries.LoadSeriesName(_SeriesList.Item(_selectedListItemIndex).ItemId)
             Translator.SetProperty("#EpisodesPreviewSeriesSummary", _TvSeries(0).Summary)
             Translator.SetProperty("#EpisodesPreviewSeriesRatingStar", _TvSeries(0).Rating)
             Translator.SetProperty("#EpisodesPreviewLabel1", _TvSeries(0).Network)
             Translator.SetProperty("#EpisodesPreviewLabel2", _TvSeries(0).Status)
             Translator.SetProperty("#EpisodesPreviewLabel3", "")
             Translator.SetProperty("#EpisodesPreviewFanArt", Config.GetFile(Config.Dir.Thumbs, "") & _TvMovieProgram.FanArt)
-
             _TvSeries.Dispose()
 
             _RepeatsProgressBar.Visible = False

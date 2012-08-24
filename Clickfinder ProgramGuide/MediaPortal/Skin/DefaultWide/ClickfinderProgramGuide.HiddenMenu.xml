@@ -101,7 +101,7 @@
           <type>button</type>
           <id>200</id>
           <hyperlink>1656544657</hyperlink>
-          <label>Episodes_test</label>
+          <label>#ClickfinderPG.Translation.NewEpisodes</label>
           <textalign>center</textalign>
           <onup>7</onup>
           <ondown>2</ondown>
@@ -112,4 +112,3 @@
     </control>
   </controls>
 </window>
-<!--Checksum:e960a6d6b71b51dc422f1081caa51691-->
