@@ -47,6 +47,8 @@ Public Class Helper
 
         GUIControl.AddListItemControl(GUIWindowManager.ActiveWindow, Listcontrol.GetID, lItem)
 
+        lItem.Dispose()
+
     End Sub
 
     Friend Shared Function MySqlDate(ByVal Datum As Date) As String

@@ -247,24 +247,22 @@
       <scrollOffset>2</scrollOffset>
       <scrollbarXOff>630</scrollbarXOff>
       <scrollbarwidth>15</scrollbarwidth>
-      <border texture="image_border.png" textureRotate="yes" textureRepeat="no">5</border>
       <visible></visible>
     </control>
 
     <!-- Infos -->
+
     <control>
       <description>Series Poster Image</description>
       <type>image</type>
-      <id>1</id>
+      <id>40</id>
       <posX>670</posX>
       <posY>120</posY>
       <width>200</width>
       <height>172</height>
-      <texture>#EpisodesPreviewSeriesPosterImage</texture>
       <filtered>yes</filtered>
       <centered>no</centered>
       <keepaspectratio>yes</keepaspectratio>
-      <visible>control.isvisible(10)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
@@ -289,7 +287,7 @@
     <control>
       <description>Series RatingStars</description>
       <type>imagelist</type>
-      <id>44</id>
+      <id>1</id>
       <posX>800</posX>
       <posY>166</posY>
       <width>120</width>
@@ -304,7 +302,7 @@
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
       <percentage>#EpisodesPreviewSeriesRatingStar</percentage>
-      <visible>!string.starts(#DetailRatingStar,0)</visible>
+      <!--<visible>!string.starts(#DetailRatingStar,0)</visible>-->
     </control>
 
     <control>

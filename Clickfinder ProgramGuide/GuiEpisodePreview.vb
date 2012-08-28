@@ -4,6 +4,8 @@ Imports Gentle.Framework
 Imports ClickfinderProgramGuide.Helper
 Imports ClickfinderProgramGuide.TvDatabase
 Imports MediaPortal.Configuration
+Imports System.Threading
+Imports Gentle.Common
 
 
 Namespace ClickfinderProgramGuide
@@ -28,6 +30,10 @@ Namespace ClickfinderProgramGuide
         'ListControl
         <SkinControlAttribute(10)> Protected _SeriesList As GUIListControl = Nothing
         <SkinControlAttribute(30)> Protected _RepeatsList As GUIListControl = Nothing
+
+        'Image, sonst geflacker bug ?!
+        <SkinControlAttribute(40)> Protected _SeriesPoster As GUIImage = Nothing
+
 #End Region
 
 #Region "Members"
@@ -37,9 +43,14 @@ Namespace ClickfinderProgramGuide
         Private ThreadSeriesInfoFill As Threading.Thread
         Private _selectedListItemIndex As Integer
 
-        Friend Shared _idSeries As String = String.Empty
-        Friend Shared _SeriesName As String = String.Empty
+        Friend Shared _selectedSeries As TVMovieProgram
         Friend Shared _ShowEpisodes As Boolean
+
+        Private _LastFocusedSeriesIndex As Integer
+        Private _LastFocusedEpisodeIndex As Integer
+        'Private _LastFocusedControlID As Integer
+
+
 
 #End Region
 
@@ -49,13 +60,13 @@ Namespace ClickfinderProgramGuide
 #End Region
 
 #Region "Properties"
-        Private Shared ReadOnly Property StartTime()
+        Private ReadOnly Property StartTime()
             Get
-                Return MySqlDate(Date.Now)
+                Return MySqlDate(Date.Today)
             End Get
         End Property
 
-        Private Shared ReadOnly Property EndTime()
+        Private ReadOnly Property EndTime()
             Get
                 Return MySqlDate(Date.Today.AddDays(CDbl(_layer.GetSetting("ClickfinderPreviewMaxDays", "7").Value)))
             End Get
@@ -98,6 +109,14 @@ Namespace ClickfinderProgramGuide
 
                 ClearSeriesInfos()
 
+                If _LastFocusedSeriesIndex = 0 Then
+                    _selectedListItemIndex = 0
+                End If
+
+                'If _LastFocusedSeriesIndex < 1 Then
+                '    _selectedSeries = TVMovieProgram.Retrieve(_SeriesList.Item(0).TVTag)
+                'End If
+
                 Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowSeriesProgressBar)
                 _ProgressBarThread.Start()
 
@@ -128,6 +147,7 @@ Namespace ClickfinderProgramGuide
                 ThreadSeriesFill.Start()
             End If
 
+
         End Sub
         Public Overrides Sub OnAction(ByVal Action As MediaPortal.GUI.Library.Action)
             If GUIWindowManager.ActiveWindow = GetID Then
@@ -138,6 +158,8 @@ Namespace ClickfinderProgramGuide
                     If _ShowEpisodes = True Then
 
                         _ShowEpisodes = False
+
+                        _LastFocusedEpisodeIndex = 0
 
                         Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowSeriesProgressBar)
                         _ProgressBarThread.Start()
@@ -154,6 +176,10 @@ Namespace ClickfinderProgramGuide
                         ThreadSeriesFill.Start()
 
                         Return
+
+                    Else
+                        _LastFocusedSeriesIndex = 0
+                        _LastFocusedEpisodeIndex = 0
                     End If
 
                 End If
@@ -164,12 +190,16 @@ Namespace ClickfinderProgramGuide
 
                             If _SeriesList.SelectedListItem.ItemId = _SeriesList.Item(0).ItemId Then
                                 _selectedListItemIndex = _SeriesList.Count - 1
+                                _LastFocusedEpisodeIndex = _selectedListItemIndex
                             Else
                                 _selectedListItemIndex = _SeriesList.SelectedListItemIndex - 1
+                                _LastFocusedEpisodeIndex = _selectedListItemIndex
                             End If
 
                             Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowRepeatsProgressBar)
                             _ProgressBarThread.Start()
+
+
 
                             Try
                                 If ThreadRepeatsFill.IsAlive = True Then ThreadRepeatsFill.Abort()
@@ -181,32 +211,41 @@ Namespace ClickfinderProgramGuide
                             ThreadRepeatsFill = New Threading.Thread(AddressOf FillRepeatsList)
                             ThreadRepeatsFill.IsBackground = True
                             ThreadRepeatsFill.Start()
+
+                            '_LastFocusedEpisodeIndex = _selectedListItemIndex
+
                         Else
-                            ClearSeriesInfos()
+                            'ClearSeriesInfos()
 
                             If _SeriesList.SelectedListItem.ItemId = _SeriesList.Item(0).ItemId Then
                                 _selectedListItemIndex = _SeriesList.Count - 1
+                                _selectedSeries = TVMovieProgram.Retrieve(_SeriesList.Item(_selectedListItemIndex).TVTag)
+                                _LastFocusedSeriesIndex = _selectedListItemIndex
                             Else
                                 _selectedListItemIndex = _SeriesList.SelectedListItemIndex - 1
+                                _selectedSeries = TVMovieProgram.Retrieve(_SeriesList.Item(_selectedListItemIndex).TVTag)
+                                _LastFocusedSeriesIndex = _selectedListItemIndex
                             End If
 
-                            FillSeriesInfos()
+                            Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowRepeatsProgressBar)
+                            _ProgressBarThread.Start()
 
-                            'Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowRepeatsProgressBar)
-                            '_ProgressBarThread.Start()
+                            Try
+                                If ThreadSeriesInfoFill.IsAlive = True Then ThreadSeriesInfoFill.Abort()
+                            Catch ex As Exception
+                                'Eventuell auftretende Exception abfangen
+                                ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
+                            End Try
 
-                            'Try
-                            '    If ThreadSeriesInfoFill.IsAlive = True Then ThreadSeriesInfoFill.Abort()
-                            'Catch ex As Exception
-                            '    'Eventuell auftretende Exception abfangen
-                            '    ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
-                            'End Try
+                            ThreadSeriesInfoFill = New Threading.Thread(AddressOf FillSeriesInfos)
+                            ThreadSeriesInfoFill.IsBackground = True
+                            ThreadSeriesInfoFill.Start()
 
-                            'ThreadSeriesInfoFill = New Threading.Thread(AddressOf FillSeriesInfos)
-                            'ThreadSeriesInfoFill.IsBackground = True
-                            'ThreadSeriesInfoFill.Start()
-
+                            '_LastFocusedIndex = _selectedListItemIndex
                         End If
+
+
+                        '_LastFocusedControlID = _SeriesList.GetID
                     End If
                 End If
 
@@ -216,8 +255,10 @@ Namespace ClickfinderProgramGuide
 
                             If _SeriesList.SelectedListItem.ItemId = _SeriesList.Item(_SeriesList.Count - 1).ItemId Then
                                 _selectedListItemIndex = 0
+                                _LastFocusedEpisodeIndex = _selectedListItemIndex
                             Else
                                 _selectedListItemIndex = _SeriesList.SelectedListItemIndex + 1
+                                _LastFocusedEpisodeIndex = _selectedListItemIndex
                             End If
 
                             Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowRepeatsProgressBar)
@@ -234,32 +275,44 @@ Namespace ClickfinderProgramGuide
                             ThreadRepeatsFill.IsBackground = True
                             ThreadRepeatsFill.Start()
 
+                            '_LastFocusedEpisodeIndex = _selectedListItemIndex
+
                         Else
-                            ClearSeriesInfos()
+                            'ClearSeriesInfos()
 
                             If _SeriesList.SelectedListItem.ItemId = _SeriesList.Item(_SeriesList.Count - 1).ItemId Then
                                 _selectedListItemIndex = 0
+                                _selectedSeries = TVMovieProgram.Retrieve(_SeriesList.Item(_selectedListItemIndex).TVTag)
+                                _LastFocusedSeriesIndex = _selectedListItemIndex
                             Else
                                 _selectedListItemIndex = _SeriesList.SelectedListItemIndex + 1
+                                _selectedSeries = TVMovieProgram.Retrieve(_SeriesList.Item(_selectedListItemIndex).TVTag)
+                                _LastFocusedSeriesIndex = _selectedListItemIndex
                             End If
 
-                            FillSeriesInfos()
+                            'FillSeriesInfos()
 
-                            'Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowRepeatsProgressBar)
-                            '_ProgressBarThread.Start()
+                            Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowRepeatsProgressBar)
+                            _ProgressBarThread.Start()
 
-                            'Try
-                            '    If ThreadSeriesInfoFill.IsAlive = True Then ThreadSeriesInfoFill.Abort()
-                            'Catch ex As Exception
-                            '    'Eventuell auftretende Exception abfangen
-                            '    ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
-                            'End Try
+                            Try
+                                If ThreadSeriesInfoFill.IsAlive = True Then ThreadSeriesInfoFill.Abort()
+                            Catch ex As Exception
+                                'Eventuell auftretende Exception abfangen
+                                ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
+                            End Try
 
-                            'ThreadSeriesInfoFill = New Threading.Thread(AddressOf FillSeriesInfos)
-                            'ThreadSeriesInfoFill.IsBackground = True
-                            'ThreadSeriesInfoFill.Start()
+                            ThreadSeriesInfoFill = New Threading.Thread(AddressOf FillSeriesInfos)
+                            ThreadSeriesInfoFill.IsBackground = True
+                            ThreadSeriesInfoFill.Start()
+
+                            '_LastFocusedIndex = _selectedListItemIndex
 
                         End If
+
+
+                        '_LastFocusedControlID = _SeriesList.GetID
+
                     End If
                 End If
 
@@ -312,6 +365,21 @@ Namespace ClickfinderProgramGuide
         End Sub
         Protected Overrides Sub OnPageDestroy(ByVal new_windowId As Integer)
 
+            'If _SeriesList.IsFocused Then
+            '    'MsgBox(_MovieList.SelectedListItemIndex)
+            '    _LastFocusedIndex = _SeriesList.SelectedListItemIndex
+            '    _LastFocusedControlID = _SeriesList.GetID
+            '    If _ShowEpisodes = True Then
+            '        _LastFocusedEpisodeIndex = _SeriesList.SelectedListItemIndex
+            '    End If
+            'ElseIf _RepeatsList.IsFocused Then
+            '    _LastFocusedEpisodeIndex = _RepeatsList.SelectedListItemIndex
+            '    _LastFocusedControlID = _RepeatsList.GetID
+            'Else
+            '    _LastFocusedIndex = 0
+            '    _LastFocusedControlID = _SeriesList.GetID
+            'End If
+
             MyBase.OnPageDestroy(new_windowId)
 
         End Sub
@@ -363,6 +431,8 @@ Namespace ClickfinderProgramGuide
 
                     _ShowEpisodes = False
 
+                    _LastFocusedEpisodeIndex = 0
+
                     Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowSeriesProgressBar)
                     _ProgressBarThread.Start()
 
@@ -380,13 +450,15 @@ Namespace ClickfinderProgramGuide
 
                 ElseIf _SeriesList.Item(0).ItemId = 0 Then
                     'DetailScreen anzeigen
+
+                    _LastFocusedEpisodeIndex = _SeriesList.SelectedListItemIndex
+
                     ListControlClick(_SeriesList.SelectedListItem.ItemId)
                 Else
                     'Epsidoen der Serie anzeigen
                     _ShowEpisodes = True
 
-                    _idSeries = _SeriesList.SelectedListItem.ItemId
-                    _SeriesName = _SeriesList.SelectedListItem.Label
+                    _LastFocusedSeriesIndex = _SeriesList.SelectedListItemIndex
 
                     Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowSeriesProgressBar)
                     _ProgressBarThread.Start()
@@ -434,8 +506,8 @@ Namespace ClickfinderProgramGuide
                 SQLstring = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
                                             "WHERE idSeries > 0 " & _
                                             "AND local = 0 " & _
-                                            "AND startTime > " & StartTime & " " & _
-                                            "AND startTime < " & EndTime & " " & _
+                                            "AND startTime > " & Me.StartTime & " " & _
+                                            "AND startTime < " & Me.EndTime & " " & _
                                             "GROUP BY title ORDER BY startTime ASC"
 
                 _Result.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", False))
@@ -462,8 +534,8 @@ Namespace ClickfinderProgramGuide
                             _newEpisodesSQLStringCount = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
                                             "WHERE idSeries > 0 " & _
                                             "AND local = 0 " & _
-                                            "AND startTime > " & StartTime & " " & _
-                                            "AND startTime < " & EndTime & " " & _
+                                            "AND startTime > " & Me.StartTime & " " & _
+                                            "AND startTime < " & Me.EndTime & " " & _
                                             "AND title = '" & _Series.ReferencedProgram.Title & "' " & _
                                             "GROUP BY SeriesNum, EpisodeNum ASC"
 
@@ -486,11 +558,25 @@ Namespace ClickfinderProgramGuide
                     End If
 
                 Next
+
                 _SeriesList.Visible = True
                 _SeriesProgressBar.Visible = False
 
+                GUIListControl.SelectItemControl(GetID, _SeriesList.GetID, _LastFocusedSeriesIndex)
+                GUIListControl.FocusControl(GetID, _SeriesList.GetID)
+
+                If _selectedListItemIndex = 0 Then
+                    _selectedSeries = TVMovieProgram.Retrieve(_SeriesList.Item(_selectedListItemIndex).TVTag)
+                End If
+
+                FillSeriesInfos()
+
+            Catch ex As ThreadAbortException
+                MyLog.Debug("[EpisodePreviewGuiWindow] [FillSeriesList]: --- THREAD ABORTED ---")
+                MyLog.Debug("")
+            Catch ex As GentleException
             Catch ex As Exception
-                MsgBox(ex.Message)
+                MyLog.Error("[EpisodePreviewGuiWindow] [FillSeriesList]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
             End Try
 
         End Sub
@@ -505,7 +591,7 @@ Namespace ClickfinderProgramGuide
                 Dim _timeLabel As String = String.Empty
                 Dim _infoLabel As String = String.Empty
 
-                Translator.SetProperty("#EpisodePreviewLabel", Translation.NewEpisodes & ": " & _SeriesName)
+                Translator.SetProperty("#EpisodePreviewLabel", Translation.NewEpisodes & ": " & _selectedSeries.ReferencedProgram.Title)
                 Translator.SetProperty("#EpisodesPreviewSeriesHeaderLabel", Translation.Repeats)
 
 
@@ -516,9 +602,9 @@ Namespace ClickfinderProgramGuide
 
                 'Neue Episoden der Serie laden
                 SQLstring = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
-                                            "WHERE idSeries = " & _idSeries & " " & _
+                                            "WHERE idSeries = " & _selectedSeries.idSeries & " " & _
                                             "AND local = 0 " & _
-                                            "AND title = '" & _SeriesName & "' " & _
+                                            "AND title = '" & _selectedSeries.ReferencedProgram.Title & "' " & _
                                             "AND startTime > " & StartTime & " " & _
                                             "AND startTime < " & EndTime & " " & _
                                             "ORDER BY startTime ASC"
@@ -568,8 +654,17 @@ Namespace ClickfinderProgramGuide
                 _SeriesList.Visible = True
                 _SeriesProgressBar.Visible = False
 
+                GUIListControl.SelectItemControl(GetID, _SeriesList.GetID, _LastFocusedEpisodeIndex)
+                GUIListControl.FocusControl(GetID, _SeriesList.GetID)
+
+                FillRepeatsList()
+
+            Catch ex As ThreadAbortException
+                MyLog.Debug("[EpisodePreviewGuiWindow] [FillEpisodesList]: --- THREAD ABORTED ---")
+                MyLog.Debug("")
+            Catch ex As GentleException
             Catch ex As Exception
-                MsgBox(ex.Message)
+                MyLog.Error("[EpisodePreviewGuiWindow] [FillEpisodesList]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
             End Try
 
         End Sub
@@ -595,6 +690,8 @@ Namespace ClickfinderProgramGuide
                     _RepeatsList.Visible = False
                     _RepeatsList.Clear()
 
+                    _SeriesPoster.SetFileName(Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _selectedSeries.SeriesPosterImage)
+
                     Translator.SetProperty("#EpisodesPreviewLabel1", Translation.EpisodeNewPrefixLabel & " " & _SeriesList.Item(_selectedListItemIndex).Label)
                     Translator.SetProperty("#EpisodesPreviewLabel2", _SeriesList.Item(_selectedListItemIndex).Label3)
                     Translator.SetProperty("#EpisodesPreviewLabel3", _SeriesList.Item(_selectedListItemIndex).Path & ": " & _SeriesList.Item(_selectedListItemIndex).Label2)
@@ -606,8 +703,8 @@ Namespace ClickfinderProgramGuide
 
                     'Wiederholung der selektierten Episode laden
                     SQLstring = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
-                                                "WHERE title = '" & _SeriesName & "' " & _
-                                                "AND episodeName = '" & _SeriesList.Item(_selectedListItemIndex).Label & "' " & _
+                                                "WHERE title = '" & _selectedSeries.ReferencedProgram.Title & "' " & _
+                                                "AND episodeName = '" & _SeriesList.SelectedListItem.Label & "' " & _
                                                 "AND startTime > " & StartTime & " " & _
                                                 "AND startTime < " & EndTime & " " & _
                                                 "ORDER BY startTime ASC"
@@ -644,41 +741,67 @@ Namespace ClickfinderProgramGuide
 
                     Next
 
-                    'MsgBox(_Result.Count)
-
                     _RepeatsList.Visible = True
                     _RepeatsProgressBar.Visible = False
                 Else
 
+                    If _SeriesList.Item(_selectedListItemIndex).Label = ".." Then
+                        FillSeriesInfos()
+                    End If
                     _RepeatsList.Visible = False
                     _RepeatsList.Clear()
                     _RepeatsProgressBar.Visible = False
 
                 End If
 
+            Catch ex As ThreadAbortException
+                MyLog.Debug("[EpisodePreviewGuiWindow] [FillRepeatsList]: --- THREAD ABORTED ---")
+                MyLog.Debug("")
+            Catch ex As GentleException
             Catch ex As Exception
-                MsgBox(ex.Message)
+                MyLog.Error("[EpisodePreviewGuiWindow] [FillRepeatsList]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
             End Try
+
         End Sub
 
         Private Sub FillSeriesInfos()
 
-            Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_SeriesList.Item(_selectedListItemIndex).TVTag)
+            Try
+                'If _ShowEpisodes = False Then
+                '    _selectedSeries = TVMovieProgram.Retrieve(_SeriesList.Item(_selectedListItemIndex).TVTag)
+                'End If
 
-            Translator.SetProperty("#EpisodesPreviewSeriesPosterImage", _SeriesList.Item(_selectedListItemIndex).IconImage)
-            Translator.SetProperty("#EpisodesPreviewTitle", _SeriesList.Item(_selectedListItemIndex).Label)
+                _SeriesPoster.SetFileName(Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _selectedSeries.SeriesPosterImage)
 
-            Dim _TvSeries As New TVSeriesDB
-            _TvSeries.LoadSeriesName(_SeriesList.Item(_selectedListItemIndex).ItemId)
-            Translator.SetProperty("#EpisodesPreviewSeriesSummary", _TvSeries(0).Summary)
-            Translator.SetProperty("#EpisodesPreviewSeriesRatingStar", _TvSeries(0).Rating)
-            Translator.SetProperty("#EpisodesPreviewLabel1", _TvSeries(0).Network)
-            Translator.SetProperty("#EpisodesPreviewLabel2", _TvSeries(0).Status)
-            Translator.SetProperty("#EpisodesPreviewLabel3", "")
-            Translator.SetProperty("#EpisodesPreviewFanArt", Config.GetFile(Config.Dir.Thumbs, "") & _TvMovieProgram.FanArt)
-            _TvSeries.Dispose()
+                Translator.SetProperty("#EpisodesPreviewTitle", _selectedSeries.ReferencedProgram.Title)
+                Translator.SetProperty("#EpisodesPreviewEpisodeDescription", "")
 
-            _RepeatsProgressBar.Visible = False
+                Dim _TvSeries As New TVSeriesDB
+                _TvSeries.LoadSeriesName(_selectedSeries.idSeries)
+                Translator.SetProperty("#EpisodesPreviewSeriesSummary", _TvSeries(0).Summary)
+                Translator.SetProperty("#EpisodesPreviewSeriesRatingStar", _TvSeries(0).Rating)
+                Translator.SetProperty("#EpisodesPreviewLabel1", _TvSeries(0).Network)
+                Translator.SetProperty("#EpisodesPreviewLabel2", _TvSeries(0).Status)
+
+                If _TvSeries(0).Status = "Ended" Then
+                    Translator.SetProperty("#EpisodesPreviewLabel2", Translation.Ended)
+                Else
+                    Translator.SetProperty("#EpisodesPreviewLabel2", Translation.Continous)
+                End If
+
+                Translator.SetProperty("#EpisodesPreviewLabel3", "")
+                Translator.SetProperty("#EpisodesPreviewFanArt", Config.GetFile(Config.Dir.Thumbs, "") & _selectedSeries.FanArt)
+                _TvSeries.Dispose()
+
+                _RepeatsProgressBar.Visible = False
+
+            Catch ex As ThreadAbortException
+                MyLog.Debug("[EpisodePreviewGuiWindow] [FillSeriesInfos]: --- THREAD ABORTED ---")
+                MyLog.Debug("")
+            Catch ex As GentleException
+            Catch ex As Exception
+                MyLog.Error("[EpisodePreviewGuiWindow] [FillSeriesInfos]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+            End Try
 
         End Sub
 

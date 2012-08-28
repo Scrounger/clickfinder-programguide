@@ -306,6 +306,9 @@
     <Content Include="MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideDialogSelect2.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideEpisodePreview.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideSetting.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

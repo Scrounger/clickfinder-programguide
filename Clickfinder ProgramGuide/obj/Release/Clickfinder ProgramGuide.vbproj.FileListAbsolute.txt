@@ -118,3 +118,4 @@ D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Release\Clickf
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Release\ClickfinderProgramGuide.pdb
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuideEpisodePreview.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\thumbs\Clickfinder ProgramGuide\Arrow back.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideEpisodePreview.xml

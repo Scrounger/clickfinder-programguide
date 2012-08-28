@@ -140,7 +140,6 @@ Namespace ClickfinderProgramGuide
                 Translator.SetProperty("#ItemsListRatingStar" & i, 0)
             Next
 
-
             If _leftList.IsFocused Then
                 'MsgBox(_MovieList.SelectedListItemIndex)
                 _LastFocusedIndex = _leftList.SelectedListItemIndex
@@ -633,10 +632,10 @@ Namespace ClickfinderProgramGuide
                 MyLog.Debug("[ItemsGuiWindow] [FillLeftList]: Thread finished")
                 MyLog.Debug("")
 
-                If _ThreadRightList.IsAlive = False Then
-                    GUIListControl.SelectItemControl(GetID, _LastFocusedControlID, _LastFocusedIndex)
-                    GUIListControl.FocusControl(GetID, _LastFocusedControlID)
-                End If
+
+                GUIListControl.SelectItemControl(GetID, _LastFocusedControlID, _LastFocusedIndex)
+                GUIListControl.FocusControl(GetID, _LastFocusedControlID)
+
 
             Catch ex As ThreadAbortException
                 MyLog.Debug("[ItemsGuiWindow] [FillLeftList]: --- THREAD ABORTED ---")
@@ -727,10 +726,9 @@ Namespace ClickfinderProgramGuide
                 MyLog.Debug("[ItemsGuiWindow] [FillRightList]: Thread finished")
                 MyLog.Debug("")
 
-                If _ThreadLeftList.IsAlive = False Then
-                    GUIListControl.SelectItemControl(GetID, _LastFocusedControlID, _LastFocusedIndex)
-                    GUIListControl.FocusControl(GetID, _LastFocusedControlID)
-                End If
+                GUIListControl.SelectItemControl(GetID, _LastFocusedControlID, _LastFocusedIndex)
+                GUIListControl.FocusControl(GetID, _LastFocusedControlID)
+
 
             Catch ex As ThreadAbortException
                 MyLog.Debug("[ItemsGuiWindow] [FillRightList]: --- THREAD ABORTED ---")

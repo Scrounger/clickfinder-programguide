@@ -99,5 +99,7 @@
   <string Field="InTheNext">in den nächsten</string>
   <string Field="Repeats">Wiederholungen</string>
   <string Field="SeriesInfos">Infos zur Serie</string>
-  
+  <string Field="Ended">beendet</string>
+  <string Field="Continous">wird fortgesetzt</string>
+
 </strings>
