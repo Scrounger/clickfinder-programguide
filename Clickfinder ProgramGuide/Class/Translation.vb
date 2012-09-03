@@ -107,6 +107,7 @@ Public NotInheritable Class Translation
     Public Shared SeriesInfos As String = "Infos zur Serie"
     Public Shared Ended As String = "beendet"
     Public Shared Continous As String = "wird fortgesetzt"
+    Public Shared SeriesRefresh As String = "Serien aktualisieren"
 
 
 

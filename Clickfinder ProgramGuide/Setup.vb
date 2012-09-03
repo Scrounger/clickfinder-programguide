@@ -34,6 +34,7 @@ Public Class Setup
             tbPluginName.Text = _layer.GetSetting("ClickfinderPluginName", "Clickfinder ProgramGuide").Value
             tbClickfinderDatabase.Text = _layer.GetSetting("ClickfinderDatabasePath", "").Value
             tbClickfinderImagePath.Text = _layer.GetSetting("ClickfinderImagePath", "").Value
+            tbEpisodenScanner.Text = _layer.GetSetting("ClickfinderEpisodenScanner", "").Value
             CheckBoxShowLocalMovies.Checked = _layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false").Value
             CheckBoxShowTagesTipp.Checked = _layer.GetSetting("ClickfinderOverviewShowTagesTipp", "false").Value
             NumShowMoviesAfter.Value = _layer.GetSetting("ClickfinderOverviewShowMoviesAfter", "12").Value
@@ -216,9 +217,12 @@ Public Class Setup
             setting.Value = tbClickfinderDatabase.Text
             setting.Persist()
 
-
             setting = _layer.GetSetting("ClickfinderImagePath", "false")
             setting.Value = tbClickfinderImagePath.Text
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderEpisodenScanner", "")
+            setting.Value = tbEpisodenScanner.Text
             setting.Persist()
 
             setting = _layer.GetSetting("ClickfinderOverviewShowMoviesAfter", "12")
@@ -833,6 +837,32 @@ Public Class Setup
     End Sub
 
     Private Sub ToolStripButton1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+    End Sub
+
+ 
+    Private Sub ButtonOpenDlgEpisodenScanner_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonOpenDlgEpisodenScanner.Click
+        Dim openFileDialog As New OpenFileDialog()
+
+        openFileDialog.InitialDirectory = Environment.SpecialFolder.ProgramFiles
+        openFileDialog.Filter = "Episodenscanner|*.exe"
+        openFileDialog.FileName = "episodescanner.exe"
+
+        If openFileDialog.ShowDialog(Me) = DialogResult.OK Then
+            tbEpisodenScanner.Text = openFileDialog.FileName
+        End If
+
+    End Sub
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        Dim bla As New enrichEPG.EnrichEPG("\\10.0.1.2\MediaPortal Transfer\Database", _
+                                                   True, True, True, _
+                                                   "D:\EpisodenScanner\bin")
+
+
+
+        Dim _bla As New Thread(AddressOf bla.start)
+        _bla.Start()
 
     End Sub
 End Class

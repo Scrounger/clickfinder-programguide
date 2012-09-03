@@ -3,6 +3,7 @@ Imports TvDatabase
 Imports ClickfinderProgramGuide.TvDatabase
 Imports MediaPortal.Configuration
 Imports MediaPortal.Util
+Imports Gentle.Framework
 
 
 
@@ -71,6 +72,58 @@ Namespace ClickfinderProgramGuide
         Protected Overrides Sub OnPageLoad()
             MyBase.OnPageLoad()
             GUIWindowManager.NeedRefresh()
+
+            If String.IsNullOrEmpty(_loadParameter) = False Then
+                Try
+                    If _layer.GetSetting("TvMovieImportIsRunning", "false").Value = "true" Then
+                        Translator.SetProperty("#SettingLastUpdate", Translation.ImportIsRunning)
+                        MyLog.Debug("[DetailGuiWindow] [OnPageLoad]: {0}", "TvMovie++ Import is running !")
+                    Else
+                        Translator.SetProperty("#SettingLastUpdate", GuiLayout.LastUpdateLabel)
+                    End If
+
+                    Translator.TranslateSkin()
+
+                    MyLog.Debug("[DetailGuiWindow]: [HyperlinkParameter]: {0}", _loadParameter)
+
+                    Dim _parametersList As New ArrayList(Split(_loadParameter, "|"))
+                    Dim _title As String = String.Empty
+                    Dim _channel As String = String.Empty
+                    Dim _start As DateTime
+                    Dim _end As DateTime
+
+                    For i = 0 To _parametersList.Count - 1
+                        'MsgBox(_parametersList.Item(i))
+                        If InStr(_parametersList.Item(i), "TITLE: ") > 0 Then _title = Replace(_parametersList.Item(i), "TITLE: ", "")
+                        If InStr(_parametersList.Item(i), "CHANNEL: ") > 0 Then _channel = Replace(_parametersList.Item(i), "CHANNEL: ", "")
+                        If InStr(_parametersList.Item(i), "START: ") > 0 Then _start = DateTime.Parse(Replace(_parametersList.Item(i), "START: ", ""))
+                        If InStr(_parametersList.Item(i), "STOP: ") > 0 Then _end = DateTime.Parse(Replace(_parametersList.Item(i), "STOP: ", ""))
+                    Next
+
+
+                    Dim SQLstring As String = String.Empty
+
+                    Dim _Result As New ArrayList
+
+                    'program laden
+                    SQLstring = "Select * from program INNER JOIN channel ON program.idChannel = channel.idChannel " & _
+                                                "WHERE title = '" & _title & "' " & _
+                                                "AND displayName = '" & _channel & "' " & _
+                                                "AND startTime > " & Helper.MySqlDate(_start.AddMinutes(-1)) & " " & _
+                                                "AND startTime < " & Helper.MySqlDate(_end) & " " & _
+                                                ""
+
+                    _Result.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", False))
+
+
+                    _DetailTvMovieProgram = Helper.getTvMovieProgram(Program.Retrieve(_Result.Item(0)))
+
+
+                Catch ex As Exception
+                    MyLog.Error("[DetailGuiWindow]: [HyperlinkParameter]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
+                End Try
+
+            End If
 
             Try
 
@@ -307,7 +360,7 @@ Namespace ClickfinderProgramGuide
             End Try
         End Sub
 
- 
+
 #End Region
 
     End Class

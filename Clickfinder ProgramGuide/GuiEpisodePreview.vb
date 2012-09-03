@@ -532,11 +532,10 @@ Namespace ClickfinderProgramGuide
                             Dim _SeriesPosterPath As String = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _Series.SeriesPosterImage
 
                             _newEpisodesSQLStringCount = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
-                                            "WHERE idSeries > 0 " & _
+                                            "WHERE idSeries = " & _Series.idSeries & " " & _
                                             "AND local = 0 " & _
                                             "AND startTime > " & Me.StartTime & " " & _
                                             "AND startTime < " & Me.EndTime & " " & _
-                                            "AND title = '" & _Series.ReferencedProgram.Title & "' " & _
                                             "GROUP BY SeriesNum, EpisodeNum ASC"
 
                             '_newEpisodesSQLStringCount = "Select * from program " & _
@@ -550,6 +549,9 @@ Namespace ClickfinderProgramGuide
                             _newEpisodesCount.AddRange(Broker.Execute(_newEpisodesSQLStringCount).TransposeToFieldList("idProgram", False))
 
                             _FoundedNewEpisodes = _newEpisodesCount.Count & " " & Translation.NewEpisodeFound
+
+                            'Dim _SeriesName As New TVSeriesDB
+                            '_SeriesName.LoadSeriesName(_Series.idSeries)
 
                             AddListControlItem(_SeriesList, _Series.idSeries, _Series.ReferencedProgram.ReferencedChannel.DisplayName, _Series.ReferencedProgram.Title, , _FoundedNewEpisodes, _SeriesPosterPath, , , _Series.ReferencedProgram.IdProgram)
 
@@ -604,10 +606,10 @@ Namespace ClickfinderProgramGuide
                 SQLstring = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
                                             "WHERE idSeries = " & _selectedSeries.idSeries & " " & _
                                             "AND local = 0 " & _
-                                            "AND title = '" & _selectedSeries.ReferencedProgram.Title & "' " & _
                                             "AND startTime > " & StartTime & " " & _
                                             "AND startTime < " & EndTime & " " & _
                                             "ORDER BY startTime ASC"
+                '"AND title = '" & _selectedSeries.ReferencedProgram.Title & "' " & _
 
                 _Result.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", False))
 

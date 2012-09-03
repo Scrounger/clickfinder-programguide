@@ -15,6 +15,7 @@ Imports MediaPortal.Player
 Imports MediaPortal.Playlists
 Imports MediaPortal.TagReader
 Imports System.Threading
+Imports System.Globalization
 
 
 Public Class Helper
@@ -396,10 +397,13 @@ Public Class Helper
         dlgContext.Add(lItemSerieLink)
         lItemSerieLink.Dispose()
 
-
+        'mit Serien aktualisieren
+        Dim lItemSeriesUpdate As New GUIListItem
+        lItemSeriesUpdate.Label = Translation.SeriesRefresh
+        dlgContext.Add(lItemSeriesUpdate)
+        lItemSeriesUpdate.Dispose()
 
         dlgContext.DoModal(GUIWindowManager.ActiveWindow)
-
 
         Select Case dlgContext.SelectedLabel
             Case Is = 0
@@ -419,9 +423,12 @@ Public Class Helper
                     GUIWindowManager.ActivateWindow(4755, "site:IMDb Movie Trailers|search:" & Program.Title & "|return:Locked")
                 Else
                     ShowNotify("OnlineVideos plugin nicht verfügbar!")
+                    Thread.Sleep(5000)
                 End If
             Case Is = 4
                 ShowSerieLinkContextMenu(Program)
+            Case Is = 5
+
             Case Else
                 MyLog.Debug("[ShowActionMenu]: exit")
                 MyLog.Debug("")
@@ -667,7 +674,7 @@ Public Class Helper
 
         'GUIPropertyManager.SetProperty("#Play.Current.Plot", CurrentMovie.Summary)
         GUIPropertyManager.SetProperty("#Play.Current.Thumb", _PlayedFile.Cover)
-    
+
 
     End Sub
 
@@ -682,7 +689,6 @@ Public Class Helper
             Return False
         End Try
     End Function
-
 
     Friend Shared Sub LogSettings()
         Dim _tvbLayer As New TvBusinessLayer
@@ -813,4 +819,7 @@ Public Class Helper
 
     End Sub
 
+    Private Sub SeriesRefresh()
+
+    End Sub
 End Class

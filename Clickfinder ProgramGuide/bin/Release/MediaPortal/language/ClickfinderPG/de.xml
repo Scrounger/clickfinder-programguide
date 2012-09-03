@@ -101,5 +101,6 @@
   <string Field="SeriesInfos">Infos zur Serie</string>
   <string Field="Ended">beendet</string>
   <string Field="Continous">wird fortgesetzt</string>
-
+  <string Field="SeriesRefresh">Serien aktualisieren</string>
+  
 </strings>

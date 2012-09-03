@@ -852,9 +852,9 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
         </MinVersion>
         <MaxVersion>
           <Major>1</Major>
-          <Minor>3</Minor>
-          <Build>0</Build>
-          <Revision>0</Revision>
+          <Minor>1</Minor>
+          <Build>6</Build>
+          <Revision>27644</Revision>
         </MaxVersion>
         <WarnOnly>false</WarnOnly>
         <Message>requires MediaPortal version 1.1.6.27644 to 1.1.6.27644.</Message>
@@ -1090,7 +1090,7 @@ Requirements:
 - Tv Movie EPG Import++ plugin (newest version)</ExtensionDescription>
     <VersionDescription>=== Version: 1.0.4.0 ===
 
-  * new Gui added: new Episodes preview
+  * new Gui added: new Episodes preview (MP-TvSeries req.)
   * click event bug fixed
   * Skin files bug fixed
   * remember las focused item bug fixed</VersionDescription>

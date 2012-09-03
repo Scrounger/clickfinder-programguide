@@ -58,6 +58,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\plugins\Windows\Dialogs.dll</HintPath>
     </Reference>
+    <Reference Include="enrichEPG, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\enrichEPG.dll</HintPath>
+    </Reference>
     <Reference Include="Gentle.Common, Version=1.5.0.29111, Culture=neutral, PublicKeyToken=80b5de62e27be49b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\Gentle.Common.dll</HintPath>
@@ -122,6 +126,7 @@
     <Compile Include="Class\GuiButtons.vb" />
     <Compile Include="Class\Helper.vb" />
     <Compile Include="Class\GuiLayout.vb" />
+    <Compile Include="Class\MyLogImporter.vb" />
     <Compile Include="Class\MyLog.vb" />
     <Compile Include="Class\GUIDialogSelect2Custom.vb" />
     <Compile Include="Class\Translation.vb" />
@@ -432,6 +437,9 @@
     <Content Include="MediaPortal\thumbs\Clickfinder ProgramGuide\Categories\Tages Tipps.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Skin Mods\StreamedMP\TVOSD.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\btn_donate_LG1.gif" />
     <None Include="Resources\btn_donate_LG.gif" />
     <EmbeddedResource Include="ConfigIcons\Config.png">
@@ -448,6 +456,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Enums\" />
+    <Folder Include="Skin Mods\Default Wide\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

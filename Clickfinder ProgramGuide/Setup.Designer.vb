@@ -66,6 +66,11 @@ Partial Class Setup
         Me.Panel9 = New System.Windows.Forms.Panel
         Me.CBStartGui = New System.Windows.Forms.ComboBox
         Me.Label23 = New System.Windows.Forms.Label
+        Me.Panel29 = New System.Windows.Forms.Panel
+        Me.tbEpisodenScanner = New System.Windows.Forms.TextBox
+        Me.Label30 = New System.Windows.Forms.Label
+        Me.Label31 = New System.Windows.Forms.Label
+        Me.ButtonOpenDlgEpisodenScanner = New System.Windows.Forms.Button
         Me.Panel5 = New System.Windows.Forms.Panel
         Me.tbClickfinderImagePath = New System.Windows.Forms.TextBox
         Me.Label27 = New System.Windows.Forms.Label
@@ -171,6 +176,7 @@ Partial Class Setup
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
         Me.Panel1 = New System.Windows.Forms.Panel
         Me.Panel2 = New System.Windows.Forms.Panel
+        Me.Button1 = New System.Windows.Forms.Button
         Me.TabControl1.SuspendLayout()
         Me.TabAllgemeines.SuspendLayout()
         Me.Panel13.SuspendLayout()
@@ -186,6 +192,7 @@ Partial Class Setup
         Me.Panel10.SuspendLayout()
         Me.Panel8.SuspendLayout()
         Me.Panel9.SuspendLayout()
+        Me.Panel29.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -235,7 +242,7 @@ Partial Class Setup
         '
         Me.ButtonSave.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.ButtonSave.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonSave.Location = New System.Drawing.Point(0, 875)
+        Me.ButtonSave.Location = New System.Drawing.Point(0, 837)
         Me.ButtonSave.Margin = New System.Windows.Forms.Padding(4)
         Me.ButtonSave.Name = "ButtonSave"
         Me.ButtonSave.Size = New System.Drawing.Size(813, 39)
@@ -283,7 +290,7 @@ Partial Class Setup
         Me.TabControl1.Location = New System.Drawing.Point(10, 10)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(793, 751)
+        Me.TabControl1.Size = New System.Drawing.Size(793, 713)
         Me.TabControl1.TabIndex = 39
         '
         'TabAllgemeines
@@ -293,13 +300,14 @@ Partial Class Setup
         Me.TabAllgemeines.Controls.Add(Me.Panel13)
         Me.TabAllgemeines.Controls.Add(Me.Panel12)
         Me.TabAllgemeines.Controls.Add(Me.Panel11)
+        Me.TabAllgemeines.Controls.Add(Me.Panel29)
         Me.TabAllgemeines.Controls.Add(Me.Panel5)
         Me.TabAllgemeines.Controls.Add(Me.Panel4)
         Me.TabAllgemeines.Controls.Add(Me.Panel3)
         Me.TabAllgemeines.Location = New System.Drawing.Point(4, 25)
         Me.TabAllgemeines.Name = "TabAllgemeines"
         Me.TabAllgemeines.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabAllgemeines.Size = New System.Drawing.Size(785, 722)
+        Me.TabAllgemeines.Size = New System.Drawing.Size(785, 684)
         Me.TabAllgemeines.TabIndex = 0
         Me.TabAllgemeines.Text = "Allgemeines"
         Me.TabAllgemeines.UseVisualStyleBackColor = True
@@ -309,7 +317,7 @@ Partial Class Setup
         Me.CheckBoxDebugMode.AutoSize = True
         Me.CheckBoxDebugMode.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.CheckBoxDebugMode.Dock = System.Windows.Forms.DockStyle.Top
-        Me.CheckBoxDebugMode.Location = New System.Drawing.Point(3, 683)
+        Me.CheckBoxDebugMode.Location = New System.Drawing.Point(3, 661)
         Me.CheckBoxDebugMode.Name = "CheckBoxDebugMode"
         Me.CheckBoxDebugMode.Size = New System.Drawing.Size(779, 20)
         Me.CheckBoxDebugMode.TabIndex = 7
@@ -321,10 +329,10 @@ Partial Class Setup
         '
         Me.Panel13.Controls.Add(Me.GroupBox4)
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel13.Location = New System.Drawing.Point(3, 491)
+        Me.Panel13.Location = New System.Drawing.Point(3, 533)
         Me.Panel13.Name = "Panel13"
         Me.Panel13.Padding = New System.Windows.Forms.Padding(10, 5, 10, 10)
-        Me.Panel13.Size = New System.Drawing.Size(779, 192)
+        Me.Panel13.Size = New System.Drawing.Size(779, 128)
         Me.Panel13.TabIndex = 79
         '
         'GroupBox4
@@ -340,7 +348,7 @@ Partial Class Setup
         Me.GroupBox4.Location = New System.Drawing.Point(10, 5)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Padding = New System.Windows.Forms.Padding(10)
-        Me.GroupBox4.Size = New System.Drawing.Size(759, 177)
+        Me.GroupBox4.Size = New System.Drawing.Size(759, 113)
         Me.GroupBox4.TabIndex = 12
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Tv Movie EPG Import++ settings (zur Info)"
@@ -348,13 +356,13 @@ Partial Class Setup
         'CheckBoxVideoDB
         '
         Me.CheckBoxVideoDB.AutoSize = True
-        Me.CheckBoxVideoDB.Dock = System.Windows.Forms.DockStyle.Top
+        Me.CheckBoxVideoDB.Dock = System.Windows.Forms.DockStyle.Left
         Me.CheckBoxVideoDB.Enabled = False
         Me.CheckBoxVideoDB.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.CheckBoxVideoDB.Location = New System.Drawing.Point(10, 126)
+        Me.CheckBoxVideoDB.Location = New System.Drawing.Point(360, 74)
         Me.CheckBoxVideoDB.Name = "CheckBoxVideoDB"
         Me.CheckBoxVideoDB.Padding = New System.Windows.Forms.Padding(10, 3, 3, 3)
-        Me.CheckBoxVideoDB.Size = New System.Drawing.Size(739, 26)
+        Me.CheckBoxVideoDB.Size = New System.Drawing.Size(182, 29)
         Me.CheckBoxVideoDB.TabIndex = 75
         Me.CheckBoxVideoDB.Text = "VideoDatabase import"
         Me.CheckBoxVideoDB.UseVisualStyleBackColor = True
@@ -362,13 +370,13 @@ Partial Class Setup
         'CheckBoxMovingPictures
         '
         Me.CheckBoxMovingPictures.AutoSize = True
-        Me.CheckBoxMovingPictures.Dock = System.Windows.Forms.DockStyle.Top
+        Me.CheckBoxMovingPictures.Dock = System.Windows.Forms.DockStyle.Left
         Me.CheckBoxMovingPictures.Enabled = False
         Me.CheckBoxMovingPictures.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.CheckBoxMovingPictures.Location = New System.Drawing.Point(10, 100)
+        Me.CheckBoxMovingPictures.Location = New System.Drawing.Point(177, 74)
         Me.CheckBoxMovingPictures.Name = "CheckBoxMovingPictures"
         Me.CheckBoxMovingPictures.Padding = New System.Windows.Forms.Padding(10, 3, 3, 3)
-        Me.CheckBoxMovingPictures.Size = New System.Drawing.Size(739, 26)
+        Me.CheckBoxMovingPictures.Size = New System.Drawing.Size(183, 29)
         Me.CheckBoxMovingPictures.TabIndex = 74
         Me.CheckBoxMovingPictures.Text = "MovingPictures import"
         Me.CheckBoxMovingPictures.UseVisualStyleBackColor = True
@@ -376,13 +384,13 @@ Partial Class Setup
         'CheckBoxTvSeries
         '
         Me.CheckBoxTvSeries.AutoSize = True
-        Me.CheckBoxTvSeries.Dock = System.Windows.Forms.DockStyle.Top
+        Me.CheckBoxTvSeries.Dock = System.Windows.Forms.DockStyle.Left
         Me.CheckBoxTvSeries.Enabled = False
         Me.CheckBoxTvSeries.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.CheckBoxTvSeries.Location = New System.Drawing.Point(10, 74)
         Me.CheckBoxTvSeries.Name = "CheckBoxTvSeries"
         Me.CheckBoxTvSeries.Padding = New System.Windows.Forms.Padding(10, 3, 3, 3)
-        Me.CheckBoxTvSeries.Size = New System.Drawing.Size(739, 26)
+        Me.CheckBoxTvSeries.Size = New System.Drawing.Size(167, 29)
         Me.CheckBoxTvSeries.TabIndex = 73
         Me.CheckBoxTvSeries.Text = "MP-TvSeries import"
         Me.CheckBoxTvSeries.UseVisualStyleBackColor = True
@@ -416,7 +424,7 @@ Partial Class Setup
         '
         Me.Panel12.Controls.Add(Me.GroupBox5)
         Me.Panel12.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel12.Location = New System.Drawing.Point(3, 386)
+        Me.Panel12.Location = New System.Drawing.Point(3, 428)
         Me.Panel12.Name = "Panel12"
         Me.Panel12.Padding = New System.Windows.Forms.Padding(10, 10, 10, 5)
         Me.Panel12.Size = New System.Drawing.Size(779, 105)
@@ -461,7 +469,7 @@ Partial Class Setup
         Me.Panel11.Controls.Add(Me.Panel6)
         Me.Panel11.Controls.Add(Me.Panel7)
         Me.Panel11.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel11.Location = New System.Drawing.Point(3, 128)
+        Me.Panel11.Location = New System.Drawing.Point(3, 170)
         Me.Panel11.Name = "Panel11"
         Me.Panel11.Size = New System.Drawing.Size(779, 258)
         Me.Panel11.TabIndex = 78
@@ -733,6 +741,58 @@ Partial Class Setup
         Me.Label23.TabIndex = 34
         Me.Label23.Text = "Start GUI:"
         '
+        'Panel29
+        '
+        Me.Panel29.Controls.Add(Me.tbEpisodenScanner)
+        Me.Panel29.Controls.Add(Me.Label30)
+        Me.Panel29.Controls.Add(Me.Label31)
+        Me.Panel29.Controls.Add(Me.ButtonOpenDlgEpisodenScanner)
+        Me.Panel29.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel29.Location = New System.Drawing.Point(3, 128)
+        Me.Panel29.Name = "Panel29"
+        Me.Panel29.Padding = New System.Windows.Forms.Padding(10)
+        Me.Panel29.Size = New System.Drawing.Size(779, 42)
+        Me.Panel29.TabIndex = 80
+        '
+        'tbEpisodenScanner
+        '
+        Me.tbEpisodenScanner.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tbEpisodenScanner.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbEpisodenScanner.Location = New System.Drawing.Point(203, 10)
+        Me.tbEpisodenScanner.Name = "tbEpisodenScanner"
+        Me.tbEpisodenScanner.Size = New System.Drawing.Size(523, 23)
+        Me.tbEpisodenScanner.TabIndex = 2
+        '
+        'Label30
+        '
+        Me.Label30.Dock = System.Windows.Forms.DockStyle.Right
+        Me.Label30.Location = New System.Drawing.Point(726, 10)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(10, 22)
+        Me.Label30.TabIndex = 43
+        '
+        'Label31
+        '
+        Me.Label31.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Label31.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label31.Location = New System.Drawing.Point(10, 10)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(193, 22)
+        Me.Label31.TabIndex = 1
+        Me.Label31.Text = "Episodenscanner:"
+        '
+        'ButtonOpenDlgEpisodenScanner
+        '
+        Me.ButtonOpenDlgEpisodenScanner.AutoSize = True
+        Me.ButtonOpenDlgEpisodenScanner.Dock = System.Windows.Forms.DockStyle.Right
+        Me.ButtonOpenDlgEpisodenScanner.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonOpenDlgEpisodenScanner.Location = New System.Drawing.Point(736, 10)
+        Me.ButtonOpenDlgEpisodenScanner.Name = "ButtonOpenDlgEpisodenScanner"
+        Me.ButtonOpenDlgEpisodenScanner.Size = New System.Drawing.Size(33, 22)
+        Me.ButtonOpenDlgEpisodenScanner.TabIndex = 5
+        Me.ButtonOpenDlgEpisodenScanner.Text = "..."
+        Me.ButtonOpenDlgEpisodenScanner.UseVisualStyleBackColor = True
+        '
         'Panel5
         '
         Me.Panel5.Controls.Add(Me.tbClickfinderImagePath)
@@ -887,7 +947,7 @@ Partial Class Setup
         Me.TabItems.Location = New System.Drawing.Point(4, 25)
         Me.TabItems.Name = "TabItems"
         Me.TabItems.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabItems.Size = New System.Drawing.Size(785, 722)
+        Me.TabItems.Size = New System.Drawing.Size(785, 684)
         Me.TabItems.TabIndex = 3
         Me.TabItems.Text = "GUI Items"
         Me.TabItems.UseVisualStyleBackColor = True
@@ -950,7 +1010,7 @@ Partial Class Setup
         Me.TabÜbersicht.Location = New System.Drawing.Point(4, 25)
         Me.TabÜbersicht.Name = "TabÜbersicht"
         Me.TabÜbersicht.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabÜbersicht.Size = New System.Drawing.Size(785, 722)
+        Me.TabÜbersicht.Size = New System.Drawing.Size(785, 684)
         Me.TabÜbersicht.TabIndex = 1
         Me.TabÜbersicht.Text = "GUI Highlights"
         Me.TabÜbersicht.UseVisualStyleBackColor = True
@@ -1293,7 +1353,7 @@ Partial Class Setup
         Me.TabCategories.Controls.Add(Me.SplitContainer1)
         Me.TabCategories.Location = New System.Drawing.Point(4, 25)
         Me.TabCategories.Name = "TabCategories"
-        Me.TabCategories.Size = New System.Drawing.Size(785, 722)
+        Me.TabCategories.Size = New System.Drawing.Size(785, 684)
         Me.TabCategories.TabIndex = 2
         Me.TabCategories.Text = "GUI Kategorien"
         Me.TabCategories.UseVisualStyleBackColor = True
@@ -1517,7 +1577,7 @@ Partial Class Setup
         Me.TabDetail.Location = New System.Drawing.Point(4, 25)
         Me.TabDetail.Name = "TabDetail"
         Me.TabDetail.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabDetail.Size = New System.Drawing.Size(785, 722)
+        Me.TabDetail.Size = New System.Drawing.Size(785, 684)
         Me.TabDetail.TabIndex = 4
         Me.TabDetail.Text = "GUI Details"
         Me.TabDetail.UseVisualStyleBackColor = True
@@ -1623,7 +1683,7 @@ Partial Class Setup
         Me.TabOverlay.Location = New System.Drawing.Point(4, 25)
         Me.TabOverlay.Name = "TabOverlay"
         Me.TabOverlay.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabOverlay.Size = New System.Drawing.Size(785, 722)
+        Me.TabOverlay.Size = New System.Drawing.Size(785, 684)
         Me.TabOverlay.TabIndex = 5
         Me.TabOverlay.Text = "Overlay"
         Me.TabOverlay.UseVisualStyleBackColor = True
@@ -1943,7 +2003,7 @@ Partial Class Setup
         Me.Panel1.Controls.Add(Me.LinkLabel1)
         Me.Panel1.Controls.Add(Me.PictureBox2)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel1.Location = New System.Drawing.Point(0, 846)
+        Me.Panel1.Location = New System.Drawing.Point(0, 808)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(813, 29)
         Me.Panel1.TabIndex = 41
@@ -1956,15 +2016,25 @@ Partial Class Setup
         Me.Panel2.Location = New System.Drawing.Point(0, 65)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(10, 10, 10, 20)
-        Me.Panel2.Size = New System.Drawing.Size(813, 781)
+        Me.Panel2.Size = New System.Drawing.Size(813, 743)
         Me.Panel2.TabIndex = 42
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(620, 19)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(122, 35)
+        Me.Button1.TabIndex = 43
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'Setup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(813, 914)
+        Me.ClientSize = New System.Drawing.Size(813, 876)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.PictureBox1)
@@ -2001,6 +2071,8 @@ Partial Class Setup
         Me.Panel8.PerformLayout()
         Me.Panel9.ResumeLayout(False)
         Me.Panel9.PerformLayout()
+        Me.Panel29.ResumeLayout(False)
+        Me.Panel29.PerformLayout()
         Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout()
         Me.Panel4.ResumeLayout(False)
@@ -2215,4 +2287,10 @@ Partial Class Setup
     Friend WithEvents Panel28 As System.Windows.Forms.Panel
     Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
     Friend WithEvents Panel27 As System.Windows.Forms.Panel
+    Friend WithEvents Panel29 As System.Windows.Forms.Panel
+    Friend WithEvents tbEpisodenScanner As System.Windows.Forms.TextBox
+    Friend WithEvents Label30 As System.Windows.Forms.Label
+    Friend WithEvents Label31 As System.Windows.Forms.Label
+    Friend WithEvents ButtonOpenDlgEpisodenScanner As System.Windows.Forms.Button
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 End Class
