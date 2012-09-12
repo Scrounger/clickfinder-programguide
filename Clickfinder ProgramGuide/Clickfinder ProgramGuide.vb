@@ -29,6 +29,7 @@ Imports System.Drawing
 Imports MediaPortal.Playlists
 
 Imports ClickfinderProgramGuide.TvDatabase
+Imports System.Timers
 
 Namespace ClickfinderProgramGuide
     <PluginIcons("ClickfinderProgramGuide.Config.png", "ClickfinderProgramGuide.Config_disable.png")> _
@@ -43,6 +44,7 @@ Namespace ClickfinderProgramGuide
 
 #Region "Members"
         Private Shared _layer As New TvBusinessLayer
+        Private _stateTimer As System.Timers.Timer
         Friend Shared _DebugModeOn As Boolean = False
 #End Region
 
@@ -103,6 +105,32 @@ Namespace ClickfinderProgramGuide
 
 #End Region
 
+
+        Private Sub StartStopTimer(ByVal startNow As Boolean)
+
+            If startNow Then
+                If _stateTimer Is Nothing Then
+                    _stateTimer = New System.Timers.Timer()
+                    AddHandler _stateTimer.Elapsed, New ElapsedEventHandler(AddressOf RefreshOverlays)
+                    _stateTimer.Interval = CLng(_layer.GetSetting("ClickfinderOverlayUpdateTimer", "20").Value * 60 * 1000)
+                    _stateTimer.AutoReset = True
+
+                    GC.KeepAlive(_stateTimer)
+                End If
+                _stateTimer.Start()
+                _stateTimer.Enabled = True
+
+            Else
+                _stateTimer.Enabled = False
+                _stateTimer.[Stop]()
+                MyLog.Debug("background timer stopped")
+            End If
+        End Sub
+
+        Public Sub test()
+            MsgBox("")
+        End Sub
+
 #Region "GUI Events"
         Public Overrides Sub PreInit()
             MyBase.PreInit()
@@ -111,13 +139,11 @@ Namespace ClickfinderProgramGuide
 
                 If Helper.TvServerConnected = True Then
 
-                    If CBool(_layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false").Value) = True Then
-                        ClickfinderProgramGuideOverlayMovies()
-                    End If
+                    'Overlays über timer laden
+                    RefreshOverlays()
 
-                    If CBool(_layer.GetSetting("ClickfinderOverlaySeriesEnabled", "false").Value) = True Then
-                        ClickfinderProgramGuideOverlaySeries()
-                    End If
+                    StartStopTimer(True)
+                    
                 Else
 
                     For i = 1 To 4
@@ -268,6 +294,21 @@ Namespace ClickfinderProgramGuide
 #End Region
 
 #Region "Functions"
+
+        Private Sub RefreshOverlays()
+
+            MsgBox("")
+
+            If CBool(_layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false").Value) = True Then
+                ClickfinderProgramGuideOverlayMovies()
+            End If
+
+            If CBool(_layer.GetSetting("ClickfinderOverlaySeriesEnabled", "false").Value) = True Then
+                ClickfinderProgramGuideOverlaySeries()
+            End If
+
+        End Sub
+
         Private Sub ClickfinderProgramGuideOverlayMovies()
             Dim _lastTitle As String = String.Empty
             Dim _ItemCounter As Integer = 0

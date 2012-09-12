@@ -301,6 +301,7 @@ Namespace ClickfinderProgramGuide
 
             MyBase.OnAction(Action)
         End Sub
+
         Protected Overrides Sub OnPageDestroy(ByVal new_windowId As Integer)
 
             For i = 1 To 6

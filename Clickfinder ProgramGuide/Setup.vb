@@ -67,6 +67,7 @@ Public Class Setup
 
             NumPreviewDays.Value = _layer.GetSetting("ClickfinderPreviewMaxDays", "7").Value
             NumPreviewMinTvMovieRating.Value = _layer.GetSetting("ClickfinderPreviewMinTvMovieRating", "1").Value
+            NumUpdateOverlay.Value = _layer.GetSetting("ClickfinderOverlayUpdateTimer", "20").Value
 
             If CheckBoxEnableMovieOverlay.Checked = True Then
                 GroupBoxMovieOverlay.Enabled = True
@@ -288,6 +289,11 @@ Public Class Setup
 
             setting = _layer.GetSetting("ClickfinderPreviewMinTvMovieRating", "1")
             setting.Value = CStr(NumPreviewMinTvMovieRating.Value)
+            setting.Persist()
+
+
+            setting = _layer.GetSetting("ClickfinderOverlayUpdateTimer", "20")
+            setting.Value = NumUpdateOverlay.Value
             setting.Persist()
 
             SaveCategories()
