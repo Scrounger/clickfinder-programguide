@@ -215,7 +215,6 @@ Namespace ClickfinderProgramGuide
 
         Friend Shared ReadOnly Property RecordingStatus(ByVal program As Program) As String
             Get
-
                 If program.IsRecording = True Or program.IsRecordingManual = True Or program.IsRecordingOnce = True Or program.IsRecordingOncePending = True Then
                     Return "tvguide_record_button.png"
                 ElseIf program.IsRecordingSeries = True Or program.IsRecordingSeriesPending = True Then

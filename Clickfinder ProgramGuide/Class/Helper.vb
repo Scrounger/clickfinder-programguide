@@ -423,7 +423,6 @@ Public Class Helper
                     GUIWindowManager.ActivateWindow(4755, "site:IMDb Movie Trailers|search:" & Program.Title & "|return:Locked")
                 Else
                     ShowNotify("OnlineVideos plugin nicht verfügbar!")
-                    Thread.Sleep(5000)
                 End If
             Case Is = 4
                 ShowSerieLinkContextMenu(Program)

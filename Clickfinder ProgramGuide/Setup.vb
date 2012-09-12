@@ -855,14 +855,14 @@ Public Class Setup
     End Sub
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        Dim bla As New enrichEPG.EnrichEPG("\\10.0.1.2\MediaPortal Transfer\Database", _
-                                                   True, True, True, _
-                                                   "D:\EpisodenScanner\bin")
+        'Dim bla As New enrichEPG.EnrichEPG("\\10.0.1.2\MediaPortal Transfer\Database", _
+        '                                           True, True, True, _
+        '                                           "D:\EpisodenScanner\bin")
 
 
 
-        Dim _bla As New Thread(AddressOf bla.start)
-        _bla.Start()
+        'Dim _bla As New Thread(AddressOf bla.start)
+        '_bla.Start()
 
     End Sub
 End Class
