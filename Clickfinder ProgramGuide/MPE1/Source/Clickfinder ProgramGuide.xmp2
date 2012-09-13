@@ -161,7 +161,7 @@
         <ParentGroup />
         <DisplayName>Default Wide</DisplayName>
         <DefaulChecked>true</DefaulChecked>
-        <Description>Skin: Default Wide</Description>
+        <Description>Skin Files: Default Wide</Description>
         <Files>
           <Items>
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
@@ -381,6 +381,20 @@
               <ZipFileName>Installer{CopyFile}\{fc7e9ad3-29e1-4f36-85a3-fa1fa7566beb}-ClickfinderProgramGuideEpisodePreview.xml</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\ClickfinderProgramGuideEpisodePreview.xml</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_recOnce.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{8e053ced-e4d4-40dc-8778-c4392ce1b29f}-ClickfinderPG_recOnce.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_recOnce.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_recSeries.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{5fec72d7-b314-4ea5-87db-e748efc9dee0}-ClickfinderPG_recSeries.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_recSeries.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -388,7 +402,7 @@
         <ParentGroup />
         <DisplayName>StreamedMP</DisplayName>
         <DefaulChecked>true</DefaulChecked>
-        <Description>Skin: StreamedMP</Description>
+        <Description>Skin files: StreamedMP</Description>
         <Files>
           <Items>
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
@@ -608,6 +622,38 @@
               <ZipFileName>Installer{CopyFile}\{41256d83-a3da-4590-a76f-8c060e779cd9}-ClickfinderProgramGuideEpisodePreview.xml</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\ClickfinderProgramGuideEpisodePreview.xml</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_recOnce.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{5ca6683a-7d58-4b65-a2f2-20e43df66eeb}-ClickfinderPG_recOnce.png</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_recOnce.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_recSeries.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{aff73ff2-11a4-41cf-bcd8-089ec0813e0d}-ClickfinderPG_recSeries.png</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_recSeries.png</DestinationFilename>
+            </FileItem>
+          </Items>
+        </Files>
+      </GroupItem>
+      <GroupItem Name="Skin: StreamedMP Mod TvOsd">
+        <ParentGroup />
+        <DisplayName>StreamedMP Mod Tv OSD</DisplayName>
+        <DefaulChecked>false</DefaulChecked>
+        <Description>Button im TvOsd: 
+Clickfinder Detail Gui für das laufende Tv-Program aufrufen</Description>
+        <Files>
+          <Items>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\bin\Release\Skin Mods\StreamedMP\TVOSD.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{1f552956-b5dd-4139-a1bf-15417e726b85}-TVOSD.xml</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\TVOSD.xml</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -726,6 +772,7 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
         <IncludedGroups>
           <string>Skin: Default Wide</string>
           <string>Skin: StreamedMP</string>
+          <string>Skin: StreamedMP Mod TvOsd</string>
         </IncludedGroups>
         <PanelName>Tree View Selector</PanelName>
         <WizardButtonsEnum>BackNextCancel</WizardButtonsEnum>
@@ -782,7 +829,13 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
               </Params>
               <ExecuteLocation>AfterPanelShow</ExecuteLocation>
             </ActionItem>
-            <ActionItem Name="ClearSkinCache" ActionType="ClearSkinCache" ConditionGroup="">
+            <ActionItem Name="InstallFiles" ActionType="InstallFiles" ConditionGroup="Skin: StreamedMP Mod TvOsd">
+              <Params>
+                <Items />
+              </Params>
+              <ExecuteLocation>AfterPanelShow</ExecuteLocation>
+            </ActionItem>
+            <ActionItem Name="ClearSkinCache" ActionType="ClearSkinCache" ConditionGroup="Plugin dll">
               <Params>
                 <Items />
               </Params>
@@ -801,6 +854,7 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
           <string>language</string>
           <string>Skin: Default Wide</string>
           <string>Skin: StreamedMP</string>
+          <string>Skin: StreamedMP Mod TvOsd</string>
         </IncludedGroups>
         <PanelName>Install Section</PanelName>
         <WizardButtonsEnum>Next</WizardButtonsEnum>
@@ -875,8 +929,8 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
         </CompatibleVersion>
         <SubSystemsUsed>
           <Items>
-            <SubSystemItem Name="MP.Config" />
             <SubSystemItem Name="MP.SkinEngine" />
+            <SubSystemItem Name="MP.Config" />
           </Items>
         </SubSystemsUsed>
       </PluginDependencyItem>
@@ -893,9 +947,105 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>4</Build>
-      <Revision>0</Revision>
+      <Revision>5</Revision>
     </Version>
     <ExtensionDescription>This Plugin is a ProgramGuide based on the german EPG Data from the Tv Movie Clickfinder Provider (Software). It shows you information for different categories (e.g. Movies, Series, Doku,...), which television program is broadcasting now, at PrimeTime or at LateTime. There is also a Preview for the whole EPG timespan. The Data are sorted by the Rating of the TV Movie Clickfinder Plugin. This Plugin has a lot of configuration options, that gives the user the possibility to personalize the different views.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1039,6 +1189,54 @@ Requirements:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 - Tv Movie Clickfinder v.5.3 (free or premium)
 
 
@@ -1087,16 +1285,63 @@ Requirements:
 
 
 
-- Tv Movie EPG Import++ plugin (newest version)</ExtensionDescription>
-    <VersionDescription>=== Version: 1.0.4.0 ===
 
-  * new Gui added: new Episodes preview (MP-TvSeries req.)
-  * click event bug fixed
-  * Skin files bug fixed
-  * remember las focused item bug fixed</VersionDescription>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- Tv Movie EPG Import++ plugin (newest version)</ExtensionDescription>
+    <VersionDescription>=== Version: 1.0.4.5 ===
+
+
+
+</VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
     <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_1.0.3.0.mpe1</OnlineLocation>
-    <ReleaseDate>2012-08-28T15:57:29</ReleaseDate>
+    <ReleaseDate>2012-09-13T15:57:29</ReleaseDate>
     <Tags>programguide, tv movie, clickfinder, epg, tv</Tags>
     <Location>D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPE1\Clickfinder ProgramGuide_[Version].mpe1</Location>
     <Params>
@@ -1479,6 +1724,20 @@ Requirements:
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_recOnce.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{8e053ced-e4d4-40dc-8778-c4392ce1b29f}-ClickfinderPG_recOnce.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_recOnce.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_recSeries.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{5fec72d7-b314-4ea5-87db-e748efc9dee0}-ClickfinderPG_recSeries.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_recSeries.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuide.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{9131b31f-9413-4b66-a114-f929e6ee55ae}-ClickfinderProgramGuide.xml</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\ClickfinderProgramGuide.xml</DestinationFilename>
@@ -1692,6 +1951,27 @@ Requirements:
         <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideEpisodePreview.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{41256d83-a3da-4590-a76f-8c060e779cd9}-ClickfinderProgramGuideEpisodePreview.xml</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\ClickfinderProgramGuideEpisodePreview.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_recOnce.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{5ca6683a-7d58-4b65-a2f2-20e43df66eeb}-ClickfinderPG_recOnce.png</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_recOnce.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_recSeries.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{aff73ff2-11a4-41cf-bcd8-089ec0813e0d}-ClickfinderPG_recSeries.png</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_recSeries.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\bin\Release\Skin Mods\StreamedMP\TVOSD.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{1f552956-b5dd-4139-a1bf-15417e726b85}-TVOSD.xml</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\TVOSD.xml</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />

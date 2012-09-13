@@ -321,6 +321,8 @@ Namespace ClickfinderProgramGuide
 
             AbortRunningThreads()
 
+            GC.Collect()
+
             MyBase.OnPageDestroy(new_windowId)
 
         End Sub
@@ -964,14 +966,12 @@ Namespace ClickfinderProgramGuide
                                 End Try
                             Next
 
-                            'Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowHighlightsProgressBar)
-                            '_ProgressBarThread.Start()
+                            Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowHighlightsProgressBar)
+                            _ProgressBarThread.Start()
+
                             _ThreadFillHighlightsList = New Thread(AddressOf FillHighlightsList)
                             _ThreadFillHighlightsList.IsBackground = True
                             _ThreadFillHighlightsList.Start()
-
-
-
 
                             dlgContext.DoModal(GetID)
 

@@ -843,7 +843,7 @@ Public Class Setup
 
     End Sub
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonDefaultSettings.Click
+    Private Sub ButtonDefaultSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonDefaultSettings.Click
 
         Dim antwort As MsgBoxResult
         antwort = MsgBox("Möchtes du wirklich die standard Einstellungen des Clickfinder ProgramGuides wiederherstellen?" & vbNewLine & _
@@ -875,9 +875,8 @@ Public Class Setup
             setting.Value = CStr(16)
             setting.Persist()
 
-
-            setting = _layer.GetSetting("ClickfinderOverviewMaxDays", "10")
-            setting.Value = CStr(10)
+            setting = _layer.GetSetting("ClickfinderOverviewMaxDays", "14")
+            setting.Value = CStr(14)
             setting.Persist()
 
             setting = _layer.GetSetting("ClickfinderPrimeTime", "20:15")
@@ -916,8 +915,8 @@ Public Class Setup
             setting.Value = "Highlights"
             setting.Persist()
 
-            setting = _layer.GetSetting("ClickfinderPreviewMaxDays", "7")
-            setting.Value = CStr(7)
+            setting = _layer.GetSetting("ClickfinderPreviewMaxDays", "14")
+            setting.Value = CStr(14)
             setting.Persist()
 
             setting = _layer.GetSetting("ClickfinderPreviewMinTvMovieRating", "1")
