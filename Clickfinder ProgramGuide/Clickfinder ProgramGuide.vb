@@ -45,6 +45,7 @@ Namespace ClickfinderProgramGuide
 #Region "Members"
         Private Shared _layer As New TvBusinessLayer
         Private _stateTimer As System.Timers.Timer
+        Friend _OverlayStartupLoaded As Boolean = False
         Friend Shared _DebugModeOn As Boolean = False
 #End Region
 
@@ -139,11 +140,16 @@ Namespace ClickfinderProgramGuide
 
                 If Helper.TvServerConnected = True Then
 
-                    'Overlays über timer laden
-                    RefreshOverlays()
+                    'nötig weil sonst doppel ausgeführt wird bei MP Start
+                    If _OverlayStartupLoaded = False Then
+                        RefreshOverlays()
+                        _OverlayStartupLoaded = True
 
-                    StartStopTimer(True)
-                    
+                        'Overlays Timer starten
+                        StartStopTimer(True)
+                    End If
+
+
                 Else
 
                     For i = 1 To 4
@@ -296,8 +302,6 @@ Namespace ClickfinderProgramGuide
 #Region "Functions"
 
         Private Sub RefreshOverlays()
-
-            MsgBox("")
 
             If CBool(_layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false").Value) = True Then
                 ClickfinderProgramGuideOverlayMovies()

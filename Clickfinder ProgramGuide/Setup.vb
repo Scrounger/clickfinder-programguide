@@ -588,23 +588,6 @@ Public Class Setup
         End If
     End Sub
 
-    Private Sub ButtonCategoriesDefault_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonCategoriesDefault.Click
-        Try
-            Dim antwort As MsgBoxResult
-            antwort = MsgBox("Möchtes du wirklich die Default Kategorien wieder herstellen?" & vbNewLine & _
-                             "Alle durchgeführten Änderungen werden dadurch gelöscht !", MsgBoxStyle.Question + MsgBoxStyle.YesNo + MsgBoxStyle.DefaultButton2, "Restore Default")
-
-            If antwort = MsgBoxResult.Yes Then
-                CreateClickfinderCategoriesTable()
-                CreateClickfinderCategories()
-                Filldgv()
-                MyLog.[Debug]("[ButtonCategoriesDefault_Click]: Restore default Categories")
-            End If
-
-        Catch ex As Exception
-            MyLog.Error("[ButtonCategoriesDefault_Click]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
-        End Try
-    End Sub
     Private Function CreateCloneImage(ByVal path As String) As Bitmap
         Dim bmpClone As Bitmap = Nothing 'the clone to be loaded to a PictureBox
 
@@ -860,15 +843,99 @@ Public Class Setup
 
     End Sub
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        'Dim bla As New enrichEPG.EnrichEPG("\\10.0.1.2\MediaPortal Transfer\Database", _
-        '                                           True, True, True, _
-        '                                           "D:\EpisodenScanner\bin")
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonDefaultSettings.Click
+
+        Dim antwort As MsgBoxResult
+        antwort = MsgBox("Möchtes du wirklich die standard Einstellungen des Clickfinder ProgramGuides wiederherstellen?" & vbNewLine & _
+                         "Alle durchgeführten Änderungen werden dadurch gelöscht !" & vbNewLine & vbNewLine & "Das Setup des Clickfinder ProgramGuides muss danach neu aufgerufen werden.", MsgBoxStyle.Question + MsgBoxStyle.YesNo + MsgBoxStyle.DefaultButton2, "Restore Default")
 
 
+        If antwort = MsgBoxResult.Yes Then
+            Dim setting As Setting = _layer.GetSetting("ClickfinderDatabasePath", "")
+            setting.Value = ""
+            setting.Persist()
 
-        'Dim _bla As New Thread(AddressOf bla.start)
-        '_bla.Start()
+            setting = _layer.GetSetting("ClickfinderImagePath", "false")
+            setting.Value = ""
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderEpisodenScanner", "")
+            setting.Value = ""
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderOverviewShowMoviesAfter", "12")
+            setting.Value = CStr(12)
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderOverviewShowHighlightsAfter", "15")
+            setting.Value = CStr(15)
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderOverviewHighlightsMinRuntime", "16")
+            setting.Value = CStr(16)
+            setting.Persist()
+
+
+            setting = _layer.GetSetting("ClickfinderOverviewMaxDays", "10")
+            setting.Value = CStr(10)
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderPrimeTime", "20:15")
+            setting.Value = "20:15"
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderLateTime", "22:00")
+            setting.Value = "22:00"
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels")
+            setting.Value = "All Channels"
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderQuickTvGroup1", "All Channels")
+            setting.Value = "All Channels"
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderQuickTvGroup2", "All Channels")
+            setting.Value = "All Channels"
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderPluginName", "Clickfinder ProgramGuide")
+            setting.Value = "Clickfinder ProgramGuide"
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderOverlayMovieLimit", "10")
+            setting.Value = "10"
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderOverlayTvGroup", "All Channels")
+            setting.Value = "All Channels"
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderStartGui", "Highlights")
+            setting.Value = "Highlights"
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderPreviewMaxDays", "7")
+            setting.Value = CStr(7)
+            setting.Persist()
+
+            setting = _layer.GetSetting("ClickfinderPreviewMinTvMovieRating", "1")
+            setting.Value = CStr(3)
+            setting.Persist()
+
+
+            setting = _layer.GetSetting("ClickfinderOverlayUpdateTimer", "20")
+            setting.Value = "20"
+            setting.Persist()
+
+            CreateClickfinderCategoriesTable()
+            CreateClickfinderCategories()
+            Filldgv()
+            MyLog.[Debug]("[ButtonRestoreDefaulst]: Default settings restored!")
+
+            Me.Close()
+        End If
 
     End Sub
 End Class

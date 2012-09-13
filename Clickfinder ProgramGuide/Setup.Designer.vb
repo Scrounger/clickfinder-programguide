@@ -122,7 +122,6 @@ Partial Class Setup
         Me.CheckBoxShowCategorieLocalSeries = New System.Windows.Forms.CheckBox
         Me.CheckBoxShowCategorieLocalMovies = New System.Windows.Forms.CheckBox
         Me.Panel27 = New System.Windows.Forms.Panel
-        Me.ButtonCategoriesDefault = New System.Windows.Forms.Button
         Me.ButtonNewCategorie = New System.Windows.Forms.Button
         Me.CheckBoxSelect = New System.Windows.Forms.CheckBox
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
@@ -169,18 +168,18 @@ Partial Class Setup
         Me.Label21 = New System.Windows.Forms.Label
         Me.CheckBoxOverlayShowLocalMovies = New System.Windows.Forms.CheckBox
         Me.CheckBoxOverlayShowTagesTipp = New System.Windows.Forms.CheckBox
+        Me.Panel30 = New System.Windows.Forms.Panel
+        Me.Label33 = New System.Windows.Forms.Label
+        Me.NumUpdateOverlay = New System.Windows.Forms.NumericUpDown
+        Me.Label32 = New System.Windows.Forms.Label
         Me.CheckBoxEnableSeriesOverlay = New System.Windows.Forms.CheckBox
         Me.CheckBoxEnableMovieOverlay = New System.Windows.Forms.CheckBox
         Me.openFileDialog = New System.Windows.Forms.OpenFileDialog
         Me.PictureBox2 = New System.Windows.Forms.PictureBox
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
         Me.Panel1 = New System.Windows.Forms.Panel
+        Me.ButtonDefaultSettings = New System.Windows.Forms.Button
         Me.Panel2 = New System.Windows.Forms.Panel
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.NumUpdateOverlay = New System.Windows.Forms.NumericUpDown
-        Me.Panel30 = New System.Windows.Forms.Panel
-        Me.Label32 = New System.Windows.Forms.Label
-        Me.Label33 = New System.Windows.Forms.Label
         Me.TabControl1.SuspendLayout()
         Me.TabAllgemeines.SuspendLayout()
         Me.Panel13.SuspendLayout()
@@ -236,12 +235,12 @@ Partial Class Setup
         Me.Panel24.SuspendLayout()
         Me.Panel23.SuspendLayout()
         CType(Me.NumOverlayLimit, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel30.SuspendLayout()
+        CType(Me.NumUpdateOverlay, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
-        CType(Me.NumUpdateOverlay, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel30.SuspendLayout()
         Me.SuspendLayout()
         '
         'ButtonSave
@@ -271,12 +270,12 @@ Partial Class Setup
         '
         'LinkLabel1
         '
-        Me.LinkLabel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LinkLabel1.Dock = System.Windows.Forms.DockStyle.Left
         Me.LinkLabel1.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LinkLabel1.Location = New System.Drawing.Point(112, 0)
+        Me.LinkLabel1.Location = New System.Drawing.Point(94, 2)
         Me.LinkLabel1.Name = "LinkLabel1"
         Me.LinkLabel1.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
-        Me.LinkLabel1.Size = New System.Drawing.Size(701, 29)
+        Me.LinkLabel1.Size = New System.Drawing.Size(231, 25)
         Me.LinkLabel1.TabIndex = 38
         Me.LinkLabel1.TabStop = True
         Me.LinkLabel1.Tag = ""
@@ -1392,7 +1391,6 @@ Partial Class Setup
         '
         'Panel27
         '
-        Me.Panel27.Controls.Add(Me.ButtonCategoriesDefault)
         Me.Panel27.Controls.Add(Me.ButtonNewCategorie)
         Me.Panel27.Controls.Add(Me.CheckBoxSelect)
         Me.Panel27.Dock = System.Windows.Forms.DockStyle.Top
@@ -1401,16 +1399,6 @@ Partial Class Setup
         Me.Panel27.Padding = New System.Windows.Forms.Padding(20, 10, 40, 10)
         Me.Panel27.Size = New System.Drawing.Size(785, 47)
         Me.Panel27.TabIndex = 15
-        '
-        'ButtonCategoriesDefault
-        '
-        Me.ButtonCategoriesDefault.Dock = System.Windows.Forms.DockStyle.Right
-        Me.ButtonCategoriesDefault.Location = New System.Drawing.Point(609, 10)
-        Me.ButtonCategoriesDefault.Name = "ButtonCategoriesDefault"
-        Me.ButtonCategoriesDefault.Size = New System.Drawing.Size(68, 27)
-        Me.ButtonCategoriesDefault.TabIndex = 5
-        Me.ButtonCategoriesDefault.Text = "Default"
-        Me.ButtonCategoriesDefault.UseVisualStyleBackColor = True
         '
         'ButtonNewCategorie
         '
@@ -1953,6 +1941,53 @@ Partial Class Setup
         Me.CheckBoxOverlayShowTagesTipp.Text = "Zeige Tv Movie Tages Tipp als ersten Eintrag"
         Me.CheckBoxOverlayShowTagesTipp.UseVisualStyleBackColor = True
         '
+        'Panel30
+        '
+        Me.Panel30.Controls.Add(Me.Label33)
+        Me.Panel30.Controls.Add(Me.NumUpdateOverlay)
+        Me.Panel30.Controls.Add(Me.Label32)
+        Me.Panel30.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel30.Location = New System.Drawing.Point(3, 93)
+        Me.Panel30.Name = "Panel30"
+        Me.Panel30.Padding = New System.Windows.Forms.Padding(20, 10, 20, 10)
+        Me.Panel30.Size = New System.Drawing.Size(779, 44)
+        Me.Panel30.TabIndex = 16
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Label33.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label33.Location = New System.Drawing.Point(177, 10)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Padding = New System.Windows.Forms.Padding(2, 4, 10, 0)
+        Me.Label33.Size = New System.Drawing.Size(129, 20)
+        Me.Label33.TabIndex = 17
+        Me.Label33.Text = "min aktualisieren"
+        '
+        'NumUpdateOverlay
+        '
+        Me.NumUpdateOverlay.Dock = System.Windows.Forms.DockStyle.Left
+        Me.NumUpdateOverlay.Location = New System.Drawing.Point(107, 10)
+        Me.NumUpdateOverlay.Maximum = New Decimal(New Integer() {300, 0, 0, 0})
+        Me.NumUpdateOverlay.Minimum = New Decimal(New Integer() {5, 0, 0, 0})
+        Me.NumUpdateOverlay.Name = "NumUpdateOverlay"
+        Me.NumUpdateOverlay.Size = New System.Drawing.Size(70, 23)
+        Me.NumUpdateOverlay.TabIndex = 15
+        Me.NumUpdateOverlay.Value = New Decimal(New Integer() {5, 0, 0, 0})
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Label32.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label32.Location = New System.Drawing.Point(20, 10)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Padding = New System.Windows.Forms.Padding(0, 4, 2, 10)
+        Me.Label32.Size = New System.Drawing.Size(87, 30)
+        Me.Label32.TabIndex = 16
+        Me.Label32.Text = "Overlay alle"
+        '
         'CheckBoxEnableSeriesOverlay
         '
         Me.CheckBoxEnableSeriesOverlay.AutoSize = True
@@ -1987,9 +2022,9 @@ Partial Class Setup
         '
         Me.PictureBox2.Dock = System.Windows.Forms.DockStyle.Left
         Me.PictureBox2.Image = Global.ClickfinderProgramGuide.My.Resources.Resources.btn_donate_LG
-        Me.PictureBox2.Location = New System.Drawing.Point(0, 0)
+        Me.PictureBox2.Location = New System.Drawing.Point(2, 2)
         Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(112, 29)
+        Me.PictureBox2.Size = New System.Drawing.Size(92, 25)
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.PictureBox2.TabIndex = 40
         Me.PictureBox2.TabStop = False
@@ -2007,13 +2042,26 @@ Partial Class Setup
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.ButtonDefaultSettings)
         Me.Panel1.Controls.Add(Me.LinkLabel1)
         Me.Panel1.Controls.Add(Me.PictureBox2)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Panel1.Location = New System.Drawing.Point(0, 808)
         Me.Panel1.Name = "Panel1"
+        Me.Panel1.Padding = New System.Windows.Forms.Padding(2)
         Me.Panel1.Size = New System.Drawing.Size(813, 29)
         Me.Panel1.TabIndex = 41
+        '
+        'ButtonDefaultSettings
+        '
+        Me.ButtonDefaultSettings.Dock = System.Windows.Forms.DockStyle.Right
+        Me.ButtonDefaultSettings.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonDefaultSettings.Location = New System.Drawing.Point(600, 2)
+        Me.ButtonDefaultSettings.Name = "ButtonDefaultSettings"
+        Me.ButtonDefaultSettings.Size = New System.Drawing.Size(211, 25)
+        Me.ButtonDefaultSettings.TabIndex = 43
+        Me.ButtonDefaultSettings.Text = "alle Einstellungen zurücksetzen"
+        Me.ButtonDefaultSettings.UseVisualStyleBackColor = True
         '
         'Panel2
         '
@@ -2026,69 +2074,12 @@ Partial Class Setup
         Me.Panel2.Size = New System.Drawing.Size(813, 743)
         Me.Panel2.TabIndex = 42
         '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(620, 19)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(122, 35)
-        Me.Button1.TabIndex = 43
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'NumUpdateOverlay
-        '
-        Me.NumUpdateOverlay.Dock = System.Windows.Forms.DockStyle.Left
-        Me.NumUpdateOverlay.Location = New System.Drawing.Point(107, 10)
-        Me.NumUpdateOverlay.Maximum = New Decimal(New Integer() {300, 0, 0, 0})
-        Me.NumUpdateOverlay.Minimum = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.NumUpdateOverlay.Name = "NumUpdateOverlay"
-        Me.NumUpdateOverlay.Size = New System.Drawing.Size(70, 23)
-        Me.NumUpdateOverlay.TabIndex = 15
-        Me.NumUpdateOverlay.Value = New Decimal(New Integer() {5, 0, 0, 0})
-        '
-        'Panel30
-        '
-        Me.Panel30.Controls.Add(Me.Label33)
-        Me.Panel30.Controls.Add(Me.NumUpdateOverlay)
-        Me.Panel30.Controls.Add(Me.Label32)
-        Me.Panel30.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel30.Location = New System.Drawing.Point(3, 93)
-        Me.Panel30.Name = "Panel30"
-        Me.Panel30.Padding = New System.Windows.Forms.Padding(20, 10, 20, 10)
-        Me.Panel30.Size = New System.Drawing.Size(779, 44)
-        Me.Panel30.TabIndex = 16
-        '
-        'Label32
-        '
-        Me.Label32.AutoSize = True
-        Me.Label32.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Label32.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label32.Location = New System.Drawing.Point(20, 10)
-        Me.Label32.Name = "Label32"
-        Me.Label32.Padding = New System.Windows.Forms.Padding(0, 4, 2, 10)
-        Me.Label32.Size = New System.Drawing.Size(87, 30)
-        Me.Label32.TabIndex = 16
-        Me.Label32.Text = "Overlay alle"
-        '
-        'Label33
-        '
-        Me.Label33.AutoSize = True
-        Me.Label33.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Label33.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label33.Location = New System.Drawing.Point(177, 10)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Padding = New System.Windows.Forms.Padding(2, 4, 10, 0)
-        Me.Label33.Size = New System.Drawing.Size(129, 20)
-        Me.Label33.TabIndex = 17
-        Me.Label33.Text = "min aktualisieren"
-        '
         'Setup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(813, 876)
-        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.PictureBox1)
@@ -2186,13 +2177,13 @@ Partial Class Setup
         Me.Panel23.ResumeLayout(False)
         Me.Panel23.PerformLayout()
         CType(Me.NumOverlayLimit, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel30.ResumeLayout(False)
+        Me.Panel30.PerformLayout()
+        CType(Me.NumUpdateOverlay, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
-        CType(Me.NumUpdateOverlay, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel30.ResumeLayout(False)
-        Me.Panel30.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2233,7 +2224,6 @@ Partial Class Setup
     Friend WithEvents ButtonNewCategorie As System.Windows.Forms.Button
     Friend WithEvents ButtonDown As System.Windows.Forms.Button
     Friend WithEvents ButtonUp As System.Windows.Forms.Button
-    Friend WithEvents ButtonCategoriesDefault As System.Windows.Forms.Button
     Friend WithEvents CheckBoxSelect As System.Windows.Forms.CheckBox
     Friend WithEvents TabItems As System.Windows.Forms.TabPage
     Friend WithEvents Label14 As System.Windows.Forms.Label
@@ -2349,7 +2339,7 @@ Partial Class Setup
     Friend WithEvents Label30 As System.Windows.Forms.Label
     Friend WithEvents Label31 As System.Windows.Forms.Label
     Friend WithEvents ButtonOpenDlgEpisodenScanner As System.Windows.Forms.Button
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents ButtonDefaultSettings As System.Windows.Forms.Button
     Friend WithEvents Panel30 As System.Windows.Forms.Panel
     Friend WithEvents Label33 As System.Windows.Forms.Label
     Friend WithEvents NumUpdateOverlay As System.Windows.Forms.NumericUpDown
