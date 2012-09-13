@@ -106,32 +106,6 @@ Namespace ClickfinderProgramGuide
 
 #End Region
 
-
-        Private Sub StartStopTimer(ByVal startNow As Boolean)
-
-            If startNow Then
-                If _stateTimer Is Nothing Then
-                    _stateTimer = New System.Timers.Timer()
-                    AddHandler _stateTimer.Elapsed, New ElapsedEventHandler(AddressOf RefreshOverlays)
-                    _stateTimer.Interval = CLng(_layer.GetSetting("ClickfinderOverlayUpdateTimer", "20").Value * 60 * 1000)
-                    _stateTimer.AutoReset = True
-
-                    GC.KeepAlive(_stateTimer)
-                End If
-                _stateTimer.Start()
-                _stateTimer.Enabled = True
-
-            Else
-                _stateTimer.Enabled = False
-                _stateTimer.[Stop]()
-                MyLog.Debug("background timer stopped")
-            End If
-        End Sub
-
-        Public Sub test()
-            MsgBox("")
-        End Sub
-
 #Region "GUI Events"
         Public Overrides Sub PreInit()
             MyBase.PreInit()
@@ -142,6 +116,7 @@ Namespace ClickfinderProgramGuide
 
                     'nötig weil sonst doppel ausgeführt wird bei MP Start
                     If _OverlayStartupLoaded = False Then
+
                         RefreshOverlays()
                         _OverlayStartupLoaded = True
 
@@ -193,13 +168,8 @@ Namespace ClickfinderProgramGuide
 
                 If Helper.TvServerConnected = True Then
 
-                    If CBool(_layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false").Value) = True Then
-                        ClickfinderProgramGuideOverlayMovies()
-                    End If
+                    RefreshOverlays()
 
-                    If CBool(_layer.GetSetting("ClickfinderOverlaySeriesEnabled", "false").Value) = True Then
-                        ClickfinderProgramGuideOverlaySeries()
-                    End If
                 Else
 
                     For i = 1 To 4
@@ -303,10 +273,23 @@ Namespace ClickfinderProgramGuide
 
         Private Sub RefreshOverlays()
 
+            'Movie Overlay aktualisieren
+            'MyLog.Debug("[PreInit] [RefreshOverlays]: Thread started")
             If CBool(_layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false").Value) = True Then
-                ClickfinderProgramGuideOverlayMovies()
+                If _OverlayStartupLoaded = False Then
+                    'MP startup
+                    ClickfinderProgramGuideOverlayMovies()
+
+                Else
+                    'Mp running
+                    'Movie Overlay nur aktualisieren wenn 'ab Jetzt' eingestellt ist
+                    If _layer.GetSetting("ClickfinderOverlayTime", "PrimeTime").Value = "Now" Then
+                        ClickfinderProgramGuideOverlayMovies()
+                    End If
+                End If
             End If
 
+            'Serien Overlay werden immer aktualisiert
             If CBool(_layer.GetSetting("ClickfinderOverlaySeriesEnabled", "false").Value) = True Then
                 ClickfinderProgramGuideOverlaySeries()
             End If
@@ -603,6 +586,28 @@ Namespace ClickfinderProgramGuide
             End Try
 
         End Sub
+
+        Private Sub StartStopTimer(ByVal startNow As Boolean)
+
+            If startNow Then
+                If _stateTimer Is Nothing Then
+                    _stateTimer = New System.Timers.Timer()
+                    AddHandler _stateTimer.Elapsed, New ElapsedEventHandler(AddressOf RefreshOverlays)
+                    _stateTimer.Interval = CLng(_layer.GetSetting("ClickfinderOverlayUpdateTimer", "20").Value * 60 * 1000)
+                    _stateTimer.AutoReset = True
+
+                    GC.KeepAlive(_stateTimer)
+                End If
+                _stateTimer.Start()
+                _stateTimer.Enabled = True
+
+            Else
+                _stateTimer.Enabled = False
+                _stateTimer.[Stop]()
+                MyLog.Debug("background timer stopped")
+            End If
+        End Sub
+
 #End Region
 
 
