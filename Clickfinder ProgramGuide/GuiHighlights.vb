@@ -214,17 +214,7 @@ Namespace ClickfinderProgramGuide
                 If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_CONTEXT_MENU Then
                     MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", Action.m_key.KeyChar, Action.m_key.KeyCode, Action.wID.ToString)
 
-                    If _MovieList.IsFocused Then
-                        'MsgBox(_MovieList.SelectedListItemIndex)
-                        _LastFocusedItemIndex = _MovieList.SelectedListItemIndex
-                        _LastFocusedControlID = _MovieList.GetID
-                    ElseIf _HighlightsList.IsFocused Then
-                        _LastFocusedItemIndex = _HighlightsList.SelectedListItemIndex
-                        _LastFocusedControlID = _HighlightsList.GetID
-                    Else
-                        _LastFocusedItemIndex = 0
-                        _LastFocusedControlID = _MovieList.GetID
-                    End If
+                    RememberLastFocusedItem()
 
                     If _MovieList.IsFocused = True Then ShowMoviesMenu(_MovieList.SelectedListItem.ItemId)
                     If _HighlightsList.IsFocused = True Then
@@ -242,17 +232,7 @@ Namespace ClickfinderProgramGuide
                     If Action.m_key IsNot Nothing Then
                         If Action.m_key.KeyChar = 121 Then
 
-                            If _MovieList.IsFocused Then
-                                'MsgBox(_MovieList.SelectedListItemIndex)
-                                _LastFocusedItemIndex = _MovieList.SelectedListItemIndex
-                                _LastFocusedControlID = _MovieList.GetID
-                            ElseIf _HighlightsList.IsFocused Then
-                                _LastFocusedItemIndex = _HighlightsList.SelectedListItemIndex
-                                _LastFocusedControlID = _HighlightsList.GetID
-                            Else
-                                _LastFocusedItemIndex = 0
-                                _LastFocusedControlID = _MovieList.GetID
-                            End If
+                            RememberLastFocusedItem()
 
                             MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", Action.m_key.KeyChar, Action.m_key.KeyCode, Action.wID.ToString)
 
@@ -334,17 +314,7 @@ Namespace ClickfinderProgramGuide
                 Translator.SetProperty("#MovieListRatingStar" & i, 0)
             Next
 
-            If _MovieList.IsFocused Then
-                'MsgBox(_MovieList.SelectedListItemIndex)
-                _LastFocusedItemIndex = _MovieList.SelectedListItemIndex
-                _LastFocusedControlID = _MovieList.GetID
-            ElseIf _HighlightsList.IsFocused Then
-                _LastFocusedItemIndex = _HighlightsList.SelectedListItemIndex
-                _LastFocusedControlID = _HighlightsList.GetID
-            Else
-                _LastFocusedItemIndex = 0
-                _LastFocusedControlID = _MovieList.GetID
-            End If
+            RememberLastFocusedItem()
 
             _MovieList.Clear()
             _ProgressPercentagValue = _DaysProgress.Percentage
@@ -394,17 +364,7 @@ Namespace ClickfinderProgramGuide
 
         Private Sub Action_SelectItem()
 
-            If _MovieList.IsFocused Then
-                'MsgBox(_MovieList.SelectedListItemIndex)
-                _LastFocusedItemIndex = _MovieList.SelectedListItemIndex
-                _LastFocusedControlID = _MovieList.GetID
-            ElseIf _HighlightsList.IsFocused Then
-                _LastFocusedItemIndex = _HighlightsList.SelectedListItemIndex
-                _LastFocusedControlID = _HighlightsList.GetID
-            Else
-                _LastFocusedItemIndex = 0
-                _LastFocusedControlID = _MovieList.GetID
-            End If
+            RememberLastFocusedItem()
 
             If _MovieList.IsFocused = True Then
                 ListControlClick(_MovieList.SelectedListItem.ItemId)
@@ -878,6 +838,22 @@ Namespace ClickfinderProgramGuide
                 ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
             End Try
         End Sub
+
+        Private Sub RememberLastFocusedItem()
+
+            If _MovieList.IsFocused Then
+                'MsgBox(_MovieList.SelectedListItemIndex)
+                _LastFocusedItemIndex = _MovieList.SelectedListItemIndex
+                _LastFocusedControlID = _MovieList.GetID
+            ElseIf _HighlightsList.IsFocused Then
+                _LastFocusedItemIndex = _HighlightsList.SelectedListItemIndex
+                _LastFocusedControlID = _HighlightsList.GetID
+            Else
+                _LastFocusedItemIndex = 0
+                _LastFocusedControlID = _MovieList.GetID
+            End If
+        End Sub
+
 #End Region
 
 #Region "MediaPortal Funktionen / Dialogs"
