@@ -66,7 +66,7 @@ Public Class Helper
         If Gentle.Framework.Broker.ProviderName = "MySQL" Then
             Return sqlstring & " LIMIT " & limit
         Else
-            Return Replace(sqlstring, "Select *", "Select top " & limit & " *")
+            Return Replace(sqlstring, "Select ", "Select top " & limit & " ")
         End If
 
     End Function

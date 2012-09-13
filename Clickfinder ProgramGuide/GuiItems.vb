@@ -140,20 +140,11 @@ Namespace ClickfinderProgramGuide
                 Translator.SetProperty("#ItemsListRatingStar" & i, 0)
             Next
 
-            If _leftList.IsFocused Then
-                'MsgBox(_MovieList.SelectedListItemIndex)
-                _LastFocusedIndex = _leftList.SelectedListItemIndex
-                _LastFocusedControlID = _leftList.GetID
-            ElseIf _rightList.IsFocused Then
-                _LastFocusedIndex = _rightList.SelectedListItemIndex
-                _LastFocusedControlID = _rightList.GetID
-            Else
-                _LastFocusedIndex = 0
-                _LastFocusedControlID = _leftList.GetID
-            End If
+            RememberLastFocusedItem()
 
             AbortRunningThreads()
 
+            GC.Collect()
             MyBase.OnPageDestroy(new_windowId)
         End Sub
 
@@ -268,6 +259,7 @@ Namespace ClickfinderProgramGuide
 
                 'Menu Button (F9) -> Context Menu open
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_CONTEXT_MENU Then
+                    RememberLastFocusedItem()
                     If _leftList.IsFocused = True Then ShowItemsContextMenu(_leftList.SelectedListItem.ItemId)
                     If _rightList.IsFocused = True Then ShowItemsContextMenu(_rightList.SelectedListItem.ItemId)
                 End If
@@ -276,6 +268,8 @@ Namespace ClickfinderProgramGuide
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_KEY_PRESSED Then
                     If action.m_key IsNot Nothing Then
                         If action.m_key.KeyChar = 121 Then
+                            RememberLastFocusedItem()
+
                             If _leftList.IsFocused = True Then ShowItemsContextMenu(_leftList.SelectedListItem.ItemId)
                             If _rightList.IsFocused = True Then ShowItemsContextMenu(_rightList.SelectedListItem.ItemId)
                         End If
@@ -387,6 +381,8 @@ Namespace ClickfinderProgramGuide
         End Sub
 
         Private Sub Action_SelectItem()
+            RememberLastFocusedItem()
+
             If _leftList.IsFocused = True Then ListControlClick(_leftList.SelectedListItem.ItemId)
             If _rightList.IsFocused = True Then ListControlClick(_rightList.SelectedListItem.ItemId)
         End Sub
@@ -767,6 +763,19 @@ Namespace ClickfinderProgramGuide
             End Try
         End Sub
 
+        Private Sub RememberLastFocusedItem()
+            If _leftList.IsFocused Then
+                'MsgBox(_MovieList.SelectedListItemIndex)
+                _LastFocusedIndex = _leftList.SelectedListItemIndex
+                _LastFocusedControlID = _leftList.GetID
+            ElseIf _rightList.IsFocused Then
+                _LastFocusedIndex = _rightList.SelectedListItemIndex
+                _LastFocusedControlID = _rightList.GetID
+            Else
+                _LastFocusedIndex = 0
+                _LastFocusedControlID = _leftList.GetID
+            End If
+        End Sub
 
 #End Region
 

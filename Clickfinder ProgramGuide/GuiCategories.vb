@@ -201,19 +201,7 @@ Namespace ClickfinderProgramGuide
                 Translator.SetProperty("#PreviewListRatingStar" & i, 0)
             Next
 
-            If _CategorieList.IsFocused Then
-                'MsgBox(_MovieList.SelectedListItemIndex)
-                _LastFocusedIndex = _CategorieList.SelectedListItemIndex
-                _LastFocusedControlID = _CategorieList.GetID
-                _SelectedCategorieItemId = _CategorieList.SelectedListItemIndex
-            ElseIf _PreviewList.IsFocused Then
-                _LastFocusedIndex = _PreviewList.SelectedListItemIndex
-                _LastFocusedControlID = _PreviewList.GetID
-                _SelectedCategorieItemId = _CategorieList.SelectedListItemIndex
-            Else
-                _LastFocusedIndex = 0
-                _LastFocusedControlID = _CategorieList.GetID
-            End If
+            RememberLastFocusedItem
 
             Try
                 If ThreadPreviewListFill.IsAlive = True Then ThreadPreviewListFill.Abort()
@@ -222,6 +210,7 @@ Namespace ClickfinderProgramGuide
                 ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
             End Try
 
+            GC.Collect()
             MyBase.OnPageDestroy(new_windowId)
         End Sub
 
@@ -392,6 +381,9 @@ Namespace ClickfinderProgramGuide
                 'Menu Button (F9) -> Context Menu open
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_CONTEXT_MENU Then
                     MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
+
+                    RememberLastFocusedItem()
+
                     If _PreviewList.IsFocused = True Then
                         Dim _program As Program = Program.Retrieve(_PreviewList.SelectedListItem.ItemId)
                         Helper.ShowActionMenu(_program)
@@ -403,6 +395,9 @@ Namespace ClickfinderProgramGuide
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_KEY_PRESSED Then
                     If action.m_key IsNot Nothing Then
                         If action.m_key.KeyChar = 121 Then
+
+                            RememberLastFocusedItem()
+
                             MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
                             If _PreviewList.IsFocused = True Then ShowContextMenu(_PreviewList.SelectedListItem.ItemId)
                             If _CategorieList.IsFocused = True Then ShowCategoriesContextMenu(_CategorieList.SelectedListItem.ItemId)
@@ -467,6 +462,8 @@ Namespace ClickfinderProgramGuide
         'categorie aufrufen (GuiItems)
         Private Sub Action_SelectItem()
 
+            RememberLastFocusedItem()
+
             If _CategorieList.IsFocused = True Then
 
                 'ItemsGuiWindow._LastFocusedItemsIndex = 0
@@ -497,6 +494,21 @@ Namespace ClickfinderProgramGuide
 
         End Sub
 
+        Private Sub RememberLastFocusedItem()
+            If _CategorieList.IsFocused Then
+                'MsgBox(_MovieList.SelectedListItemIndex)
+                _LastFocusedIndex = _CategorieList.SelectedListItemIndex
+                _LastFocusedControlID = _CategorieList.GetID
+                _SelectedCategorieItemId = _CategorieList.SelectedListItemIndex
+            ElseIf _PreviewList.IsFocused Then
+                _LastFocusedIndex = _PreviewList.SelectedListItemIndex
+                _LastFocusedControlID = _PreviewList.GetID
+                _SelectedCategorieItemId = _CategorieList.SelectedListItemIndex
+            Else
+                _LastFocusedIndex = 0
+                _LastFocusedControlID = _CategorieList.GetID
+            End If
+        End Sub
 
 #End Region
 

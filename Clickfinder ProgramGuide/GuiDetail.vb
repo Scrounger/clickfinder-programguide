@@ -145,7 +145,7 @@ Namespace ClickfinderProgramGuide
 
         Protected Overrides Sub OnPageDestroy(ByVal new_windowId As Integer)
             'MsgBox("Hallo")
-
+            GC.Collect()
             MyBase.OnPageDestroy(new_windowId)
         End Sub
 
@@ -257,6 +257,7 @@ Namespace ClickfinderProgramGuide
         Private Sub ShowDetails()
 
             Try
+                Dim _recordingStatus As String = String.Empty
 
                 If _DetailTvMovieProgram.needsUpdate = True Then
                     Helper.UpdateProgramData(_DetailTvMovieProgram)
@@ -292,7 +293,9 @@ Namespace ClickfinderProgramGuide
 
                 Translator.SetProperty("#DetailTvMovieStar", GuiLayout.TvMovieStar(_DetailTvMovieProgram))
                 Translator.SetProperty("#DetailRatingStar", GuiLayout.ratingStar(_DetailTvMovieProgram.ReferencedProgram))
-                Translator.SetProperty("#DetailRecordingState", GuiLayout.RecordingStatus(_DetailTvMovieProgram.ReferencedProgram))
+
+                _recordingStatus = GuiLayout.RecordingStatus(_DetailTvMovieProgram.ReferencedProgram)
+
                 Translator.SetProperty("#DetailTime", GuiLayout.TimeLabel(_DetailTvMovieProgram))
                 Translator.SetProperty("#DetailDuration", DateDiff(DateInterval.Minute, _DetailTvMovieProgram.ReferencedProgram.StartTime, _DetailTvMovieProgram.ReferencedProgram.EndTime) & " " & Translation.MinuteLabel)
                 Translator.SetProperty("#DetailChannel", _DetailTvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName)
@@ -303,11 +306,40 @@ Namespace ClickfinderProgramGuide
                 Translator.SetProperty("#DetailKritik", _DetailTvMovieProgram.KurzKritik)
                 Translator.SetProperty("#DetailDescription", _DetailTvMovieProgram.Describtion)
 
-                If _DetailTvMovieProgram.idSeries > 1 Then
+                If _DetailTvMovieProgram.idSeries > 0 Then
                     Translator.SetProperty("#DetailSeriesID", _DetailTvMovieProgram.idSeries)
                     Translator.SetProperty("#Detailseasonidx", _DetailTvMovieProgram.ReferencedProgram.SeriesNum)
                     Translator.SetProperty("#Detailepisodeidx", _DetailTvMovieProgram.ReferencedProgram.EpisodeNum)
                     Translator.SetProperty("#DetailJumpToLabel", Translation.MPtvSeries)
+
+                    'schauen ob episode an anderem Tag aufgenommen wird
+                    If _recordingStatus = String.Empty Then
+                        Dim _RecordingList As New ArrayList
+                        Dim SQLstring As String = String.Empty
+
+                        SQLstring = "Select program.idprogram from program " & _
+                                "WHERE title = '" & _DetailTvMovieProgram.ReferencedProgram.Title & "' " & _
+                                "AND episodeName = '" & _DetailTvMovieProgram.ReferencedProgram.EpisodeName & "' " & _
+                                "Order BY state DESC"
+
+                        Helper.AppendSqlLimit(SQLstring, 1)
+
+                        _RecordingList.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", True))
+
+                        If _RecordingList.Count > 0 Then
+                            Dim _Record As Program = Program.Retrieve(_RecordingList.Item(0))
+                            _recordingStatus = GuiLayout.RecordingStatus(_Record)
+
+                            Select Case (_recordingStatus)
+                                Case Is = "tvguide_record_button.png"
+                                    _recordingStatus = "ClickfinderPG_recOnce.png"
+                                Case Is = "tvguide_recordserie_button.png"
+                                    _recordingStatus = "ClickfinderPG_recSeries.png"
+                            End Select
+                        End If
+
+                    End If
+
                 Else
                     Translator.SetProperty("#DetailSeriesID", 0)
                     Translator.SetProperty("#DetailEpisodeID", 0)
@@ -319,6 +351,7 @@ Namespace ClickfinderProgramGuide
                     End If
                 End If
 
+                Translator.SetProperty("#DetailRecordingState", _recordingStatus)
 
                 If Not _DetailTvMovieProgram.Year < New Date(1900, 1, 1) Then
                     Translator.SetProperty("#DetailYear", _DetailTvMovieProgram.Year.Year & " ")

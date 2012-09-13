@@ -1072,24 +1072,18 @@ Namespace ClickfinderProgramGuide
                         GUIWindowManager.ActivateWindow(1656544653)
 
                     Case Is = 3
-                        Try
+                        MyLog.Debug("[HighlightsGuiWindow] [ShowHighlightsMenu]:  selected -> " & Translation.NewEpisodes & " " & getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
+                        MyLog.Debug("")
 
-                            MyLog.Debug("[HighlightsGuiWindow] [ShowHighlightsMenu]:  selected -> " & Translation.NewEpisodes & " " & getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
-                            MyLog.Debug("")
+                        ItemsGuiWindow.SetGuiProperties("Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
+                                    "WHERE idSeries > 0 " & _
+                                    "AND local = 0 " & _
+                                    "AND startTime > " & MySqlDate(_ClickfinderCurrentDate) & " " & _
+                                    "AND startTime < " & MySqlDate(_ClickfinderCurrentDate.AddHours(24)) & " " & _
+                                    "ORDER BY title ASC, seriesNum ASC, episodeNum ASC, startTime ASC", , SortMethode.Series.ToString)
 
-                            ItemsGuiWindow.SetGuiProperties("Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
-                                        "WHERE idSeries > 0 " & _
-                                        "AND local = 0 " & _
-                                        "AND startTime > " & MySqlDate(_ClickfinderCurrentDate) & " " & _
-                                        "AND startTime < " & MySqlDate(_ClickfinderCurrentDate.AddHours(24)) & " " & _
-                                        "ORDER BY title ASC, seriesNum ASC, episodeNum ASC, startTime ASC", , SortMethode.Series.ToString)
-
-                            Translator.SetProperty("#ItemsLeftListLabel", Translation.NewEpisodes & " " & getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
-                            GUIWindowManager.ActivateWindow(1656544653)
-
-                        Catch ex As Exception
-                            MsgBox(ex.Message)
-                        End Try
+                        Translator.SetProperty("#ItemsLeftListLabel", Translation.NewEpisodes & " " & getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
+                        GUIWindowManager.ActivateWindow(1656544653)
                     Case Is = 4
                         MyLog.Debug("[HighlightsGuiWindow] [ShowHighlightsMenu]:  selected -> action menu")
                         MyLog.Debug("")
