@@ -900,7 +900,7 @@ Namespace ClickfinderProgramGuide
                         If _Result.Count > 0 Then
                             For i = 0 To _Result.Count - 1
                                 Try
-
+                                    Dim _RecordingStatus As String = String.Empty
 
                                     'ProgramDaten über TvMovieProgram laden
                                     Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_Result.Item(i))
@@ -921,8 +921,36 @@ Namespace ClickfinderProgramGuide
                                         End If
 
                                         lItemEpisode.IconImage = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieProgram.SeriesPosterImage
+                                        _RecordingStatus = GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram)
 
-                                        lItemEpisode.PinImage = GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram)
+                                        'schauen ob episode an anderem Tag aufgenommen wird
+                                        If _RecordingStatus = String.Empty Then
+                                            Dim _RecordingList As New ArrayList
+
+                                            SQLstring = "Select program.idprogram from program " & _
+                                                    "WHERE title = '" & _TvMovieProgram.ReferencedProgram.Title & "' " & _
+                                                    "AND episodeName = '" & _TvMovieProgram.ReferencedProgram.EpisodeName & "' " & _
+                                                    "Order BY state DESC"
+
+                                            Helper.AppendSqlLimit(SQLstring, 1)
+
+                                            _RecordingList.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", True))
+
+                                            If _RecordingList.Count > 0 Then
+                                                Dim _Record As Program = Program.Retrieve(_RecordingList.Item(0))
+                                                _RecordingStatus = GuiLayout.RecordingStatus(_Record)
+
+                                                Select Case (_RecordingStatus)
+                                                    Case Is = "tvguide_record_button.png"
+                                                        _RecordingStatus = "ClickfinderPG_recOnce.png"
+                                                    Case Is = "tvguide_recordserie_button.png"
+                                                        _RecordingStatus = "ClickfinderPG_recSeries.png"
+                                                End Select
+                                            End If
+
+                                        End If
+
+                                        lItemEpisode.PinImage = _RecordingStatus
 
                                         _idProgramContainer.Add(i, _TvMovieProgram.idProgram)
 
@@ -938,12 +966,11 @@ Namespace ClickfinderProgramGuide
 
                             'Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowHighlightsProgressBar)
                             '_ProgressBarThread.Start()
+                            _ThreadFillHighlightsList = New Thread(AddressOf FillHighlightsList)
+                            _ThreadFillHighlightsList.IsBackground = True
+                            _ThreadFillHighlightsList.Start()
 
-                            '_ThreadFillHighlightsList = New Thread(AddressOf FillHighlightsList)
-                            '_ThreadFillHighlightsList.IsBackground = True
-                            '_ThreadFillHighlightsList.Start()
 
-                            FillHighlightsList()
 
 
                             dlgContext.DoModal(GetID)
