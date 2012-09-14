@@ -86,38 +86,46 @@ Namespace ClickfinderProgramGuide
 
                     MyLog.Debug("[DetailGuiWindow]: [HyperlinkParameter]: {0}", _loadParameter)
 
-                    Dim _parametersList As New ArrayList(Split(_loadParameter, "|"))
-                    Dim _title As String = String.Empty
-                    Dim _channel As String = String.Empty
-                    Dim _start As DateTime
-                    Dim _end As DateTime
 
-                    For i = 0 To _parametersList.Count - 1
-                        'MsgBox(_parametersList.Item(i))
-                        If InStr(_parametersList.Item(i), "TITLE: ") > 0 Then _title = Replace(_parametersList.Item(i), "TITLE: ", "")
-                        If InStr(_parametersList.Item(i), "CHANNEL: ") > 0 Then _channel = Replace(_parametersList.Item(i), "CHANNEL: ", "")
-                        If InStr(_parametersList.Item(i), "START: ") > 0 Then _start = DateTime.Parse(Replace(_parametersList.Item(i), "START: ", ""))
-                        If InStr(_parametersList.Item(i), "STOP: ") > 0 Then _end = DateTime.Parse(Replace(_parametersList.Item(i), "STOP: ", ""))
-                    Next
+                    If InStr(_loadParameter, "TITLE: ") > 0 Then
+                        'Hyperlink Parameter: Title, Channel, Start, Stop
+                        Dim _parametersList As New ArrayList(Split(_loadParameter, "|"))
+                        Dim _title As String = String.Empty
+                        Dim _channel As String = String.Empty
+                        Dim _start As DateTime
+                        Dim _end As DateTime
 
-
-                    Dim SQLstring As String = String.Empty
-
-                    Dim _Result As New ArrayList
-
-                    'program laden
-                    SQLstring = "Select * from program INNER JOIN channel ON program.idChannel = channel.idChannel " & _
-                                                "WHERE title = '" & _title & "' " & _
-                                                "AND displayName = '" & _channel & "' " & _
-                                                "AND startTime > " & Helper.MySqlDate(_start.AddMinutes(-1)) & " " & _
-                                                "AND startTime < " & Helper.MySqlDate(_end) & " " & _
-                                                ""
-
-                    _Result.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", False))
+                        For i = 0 To _parametersList.Count - 1
+                            'MsgBox(_parametersList.Item(i))
+                            If InStr(_parametersList.Item(i), "TITLE: ") > 0 Then _title = Replace(_parametersList.Item(i), "TITLE: ", "")
+                            If InStr(_parametersList.Item(i), "CHANNEL: ") > 0 Then _channel = Replace(_parametersList.Item(i), "CHANNEL: ", "")
+                            If InStr(_parametersList.Item(i), "START: ") > 0 Then _start = DateTime.Parse(Replace(_parametersList.Item(i), "START: ", ""))
+                            If InStr(_parametersList.Item(i), "STOP: ") > 0 Then _end = DateTime.Parse(Replace(_parametersList.Item(i), "STOP: ", ""))
+                        Next
 
 
-                    _DetailTvMovieProgram = Helper.getTvMovieProgram(Program.Retrieve(_Result.Item(0)))
+                        Dim SQLstring As String = String.Empty
 
+                        Dim _Result As New ArrayList
+
+                        'program laden
+                        SQLstring = "Select * from program INNER JOIN channel ON program.idChannel = channel.idChannel " & _
+                                                    "WHERE title = '" & _title & "' " & _
+                                                    "AND displayName = '" & _channel & "' " & _
+                                                    "AND startTime > " & Helper.MySqlDate(_start.AddMinutes(-1)) & " " & _
+                                                    "AND startTime < " & Helper.MySqlDate(_end) & " " & _
+                                                    ""
+
+                        _Result.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", False))
+
+
+                        _DetailTvMovieProgram = Helper.getTvMovieProgram(Program.Retrieve(_Result.Item(0)))
+
+                    ElseIf InStr(_loadParameter, "idProgram: ") > 0 Then
+                        'Hyperlink Parameter: idProgram
+                        MsgBox(CInt(Replace(_loadParameter, "idProgram: ", "")))
+                        _DetailTvMovieProgram = Helper.getTvMovieProgram(Program.Retrieve(CInt(Replace(_loadParameter, "idProgram: ", ""))))
+                    End If
 
                 Catch ex As Exception
                     MyLog.Error("[DetailGuiWindow]: [HyperlinkParameter]: exception err:" & ex.Message & " stack:" & ex.StackTrace)

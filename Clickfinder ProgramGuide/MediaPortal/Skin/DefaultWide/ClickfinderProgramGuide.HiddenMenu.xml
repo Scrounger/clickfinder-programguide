@@ -113,7 +113,7 @@
           <type>button</type>
           <id>201</id>
           <hyperlink>1656544652</hyperlink>
-          <hyperlinkParameter>#ClickfinderPG.Translation.MovieListTitle</hyperlinkParameter>
+          <hyperlinkParameter>idProgram: 5126114</hyperlinkParameter>
           <label>Hyperlink Para Test</label>
           <textalign>center</textalign>
           <onup>7</onup>
