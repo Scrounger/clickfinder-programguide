@@ -251,6 +251,7 @@ Namespace ClickfinderProgramGuide
         End Sub
         Protected Overrides Sub OnPageDestroy(ByVal new_windowId As Integer)
 
+            GC.Collect()
             MyBase.OnPageDestroy(new_windowId)
 
         End Sub

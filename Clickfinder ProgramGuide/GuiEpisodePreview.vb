@@ -618,6 +618,8 @@ Namespace ClickfinderProgramGuide
 
                 For i = 0 To _Result.Count - 1
 
+                    Dim _RecordingStatus As String = String.Empty
+
                     'ProgramDaten über TvMovieProgram laden
                     Dim _Episode As TVMovieProgram = TVMovieProgram.Retrieve(_Result.Item(i))
 
@@ -646,8 +648,36 @@ Namespace ClickfinderProgramGuide
 
                             _timeLabel = Helper.getTranslatedDayOfWeek(_Episode.ReferencedProgram.StartTime) & " " & Format(_Episode.ReferencedProgram.StartTime.Day, "00") & "." & Format(_Episode.ReferencedProgram.StartTime.Month, "00") & " - " & Format(_Episode.ReferencedProgram.StartTime.Hour, "00") & ":" & Format(_Episode.ReferencedProgram.StartTime.Minute, "00")
                             _infoLabel = Translation.Season & " " & _Episode.ReferencedProgram.SeriesNum & ", " & Translation.Episode & " " & _Episode.ReferencedProgram.EpisodeNum
+                            _RecordingStatus = GuiLayout.RecordingStatus(_Episode.ReferencedProgram)
 
-                            AddListControlItem(_SeriesList, _Episode.ReferencedProgram.IdProgram, _Episode.ReferencedProgram.ReferencedChannel.DisplayName, _Episode.ReferencedProgram.EpisodeName, _timeLabel, _infoLabel, Config.GetFile(Config.Dir.Thumbs, "tv\logos\") & Replace(_Episode.ReferencedProgram.ReferencedChannel.DisplayName, "/", "_") & ".png", , GuiLayout.RecordingStatus(_Episode.ReferencedProgram))
+                            'Prüfen ob Episode an anderem Tag aufgenommen wird
+                            If _RecordingStatus = String.Empty Then
+                                Dim _RecordingList As New ArrayList
+
+                                SQLstring = "Select program.idprogram from program " & _
+                                        "WHERE title = '" & _Episode.ReferencedProgram.Title & "' " & _
+                                        "AND episodeName = '" & _Episode.ReferencedProgram.EpisodeName & "' " & _
+                                        "Order BY state DESC"
+
+                                Helper.AppendSqlLimit(SQLstring, 1)
+
+                                _RecordingList.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", True))
+
+                                If _RecordingList.Count > 0 Then
+                                    Dim _Record As Program = Program.Retrieve(_RecordingList.Item(0))
+                                    _RecordingStatus = GuiLayout.RecordingStatus(_Record)
+
+                                    Select Case (_RecordingStatus)
+                                        Case Is = "tvguide_record_button.png"
+                                            _RecordingStatus = "ClickfinderPG_recOnce.png"
+                                        Case Is = "tvguide_recordserie_button.png"
+                                            _RecordingStatus = "ClickfinderPG_recSeries.png"
+                                    End Select
+                                End If
+                            End If
+
+
+                            AddListControlItem(_SeriesList, _Episode.ReferencedProgram.IdProgram, _Episode.ReferencedProgram.ReferencedChannel.DisplayName, _Episode.ReferencedProgram.EpisodeName, _timeLabel, _infoLabel, Config.GetFile(Config.Dir.Thumbs, "tv\logos\") & Replace(_Episode.ReferencedProgram.ReferencedChannel.DisplayName, "/", "_") & ".png", , _RecordingStatus)
 
                         End If
                     End If

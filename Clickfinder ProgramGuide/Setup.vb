@@ -919,7 +919,7 @@ Public Class Setup
             setting.Value = CStr(14)
             setting.Persist()
 
-            setting = _layer.GetSetting("ClickfinderPreviewMinTvMovieRating", "1")
+            setting = _layer.GetSetting("ClickfinderPreviewMinTvMovieRating", "3")
             setting.Value = CStr(3)
             setting.Persist()
 
