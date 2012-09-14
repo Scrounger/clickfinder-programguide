@@ -117,3 +117,10 @@ D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Debug\Clickfin
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Debug\ClickfinderProgramGuide.dll
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Debug\ClickfinderProgramGuide.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Debug\ClickfinderProgramGuide.pdb
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_recOnce.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_recSeries.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_recOnce.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_recSeries.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideEpisodePreview.xml
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Skin Mods\StreamedMP\TVOSD.xml
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Interop.SHDocVw.dll

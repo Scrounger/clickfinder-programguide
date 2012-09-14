@@ -105,6 +105,8 @@ Namespace ClickfinderProgramGuide
             MyLog.Info("")
             MyLog.Info("[EpisodePreviewGuiWindow] -------------[OPEN]-------------")
 
+            _SeriesPoster.SetFileName("")
+
             If _ShowEpisodes = False Then
 
                 ClearSeriesInfos()
@@ -457,6 +459,9 @@ Namespace ClickfinderProgramGuide
                 Else
                     'Epsidoen der Serie anzeigen
                     _ShowEpisodes = True
+
+
+                    _selectedSeries = TVMovieProgram.Retrieve(_SeriesList.SelectedListItem.TVTag)
 
                     _LastFocusedSeriesIndex = _SeriesList.SelectedListItemIndex
 

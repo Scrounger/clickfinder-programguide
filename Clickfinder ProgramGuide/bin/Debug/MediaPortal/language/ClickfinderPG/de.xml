@@ -97,6 +97,11 @@
   <string Field="MovingPictures">MovingPictures</string>
   <string Field="MPtvSeries">MP-TvSeries</string>
   <string Field="InTheNext">in den nächsten</string>
-  
+  <string Field="Repeats">Wiederholungen</string>
+  <string Field="SeriesInfos">Infos zur Serie</string>
+  <string Field="Ended">beendet</string>
+  <string Field="Continous">wird fortgesetzt</string>
+  <string Field="SeriesRefresh">Serien aktualisieren</string>
+  <string Field="EpisodeNotIdentify">Episode konnte nicht identifziert werden</string>
 
 </strings>
