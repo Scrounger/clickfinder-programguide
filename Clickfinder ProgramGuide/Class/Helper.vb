@@ -566,7 +566,7 @@ Public Class Helper
 
     End Sub
 
-    Private Shared Sub ShowNotify(ByVal Message As String)
+    Public Shared Sub ShowNotify(ByVal Message As String)
         Dim dlgContext As GUIDialogOK = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_OK, Integer)), GUIDialogOK)
         dlgContext.Reset()
         dlgContext.SetHeading(Translation.Warning)

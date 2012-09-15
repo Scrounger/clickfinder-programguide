@@ -452,6 +452,9 @@
     <Content Include="Skin Mods\StreamedMP\TVOSD.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Skin Mods\StreamedMP\TVSeries.Common.HiddenMenu.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\btn_donate_LG1.gif" />
     <None Include="Resources\btn_donate_LG.gif" />
     <EmbeddedResource Include="ConfigIcons\Config.png">

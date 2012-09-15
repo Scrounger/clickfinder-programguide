@@ -82,7 +82,7 @@ Namespace ClickfinderProgramGuide
                         Translator.SetProperty("#SettingLastUpdate", GuiLayout.LastUpdateLabel)
                     End If
 
-                    Translator.TranslateSkin()
+
 
                     MyLog.Debug("[DetailGuiWindow]: [HyperlinkParameter]: {0}", _loadParameter)
 

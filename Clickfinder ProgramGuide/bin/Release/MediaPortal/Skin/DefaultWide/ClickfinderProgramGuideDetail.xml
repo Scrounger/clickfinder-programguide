@@ -788,10 +788,28 @@
       <description>button group</description>
       <type>group</type>
       <posX>110</posX>
-      <posY>490</posY>
-      <layout>Stacklayout</layout>
+      <posY>460</posY>
+      <!--Button Height 30-->
+      <layout>StackLayout</layout>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
+      <control>
+        <description>Gui Episode Preview aufrufen sofern Serie</description>
+        <type>button</type>
+        <id>120</id>
+        <hyperlink>1656544657</hyperlink>
+        <hyperlinkParameter>idSeries: #DetailSeriesID</hyperlinkParameter>
+        <width>216</width>
+        <height>30</height>
+        <label>#ClickfinderPG.Translation.allNewEpisodes</label>
+        <onleft>2</onleft>
+        <onright>2</onright>
+        <onup>10</onup>
+        <ondown>14</ondown>
+        <textalign>center</textalign>
+        <font>font10</font>
+        <visible>!string.equals(#DetailSeriesID,0)+plugin.isenabled(MP-TV Series)</visible>
+      </control>
       <control>
         <description>MP-TvSeries oder Mov.Pic aufrufen</description>
         <type>button</type>
@@ -801,7 +819,7 @@
         <label>#DetailJumpToLabel</label>
         <onleft>2</onleft>
         <onright>2</onright>
-        <onup>10</onup>
+        <onup>120</onup>
         <ondown>130</ondown>
         <textalign>center</textalign>
         <font>font10</font>
@@ -882,7 +900,7 @@
         <onleft>2</onleft>
         <onright>2</onright>
         <onup>11</onup>
-        <ondown>14</ondown>
+        <ondown>120</ondown>
         <textalign>center</textalign>
         <font>font10</font>
         <visible></visible>

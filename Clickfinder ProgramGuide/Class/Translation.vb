@@ -109,7 +109,7 @@ Public NotInheritable Class Translation
     Public Shared Continous As String = "wird fortgesetzt"
     Public Shared SeriesRefresh As String = "Serien aktualisieren"
     Public Shared EpisodeNotIdentify As String = "Episode konnte nicht identifziert werden"
-
+    Public Shared allNewEpisodes As String = "alle neuen Episoden"
 
 
 End Class

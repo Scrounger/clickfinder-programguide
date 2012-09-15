@@ -621,7 +621,7 @@ Namespace ClickfinderProgramGuide
                                         "AND local = 0 " & _
                                         "AND startTime > " & MySqlDate(_ClickfinderCurrentDate.AddHours(0)) & " " & _
                                         "AND startTime < " & MySqlDate(_ClickfinderCurrentDate.AddHours(24)) & " " & _
-                                        "GROUP BY title"
+                                        "GROUP BY title Order BY state DESC"
 
                     _logNewShowSeries = "true"
                     _SeriesResult.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", True))
@@ -644,9 +644,10 @@ Namespace ClickfinderProgramGuide
                                             "AND local = 0 " & _
                                             "AND startTime > " & MySqlDate(_ClickfinderCurrentDate.AddHours(0)) & " " & _
                                             "AND startTime < " & MySqlDate(_ClickfinderCurrentDate.AddHours(24)) & " " & _
-                                            "Order BY state DESC"
+                                            "Group By episodeName Order BY state DESC"
 
                             _NewEpisodeList.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", True))
+
 
                             'Daten als Highlightslist übergeben
                             _timeLabel = Translation.NewLabel
@@ -677,12 +678,15 @@ Namespace ClickfinderProgramGuide
                                             Dim _Record As Program = Program.Retrieve(_RecordingList.Item(0))
                                             _RecordingStatus = GuiLayout.RecordingStatus(_Record)
 
-                                            Select Case (_RecordingStatus)
-                                                Case Is = "tvguide_record_button.png"
-                                                    _RecordingStatus = "ClickfinderPG_recOnce.png"
-                                                Case Is = "tvguide_recordserie_button.png"
-                                                    _RecordingStatus = "ClickfinderPG_recSeries.png"
-                                            End Select
+                                            If Not _Record.StartTime.Date = Today Then
+                                                Select Case (_RecordingStatus)
+                                                    Case Is = "tvguide_record_button.png"
+                                                        _RecordingStatus = "ClickfinderPG_recOnce.png"
+                                                    Case Is = "tvguide_recordserie_button.png"
+                                                        _RecordingStatus = "ClickfinderPG_recSeries.png"
+                                                End Select
+                                            End If
+
                                         End If
 
                                     End If
@@ -864,7 +868,7 @@ Namespace ClickfinderProgramGuide
             dlgContext.Reset()
 
             Try
-
+                Dim _counter As Integer = 0
 
                 Dim _idProgramContainer As Dictionary(Of Integer, Integer) = New Dictionary(Of Integer, Integer)
                 Dim _SeriesProgram As TVMovieProgram = TVMovieProgram.Retrieve(idProgram)
@@ -906,6 +910,21 @@ Namespace ClickfinderProgramGuide
 
                                     'ProgramDaten über TvMovieProgram laden
                                     Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_Result.Item(i))
+
+                                    'Prüfen ob in Standard Tv Gruppe
+                                    Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value)
+                                    Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
+
+                                    'Alle Gruppen des _program laden
+                                    Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
+                                    sb.AddConstraint([Operator].Equals, "idgroup", _Group.IdGroup)
+                                    sb.AddConstraint([Operator].Equals, "idChannel", _TvMovieProgram.ReferencedProgram.IdChannel)
+                                    Dim stmt As SqlStatement = sb.GetStatement(True)
+                                    Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
+
+                                    If _isInFavGroup.Count = 0 Then
+                                        Continue For
+                                    End If
 
                                     CheckSeriesLocalStatus(_TvMovieProgram)
                                     If _TvMovieProgram.local = False Then
@@ -954,8 +973,9 @@ Namespace ClickfinderProgramGuide
 
                                         lItemEpisode.PinImage = _RecordingStatus
 
-                                        _idProgramContainer.Add(i, _TvMovieProgram.idProgram)
+                                        _idProgramContainer.Add(_counter, _TvMovieProgram.idProgram)
 
+                                        _counter = _counter + 1
                                         dlgContext.Add(lItemEpisode)
                                         lItemEpisode.Dispose()
 
@@ -974,6 +994,7 @@ Namespace ClickfinderProgramGuide
                             _ThreadFillHighlightsList.Start()
 
                             dlgContext.DoModal(GetID)
+
 
                             If SelectItem = True Then
                                 ListControlClick(_idProgramContainer.Item(dlgContext.SelectedLabel))

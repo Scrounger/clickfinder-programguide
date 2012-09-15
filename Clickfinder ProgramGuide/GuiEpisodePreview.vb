@@ -104,65 +104,88 @@ Namespace ClickfinderProgramGuide
             MyLog.Info("")
             MyLog.Info("")
             MyLog.Info("[EpisodePreviewGuiWindow] -------------[OPEN]-------------")
+            Translator.SetProperty("#SettingLastUpdate", GuiLayout.LastUpdateLabel)
+
+            Translator.SetProperty("#EpisodePreviewLabel", "")
+            Translator.SetProperty("#EpisodesPreviewSeriesHeaderLabel", "")
+            Translator.SetProperty("#EpisodesPreviewEpisodeDescription", "")
+            Translator.SetProperty("#EpisodesPreviewLabel1", "")
+            Translator.SetProperty("#EpisodesPreviewLabel2", "")
+            Translator.SetProperty("#EpisodesPreviewLabel3", "")
+            Translator.SetProperty("#EpisodesPreviewSeriesRatingStar", "")
+            Translator.SetProperty("#EpisodesPreviewEpisodeDescription", "")
+            Translator.SetProperty("#EpisodesPreviewSeriesSummary", "")
+            Translator.SetProperty("#EpisodesPreviewTitle", "")
+            Translator.SetProperty("#EpisodesPreviewEpisodeDescription", "")
+
+
 
             _SeriesPoster.SetFileName("")
 
-            If _ShowEpisodes = False Then
+            If _loadParameter = String.Empty Then
+                If _ShowEpisodes = False Then
 
-                ClearSeriesInfos()
+                    ClearSeriesInfos()
 
-                If _LastFocusedSeriesIndex = 0 Then
-                    _selectedListItemIndex = 0
+                    If _LastFocusedSeriesIndex = 0 Then
+                        _selectedListItemIndex = 0
+                    End If
+
+                    'If _LastFocusedSeriesIndex < 1 Then
+                    '    _selectedSeries = TVMovieProgram.Retrieve(_SeriesList.Item(0).TVTag)
+                    'End If
+
+                    Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowSeriesProgressBar)
+                    _ProgressBarThread.Start()
+
+                    Try
+                        If ThreadSeriesFill.IsAlive = True Then ThreadSeriesFill.Abort()
+                    Catch ex As Exception
+                        'Eventuell auftretende Exception abfangen
+                        ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
+                    End Try
+
+                    ThreadSeriesFill = New Threading.Thread(AddressOf FillSeriesList)
+                    ThreadSeriesFill.IsBackground = True
+                    ThreadSeriesFill.Start()
+                Else
+                    'Epsidoen der Serie anzeigen
+                    Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowSeriesProgressBar)
+                    _ProgressBarThread.Start()
+
+                    Try
+                        If ThreadSeriesFill.IsAlive = True Then ThreadSeriesFill.Abort()
+                    Catch ex As Exception
+                        'Eventuell auftretende Exception abfangen
+                        ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
+                    End Try
+
+                    ThreadSeriesFill = New Threading.Thread(AddressOf FillEpisodesList)
+                    ThreadSeriesFill.IsBackground = True
+                    ThreadSeriesFill.Start()
                 End If
 
-                'If _LastFocusedSeriesIndex < 1 Then
-                '    _selectedSeries = TVMovieProgram.Retrieve(_SeriesList.Item(0).TVTag)
-                'End If
-
-                Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowSeriesProgressBar)
-                _ProgressBarThread.Start()
-
-                Try
-                    If ThreadSeriesFill.IsAlive = True Then ThreadSeriesFill.Abort()
-                Catch ex As Exception
-                    'Eventuell auftretende Exception abfangen
-                    ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
-                End Try
-
-                ThreadSeriesFill = New Threading.Thread(AddressOf FillSeriesList)
-                ThreadSeriesFill.IsBackground = True
-                ThreadSeriesFill.Start()
             Else
-                'Epsidoen der Serie anzeigen
-                Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowSeriesProgressBar)
-                _ProgressBarThread.Start()
+                'Hyyplerink Parameter
+                MyLog.Info("[EpisodePreviewGuiWindow] Hyperlink parameter: {0}", _loadParameter)
 
-                Try
-                    If ThreadSeriesFill.IsAlive = True Then ThreadSeriesFill.Abort()
-                Catch ex As Exception
-                    'Eventuell auftretende Exception abfangen
-                    ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
-                End Try
+                If InStr(_loadParameter, "idSeries: ") > 0 Then
 
-                ThreadSeriesFill = New Threading.Thread(AddressOf FillEpisodesList)
-                ThreadSeriesFill.IsBackground = True
-                ThreadSeriesFill.Start()
-            End If
+                    _selectedListItemIndex = 0
 
 
-        End Sub
-        Public Overrides Sub OnAction(ByVal Action As MediaPortal.GUI.Library.Action)
-            If GUIWindowManager.ActiveWindow = GetID Then
+                    Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(TVMovieProgram))
+                    sb.AddConstraint([Operator].Equals, "idSeries", CInt(Replace(_loadParameter, "idSeries: ", "")))
+                    sb.AddConstraint([Operator].Equals, "local", False)
+                    Dim stmt As SqlStatement = sb.GetStatement(True)
+                    Dim _SeriesFoundList As IList(Of TVMovieProgram) = ObjectFactory.GetCollection(GetType(TVMovieProgram), stmt.Execute())
 
-                'Wenn Previous Window (ESC), erst prüfen ob Episodenliste angezeigt wird -> zurück Serienliste
-                If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_PREVIOUS_MENU Then
+                    If _SeriesFoundList.Count > 0 Then
+                        _selectedSeries = _SeriesFoundList(0)
 
-                    If _ShowEpisodes = True Then
+                        _ShowEpisodes = True
 
-                        _ShowEpisodes = False
-
-                        _LastFocusedEpisodeIndex = 0
-
+                        'Epsidoen der Serie anzeigen
                         Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowSeriesProgressBar)
                         _ProgressBarThread.Start()
 
@@ -173,12 +196,52 @@ Namespace ClickfinderProgramGuide
                             ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
                         End Try
 
-                        ThreadSeriesFill = New Threading.Thread(AddressOf FillSeriesList)
+                        ThreadSeriesFill = New Threading.Thread(AddressOf FillEpisodesList)
                         ThreadSeriesFill.IsBackground = True
                         ThreadSeriesFill.Start()
+                    Else
+                        _SeriesProgressBar.Visible = False
+                        _RepeatsProgressBar.Visible = False
+                        
 
-                        Return
+                        Helper.ShowNotify("Keine neuen Episoden im EPG gefunden!")
+                        GUIWindowManager.ShowPreviousWindow()
+                    End If
 
+                End If
+
+            End If
+
+        End Sub
+        Public Overrides Sub OnAction(ByVal Action As MediaPortal.GUI.Library.Action)
+            If GUIWindowManager.ActiveWindow = GetID Then
+
+                'Wenn Previous Window (ESC), erst prüfen ob Episodenliste angezeigt wird -> zurück Serienliste
+                If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_PREVIOUS_MENU Then
+
+                    If _ShowEpisodes = True Then
+
+                        If _loadParameter = String.Empty Then
+                            _ShowEpisodes = False
+
+                            _LastFocusedEpisodeIndex = 0
+
+                            Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowSeriesProgressBar)
+                            _ProgressBarThread.Start()
+
+                            Try
+                                If ThreadSeriesFill.IsAlive = True Then ThreadSeriesFill.Abort()
+                            Catch ex As Exception
+                                'Eventuell auftretende Exception abfangen
+                                ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
+                            End Try
+
+                            ThreadSeriesFill = New Threading.Thread(AddressOf FillSeriesList)
+                            ThreadSeriesFill.IsBackground = True
+                            ThreadSeriesFill.Start()
+
+                            Return
+                        End If
                     Else
                         _LastFocusedSeriesIndex = 0
                         _LastFocusedEpisodeIndex = 0
@@ -430,25 +493,28 @@ Namespace ClickfinderProgramGuide
 
                 If _SeriesList.SelectedListItem.Label = ".." Then
                     'zurück zur Serien Übersicht
+                    If _loadParameter = String.Empty Then
+                        _ShowEpisodes = False
 
-                    _ShowEpisodes = False
+                        _LastFocusedEpisodeIndex = 0
 
-                    _LastFocusedEpisodeIndex = 0
-
-                    Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowSeriesProgressBar)
-                    _ProgressBarThread.Start()
+                        Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowSeriesProgressBar)
+                        _ProgressBarThread.Start()
 
 
-                    Try
-                        If ThreadSeriesFill.IsAlive = True Then ThreadSeriesFill.Abort()
-                    Catch ex As Exception
-                        'Eventuell auftretende Exception abfangen
-                        ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
-                    End Try
+                        Try
+                            If ThreadSeriesFill.IsAlive = True Then ThreadSeriesFill.Abort()
+                        Catch ex As Exception
+                            'Eventuell auftretende Exception abfangen
+                            ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
+                        End Try
 
-                    ThreadSeriesFill = New Threading.Thread(AddressOf FillSeriesList)
-                    ThreadSeriesFill.IsBackground = True
-                    ThreadSeriesFill.Start()
+                        ThreadSeriesFill = New Threading.Thread(AddressOf FillSeriesList)
+                        ThreadSeriesFill.IsBackground = True
+                        ThreadSeriesFill.Start()
+                    Else
+                        GUIWindowManager.ShowPreviousWindow()
+                    End If
 
                 ElseIf _SeriesList.Item(0).ItemId = 0 Then
                     'DetailScreen anzeigen
@@ -480,7 +546,7 @@ Namespace ClickfinderProgramGuide
                     ThreadSeriesFill.Start()
                 End If
 
-            End If
+                End If
 
         End Sub
 

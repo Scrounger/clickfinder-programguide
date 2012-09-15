@@ -776,11 +776,32 @@
       <description>button group</description>
       <type>group</type>
       <posX>110</posX>
-      <posY>490</posY>
+      <posY>460</posY>
+      <!--Button Height 30-->
       <layout>Stacklayout</layout>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="500">WindowClose</animation>
-    
+
+      <control>
+        <description>Gui Episode Preview aufrufen sofern Serie</description>
+        <type>button</type>
+        <id>120</id>
+        <hyperlink>1656544657</hyperlink>
+        <hyperlinkParameter>idSeries: #DetailSeriesID</hyperlinkParameter>
+        <width>216</width>
+        <height>30</height>
+        <label>#ClickfinderPG.Translation.allNewEpisodes</label>
+        <onleft>2</onleft>
+        <onright>2</onright>
+        <onup>10</onup>
+        <ondown>14</ondown>
+        <textalign>center</textalign>
+        <font>mediastream10</font>
+        <visible>!string.equals(#DetailSeriesID,0)+plugin.isenabled(MP-TV Series)</visible>
+        <animation effect="fade" time="500">WindowOpen</animation>
+        <animation effect="fade" time="500">WindowClose</animation>
+      </control>
+
       <control>
         <description>MP-TvSeries oder Mov.Pic aufrufen</description>
         <type>button</type>
@@ -790,104 +811,108 @@
         <label>#DetailJumpToLabel</label>
         <onleft>2</onleft>
         <onright>2</onright>
-        <onup>10</onup>
+        <onup>120</onup>
         <ondown>130</ondown>
         <textalign>center</textalign>
         <font>mediastream10</font>
         <visible>!string.equals(#DetailSeriesID,0)+plugin.isenabled(MP-TV Series)|!string.equals(#DetailMovPicID,0)+plugin.isenabled(Moving Pictures)</visible>
+        <animation effect="fade" time="500">WindowOpen</animation>
+        <animation effect="fade" time="500">WindowClose</animation>
       </control>
-      
+
       <control>
-      <description>Online Videos IMDB</description>
-      <type>button</type>
-      <id>130</id>
-      <hyperlink>4755</hyperlink>
-      <hyperlinkParameter>site:IMDb Movie Trailers|search:#DetailTitle|return:Locked</hyperlinkParameter>
-      <width>216</width>
-      <height>30</height>
-      <label>#ClickfinderPG.Translation.IMDB</label>
-      <onleft>2</onleft>
-      <onright>2</onright>
-      <onup>14</onup>
-      <ondown>13</ondown>
-      <textalign>center</textalign>
-      <font>mediastream10</font>
-      <visible>plugin.isenabled(OnlineVideos)</visible>
-    </control>
-
-    <control>
-      <description>Remember</description>
-      <type>button</type>
-      <id>13</id>
-      <width>216</width>
-      <height>30</height>
-      <label>#ClickfinderPG.Translation.Remember</label>
-      <onleft>2</onleft>
-      <onright>2</onright>
-      <onup>130</onup>
-      <ondown>12</ondown>
-      <textalign>center</textalign>
-      <font>mediastream10</font>
-      <visible></visible>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
-    </control>
-
-    <control>
-      <description>Record</description>
-      <type>button</type>
-      <id>12</id>
-      <width>216</width>
-      <height>30</height>
-      <label>#ClickfinderPG.Translation.Record</label>
-      <onleft>2</onleft>
-      <onright>2</onright>
-      <onup>13</onup>
-      <ondown>11</ondown>
-      <textalign>center</textalign>
-      <font>mediastream10</font>
-      <visible></visible>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
-    </control>
-
-    <control>
-      <description>Play / View Channel</description>
-      <type>button</type>
-      <id>11</id>
-      <width>216</width>
-      <height>30</height>
-      <label>#ClickfinderPG.Translation.ChannelON</label>
-      <onleft>2</onleft>
-      <onright>2</onright>
-      <onup>12</onup>
-      <ondown>10</ondown>
-      <textalign>center</textalign>
-      <font>mediastream10</font>
-      <visible></visible>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
-    </control>
-
-    <control>
-      <description>Back</description>
-      <type>button</type>
-      <id>10</id>
-      <width>216</width>
-      <height>30</height>
-      <label>#ClickfinderPG.Translation.Back</label>
-      <onleft>2</onleft>
-      <onright>2</onright>
-      <onup>11</onup>
-      <ondown>14</ondown>
-      <textalign>center</textalign>
-      <font>mediastream10</font>
-      <visible></visible>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
-    </control>
-
+        <description>Online Videos IMDB</description>
+        <type>button</type>
+        <id>130</id>
+        <hyperlink>4755</hyperlink>
+        <hyperlinkParameter>site:IMDb Movie Trailers|search:#DetailTitle|return:Locked</hyperlinkParameter>
+        <width>216</width>
+        <height>30</height>
+        <label>#ClickfinderPG.Translation.IMDB</label>
+        <onleft>2</onleft>
+        <onright>2</onright>
+        <onup>14</onup>
+        <ondown>13</ondown>
+        <textalign>center</textalign>
+        <font>mediastream10</font>
+        <visible>plugin.isenabled(OnlineVideos)</visible>
+        <animation effect="fade" time="500">WindowOpen</animation>
+        <animation effect="fade" time="500">WindowClose</animation>
       </control>
+
+      <control>
+        <description>Remember</description>
+        <type>button</type>
+        <id>13</id>
+        <width>216</width>
+        <height>30</height>
+        <label>#ClickfinderPG.Translation.Remember</label>
+        <onleft>2</onleft>
+        <onright>2</onright>
+        <onup>130</onup>
+        <ondown>12</ondown>
+        <textalign>center</textalign>
+        <font>mediastream10</font>
+        <visible></visible>
+        <animation effect="fade" time="500">WindowOpen</animation>
+        <animation effect="fade" time="500">WindowClose</animation>
+      </control>
+
+      <control>
+        <description>Record</description>
+        <type>button</type>
+        <id>12</id>
+        <width>216</width>
+        <height>30</height>
+        <label>#ClickfinderPG.Translation.Record</label>
+        <onleft>2</onleft>
+        <onright>2</onright>
+        <onup>13</onup>
+        <ondown>11</ondown>
+        <textalign>center</textalign>
+        <font>mediastream10</font>
+        <visible></visible>
+        <animation effect="fade" time="500">WindowOpen</animation>
+        <animation effect="fade" time="500">WindowClose</animation>
+      </control>
+
+      <control>
+        <description>Play / View Channel</description>
+        <type>button</type>
+        <id>11</id>
+        <width>216</width>
+        <height>30</height>
+        <label>#ClickfinderPG.Translation.ChannelON</label>
+        <onleft>2</onleft>
+        <onright>2</onright>
+        <onup>12</onup>
+        <ondown>10</ondown>
+        <textalign>center</textalign>
+        <font>mediastream10</font>
+        <visible></visible>
+        <animation effect="fade" time="500">WindowOpen</animation>
+        <animation effect="fade" time="500">WindowClose</animation>
+      </control>
+
+      <control>
+        <description>Back</description>
+        <type>button</type>
+        <id>10</id>
+        <width>216</width>
+        <height>30</height>
+        <label>#ClickfinderPG.Translation.Back</label>
+        <onleft>2</onleft>
+        <onright>2</onright>
+        <onup>11</onup>
+        <ondown>120</ondown>
+        <textalign>center</textalign>
+        <font>mediastream10</font>
+        <visible></visible>
+        <animation effect="fade" time="500">WindowOpen</animation>
+        <animation effect="fade" time="500">WindowClose</animation>
+      </control>
+
+    </control>
   </controls>
 
 </window>

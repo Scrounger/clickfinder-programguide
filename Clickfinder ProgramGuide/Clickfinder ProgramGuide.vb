@@ -111,6 +111,7 @@ Namespace ClickfinderProgramGuide
             MyBase.PreInit()
 
             Try
+                Translator.TranslateSkin()
 
                 If Helper.TvServerConnected = True Then
 
