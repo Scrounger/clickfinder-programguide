@@ -381,7 +381,7 @@
     <control>
       <description>Detail TvMovieStar</description>
       <type>image</type>
-      <id>37</id>
+      <id>1</id>
       <posX>90</posX>
       <posY>234</posY>
       <width>48</width>
@@ -400,7 +400,7 @@
     <control>
       <description>Detail RecordingState</description>
       <type>image</type>
-      <id>37</id>
+      <id>1</id>
       <posX>300</posX>
       <posY>244</posY>
       <width>26</width>

@@ -655,6 +655,7 @@ Namespace ClickfinderProgramGuide
                             _imagepath = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieSeriesProgram.SeriesPosterImage
                             _RecordingStatus = GuiLayout.RecordingStatus(_TvMovieSeriesProgram.ReferencedProgram)
 
+
                             'Prüfen ob eine Episode als Aufnahme geplant ist
                             If _RecordingStatus = String.Empty Then
                                 If _NewEpisodeList.Count > 0 Then

@@ -5,7 +5,7 @@
       <description>GROUP: Clickfinder ProgramGuide: Movie 1</description>
       <type>group</type>
       <dimColor>0xffffffff</dimColor>
-      <visible>[control.isvisible(1003)|control.isvisible(40001)]+[!string.equals(#ClickfinderPG.Movie1.Title,)]</visible>
+      <visible>[control.isvisible(1004)]+[!string.equals(#ClickfinderPG.Movie1.Title,)]</visible>
       <animation effect="fade" start="100" end="0" time="250" reversible="false">Hidden</animation>
       <animation effect="fade" start="0" end="100" delay="700" time="500" reversible="false">Visible</animation>
       <animation effect="fade" start="0" end="100" time="4000" reversible="false">WindowOpen</animation>
@@ -108,7 +108,7 @@
       <description>GROUP: Clickfinder ProgramGuide: Movie 2</description>
       <type>group</type>
       <dimColor>0xffffffff</dimColor>
-      <visible>[control.isvisible(1003)|control.isvisible(40001)]+[!string.equals(#ClickfinderPG.Movie2.Title,)]</visible>
+      <visible>[control.isvisible(1004)]+[!string.equals(#ClickfinderPG.Movie2.Title,)]</visible>
       <animation effect="fade" start="100" end="0" time="250" reversible="false">Hidden</animation>
       <animation effect="fade" start="0" end="100" delay="700" time="500" reversible="false">Visible</animation>
       <animation effect="fade" start="0" end="100" time="4000" reversible="false">WindowOpen</animation>
@@ -211,7 +211,7 @@
       <description>GROUP: Clickfinder ProgramGuide: Movie 3</description>
       <type>group</type>
       <dimColor>0xffffffff</dimColor>
-      <visible>[control.isvisible(1003)|control.isvisible(40001)]+[!string.equals(#ClickfinderPG.Movie3.Title,)]</visible>
+      <visible>[control.isvisible(1004)]+[!string.equals(#ClickfinderPG.Movie3.Title,)]</visible>
       <animation effect="fade" start="100" end="0" time="250" reversible="false">Hidden</animation>
       <animation effect="fade" start="0" end="100" delay="700" time="500" reversible="false">Visible</animation>
       <animation effect="fade" start="0" end="100" time="4000" reversible="false">WindowOpen</animation>
@@ -314,7 +314,7 @@
       <description>GROUP: Clickfinder ProgramGuide: Movie 4</description>
       <type>group</type>
       <dimColor>0xffffffff</dimColor>
-      <visible>[control.isvisible(1003)|control.isvisible(40001)]+[!string.equals(#ClickfinderPG.Movie4.Title,)]</visible>
+      <visible>[control.isvisible(1004)]+[!string.equals(#ClickfinderPG.Movie4.Title,)]</visible>
       <animation effect="fade" start="100" end="0" time="250" reversible="false">Hidden</animation>
       <animation effect="fade" start="0" end="100" delay="700" time="500" reversible="false">Visible</animation>
       <animation effect="fade" start="0" end="100" time="4000" reversible="false">WindowOpen</animation>
@@ -420,7 +420,7 @@
       <description>GROUP: Clickfinder ProgramGuide: Series 1</description>
       <type>group</type>
       <dimColor>0xffffffff</dimColor>
-      <visible>[control.isvisible(1003)|control.isvisible(40001)]+[!string.equals(#ClickfinderPG.Series1.Title,)]</visible>
+      <visible>[control.isvisible(1004)]+[!string.equals(#ClickfinderPG.Series1.Title,)]</visible>
       <animation effect="fade" start="100" end="0" time="250" reversible="false">Hidden</animation>
       <animation effect="fade" start="0" end="100" delay="700" time="500" reversible="false">Visible</animation>
       <animation effect="fade" start="0" end="100" time="4000" reversible="false">WindowOpen</animation>
@@ -495,21 +495,54 @@
       </control>
       <control>
         <description>NewEpisodesNumbers 1</description>
-        <type>fadelabel</type>
+        <type>label</type>
         <id>0</id>
+        <posX>400</posX>
+        <posY>142</posY>
+        <width>320</width>
+        <align>right</align>
+        <label>#ClickfinderPG.Series1.Time</label>
+        <font>mediastream10c</font>
+        <textcolor>ff909090</textcolor>
+      </control>
+      <control>
+        <description>RecordingState 1</description>
+        <type>image</type>
+        <id>1</id>
         <posX>80</posX>
         <posY>138</posY>
-        <width>320</width>
-        <label>#ClickfinderPG.Series1.NewEpisodesNumbers</label>
-        <font>mediastream10</font>
-        <textcolor>ff909090</textcolor>
+        <width>20</width>
+        <height>20</height>
+        <texture></texture>
+        <colorkey>0</colorkey>
+        <filtered>yes</filtered>
+        <centered>no</centered>
+        <keepaspectratio>yes</keepaspectratio>
+        <texture>#ClickfinderPG.Series1.RecordingState</texture>
+        <visible>string.equals(#ClickfinderPG.Series1.RecordingState,tvguide_record_button.png)|string.equals(#ClickfinderPG.Series1.RecordingState,ClickfinderPG_recOnce.png)</visible>
+      </control>
+      <control>
+        <description>RecordingState 3</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>80</posX>
+        <posY>140</posY>
+        <width>32</width>
+        <height>32</height>
+        <texture></texture>
+        <colorkey>0</colorkey>
+        <filtered>yes</filtered>
+        <centered>no</centered>
+        <keepaspectratio>yes</keepaspectratio>
+        <texture>#ClickfinderPG.Series3.RecordingState</texture>
+        <visible>string.equals(#ClickfinderPG.Series1.RecordingState,tvguide_recordserie_button.png)|string.equals(#ClickfinderPG.Series1.RecordingState,ClickfinderPG_recSeries.png)</visible>
       </control>
     </control>
     <control>
       <description>GROUP: Clickfinder ProgramGuide: Series 2</description>
       <type>group</type>
       <dimColor>0xffffffff</dimColor>
-      <visible>[control.isvisible(1003)|control.isvisible(40001)]+[!string.equals(#ClickfinderPG.Series2.Title,)]</visible>
+      <visible>[control.isvisible(1004)]+[!string.equals(#ClickfinderPG.Series2.Title,)]</visible>
       <animation effect="fade" start="100" end="0" time="250" reversible="false">Hidden</animation>
       <animation effect="fade" start="0" end="100" delay="700" time="500" reversible="false">Visible</animation>
       <animation effect="fade" start="0" end="100" time="4000" reversible="false">WindowOpen</animation>
@@ -584,21 +617,54 @@
       </control>
       <control>
         <description>NewEpisodesNumbers 2</description>
-        <type>fadelabel</type>
+        <type>label</type>
         <id>0</id>
-        <posX>80</posX>
-        <posY>231</posY>
+        <posX>400</posX>
+        <posY>235</posY>
         <width>320</width>
-        <label>#ClickfinderPG.Series2.NewEpisodesNumbers</label>
-        <font>mediastream10</font>
+        <align>right</align>
+        <label>#ClickfinderPG.Series2.Time</label>
+        <font>mediastream10c</font>
         <textcolor>ff909090</textcolor>
+      </control>
+      <control>
+        <description>RecordingState 2</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>80</posX>
+        <posY>233</posY>
+        <width>20</width>
+        <height>20</height>
+        <texture></texture>
+        <colorkey>0</colorkey>
+        <filtered>yes</filtered>
+        <centered>no</centered>
+        <keepaspectratio>yes</keepaspectratio>
+        <texture>#ClickfinderPG.Series2.RecordingState</texture>
+        <visible>string.equals(#ClickfinderPG.Series2.RecordingState,tvguide_record_button.png)|string.equals(#ClickfinderPG.Series2.RecordingState,ClickfinderPG_recOnce.png)</visible>
+      </control>
+      <control>
+        <description>RecordingState 3</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>80</posX>
+        <posY>235</posY>
+        <width>32</width>
+        <height>32</height>
+        <texture></texture>
+        <colorkey>0</colorkey>
+        <filtered>yes</filtered>
+        <centered>no</centered>
+        <keepaspectratio>yes</keepaspectratio>
+        <texture>#ClickfinderPG.Series3.RecordingState</texture>
+        <visible>string.equals(#ClickfinderPG.Series2.RecordingState,tvguide_recordserie_button.png)|string.equals(#ClickfinderPG.Series2.RecordingState,ClickfinderPG_recSeries.png)</visible>
       </control>
     </control>
     <control>
       <description>GROUP: Clickfinder ProgramGuide: Series 3</description>
       <type>group</type>
       <dimColor>0xffffffff</dimColor>
-      <visible>[control.isvisible(1003)|control.isvisible(40001)]+[!string.equals(#ClickfinderPG.Series3.Title,)]</visible>
+      <visible>[control.isvisible(1004)]+[!string.equals(#ClickfinderPG.Series3.Title,)]</visible>
       <animation effect="fade" start="100" end="0" time="250" reversible="false">Hidden</animation>
       <animation effect="fade" start="0" end="100" delay="700" time="500" reversible="false">Visible</animation>
       <animation effect="fade" start="0" end="100" time="4000" reversible="false">WindowOpen</animation>
@@ -673,21 +739,54 @@
       </control>
       <control>
         <description>NewEpisodesNumbers 3</description>
-        <type>fadelabel</type>
+        <type>label</type>
         <id>0</id>
+        <posX>400</posX>
+        <posY>330</posY>
+        <width>320</width>
+        <align>right</align>
+        <label>#ClickfinderPG.Series3.Time</label>
+        <font>mediastream10c</font>
+        <textcolor>ff909090</textcolor>
+      </control>
+      <control>
+        <description>RecordingState 3</description>
+        <type>image</type>
+        <id>1</id>
         <posX>80</posX>
         <posY>326</posY>
-        <width>320</width>
-        <label>#ClickfinderPG.Series3.NewEpisodesNumbers</label>
-        <font>mediastream10</font>
-        <textcolor>ff909090</textcolor>
+        <width>20</width>
+        <height>20</height>
+        <texture></texture>
+        <colorkey>0</colorkey>
+        <filtered>yes</filtered>
+        <centered>no</centered>
+        <keepaspectratio>yes</keepaspectratio>
+        <texture>#ClickfinderPG.Series3.RecordingState</texture>
+        <visible>string.equals(#ClickfinderPG.Series3.RecordingState,tvguide_record_button.png)|string.equals(#ClickfinderPG.Series3.RecordingState,ClickfinderPG_recOnce.png)</visible>
+      </control>
+      <control>
+        <description>RecordingState 3</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>80</posX>
+        <posY>328</posY>
+        <width>32</width>
+        <height>32</height>
+        <texture></texture>
+        <colorkey>0</colorkey>
+        <filtered>yes</filtered>
+        <centered>no</centered>
+        <keepaspectratio>yes</keepaspectratio>
+        <texture>#ClickfinderPG.Series3.RecordingState</texture>
+        <visible>string.equals(#ClickfinderPG.Series3.RecordingState,tvguide_recordserie_button.png)|string.equals(#ClickfinderPG.Series3.RecordingState,ClickfinderPG_recSeries.png)</visible>
       </control>
     </control>
     <control>
       <description>GROUP: Clickfinder ProgramGuide: Series 4</description>
       <type>group</type>
       <dimColor>0xffffffff</dimColor>
-      <visible>[control.isvisible(1003)|control.isvisible(40001)]+[!string.equals(#ClickfinderPG.Series4.Title,)]</visible>
+      <visible>[control.isvisible(1004)]+[!string.equals(#ClickfinderPG.Series4.Title,)]</visible>
       <animation effect="fade" start="100" end="0" time="250" reversible="false">Hidden</animation>
       <animation effect="fade" start="0" end="100" delay="700" time="500" reversible="false">Visible</animation>
       <animation effect="fade" start="0" end="100" time="4000" reversible="false">WindowOpen</animation>
@@ -762,14 +861,47 @@
       </control>
       <control>
         <description>NewEpisodesNumbers 4</description>
-        <type>fadelabel</type>
+        <type>label</type>
         <id>0</id>
+        <posX>400</posX>
+        <posY>425</posY>
+        <width>320</width>
+        <align>right</align>
+        <label>#ClickfinderPG.Series4.Time</label>
+        <font>mediastream10c</font>
+        <textcolor>ff909090</textcolor>
+      </control>
+      <control>
+        <description>RecordingState 4</description>
+        <type>image</type>
+        <id>1</id>
+        <posX>80</posX>
+        <posY>419</posY>
+        <width>20</width>
+        <height>20</height>
+        <texture></texture>
+        <colorkey>0</colorkey>
+        <filtered>yes</filtered>
+        <centered>no</centered>
+        <keepaspectratio>yes</keepaspectratio>
+        <texture>#ClickfinderPG.Series4.RecordingState</texture>
+        <visible>string.equals(#ClickfinderPG.Series4.RecordingState,tvguide_record_button.png)|string.equals(#ClickfinderPG.Series4.RecordingState,ClickfinderPG_recOnce.png)</visible>
+      </control>
+      <control>
+        <description>RecordingState 3</description>
+        <type>image</type>
+        <id>1</id>
         <posX>80</posX>
         <posY>421</posY>
-        <width>320</width>
-        <label>#ClickfinderPG.Series4.NewEpisodesNumbers</label>
-        <font>mediastream10</font>
-        <textcolor>ff909090</textcolor>
+        <width>32</width>
+        <height>32</height>
+        <texture></texture>
+        <colorkey>0</colorkey>
+        <filtered>yes</filtered>
+        <centered>no</centered>
+        <keepaspectratio>yes</keepaspectratio>
+        <texture>#ClickfinderPG.Series3.RecordingState</texture>
+        <visible>string.equals(#ClickfinderPG.Series4.RecordingState,tvguide_recordserie_button.png)|string.equals(#ClickfinderPG.Series4.RecordingState,ClickfinderPG_recSeries.png)</visible>
       </control>
     </control>
   </controls>

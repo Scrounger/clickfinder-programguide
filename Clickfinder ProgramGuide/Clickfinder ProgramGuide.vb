@@ -496,6 +496,7 @@ Namespace ClickfinderProgramGuide
             End Try
         End Sub
         Friend Shared Sub ClickfinderProgramGuideOverlaySeries()
+            Dim _ItemCounter As Integer = 1
 
             Try
 
@@ -504,83 +505,173 @@ Namespace ClickfinderProgramGuide
                 Next
 
                 If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True Then
-
                     Dim _SeriesResult As New ArrayList
                     Dim _SQLstring As String = String.Empty
-                    Dim _SeriesName As String = String.Empty
-                    Dim _EpisodeName As String = String.Empty
-                    Dim _NewEpisodeCounter As Integer = 1
-                    Dim _ItemCounter As Integer = 1
-                    Dim _NewEpisodesNumbers As String = String.Empty
-
 
                     _SQLstring = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
                                         "WHERE idSeries > 0 " & _
                                         "AND local = 0 " & _
                                         "AND startTime > " & MySqlDate(Date.Today.AddHours(0)) & " " & _
                                         "AND startTime < " & MySqlDate(Date.Today.AddHours(24)) & " " & _
-                                        "ORDER BY title ASC, seriesNum ASC, episodeNum ASC, startTime ASC"
-
+                                        "GROUP BY title Order BY startTime"
 
                     _SeriesResult.AddRange(Broker.Execute(_SQLstring).TransposeToFieldList("idProgram", True))
                     '_logNewSeriesCount = _Result.Count
 
-                    For i = 0 To _SeriesResult.Count - 1
-                        Try
+                    If _SeriesResult.Count > 0 Then
+                        For i = 0 To _SeriesResult.Count - 1
+                            Dim _NewEpisodeList As New ArrayList
+                            Dim _RecordingStatus As String = String.Empty
 
                             'ProgramDaten über TvMovieProgram laden
                             Dim _TvMovieSeriesProgram As TVMovieProgram = TVMovieProgram.Retrieve(_SeriesResult.Item(i))
 
-                            'Prüfen ob noch immer lokal nicht vorhanden
-                            CheckSeriesLocalStatus(_TvMovieSeriesProgram)
-                            If _TvMovieSeriesProgram.local = False Then
+                            'Alle neuen Episoden der Serie zählen die aufgenommen werden sollen
+                            _SQLstring = "Select program.idprogram from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
+                                            "WHERE idSeries = " & _TvMovieSeriesProgram.idSeries & " " & _
+                                            "AND local = 0 " & _
+                                            "AND startTime > " & MySqlDate(Date.Today.AddHours(0)) & " " & _
+                                            "AND startTime < " & MySqlDate(Date.Today.AddHours(24)) & " " & _
+                                            "Group By episodeName Order BY state DESC"
 
-                                'Sofern andere Serie, Werte zurücksetzen
-                                If Not _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title Then
-                                    _NewEpisodeCounter = 1
-                                    _NewEpisodesNumbers = ""
+                            _NewEpisodeList.AddRange(Broker.Execute(_SQLstring).TransposeToFieldList("idProgram", True))
+
+                            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".Image", Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieSeriesProgram.SeriesPosterImage)
+                            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".Title", _TvMovieSeriesProgram.ReferencedProgram.Title)
+                            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".RatingStar", _TvMovieSeriesProgram.ReferencedProgram.StarRating)
+                            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".CountNewEpisodes", _NewEpisodeList.Count & " " & Translation.NewEpisodeFound)
+                            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".Time", _TvMovieSeriesProgram.ReferencedProgram.ReferencedChannel.DisplayName & " - " & CStr(Format(_TvMovieSeriesProgram.ReferencedProgram.StartTime.Hour, "00") & ":" & Format(_TvMovieSeriesProgram.ReferencedProgram.StartTime.Minute, "00")))
+
+                            _RecordingStatus = GuiLayout.RecordingStatus(_TvMovieSeriesProgram.ReferencedProgram)
+
+                            'Prüfen ob eine Episode als Aufnahme geplant ist
+                            If _RecordingStatus = String.Empty Then
+                                If _NewEpisodeList.Count > 0 Then
+                                    Dim _Episode As Program = Program.Retrieve(_NewEpisodeList.Item(0))
+                                    _RecordingStatus = GuiLayout.RecordingStatus(_Episode)
+
+                                    'Prüfen ob Episode an anderem Tag aufgenommen wird
+                                    If _RecordingStatus = String.Empty Then
+                                        Dim _RecordingList As New ArrayList
+
+                                        _SQLstring = "Select program.idprogram from program " & _
+                                                "WHERE title = '" & _Episode.Title & "' " & _
+                                                "AND episodeName = '" & _Episode.EpisodeName & "' " & _
+                                                "Order BY state DESC"
+
+                                        Helper.AppendSqlLimit(_SQLstring, 1)
+
+                                        _RecordingList.AddRange(Broker.Execute(_SQLstring).TransposeToFieldList("idProgram", True))
+
+                                        If _RecordingList.Count > 0 Then
+                                            Dim _Record As Program = Program.Retrieve(_RecordingList.Item(0))
+                                            _RecordingStatus = GuiLayout.RecordingStatus(_Record)
+
+                                            If Not _Record.StartTime.Date = Today Then
+                                                Select Case (_RecordingStatus)
+                                                    Case Is = "tvguide_record_button.png"
+                                                        _RecordingStatus = "ClickfinderPG_recOnce.png"
+                                                    Case Is = "tvguide_recordserie_button.png"
+                                                        _RecordingStatus = "ClickfinderPG_recSeries.png"
+                                                End Select
+                                            End If
+
+                                        End If
+
+                                    End If
                                 End If
-
-                                'Sofern gleiche Episode dann weiter
-                                If _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title And _EpisodeName = _TvMovieSeriesProgram.ReferencedProgram.EpisodeName Then
-                                    Continue For
-                                End If
-
-                                'Sofern nicht gleiche Episode -> Zähler hoch und weiter
-                                If _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title And Not _EpisodeName = _TvMovieSeriesProgram.ReferencedProgram.EpisodeName Then
-                                    _NewEpisodeCounter = _NewEpisodeCounter + 1
-                                    Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter - 1 & ".CountNewEpisodes", _NewEpisodeCounter & " " & Translation.NewEpisodeFound)
-
-                                    _NewEpisodesNumbers = _NewEpisodesNumbers & ", S" & Format(CInt(_TvMovieSeriesProgram.ReferencedProgram.SeriesNum), "00") & "E" & Format(CInt(_TvMovieSeriesProgram.ReferencedProgram.EpisodeNum), "00")
-                                    Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter - 1 & ".NewEpisodesNumbers", _NewEpisodesNumbers)
-
-                                    Continue For
-                                End If
-
-                                Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".Image", Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieSeriesProgram.SeriesPosterImage)
-                                Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".Title", _TvMovieSeriesProgram.ReferencedProgram.Title)
-                                Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".RatingStar", _TvMovieSeriesProgram.ReferencedProgram.StarRating)
-                                Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".CountNewEpisodes", _NewEpisodeCounter & " " & Translation.NewEpisodeFound)
-
-                                _NewEpisodesNumbers = "S" & Format(CInt(_TvMovieSeriesProgram.ReferencedProgram.SeriesNum), "00") & "E" & Format(CInt(_TvMovieSeriesProgram.ReferencedProgram.EpisodeNum), "00")
-                                Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".NewEpisodesNumbers", _NewEpisodesNumbers)
-
-                                Log.Debug("[StartGuiWindow] [ClickfinderProgramGuideOverlaySeries]: Load global Series SkinProperties {0} (Title: {1}, Channel: {2}, startTime: {3}, idprogram: {4}, ratingStar: {5}, TvMovieStar: {6}, image: {7})", _
-                                            _ItemCounter, _TvMovieSeriesProgram.ReferencedProgram.Title, _TvMovieSeriesProgram.ReferencedProgram.ReferencedChannel.DisplayName, _
-                                            _TvMovieSeriesProgram.ReferencedProgram.StartTime, _TvMovieSeriesProgram.ReferencedProgram.IdProgram, _
-                                            GuiLayout.ratingStar(_TvMovieSeriesProgram.ReferencedProgram), _
-                                            _TvMovieSeriesProgram.TVMovieBewertung, GuiLayout.Image(_TvMovieSeriesProgram))
-
-                                _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title
-                                _EpisodeName = _TvMovieSeriesProgram.ReferencedProgram.EpisodeName
-                                _ItemCounter = _ItemCounter + 1
-
                             End If
 
-                        Catch ex As Exception
-                            Log.Error("[StartGuiWindow] [ClickfinderProgramGuideOverlaySeries]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
-                        End Try
-                    Next
+
+                            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".RecordingState", _RecordingStatus)
+
+                            Log.Debug("[StartGuiWindow] [ClickfinderProgramGuideOverlaySeries]: Load global Series SkinProperties {0} (Title: {1}, Channel: {2}, startTime: {3}, idprogram: {4}, ratingStar: {5}, TvMovieStar: {6}, image: {7})", _
+                                            _ItemCounter, _TvMovieSeriesProgram.ReferencedProgram.Title, _TvMovieSeriesProgram.ReferencedProgram.ReferencedChannel.DisplayName, _
+                                                    _TvMovieSeriesProgram.ReferencedProgram.StartTime, _TvMovieSeriesProgram.ReferencedProgram.IdProgram, _
+                                                    GuiLayout.ratingStar(_TvMovieSeriesProgram.ReferencedProgram), _
+                                                    _TvMovieSeriesProgram.TVMovieBewertung, GuiLayout.Image(_TvMovieSeriesProgram))
+
+                            _ItemCounter = _ItemCounter + 1
+                        Next
+                    End If
+
+
+                    'Dim _SeriesResult As New ArrayList
+                    'Dim _SQLstring As String = String.Empty
+                    'Dim _SeriesName As String = String.Empty
+                    'Dim _EpisodeName As String = String.Empty
+                    'Dim _NewEpisodeCounter As Integer = 1
+                    'Dim _ItemCounter As Integer = 1
+                    'Dim _NewEpisodesNumbers As String = String.Empty
+
+
+                    '_SQLstring = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
+                    '                    "WHERE idSeries > 0 " & _
+                    '                    "AND local = 0 " & _
+                    '                    "AND startTime > " & MySqlDate(Date.Today.AddHours(0)) & " " & _
+                    '                    "AND startTime < " & MySqlDate(Date.Today.AddHours(24)) & " " & _
+                    '                    "ORDER BY title ASC, seriesNum ASC, episodeNum ASC, startTime ASC"
+
+
+                    '_SeriesResult.AddRange(Broker.Execute(_SQLstring).TransposeToFieldList("idProgram", True))
+                    ''_logNewSeriesCount = _Result.Count
+
+                    'For i = 0 To _SeriesResult.Count - 1
+                    '    Try
+
+                    '        'ProgramDaten über TvMovieProgram laden
+                    '        Dim _TvMovieSeriesProgram As TVMovieProgram = TVMovieProgram.Retrieve(_SeriesResult.Item(i))
+
+                    '        'Prüfen ob noch immer lokal nicht vorhanden
+                    '        CheckSeriesLocalStatus(_TvMovieSeriesProgram)
+                    '        If _TvMovieSeriesProgram.local = False Then
+
+                    '            'Sofern andere Serie, Werte zurücksetzen
+                    '            If Not _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title Then
+                    '                _NewEpisodeCounter = 1
+                    '                _NewEpisodesNumbers = ""
+                    '            End If
+
+                    '            'Sofern gleiche Episode dann weiter
+                    '            If _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title And _EpisodeName = _TvMovieSeriesProgram.ReferencedProgram.EpisodeName Then
+                    '                Continue For
+                    '            End If
+
+                    '            'Sofern nicht gleiche Episode -> Zähler hoch und weiter
+                    '            If _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title And Not _EpisodeName = _TvMovieSeriesProgram.ReferencedProgram.EpisodeName Then
+                    '                _NewEpisodeCounter = _NewEpisodeCounter + 1
+                    '                Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter - 1 & ".CountNewEpisodes", _NewEpisodeCounter & " " & Translation.NewEpisodeFound)
+
+                    '                _NewEpisodesNumbers = _NewEpisodesNumbers & ", S" & Format(CInt(_TvMovieSeriesProgram.ReferencedProgram.SeriesNum), "00") & "E" & Format(CInt(_TvMovieSeriesProgram.ReferencedProgram.EpisodeNum), "00")
+                    '                Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter - 1 & ".NewEpisodesNumbers", _NewEpisodesNumbers)
+
+                    '                Continue For
+                    '            End If
+
+                    '            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".Image", Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieSeriesProgram.SeriesPosterImage)
+                    '            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".Title", _TvMovieSeriesProgram.ReferencedProgram.Title)
+                    '            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".RatingStar", _TvMovieSeriesProgram.ReferencedProgram.StarRating)
+                    '            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".CountNewEpisodes", _NewEpisodeCounter & " " & Translation.NewEpisodeFound)
+
+                    '            _NewEpisodesNumbers = "S" & Format(CInt(_TvMovieSeriesProgram.ReferencedProgram.SeriesNum), "00") & "E" & Format(CInt(_TvMovieSeriesProgram.ReferencedProgram.EpisodeNum), "00")
+                    '            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".NewEpisodesNumbers", _NewEpisodesNumbers)
+
+                    '            Log.Debug("[StartGuiWindow] [ClickfinderProgramGuideOverlaySeries]: Load global Series SkinProperties {0} (Title: {1}, Channel: {2}, startTime: {3}, idprogram: {4}, ratingStar: {5}, TvMovieStar: {6}, image: {7})", _
+                    '                        _ItemCounter, _TvMovieSeriesProgram.ReferencedProgram.Title, _TvMovieSeriesProgram.ReferencedProgram.ReferencedChannel.DisplayName, _
+                    '                        _TvMovieSeriesProgram.ReferencedProgram.StartTime, _TvMovieSeriesProgram.ReferencedProgram.IdProgram, _
+                    '                        GuiLayout.ratingStar(_TvMovieSeriesProgram.ReferencedProgram), _
+                    '                        _TvMovieSeriesProgram.TVMovieBewertung, GuiLayout.Image(_TvMovieSeriesProgram))
+
+                    '            _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title
+                    '            _EpisodeName = _TvMovieSeriesProgram.ReferencedProgram.EpisodeName
+                    '            _ItemCounter = _ItemCounter + 1
+
+                    '        End If
+
+                    '    Catch ex As Exception
+                    '        Log.Error("[StartGuiWindow] [ClickfinderProgramGuideOverlaySeries]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
+                    '    End Try
+                    'Next
 
                 End If
             Catch ex2 As Exception
