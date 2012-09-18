@@ -345,7 +345,7 @@ Public Class Helper
         Dim lItemRem As New GUIListItem
         lItemRem.Label = Translation.Remember
         dlgContext.Add(lItemRem)
-        lItemOn.Dispose()
+        lItemRec.Dispose()
 
         'IMDB OnlineVideos
         Dim lItemIMDB As New GUIListItem
@@ -441,8 +441,15 @@ Public Class Helper
 
             Try
                 Dim _SeriesMapping As TvMovieSeriesMapping = TvMovieSeriesMapping.Retrieve(_idSeriesContainer.Item(dlgContext.SelectedLabel))
-                _SeriesMapping.EpgTitle = program.Title
-                _SeriesMapping.Persist()
+
+                If String.IsNullOrEmpty(_SeriesMapping.EpgTitle) = True Then
+                    _SeriesMapping.EpgTitle = program.Title
+                    _SeriesMapping.Persist()
+                Else
+                    'Verlinkung schon vorhanden -> neuer Dlg überschreiben oder hinzufügen
+                    ShowSeriesLinkManagementContextMenu(_SeriesMapping, program.Title)
+                End If
+
             Catch ex As Exception
                 Dim _SeriesMapping As New TvMovieSeriesMapping(_idSeriesContainer.Item(dlgContext.SelectedLabel))
                 _SeriesMapping.EpgTitle = program.Title
@@ -453,7 +460,48 @@ Public Class Helper
             dlgContext.AllocResources()
 
         Catch ex As Exception
-            MyLog.Error("[HighlightsGUIWindow] [ShowSeriesContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+            MyLog.Error("[HighlightsGUIWindow] [ShowSerieLinkContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+        End Try
+    End Sub
+
+    Private Shared Sub ShowSeriesLinkManagementContextMenu(ByVal Mapping As TvMovieSeriesMapping, ByVal NewSeriesMapping As String)
+        Dim dlgContext As GUIDialogMenu = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_MENU, Integer)), GUIDialogMenu)
+        dlgContext.Reset()
+
+        Try
+
+            'ContextMenu Layout
+            dlgContext.SetHeading(NewSeriesMapping)
+            dlgContext.ShowQuickNumbers = True
+
+            'Verlinkung hinzufügen
+            Dim lItemAdd As New GUIListItem
+            lItemAdd.Label = Translation.SeriesMappingAppend
+            dlgContext.Add(lItemAdd)
+            lItemAdd.Dispose()
+
+            'Verlinkung überschreiben
+            Dim lItemOverwrite As New GUIListItem
+            lItemOverwrite.Label = Translation.SeriesMappingOverwrite
+            dlgContext.Add(lItemOverwrite)
+            lItemOverwrite.Dispose()
+
+            dlgContext.DoModal(GUIWindowManager.ActiveWindow)
+
+            Select Case dlgContext.SelectedLabel
+                Case Is = 0
+                    Mapping.EpgTitle = Mapping.EpgTitle & "|" & NewSeriesMapping
+                    Mapping.Persist()
+                Case Is = 1
+                    Mapping.EpgTitle = NewSeriesMapping
+                    Mapping.Persist()
+            End Select
+
+            dlgContext.Dispose()
+            dlgContext.AllocResources()
+
+        Catch ex As Exception
+            MyLog.Error("[HighlightsGUIWindow] [ShowSeriesLinkManagementContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
         End Try
     End Sub
 

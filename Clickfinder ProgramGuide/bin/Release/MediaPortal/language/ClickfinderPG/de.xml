@@ -106,5 +106,7 @@
   <string Field="allNewEpisodes">alle neuen Episoden</string>
   <string Field="episodesNowExistLocal">Episode(n) lokal gefunden</string>
   <string Field="DataRefreshed">Daten wurden aktualisiert</string>
-  
+  <string Field="SeriesMappingAppend">Verlinkung hinzufügen</string>
+  <string Field="SeriesMappingOverwrite">Verlinkung ersetzen</string> 
+
 </strings>

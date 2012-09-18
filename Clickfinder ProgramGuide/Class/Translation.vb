@@ -112,7 +112,8 @@ Public NotInheritable Class Translation
     Public Shared allNewEpisodes As String = "alle neuen Episoden"
     Public Shared episodesNowExistLocal As String = "Episode(n) lokal gefunden"
     Public Shared DataRefreshed As String = "Daten wurden aktualisiert"
-
+    Public Shared SeriesMappingAppend As String = "Verlinkung hinzufügen"
+    Public Shared SeriesMappingOverwrite As String = "Verlinkung ersetzen"
 
 End Class
 
