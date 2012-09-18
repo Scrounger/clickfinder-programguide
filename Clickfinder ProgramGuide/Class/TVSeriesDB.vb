@@ -119,7 +119,28 @@ Public Class TVSeriesDB
         End Try
 
     End Sub
-    Private Function allowedSigns(ByVal expression As String) As String
+
+    Public Function SeriesFound(ByVal SeriesName As String) As Boolean
+
+        Try
+            _SeriesInfos = m_db.Execute( _
+                                [String].Format("SELECT * FROM online_series WHERE Pretty_Name LIKE '{0}' OR SortName LIKE '{0}' OR origName LIKE '{0}'", _
+                                allowedSigns(SeriesName)))
+
+            If _SeriesInfos IsNot Nothing AndAlso _SeriesInfos.Rows.Count > 0 Then
+                Return True
+            Else
+                Return False
+            End If
+
+        Catch ex As Exception
+            MyLog.[Error]("enrichEPG: [SeriesFound]: exception err:{0} stack:{1}", ex.Message, ex.StackTrace)
+            OpenTvSeriesDB()
+        End Try
+
+    End Function
+
+    Public Shared Function allowedSigns(ByVal expression As String) As String
         Return Replace(Replace(expression, "'", "''"), ":", "%")
     End Function
 
@@ -147,7 +168,7 @@ Public Class TVSeriesDB
         Try
             _EpisodeInfos = m_db.Execute( _
                             [String].Format("SELECT * FROM online_episodes WHERE SeriesID = '{0}' AND EpisodeName LIKE '{1}'", _
-                            SeriesID, EpisodeName))
+                            SeriesID, allowedSigns(EpisodeName)))
 
             If _EpisodeInfos IsNot Nothing AndAlso _EpisodeInfos.Rows.Count > 0 Then
                 Return True
