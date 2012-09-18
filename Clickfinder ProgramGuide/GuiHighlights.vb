@@ -119,6 +119,7 @@ Namespace ClickfinderProgramGuide
                 _ThreadFillMovieList.Start()
                 _ThreadFillHighlightsList.Start()
                 '_Thread1.Join()
+
             Catch ex As Exception
                 MyLog.Error("[HighlightsGUIWindow] [OnPageLoad]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
             End Try
@@ -321,7 +322,10 @@ Namespace ClickfinderProgramGuide
 
             AbortRunningThreads()
 
-            GC.Collect()
+
+
+
+            'GC.Collect()
 
             MyBase.OnPageDestroy(new_windowId)
 
@@ -566,6 +570,8 @@ Namespace ClickfinderProgramGuide
                 _MoviesProgressBar.Visible = False
                 _MovieList.Visible = True
 
+
+
                 If CBool(_layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false").Value) = True Then
                     MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: Movies exist local and will not be displayed ({0})", _LogLocalMovies)
                 End If
@@ -578,6 +584,7 @@ Namespace ClickfinderProgramGuide
                 MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: Thread finished")
                 MyLog.Debug("")
                 'log Ausgabe abfangen, falls der Thread abgebrochen wird
+
             Catch ex2 As ThreadAbortException ' Ignore this exception
                 MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: --- THREAD ABORTED ---")
                 MyLog.Debug("")
@@ -679,7 +686,7 @@ Namespace ClickfinderProgramGuide
                                             Dim _Record As Program = Program.Retrieve(_RecordingList.Item(0))
                                             _RecordingStatus = GuiLayout.RecordingStatus(_Record)
 
-                                            If Not _Record.StartTime.Date = Today Then
+                                            If Not _Record.StartTime.Date = _ClickfinderCurrentDate.Date Then
                                                 Select Case (_RecordingStatus)
                                                     Case Is = "tvguide_record_button.png"
                                                         _RecordingStatus = "ClickfinderPG_recOnce.png"
@@ -994,6 +1001,19 @@ Namespace ClickfinderProgramGuide
                             _ThreadFillHighlightsList.IsBackground = True
                             _ThreadFillHighlightsList.Start()
 
+
+                            'falls die Episoden inzwischen lokal existieren, User darüber informieren
+                            If dlgContext.controlList.Count = 0 Then
+                                Dim lNoItem As New GUIListItem
+                                lNoItem.Label = Translation.episodesNowExistLocal
+                                dlgContext.Add(lNoItem)
+
+                                lNoItem.Label = Translation.DataRefreshed
+                                dlgContext.Add(lNoItem)
+
+                                lNoItem.Dispose()
+                            End If
+
                             dlgContext.DoModal(GetID)
 
 
@@ -1009,6 +1029,11 @@ Namespace ClickfinderProgramGuide
                 End If
 
                 _idProgramContainer.Clear()
+
+                dlgContext.Dispose()
+                dlgContext.AllocResources()
+
+
             Catch ex As Exception
                 MyLog.Error("[HighlightsGUIWindow] [ShowSeriesContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
             End Try
@@ -1114,6 +1139,9 @@ Namespace ClickfinderProgramGuide
                         MyLog.Debug("[HighlightsGuiWindow] [ShowHighlightsMenu]: exit")
                         MyLog.Debug("")
                 End Select
+
+                dlgContext.Dispose()
+                dlgContext.AllocResources()
 
             Catch ex As Exception
                 MyLog.Error("[HighlightsGUIWindow] [ShowHighlightsContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
@@ -1240,6 +1268,9 @@ Namespace ClickfinderProgramGuide
                         MyLog.Debug("")
                 End Select
 
+                dlgContext.Dispose()
+                dlgContext.AllocResources()
+
             Catch ex As Exception
                 MyLog.Error("[HighlightsGUIWindow] [ShowMovieMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
             End Try
@@ -1290,10 +1321,17 @@ Namespace ClickfinderProgramGuide
             Dim _Thread1 As New Thread(AddressOf FillMovieList)
             _Thread1.Start()
 
+            dlgContext.Dispose()
+            dlgContext.AllocResources()
+
         End Sub
         Private Sub InfoMenu()
             Dim dlgContext As GUIDialogExif = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_EXIF, Integer)), GUIDialogExif)
             dlgContext.Reset()
+
+            dlgContext.Dispose()
+            dlgContext.AllocResources()
+
         End Sub
 #End Region
 

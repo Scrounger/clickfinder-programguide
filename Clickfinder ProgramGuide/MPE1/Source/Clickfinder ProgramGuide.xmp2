@@ -657,6 +657,25 @@ Clickfinder Detail Gui für das laufende Tv-Program aufrufen</Description>
           </Items>
         </Files>
       </GroupItem>
+      <GroupItem Name="StreamedMP Mod MP-TvSeries.HiddenMenu">
+        <ParentGroup />
+        <DisplayName>StreamedMP Mod MP-TvSeries.HiddenMenu</DisplayName>
+        <DefaulChecked>false</DefaulChecked>
+        <Description>Button ("alle neuen Episoden") im HiddenMenu von MP-TvSeries:
+Öffnet die Gui EpisodePreview und zeigt euch alle neuen Episoden für die in MP-TvSeries selektierte Serie an.
+</Description>
+        <Files>
+          <Items>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\Skin Mods\StreamedMP\TVSeries.Common.HiddenMenu.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{19317339-435a-4fd1-8406-650b2266e054}-TVSeries.Common.HiddenMenu.xml</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\TVSeries.Common.HiddenMenu.xml</DestinationFilename>
+            </FileItem>
+          </Items>
+        </Files>
+      </GroupItem>
     </Items>
   </Groups>
   <Sections>
@@ -773,6 +792,7 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
           <string>Skin: Default Wide</string>
           <string>Skin: StreamedMP</string>
           <string>Skin: StreamedMP Mod TvOsd</string>
+          <string>StreamedMP Mod MP-TvSeries.HiddenMenu</string>
         </IncludedGroups>
         <PanelName>Tree View Selector</PanelName>
         <WizardButtonsEnum>BackNextCancel</WizardButtonsEnum>
@@ -835,7 +855,13 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
               </Params>
               <ExecuteLocation>AfterPanelShow</ExecuteLocation>
             </ActionItem>
-            <ActionItem Name="ClearSkinCache" ActionType="ClearSkinCache" ConditionGroup="Plugin dll">
+            <ActionItem Name="InstallFiles" ActionType="InstallFiles" ConditionGroup="StreamedMP Mod MP-TvSeries.HiddenMenu">
+              <Params>
+                <Items />
+              </Params>
+              <ExecuteLocation>AfterPanelShow</ExecuteLocation>
+            </ActionItem>
+            <ActionItem Name="ClearSkinCache" ActionType="ClearSkinCache" ConditionGroup="">
               <Params>
                 <Items />
               </Params>
@@ -855,6 +881,7 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
           <string>Skin: Default Wide</string>
           <string>Skin: StreamedMP</string>
           <string>Skin: StreamedMP Mod TvOsd</string>
+          <string>StreamedMP Mod MP-TvSeries.HiddenMenu</string>
         </IncludedGroups>
         <PanelName>Install Section</PanelName>
         <WizardButtonsEnum>Next</WizardButtonsEnum>
@@ -929,8 +956,8 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
         </CompatibleVersion>
         <SubSystemsUsed>
           <Items>
-            <SubSystemItem Name="MP.SkinEngine" />
             <SubSystemItem Name="MP.Config" />
+            <SubSystemItem Name="MP.SkinEngine" />
           </Items>
         </SubSystemsUsed>
       </PluginDependencyItem>
@@ -947,7 +974,7 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>4</Build>
-      <Revision>5</Revision>
+      <Revision>8</Revision>
     </Version>
     <ExtensionDescription>This Plugin is a ProgramGuide based on the german EPG Data from the Tv Movie Clickfinder Provider (Software). It shows you information for different categories (e.g. Movies, Series, Doku,...), which television program is broadcasting now, at PrimeTime or at LateTime. There is also a Preview for the whole EPG timespan. The Data are sorted by the Rating of the TV Movie Clickfinder Plugin. This Plugin has a lot of configuration options, that gives the user the possibility to personalize the different views.
 
@@ -1341,7 +1368,7 @@ Requirements:
 </VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
     <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_1.0.3.0.mpe1</OnlineLocation>
-    <ReleaseDate>2012-09-13T15:57:29</ReleaseDate>
+    <ReleaseDate>2012-09-16T15:57:29</ReleaseDate>
     <Tags>programguide, tv movie, clickfinder, epg, tv</Tags>
     <Location>D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPE1\Clickfinder ProgramGuide_[Version].mpe1</Location>
     <Params>
@@ -1972,6 +1999,13 @@ Requirements:
         <LocalFileName>..\..\bin\Release\Skin Mods\StreamedMP\TVOSD.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{1f552956-b5dd-4139-a1bf-15417e726b85}-TVOSD.xml</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\TVOSD.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\Skin Mods\StreamedMP\TVSeries.Common.HiddenMenu.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{19317339-435a-4fd1-8406-650b2266e054}-TVSeries.Common.HiddenMenu.xml</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\TVSeries.Common.HiddenMenu.xml</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />

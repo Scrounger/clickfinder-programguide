@@ -140,6 +140,8 @@ Namespace ClickfinderProgramGuide
 
                 End If
 
+               
+
             Catch ex As Exception
                 MyLog.Error("[StartGuiWindow] [PreInit]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
             End Try
@@ -252,7 +254,7 @@ Namespace ClickfinderProgramGuide
         End Sub
         Protected Overrides Sub OnPageDestroy(ByVal new_windowId As Integer)
 
-            GC.Collect()
+            'GC.Collect()
             MyBase.OnPageDestroy(new_windowId)
 
         End Sub

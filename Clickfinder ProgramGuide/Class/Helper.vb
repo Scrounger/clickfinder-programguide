@@ -184,6 +184,8 @@ Public Class Helper
         dlg.SetLine(2, StringLine2)
         dlg.SetLine(3, StringLine3)
         dlg.DoModal(GUIWindowManager.ActiveWindow)
+        dlg.Dispose()
+        dlg.AllocResources()
     End Sub
 
     ''' <summary>
@@ -319,46 +321,6 @@ Public Class Helper
         End Try
     End Function
 
-    Friend Shared Sub ShowContextMenu(ByVal idProgram As Integer)
-        Dim dlgContext As GUIDialogMenu = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_MENU, Integer)), GUIDialogMenu)
-        dlgContext.Reset()
-
-        Dim _Program As Program = Program.Retrieve(idProgram)
-        'ContextMenu Layout
-        dlgContext.SetHeading(_Program.Title)
-        dlgContext.ShowQuickNumbers = False
-
-        'Kanal einschalten
-        Dim lItemOn As New GUIListItem
-        lItemOn.Label = Translation.ChannelON
-        dlgContext.Add(lItemOn)
-        lItemOn.Dispose()
-
-        'Aufnehmen
-        Dim lItemRec As New GUIListItem
-        lItemRec.Label = Translation.Record
-        dlgContext.Add(lItemRec)
-        lItemOn.Dispose()
-
-        'Erinnern
-        Dim lItemRem As New GUIListItem
-        lItemRem.Label = Translation.Remember
-        dlgContext.Add(lItemRem)
-        lItemOn.Dispose()
-
-        dlgContext.DoModal(GUIWindowManager.ActiveWindow)
-
-        Select Case dlgContext.SelectedLabel
-            Case Is = 0
-                StartTv(_Program)
-            Case Is = 1
-                LoadTVProgramInfo(_Program)
-            Case Is = 2
-                SetNotify(_Program)
-        End Select
-
-    End Sub
-
     Friend Shared Sub ShowActionMenu(ByVal Program As Program)
         Dim dlgContext As GUIDialogMenu = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_MENU, Integer)), GUIDialogMenu)
         dlgContext.Reset()
@@ -432,6 +394,9 @@ Public Class Helper
                 MyLog.Debug("[ShowActionMenu]: exit")
                 MyLog.Debug("")
         End Select
+
+        dlgContext.Dispose()
+        dlgContext.AllocResources()
     End Sub
 
     Private Shared Sub ShowSerieLinkContextMenu(ByVal program As Program)
@@ -483,6 +448,9 @@ Public Class Helper
                 _SeriesMapping.EpgTitle = program.Title
                 _SeriesMapping.Persist()
             End Try
+
+            dlgContext.Dispose()
+            dlgContext.AllocResources()
 
         Catch ex As Exception
             MyLog.Error("[HighlightsGUIWindow] [ShowSeriesContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
@@ -574,6 +542,9 @@ Public Class Helper
 
         dlgContext.DoModal(GUIWindowManager.ActiveWindow)
         GUIWindowManager.CloseCurrentWindow()
+
+        dlgContext.Dispose()
+        dlgContext.AllocResources()
 
     End Sub
 

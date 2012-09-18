@@ -144,7 +144,7 @@ Namespace ClickfinderProgramGuide
 
             AbortRunningThreads()
 
-            GC.Collect()
+            'GC.Collect()
             MyBase.OnPageDestroy(new_windowId)
         End Sub
 
@@ -816,19 +816,6 @@ Namespace ClickfinderProgramGuide
             dlgContext.Add(lItemActionOn)
             lItemActionOn.Dispose()
 
-            ''Aufnehmen
-            'Dim lItemRec As New GUIListItem
-            'lItemRec.Label = "Alle Filme der #Categorie (ändern)"
-            'dlgContext.Add(lItemRec)
-            'lItemRec.Dispose()
-
-            ''Erinnern
-            'Dim lItemRem As New GUIListItem
-            'lItemRem.Label = "gleiches Genre, gleicher Zeitraum)"
-            'dlgContext.Add(lItemRem)
-            'lItemRem.Dispose()
-
-
             dlgContext.DoModal(GUIWindowManager.ActiveWindow)
 
             Select Case dlgContext.SelectedLabelText
@@ -845,6 +832,9 @@ Namespace ClickfinderProgramGuide
                 Case Is = Translation.Filterby
                     ShowFilterMenu()
             End Select
+
+            dlgContext.Dispose()
+            dlgContext.AllocResources()
 
         End Sub
         Private Sub ShowSortMenu()
@@ -913,6 +903,10 @@ Namespace ClickfinderProgramGuide
                     GuiLayoutLoading()
                     _FillLists.Start()
             End Select
+
+            dlgContext.Dispose()
+            dlgContext.AllocResources()
+
         End Sub
 
         Private Sub GuiLayoutLoading()
@@ -971,6 +965,10 @@ Namespace ClickfinderProgramGuide
                 GuiLayoutLoading()
                 _FillLists.Start()
             End If
+
+
+            dlgContext.Dispose()
+            dlgContext.AllocResources()
 
         End Sub
 #End Region

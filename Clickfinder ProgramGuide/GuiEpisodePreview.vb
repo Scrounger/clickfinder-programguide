@@ -50,8 +50,6 @@ Namespace ClickfinderProgramGuide
         Private _LastFocusedEpisodeIndex As Integer
         'Private _LastFocusedControlID As Integer
 
-
-
 #End Region
 
 #Region "Constructors"

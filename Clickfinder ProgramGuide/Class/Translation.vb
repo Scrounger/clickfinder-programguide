@@ -110,6 +110,8 @@ Public NotInheritable Class Translation
     Public Shared SeriesRefresh As String = "Serien aktualisieren"
     Public Shared EpisodeNotIdentify As String = "Episode konnte nicht identifziert werden"
     Public Shared allNewEpisodes As String = "alle neuen Episoden"
+    Public Shared episodesNowExistLocal As String = "Episode(n) lokal gefunden"
+    Public Shared DataRefreshed As String = "Daten wurden aktualisiert"
 
 
 End Class

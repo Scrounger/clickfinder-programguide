@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<window>
+  <controls>
+    <control>
+      <description>Hidden Menu Indicator</description>
+      <type>image</type>
+      <posX>1232</posX>
+      <posY>50</posY>
+      <width>48</width>
+      <height>144</height>
+      <texture>#StreamedMP.ActionMenu.Image</texture>
+      <visible>control.isvisible(50)</visible>
+      <animation effect="fade" time="250" delay="0">WindowClose</animation>
+    </control>
+    <control>
+      <type>actiongroup</type>
+      <description>action menu</description>
+      <defaultcontrol>2</defaultcontrol>
+      <onexit>50</onexit>
+      <dimColor>00ffffff</dimColor>
+      <buttonX>1231</buttonX>
+      <buttonY>55</buttonY>
+      <buttonwidth>49</buttonwidth>
+      <buttonheight>253</buttonheight>
+      <control>
+        <type>image</type>
+        <posX>1002</posX>
+        <posY>0</posY>
+        <width>278</width>
+        <height>720</height>
+        <texture>hiddenmenu_right.png</texture>
+        <visible>!Control.HasFocus(50)</visible>
+        <animation effect="slide" time="100" start="300,0">visible</animation>
+        <animation effect="slide" time="0" end="300,0">hidden</animation>
+      </control>
+      <control>
+        <id>0</id>
+        <description>Dummy Button (for Mouse)</description>
+        <label>-</label>
+        <type>button</type>
+        <posX>1002</posX>
+        <posY>0</posY>
+        <width>278</width>
+        <height>720</height>
+        <visible>!Control.HasFocus(50)</visible>
+        <animation effect="slide" time="100" start="300,0">visible</animation>
+        <animation effect="slide" time="0" end="300,0">hidden</animation>
+      </control>
+      <control>
+        <id>0</id>
+        <description>MENU</description>
+        <label>924</label>
+        <type>label</type>
+        <font>mediastream12tc</font>
+        <posX>1040</posX>
+        <posY>195</posY>
+        <visible>!Control.HasFocus(50)</visible>
+        <animation effect="slide" time="100" start="300,0">visible</animation>
+        <animation effect="slide" time="0" end="300,0">hidden</animation>
+      </control>
+      <control>
+        <id>0</id>
+        <description>PLAYLIST</description>
+        <label>136</label>
+        <type>label</type>
+        <font>mediastream12tc</font>
+        <posX>1040</posX>
+        <posY>337</posY>
+        <visible>!Control.HasFocus(50)</visible>
+        <animation effect="slide" time="100" start="300,0">visible</animation>
+        <animation effect="slide" time="0" end="300,0">hidden</animation>
+      </control>
+      <control>
+        <id>0</id>
+        <description>SETTINGS</description>
+        <label>1048</label>
+        <type>label</type>
+        <font>mediastream12tc</font>
+        <posX>1040</posX>
+        <posY>421</posY>
+        <visible>!Control.HasFocus(50)</visible>
+        <animation effect="slide" time="100" start="300,0">visible</animation>
+        <animation effect="slide" time="0" end="300,0">hidden</animation>
+      </control>
+      <control>
+        <id>0</id>
+        <description>JUMP TO</description>
+        <label>1065</label>
+        <type>label</type>
+        <font>mediastream12tc</font>
+        <posX>1040</posX>
+        <posY>505</posY>
+        <visible>!Control.HasFocus(50)</visible>
+        <animation effect="slide" time="100" start="300,0">visible</animation>
+        <animation effect="slide" time="0" end="300,0">hidden</animation>
+      </control>
+      <control>
+        <type>group</type>
+        <description>group element</description>
+        <visible>!Control.HasFocus(50)</visible>
+        <animation effect="slide" time="100" start="300,0">visible</animation>
+        <animation effect="slide" time="0" end="300,0">hidden</animation>
+        <posX>1040</posX>
+        <posY>220</posY>
+        <width>220</width>
+        <height>720</height>
+        <layout>StackLayout(0, Vertical, true)</layout>
+        <control>
+          <description>Switch View</description>
+          <type>button</type>
+          <id>2</id>
+          <label>457</label>
+          <onup>80</onup>
+          <!-- Top Bar -->
+          <onleft>50</onleft>
+        </control>
+        <control>
+          <description>Run Import</description>
+          <type>button</type>
+          <id>5</id>
+          <label>Run Import</label>
+          <onleft>50</onleft>
+        </control>
+        <control>
+          <description>Change Layout</description>
+          <type>button</type>
+          <id>3</id>
+          <label>Change Layout</label>
+          <onleft>50</onleft>
+        </control>
+        <control>
+          <description>Options</description>
+          <type>button</type>
+          <id>4</id>
+          <label>496</label>
+          <onleft>50</onleft>
+          <ondown>20</ondown>
+        </control>
+        <control>
+          <description>Empty button</description>
+          <type>button</type>
+          <id>0</id>
+          <label>-</label>
+          <visible>true</visible>
+        </control>
+        <control>
+          <description>Current Playlist</description>
+          <type>button</type>
+          <id>20</id>
+          <label>4555</label>
+          <action>33</action>
+          <onup>4</onup>
+          <onleft>50</onleft>
+        </control>
+        <control>
+          <description>My Playlists</description>
+          <type>button</type>
+          <id>9</id>
+          <label>983</label>
+          <onleft>50</onleft>
+          <ondown>66608</ondown>
+        </control>
+        <control>
+          <description>Empty button</description>
+          <type>button</type>
+          <id>0</id>
+          <label>-</label>
+          <visible>true</visible>
+        </control>
+        <control>
+          <description>Video Settings</description>
+          <type>button</type>
+          <id>66608</id>
+          <label>100006</label>
+          <hyperlink>703</hyperlink>
+          <onup>9</onup>
+          <onleft>50</onleft>
+        </control>
+        <control>
+          <description>Skin Settings</description>
+          <type>button</type>
+          <id>66609</id>
+          <label>#StreamedMP.SkinSettings</label>
+          <hyperlink>196205</hyperlink>
+          <onleft>50</onleft>
+          <ondown>66610</ondown>
+        </control>
+        <control>
+          <description>Empty button</description>
+          <type>button</type>
+          <id>0</id>
+          <label>-</label>
+          <visible>true</visible>
+        </control>
+        <control>
+          <description>MovingPictures</description>
+          <id>66610</id>
+          <type>button</type>
+          <label>Moving Pictures</label>
+          <hyperlink>96742</hyperlink>
+          <onleft>50</onleft>
+          <onup>66609</onup>
+          <ondown>66612</ondown>
+          <visible>plugin.isenabled(Moving Pictures)</visible>
+        </control>
+        <control>
+          <description>SubCentral</description>
+          <type>button</type>
+          <id>66612</id>
+          <label>287</label>
+          <hyperlink>84623</hyperlink>
+          <onup>66610</onup>
+          <ondown>99991</ondown>
+          <onleft>50</onleft>
+          <visible>plugin.isenabled(SubCentral)+control.isvisible(1239)</visible>
+        </control>
+        <control>
+          <description>Trakt</description>
+          <type>button</type>
+          <id>99991</id>
+          <label>Trakt</label>
+          <hyperlink>87258</hyperlink>
+          <onup>66612</onup>
+          <ondown>97260</ondown>
+          <onleft>50</onleft>
+          <visible>plugin.isenabled(Trakt)</visible>
+        </control>
+        <control>
+          <description>Trakt Shouts</description>
+          <type>button</type>
+          <id>97260</id>
+          <label>#Trakt.Translation.Shouts.Label</label>
+          <onup>99991</onup>
+          <ondown>97259</ondown>
+          <onleft>50</onleft>
+          <visible>plugin.isenabled(Trakt)+[control.isvisible(1239)|control.isvisible(1237)]+![facadeview.smallicons|facadeview.largeicons]</visible>
+        </control>
+        <control>
+          <description>Trakt Rate</description>
+          <type>button</type>
+          <id>97259</id>
+          <label>#Trakt.Translation.Rate.Label</label>
+          <onup>97260</onup>
+          <ondown>97262</ondown>
+          <onleft>50</onleft>
+          <visible>plugin.isenabled(Trakt)+[control.isvisible(1239)|control.isvisible(1237)]+![facadeview.smallicons|facadeview.largeicons]</visible>
+        </control>
+        <control>
+          <description>Trakt Related Shows</description>
+          <type>button</type>
+          <id>97262</id>
+          <label>#Trakt.Translation.RelatedShows.Label</label>
+          <onup>97259</onup>
+          <ondown>80</ondown>
+          <onleft>50</onleft>
+          <visible>plugin.isenabled(Trakt)+control.isvisible(1237)+![facadeview.smallicons|facadeview.largeicons]</visible>
+        </control>
+
+        <control>
+          <description>Clickfinder ProgramGuide: Episode Preview</description>
+          <type>button</type>
+          <id>80</id>
+	  <hyperlink>1656544657</hyperlink>
+	  <hyperlinkParameter>idSeries: #TVSeries.Series.ID</hyperlinkParameter>
+          <label>#ClickfinderPG.Translation.allNewEpisodes</label>
+          <onup>97262</onup>
+          <ondown>99000</ondown>
+          <onleft>50</onleft>
+          <visible>plugin.isenabled(Clickfinder ProgramGuide)</visible>
+        </control>
+
+        <control>
+          <description>MPEIUPDATE:5e2777c3_966c_407f_b5a9_e51205b70b3e</description>
+          <type>button</type>
+          <id>99000</id>
+          <label>#MPEI.Translation.UpdateAvailable.Label</label>
+          <onup>97262</onup>
+          <ondown>2</ondown>
+          <onleft>50</onleft>
+          <visible>string.equals(#mpei.5e2777c3_966c_407f_b5a9_e51205b70b3e.haveupdate, true)+control.isvisible(1237)</visible>
+        </control>
+      </control>
+    </control>
+  </controls>
+</window>
+<!--Checksum:e960a6d6b71b51dc422f1081caa51691-->

@@ -210,7 +210,7 @@ Namespace ClickfinderProgramGuide
                 ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
             End Try
 
-            GC.Collect()
+            'GC.Collect()
             MyBase.OnPageDestroy(new_windowId)
         End Sub
 
@@ -399,7 +399,10 @@ Namespace ClickfinderProgramGuide
                             RememberLastFocusedItem()
 
                             MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
-                            If _PreviewList.IsFocused = True Then ShowContextMenu(_PreviewList.SelectedListItem.ItemId)
+                            If _PreviewList.IsFocused = True Then
+                                Dim _program As Program = Program.Retrieve(_PreviewList.SelectedListItem.ItemId)
+                                Helper.ShowActionMenu(_program)
+                            End If
                             If _CategorieList.IsFocused = True Then ShowCategoriesContextMenu(_CategorieList.SelectedListItem.ItemId)
                         End If
                     End If
@@ -790,6 +793,9 @@ Namespace ClickfinderProgramGuide
                 End Select
 
 
+                dlgContext.Dispose()
+                dlgContext.AllocResources()
+
             Catch ex As Exception
                 MyLog.Error("[CategoriesGuiWindow] [ShowCategoriesContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
             End Try
@@ -847,6 +853,9 @@ Namespace ClickfinderProgramGuide
                 End If
                 _idCategorieContainer.Clear()
 
+                dlgContext.Dispose()
+                dlgContext.AllocResources()
+
             Catch ex As Exception
                 MyLog.Error("[CategoriesGuiWindow] [showNotVisibleCategories]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
             End Try
@@ -889,6 +898,9 @@ Namespace ClickfinderProgramGuide
             Else
                 MyLog.Debug("[CategoriesGuiWindow] [showNotVisibleCategories]: selected -> exit")
             End If
+
+            dlgContext.Dispose()
+            dlgContext.AllocResources()
 
         End Sub
 
