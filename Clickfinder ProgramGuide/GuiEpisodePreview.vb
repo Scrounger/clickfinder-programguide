@@ -17,12 +17,12 @@ Namespace ClickfinderProgramGuide
 #Region "Skin Controls"
 
         'Buttons
-        <SkinControlAttribute(2)> Protected _btnNow As GUIButtonControl = Nothing
-        <SkinControlAttribute(3)> Protected _btnPrimeTime As GUIButtonControl = Nothing
+
+
         <SkinControlAttribute(4)> Protected _btnLateTime As GUIButtonControl = Nothing
         <SkinControlAttribute(5)> Protected _btnAllMovies As GUIButtonControl = Nothing
         <SkinControlAttribute(6)> Protected _btnHighlights As GUIButtonControl = Nothing
-        <SkinControlAttribute(7)> Protected _btnPreview As GUIButtonControl = Nothing
+
 
         'ProgressBar
         <SkinControlAttribute(8)> Protected _SeriesProgressBar As GUIAnimation = Nothing
@@ -504,17 +504,8 @@ Namespace ClickfinderProgramGuide
 
             MyBase.OnClicked(controlId, control, actionType)
 
-            If control Is _btnNow Then
-                GuiButtons.Now()
-            End If
 
-            If control Is _btnPrimeTime Then
-                GuiButtons.PrimeTime()
-            End If
 
-            If control Is _btnLateTime Then
-                GuiButtons.LateTime()
-            End If
 
             If control Is _btnAllMovies Then
                 GuiButtons.AllMovies()
@@ -524,9 +515,6 @@ Namespace ClickfinderProgramGuide
                 GuiButtons.Highlights()
             End If
 
-            If control Is _btnPreview Then
-                GuiButtons.Preview()
-            End If
 
             If control Is _SeriesList Or control Is _RepeatsList Then
                 If actionType = MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM Then

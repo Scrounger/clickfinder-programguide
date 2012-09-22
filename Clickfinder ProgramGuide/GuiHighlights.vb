@@ -18,12 +18,12 @@ Namespace ClickfinderProgramGuide
 #Region "Skin Controls"
 
         'Buttons
-        <SkinControlAttribute(2)> Protected _btnNow As GUIButtonControl = Nothing
-        <SkinControlAttribute(3)> Protected _btnPrimeTime As GUIButtonControl = Nothing
+
+
         <SkinControlAttribute(4)> Protected _btnLateTime As GUIButtonControl = Nothing
         <SkinControlAttribute(5)> Protected _btnAllMovies As GUIButtonControl = Nothing
         <SkinControlAttribute(6)> Protected _btnHighlights As GUIButtonControl = Nothing
-        <SkinControlAttribute(7)> Protected _btnPreview As GUIButtonControl = Nothing
+
 
         'ProgressBar
         <SkinControlAttribute(9)> Protected _HighlightsProgressBar As GUIAnimation = Nothing
@@ -336,17 +336,7 @@ Namespace ClickfinderProgramGuide
 
             MyBase.OnClicked(controlId, control, actionType)
 
-            If control Is _btnNow Then
-                GuiButtons.Now()
-            End If
 
-            If control Is _btnPrimeTime Then
-                GuiButtons.PrimeTime()
-            End If
-
-            If control Is _btnLateTime Then
-                GuiButtons.LateTime()
-            End If
 
             If control Is _btnAllMovies Then
                 GuiButtons.AllMovies()
@@ -356,9 +346,6 @@ Namespace ClickfinderProgramGuide
                 GuiButtons.Highlights()
             End If
 
-            If control Is _btnPreview Then
-                GuiButtons.Preview()
-            End If
 
             If control Is _MovieList Or control Is _HighlightsList Then
                 If actionType = MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM Then
@@ -656,13 +643,20 @@ Namespace ClickfinderProgramGuide
 
                                 _NewEpisodeList.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", True))
 
+                                'Wenn nur eine neue Epsiode gefunden wird -> dann prüfen ob local
+                                If _NewEpisodeList.Count = 1 Then
+                                    Dim _Episode As TVMovieProgram = TVMovieProgram.Retrieve(_NewEpisodeList.Item(0))
+                                    Helper.CheckSeriesLocalStatus(_Episode)
+                                    If _Episode.local = True Then
+                                        Continue For
+                                    End If
+                                End If
 
                                 'Daten als Highlightslist übergeben
                                 _timeLabel = Translation.NewLabel
                                 _infoLabel = _NewEpisodeList.Count & " " & Translation.NewEpisodeFound
                                 _imagepath = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieSeriesProgram.SeriesPosterImage
                                 _RecordingStatus = GuiLayout.RecordingStatus(_TvMovieSeriesProgram.ReferencedProgram)
-
 
                                 'Prüfen ob eine Episode als Aufnahme geplant ist
                                 If _RecordingStatus = String.Empty Then
@@ -1107,8 +1101,7 @@ Namespace ClickfinderProgramGuide
                         MyLog.Debug("[HighlightsGuiWindow] [ShowHighlightsMenu]:  selected -> " & Translation.allCategoriesAt & " " & getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
                         MyLog.Debug("")
 
-                        CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Day, _Program.StartTime.Date)
-                        GUIWindowManager.ActivateWindow(1656544654)
+                        GUIWindowManager.ActivateWindow(1656544654, "CPG.Day:" & _Program.StartTime.Date)
                     Case Is = 2
                         MyLog.Debug("[HighlightsGuiWindow] [ShowHighlightsMenu]:  selected -> " & Translation.SameGenre & " " & _Program.Genre)
                         MyLog.Debug("")
@@ -1227,8 +1220,7 @@ Namespace ClickfinderProgramGuide
                         MyLog.Debug("[HighlightsGuiWindow] [ShowMoviesMenu]:  selected -> " & Translation.allCategoriesAt & " " & getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
                         MyLog.Debug("")
 
-                        CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Day, _Program.StartTime.Date)
-                        GUIWindowManager.ActivateWindow(1656544654)
+                        GUIWindowManager.ActivateWindow(1656544654, "CPG.Day:" & _Program.StartTime.Date)
 
                     Case Is = 3
                         MyLog.Debug("[HighlightsGuiWindow] [ShowMoviesMenu]:  selected -> " & Translation.SameGenre & " " & _Program.Genre)

@@ -40,6 +40,8 @@
           <description>Now</description>
           <type>button</type>
           <id>2</id>
+          <hyperlink>1656544654</hyperlink>
+          <hyperlinkParameter>CPG.Now</hyperlinkParameter>
           <label>#ClickfinderPG.Translation.Now</label>
           <textalign>center</textalign>
           <onup>200</onup>
@@ -50,6 +52,8 @@
           <description>20:15</description>
           <type>button</type>
           <id>3</id>
+          <hyperlink>1656544654</hyperlink>
+          <hyperlinkParameter>CPG.PrimeTime</hyperlinkParameter>
           <label>#ClickfinderPG.Translation.PrimeTime</label>
           <textalign>center</textalign>
           <onup>2</onup>
@@ -60,6 +64,8 @@
           <description>22:00 Movies</description>
           <type>button</type>
           <id>4</id>
+          <hyperlink>1656544654</hyperlink>
+          <hyperlinkParameter>CPG.LateTime</hyperlinkParameter>
           <label>#ClickfinderPG.Translation.LateTime</label>
           <textalign>center</textalign>
           <onup>3</onup>
@@ -90,6 +96,8 @@
           <description>Preview</description>
           <type>button</type>
           <id>7</id>
+          <hyperlink>1656544654</hyperlink>
+          <hyperlinkParameter>CPG.Preview</hyperlinkParameter>
           <label>#ClickfinderPG.Translation.Preview</label>
           <textalign>center</textalign>
           <onup>6</onup>

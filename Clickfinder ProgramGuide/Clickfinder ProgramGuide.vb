@@ -43,6 +43,7 @@ Namespace ClickfinderProgramGuide
 #End Region
 
 #Region "Members"
+
         Private Shared _layer As New TvBusinessLayer
         Private _stateTimer As System.Timers.Timer
         Friend _OverlayStartupLoaded As Boolean = False
@@ -165,16 +166,10 @@ Namespace ClickfinderProgramGuide
                     Translator.SetProperty("#SettingLastUpdate", GuiLayout.LastUpdateLabel)
                 End If
 
-                If CBool(_layer.GetSetting("ClickfinderDebugMode").Value) = True Then
-                    _DebugModeOn = True
-                End If
 
                 If Helper.TvServerConnected = True Then
-
                     RefreshOverlays()
-
                 Else
-
                     For i = 1 To 4
                         Translator.SetProperty("#ClickfinderPG.Movie" & i & ".Title", "")
                     Next
@@ -184,7 +179,6 @@ Namespace ClickfinderProgramGuide
                     Next
 
                     Log.Warn("[PreInit] [BasicHomeOverlay]: TvServer not online")
-
                 End If
 
 
@@ -196,14 +190,11 @@ Namespace ClickfinderProgramGuide
                         GUIWindowManager.ReplaceWindow(1656544656)
                         GuiButtons.Highlights()
                     Case Is = "Now"
-                        GUIWindowManager.ReplaceWindow(1656544654)
-                        GuiButtons.Now()
+                        GUIWindowManager.ActivateWindow(1656544654, "CPG.Now", True)
                     Case Is = "PrimeTime"
-                        GUIWindowManager.ReplaceWindow(1656544654)
-                        GuiButtons.PrimeTime()
+                        GUIWindowManager.ActivateWindow(1656544654, "CPG.PrimeTime", True)
                     Case Is = "LateTime"
-                        GUIWindowManager.ReplaceWindow(1656544654)
-                        GuiButtons.LateTime()
+                        GUIWindowManager.ActivateWindow(1656544654, "CPG.LateTime", True)
                     Case Is = "PrimeTimeMovies"
                         GUIWindowManager.ReplaceWindow(1656544653)
                         Dim _PrimeTime As Date = CDate(_layer.GetSetting("ClickfinderPrimeTime", "22:00").Value)

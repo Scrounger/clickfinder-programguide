@@ -6,30 +6,6 @@ Imports TvLibrary.Interfaces
 
 Public Class GuiButtons
 
-    Friend Shared Sub Now()
-        Try
-            CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Now)
-            GUIWindowManager.ActivateWindow(1656544654)
-        Catch ex As Exception
-            MyLog.Error("[Button] [Now]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
-        End Try
-    End Sub
-    Friend Shared Sub PrimeTime()
-        Try
-            CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.PrimeTime)
-            GUIWindowManager.ActivateWindow(1656544654)
-        Catch ex As Exception
-            MyLog.Error("[Button] [PrimeTime]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
-        End Try
-    End Sub
-    Friend Shared Sub LateTime()
-        Try
-            CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.LateTime)
-            GUIWindowManager.ActivateWindow(1656544654)
-        Catch ex As Exception
-            MyLog.Error("[Button] [LateTime]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
-        End Try
-    End Sub
     Friend Shared Sub AllMovies()
         Try
             Dim _endTime As New Date(Date.Now.Year, Date.Now.Month, Date.Now.AddDays(1).Day)
@@ -59,16 +35,5 @@ Public Class GuiButtons
             MyLog.Error("[Button] [Highlights]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
         End Try
     End Sub
-
-    Friend Shared Sub Preview()
-        Try
-            CategoriesGuiWindow.SetGuiProperties(CategoriesGuiWindow.CategorieView.Preview)
-            GUIWindowManager.ActivateWindow(1656544654)
-        Catch ex As Exception
-            MyLog.Error("[Button] [PrimeTime]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
-        End Try
-
-    End Sub
-
 
 End Class

@@ -17,12 +17,12 @@ Namespace ClickfinderProgramGuide
 #Region "Skin Controls"
 
         'Buttons
-        <SkinControlAttribute(2)> Protected _btnNow As GUIButtonControl = Nothing
-        <SkinControlAttribute(3)> Protected _btnPrimeTime As GUIButtonControl = Nothing
+
+
         <SkinControlAttribute(4)> Protected _btnLateTime As GUIButtonControl = Nothing
         <SkinControlAttribute(5)> Protected _btnAllMovies As GUIButtonControl = Nothing
         <SkinControlAttribute(6)> Protected _btnHighlights As GUIButtonControl = Nothing
-        <SkinControlAttribute(7)> Protected _btnPreview As GUIButtonControl = Nothing
+
 
         <SkinControlAttribute(9)> Protected ctlProgressBar As GUIAnimation = Nothing
 
@@ -37,8 +37,7 @@ Namespace ClickfinderProgramGuide
             PrimeTime = 1
             LateTime = 2
             Preview = 3
-            Highlights = 4
-            Day = 5
+            Day = 4
         End Enum
 
         Friend Shared _ClickfinderCategorieView As CategorieView
@@ -59,11 +58,10 @@ Namespace ClickfinderProgramGuide
 
         End Sub
 
-        Public Shared Sub SetGuiProperties(ByVal View As CategorieView, Optional ByVal Day As Date = Nothing)
-            _ClickfinderCategorieView = View
-            _Day = Day
-
-        End Sub
+        'Public Shared Sub SetGuiProperties(ByVal View As CategorieView, Optional ByVal Day As Date = Nothing)
+        '    _ClickfinderCategorieView = View
+        '    _Day = Day
+        'End Sub
 #End Region
 
 #Region "Properties"
@@ -150,47 +148,80 @@ Namespace ClickfinderProgramGuide
             MyLog.Info("")
             MyLog.Info("[CategoriesGuiWindow] -------------[OPEN]-------------")
 
-            Helper.CheckConnectionState()
+            Try
 
-            MyLog.Debug("[CategoriesGuiWindow] [OnPageLoad]: PeriodeStartTime = {0}, PeriodeEndTime = {1}", _
-                        getTranslatedDayOfWeek(PeriodeStartTime.Date) & " " & Format(PeriodeStartTime, "dd.MM.yyyy") & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00"), Format(PeriodeEndTime.Hour, "00") & ":" & Format(PeriodeEndTime.Minute, "00"))
+                If Not _loadParameter = String.Empty Then
 
-            For i = 1 To 6
-                Translator.SetProperty("#PreviewListImage" & i, "")
-                Translator.SetProperty("#PreviewListTvMovieStar" & i, "")
-                Translator.SetProperty("#PreviewListRatingStar" & i, 0)
-            Next
+                    Select Case (_loadParameter)
+                        Case Is = "CPG.Now"
+                            _ClickfinderCategorieView = CategorieView.Now
+                        Case Is = "CPG.PrimeTime"
+                            _ClickfinderCategorieView = CategorieView.PrimeTime
+                        Case Is = "CPG.LateTime"
+                            _ClickfinderCategorieView = CategorieView.LateTime
+                        Case Is = "CPG.Preview"
+                            _ClickfinderCategorieView = CategorieView.Preview
+                        Case Else
+                            If InStr(_loadParameter, "CPG.Day:") > 0 Then
+                                _ClickfinderCategorieView = CategorieView.Day
+                                _Day = CDate(Replace(_loadParameter, "CPG.Day:", ""))
+                            Else
+                                Helper.ShowNotify("Error: parameter")
+                                MyLog.Error("[CategoriesGuiWindow] [OnPageLoad]: parameter: {0}", _loadParameter)
+                                Return
+                            End If
+                    End Select
 
-            If _layer.GetSetting("TvMovieImportIsRunning", "false").Value = "true" Then
-                Translator.SetProperty("#SettingLastUpdate", Translation.ImportIsRunning)
-                MyLog.Debug("[CategoriesGuiWindow] [OnPageLoad]: _ClickfinderCurrentDate = {0}", "TvMovie++ Import is running !")
-            Else
-                Translator.SetProperty("#SettingLastUpdate", GuiLayout.LastUpdateLabel)
-            End If
+                End If
 
-            If _ClickfinderCategorieView = CategorieView.Day Then
-                Translator.SetProperty("#CategorieView", getTranslatedDayOfWeek(_Day) & " " & Format(_Day, "dd.MM.yyyy"))
-            ElseIf _ClickfinderCategorieView = CategorieView.Preview Then
-                Translator.SetProperty("#CategorieView", Translation.Preview & " " & Translation.for & " " & DateDiff(DateInterval.Day, PeriodeStartTime, PeriodeEndTime) & " " & Translation.Day)
-            Else
-                Translator.SetProperty("#CategorieView", CategorieViewName & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00"))
-            End If
-
-            If Not _SelectedCategorieItemId >= 0 Then
-                _SelectedCategorieItemId = _CategorieList.SelectedListItemIndex
-            End If
-
-            Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(_SelectedCategorieItemId)
-            _SelectedCategorieMinRunTime = _Categorie.MinRunTime
+                Helper.CheckConnectionState()
 
 
-            Dim _Thread1 As New Thread(AddressOf FillCategories)
-            Dim _Thread2 As New Thread(AddressOf FillPreviewList)
-
-            _Thread1.Start()
-            _Thread2.Start()
+                MyLog.Info("[CategoriesGuiWindow] [OnPageLoad]: parameter: {0} ({1})", _ClickfinderCategorieView.ToString, _loadParameter)
+                MyLog.Debug("[CategoriesGuiWindow] [OnPageLoad]: PeriodeStartTime = {0}, PeriodeEndTime = {1}", _
+                            getTranslatedDayOfWeek(PeriodeStartTime.Date) & " " & Format(PeriodeStartTime, "dd.MM.yyyy") & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00"), Format(PeriodeEndTime.Hour, "00") & ":" & Format(PeriodeEndTime.Minute, "00"))
 
 
+
+
+                For i = 1 To 6
+                    Translator.SetProperty("#PreviewListImage" & i, "")
+                    Translator.SetProperty("#PreviewListTvMovieStar" & i, "")
+                    Translator.SetProperty("#PreviewListRatingStar" & i, 0)
+                Next
+
+                If _layer.GetSetting("TvMovieImportIsRunning", "false").Value = "true" Then
+                    Translator.SetProperty("#SettingLastUpdate", Translation.ImportIsRunning)
+                    MyLog.Debug("[CategoriesGuiWindow] [OnPageLoad]: _ClickfinderCurrentDate = {0}", "TvMovie++ Import is running !")
+                Else
+                    Translator.SetProperty("#SettingLastUpdate", GuiLayout.LastUpdateLabel)
+                End If
+
+                If _ClickfinderCategorieView = CategorieView.Day Then
+                    Translator.SetProperty("#CategorieView", getTranslatedDayOfWeek(_Day) & " " & Format(_Day, "dd.MM.yyyy"))
+                ElseIf _ClickfinderCategorieView = CategorieView.Preview Then
+                    Translator.SetProperty("#CategorieView", Translation.Preview & " " & Translation.for & " " & DateDiff(DateInterval.Day, PeriodeStartTime, PeriodeEndTime) & " " & Translation.Day)
+                Else
+                    Translator.SetProperty("#CategorieView", CategorieViewName & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00"))
+                End If
+
+                If Not _SelectedCategorieItemId >= 0 Then
+                    _SelectedCategorieItemId = _CategorieList.SelectedListItemIndex
+                End If
+
+                Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(_SelectedCategorieItemId)
+                _SelectedCategorieMinRunTime = _Categorie.MinRunTime
+
+
+                Dim _Thread1 As New Thread(AddressOf FillCategories)
+                ThreadPreviewListFill = New Thread(AddressOf FillPreviewList)
+
+                _Thread1.Start()
+                ThreadPreviewListFill.Start()
+
+            Catch ex As Exception
+                MyLog.Error("[CategoriesGuiWindow] [OnPageLoad]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
+            End Try
         End Sub
 
         Protected Overrides Sub OnPageDestroy(ByVal new_windowId As Integer)
@@ -420,17 +451,7 @@ Namespace ClickfinderProgramGuide
 
             MyBase.OnClicked(controlId, control, actionType)
 
-            If control Is _btnNow Then
-                GuiButtons.Now()
-            End If
 
-            If control Is _btnPrimeTime Then
-                GuiButtons.PrimeTime()
-            End If
-
-            If control Is _btnLateTime Then
-                GuiButtons.LateTime()
-            End If
 
             If control Is _btnAllMovies Then
                 GuiButtons.AllMovies()
@@ -439,11 +460,6 @@ Namespace ClickfinderProgramGuide
             If control Is _btnHighlights Then
                 GuiButtons.Highlights()
             End If
-
-            If control Is _btnPreview Then
-                GuiButtons.Preview()
-            End If
-
 
             If control Is _CategorieList Or control Is _PreviewList Then
                 If actionType = MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM Then
@@ -532,12 +548,16 @@ Namespace ClickfinderProgramGuide
                 _Categories = ObjectFactory.GetCollection(GetType(ClickfinderCategories), stmt.Execute())
 
                 For i = 0 To _Categories.Count - 1
-                    If _Categories(i).isVisible = True Then
-                        AddListControlItem(_CategorieList, _Categories(i).SortOrder, String.Empty, _Categories(i).Name, , , Config.GetFile(Config.Dir.Thumbs, "Clickfinder ProgramGuide\Categories\") & _Categories(i).Name & ".png", _Categories(i).MinRunTime)
-                        _logCategories = _logCategories & _Categories(i).Name & ", "
-                    Else
-                        _logHiddenCategories = _logHiddenCategories & _Categories(i).Name & ", "
-                    End If
+                    Try
+                        If _Categories(i).isVisible = True Then
+                            AddListControlItem(_CategorieList, _Categories(i).SortOrder, String.Empty, _Categories(i).Name, , , Config.GetFile(Config.Dir.Thumbs, "Clickfinder ProgramGuide\Categories\") & _Categories(i).Name & ".png", _Categories(i).MinRunTime)
+                            _logCategories = _logCategories & _Categories(i).Name & ", "
+                        Else
+                            _logHiddenCategories = _logHiddenCategories & _Categories(i).Name & ", "
+                        End If
+                    Catch ex2 As Exception
+                        MyLog.Error("[CategoriesGuiWindow] [FillCategories]: Loop exception err:" & ex2.Message & " stack:" & ex2.StackTrace)
+                    End Try
                 Next
 
                 If ThreadPreviewListFill.IsAlive = False Then
@@ -551,7 +571,7 @@ Namespace ClickfinderProgramGuide
                 MyLog.Debug("")
 
             Catch ex As Exception
-                MyLog.Error("[CategoriesGuiWindow] [FillCategories]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
+                MyLog.Error("[CategoriesGuiWindow] [FillCategories]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
             End Try
 
         End Sub
@@ -776,8 +796,7 @@ Namespace ClickfinderProgramGuide
                         _Categorie.isVisible = False
                         _Categorie.Persist()
 
-                        CategoriesGuiWindow.SetGuiProperties(_ClickfinderCategorieView)
-                        GUIWindowManager.ActivateWindow(1656544654)
+                        GUIWindowManager.ActivateWindow(1656544654, "CPG." & _ClickfinderCategorieView.ToString)
 
                     Case Is = Translation.CategorieShow
                         'versteckte Categorie anzeigen
@@ -838,8 +857,8 @@ Namespace ClickfinderProgramGuide
                     MyLog.Debug("")
                     _Categorie.isVisible = True
                     _Categorie.Persist()
-                    CategoriesGuiWindow.SetGuiProperties(_ClickfinderCategorieView)
-                    GUIWindowManager.ActivateWindow(1656544654)
+                    GUIWindowManager.ActivateWindow(1656544654, "CPG." & _ClickfinderCategorieView.ToString)
+
                 Else
                     'dlgContext.ShowQuickNumbers = False
                     MyLog.Debug("[CategoriesGuiWindow] [showNotVisibleCategories]: no hidden categories found -> exit")

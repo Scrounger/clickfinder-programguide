@@ -788,7 +788,7 @@
       <description>button group</description>
       <type>group</type>
       <posX>110</posX>
-      <posY>460</posY>
+      <posY>430</posY>
       <!--Button Height 30-->
       <layout>StackLayout</layout>
       <animation effect="fade" time="500">WindowOpen</animation>
@@ -820,10 +820,28 @@
         <onleft>2</onleft>
         <onright>2</onright>
         <onup>120</onup>
-        <ondown>130</ondown>
+        <ondown>150</ondown>
         <textalign>center</textalign>
         <font>font10</font>
         <visible>!string.equals(#DetailSeriesID,0)+plugin.isenabled(MP-TV Series)|!string.equals(#DetailMovPicID,0)+plugin.isenabled(Moving Pictures)</visible>
+      </control>
+
+      <control>
+        <description>TvWish</description>
+        <type>button</type>
+        <id>150</id>
+        <hyperlink>70943675</hyperlink>
+        <hyperlinkParameter>eq(#currentmoduleid,'1656544652'), 'NEWTVWISH//TITLE=#DetailTitle</hyperlinkParameter>
+        <width>216</width>
+        <height>30</height>
+        <label>TvWish</label>
+        <onleft>2</onleft>
+        <onright>2</onright>
+        <onup>14</onup>
+        <ondown>130</ondown>
+        <textalign>center</textalign>
+        <font>font10</font>
+        <visible>plugin.isenabled(TvWishListMP)</visible>
       </control>
 
       <control>
@@ -837,7 +855,7 @@
         <label>#ClickfinderPG.Translation.IMDB</label>
         <onleft>2</onleft>
         <onright>2</onright>
-        <onup>14</onup>
+        <onup>150</onup>
         <ondown>13</ondown>
         <textalign>center</textalign>
         <font>font10</font>
