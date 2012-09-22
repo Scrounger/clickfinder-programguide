@@ -956,8 +956,8 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
         </CompatibleVersion>
         <SubSystemsUsed>
           <Items>
-            <SubSystemItem Name="MP.Config" />
             <SubSystemItem Name="MP.SkinEngine" />
+            <SubSystemItem Name="MP.Config" />
           </Items>
         </SubSystemsUsed>
       </PluginDependencyItem>
@@ -1361,9 +1361,16 @@ Requirements:
 
 
 - Tv Movie EPG Import++ plugin (newest version)</ExtensionDescription>
-    <VersionDescription>=== Version: 1.0.4.5 ===
+    <VersionDescription>=== Version: 1.0.4.8 ===
 
-
+  * New Gui: Episode Preview
+  * hyperlink parameters supported (Gui Detail and Gui Episode Preview)
+  * show diffrent recording icon if is scheduled recordings on an other day (Gui Highlights, Gui Episode Preview and Overlay)
+  * Configuration restore default settings button added
+  * Configuration Overlay update timer added 
+  * Overlay code has been revised -&gt; better preformance
+  * Gui Highlights ShowNewEpisode code has been revised -&gt; better preformance
+  * and a lot of bug fixes
 
 </VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>

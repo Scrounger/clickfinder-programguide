@@ -112,7 +112,6 @@ D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Release\Clickf
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Release\ClickfinderProgramGuide.Setup.resources
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Release\ClickfinderProgramGuide.EditCategorie.resources
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Release\ClickfinderProgramGuide.TvMoviePluginError.resources
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Release\Clickfinder ProgramGuide.vbproj.GenerateResource.Cache
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Release\ClickfinderProgramGuide.dll
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Release\ClickfinderProgramGuide.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Release\ClickfinderProgramGuide.pdb
@@ -125,3 +124,6 @@ D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaP
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_recOnce.png
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_recSeries.png
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\Skin Mods\StreamedMP\TVSeries.Common.HiddenMenu.xml
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Release\Clickfinder ProgramGuide.vbproj.GenerateResource.Cache
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPGTvWish.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPGTvWish.png

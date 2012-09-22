@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Basic Express 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Clickfinder ProgramGuide", "Clickfinder ProgramGuide\Clickfinder ProgramGuide.vbproj", "{C7E9768C-8B93-4B4A-8C78-A9F369E002D2}"
 EndProject
 Global

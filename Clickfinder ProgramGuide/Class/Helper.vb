@@ -691,7 +691,6 @@ Public Class Helper
                             Dim _TvSeriesDB As New TVSeriesDB
                             _TvSeriesDB.LoadEpisode(_SeriesName, CInt(TvMovieProgram.ReferencedProgram.SeriesNum), CInt(TvMovieProgram.ReferencedProgram.EpisodeNum))
 
-
                             If _TvSeriesDB.EpisodeExistLocal = True Then
 
                                 TvMovieProgram.local = True
@@ -699,9 +698,11 @@ Public Class Helper
                                 TvMovieProgram.ReferencedProgram.Description = Replace(TvMovieProgram.ReferencedProgram.Description, "Neue Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName, "Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName)
                                 TvMovieProgram.ReferencedProgram.Persist()
                                 TvMovieProgram.Persist()
+
                                 If _SeriesIsLinked = True Then
                                     MyLog.[Info](_logSeriesIsLinked)
                                 End If
+
                                 MyLog.Info("[CheckSeriesLocalStatus]: Episode found in TvSeries database: {0} - S{1}E{2}", TvMovieProgram.ReferencedProgram.Title, TvMovieProgram.ReferencedProgram.SeriesNum, TvMovieProgram.ReferencedProgram.EpisodeNum)
                             End If
                             _TvSeriesDB.Dispose()

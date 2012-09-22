@@ -6,6 +6,7 @@ Imports ClickfinderProgramGuide.TvDatabase
 Imports MediaPortal.Configuration
 Imports System.Threading
 Imports Gentle.Common
+Imports MediaPortal.Dialogs
 
 
 Namespace ClickfinderProgramGuide
@@ -116,8 +117,6 @@ Namespace ClickfinderProgramGuide
             Translator.SetProperty("#EpisodesPreviewTitle", "")
             Translator.SetProperty("#EpisodesPreviewEpisodeDescription", "")
 
-
-
             _SeriesPoster.SetFileName("")
 
             If _loadParameter = String.Empty Then
@@ -146,6 +145,8 @@ Namespace ClickfinderProgramGuide
                     ThreadSeriesFill = New Threading.Thread(AddressOf FillSeriesList)
                     ThreadSeriesFill.IsBackground = True
                     ThreadSeriesFill.Start()
+                    ThreadSeriesFill.Join()
+                    FillSeriesInfos()
                 Else
                     'Epsidoen der Serie anzeigen
                     Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowSeriesProgressBar)
@@ -200,10 +201,45 @@ Namespace ClickfinderProgramGuide
                     Else
                         _SeriesProgressBar.Visible = False
                         _RepeatsProgressBar.Visible = False
-                        
 
-                        Helper.ShowNotify("Keine neuen Episoden im EPG gefunden!")
-                        GUIWindowManager.ShowPreviousWindow()
+                        'TvWish Server plugin aktiv
+                        If _layer.GetSetting("pluginTvWishList", "false").Value = True Then
+
+                            'Serie über id laden & 
+                            Dim _TvSeriesDB As New TVSeriesDB
+                            _TvSeriesDB.LoadSeriesName(CInt(Replace(_loadParameter, "idSeries: ", "")))
+
+                            'prüfen ob schon in TvWishList
+                            If _TvSeriesDB.CountSeries = 1 Then
+                                If InStr(_layer.GetSetting("TvWishList_ListView").Value, "(title like '" & _TvSeriesDB(0).SeriesName & "' ) AND (description like '%Neue Folge: %')") > 0 Then
+                                    Helper.ShowNotify("TvWish für " & _TvSeriesDB(0).SeriesName & " wurde bereits angelegt")
+                                    GUIWindowManager.ShowPreviousWindow()
+                                Else
+                                    'tvWish anlegen - fragen
+                                    Dim dlgContext As GUIDialogYesNo = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_YES_NO, Integer)), GUIDialogYesNo)
+                                    dlgContext.Reset()
+
+                                    dlgContext.SetHeading(_TvSeriesDB(0).SeriesName)
+                                    dlgContext.SetLine(1, "TvWish für neue Episoden anlegen?")
+                                    dlgContext.SetLine(2, "")
+                                    dlgContext.SetLine(3, "")
+                                    dlgContext.DoModal(GUIWindowManager.ActiveWindow)
+
+                                    ' ja anlegen
+                                    If dlgContext.IsConfirmed = True Then
+                                        GUIWindowManager.ActivateWindow(70943675, "eq(#currentmoduleid,'1656544652'), 'NEWTVWISH//EXPRESSION=(title like \'" & _TvSeriesDB(0).SeriesName & "\' ) AND (description like \'%Neue Folge: %\')//NAME=CPG: " & _TvSeriesDB(0).SeriesName & ": " & Translation.NewEpisodes, True)
+                                    Else
+                                        GUIWindowManager.ShowPreviousWindow()
+                                    End If
+                                End If
+                            End If
+
+                        Else
+                            Helper.ShowNotify("Keine neuen Episoden im EPG gefunden!")
+                            GUIWindowManager.ShowPreviousWindow()
+                        End If
+
+
                     End If
 
                 End If
@@ -238,11 +274,15 @@ Namespace ClickfinderProgramGuide
                             ThreadSeriesFill.IsBackground = True
                             ThreadSeriesFill.Start()
 
+                            FillSeriesInfos()
+
                             Return
                         End If
                     Else
-                        _LastFocusedSeriesIndex = 0
-                        _LastFocusedEpisodeIndex = 0
+                        If _loadParameter = String.Empty Then
+                            _LastFocusedSeriesIndex = 0
+                            _LastFocusedEpisodeIndex = 0
+                        End If
                     End If
 
                 End If
@@ -262,8 +302,6 @@ Namespace ClickfinderProgramGuide
                             Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowRepeatsProgressBar)
                             _ProgressBarThread.Start()
 
-
-
                             Try
                                 If ThreadRepeatsFill.IsAlive = True Then ThreadRepeatsFill.Abort()
                             Catch ex As Exception
@@ -278,7 +316,6 @@ Namespace ClickfinderProgramGuide
                             '_LastFocusedEpisodeIndex = _selectedListItemIndex
 
                         Else
-                            'ClearSeriesInfos()
 
                             If _SeriesList.SelectedListItem.ItemId = _SeriesList.Item(0).ItemId Then
                                 _selectedListItemIndex = _SeriesList.Count - 1
@@ -341,7 +378,6 @@ Namespace ClickfinderProgramGuide
                             '_LastFocusedEpisodeIndex = _selectedListItemIndex
 
                         Else
-                            'ClearSeriesInfos()
 
                             If _SeriesList.SelectedListItem.ItemId = _SeriesList.Item(_SeriesList.Count - 1).ItemId Then
                                 _selectedListItemIndex = 0
@@ -426,7 +462,22 @@ Namespace ClickfinderProgramGuide
             End If
             MyBase.OnAction(Action)
         End Sub
+
         Protected Overrides Sub OnPageDestroy(ByVal new_windowId As Integer)
+            Try
+                ThreadSeriesFill.Abort()
+            Catch ex As Exception
+            End Try
+
+            Try
+                ThreadRepeatsFill.Abort()
+            Catch ex As Exception
+            End Try
+
+            Try
+                ThreadSeriesInfoFill.Abort()
+            Catch ex As Exception
+            End Try
 
             'If _SeriesList.IsFocused Then
             '    'MsgBox(_MovieList.SelectedListItemIndex)
@@ -510,6 +561,7 @@ Namespace ClickfinderProgramGuide
                         ThreadSeriesFill = New Threading.Thread(AddressOf FillSeriesList)
                         ThreadSeriesFill.IsBackground = True
                         ThreadSeriesFill.Start()
+
                     Else
                         GUIWindowManager.ShowPreviousWindow()
                     End If
@@ -539,12 +591,14 @@ Namespace ClickfinderProgramGuide
                         ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
                     End Try
 
+                    FillSeriesInfos()
+
                     ThreadSeriesFill = New Threading.Thread(AddressOf FillEpisodesList)
                     ThreadSeriesFill.IsBackground = True
                     ThreadSeriesFill.Start()
                 End If
 
-                End If
+            End If
 
         End Sub
 
@@ -640,7 +694,7 @@ Namespace ClickfinderProgramGuide
                     _selectedSeries = TVMovieProgram.Retrieve(_SeriesList.Item(_selectedListItemIndex).TVTag)
                 End If
 
-                FillSeriesInfos()
+                'FillSeriesInfos()
 
             Catch ex As ThreadAbortException
                 MyLog.Debug("[EpisodePreviewGuiWindow] [FillSeriesList]: --- THREAD ABORTED ---")
@@ -817,20 +871,20 @@ Namespace ClickfinderProgramGuide
                         'ProgramDaten über TvMovieProgram laden
                         Dim _Repeat As TVMovieProgram = TVMovieProgram.Retrieve(_Result.Item(i))
 
-                        'Prüfen ob in Standard Tv Gruppe
-                        Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value)
-                        Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
+                        ''Prüfen ob in Standard Tv Gruppe
+                        'Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value)
+                        'Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
 
-                        'Alle Gruppen des _program laden
-                        Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
-                        sb.AddConstraint([Operator].Equals, "idgroup", _Group.IdGroup)
-                        sb.AddConstraint([Operator].Equals, "idChannel", _Repeat.ReferencedProgram.IdChannel)
-                        Dim stmt As SqlStatement = sb.GetStatement(True)
-                        Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
+                        ''Alle Gruppen des _program laden
+                        'Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
+                        'sb.AddConstraint([Operator].Equals, "idgroup", _Group.IdGroup)
+                        'sb.AddConstraint([Operator].Equals, "idChannel", _Repeat.ReferencedProgram.IdChannel)
+                        'Dim stmt As SqlStatement = sb.GetStatement(True)
+                        'Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
 
-                        If _isInFavGroup.Count = 0 Then
-                            Continue For
-                        End If
+                        'If _isInFavGroup.Count = 0 Then
+                        '    Continue For
+                        'End If
 
                         If Not _Repeat.ReferencedProgram.IdProgram = _SeriesList.Item(_selectedListItemIndex).ItemId Then
 
@@ -890,6 +944,15 @@ Namespace ClickfinderProgramGuide
                     Translator.SetProperty("#EpisodesPreviewLabel2", Translation.Continous)
                 End If
 
+                If _layer.GetSetting("pluginTvWishList", "false").Value = True Then
+                    If InStr(_layer.GetSetting("TvWishList_ListView").Value, "(title like '" & _selectedSeries.ReferencedProgram.Title & "' ) AND (description like '%Neue Folge: %')") > 0 Then
+                        Translator.SetProperty("#EpisodesPreviewTvWishEntryFounded", "true")
+                    Else
+                        Translator.SetProperty("#EpisodesPreviewTvWishEntryFounded", "false")
+                    End If
+
+                End If
+
                 Translator.SetProperty("#EpisodesPreviewLabel3", "")
                 Translator.SetProperty("#EpisodesPreviewFanArt", Config.GetFile(Config.Dir.Thumbs, "") & _selectedSeries.FanArt)
                 _TvSeries.Dispose()
@@ -923,6 +986,7 @@ Namespace ClickfinderProgramGuide
             Translator.SetProperty("#EpisodesPreviewLabel2", "")
             Translator.SetProperty("#EpisodesPreviewLabel3", "")
             Translator.SetProperty("#EpisodesPreviewFanArt", "")
+            Translator.SetProperty("#EpisodesPreviewTvWishEntryFounded", "false")
         End Sub
 
 #End Region

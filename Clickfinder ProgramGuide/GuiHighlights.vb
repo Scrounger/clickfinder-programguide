@@ -85,7 +85,6 @@ Namespace ClickfinderProgramGuide
             MyLog.Info("")
             MyLog.Info("[HighlightsGuiWindow] -------------[OPEN]-------------")
 
-
             Try
                 Translator.SetProperty("#CurrentDate", Translation.Loading)
 
@@ -618,99 +617,103 @@ Namespace ClickfinderProgramGuide
 
                 'Wenn TvSeries Import aktiviert, dann neue Episoden des Tages anzeigen
                 If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True Then
+                    Try
 
-                    Dim _SeriesResult As New ArrayList
-                    Dim _ListTvMovieProgram As New List(Of TVMovieProgram)
+                    
+                        Dim _SeriesResult As New ArrayList
+                        Dim _ListTvMovieProgram As New List(Of TVMovieProgram)
 
-                    'Alle neuen Episoden (idSeries > 0 & local = false) laden mit Group By
-                    SQLstring = "Select program.idprogram from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
-                                        "WHERE idSeries > 0 " & _
-                                        "AND local = 0 " & _
-                                        "AND startTime > " & MySqlDate(_ClickfinderCurrentDate.AddHours(0)) & " " & _
-                                        "AND startTime < " & MySqlDate(_ClickfinderCurrentDate.AddHours(24)) & " " & _
-                                        "GROUP BY title Order BY state DESC"
-
-                    _logNewShowSeries = "true"
-                    _SeriesResult.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", True))
-                    '_logNewSeriesCount = _Result.Count
-
-                    If _SeriesResult.Count > 0 Then
-                        For i = 0 To _SeriesResult.Count - 1
-                            Dim _NewEpisodeList As New ArrayList
-                            Dim _RecordingStatus As String = String.Empty
-
-                            'Prüfen ob noch immer lokal nicht vorhanden
-                            'CheckSeriesLocalStatus(_TvMovieSeriesProgram)
-
-                            'ProgramDaten über TvMovieProgram laden
-                            Dim _TvMovieSeriesProgram As TVMovieProgram = TVMovieProgram.Retrieve(_SeriesResult.Item(i))
-
-                            'Alle neuen Episoden der Serie zählen die aufgenommen werden sollen
-                            SQLstring = "Select program.idprogram from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
-                                            "WHERE idSeries = " & _TvMovieSeriesProgram.idSeries & " " & _
+                        'Alle neuen Episoden (idSeries > 0 & local = false) laden mit Group By
+                        SQLstring = "Select program.idprogram from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
+                                            "WHERE idSeries > 0 " & _
                                             "AND local = 0 " & _
                                             "AND startTime > " & MySqlDate(_ClickfinderCurrentDate.AddHours(0)) & " " & _
                                             "AND startTime < " & MySqlDate(_ClickfinderCurrentDate.AddHours(24)) & " " & _
-                                            "Group By episodeName Order BY state DESC"
+                                            "GROUP BY title Order BY state DESC"
 
-                            _NewEpisodeList.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", True))
+                        _logNewShowSeries = "true"
+                        _SeriesResult.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", True))
+                        '_logNewSeriesCount = _Result.Count
+
+                        If _SeriesResult.Count > 0 Then
+                            For i = 0 To _SeriesResult.Count - 1
+                                Dim _NewEpisodeList As New ArrayList
+                                Dim _RecordingStatus As String = String.Empty
+
+                                'Prüfen ob noch immer lokal nicht vorhanden
+                                'CheckSeriesLocalStatus(_TvMovieSeriesProgram)
+
+                                'ProgramDaten über TvMovieProgram laden
+                                Dim _TvMovieSeriesProgram As TVMovieProgram = TVMovieProgram.Retrieve(_SeriesResult.Item(i))
+
+                                'Alle neuen Episoden der Serie zählen die aufgenommen werden sollen
+                                SQLstring = "Select program.idprogram from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
+                                                "WHERE idSeries = " & _TvMovieSeriesProgram.idSeries & " " & _
+                                                "AND local = 0 " & _
+                                                "AND startTime > " & MySqlDate(_ClickfinderCurrentDate.AddHours(0)) & " " & _
+                                                "AND startTime < " & MySqlDate(_ClickfinderCurrentDate.AddHours(24)) & " " & _
+                                                "Group By episodeName Order BY state DESC"
+
+                                _NewEpisodeList.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", True))
 
 
-                            'Daten als Highlightslist übergeben
-                            _timeLabel = Translation.NewLabel
-                            _infoLabel = _NewEpisodeList.Count & " " & Translation.NewEpisodeFound
-                            _imagepath = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieSeriesProgram.SeriesPosterImage
-                            _RecordingStatus = GuiLayout.RecordingStatus(_TvMovieSeriesProgram.ReferencedProgram)
+                                'Daten als Highlightslist übergeben
+                                _timeLabel = Translation.NewLabel
+                                _infoLabel = _NewEpisodeList.Count & " " & Translation.NewEpisodeFound
+                                _imagepath = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieSeriesProgram.SeriesPosterImage
+                                _RecordingStatus = GuiLayout.RecordingStatus(_TvMovieSeriesProgram.ReferencedProgram)
 
 
-                            'Prüfen ob eine Episode als Aufnahme geplant ist
-                            If _RecordingStatus = String.Empty Then
-                                If _NewEpisodeList.Count > 0 Then
-                                    Dim _Episode As Program = Program.Retrieve(_NewEpisodeList.Item(0))
-                                    _RecordingStatus = GuiLayout.RecordingStatus(_Episode)
+                                'Prüfen ob eine Episode als Aufnahme geplant ist
+                                If _RecordingStatus = String.Empty Then
+                                    If _NewEpisodeList.Count > 0 Then
+                                        Dim _Episode As Program = Program.Retrieve(_NewEpisodeList.Item(0))
+                                        _RecordingStatus = GuiLayout.RecordingStatus(_Episode)
 
-                                    'Prüfen ob Episode an anderem Tag aufgenommen wird
-                                    If _RecordingStatus = String.Empty Then
-                                        Dim _RecordingList As New ArrayList
+                                        'Prüfen ob Episode an anderem Tag aufgenommen wird
+                                        If _RecordingStatus = String.Empty Then
+                                            Dim _RecordingList As New ArrayList
 
-                                        SQLstring = "Select program.idprogram from program " & _
-                                                "WHERE title = '" & _Episode.Title & "' " & _
-                                                "AND episodeName = '" & _Episode.EpisodeName & "' " & _
-                                                "Order BY state DESC"
+                                            SQLstring = "Select program.idprogram from program " & _
+                                                    "WHERE title = '" & TVSeriesDB.allowedSigns(_Episode.Title) & "' " & _
+                                                    "AND episodeName = '" & TVSeriesDB.allowedSigns(_Episode.EpisodeName) & "' " & _
+                                                    "Order BY state DESC"
 
-                                        Helper.AppendSqlLimit(SQLstring, 1)
+                                            Helper.AppendSqlLimit(SQLstring, 1)
 
-                                        _RecordingList.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", True))
+                                            _RecordingList.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", True))
 
-                                        If _RecordingList.Count > 0 Then
-                                            Dim _Record As Program = Program.Retrieve(_RecordingList.Item(0))
-                                            _RecordingStatus = GuiLayout.RecordingStatus(_Record)
+                                            If _RecordingList.Count > 0 Then
+                                                Dim _Record As Program = Program.Retrieve(_RecordingList.Item(0))
+                                                _RecordingStatus = GuiLayout.RecordingStatus(_Record)
 
-                                            If Not _Record.StartTime.Date = _ClickfinderCurrentDate.Date Then
-                                                Select Case (_RecordingStatus)
-                                                    Case Is = "tvguide_record_button.png"
-                                                        _RecordingStatus = "ClickfinderPG_recOnce.png"
-                                                    Case Is = "tvguide_recordserie_button.png"
-                                                        _RecordingStatus = "ClickfinderPG_recSeries.png"
-                                                End Select
+                                                If Not _Record.StartTime.Date = _ClickfinderCurrentDate.Date Then
+                                                    Select Case (_RecordingStatus)
+                                                        Case Is = "tvguide_record_button.png"
+                                                            _RecordingStatus = "ClickfinderPG_recOnce.png"
+                                                        Case Is = "tvguide_recordserie_button.png"
+                                                            _RecordingStatus = "ClickfinderPG_recSeries.png"
+                                                    End Select
+                                                End If
+
                                             End If
 
                                         End If
-
                                     End If
                                 End If
-                            End If
 
-                            'If Not _lastTitle = _TvMovieSeriesProgram.ReferencedProgram.Title Then
-                            AddListControlItem(_HighlightsList, _TvMovieSeriesProgram.ReferencedProgram.IdProgram, _TvMovieSeriesProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieSeriesProgram.ReferencedProgram.Title, _timeLabel, _infoLabel, _imagepath, , _RecordingStatus)
-                            'End If
+                                'If Not _lastTitle = _TvMovieSeriesProgram.ReferencedProgram.Title Then
+                                AddListControlItem(_HighlightsList, _TvMovieSeriesProgram.ReferencedProgram.IdProgram, _TvMovieSeriesProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieSeriesProgram.ReferencedProgram.Title, _timeLabel, _infoLabel, _imagepath, , _RecordingStatus)
+                                'End If
 
-                            _lastRecordingStatus = _RecordingStatus
-                            _lastTitle = _TvMovieSeriesProgram.ReferencedProgram.Title
-                        Next
-                    End If
+                                _lastRecordingStatus = _RecordingStatus
+                                _lastTitle = _TvMovieSeriesProgram.ReferencedProgram.Title
+                            Next
+                        End If
 
-
+                    Catch exSeries As Exception
+                        MyLog.Error("[HighlightsGUIWindow] [FillHighlightsList]: New Episode exception err:" & exSeries.Message & " stack:" & exSeries.StackTrace)
+                    End Try
 
                 End If
 
@@ -893,8 +896,7 @@ Namespace ClickfinderProgramGuide
                                         "AND local = 0 " & _
                                         "AND startTime > " & MySqlDate(_ClickfinderCurrentDate.AddHours(0)) & " " & _
                                         "AND startTime < " & MySqlDate(_ClickfinderCurrentDate.AddHours(24)) & " " & _
-                                        Helper.ORDERBYstartTime
-
+                                        "Order BY state DESC"
 
 
                     Dim _Result As New ArrayList
@@ -1003,7 +1005,8 @@ Namespace ClickfinderProgramGuide
 
 
                             'falls die Episoden inzwischen lokal existieren, User darüber informieren
-                            If dlgContext.controlList.Count = 0 Then
+                            If dlgContext.controlList.Count = 1 Then
+                                MsgBox("")
                                 Dim lNoItem As New GUIListItem
                                 lNoItem.Label = Translation.episodesNowExistLocal
                                 dlgContext.Add(lNoItem)
@@ -1331,6 +1334,10 @@ Namespace ClickfinderProgramGuide
 
             dlgContext.Dispose()
             dlgContext.AllocResources()
+
+        End Sub
+
+        Private Sub ShowNewEpisodesThread()
 
         End Sub
 #End Region

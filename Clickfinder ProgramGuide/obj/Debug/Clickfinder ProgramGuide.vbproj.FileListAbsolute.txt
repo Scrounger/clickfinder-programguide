@@ -124,3 +124,4 @@ D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPor
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideEpisodePreview.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Skin Mods\StreamedMP\TVOSD.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Interop.SHDocVw.dll
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Skin Mods\StreamedMP\TVSeries.Common.HiddenMenu.xml
