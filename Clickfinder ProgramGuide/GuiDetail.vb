@@ -16,9 +16,9 @@ Namespace ClickfinderProgramGuide
         'Buttons
 
 
-        <SkinControlAttribute(4)> Protected _btnLateTime As GUIButtonControl = Nothing
+
         <SkinControlAttribute(5)> Protected _btnAllMovies As GUIButtonControl = Nothing
-        <SkinControlAttribute(6)> Protected _btnHighlights As GUIButtonControl = Nothing
+
 
 
 
@@ -197,9 +197,6 @@ Namespace ClickfinderProgramGuide
                 GuiButtons.AllMovies()
             End If
 
-            If control Is _btnHighlights Then
-                GuiButtons.Highlights()
-            End If
 
 
             If control Is _btnRecord Then

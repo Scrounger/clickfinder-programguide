@@ -20,9 +20,9 @@ Namespace ClickfinderProgramGuide
         'Buttons
 
 
-        <SkinControlAttribute(4)> Protected _btnLateTime As GUIButtonControl = Nothing
+
         <SkinControlAttribute(5)> Protected _btnAllMovies As GUIButtonControl = Nothing
-        <SkinControlAttribute(6)> Protected _btnHighlights As GUIButtonControl = Nothing
+
 
 
         'ProgressBar
@@ -352,9 +352,6 @@ Namespace ClickfinderProgramGuide
                 GuiButtons.AllMovies()
             End If
 
-            If control Is _btnHighlights Then
-                GuiButtons.Highlights()
-            End If
 
             If control Is _leftList Or control Is _rightList Then
                 If actionType = MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM Then

@@ -187,8 +187,7 @@ Namespace ClickfinderProgramGuide
                 'Start GUI
                 Select Case _layer.GetSetting("ClickfinderStartGui", "Highlights").Value
                     Case Is = "Highlights"
-                        GUIWindowManager.ReplaceWindow(1656544656)
-                        GuiButtons.Highlights()
+                        GUIWindowManager.ActivateWindow(1656544656, True)
                     Case Is = "Now"
                         GUIWindowManager.ActivateWindow(1656544654, "CPG.Now", True)
                     Case Is = "PrimeTime"
@@ -196,7 +195,7 @@ Namespace ClickfinderProgramGuide
                     Case Is = "LateTime"
                         GUIWindowManager.ActivateWindow(1656544654, "CPG.LateTime", True)
                     Case Is = "PrimeTimeMovies"
-                        GUIWindowManager.ReplaceWindow(1656544653)
+
                         Dim _PrimeTime As Date = CDate(_layer.GetSetting("ClickfinderPrimeTime", "22:00").Value)
                         Dim _startTime As Date = Today.AddHours(_PrimeTime.Hour).AddMinutes(_PrimeTime.Minute)
 
@@ -212,10 +211,9 @@ Namespace ClickfinderProgramGuide
                                                         Helper.ORDERBYstartTime, 85)
 
                         Translator.SetProperty("#ItemsLeftListLabel", Translation.allMoviesAt & " " & Format(_startTime.Hour, "00") & ":" & Format(_startTime.Minute, "00") & " - " & Format(_startTime.AddHours(4).Hour, "00") & ":" & Format(_startTime.AddHours(4).Minute, "00"))
-                        GUIWindowManager.ActivateWindow(1656544653)
+                        GUIWindowManager.ActivateWindow(1656544653, True)
 
                     Case Is = "LateTimeMovies"
-                        GUIWindowManager.ReplaceWindow(1656544653)
 
                         Dim _LateTime As Date = CDate(_layer.GetSetting("ClickfinderLateTime", "22:00").Value)
                         Dim _startTime As Date = Today.AddHours(_LateTime.Hour).AddMinutes(_LateTime.Minute)
@@ -232,7 +230,7 @@ Namespace ClickfinderProgramGuide
                                                         Helper.ORDERBYstartTime, 85)
 
                         Translator.SetProperty("#ItemsLeftListLabel", Translation.allMoviesAt & " " & Format(_startTime.Hour, "00") & ":" & Format(_startTime.Minute, "00") & " - " & Format(_startTime.AddHours(4).Hour, "00") & ":" & Format(_startTime.AddHours(4).Minute, "00"))
-                        GUIWindowManager.ActivateWindow(1656544653)
+                        GUIWindowManager.ActivateWindow(1656544653, True)
                 End Select
 
             Catch ex As Exception

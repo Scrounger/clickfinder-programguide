@@ -86,6 +86,7 @@
           <description>Highlights</description>
           <type>button</type>
           <id>6</id>
+          <hyperlink>1656544656</hyperlink>
           <label>#ClickfinderPG.Translation.Highlights</label>
           <textalign>center</textalign>
           <onup>5</onup>
