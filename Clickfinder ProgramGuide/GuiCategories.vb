@@ -144,6 +144,8 @@ Namespace ClickfinderProgramGuide
             MyBase.OnPageLoad()
             GUIWindowManager.NeedRefresh()
 
+            Helper.CheckConnectionState()
+
             MyLog.Info("")
             MyLog.Info("")
             MyLog.Info("[CategoriesGuiWindow] -------------[OPEN]-------------")
@@ -166,7 +168,7 @@ Namespace ClickfinderProgramGuide
                                 _ClickfinderCategorieView = CategorieView.Day
                                 _Day = CDate(Replace(_loadParameter, "CPG.Day:", ""))
                             Else
-                                Helper.ShowNotify("Error: parameter")
+                                Helper.ShowNotify("CPG Error: parameter")
                                 MyLog.Error("[CategoriesGuiWindow] [OnPageLoad]: parameter: {0}", _loadParameter)
                                 Return
                             End If
@@ -174,14 +176,9 @@ Namespace ClickfinderProgramGuide
 
                 End If
 
-                Helper.CheckConnectionState()
-
-
                 MyLog.Info("[CategoriesGuiWindow] [OnPageLoad]: parameter: {0} ({1})", _ClickfinderCategorieView.ToString, _loadParameter)
                 MyLog.Debug("[CategoriesGuiWindow] [OnPageLoad]: PeriodeStartTime = {0}, PeriodeEndTime = {1}", _
                             getTranslatedDayOfWeek(PeriodeStartTime.Date) & " " & Format(PeriodeStartTime, "dd.MM.yyyy") & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00"), Format(PeriodeEndTime.Hour, "00") & ":" & Format(PeriodeEndTime.Minute, "00"))
-
-
 
 
                 For i = 1 To 6

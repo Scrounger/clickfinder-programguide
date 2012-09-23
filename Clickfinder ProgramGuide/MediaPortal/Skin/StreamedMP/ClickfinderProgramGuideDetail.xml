@@ -828,7 +828,7 @@
         <hyperlinkParameter>eq(#currentmoduleid,'1656544652'), 'NEWTVWISH//TITLE=#DetailTitle</hyperlinkParameter>
         <width>216</width>
         <height>30</height>
-        <label>#ClickfinderPG.Translation.IMDB</label>
+        <label>TvWish</label>
         <onleft>2</onleft>
         <onright>2</onright>
         <onup>14</onup>

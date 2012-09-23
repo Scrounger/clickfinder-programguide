@@ -53,7 +53,6 @@ Public Class Helper
     End Sub
 
     Friend Shared Function MySqlDate(ByVal Datum As Date) As String
-        MyLog.Debug("Provider: {0}", Gentle.Framework.Broker.ProviderName)
         If Gentle.Framework.Broker.ProviderName = "MySQL" Then
             Return "'" & Datum.Year & "-" & Format(Datum.Month, "00") & "-" & Format(Datum.Day, "00") & " " & Format(Datum.Hour, "00") & ":" & Format(Datum.Minute, "00") & ":00'"
         Else
@@ -564,20 +563,23 @@ Public Class Helper
         'TvServer nicht verbunden / online
         If Helper.TvServerConnected = False Then
             ShowNotify(Translation.TvServerOffline)
-            Exit Sub
+            Return
         End If
 
         'Clickfinder DB nicht gefunden
         If IO.File.Exists(ClickfinderDB.DatabasePath) = False Then
             ShowNotify(Translation.ClickfinderDBOffline)
+            Return
         End If
 
         If CBool(_layer.GetSetting("TvMovieEnabled", "false").Value) = False Then
             ShowNotify(Translation.TvMovieEPGImportNotEnabled)
+            Return
         End If
 
         If CBool(_layer.GetSetting("ClickfinderEnabled", "true").Value) = False Then
             ShowNotify(Translation.ClickfinderImportNotEnabled)
+            Return
         End If
 
     End Sub
@@ -724,16 +726,6 @@ Public Class Helper
     ' Updates the movie metadata on the playback screen (for when the user clicks info). 
     ' The delay is necessary because Player tries to use metadata from the MyVideos database.
     ' We want to update this after that happens so the correct info is there.
-    Private Shared Sub UpdatePlaybackInfo()
-        Thread.Sleep(5000)
-
-        GUIPropertyManager.SetProperty("#Play.Current.Title", "Test")
-
-        'GUIPropertyManager.SetProperty("#Play.Current.Plot", CurrentMovie.Summary)
-        GUIPropertyManager.SetProperty("#Play.Current.Thumb", _PlayedFile.Cover)
-
-
-    End Sub
 
     Friend Shared Function TvServerConnected() As Boolean
         'Prüfen ob TvServer online ist

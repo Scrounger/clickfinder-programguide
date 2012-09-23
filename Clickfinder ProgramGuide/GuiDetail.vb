@@ -73,6 +73,8 @@ Namespace ClickfinderProgramGuide
             MyBase.OnPageLoad()
             GUIWindowManager.NeedRefresh()
 
+            Helper.CheckConnectionState()
+
             If String.IsNullOrEmpty(_loadParameter) = False Then
                 Try
                     If _layer.GetSetting("TvMovieImportIsRunning", "false").Value = "true" Then
@@ -110,7 +112,7 @@ Namespace ClickfinderProgramGuide
 
                         'program laden
                         SQLstring = "Select * from program INNER JOIN channel ON program.idChannel = channel.idChannel " & _
-                                                    "WHERE title = '" & _title & "' " & _
+                                                    "WHERE title = '" & TVSeriesDB.allowedSigns(_title) & "' " & _
                                                     "AND displayName = '" & _channel & "' " & _
                                                     "AND startTime > " & Helper.MySqlDate(_start.AddMinutes(-1)) & " " & _
                                                     "AND startTime < " & Helper.MySqlDate(_end) & " " & _
@@ -140,7 +142,7 @@ Namespace ClickfinderProgramGuide
                 MyLog.Info("[DetailGuiWindow] -------------[OPEN]-------------")
                 MyLog.Debug("[DetailGuiWindow] [OnPageLoad]: {0}, idProgram = {1}, needsUpdate = {2}", _DetailTvMovieProgram.ReferencedProgram.Title, _DetailTvMovieProgram.idProgram, _DetailTvMovieProgram.needsUpdate)
 
-                Helper.CheckConnectionState()
+
                 ShowDetails()
 
             Catch ex As Exception
@@ -311,8 +313,8 @@ Namespace ClickfinderProgramGuide
                         Dim SQLstring As String = String.Empty
 
                         SQLstring = "Select program.idprogram from program " & _
-                                "WHERE title = '" & _DetailTvMovieProgram.ReferencedProgram.Title & "' " & _
-                                "AND episodeName = '" & _DetailTvMovieProgram.ReferencedProgram.EpisodeName & "' " & _
+                                "WHERE title = '" & TVSeriesDB.allowedSigns(_DetailTvMovieProgram.ReferencedProgram.Title) & "' " & _
+                                "AND episodeName = '" & TVSeriesDB.allowedSigns(_DetailTvMovieProgram.ReferencedProgram.EpisodeName) & "' " & _
                                 "Order BY state DESC"
 
                         Helper.AppendSqlLimit(SQLstring, 1)

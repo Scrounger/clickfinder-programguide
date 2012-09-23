@@ -100,6 +100,8 @@ Namespace ClickfinderProgramGuide
             MyBase.OnPageLoad()
             GUIWindowManager.NeedRefresh()
 
+            Helper.CheckConnectionState()
+
             MyLog.Info("")
             MyLog.Info("")
             MyLog.Info("[EpisodePreviewGuiWindow] -------------[OPEN]-------------")
@@ -704,11 +706,8 @@ Namespace ClickfinderProgramGuide
                 Translator.SetProperty("#EpisodePreviewLabel", Translation.NewEpisodes & ": " & _selectedSeries.ReferencedProgram.Title)
                 Translator.SetProperty("#EpisodesPreviewSeriesHeaderLabel", Translation.Repeats)
 
-
                 _SeriesList.Visible = False
                 _SeriesList.Clear()
-
-                'MsgBox(_idSeries & vbNewLine & _SeriesName)
 
                 'Neue Episoden der Serie laden
                 SQLstring = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
@@ -763,8 +762,8 @@ Namespace ClickfinderProgramGuide
                                 Dim _RecordingList As New ArrayList
 
                                 SQLstring = "Select program.idprogram from program " & _
-                                        "WHERE title = '" & _Episode.ReferencedProgram.Title & "' " & _
-                                        "AND episodeName = '" & _Episode.ReferencedProgram.EpisodeName & "' " & _
+                                        "WHERE title = '" & TVSeriesDB.allowedSigns(_Episode.ReferencedProgram.Title) & "' " & _
+                                        "AND episodeName = '" & TVSeriesDB.allowedSigns(_Episode.ReferencedProgram.EpisodeName) & "' " & _
                                         "Order BY state DESC"
 
                                 Helper.AppendSqlLimit(SQLstring, 1)
@@ -822,7 +821,6 @@ Namespace ClickfinderProgramGuide
 
                     Dim _EpisodeInfos As TVMovieProgram = TVMovieProgram.Retrieve(_SeriesList.Item(_selectedListItemIndex).ItemId)
 
-
                     If _EpisodeInfos.needsUpdate = True Then
                         Helper.UpdateProgramData(_EpisodeInfos)
                     End If
@@ -843,46 +841,33 @@ Namespace ClickfinderProgramGuide
 
                     'Wiederholung der selektierten Episode laden
                     SQLstring = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
-                                                "WHERE title = '" & _selectedSeries.ReferencedProgram.Title & "' " & _
-                                                "AND episodeName = '" & _SeriesList.SelectedListItem.Label & "' " & _
+                                                "WHERE title = '" & TVSeriesDB.allowedSigns(_selectedSeries.ReferencedProgram.Title) & "' " & _
+                                                "AND episodeName = '" & TVSeriesDB.allowedSigns(_SeriesList.SelectedListItem.Label) & "' " & _
                                                 "AND startTime > " & StartTime & " " & _
                                                 "AND startTime < " & EndTime & " " & _
                                                 "ORDER BY startTime ASC"
 
                     _Result.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", False))
 
-                    For i = 0 To _Result.Count - 1
+                    If _Result.Count > 0 Then
+                        For i = 0 To _Result.Count - 1
+                            'ProgramDaten über TvMovieProgram laden
+                            Dim _Repeat As TVMovieProgram = TVMovieProgram.Retrieve(_Result.Item(i))
 
-                        'ProgramDaten über TvMovieProgram laden
-                        Dim _Repeat As TVMovieProgram = TVMovieProgram.Retrieve(_Result.Item(i))
+                            If Not _Repeat.ReferencedProgram.IdProgram = _SeriesList.Item(_selectedListItemIndex).ItemId Then
 
-                        ''Prüfen ob in Standard Tv Gruppe
-                        'Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value)
-                        'Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
+                                _timeLabel = Helper.getTranslatedDayOfWeek(_Repeat.ReferencedProgram.StartTime) & " " & Format(_Repeat.ReferencedProgram.StartTime.Day, "00") & "." & Format(_Repeat.ReferencedProgram.StartTime.Month, "00") & " - " & Format(_Repeat.ReferencedProgram.StartTime.Hour, "00") & ":" & Format(_Repeat.ReferencedProgram.StartTime.Minute, "00")
+                                _infoLabel = Translation.Season & " " & _Repeat.ReferencedProgram.SeriesNum & ", " & Translation.Episode & " " & _Repeat.ReferencedProgram.EpisodeNum
 
-                        ''Alle Gruppen des _program laden
-                        'Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
-                        'sb.AddConstraint([Operator].Equals, "idgroup", _Group.IdGroup)
-                        'sb.AddConstraint([Operator].Equals, "idChannel", _Repeat.ReferencedProgram.IdChannel)
-                        'Dim stmt As SqlStatement = sb.GetStatement(True)
-                        'Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
+                                AddListControlItem(_RepeatsList, _Repeat.ReferencedProgram.IdProgram, _Repeat.ReferencedProgram.ReferencedChannel.DisplayName, _Repeat.ReferencedProgram.EpisodeName, , _timeLabel, Config.GetFile(Config.Dir.Thumbs, "tv\logos\") & Replace(_Repeat.ReferencedProgram.ReferencedChannel.DisplayName, "/", "_") & ".png", , GuiLayout.RecordingStatus(_Repeat.ReferencedProgram))
+                            End If
 
-                        'If _isInFavGroup.Count = 0 Then
-                        '    Continue For
-                        'End If
-
-                        If Not _Repeat.ReferencedProgram.IdProgram = _SeriesList.Item(_selectedListItemIndex).ItemId Then
-
-                            _timeLabel = Helper.getTranslatedDayOfWeek(_Repeat.ReferencedProgram.StartTime) & " " & Format(_Repeat.ReferencedProgram.StartTime.Day, "00") & "." & Format(_Repeat.ReferencedProgram.StartTime.Month, "00") & " - " & Format(_Repeat.ReferencedProgram.StartTime.Hour, "00") & ":" & Format(_Repeat.ReferencedProgram.StartTime.Minute, "00")
-                            _infoLabel = Translation.Season & " " & _Repeat.ReferencedProgram.SeriesNum & ", " & Translation.Episode & " " & _Repeat.ReferencedProgram.EpisodeNum
-
-                            AddListControlItem(_RepeatsList, _Repeat.ReferencedProgram.IdProgram, _Repeat.ReferencedProgram.ReferencedChannel.DisplayName, _Repeat.ReferencedProgram.EpisodeName, , _timeLabel, Config.GetFile(Config.Dir.Thumbs, "tv\logos\") & Replace(_Repeat.ReferencedProgram.ReferencedChannel.DisplayName, "/", "_") & ".png", , GuiLayout.RecordingStatus(_Repeat.ReferencedProgram))
-                        End If
-
-                    Next
+                        Next
+                    End If
 
                     _RepeatsList.Visible = True
                     _RepeatsProgressBar.Visible = False
+
                 Else
 
                     If _SeriesList.Item(_selectedListItemIndex).Label = ".." Then
@@ -891,6 +876,7 @@ Namespace ClickfinderProgramGuide
                     _RepeatsList.Visible = False
                     _RepeatsList.Clear()
                     _RepeatsProgressBar.Visible = False
+
 
                 End If
 

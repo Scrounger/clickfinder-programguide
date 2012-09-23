@@ -102,10 +102,10 @@ Namespace ClickfinderProgramGuide
             MyBase.OnPageLoad()
             GUIWindowManager.NeedRefresh()
 
+            Helper.CheckConnectionState()
+
             MyLog.Info("")
             MyLog.Info("[ItemsGuiWindow] -------------[OPEN]-------------")
-
-            Helper.CheckConnectionState()
 
             GuiLayoutLoading()
 

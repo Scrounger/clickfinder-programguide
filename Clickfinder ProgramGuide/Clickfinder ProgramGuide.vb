@@ -154,33 +154,12 @@ Namespace ClickfinderProgramGuide
 
             Try
 
-                Dim _Thread4 As New Thread(AddressOf Translator.TranslateSkin)
-                _Thread4.Start()
-
-                CheckConnectionState()
-
                 If _layer.GetSetting("TvMovieImportIsRunning", "false").Value = "true" Then
                     Translator.SetProperty("#SettingLastUpdate", Translation.ImportIsRunning)
                     MyLog.Debug("[HighlightsGuiWindow] [OnPageLoad]: {0}", "TvMovie++ Import is running !")
                 Else
                     Translator.SetProperty("#SettingLastUpdate", GuiLayout.LastUpdateLabel)
                 End If
-
-
-                If Helper.TvServerConnected = True Then
-                    RefreshOverlays()
-                Else
-                    For i = 1 To 4
-                        Translator.SetProperty("#ClickfinderPG.Movie" & i & ".Title", "")
-                    Next
-
-                    For i = 1 To 4
-                        Translator.SetProperty("#ClickfinderPG.Series" & i & ".Title", "")
-                    Next
-
-                    Log.Warn("[PreInit] [BasicHomeOverlay]: TvServer not online")
-                End If
-
 
                 Helper.LogSettings()
 
@@ -546,8 +525,8 @@ Namespace ClickfinderProgramGuide
                                         Dim _RecordingList As New ArrayList
 
                                         _SQLstring = "Select program.idprogram from program " & _
-                                                "WHERE title = '" & _Episode.Title & "' " & _
-                                                "AND episodeName = '" & _Episode.EpisodeName & "' " & _
+                                                "WHERE title = '" & TVSeriesDB.allowedSigns(_Episode.Title) & "' " & _
+                                                "AND episodeName = '" & TVSeriesDB.allowedSigns(_Episode.EpisodeName) & "' " & _
                                                 "Order BY state DESC"
 
                                         Helper.AppendSqlLimit(_SQLstring, 1)

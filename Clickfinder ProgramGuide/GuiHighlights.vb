@@ -81,6 +81,8 @@ Namespace ClickfinderProgramGuide
             MyBase.OnPageLoad()
             GUIWindowManager.NeedRefresh()
 
+            Helper.CheckConnectionState()
+
             MyLog.Info("")
             MyLog.Info("")
             MyLog.Info("[HighlightsGuiWindow] -------------[OPEN]-------------")
@@ -951,8 +953,8 @@ Namespace ClickfinderProgramGuide
                                             Dim _RecordingList As New ArrayList
 
                                             SQLstring = "Select program.idprogram from program " & _
-                                                    "WHERE title = '" & _TvMovieProgram.ReferencedProgram.Title & "' " & _
-                                                    "AND episodeName = '" & _TvMovieProgram.ReferencedProgram.EpisodeName & "' " & _
+                                                    "WHERE title = '" & TVSeriesDB.allowedSigns(_TvMovieProgram.ReferencedProgram.Title) & "' " & _
+                                                    "AND episodeName = '" & TVSeriesDB.allowedSigns(_TvMovieProgram.ReferencedProgram.EpisodeName) & "' " & _
                                                     "Order BY state DESC"
 
                                             Helper.AppendSqlLimit(SQLstring, 1)

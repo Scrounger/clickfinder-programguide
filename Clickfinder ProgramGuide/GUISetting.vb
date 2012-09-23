@@ -75,9 +75,7 @@ Namespace ClickfinderProgramGuide
             '    ListControlClick()
             'End If
 
-            If control Is btnNow Then
-                Translator.TranslateSkin()
-            End If
+   
 
             If control Is btnPrimeTime Then
 
