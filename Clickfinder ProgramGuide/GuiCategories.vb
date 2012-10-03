@@ -150,6 +150,8 @@ Namespace ClickfinderProgramGuide
             MyLog.Info("")
             MyLog.Info("[CategoriesGuiWindow] -------------[OPEN]-------------")
 
+            GuiLayout.SetSettingLastUpdateProperty()
+
             Try
 
                 If Not _loadParameter = String.Empty Then
@@ -187,12 +189,7 @@ Namespace ClickfinderProgramGuide
                     Translator.SetProperty("#PreviewListRatingStar" & i, 0)
                 Next
 
-                If _layer.GetSetting("TvMovieImportIsRunning", "false").Value = "true" Then
-                    Translator.SetProperty("#SettingLastUpdate", Translation.ImportIsRunning)
-                    MyLog.Debug("[CategoriesGuiWindow] [OnPageLoad]: _ClickfinderCurrentDate = {0}", "TvMovie++ Import is running !")
-                Else
-                    Translator.SetProperty("#SettingLastUpdate", GuiLayout.LastUpdateLabel)
-                End If
+
 
                 If _ClickfinderCategorieView = CategorieView.Day Then
                     Translator.SetProperty("#CategorieView", getTranslatedDayOfWeek(_Day) & " " & Format(_Day, "dd.MM.yyyy"))

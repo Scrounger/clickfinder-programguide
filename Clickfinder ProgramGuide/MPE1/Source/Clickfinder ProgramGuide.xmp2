@@ -17,6 +17,13 @@
               <ZipFileName>Installer{CopyFile}\{27f6c236-1dac-4224-8c5b-38f73b1dc4b5}-ClickfinderProgramGuide.dll</ZipFileName>
               <DestinationFilename>%Plugins%\Windows\ClickfinderProgramGuide.dll</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>..\..\..\..\enrichEPG\enrichEPG\enrichEPG\bin\Release\enrichEPG.dll</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{7bb17388-f7d9-4e55-9cc5-f9eeb4f0ec38}-enrichEPG.dll</ZipFileName>
+              <DestinationFilename>%Base%\enrichEPG.dll</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -137,6 +144,13 @@
               <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\Clickfinder ProgramGuide\Arrow back.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{ef3b846b-88e4-4c15-b963-abec430ad952}-Arrow back.png</ZipFileName>
               <DestinationFilename>%Thumbs%\Clickfinder ProgramGuide\Arrow back.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\Clickfinder ProgramGuide\ClickfinderPG_logo.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{2e083140-27ba-463e-a304-84f5b436381d}-ClickfinderPG_logo.png</ZipFileName>
+              <DestinationFilename>%Thumbs%\Clickfinder ProgramGuide\ClickfinderPG_logo.png</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -328,13 +342,6 @@
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\BasicHomeExtraInfos.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{d3536eb0-4a91-4559-a6d9-e8a8d1ec17de}-BasicHomeExtraInfos.xml</ZipFileName>
-              <DestinationFilename>%Skin%\DefaultWide\BasicHomeExtraInfos.xml</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuideHighlights.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{bd32cbfa-76ec-4099-b29c-3dbf3e9e8eeb}-ClickfinderProgramGuideHighlights.xml</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\ClickfinderProgramGuideHighlights.xml</DestinationFilename>
@@ -394,6 +401,13 @@
               <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_recSeries.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{5fec72d7-b314-4ea5-87db-e748efc9dee0}-ClickfinderPG_recSeries.png</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_recSeries.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPGTvWish.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{08692190-6df4-4238-86c9-b145f9a7a1a7}-ClickfinderPGTvWish.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPGTvWish.png</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -636,12 +650,19 @@
               <ZipFileName>Installer{CopyFile}\{aff73ff2-11a4-41cf-bcd8-089ec0813e0d}-ClickfinderPG_recSeries.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_recSeries.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPGTvWish.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{53692cb7-7781-4444-8224-926bb88aa309}-ClickfinderPGTvWish.png</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPGTvWish.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
       <GroupItem Name="Skin: StreamedMP Mod TvOsd">
-        <ParentGroup />
-        <DisplayName>StreamedMP Mod Tv OSD</DisplayName>
+        <ParentGroup>Skin: StreamedMP</ParentGroup>
+        <DisplayName>MOD: Tv OSD</DisplayName>
         <DefaulChecked>false</DefaulChecked>
         <Description>Button im TvOsd: 
 Clickfinder Detail Gui für das laufende Tv-Program aufrufen</Description>
@@ -658,8 +679,8 @@ Clickfinder Detail Gui für das laufende Tv-Program aufrufen</Description>
         </Files>
       </GroupItem>
       <GroupItem Name="StreamedMP Mod MP-TvSeries.HiddenMenu">
-        <ParentGroup />
-        <DisplayName>StreamedMP Mod MP-TvSeries.HiddenMenu</DisplayName>
+        <ParentGroup>Skin: StreamedMP</ParentGroup>
+        <DisplayName>MOD: MP-TvSeries.HiddenMenu</DisplayName>
         <DefaulChecked>false</DefaulChecked>
         <Description>Button ("alle neuen Episoden") im HiddenMenu von MP-TvSeries:
 Öffnet die Gui EpisodePreview und zeigt euch alle neuen Episoden für die in MP-TvSeries selektierte Serie an.
@@ -672,6 +693,42 @@ Clickfinder Detail Gui für das laufende Tv-Program aufrufen</Description>
               <LocalFileName>..\..\bin\Release\Skin Mods\StreamedMP\TVSeries.Common.HiddenMenu.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{19317339-435a-4fd1-8406-650b2266e054}-TVSeries.Common.HiddenMenu.xml</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\TVSeries.Common.HiddenMenu.xml</DestinationFilename>
+            </FileItem>
+          </Items>
+        </Files>
+      </GroupItem>
+      <GroupItem Name="Skin: Default Wide BasicHomeOverlay">
+        <ParentGroup>Skin: Default Wide</ParentGroup>
+        <DisplayName>MOD: BasicHomeOverlay</DisplayName>
+        <DefaulChecked>true</DefaulChecked>
+        <Description>Ersetzt das BasicHome Overlay für Tv mit dem Clickfinder ProgramGuide BasicHome Overlay - zeigt euch die besten Filme des Tages an.</Description>
+        <Files>
+          <Items>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\Skin Mods\Default Wide\BasicHomeExtraInfos.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{2da65e20-ca15-4087-b392-302f3daa2a6c}-BasicHomeExtraInfos.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\BasicHomeExtraInfos.xml</DestinationFilename>
+            </FileItem>
+          </Items>
+        </Files>
+      </GroupItem>
+      <GroupItem Name="Skin: Default Wide Mod MP-TvSeries HiddenMenu">
+        <ParentGroup>Skin: Default Wide</ParentGroup>
+        <DisplayName>MOD: MP-TvSeries.HiddenMenu</DisplayName>
+        <DefaulChecked>false</DefaulChecked>
+        <Description>Button ("alle neuen Episoden") im HiddenMenu von MP-TvSeries:
+Öffnet die Gui EpisodePreview und zeigt euch alle neuen Episoden für die in MP-TvSeries selektierte Serie an.
+</Description>
+        <Files>
+          <Items>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\bin\Release\Skin Mods\Default Wide\TVSeries.HiddenMenu.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{9d922bc7-66d6-4c0b-983c-f2a709867644}-TVSeries.HiddenMenu.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\TVSeries.HiddenMenu.xml</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -733,14 +790,20 @@ Clickfinder Detail Gui für das laufende Tv-Program aufrufen</Description>
               <Description>Image in upper right part</Description>
             </SectionParam>
             <SectionParam Name="Readme text">
-              <Value>zwingend benötigt:
- - Tv Movie EPG Import++ (installiert auf eurem TvServer)
- - Tv Movie Clickfinder Software
+              <Value>kompatible MediaPortal Versionen
+- 1.2.3 (empfohlen)
+- 1.3.0 alpha
 
-optional:
- - MP-TvSeries
- - MovingPictures
- - OnlineVideos
+zwingend benötigt:
+- Tv Movie EPG Import++ (installiert auf eurem TvServer)
+- Tv Movie Clickfinder Software
+
+optional unterstützte plugins:
+- MP-TvSeries
+- MovingPictures
+- My Videos
+- OnlineVideos 
+- TvWishList
 
 mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
               <ValueType>String</ValueType>
@@ -793,6 +856,8 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
           <string>Skin: StreamedMP</string>
           <string>Skin: StreamedMP Mod TvOsd</string>
           <string>StreamedMP Mod MP-TvSeries.HiddenMenu</string>
+          <string>Skin: Default Wide BasicHomeOverlay</string>
+          <string>Skin: Default Wide Mod MP-TvSeries HiddenMenu</string>
         </IncludedGroups>
         <PanelName>Tree View Selector</PanelName>
         <WizardButtonsEnum>BackNextCancel</WizardButtonsEnum>
@@ -861,7 +926,19 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
               </Params>
               <ExecuteLocation>AfterPanelShow</ExecuteLocation>
             </ActionItem>
-            <ActionItem Name="ClearSkinCache" ActionType="ClearSkinCache" ConditionGroup="">
+            <ActionItem Name="InstallFiles" ActionType="InstallFiles" ConditionGroup="Skin: Default Wide BasicHomeOverlay">
+              <Params>
+                <Items />
+              </Params>
+              <ExecuteLocation>AfterPanelShow</ExecuteLocation>
+            </ActionItem>
+            <ActionItem Name="InstallFiles" ActionType="InstallFiles" ConditionGroup="Skin: Default Wide Mod MP-TvSeries HiddenMenu">
+              <Params>
+                <Items />
+              </Params>
+              <ExecuteLocation>AfterPanelShow</ExecuteLocation>
+            </ActionItem>
+            <ActionItem Name="ClearSkinCache" ActionType="ClearSkinCache" ConditionGroup="Plugin dll">
               <Params>
                 <Items />
               </Params>
@@ -882,6 +959,8 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
           <string>Skin: StreamedMP</string>
           <string>Skin: StreamedMP Mod TvOsd</string>
           <string>StreamedMP Mod MP-TvSeries.HiddenMenu</string>
+          <string>Skin: Default Wide BasicHomeOverlay</string>
+          <string>Skin: Default Wide Mod MP-TvSeries HiddenMenu</string>
         </IncludedGroups>
         <PanelName>Install Section</PanelName>
         <WizardButtonsEnum>Next</WizardButtonsEnum>
@@ -974,7 +1053,7 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>4</Build>
-      <Revision>8</Revision>
+      <Revision>9</Revision>
     </Version>
     <ExtensionDescription>This Plugin is a ProgramGuide based on the german EPG Data from the Tv Movie Clickfinder Provider (Software). It shows you information for different categories (e.g. Movies, Series, Doku,...), which television program is broadcasting now, at PrimeTime or at LateTime. There is also a Preview for the whole EPG timespan. The Data are sorted by the Rating of the TV Movie Clickfinder Plugin. This Plugin has a lot of configuration options, that gives the user the possibility to personalize the different views.
 
@@ -1374,7 +1453,7 @@ Requirements:
 
 </VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
-    <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_1.0.3.0.mpe1</OnlineLocation>
+    <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_1.0.4.9.mpe1</OnlineLocation>
     <ReleaseDate>2012-09-16T15:57:29</ReleaseDate>
     <Tags>programguide, tv movie, clickfinder, epg, tv</Tags>
     <Location>D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPE1\Clickfinder ProgramGuide_[Version].mpe1</Location>
@@ -1418,6 +1497,13 @@ Requirements:
         <LocalFileName>..\..\bin\Release\ClickfinderProgramGuide.dll</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{27f6c236-1dac-4224-8c5b-38f73b1dc4b5}-ClickfinderProgramGuide.dll</ZipFileName>
         <DestinationFilename>%Plugins%\Windows\ClickfinderProgramGuide.dll</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
+        <LocalFileName>..\..\..\..\enrichEPG\enrichEPG\enrichEPG\bin\Release\enrichEPG.dll</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{7bb17388-f7d9-4e55-9cc5-f9eeb4f0ec38}-enrichEPG.dll</ZipFileName>
+        <DestinationFilename>%Base%\enrichEPG.dll</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
@@ -1530,6 +1616,13 @@ Requirements:
         <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\Clickfinder ProgramGuide\Arrow back.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{ef3b846b-88e4-4c15-b963-abec430ad952}-Arrow back.png</ZipFileName>
         <DestinationFilename>%Thumbs%\Clickfinder ProgramGuide\Arrow back.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\thumbs\Clickfinder ProgramGuide\ClickfinderPG_logo.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{2e083140-27ba-463e-a304-84f5b436381d}-ClickfinderPG_logo.png</ZipFileName>
+        <DestinationFilename>%Thumbs%\Clickfinder ProgramGuide\ClickfinderPG_logo.png</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
@@ -1702,13 +1795,6 @@ Requirements:
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\BasicHomeExtraInfos.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{d3536eb0-4a91-4559-a6d9-e8a8d1ec17de}-BasicHomeExtraInfos.xml</ZipFileName>
-        <DestinationFilename>%Skin%\DefaultWide\BasicHomeExtraInfos.xml</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuideHighlights.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{bd32cbfa-76ec-4099-b29c-3dbf3e9e8eeb}-ClickfinderProgramGuideHighlights.xml</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\ClickfinderProgramGuideHighlights.xml</DestinationFilename>
@@ -1768,6 +1854,13 @@ Requirements:
         <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPG_recSeries.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{5fec72d7-b314-4ea5-87db-e748efc9dee0}-ClickfinderPG_recSeries.png</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPG_recSeries.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\Media\ClickfinderPGTvWish.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{08692190-6df4-4238-86c9-b145f9a7a1a7}-ClickfinderPGTvWish.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\ClickfinderPGTvWish.png</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
@@ -2000,6 +2093,13 @@ Requirements:
         <ZipFileName>Installer{CopyFile}\{aff73ff2-11a4-41cf-bcd8-089ec0813e0d}-ClickfinderPG_recSeries.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPG_recSeries.png</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\Media\ClickfinderPGTvWish.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{53692cb7-7781-4444-8224-926bb88aa309}-ClickfinderPGTvWish.png</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\Media\ClickfinderPGTvWish.png</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
@@ -2013,6 +2113,20 @@ Requirements:
         <LocalFileName>..\..\bin\Release\Skin Mods\StreamedMP\TVSeries.Common.HiddenMenu.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{19317339-435a-4fd1-8406-650b2266e054}-TVSeries.Common.HiddenMenu.xml</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\TVSeries.Common.HiddenMenu.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\Skin Mods\Default Wide\BasicHomeExtraInfos.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{2da65e20-ca15-4087-b392-302f3daa2a6c}-BasicHomeExtraInfos.xml</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\BasicHomeExtraInfos.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\bin\Release\Skin Mods\Default Wide\TVSeries.HiddenMenu.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{9d922bc7-66d6-4c0b-983c-f2a709867644}-TVSeries.HiddenMenu.xml</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\TVSeries.HiddenMenu.xml</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />

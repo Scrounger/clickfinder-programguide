@@ -47,7 +47,7 @@ Namespace ClickfinderProgramGuide
         Protected Overrides Sub OnPageLoad()
             MyBase.OnPageLoad()
 
-            Translator.SetProperty("#SettingLastUpdate", _TvSetting.GetSetting("TvMovieLastUpdate").Value)
+            GuiLayout.SetSettingLastUpdateProperty()
             TvSeries.Selected = CBool(_TvSetting.GetSetting("TvMovieImportTvSeriesInfos").Value)
 
             'MsgBox(Details_idProgram)

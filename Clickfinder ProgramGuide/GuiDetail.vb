@@ -75,14 +75,11 @@ Namespace ClickfinderProgramGuide
 
             Helper.CheckConnectionState()
 
+            GuiLayout.SetSettingLastUpdateProperty()
+
             If String.IsNullOrEmpty(_loadParameter) = False Then
                 Try
-                    If _layer.GetSetting("TvMovieImportIsRunning", "false").Value = "true" Then
-                        Translator.SetProperty("#SettingLastUpdate", Translation.ImportIsRunning)
-                        MyLog.Debug("[DetailGuiWindow] [OnPageLoad]: {0}", "TvMovie++ Import is running !")
-                    Else
-                        Translator.SetProperty("#SettingLastUpdate", GuiLayout.LastUpdateLabel)
-                    End If
+
 
 
 

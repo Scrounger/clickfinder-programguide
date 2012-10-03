@@ -80,7 +80,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\plugins\Windows\Dialogs.dll</HintPath>
     </Reference>
-    <Reference Include="enrichEPG, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="enrichEPG, Version=1.2.5.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\enrichEPG.dll</HintPath>
     </Reference>
@@ -225,7 +225,7 @@
     <Content Include="MediaPortal\language\ClickfinderPG\de.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="MediaPortal\Skin\DefaultWide\BasicHomeExtraInfos.xml">
+    <Content Include="Skin Mods\Default Wide\BasicHomeExtraInfos.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.HiddenMenu.xml">
@@ -477,6 +477,12 @@
     <Content Include="MediaPortal\thumbs\Clickfinder ProgramGuide\Categories\Tages Tipps.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="MediaPortal\thumbs\Clickfinder ProgramGuide\ClickfinderPG_logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skin Mods\Default Wide\TVSeries.HiddenMenu.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Skin Mods\StreamedMP\TVOSD.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -516,7 +522,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Enums\" />
-    <Folder Include="Skin Mods\Default Wide\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

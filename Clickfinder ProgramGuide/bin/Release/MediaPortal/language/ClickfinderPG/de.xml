@@ -101,12 +101,16 @@
   <string Field="SeriesInfos">Infos zur Serie</string>
   <string Field="Ended">beendet</string>
   <string Field="Continous">wird fortgesetzt</string>
-  <string Field="SeriesRefresh">Serien aktualisieren</string>
+  <string Field="DBRefresh">Mit Datenbanken abgleichen...</string>
   <string Field="EpisodeNotIdentify">Episode konnte nicht identifziert werden</string>
   <string Field="allNewEpisodes">alle neuen Episoden</string>
   <string Field="episodesNowExistLocal">Episode(n) lokal gefunden</string>
   <string Field="DataRefreshed">Daten wurden aktualisiert</string>
   <string Field="SeriesMappingAppend">Verlinkung hinzufügen</string>
-  <string Field="SeriesMappingOverwrite">Verlinkung ersetzen</string> 
-
+  <string Field="SeriesMappingOverwrite">Verlinkung ersetzen</string>
+  <string Field="DBRefreshStarted">Datenbank Ableich gestartet...</string>
+  <string Field="DBRefreshRunning">Datenbank Abgleich läuft...</string>
+  <string Field="DBRefreshFinished">Datenbank Abgleich erfolgreich!</string>
+  <string Field="RefreshOverlays">Overlays werden aktualisiert...</string>
+  
 </strings>

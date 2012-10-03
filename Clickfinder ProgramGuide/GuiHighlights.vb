@@ -87,6 +87,8 @@ Namespace ClickfinderProgramGuide
             MyLog.Info("")
             MyLog.Info("[HighlightsGuiWindow] -------------[OPEN]-------------")
 
+            GuiLayout.SetSettingLastUpdateProperty()
+
             Try
                 Translator.SetProperty("#CurrentDate", Translation.Loading)
 
@@ -942,7 +944,7 @@ Namespace ClickfinderProgramGuide
                                         If String.IsNullOrEmpty(_TvMovieProgram.ReferencedProgram.SeriesNum) = True Or String.IsNullOrEmpty(_TvMovieProgram.ReferencedProgram.EpisodeNum) Then
                                             lItemEpisode.Label3 = Translation.EpisodeNotIdentify
                                         Else
-                                            lItemEpisode.Label3 = "Staffel " & Format(CInt(_TvMovieProgram.ReferencedProgram.SeriesNum), "00") & ", Episode " & Format(CInt(_TvMovieProgram.ReferencedProgram.EpisodeNum), "00")
+                                            lItemEpisode.Label3 = Translation.Season & " " & Format(CInt(_TvMovieProgram.ReferencedProgram.SeriesNum), "00") & ", " & Translation.Episode & Format(CInt(_TvMovieProgram.ReferencedProgram.EpisodeNum), "00")
                                         End If
 
                                         lItemEpisode.IconImage = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieProgram.SeriesPosterImage

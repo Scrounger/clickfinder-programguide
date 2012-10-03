@@ -226,7 +226,15 @@ Namespace ClickfinderProgramGuide
             End Get
         End Property
 
-
+        Friend Shared Sub SetSettingLastUpdateProperty()
+            If Helper._DbAbgleichRuning = True Then
+                Translator.SetProperty("#SettingLastUpdate", Translation.DBRefreshRunning)
+            ElseIf _layer.GetSetting("TvMovieImportIsRunning", "false").Value = "true" Then
+                Translator.SetProperty("#SettingLastUpdate", Translation.ImportIsRunning)
+            Else
+                Translator.SetProperty("#SettingLastUpdate", GuiLayout.LastUpdateLabel)
+            End If
+        End Sub
         Friend Shared ReadOnly Property DetailOrgTitle(ByVal TvMovieProgram As TVMovieProgram) As String
             Get
                 If TvMovieProgram.idSeries > 0 And Not String.IsNullOrEmpty(TvMovieProgram.ReferencedProgram.SeriesNum) Then

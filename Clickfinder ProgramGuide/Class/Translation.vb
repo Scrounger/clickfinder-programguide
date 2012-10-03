@@ -107,13 +107,20 @@ Public NotInheritable Class Translation
     Public Shared SeriesInfos As String = "Infos zur Serie"
     Public Shared Ended As String = "beendet"
     Public Shared Continous As String = "wird fortgesetzt"
-    Public Shared SeriesRefresh As String = "Serien aktualisieren"
+
     Public Shared EpisodeNotIdentify As String = "Episode konnte nicht identifziert werden"
     Public Shared allNewEpisodes As String = "alle neuen Episoden"
     Public Shared episodesNowExistLocal As String = "Episode(n) lokal gefunden"
     Public Shared DataRefreshed As String = "Daten wurden aktualisiert"
     Public Shared SeriesMappingAppend As String = "Verlinkung hinzufügen"
     Public Shared SeriesMappingOverwrite As String = "Verlinkung ersetzen"
+
+    Public Shared DBRefresh As String = "Mit Datenbanken abgleichen..."
+    Public Shared DBRefreshStarted As String = "Datenbank Ableich gestartet..."
+    Public Shared DBRefreshRunning As String = "Datenbank Abgleich läuft..."
+    Public Shared DBRefreshFinished As String = "Datenbank Abgleich erfolgreich!"
+    Public Shared RefreshOverlays As String = "Overlays werden aktualisiert..."
+
 
 End Class
 

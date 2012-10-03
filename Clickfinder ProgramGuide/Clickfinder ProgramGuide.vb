@@ -46,7 +46,7 @@ Namespace ClickfinderProgramGuide
 
         Private Shared _layer As New TvBusinessLayer
         Private _stateTimer As System.Timers.Timer
-        Friend _OverlayStartupLoaded As Boolean = False
+        Friend Shared _OverlayStartupLoaded As Boolean = False
         Friend Shared _DebugModeOn As Boolean = False
 #End Region
 
@@ -154,12 +154,7 @@ Namespace ClickfinderProgramGuide
 
             Try
 
-                If _layer.GetSetting("TvMovieImportIsRunning", "false").Value = "true" Then
-                    Translator.SetProperty("#SettingLastUpdate", Translation.ImportIsRunning)
-                    MyLog.Debug("[HighlightsGuiWindow] [OnPageLoad]: {0}", "TvMovie++ Import is running !")
-                Else
-                    Translator.SetProperty("#SettingLastUpdate", GuiLayout.LastUpdateLabel)
-                End If
+                
 
                 Helper.LogSettings()
 
@@ -243,7 +238,7 @@ Namespace ClickfinderProgramGuide
 
 #Region "Functions"
 
-        Private Sub RefreshOverlays()
+        Friend Shared Sub RefreshOverlays()
 
             'Movie Overlay aktualisieren
             'MyLog.Debug("[PreInit] [RefreshOverlays]: Thread started")
@@ -268,7 +263,7 @@ Namespace ClickfinderProgramGuide
 
         End Sub
 
-        Private Sub ClickfinderProgramGuideOverlayMovies()
+        Friend Shared Sub ClickfinderProgramGuideOverlayMovies()
             Dim _lastTitle As String = String.Empty
             Dim _ItemCounter As Integer = 0
             Dim _timeLabel As String = String.Empty

@@ -59,7 +59,7 @@ Public Class TVSeriesDB
                 Try
                     m_db.Close()
                     m_db.Dispose()
-                    MyLog.Debug("TVMovie: [OpenTvSeriesDB]: Disposing current instance..")
+                    MyLog.Debug("[OpenTvSeriesDB]: Disposing current instance..")
                 Catch generatedExceptionName As Exception
                 End Try
             End If
@@ -77,12 +77,11 @@ Public Class TVSeriesDB
 
                 DatabaseUtility.SetPragmas(m_db)
             Else
-                MyLog.Error("TVMovie: [OpenTvSeriesDB]: TvSeries Database not found: {0}", layer.GetSetting("TvMovieMPDatabase", "%ProgramData%\Team MediaPortal\MediaPortal\database").Value & "\TVSeriesDatabase4.db3")
+                MyLog.Error("[OpenTvSeriesDB]: TvSeries Database not found: {0}", layer.GetSetting("TvMovieMPDatabase", "%ProgramData%\Team MediaPortal\MediaPortal\database").Value & "\TVSeriesDatabase4.db3")
             End If
 
-
         Catch ex As Exception
-            MyLog.Error("TVMovie: [OpenTvSeriesDB]: TvSeries Database exception err:{0} stack:{1}", ex.Message, ex.StackTrace)
+            MyLog.Error("[OpenTvSeriesDB]: TvSeries Database exception err:{0} stack:{1}", ex.Message, ex.StackTrace)
             OpenTvSeriesDB()
         End Try
         'Mylog.Info("picture database opened")
