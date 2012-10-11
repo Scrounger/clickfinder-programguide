@@ -193,6 +193,7 @@ Namespace ClickfinderProgramGuide
                     Dim stmt As SqlStatement = sb.GetStatement(True)
                     Dim _SeriesFoundList As IList(Of TVMovieProgram) = ObjectFactory.GetCollection(GetType(TVMovieProgram), stmt.Execute())
 
+
                     'Serie gefunden
                     If _SeriesFoundList.Count > 0 Then
                         _selectedSeries = _SeriesFoundList(0)
@@ -511,6 +512,8 @@ Namespace ClickfinderProgramGuide
             '    _LastFocusedControlID = _SeriesList.GetID
             'End If
 
+            Dispose()
+            AllocResources()
             MyBase.OnPageDestroy(new_windowId)
 
         End Sub
@@ -609,13 +612,14 @@ Namespace ClickfinderProgramGuide
 #Region "functions"
         Private Sub FillSeriesList()
 
+            _SeriesList.AllocResources()
+            _SeriesList.Visible = False
+            _SeriesList.Clear()
+            _RepeatsList.AllocResources()
+            _RepeatsList.Visible = False
+            _RepeatsList.Clear()
+
             If _SeriesListItemCache.Count > 0 Then
-                _SeriesList.Visible = False
-                _SeriesList.Clear()
-                _RepeatsList.Visible = False
-                _RepeatsList.Clear()
-
-
                 _SeriesList.ListItems.AddRange(_SeriesListItemCache)
                 _SeriesList.Visible = True
 
@@ -635,11 +639,6 @@ Namespace ClickfinderProgramGuide
                 Translator.SetProperty("#EpisodesPreviewEpisodeDescription", "")
 
                 Try
-                    _SeriesList.Visible = False
-                    _SeriesList.Clear()
-                    _RepeatsList.Visible = False
-                    _RepeatsList.Clear()
-
 
                     Dim _Result As New ArrayList
                     Dim _DummySeriesResult As New ArrayList
@@ -738,8 +737,12 @@ Namespace ClickfinderProgramGuide
                 Translator.SetProperty("#EpisodePreviewLabel", Translation.NewEpisodes & ": " & _selectedSeries.ReferencedProgram.Title)
                 Translator.SetProperty("#EpisodesPreviewSeriesHeaderLabel", Translation.Repeats)
 
+                _SeriesList.AllocResources()
                 _SeriesList.Visible = False
                 _SeriesList.Clear()
+                _RepeatsList.AllocResources()
+                _RepeatsList.Visible = False
+                _RepeatsList.Clear()
 
                 'Neue Episoden der Serie laden
                 SQLstring = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
@@ -843,6 +846,7 @@ Namespace ClickfinderProgramGuide
                         Helper.UpdateProgramData(_EpisodeInfos)
                     End If
 
+                    _RepeatsList.AllocResources()
                     _RepeatsList.Visible = False
                     _RepeatsList.Clear()
 
