@@ -1010,6 +1010,9 @@ Public Class Setup
                 setting.Value = CStr(3)
                 setting.Persist()
 
+                setting = _layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false")
+                setting.Value = CStr(False)
+                setting.Persist()
 
                 setting = _layer.GetSetting("ClickfinderOverlayUpdateTimer", "20")
                 setting.Value = "20"
@@ -1018,7 +1021,7 @@ Public Class Setup
                 CreateClickfinderCategoriesTable()
                 CreateClickfinderCategories()
                 Filldgv()
-                MyLog.[Debug]("[ButtonDefaultSettings_Click]: Default settings restored!")
+                MyLog.Info("[ButtonDefaultSettings_Click]: Default settings restored!")
 
                 Me.Close()
             Catch ex As Exception
