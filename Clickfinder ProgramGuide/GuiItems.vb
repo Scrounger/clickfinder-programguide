@@ -139,7 +139,9 @@ Namespace ClickfinderProgramGuide
 
             AbortRunningThreads()
 
-            'GC.Collect()
+            Dispose()
+            AllocResources()
+
             MyBase.OnPageDestroy(new_windowId)
         End Sub
 
@@ -543,7 +545,9 @@ Namespace ClickfinderProgramGuide
 
             _isAbortException = False
 
+
             _leftList.Visible = False
+            _leftList.AllocResources()
             _leftList.Clear()
 
             For i = 1 To 6
@@ -636,7 +640,9 @@ Namespace ClickfinderProgramGuide
 
             _isAbortException = False
 
+
             _rightList.Visible = False
+            _rightList.AllocResources()
             _rightList.Clear()
 
             For i = 7 To 12

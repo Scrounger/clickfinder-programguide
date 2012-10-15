@@ -621,6 +621,10 @@ Namespace ClickfinderProgramGuide
 
             If _SeriesListItemCache.Count > 0 Then
                 _SeriesList.ListItems.AddRange(_SeriesListItemCache)
+                '_SeriesList.SetNeedRefresh()
+                _SeriesList.SetNeedRefresh()
+                _SeriesList.NeedRefresh()
+
                 _SeriesList.Visible = True
 
                 GUIListControl.SelectItemControl(GetID, _SeriesList.GetID, _LastFocusedSeriesIndex)

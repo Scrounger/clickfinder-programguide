@@ -235,7 +235,9 @@ Namespace ClickfinderProgramGuide
                 ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
             End Try
 
-            'GC.Collect()
+            Dispose()
+            AllocResources()
+
             MyBase.OnPageDestroy(new_windowId)
         End Sub
 
@@ -581,6 +583,7 @@ Namespace ClickfinderProgramGuide
 
             Try
                 _PreviewList.Visible = False
+                _PreviewList.AllocResources()
                 _PreviewList.Clear()
 
                 Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowProgressbar)

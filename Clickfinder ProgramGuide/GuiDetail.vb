@@ -151,8 +151,11 @@ Namespace ClickfinderProgramGuide
         End Sub
 
         Protected Overrides Sub OnPageDestroy(ByVal new_windowId As Integer)
-            'MsgBox("Hallo")
-            'GC.Collect()
+
+            Dispose()
+            AllocResources()
+
+
             MyBase.OnPageDestroy(new_windowId)
         End Sub
 

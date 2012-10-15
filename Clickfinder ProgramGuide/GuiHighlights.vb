@@ -326,9 +326,8 @@ Namespace ClickfinderProgramGuide
             AbortRunningThreads()
 
 
-
-
-            'GC.Collect()
+            Dispose()
+            AllocResources()
 
             MyBase.OnPageDestroy(new_windowId)
 
@@ -389,7 +388,9 @@ Namespace ClickfinderProgramGuide
             Dim _LogLocalSortedBy As String = String.Empty
             Dim _logShowTagesTipp As String = "false"
 
+
             _MovieList.Visible = False
+            _MovieList.AllocResources()
 
             MyLog.Debug("")
             MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: Thread started")
@@ -597,8 +598,11 @@ Namespace ClickfinderProgramGuide
             MyLog.Debug("[HighlightsGUIWindow] [FillHighlightsList]: Thread started")
 
             Try
+                
                 _HighlightsList.Visible = False
                 _HighlightsList.Clear()
+                _HighlightsList.AllocResources()
+
 
                 Dim _Result As New ArrayList
 
@@ -608,7 +612,7 @@ Namespace ClickfinderProgramGuide
                 If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True Then
                     Try
 
-                    
+
                         Dim _SeriesResult As New ArrayList
                         Dim _ListTvMovieProgram As New List(Of TVMovieProgram)
 

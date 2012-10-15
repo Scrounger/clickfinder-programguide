@@ -1053,7 +1053,7 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>5</Build>
-      <Revision>0</Revision>
+      <Revision>1</Revision>
     </Version>
     <ExtensionDescription>This Plugin is a ProgramGuide based on the german EPG Data from the Tv Movie Clickfinder Provider (Software). It shows you information for different categories (e.g. Movies, Series, Doku,...), which television program is broadcasting now, at PrimeTime or at LateTime. There is also a Preview for the whole EPG timespan. The Data are sorted by the Rating of the TV Movie Clickfinder Plugin. This Plugin has a lot of configuration options, that gives the user the possibility to personalize the different views.
 
@@ -1454,7 +1454,7 @@ Requirements:
 </VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
     <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_1.0.4.9.mpe1</OnlineLocation>
-    <ReleaseDate>2012-09-16T15:57:29</ReleaseDate>
+    <ReleaseDate>2012-10-15T15:57:29</ReleaseDate>
     <Tags>programguide, tv movie, clickfinder, epg, tv</Tags>
     <Location>D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPE1\Clickfinder ProgramGuide_[Version].mpe1</Location>
     <Params>
