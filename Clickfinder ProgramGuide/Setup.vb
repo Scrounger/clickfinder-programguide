@@ -938,90 +938,103 @@ Public Class Setup
 
             Try
 
-                Dim setting As Setting = _layer.GetSetting("ClickfinderDatabasePath", "")
-                setting.Value = ""
-                setting.Persist()
+                Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(Setting))
+                sb.AddConstraint([Operator].Like, "tag", "Clickfinder%")
+                Dim stmt As SqlStatement = sb.GetStatement(True)
+                Dim _Result As IList(Of Setting) = ObjectFactory.GetCollection(GetType(Setting), stmt.Execute())
 
-                setting = _layer.GetSetting("ClickfinderImagePath", "false")
-                setting.Value = ""
-                setting.Persist()
+                If _Result.Count > 0 Then
+                    For i = 0 To _Result.Count - 1
+                        MyLog.Debug("Deleting settings: tag: {0}, value: {1}", _Result(i).Tag, _Result(i).Value)
+                        _Result(i).Remove()
+                    Next
+                End If
 
-                setting = _layer.GetSetting("ClickfinderEpisodenScanner", "")
-                setting.Value = ""
-                setting.Persist()
 
-                setting = _layer.GetSetting("ClickfinderOverviewShowMoviesAfter", "12")
-                setting.Value = CStr(12)
-                setting.Persist()
+                'Dim setting As Setting = _layer.GetSetting("ClickfinderDatabasePath", "")
+                'setting.Value = ""
+                'setting.Persist()
 
-                setting = _layer.GetSetting("ClickfinderOverviewShowHighlightsAfter", "15")
-                setting.Value = CStr(15)
-                setting.Persist()
+                'setting = _layer.GetSetting("ClickfinderImagePath", "false")
+                'setting.Value = ""
+                'setting.Persist()
 
-                setting = _layer.GetSetting("ClickfinderOverviewHighlightsMinRuntime", "16")
-                setting.Value = CStr(16)
-                setting.Persist()
+                'setting = _layer.GetSetting("ClickfinderEpisodenScanner", "")
+                'setting.Value = ""
+                'setting.Persist()
 
-                setting = _layer.GetSetting("ClickfinderOverviewMaxDays", "14")
-                setting.Value = CStr(14)
-                setting.Persist()
+                'setting = _layer.GetSetting("ClickfinderOverviewShowMoviesAfter", "12")
+                'setting.Value = CStr(12)
+                'setting.Persist()
 
-                setting = _layer.GetSetting("ClickfinderPrimeTime", "20:15")
-                setting.Value = "20:15"
-                setting.Persist()
+                'setting = _layer.GetSetting("ClickfinderOverviewShowHighlightsAfter", "15")
+                'setting.Value = CStr(15)
+                'setting.Persist()
 
-                setting = _layer.GetSetting("ClickfinderLateTime", "22:00")
-                setting.Value = "22:00"
-                setting.Persist()
+                'setting = _layer.GetSetting("ClickfinderOverviewHighlightsMinRuntime", "16")
+                'setting.Value = CStr(16)
+                'setting.Persist()
 
-                setting = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels")
-                setting.Value = "All Channels"
-                setting.Persist()
+                'setting = _layer.GetSetting("ClickfinderOverviewMaxDays", "14")
+                'setting.Value = CStr(14)
+                'setting.Persist()
 
-                setting = _layer.GetSetting("ClickfinderQuickTvGroup1", "All Channels")
-                setting.Value = "All Channels"
-                setting.Persist()
+                'setting = _layer.GetSetting("ClickfinderPrimeTime", "20:15")
+                'setting.Value = "20:15"
+                'setting.Persist()
 
-                setting = _layer.GetSetting("ClickfinderQuickTvGroup2", "All Channels")
-                setting.Value = "All Channels"
-                setting.Persist()
+                'setting = _layer.GetSetting("ClickfinderLateTime", "22:00")
+                'setting.Value = "22:00"
+                'setting.Persist()
 
-                setting = _layer.GetSetting("ClickfinderPluginName", "Clickfinder ProgramGuide")
-                setting.Value = "Clickfinder ProgramGuide"
-                setting.Persist()
+                'setting = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels")
+                'setting.Value = "All Channels"
+                'setting.Persist()
 
-                setting = _layer.GetSetting("ClickfinderOverlayMovieLimit", "10")
-                setting.Value = "10"
-                setting.Persist()
+                'setting = _layer.GetSetting("ClickfinderQuickTvGroup1", "All Channels")
+                'setting.Value = "All Channels"
+                'setting.Persist()
 
-                setting = _layer.GetSetting("ClickfinderOverlayTvGroup", "All Channels")
-                setting.Value = "All Channels"
-                setting.Persist()
+                'setting = _layer.GetSetting("ClickfinderQuickTvGroup2", "All Channels")
+                'setting.Value = "All Channels"
+                'setting.Persist()
 
-                setting = _layer.GetSetting("ClickfinderStartGui", "Highlights")
-                setting.Value = "Highlights"
-                setting.Persist()
+                'setting = _layer.GetSetting("ClickfinderPluginName", "Clickfinder ProgramGuide")
+                'setting.Value = "Clickfinder ProgramGuide"
+                'setting.Persist()
 
-                setting = _layer.GetSetting("ClickfinderPreviewMaxDays", "14")
-                setting.Value = CStr(14)
-                setting.Persist()
+                'setting = _layer.GetSetting("ClickfinderOverlayMovieLimit", "10")
+                'setting.Value = "10"
+                'setting.Persist()
 
-                setting = _layer.GetSetting("ClickfinderPreviewMinTvMovieRating", "3")
-                setting.Value = CStr(3)
-                setting.Persist()
+                'setting = _layer.GetSetting("ClickfinderOverlayTvGroup", "All Channels")
+                'setting.Value = "All Channels"
+                'setting.Persist()
 
-                setting = _layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false")
-                setting.Value = CStr(False)
-                setting.Persist()
+                'setting = _layer.GetSetting("ClickfinderStartGui", "Highlights")
+                'setting.Value = "Highlights"
+                'setting.Persist()
 
-                setting = _layer.GetSetting("ClickfinderOverlayUpdateTimer", "20")
-                setting.Value = "20"
-                setting.Persist()
+                'setting = _layer.GetSetting("ClickfinderPreviewMaxDays", "14")
+                'setting.Value = CStr(14)
+                'setting.Persist()
 
-                CreateClickfinderCategoriesTable()
-                CreateClickfinderCategories()
-                Filldgv()
-                MyLog.Info("[ButtonDefaultSettings_Click]: Default settings restored!")
+                'setting = _layer.GetSetting("ClickfinderPreviewMinTvMovieRating", "3")
+                'setting.Value = CStr(3)
+                'setting.Persist()
+
+                'setting = _layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false")
+                'setting.Value = CStr(False)
+                'setting.Persist()
+
+                'setting = _layer.GetSetting("ClickfinderOverlayUpdateTimer", "20")
+                'setting.Value = "20"
+                'setting.Persist()
+
+                'CreateClickfinderCategoriesTable()
+                'CreateClickfinderCategories()
+                'Filldgv()
+                'MyLog.Info("[ButtonDefaultSettings_Click]: Default settings restored!")
 
                 Me.Close()
             Catch ex As Exception
