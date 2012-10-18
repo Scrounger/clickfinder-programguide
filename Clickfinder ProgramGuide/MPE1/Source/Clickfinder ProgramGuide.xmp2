@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Version>2.0</Version>
   <Groups>
@@ -23,6 +23,13 @@
               <LocalFileName>..\..\..\..\enrichEPG\enrichEPG\enrichEPG\bin\Release\enrichEPG.dll</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{7bb17388-f7d9-4e55-9cc5-f9eeb4f0ec38}-enrichEPG.dll</ZipFileName>
               <DestinationFilename>%Base%\enrichEPG.dll</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\..\..\..\enrichEPG\enrichEPG\enrichEPG\bin\Release\TvdbLib.dll</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{7d63d2b0-4e5d-4f49-87ff-ddefe6e40d14}-TvdbLib.dll</ZipFileName>
+              <DestinationFilename>%Base%\TvdbLib.dll</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -1012,9 +1019,9 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
         </MinVersion>
         <MaxVersion>
           <Major>1</Major>
-          <Minor>1</Minor>
-          <Build>6</Build>
-          <Revision>27644</Revision>
+          <Minor>3</Minor>
+          <Build>0</Build>
+          <Revision>0</Revision>
         </MaxVersion>
         <WarnOnly>false</WarnOnly>
         <Message>requires MediaPortal version 1.1.6.27644 to 1.1.6.27644.</Message>
@@ -1052,8 +1059,8 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
     <Version>
       <Major>1</Major>
       <Minor>0</Minor>
-      <Build>5</Build>
-      <Revision>3</Revision>
+      <Build>6</Build>
+      <Revision>0</Revision>
     </Version>
     <ExtensionDescription>This Plugin is a ProgramGuide based on the german EPG Data from the Tv Movie Clickfinder Provider (Software). It shows you information for different categories (e.g. Movies, Series, Doku,...), which television program is broadcasting now, at PrimeTime or at LateTime. There is also a Preview for the whole EPG timespan. The Data are sorted by the Rating of the TV Movie Clickfinder Plugin. This Plugin has a lot of configuration options, that gives the user the possibility to personalize the different views.
 
@@ -1440,21 +1447,25 @@ Requirements:
 
 
 - Tv Movie EPG Import++ plugin (newest version)</ExtensionDescription>
-    <VersionDescription>=== Version: 1.0.4.8 ===
+    <VersionDescription>=== Version: 1.0.6.0 ===
+
+a lot of changes, please read the Wiki or the forum post !!!
 
   * New Gui: Episode Preview
-  * hyperlink parameters supported (Gui Detail and Gui Episode Preview)
+  * hyperlink parameters supported (Gui Detail, Gui Categories &amp; Gui Episode Preview)
   * show diffrent recording icon if is scheduled recordings on an other day (Gui Highlights, Gui Episode Preview and Overlay)
-  * Configuration restore default settings button added
-  * Configuration Overlay update timer added 
+  * start from Gui: Compare EPG with your MP databases MP-!TvSeries, Mov.Pic, etc.
+  * !TvWishList integrated
+  * Configuration: restore default settings button added
+  * Configuration: Overlay update timer added 
   * Overlay code has been revised -&gt; better preformance
-  * Gui Highlights ShowNewEpisode code has been revised -&gt; better preformance
+  * Gui Highlights !ShowNewEpisodes code has been revised -&gt; better preformance  
   * and a lot of bug fixes
 
 </VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
-    <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_1.0.4.9.mpe1</OnlineLocation>
-    <ReleaseDate>2012-10-15T15:57:29</ReleaseDate>
+    <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_1.0.6.0.mpe1</OnlineLocation>
+    <ReleaseDate>2012-10-18T15:57:29</ReleaseDate>
     <Tags>programguide, tv movie, clickfinder, epg, tv</Tags>
     <Location>D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPE1\Clickfinder ProgramGuide_[Version].mpe1</Location>
     <Params>
@@ -1504,6 +1515,13 @@ Requirements:
         <LocalFileName>..\..\..\..\enrichEPG\enrichEPG\enrichEPG\bin\Release\enrichEPG.dll</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{7bb17388-f7d9-4e55-9cc5-f9eeb4f0ec38}-enrichEPG.dll</ZipFileName>
         <DestinationFilename>%Base%\enrichEPG.dll</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\..\..\..\enrichEPG\enrichEPG\enrichEPG\bin\Release\TvdbLib.dll</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{7d63d2b0-4e5d-4f49-87ff-ddefe6e40d14}-TvdbLib.dll</ZipFileName>
+        <DestinationFilename>%Base%\TvdbLib.dll</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />

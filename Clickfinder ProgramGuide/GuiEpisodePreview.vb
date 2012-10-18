@@ -809,10 +809,10 @@ Namespace ClickfinderProgramGuide
                                 End Select
                             End If
                         End If
+
+                        AddListControlItem(_SeriesList, _Episode.ReferencedProgram.IdProgram, _Episode.ReferencedProgram.ReferencedChannel.DisplayName, _Episode.ReferencedProgram.EpisodeName, _timeLabel, _infoLabel, Config.GetFile(Config.Dir.Thumbs, "tv\logos\") & Replace(_Episode.ReferencedProgram.ReferencedChannel.DisplayName, "/", "_") & ".png", , _RecordingStatus)
+
                     End If
-
-                    AddListControlItem(_SeriesList, _Episode.ReferencedProgram.IdProgram, _Episode.ReferencedProgram.ReferencedChannel.DisplayName, _Episode.ReferencedProgram.EpisodeName, _timeLabel, _infoLabel, Config.GetFile(Config.Dir.Thumbs, "tv\logos\") & Replace(_Episode.ReferencedProgram.ReferencedChannel.DisplayName, "/", "_") & ".png", , _RecordingStatus)
-
                 Next
 
                 _SeriesList.Visible = True

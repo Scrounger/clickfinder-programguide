@@ -117,19 +117,6 @@
           <onright>10</onright>
           <visible>plugin.isenabled(MP-TV Series)</visible>
         </control>
-        <control>
-          <description>EpisodesPreview</description>
-          <type>button</type>
-          <id>201</id>
-          <hyperlink>1656544657</hyperlink>
-          <hyperlinkParameter>idSeries: 208111</hyperlinkParameter>
-          <label>Hyperlink Para Test</label>
-          <textalign>center</textalign>
-          <onup>7</onup>
-          <ondown>2</ondown>
-          <onright>10</onright>
-          <visible>plugin.isenabled(MP-TV Series)</visible>
-        </control>
       </control>
     </control>
   </controls>

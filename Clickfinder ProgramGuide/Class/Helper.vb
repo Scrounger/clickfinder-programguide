@@ -56,6 +56,8 @@ Public Class Helper
             Return "ORDER BY parentalRating DESC, starRating DESC, startTime ASC, title ASC, TVMovieBewertung DESC"
         End Get
     End Property
+
+  
 #End Region
 
     Friend Enum SortMethode
@@ -340,11 +342,19 @@ Public Class Helper
             _DbAbgleichRuning = True
             GuiLayout.SetSettingLastUpdateProperty()
 
+            Dim _EpisodenScannerPath As String = String.Empty
+
+            If Not String.IsNullOrEmpty(_layer.GetSetting("ClickfinderEpisodenScanner", "").Value) Then
+                _EpisodenScannerPath = IO.Path.GetDirectoryName(_layer.GetSetting("ClickfinderEpisodenScanner", "").Value)
+            End If
+
             Dim enrichEPG As New enrichEPG.EnrichEPG(Config.GetFile(Config.Dir.Database, ""), _
                                                      _layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value, _
                                                      _layer.GetSetting("TvMovieImportVideoDatabaseInfos", "false").Value, _
                                                      _layer.GetSetting("TvMovieImportMovingPicturesInfos", "false").Value, _
-                                                     Date.Now, Global.enrichEPG.EnrichEPG.LogPath.Client, IO.Path.GetDirectoryName(_layer.GetSetting("ClickfinderEpisodenScanner", "").Value), , , "ClickfinderProgramGuide_enrichEPG.log", , , Config.GetFile(Config.Dir.Thumbs, ""))
+                                                     Date.Now, Global.enrichEPG.EnrichEPG.LogPath.Client, _EpisodenScannerPath, , , _
+                                                     "ClickfinderProgramGuide_enrichEPG.log", CBool(_layer.GetSetting("TvMovieUseTheTvDb", "false").Value), , _
+                                                     Config.GetFile(Config.Dir.Thumbs, ""))
 
             Dim _enrichEPGThread As New Thread(AddressOf enrichEPG.start)
 
@@ -693,18 +703,40 @@ Public Class Helper
 
     Friend Shared Sub LogSettings()
         Dim _tvbLayer As New TvBusinessLayer
-        MyLog.Debug("")
-        MyLog.Debug("******* Settings *******")
-        MyLog.Debug("[TvMovie++] TvServer provider: {0}", Gentle.Framework.Broker.ProviderName)
-        MyLog.Debug("[TvMovie++] MediaPortal database path: {0}", _tvbLayer.GetSetting("TvMovieMPDatabase").Value)
-        MyLog.Debug("[TvMovie++] TvMovie database path: {0}", _tvbLayer.GetSetting("TvMoviedatabasepath").Value)
-        MyLog.Debug("[TvMovie++] run App after: {0}", _tvbLayer.GetSetting("TvMovieRunAppAfter").Value)
-        MyLog.Debug("[TvMovie++] is EpisodenScanner: {0}", _tvbLayer.GetSetting("TvMovieIsEpisodenScanner").Value)
-        MyLog.Debug("[TvMovie++] Import Mp-TvSeries Infos: {0}", _tvbLayer.GetSetting("TvMovieImportTvSeriesInfos").Value)
-        MyLog.Debug("[TvMovie++] Import MovingPictures Infos: {0}", _tvbLayer.GetSetting("TvMovieImportMovingPicturesInfos").Value)
-        MyLog.Debug("[TvMovie++] Import VideoDatabase Infos: {0}", _tvbLayer.GetSetting("TvMovieImportVideoDatabaseInfos").Value)
-        MyLog.Debug("[TvMovie++] Import Clickfinder ProgramGuide Infos: {0}", _tvbLayer.GetSetting("ClickfinderDataAvailable").Value)
 
+        MyLog.Debug("******* Settings TvMovie EPG Import++ plugin (TvServer) *******")
+        Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(Setting))
+        sb.AddConstraint([Operator].Like, "tag", "Clickfinder%")
+        sb.AddOrderByField(True, "tag")
+        Dim stmt As SqlStatement = sb.GetStatement(True)
+        Dim _Result As IList(Of Setting) = ObjectFactory.GetCollection(GetType(Setting), stmt.Execute())
+
+        MyLog.Debug("")
+        MyLog.Debug("******* Settings ClickfinderProgramGuide *******")
+        If _Result.Count > 0 Then
+            For i = 0 To _Result.Count - 1
+                MyLog.Debug("[ClickfinderProgramGuide]: {0} = {1}", _Result(i).Tag, _Result(i).Value)
+            Next
+        Else
+            MyLog.Error("[ClickfinderProgramGuide]: Keine settings gefunden !!!")
+        End If
+
+        MyLog.Debug("")
+        MyLog.Debug("******* Settings TvMovie EPG Import++ plugin (TvServer) *******")
+        Dim sb2 As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(Setting))
+        sb2.AddConstraint([Operator].Like, "tag", "TvMovie%")
+        sb2.AddOrderByField(True, "tag")
+        Dim stmt2 As SqlStatement = sb2.GetStatement(True)
+        Dim _Result2 As IList(Of Setting) = ObjectFactory.GetCollection(GetType(Setting), stmt2.Execute())
+
+        MyLog.Debug("[TvMovie++]: TvServer provider = {0}", Gentle.Framework.Broker.ProviderName)
+        If _Result2.Count > 0 Then
+            For i = 0 To _Result2.Count - 1
+                MyLog.Debug("[TvMovie++]: {0} = {1}", _Result2(i).Tag, _Result2(i).Value)
+            Next
+        Else
+            MyLog.Error("[TvMovie++]: Keine settings gefunden !!!")
+        End If
     End Sub
 
     Friend Shared Sub UpdateProgramData(ByVal TvMovieProgram As TVMovieProgram)

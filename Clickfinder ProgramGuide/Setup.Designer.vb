@@ -180,6 +180,7 @@ Partial Class Setup
         Me.Panel1 = New System.Windows.Forms.Panel
         Me.ButtonDefaultSettings = New System.Windows.Forms.Button
         Me.Panel2 = New System.Windows.Forms.Panel
+        Me.CheckBoxUseTheTvDb = New MediaPortal.UserInterface.Controls.MPCheckBox
         Me.TabControl1.SuspendLayout()
         Me.TabAllgemeines.SuspendLayout()
         Me.Panel13.SuspendLayout()
@@ -322,7 +323,7 @@ Partial Class Setup
         Me.CheckBoxDebugMode.AutoSize = True
         Me.CheckBoxDebugMode.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.CheckBoxDebugMode.Dock = System.Windows.Forms.DockStyle.Top
-        Me.CheckBoxDebugMode.Location = New System.Drawing.Point(3, 661)
+        Me.CheckBoxDebugMode.Location = New System.Drawing.Point(3, 655)
         Me.CheckBoxDebugMode.Name = "CheckBoxDebugMode"
         Me.CheckBoxDebugMode.Size = New System.Drawing.Size(779, 20)
         Me.CheckBoxDebugMode.TabIndex = 7
@@ -334,7 +335,7 @@ Partial Class Setup
         '
         Me.Panel13.Controls.Add(Me.GroupBox4)
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel13.Location = New System.Drawing.Point(3, 533)
+        Me.Panel13.Location = New System.Drawing.Point(3, 527)
         Me.Panel13.Name = "Panel13"
         Me.Panel13.Padding = New System.Windows.Forms.Padding(10, 5, 10, 10)
         Me.Panel13.Size = New System.Drawing.Size(779, 128)
@@ -344,6 +345,7 @@ Partial Class Setup
         '
         Me.GroupBox4.AutoSize = True
         Me.GroupBox4.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox4.Controls.Add(Me.CheckBoxUseTheTvDb)
         Me.GroupBox4.Controls.Add(Me.CheckBoxVideoDB)
         Me.GroupBox4.Controls.Add(Me.CheckBoxMovingPictures)
         Me.GroupBox4.Controls.Add(Me.CheckBoxTvSeries)
@@ -432,7 +434,7 @@ Partial Class Setup
         Me.Panel12.Location = New System.Drawing.Point(3, 428)
         Me.Panel12.Name = "Panel12"
         Me.Panel12.Padding = New System.Windows.Forms.Padding(10, 10, 10, 5)
-        Me.Panel12.Size = New System.Drawing.Size(779, 105)
+        Me.Panel12.Size = New System.Drawing.Size(779, 99)
         Me.Panel12.TabIndex = 78
         '
         'GroupBox5
@@ -443,7 +445,7 @@ Partial Class Setup
         Me.GroupBox5.Location = New System.Drawing.Point(10, 10)
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Padding = New System.Windows.Forms.Padding(10)
-        Me.GroupBox5.Size = New System.Drawing.Size(759, 90)
+        Me.GroupBox5.Size = New System.Drawing.Size(759, 84)
         Me.GroupBox5.TabIndex = 32
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "MediaPortal database path (zur Info)"
@@ -2074,6 +2076,20 @@ Partial Class Setup
         Me.Panel2.Size = New System.Drawing.Size(813, 743)
         Me.Panel2.TabIndex = 42
         '
+        'CheckBoxUseTheTvDb
+        '
+        Me.CheckBoxUseTheTvDb.AutoSize = True
+        Me.CheckBoxUseTheTvDb.Dock = System.Windows.Forms.DockStyle.Left
+        Me.CheckBoxUseTheTvDb.Enabled = False
+        Me.CheckBoxUseTheTvDb.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.CheckBoxUseTheTvDb.Location = New System.Drawing.Point(542, 74)
+        Me.CheckBoxUseTheTvDb.Name = "CheckBoxUseTheTvDb"
+        Me.CheckBoxUseTheTvDb.Padding = New System.Windows.Forms.Padding(10, 3, 3, 3)
+        Me.CheckBoxUseTheTvDb.Size = New System.Drawing.Size(120, 29)
+        Me.CheckBoxUseTheTvDb.TabIndex = 78
+        Me.CheckBoxUseTheTvDb.Text = "useTheTvDb"
+        Me.CheckBoxUseTheTvDb.UseVisualStyleBackColor = True
+        '
         'Setup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
@@ -2344,4 +2360,5 @@ Partial Class Setup
     Friend WithEvents Label33 As System.Windows.Forms.Label
     Friend WithEvents NumUpdateOverlay As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label32 As System.Windows.Forms.Label
+    Private WithEvents CheckBoxUseTheTvDb As MediaPortal.UserInterface.Controls.MPCheckBox
 End Class

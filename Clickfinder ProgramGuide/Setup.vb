@@ -29,111 +29,48 @@ Public Class Setup
 
             Dim _StartGuiList As New ArrayList
 
+            MyLog.LogFileName = "ClickfinderProgramGuide_Config.log"
+            MyLog.DebugModeOn = True
+
             MyLog.Info("")
             MyLog.Info("")
             MyLog.Info("[Setup] load")
 
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderPluginName", "Clickfinder ProgramGuide").Tag, _layer.GetSetting("ClickfinderPluginName", "Clickfinder ProgramGuide").Value)
-            tbPluginName.Text = _layer.GetSetting("ClickfinderPluginName", "Clickfinder ProgramGuide").Value
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderDatabasePath", "").Tag, _layer.GetSetting("ClickfinderDatabasePath", "").Value)
-            tbClickfinderDatabase.Text = _layer.GetSetting("ClickfinderDatabasePath", "").Value
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderImagePath", "").Tag, _layer.GetSetting("ClickfinderImagePath", "").Value)
-            tbClickfinderImagePath.Text = _layer.GetSetting("ClickfinderImagePath", "").Value
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderEpisodenScanner", "").Tag, _layer.GetSetting("ClickfinderEpisodenScanner", "").Value)
-            tbEpisodenScanner.Text = _layer.GetSetting("ClickfinderEpisodenScanner", "").Value
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", CBool(_layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false").Tag), CBool(_layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false").Value))
-            CheckBoxShowLocalMovies.Checked = CBool(_layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false").Value)
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", CBool(_layer.GetSetting("ClickfinderOverviewShowTagesTipp", "false").Tag), CBool(_layer.GetSetting("ClickfinderOverviewShowTagesTipp", "false").Value))
-            CheckBoxShowTagesTipp.Checked = CBool(_layer.GetSetting("ClickfinderOverviewShowTagesTipp", "false").Value)
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderOverviewShowMoviesAfter", "12").Tag, _layer.GetSetting("ClickfinderOverviewShowMoviesAfter", "12").Value)
-            NumShowMoviesAfter.Value = _layer.GetSetting("ClickfinderOverviewShowMoviesAfter", "12").Value
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderOverviewShowHighlightsAfter", "15").Tag, _layer.GetSetting("ClickfinderOverviewShowHighlightsAfter", "15").Value)
-            NumShowHighlightsAfter.Value = _layer.GetSetting("ClickfinderOverviewShowHighlightsAfter", "15").Value
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderOverviewHighlightsMinRuntime", "16").Tag, _layer.GetSetting("ClickfinderOverviewHighlightsMinRuntime", "16").Value)
-            NumHighlightsMinRuntime.Value = _layer.GetSetting("ClickfinderOverviewHighlightsMinRuntime", "16").Value
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderOverviewMaxDays", "10").Tag, _layer.GetSetting("ClickfinderOverviewMaxDays", "10").Value)
-            NumMaxDays.Value = _layer.GetSetting("ClickfinderOverviewMaxDays", "10").Value
-
-
-            'NumNowOffset.Value = _layer.GetSetting("ClickfinderNowOffset", "-20").Value
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderPrimeTime", "20:15").Tag, _layer.GetSetting("ClickfinderPrimeTime", "20:15").Value)
-            tbPrimeTime.Text = _layer.GetSetting("ClickfinderPrimeTime", "20:15").Value
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderLateTime", "22:00").Tag, _layer.GetSetting("ClickfinderLateTime", "22:00").Value)
-            tbLateTime.Text = _layer.GetSetting("ClickfinderLateTime", "22:00").Value
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", CBool(_layer.GetSetting("ClickfinderItemsShowLocalMovies", "false").Tag), CBool(_layer.GetSetting("ClickfinderItemsShowLocalMovies", "false").Value))
-            CheckBoxFilterShowLocalMovies.Checked = CBool(_layer.GetSetting("ClickfinderItemsShowLocalMovies", "false").Value)
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", CBool(_layer.GetSetting("ClickfinderItemsShowLocalSeries", "false").Tag), CBool(_layer.GetSetting("ClickfinderItemsShowLocalSeries", "false").Value))
-            CheckBoxFilterShowLocalSeries.Checked = CBool(_layer.GetSetting("ClickfinderItemsShowLocalSeries", "false").Value)
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderUseSportLogos", "false").Tag, _layer.GetSetting("ClickfinderUseSportLogos", "false").Value)
-            CheckBoxUseSportLogos.Checked = _layer.GetSetting("ClickfinderUseSportLogos", "false").Value
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderRemberSortedBy", "true").Tag, _layer.GetSetting("ClickfinderRemberSortedBy", "true").Value)
-            CheckBoxRemberSortedBy.Checked = _layer.GetSetting("ClickfinderRemberSortedBy", "true").Value
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderDebugMode", "false").Tag, _layer.GetSetting("ClickfinderDebugMode", "false").Value)
             CheckBoxDebugMode.Checked = _layer.GetSetting("ClickfinderDebugMode", "false").Value
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", CBool(_layer.GetSetting("ClickfinderCategorieShowLocalMovies", "false").Tag), CBool(_layer.GetSetting("ClickfinderCategorieShowLocalMovies", "false").Value))
+            tbPluginName.Text = _layer.GetSetting("ClickfinderPluginName", "Clickfinder ProgramGuide").Value
+            tbClickfinderDatabase.Text = _layer.GetSetting("ClickfinderDatabasePath", "").Value
+            tbClickfinderImagePath.Text = _layer.GetSetting("ClickfinderImagePath", "").Value
+            tbEpisodenScanner.Text = _layer.GetSetting("ClickfinderEpisodenScanner", "").Value
+            CheckBoxShowLocalMovies.Checked = CBool(_layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false").Value)
+            CheckBoxShowTagesTipp.Checked = CBool(_layer.GetSetting("ClickfinderOverviewShowTagesTipp", "false").Value)
+            NumShowMoviesAfter.Value = _layer.GetSetting("ClickfinderOverviewShowMoviesAfter", "12").Value
+            NumShowHighlightsAfter.Value = _layer.GetSetting("ClickfinderOverviewShowHighlightsAfter", "15").Value
+            NumHighlightsMinRuntime.Value = _layer.GetSetting("ClickfinderOverviewHighlightsMinRuntime", "16").Value
+            NumMaxDays.Value = _layer.GetSetting("ClickfinderOverviewMaxDays", "10").Value
+            tbPrimeTime.Text = _layer.GetSetting("ClickfinderPrimeTime", "20:15").Value
+            tbLateTime.Text = _layer.GetSetting("ClickfinderLateTime", "22:00").Value
+            CheckBoxFilterShowLocalMovies.Checked = CBool(_layer.GetSetting("ClickfinderItemsShowLocalMovies", "false").Value)
+            CheckBoxFilterShowLocalSeries.Checked = CBool(_layer.GetSetting("ClickfinderItemsShowLocalSeries", "false").Value)
+            CheckBoxUseSportLogos.Checked = _layer.GetSetting("ClickfinderUseSportLogos", "false").Value
+            CheckBoxRemberSortedBy.Checked = _layer.GetSetting("ClickfinderRemberSortedBy", "true").Value
             CheckBoxShowCategorieLocalMovies.Checked = CBool(_layer.GetSetting("ClickfinderCategorieShowLocalMovies", "false").Value)
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", CBool(_layer.GetSetting("ClickfinderCategorieShowLocalSeries", "false").Tag), CBool(_layer.GetSetting("ClickfinderCategorieShowLocalSeries", "false").Value))
             CheckBoxShowCategorieLocalSeries.Checked = CBool(_layer.GetSetting("ClickfinderCategorieShowLocalSeries", "false").Value)
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Tag), CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value))
             CheckBoxTvSeries.Checked = CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value)
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", CBool(_layer.GetSetting("TvMovieImportMovingPicturesInfos", "false").Tag), CBool(_layer.GetSetting("TvMovieImportMovingPicturesInfos", "false").Value))
             CheckBoxMovingPictures.Checked = CBool(_layer.GetSetting("TvMovieImportMovingPicturesInfos", "false").Value)
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", CBool(_layer.GetSetting("TvMovieImportVideoDatabaseInfos", "false").Tag), CBool(_layer.GetSetting("TvMovieImportVideoDatabaseInfos", "false").Value))
             CheckBoxVideoDB.Checked = CBool(_layer.GetSetting("TvMovieImportVideoDatabaseInfos", "false").Value)
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", CBool(_layer.GetSetting("ClickfinderDataAvailable", "false").Tag), CBool(_layer.GetSetting("ClickfinderDataAvailable", "false").Value))
+            CheckBoxUseTheTvDb.Checked = CBool(_layer.GetSetting("TvMovieUseTheTvDb", "false").Value)
             CheckBoxClickfinderPG.Checked = CBool(_layer.GetSetting("ClickfinderDataAvailable", "false").Value)
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", CBool(_layer.GetSetting("ClickfinderDetailUseSeriesDescribtion", "false").Tag), CBool(_layer.GetSetting("ClickfinderDetailUseSeriesDescribtion", "false").Value))
             CheckBoxUseSeriesDescribtion.Checked = CBool(_layer.GetSetting("ClickfinderDetailUseSeriesDescribtion", "false").Value)
-
             tbMPDatabasePath.Text = Config.GetFile(Config.Dir.Database, "")
-
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", CBool(_layer.GetSetting("ClickfinderOverlayShowTagesTipp", "false").Tag), CBool(_layer.GetSetting("ClickfinderOverlayShowTagesTipp", "false").Value))
             CheckBoxOverlayShowTagesTipp.Checked = CBool(_layer.GetSetting("ClickfinderOverlayShowTagesTipp", "false").Value)
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", CBool(_layer.GetSetting("ClickfinderOverlayShowLocalMovies", "false").Tag), CBool(_layer.GetSetting("ClickfinderOverlayShowLocalMovies", "false").Value))
             CheckBoxOverlayShowLocalMovies.Checked = CBool(_layer.GetSetting("ClickfinderOverlayShowLocalMovies", "false").Value)
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderOverlayMovieLimit", "10").Tag, _layer.GetSetting("ClickfinderOverlayMovieLimit", "10").Value)
             NumOverlayLimit.Value = _layer.GetSetting("ClickfinderOverlayMovieLimit", "10").Value
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", CBool(_layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false").Tag), CBool(_layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false").Value))
             CheckBoxEnableMovieOverlay.Checked = CBool(_layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false").Value)
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", CBool(_layer.GetSetting("ClickfinderOverlaySeriesEnabled", "false").Tag), CBool(_layer.GetSetting("ClickfinderOverlaySeriesEnabled", "false").Value))
             CheckBoxEnableSeriesOverlay.Checked = CBool(_layer.GetSetting("ClickfinderOverlaySeriesEnabled", "false").Value)
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderPreviewMaxDays", "7").Tag, _layer.GetSetting("ClickfinderPreviewMaxDays", "7").Value)
             NumPreviewDays.Value = _layer.GetSetting("ClickfinderPreviewMaxDays", "7").Value
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderPreviewMinTvMovieRating", "1").Tag, _layer.GetSetting("ClickfinderPreviewMinTvMovieRating", "1").Value)
             NumPreviewMinTvMovieRating.Value = _layer.GetSetting("ClickfinderPreviewMinTvMovieRating", "1").Value
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderOverlayUpdateTimer", "20").Tag, _layer.GetSetting("ClickfinderOverlayUpdateTimer", "20").Value)
             NumUpdateOverlay.Value = _layer.GetSetting("ClickfinderOverlayUpdateTimer", "20").Value
+
 
             If CheckBoxEnableMovieOverlay.Checked = True Then
                 GroupBoxMovieOverlay.Enabled = True
@@ -141,8 +78,6 @@ Public Class Setup
                 GroupBoxMovieOverlay.Enabled = False
             End If
 
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderDetailsSeriesImage", "Cover").Tag, _layer.GetSetting("ClickfinderDetailsSeriesImage", "Cover").Value)
             Select Case _layer.GetSetting("ClickfinderDetailsSeriesImage", "Cover").Value
                 Case Is = "Cover"
                     RBSeriesCover.Checked = True
@@ -154,20 +89,16 @@ Public Class Setup
                     RBTvMovieImage.Checked = True
             End Select
 
-
             If CBool(_layer.GetSetting("TvMovieEnabled", "false").Value) = False Or CBool(_layer.GetSetting("ClickfinderEnabled", "true").Value) = False Then
                 Dim message As New TvMoviePluginError
                 message.ShowDialog()
                 Me.Close()
             End If
 
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Tag, _layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value)
             If Not _layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value = "true" Then
                 GroupDetailSeriesImage.Enabled = False
             End If
 
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderOverviewMovieSort", "startTime").Tag, _layer.GetSetting("ClickfinderOverviewMovieSort", "startTime").Value)
             Select Case (_layer.GetSetting("ClickfinderOverviewMovieSort", "startTime").Value)
                 Case Is = Helper.SortMethode.startTime.ToString
                     RBstartTime.Checked = True
@@ -177,8 +108,6 @@ Public Class Setup
                     RBRatingStar.Checked = True
             End Select
 
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderOverlayMovieSort", Helper.SortMethode.RatingStar.ToString).Tag, _layer.GetSetting("ClickfinderOverlayMovieSort", Helper.SortMethode.RatingStar.ToString).Value)
             Select Case (_layer.GetSetting("ClickfinderOverlayMovieSort", Helper.SortMethode.RatingStar.ToString).Value)
                 Case Is = Helper.SortMethode.startTime.ToString
                     RBOverlayStartTime.Checked = True
@@ -188,8 +117,6 @@ Public Class Setup
                     RBOverlayRatingStar.Checked = True
             End Select
 
-
-            _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderOverlayTime", "PrimeTime").Tag, _layer.GetSetting("ClickfinderOverlayTime", "PrimeTime").Value)
             Select Case (_layer.GetSetting("ClickfinderOverlayTime", "PrimeTime").Value)
                 Case Is = "Today"
                     RBOverlayHeute.Checked = True
@@ -233,7 +160,6 @@ Public Class Setup
 
             Filldgv()
 
-
             Dim _groups As List(Of ChannelGroup) = ChannelGroup.ListAll
 
             For i = 0 To _groups.Count - 1
@@ -242,29 +168,23 @@ Public Class Setup
                 CbQuick2.Items.Add(_groups(i).GroupName)
                 CBOverlayGroup.Items.Add(_groups(i).GroupName)
 
-
-                _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Tag, _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value)
                 If _groups(i).GroupName = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value Then
                     cbStandardGroup.Text = _groups(i).GroupName
                 End If
 
-                _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderQuickTvGroup1", "All Channels").Tag, _layer.GetSetting("ClickfinderQuickTvGroup1", "All Channels").Value)
                 If _groups(i).GroupName = _layer.GetSetting("ClickfinderQuickTvGroup1", "All Channels").Value Then
                     CbQuick1.Text = _groups(i).GroupName
                 End If
 
-                _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderQuickTvGroup2", "All Channels").Tag, _layer.GetSetting("ClickfinderQuickTvGroup2", "All Channels").Value)
                 If _groups(i).GroupName = _layer.GetSetting("ClickfinderQuickTvGroup2", "All Channels").Value Then
                     CbQuick2.Text = _groups(i).GroupName
                 End If
 
-                _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderOverlayTvGroup", "All Channels").Tag, _layer.GetSetting("ClickfinderOverlayTvGroup", "All Channels").Value)
                 If _groups(i).GroupName = _layer.GetSetting("ClickfinderOverlayTvGroup", "All Channels").Value Then
                     CBOverlayGroup.Text = _groups(i).GroupName
                 End If
 
             Next
-
 
             _StartGuiList.Clear()
             CBStartGui.Items.Clear()
@@ -278,7 +198,6 @@ Public Class Setup
 
             For i = 0 To _StartGuiList.Count - 1
                 CBStartGui.Items.Add(_StartGuiList(i))
-                _logErrorSetting = String.Format("tag: {0}, value: {1}", _layer.GetSetting("ClickfinderStartGui", "Highlights").Tag, _layer.GetSetting("ClickfinderStartGui", "Highlights").Value)
                 If _StartGuiList(i) = _layer.GetSetting("ClickfinderStartGui", "Highlights").Value Then
                     CBStartGui.Text = _StartGuiList(i)
                 End If
@@ -287,8 +206,9 @@ Public Class Setup
             Helper.LogSettings()
 
         Catch ex As Exception
-            MyLog.Error("[Setup_Load]: {0}", _logErrorSetting)
+            MsgBox("Ein Fehler beim Laden der Einstellungen ist aufgetreten!", MsgBoxStyle.Critical, "Warnung!")
             MyLog.Error("[Setup_Load]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
+            ButtonDefaultSettings_Click(sender, e)
         End Try
 
     End Sub
@@ -907,11 +827,6 @@ Public Class Setup
         Process.Start("https://code.google.com/p/clickfinder-programguide/wiki/Manual_de")
     End Sub
 
-    Private Sub ToolStripButton1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-
-    End Sub
-
- 
     Private Sub ButtonOpenDlgEpisodenScanner_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonOpenDlgEpisodenScanner.Click
         Dim openFileDialog As New OpenFileDialog()
 
@@ -940,101 +855,19 @@ Public Class Setup
 
                 Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(Setting))
                 sb.AddConstraint([Operator].Like, "tag", "Clickfinder%")
+                sb.AddOrderByField(True, "tag")
                 Dim stmt As SqlStatement = sb.GetStatement(True)
                 Dim _Result As IList(Of Setting) = ObjectFactory.GetCollection(GetType(Setting), stmt.Execute())
 
                 If _Result.Count > 0 Then
                     For i = 0 To _Result.Count - 1
-                        MyLog.Debug("Deleting settings: tag: {0}, value: {1}", _Result(i).Tag, _Result(i).Value)
-                        _Result(i).Remove()
+
+                        If Not _Result(i).Tag = "ClickfinderDataAvailable" Then
+                            MyLog.Debug("[ButtonDefaultSettings_Click] Deleting settings: {0} = {1}", _Result(i).Tag, _Result(i).Value)
+                            _Result(i).Remove()
+                        End If
                     Next
                 End If
-
-
-                'Dim setting As Setting = _layer.GetSetting("ClickfinderDatabasePath", "")
-                'setting.Value = ""
-                'setting.Persist()
-
-                'setting = _layer.GetSetting("ClickfinderImagePath", "false")
-                'setting.Value = ""
-                'setting.Persist()
-
-                'setting = _layer.GetSetting("ClickfinderEpisodenScanner", "")
-                'setting.Value = ""
-                'setting.Persist()
-
-                'setting = _layer.GetSetting("ClickfinderOverviewShowMoviesAfter", "12")
-                'setting.Value = CStr(12)
-                'setting.Persist()
-
-                'setting = _layer.GetSetting("ClickfinderOverviewShowHighlightsAfter", "15")
-                'setting.Value = CStr(15)
-                'setting.Persist()
-
-                'setting = _layer.GetSetting("ClickfinderOverviewHighlightsMinRuntime", "16")
-                'setting.Value = CStr(16)
-                'setting.Persist()
-
-                'setting = _layer.GetSetting("ClickfinderOverviewMaxDays", "14")
-                'setting.Value = CStr(14)
-                'setting.Persist()
-
-                'setting = _layer.GetSetting("ClickfinderPrimeTime", "20:15")
-                'setting.Value = "20:15"
-                'setting.Persist()
-
-                'setting = _layer.GetSetting("ClickfinderLateTime", "22:00")
-                'setting.Value = "22:00"
-                'setting.Persist()
-
-                'setting = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels")
-                'setting.Value = "All Channels"
-                'setting.Persist()
-
-                'setting = _layer.GetSetting("ClickfinderQuickTvGroup1", "All Channels")
-                'setting.Value = "All Channels"
-                'setting.Persist()
-
-                'setting = _layer.GetSetting("ClickfinderQuickTvGroup2", "All Channels")
-                'setting.Value = "All Channels"
-                'setting.Persist()
-
-                'setting = _layer.GetSetting("ClickfinderPluginName", "Clickfinder ProgramGuide")
-                'setting.Value = "Clickfinder ProgramGuide"
-                'setting.Persist()
-
-                'setting = _layer.GetSetting("ClickfinderOverlayMovieLimit", "10")
-                'setting.Value = "10"
-                'setting.Persist()
-
-                'setting = _layer.GetSetting("ClickfinderOverlayTvGroup", "All Channels")
-                'setting.Value = "All Channels"
-                'setting.Persist()
-
-                'setting = _layer.GetSetting("ClickfinderStartGui", "Highlights")
-                'setting.Value = "Highlights"
-                'setting.Persist()
-
-                'setting = _layer.GetSetting("ClickfinderPreviewMaxDays", "14")
-                'setting.Value = CStr(14)
-                'setting.Persist()
-
-                'setting = _layer.GetSetting("ClickfinderPreviewMinTvMovieRating", "3")
-                'setting.Value = CStr(3)
-                'setting.Persist()
-
-                'setting = _layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false")
-                'setting.Value = CStr(False)
-                'setting.Persist()
-
-                'setting = _layer.GetSetting("ClickfinderOverlayUpdateTimer", "20")
-                'setting.Value = "20"
-                'setting.Persist()
-
-                'CreateClickfinderCategoriesTable()
-                'CreateClickfinderCategories()
-                'Filldgv()
-                'MyLog.Info("[ButtonDefaultSettings_Click]: Default settings restored!")
 
                 Me.Close()
             Catch ex As Exception

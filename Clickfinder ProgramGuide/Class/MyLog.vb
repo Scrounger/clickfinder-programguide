@@ -28,6 +28,7 @@ Imports System.Text.RegularExpressions
 ''' An implementation of a log mechanism for the GUI library.
 ''' </summary>
 Public Class MyLog
+
     Private Enum LogType
         ''' <summary>
         ''' Debug logging
@@ -83,6 +84,29 @@ Public Class MyLog
         'BackupLogFiles(); <-- do not rotate logs when e.g. SetupTv is started.
         _lastLogLines.Clear()
     End Sub
+
+#End Region
+
+#Region "Properties"
+    Private Shared _DebugModeOn As Boolean = True
+    Friend Shared Property DebugModeOn() As Boolean
+        Get
+            Return _DebugModeOn
+        End Get
+        Set(ByVal value As Boolean)
+            _DebugModeOn = value
+        End Set
+    End Property
+
+    Private Shared _logFileName As String = "ClickfinderProgramGuide.log"
+    Friend Shared Property LogFileName() As String
+        Get
+            Return _logFileName
+        End Get
+        Set(ByVal value As String)
+            _logFileName = value
+        End Set
+    End Property
 
 #End Region
 
@@ -156,7 +180,7 @@ Public Class MyLog
     ''' <param name="arg">The arg.</param>
     Public Shared Sub Debug(ByVal format As String, ByVal ParamArray arg As Object())
 
-        If ClickfinderProgramGuide.StartGuiWindow._DebugModeOn = True Then
+        If MyLog.DebugModeOn = True Then
             WriteToFile(LogType.Debug, format, arg)
         End If
 
@@ -185,8 +209,7 @@ Public Class MyLog
 
     Private Shared Function GetFileName(ByVal logType__1 As LogType) As String
         Dim Path As String = GetPathName()
-        Return [String].Format("{0}\log\ClickfinderProgramGuide.log", Path)
-
+        Return [String].Format("{0}\log\{1}", Path, MyLog.LogFileName)
     End Function
 
     ''' <summary>

@@ -47,7 +47,6 @@ Namespace ClickfinderProgramGuide
         Private Shared _layer As New TvBusinessLayer
         Private _stateTimer As System.Timers.Timer
         Friend Shared _OverlayStartupLoaded As Boolean = False
-        Friend Shared _DebugModeOn As Boolean = False
 #End Region
 
 #Region "iSetupFormImplementation"
@@ -104,8 +103,6 @@ Namespace ClickfinderProgramGuide
             Return Load(GUIGraphicsContext.Skin + "\ClickfinderProgramGuide.xml")
         End Function
 
-
-
 #End Region
 
 #Region "GUI Events"
@@ -113,7 +110,11 @@ Namespace ClickfinderProgramGuide
             MyBase.PreInit()
 
             Try
+                MyLog.DebugModeOn = _layer.GetSetting("ClickfinderDebugMode", "True").Value
+                MyLog.LogFileName = "ClickfinderProgramGuide.log"
                 Translator.TranslateSkin()
+
+
 
                 If Helper.TvServerConnected = True Then
 
@@ -142,7 +143,7 @@ Namespace ClickfinderProgramGuide
 
                 End If
 
-               
+
 
             Catch ex As Exception
                 MyLog.Error("[StartGuiWindow] [PreInit]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
