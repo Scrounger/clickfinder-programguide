@@ -130,3 +130,4 @@ D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\enrich
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\MediaPortal\thumbs\Clickfinder ProgramGuide\ClickfinderPG_logo.png
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\Skin Mods\Default Wide\BasicHomeExtraInfos.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\Skin Mods\Default Wide\TVSeries.HiddenMenu.xml
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\TvdbLib.dll

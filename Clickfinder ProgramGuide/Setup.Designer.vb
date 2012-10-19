@@ -32,6 +32,7 @@ Partial Class Setup
         Me.CheckBoxDebugMode = New System.Windows.Forms.CheckBox
         Me.Panel13 = New System.Windows.Forms.Panel
         Me.GroupBox4 = New System.Windows.Forms.GroupBox
+        Me.CheckBoxUseTheTvDb = New MediaPortal.UserInterface.Controls.MPCheckBox
         Me.CheckBoxVideoDB = New MediaPortal.UserInterface.Controls.MPCheckBox
         Me.CheckBoxMovingPictures = New MediaPortal.UserInterface.Controls.MPCheckBox
         Me.CheckBoxTvSeries = New MediaPortal.UserInterface.Controls.MPCheckBox
@@ -180,7 +181,6 @@ Partial Class Setup
         Me.Panel1 = New System.Windows.Forms.Panel
         Me.ButtonDefaultSettings = New System.Windows.Forms.Button
         Me.Panel2 = New System.Windows.Forms.Panel
-        Me.CheckBoxUseTheTvDb = New MediaPortal.UserInterface.Controls.MPCheckBox
         Me.TabControl1.SuspendLayout()
         Me.TabAllgemeines.SuspendLayout()
         Me.Panel13.SuspendLayout()
@@ -359,6 +359,20 @@ Partial Class Setup
         Me.GroupBox4.TabIndex = 12
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Tv Movie EPG Import++ settings (zur Info)"
+        '
+        'CheckBoxUseTheTvDb
+        '
+        Me.CheckBoxUseTheTvDb.AutoSize = True
+        Me.CheckBoxUseTheTvDb.Dock = System.Windows.Forms.DockStyle.Left
+        Me.CheckBoxUseTheTvDb.Enabled = False
+        Me.CheckBoxUseTheTvDb.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.CheckBoxUseTheTvDb.Location = New System.Drawing.Point(542, 74)
+        Me.CheckBoxUseTheTvDb.Name = "CheckBoxUseTheTvDb"
+        Me.CheckBoxUseTheTvDb.Padding = New System.Windows.Forms.Padding(10, 3, 3, 3)
+        Me.CheckBoxUseTheTvDb.Size = New System.Drawing.Size(120, 29)
+        Me.CheckBoxUseTheTvDb.TabIndex = 78
+        Me.CheckBoxUseTheTvDb.Text = "useTheTvDb"
+        Me.CheckBoxUseTheTvDb.UseVisualStyleBackColor = True
         '
         'CheckBoxVideoDB
         '
@@ -2075,20 +2089,6 @@ Partial Class Setup
         Me.Panel2.Padding = New System.Windows.Forms.Padding(10, 10, 10, 20)
         Me.Panel2.Size = New System.Drawing.Size(813, 743)
         Me.Panel2.TabIndex = 42
-        '
-        'CheckBoxUseTheTvDb
-        '
-        Me.CheckBoxUseTheTvDb.AutoSize = True
-        Me.CheckBoxUseTheTvDb.Dock = System.Windows.Forms.DockStyle.Left
-        Me.CheckBoxUseTheTvDb.Enabled = False
-        Me.CheckBoxUseTheTvDb.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.CheckBoxUseTheTvDb.Location = New System.Drawing.Point(542, 74)
-        Me.CheckBoxUseTheTvDb.Name = "CheckBoxUseTheTvDb"
-        Me.CheckBoxUseTheTvDb.Padding = New System.Windows.Forms.Padding(10, 3, 3, 3)
-        Me.CheckBoxUseTheTvDb.Size = New System.Drawing.Size(120, 29)
-        Me.CheckBoxUseTheTvDb.TabIndex = 78
-        Me.CheckBoxUseTheTvDb.Text = "useTheTvDb"
-        Me.CheckBoxUseTheTvDb.UseVisualStyleBackColor = True
         '
         'Setup
         '

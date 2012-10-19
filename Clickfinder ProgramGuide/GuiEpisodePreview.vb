@@ -18,11 +18,7 @@ Namespace ClickfinderProgramGuide
 
         'Buttons
 
-
-
         <SkinControlAttribute(5)> Protected _btnAllMovies As GUIButtonControl = Nothing
-
-
 
         'ProgressBar
         <SkinControlAttribute(8)> Protected _SeriesProgressBar As GUIAnimation = Nothing
@@ -482,6 +478,9 @@ Namespace ClickfinderProgramGuide
         End Sub
 
         Protected Overrides Sub OnPageDestroy(ByVal new_windowId As Integer)
+
+            _SeriesPoster.Visible = False
+
             Try
                 ThreadSeriesFill.Abort()
             Catch ex As Exception
