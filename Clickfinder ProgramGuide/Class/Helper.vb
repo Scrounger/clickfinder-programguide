@@ -68,6 +68,11 @@ Public Class Helper
         parentalRating
         Series
     End Enum
+
+    Public Shared Function Deduplicate(Of T)(ByVal listToDeduplicate As List(Of T)) As List(Of T)
+        Return listToDeduplicate.Distinct().ToList()
+    End Function
+
     Friend Shared Sub AddListControlItem(ByVal Listcontrol As GUIListControl, ByVal idProgram As Integer, ByVal ChannelName As String, ByVal titelLabel As String, Optional ByVal timeLabel As String = "", Optional ByVal infoLabel As String = "", Optional ByVal ImagePath As String = "", Optional ByVal MinRunTime As Integer = 0, Optional ByVal isRecording As String = "", Optional ByVal tmpInfo As String = "")
         Try
 

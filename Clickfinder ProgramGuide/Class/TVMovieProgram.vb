@@ -31,6 +31,7 @@ Namespace TvDatabase
     <TableName("TVMovieProgram")> _
     Public Class TVMovieProgram
         Inherits Persistent
+
 #Region "Members"
 
         Private m_isChanged As Boolean
@@ -547,5 +548,85 @@ Namespace TvDatabase
             Next
             'Remove()
         End Sub
+
     End Class
+
+#Region "ComparerMethods"
+    Public Class TVMovieProgram_SortByStartTime
+        'Sortieren nach Genre ASC & StarRating DESC
+        Implements IComparer(Of TVMovieProgram)
+        Public Function Compare(ByVal x As TVMovieProgram, ByVal y As TVMovieProgram) As Integer Implements System.Collections.Generic.IComparer(Of TVMovieProgram).Compare
+            If x.ReferencedProgram.StartTime = y.ReferencedProgram.StartTime AndAlso y.ReferencedProgram.StarRating = x.ReferencedProgram.StarRating Then
+                Return 0
+            ElseIf x.ReferencedProgram.StartTime > y.ReferencedProgram.StartTime Then
+                Return 1
+            ElseIf x.ReferencedProgram.StartTime = y.ReferencedProgram.StartTime AndAlso y.ReferencedProgram.StarRating > x.ReferencedProgram.StarRating Then
+                Return 1
+            Else
+                Return -1
+            End If
+        End Function
+    End Class
+    Public Class TVMovieProgram_SortByTvMovieBewertung
+        'Sortieren nach TvMovieBewertung DESC & StarRating DESC
+        Implements IComparer(Of TVMovieProgram)
+        Public Function Compare(ByVal x As TVMovieProgram, ByVal y As TVMovieProgram) As Integer Implements System.Collections.Generic.IComparer(Of TVMovieProgram).Compare
+            If y.TVMovieBewertung = x.TVMovieBewertung AndAlso y.ReferencedProgram.StarRating = x.ReferencedProgram.StarRating Then
+                Return 0
+            ElseIf y.TVMovieBewertung > x.TVMovieBewertung Then
+                Return 1
+            ElseIf y.TVMovieBewertung = x.TVMovieBewertung AndAlso y.ReferencedProgram.StarRating > x.ReferencedProgram.StarRating Then
+                Return 1
+            Else
+                Return -1
+            End If
+        End Function
+    End Class
+    Public Class TVMovieProgram_SortByRating
+        'Sortieren nach TvMovieBewertung DESC & StarRating DESC
+        Implements IComparer(Of TVMovieProgram)
+        Public Function Compare(ByVal x As TVMovieProgram, ByVal y As TVMovieProgram) As Integer Implements System.Collections.Generic.IComparer(Of TVMovieProgram).Compare
+            If y.ReferencedProgram.StarRating = x.ReferencedProgram.StarRating AndAlso x.ReferencedProgram.StartTime = y.ReferencedProgram.StartTime Then
+                Return 0
+            ElseIf y.ReferencedProgram.StarRating > x.ReferencedProgram.StarRating Then
+                Return 1
+            ElseIf y.ReferencedProgram.StarRating = x.ReferencedProgram.StarRating AndAlso x.ReferencedProgram.StartTime > y.ReferencedProgram.StartTime Then
+                Return 1
+            Else
+                Return -1
+            End If
+        End Function
+    End Class
+    Public Class TVMovieProgram_SortByGenre
+        'Sortieren nach Genre ASC & StarRating DESC
+        Implements IComparer(Of TVMovieProgram)
+        Public Function Compare(ByVal x As TVMovieProgram, ByVal y As TVMovieProgram) As Integer Implements System.Collections.Generic.IComparer(Of TVMovieProgram).Compare
+            If x.ReferencedProgram.Genre = y.ReferencedProgram.Genre AndAlso y.ReferencedProgram.StarRating = x.ReferencedProgram.StarRating Then
+                Return 0
+            ElseIf x.ReferencedProgram.Genre > y.ReferencedProgram.Genre Then
+                Return 1
+            ElseIf x.ReferencedProgram.Genre = y.ReferencedProgram.Genre AndAlso y.ReferencedProgram.StarRating > x.ReferencedProgram.StarRating Then
+                Return 1
+            Else
+                Return -1
+            End If
+        End Function
+    End Class
+    Public Class TVMovieProgram_SortByParentalRating
+        'Sortieren nach TvMovieBewertung DESC & StarRating DESC
+        Implements IComparer(Of TVMovieProgram)
+        Public Function Compare(ByVal x As TVMovieProgram, ByVal y As TVMovieProgram) As Integer Implements System.Collections.Generic.IComparer(Of TVMovieProgram).Compare
+            If y.ReferencedProgram.ParentalRating = x.ReferencedProgram.ParentalRating AndAlso y.ReferencedProgram.StarRating = x.ReferencedProgram.StarRating Then
+                Return 0
+            ElseIf y.ReferencedProgram.ParentalRating > x.ReferencedProgram.ParentalRating Then
+                Return 1
+            ElseIf y.ReferencedProgram.ParentalRating = x.ReferencedProgram.ParentalRating AndAlso y.ReferencedProgram.StarRating > x.ReferencedProgram.StarRating Then
+                Return 1
+            Else
+                Return -1
+            End If
+        End Function
+    End Class
+#End Region
+
 End Namespace

@@ -388,6 +388,9 @@ Namespace ClickfinderProgramGuide
             Dim _LogLocalSortedBy As String = String.Empty
             Dim _logShowTagesTipp As String = "false"
 
+            Dim _TvMovieTagesTippList As New List(Of TVMovieProgram)
+            Dim _MovieHighlightsList As New List(Of TVMovieProgram)
+            Dim _ResultList As New List(Of TVMovieProgram)
 
             _MovieList.Visible = False
             _MovieList.AllocResources()
@@ -404,7 +407,7 @@ Namespace ClickfinderProgramGuide
                 Next
                 _MovieList.Clear()
 
-                Dim _Result As New ArrayList
+                'Dim _Result As New ArrayList
 
                 '[Optional] TvMovie Tages Tipp immer als erstes anzeigen
                 If CBool(_layer.GetSetting("ClickfinderOverviewShowTagesTipp").Value) = True Then
@@ -414,33 +417,22 @@ Namespace ClickfinderProgramGuide
                     "AND program.startTime > " & MySqlDate(_ClickfinderCurrentDate) & " " & _
                     "AND program.startTime < " & MySqlDate(_ClickfinderCurrentDate.AddHours(24))
 
-                    Dim _TvMovieTagesTipps As New ArrayList(Broker.Execute(_SQLstring).TransposeToFieldList("idProgram", False))
+                    _SQLstring = Replace(_SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idTVMovieProgram, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.needsUpdate, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung, TVMovieProgram.Year ")
 
-                    If _TvMovieTagesTipps.Count > 0 Then
+                    Dim _SQLstate As SqlStatement = Broker.GetStatement(_SQLstring)
+                    _TvMovieTagesTippList = ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate.Execute())
 
-                        For i = 0 To _TvMovieTagesTipps.Count - 1
-                            Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_TvMovieTagesTipps.Item(i))
+                    If _TvMovieTagesTippList.Count > 0 Then
 
-                            'Prüfen ob in Standard Tv Gruppe
-                            Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value)
-                            Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
+                        'Alle aus standrad tv gruppe laden
+                        _TvMovieTagesTippList = _TvMovieTagesTippList.FindAll(Function(x As TVMovieProgram) _
+                                                                                 x.ReferencedProgram.ReferencedChannel.GroupNames.Contains(_layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value))
+                        'Falls Tipp gefunden -> übergeben an ResultList
+                        If _TvMovieTagesTippList.Count > 0 Then
+                            _ResultList.Add(_TvMovieTagesTippList(0))
+                            _idProgramTagesTipp = _TvMovieTagesTippList(0).idProgram
+                        End If
 
-                            'Alle Gruppen des _program laden
-                            Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
-                            sb.AddConstraint([Operator].Equals, "idgroup", _Group.IdGroup)
-                            sb.AddConstraint([Operator].Equals, "idChannel", _TvMovieProgram.ReferencedProgram.IdChannel)
-                            Dim stmt As SqlStatement = sb.GetStatement(True)
-                            Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
-
-                            If _isInFavGroup.Count = 0 Then
-                                Continue For
-                            End If
-
-                            _Result.Add(_TvMovieTagesTipps.Item(i))
-
-                            _idProgramTagesTipp = _TvMovieTagesTipps.Item(i)
-
-                        Next
                         _logShowTagesTipp = "true"
                     Else
                         _logShowTagesTipp = "not found"
@@ -459,64 +451,50 @@ Namespace ClickfinderProgramGuide
                     "AND genre NOT LIKE '%Sitcom%' " & _
                     "AND genre NOT LIKE '%Zeichentrick%' "
 
+                'SQlstring Sort Methode laden
                 Select Case (_layer.GetSetting("ClickfinderOverviewMovieSort", SortMethode.startTime.ToString).Value)
                     Case Is = SortMethode.startTime.ToString
                         _LogLocalSortedBy = SortMethode.startTime.ToString
                         _SQLstring = AppendSqlLimit(_SQLstring & Helper.ORDERBYstartTime, 25)
-
-
                     Case Is = SortMethode.TvMovieStar.ToString
                         _LogLocalSortedBy = SortMethode.TvMovieStar.ToString
                         _SQLstring = AppendSqlLimit(_SQLstring & Helper.ORDERBYtvMovieBewertung, 25)
-
                     Case Is = SortMethode.RatingStar.ToString
                         _LogLocalSortedBy = SortMethode.RatingStar.ToString
                         _SQLstring = AppendSqlLimit(_SQLstring & Helper.ORDERBYstarRating, 25)
-
                 End Select
-
 
                 MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: sorted by {0}, show TvMovie TagesTipp = {1}, SQLString: {2}", _LogLocalSortedBy, _logShowTagesTipp, _SQLstring)
 
-                _Result.AddRange(Broker.Execute(_SQLstring).TransposeToFieldList("idProgram", False))
+                _SQLstring = Replace(_SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idTVMovieProgram, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.needsUpdate, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung, TVMovieProgram.Year ")
+                Dim _SQLstate2 As SqlStatement = Broker.GetStatement(_SQLstring)
+                _MovieHighlightsList = ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate2.Execute())
+
+                'TvGruppe filtern
+                _MovieHighlightsList = _MovieHighlightsList.FindAll(Function(p As TVMovieProgram) _
+                                              p.ReferencedProgram.ReferencedChannel.GroupNames.Contains(_layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value))
+
+                '[Option] Falls Datei lokal existiert, dann nicht anzeigen (-> Continue For)
+                'Wenn TagesTipp aktiviert, dann nicht ausführen
+                If CBool(_layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false").Value) = True Then
+                    _MovieHighlightsList = _MovieHighlightsList.FindAll(Function(p As TVMovieProgram) _
+                                                                            p.local = False And Not p.TVMovieBewertung = 4)
+                End If
+
+                _ResultList.AddRange(_MovieHighlightsList)
+
+                '_Result.AddRange(Broker.Execute(_SQLstring).TransposeToFieldList("idProgram", False))
 
 
-                MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: {0} program found", _Result.Count)
+                MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: {0} program found", _ResultList.Count)
 
-                If _Result.Count > 0 Then
+                If _ResultList.Count > 0 Then
 
-                    For i = 0 To _Result.Count - 1
+                    For Each _TvMovieProgram As TVMovieProgram In _ResultList
+
                         Try
-
-                            'ProgramDaten über TvMovieProgram laden
-                            Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_Result.Item(i))
-
-                            '[Option] Falls Datei lokal existiert, dann nicht anzeigen (-> Continue For)
-                            'Wenn TagesTipp aktiviert, dann nicht ausführen
-                            If CBool(_layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false").Value) = True And Not _TvMovieProgram.idProgram = _idProgramTagesTipp Then
-                                If _TvMovieProgram.local = True Then
-                                    _LogLocalMovies = _LogLocalMovies & _TvMovieProgram.ReferencedProgram.Title & ", "
-                                    Continue For
-                                End If
-                            End If
-
                             'Wenn TagesTipp immer anzeigen aktiviert, prüfen ob TagesTipp, dann weiter
                             If _TvMovieProgram.idProgram = _idProgramTagesTipp And _ItemCounter > 1 Then
-                                Continue For
-                            End If
-
-                            'Prüfen ob in Standard Tv Gruppe
-                            Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value)
-                            Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
-
-                            'Alle Gruppen des _program laden
-                            Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
-                            sb.AddConstraint([Operator].Equals, "idgroup", _Group.IdGroup)
-                            sb.AddConstraint([Operator].Equals, "idChannel", _TvMovieProgram.ReferencedProgram.IdChannel)
-                            Dim stmt As SqlStatement = sb.GetStatement(True)
-                            Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
-
-                            If _isInFavGroup.Count = 0 Then
                                 Continue For
                             End If
 
@@ -560,7 +538,6 @@ Namespace ClickfinderProgramGuide
                 _MovieList.Visible = True
 
 
-
                 If CBool(_layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false").Value) = True Then
                     MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: Movies exist local and will not be displayed ({0})", _LogLocalMovies)
                 End If
@@ -598,7 +575,7 @@ Namespace ClickfinderProgramGuide
             MyLog.Debug("[HighlightsGUIWindow] [FillHighlightsList]: Thread started")
 
             Try
-                
+
                 _HighlightsList.Visible = False
                 _HighlightsList.Clear()
                 _HighlightsList.AllocResources()
@@ -1263,7 +1240,7 @@ Namespace ClickfinderProgramGuide
                     Case Is = 5
                         MyLog.Debug("[HighlightsGuiWindow] [ShowMoviesMenu]: selected -> action menu")
                         ShowActionMenu(_Program)
-                    
+
                     Case Else
                         MyLog.Debug("[HighlightsGuiWindow] [ShowMoviesMenu]: exit")
                         MyLog.Debug("")

@@ -116,7 +116,7 @@
       <id>10</id>
       <onright>100</onright>
       <onleft>2</onleft>
-      <onright>30</onright>
+      <onright>548</onright>
       <posX>30</posX>
       <posY>114</posY>
       <width>590</width>
@@ -256,6 +256,43 @@
       <animation effect="fade" time="500">WindowClose</animation>
     </control>
 
+    <control>
+      <id>1</id>
+      <description>TvWish Entry Image</description>
+      <type>image</type>
+      <posX>1158</posX>
+      <posY>78</posY>
+      <!--<width>300</width>-->
+      <height>30</height>
+      <texture>ClickfinderPGTvWish.png</texture>
+      <keepaspectratio>yes</keepaspectratio>
+      <visible>string.equals(#EpisodesPreviewTvWishEntryFounded,true)+plugin.isenabled(TvWishListMP)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>TvWishList Button</description>
+      <type>button</type>
+      <id>548</id>
+      <hyperlink>70943675</hyperlink>
+      <hyperlinkParameter>eq(#currentmoduleid,'1656544652'), 'NEWTVWISH//EXPRESSION=(title like \'#EpisodesPreviewTitle\' ) AND (description like \'%Neue Folge: %\')//NAME=CPG: #EpisodesPreviewTitle: #ClickfinderPG.Translation.NewEpisodes</hyperlinkParameter>
+      <posX>1150</posX>
+      <posY>74</posY>
+      <width>104</width>
+      <height>30</height>
+      <label>TvWish</label>
+      <onleft>10</onleft>
+      <onright>30</onright>
+      <onup>2</onup>
+      <ondown>30</ondown>
+      <textalign>center</textalign>
+      <font>mediastream10tc</font>
+      <visible>string.equals(#EpisodesPreviewTvWishEntryFounded,false)+plugin.isenabled(TvWishListMP)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="500">WindowClose</animation>
+    </control>
+    
     <control>
       <description>Series Titel Label</description>
       <type>fadelabel</type>

@@ -40,6 +40,8 @@
           <description>Now</description>
           <type>button</type>
           <id>2</id>
+          <hyperlink>1656544654</hyperlink>
+          <hyperlinkParameter>CPG.Now</hyperlinkParameter>
           <label>#ClickfinderPG.Translation.Now</label>
           <textalign>center</textalign>
           <onup>200</onup>
@@ -50,6 +52,8 @@
           <description>20:15</description>
           <type>button</type>
           <id>3</id>
+          <hyperlink>1656544654</hyperlink>
+          <hyperlinkParameter>CPG.PrimeTime</hyperlinkParameter>
           <label>#ClickfinderPG.Translation.PrimeTime</label>
           <textalign>center</textalign>
           <onup>2</onup>
@@ -60,6 +64,8 @@
           <description>22:00 Movies</description>
           <type>button</type>
           <id>4</id>
+          <hyperlink>1656544654</hyperlink>
+          <hyperlinkParameter>CPG.LateTime</hyperlinkParameter>
           <label>#ClickfinderPG.Translation.LateTime</label>
           <textalign>center</textalign>
           <onup>3</onup>
@@ -80,6 +86,7 @@
           <description>Highlights</description>
           <type>button</type>
           <id>6</id>
+          <hyperlink>1656544656</hyperlink>
           <label>#ClickfinderPG.Translation.Highlights</label>
           <textalign>center</textalign>
           <onup>5</onup>
@@ -90,6 +97,8 @@
           <description>Preview</description>
           <type>button</type>
           <id>7</id>
+          <hyperlink>1656544654</hyperlink>
+          <hyperlinkParameter>CPG.Preview</hyperlinkParameter>
           <label>#ClickfinderPG.Translation.Preview</label>
           <textalign>center</textalign>
           <onup>6</onup>
@@ -102,19 +111,6 @@
           <id>200</id>
           <hyperlink>1656544657</hyperlink>
           <label>#ClickfinderPG.Translation.NewEpisodes</label>
-          <textalign>center</textalign>
-          <onup>7</onup>
-          <ondown>2</ondown>
-          <onright>10</onright>
-          <visible>plugin.isenabled(MP-TV Series)</visible>
-        </control>
-        <control>
-          <description>EpisodesPreview</description>
-          <type>button</type>
-          <id>201</id>
-          <hyperlink>1656544657</hyperlink>
-          <hyperlinkParameter>idSeries: 208111</hyperlinkParameter>
-          <label>Hyperlink Para Test</label>
           <textalign>center</textalign>
           <onup>7</onup>
           <ondown>2</ondown>

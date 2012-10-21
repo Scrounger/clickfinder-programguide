@@ -581,6 +581,7 @@ Namespace ClickfinderProgramGuide
             Dim _LogLocalMovies As String = Nothing
             Dim _LogLocalSeries As String = Nothing
 
+            Dim _ResultList As List(Of Program)
             Try
                 _PreviewList.Visible = False
                 _PreviewList.AllocResources()
@@ -619,14 +620,19 @@ Namespace ClickfinderProgramGuide
                     _SqlString = CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime)), "#endTime", MySqlDate(PeriodeStartTime.AddHours(2))))
                 End If
 
-
                 _SqlString = AppendSqlLimit(_SqlString, 25)
+
+                _SqlString = Replace(_SqlString, " * ", " Program.IdProgram, Program.Classification, Program.Description, Program.EndTime, Program.EpisodeName, Program.EpisodeNum, Program.EpisodePart, Program.Genre, Program.IdChannel, Program.OriginalAirDate, Program.ParentalRating, Program.SeriesNum, Program.StarRating, Program.StartTime, Program.state, Program.Title ")
+                Dim _SQLstate As SqlStatement = Broker.GetStatement(_SqlString)
+                _ResultList = ObjectFactory.GetCollection(GetType(Program), _SQLstate.Execute())
+
 
 
                 Dim _result As New ArrayList
                 _result.AddRange(Broker.Execute(_SqlString).TransposeToFieldList("idProgram", False))
 
                 MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: {0} program found, Categorie = {1}, group = {2}, SQLString: {3}", _result.Count, _Categorie.Name, _Categorie.groupName, _SqlString)
+
 
                 For i = 0 To _result.Count - 1
                     Try

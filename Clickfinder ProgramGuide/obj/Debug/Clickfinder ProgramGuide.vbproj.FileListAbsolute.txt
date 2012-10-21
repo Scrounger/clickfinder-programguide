@@ -1,5 +1,4 @@
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\language\ClickfinderPG\de.xml
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\DefaultWide\BasicHomeExtraInfos.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.HiddenMenu.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuideSetting.xml
@@ -125,3 +124,10 @@ D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPor
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Skin Mods\StreamedMP\TVOSD.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Interop.SHDocVw.dll
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Skin Mods\StreamedMP\TVSeries.Common.HiddenMenu.xml
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Skin Mods\Default Wide\BasicHomeExtraInfos.xml
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\DefaultWide\Media\ClickfinderPGTvWish.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\Media\ClickfinderPGTvWish.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\thumbs\Clickfinder ProgramGuide\ClickfinderPG_logo.png
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Skin Mods\Default Wide\TVSeries.HiddenMenu.xml
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\enrichEPG.dll
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\TvdbLib.dll

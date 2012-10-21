@@ -90,7 +90,7 @@ Public Class TVSeriesDB
     Public Sub LoadAllSeries()
 
         Try
-            _SeriesInfos = m_db.Execute("SELECT * FROM online_series WHERE ID > 0 ORDER BY Pretty_Name ASC")
+            _SeriesInfos = m_db.Execute("Select * FROM online_series WHERE ID > 0 ORDER BY Pretty_Name ASC")
             MyLog.Info("TVMovie: [LoadAllSeries]: success - {0} Series found", _SeriesInfos.Rows.Count)
         Catch ex As Exception
             MyLog.Error("TVMovie: [LoadAllSeries]: exception err:{0} stack:{1}", ex.Message, ex.StackTrace)
@@ -104,11 +104,11 @@ Public Class TVSeriesDB
         Try
 
             _SeriesInfos = m_db.Execute( _
-                                [String].Format("SELECT * FROM online_series WHERE Pretty_Name LIKE '{0}' OR SortName LIKE '{0}' OR origName LIKE '{0}'", _
+                                [String].Format("Select * FROM online_series WHERE Pretty_Name LIKE '{0}' OR SortName LIKE '{0}' OR origName LIKE '{0}'", _
                                 allowedSigns(serieName)))
 
             _EpisodeInfos = m_db.Execute( _
-                                [String].Format("SELECT * FROM online_episodes WHERE SeriesID = '{0}' AND SeasonIndex = '{1}' AND EpisodeIndex = '{2}'", _
+                                [String].Format("Select * FROM online_episodes WHERE SeriesID = '{0}' AND SeasonIndex = '{1}' AND EpisodeIndex = '{2}'", _
                                                 Me.Series(0).SeriesID, seriesNum, episodeNum))
         Catch ex As ThreadAbortException
             m_db.Dispose()
@@ -123,7 +123,7 @@ Public Class TVSeriesDB
 
         Try
             _SeriesInfos = m_db.Execute( _
-                                [String].Format("SELECT * FROM online_series WHERE Pretty_Name LIKE '{0}' OR SortName LIKE '{0}' OR origName LIKE '{0}'", _
+                                [String].Format("Select * FROM online_series WHERE Pretty_Name LIKE '{0}' OR SortName LIKE '{0}' OR origName LIKE '{0}'", _
                                 allowedSigns(SeriesName)))
 
             If _SeriesInfos IsNot Nothing AndAlso _SeriesInfos.Rows.Count > 0 Then
@@ -148,11 +148,11 @@ Public Class TVSeriesDB
         Try
 
             _SeriesInfos = m_db.Execute( _
-                                [String].Format("SELECT * FROM online_series WHERE ID = {0}", _
+                                [String].Format("Select * FROM online_series WHERE ID = {0}", _
                                 seriesID))
 
             _EpisodeInfos = m_db.Execute( _
-                                [String].Format("SELECT * FROM online_episodes WHERE CompositeID LIKE '{0}'", _
+                                [String].Format("Select * FROM online_episodes WHERE CompositeID LIKE '{0}'", _
                                                 episodeID))
 
         Catch ex As Exception
@@ -166,7 +166,7 @@ Public Class TVSeriesDB
 
         Try
             _EpisodeInfos = m_db.Execute( _
-                            [String].Format("SELECT * FROM online_episodes WHERE SeriesID = '{0}' AND EpisodeName LIKE '{1}'", _
+                            [String].Format("Select * FROM online_episodes WHERE SeriesID = '{0}' AND EpisodeName LIKE '{1}'", _
                             SeriesID, allowedSigns(EpisodeName)))
 
             If _EpisodeInfos IsNot Nothing AndAlso _EpisodeInfos.Rows.Count > 0 Then
@@ -185,7 +185,7 @@ Public Class TVSeriesDB
 
         Try
             _SeriesInfos = m_db.Execute( _
-                                [String].Format("SELECT * FROM online_series WHERE ID = {0}", _
+                                [String].Format("Select * FROM online_series WHERE ID = {0}", _
                                 seriesID))
 
         Catch ex As Exception
@@ -256,7 +256,7 @@ Public Class TVSeriesDB
         Public ReadOnly Property FanArt() As String
             Get
                 Dim _result As SQLiteResultSet
-                Dim strSQL As String = [String].Format("SELECT * FROM Fanart WHERE seriesID = '{0}' AND LocalPath LIKE '_%'", SeriesID)
+                Dim strSQL As String = [String].Format("Select * FROM Fanart WHERE seriesID = '{0}' AND LocalPath LIKE '_%'", SeriesID)
 
                 _result = m_db.Execute(strSQL)
 
@@ -399,7 +399,7 @@ Public Class TVSeriesDB
         Get
             Dim _EpsiodeFilename As SQLiteResultSet
 
-            _EpsiodeFilename = m_db.Execute("SELECT * FROM local_episodes WHERE CompositeID LIKE '" & Me.EpisodeCompositeID & "'")
+            _EpsiodeFilename = m_db.Execute("Select * FROM local_episodes WHERE CompositeID LIKE '" & Me.EpisodeCompositeID & "'")
             If _EpsiodeFilename IsNot Nothing AndAlso _EpsiodeFilename.Rows.Count > 0 Then
                 Return DatabaseUtility.[Get](_EpsiodeFilename, 0, "EpisodeFilename")
             Else
