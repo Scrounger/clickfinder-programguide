@@ -43,8 +43,6 @@ Namespace ClickfinderProgramGuide
 #End Region
 
 #Region "Members"
-
-        Private Shared _layer As New TvBusinessLayer
         Private _stateTimer As System.Timers.Timer
         Friend Shared _OverlayStartupLoaded As Boolean = False
 #End Region
@@ -87,6 +85,7 @@ Namespace ClickfinderProgramGuide
             Return True
         End Function
         Public Function GetHome(ByRef strButtonText As String, ByRef strButtonImage As String, ByRef strButtonImageFocus As String, ByRef strPictureImage As String) As Boolean Implements MediaPortal.GUI.Library.ISetupForm.GetHome
+            Dim _layer As New TvBusinessLayer
             strButtonText = _layer.GetSetting("ClickfinderPluginName", "Clickfinder ProgramGuide").Value
 
             strButtonImage = String.Empty
@@ -109,12 +108,13 @@ Namespace ClickfinderProgramGuide
         Public Overrides Sub PreInit()
             MyBase.PreInit()
 
+            CPGsettings.Load()
+
             Try
-                MyLog.DebugModeOn = _layer.GetSetting("ClickfinderDebugMode", "True").Value
+                MyLog.DebugModeOn = CPGsettings.ClickfinderDebugMode
                 MyLog.LogFileName = "ClickfinderProgramGuide.log"
+
                 Translator.TranslateSkin()
-
-
 
                 If Helper.TvServerConnected = True Then
 
@@ -127,7 +127,6 @@ Namespace ClickfinderProgramGuide
                         'Overlays Timer starten
                         StartStopTimer(True)
                     End If
-
 
                 Else
 
@@ -143,8 +142,6 @@ Namespace ClickfinderProgramGuide
 
                 End If
 
-
-
             Catch ex As Exception
                 MyLog.Error("[StartGuiWindow] [PreInit]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
             End Try
@@ -155,13 +152,13 @@ Namespace ClickfinderProgramGuide
             GUIWindowManager.NeedRefresh()
 
             Try
-
+                'CPGsettings.Load()
                 
 
                 Helper.LogSettings()
 
                 'Start GUI
-                Select Case _layer.GetSetting("ClickfinderStartGui", "Highlights").Value
+                Select Case CPGsettings.ClickfinderStartGui
                     Case Is = "Highlights"
                         GUIWindowManager.ActivateWindow(1656544656, True)
                     Case Is = "Now"
@@ -172,7 +169,7 @@ Namespace ClickfinderProgramGuide
                         GUIWindowManager.ActivateWindow(1656544654, "CPG.LateTime", True)
                     Case Is = "PrimeTimeMovies"
 
-                        Dim _PrimeTime As Date = CDate(_layer.GetSetting("ClickfinderPrimeTime", "22:00").Value)
+                        Dim _PrimeTime As Date = CPGsettings.PrimeTime
                         Dim _startTime As Date = Today.AddHours(_PrimeTime.Hour).AddMinutes(_PrimeTime.Minute)
 
                         ItemsGuiWindow.SetGuiProperties("Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
@@ -191,7 +188,7 @@ Namespace ClickfinderProgramGuide
 
                     Case Is = "LateTimeMovies"
 
-                        Dim _LateTime As Date = CDate(_layer.GetSetting("ClickfinderLateTime", "22:00").Value)
+                        Dim _LateTime As Date = CPGsettings.LateTime
                         Dim _startTime As Date = Today.AddHours(_LateTime.Hour).AddMinutes(_LateTime.Minute)
 
                         ItemsGuiWindow.SetGuiProperties("Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
@@ -244,7 +241,7 @@ Namespace ClickfinderProgramGuide
 
             'Movie Overlay aktualisieren
             'MyLog.Debug("[PreInit] [RefreshOverlays]: Thread started")
-            If CBool(_layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false").Value) = True Then
+            If CPGsettings.OverlayMoviesEnabled = True Then
                 If _OverlayStartupLoaded = False Then
                     'MP startup
                     ClickfinderProgramGuideOverlayMovies()
@@ -252,14 +249,14 @@ Namespace ClickfinderProgramGuide
                 Else
                     'Mp running
                     'Movie Overlay nur aktualisieren wenn 'ab Jetzt' eingestellt ist
-                    If _layer.GetSetting("ClickfinderOverlayTime", "PrimeTime").Value = "Now" Then
+                    If CPGsettings.OverlayTime = "Now" Then
                         ClickfinderProgramGuideOverlayMovies()
                     End If
                 End If
             End If
 
             'Serien Overlay werden immer aktualisiert
-            If CBool(_layer.GetSetting("ClickfinderOverlaySeriesEnabled", "false").Value) = True Then
+            If CPGsettings.OverlaySeriesEnabled = True Then
                 ClickfinderProgramGuideOverlaySeries()
             End If
 
@@ -280,8 +277,8 @@ Namespace ClickfinderProgramGuide
             Dim _endTime As Date = Nothing
 
 
-            Dim _PrimeTime As Date = CDate(_layer.GetSetting("ClickfinderPrimeTime", "20:15").Value)
-            Dim _LateTime As Date = CDate(_layer.GetSetting("ClickfinderLateTime", "22:00").Value)
+            Dim _PrimeTime As Date = CPGsettings.PrimeTime
+            Dim _LateTime As Date = CPGsettings.LateTime
 
             Log.Debug("")
             Log.Debug("[PreInit] [BasicHomeOverlay]: Thread started")
@@ -296,7 +293,7 @@ Namespace ClickfinderProgramGuide
                 Dim _Result As New ArrayList
 
                 '[Optional] TvMovie Tages Tipp immer als erstes anzeigen
-                If CBool(_layer.GetSetting("ClickfinderOverlayShowTagesTipp").Value) = True Then
+                If CPGsettings.OverlayShowTagesTipp = True Then
                     _SQLstring = _
                     "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
                     "WHERE TvMovieBewertung = 4 " & _
@@ -310,21 +307,6 @@ Namespace ClickfinderProgramGuide
                         For i = 0 To _TvMovieTagesTipps.Count - 1
                             Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_TvMovieTagesTipps.Item(i))
 
-                            ''Prüfen ob in Standard Tv Gruppe
-                            'Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _layer.GetSetting("ClickfinderOverlayTvGroup", "All Channels").Value)
-                            'Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
-
-                            ''Alle Gruppen des _program laden
-                            'Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
-                            'sb.AddConstraint([Operator].Equals, "idgroup", _Group.IdGroup)
-                            'sb.AddConstraint([Operator].Equals, "idChannel", _TvMovieProgram.ReferencedProgram.IdChannel)
-                            'Dim stmt As SqlStatement = sb.GetStatement(True)
-                            'Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
-
-                            'If _isInFavGroup.Count = 0 Then
-                            '    Continue For
-                            'End If
-
                             _Result.Add(_TvMovieTagesTipps.Item(i))
 
                             _idProgramTagesTipp = _TvMovieTagesTipps.Item(i)
@@ -337,7 +319,7 @@ Namespace ClickfinderProgramGuide
 
                 End If
 
-                Select Case (_layer.GetSetting("ClickfinderOverlayTime", "PrimeTime").Value)
+                Select Case (CPGsettings.OverlayTime)
                     Case Is = "Today"
                         _startTime = Date.Today
                         _endTime = _startTime.AddHours(24)
@@ -361,7 +343,7 @@ Namespace ClickfinderProgramGuide
                    "AND genre NOT LIKE '%Sitcom%' " & _
                    "AND genre NOT LIKE '%Zeichentrick%' "
 
-                Select Case (_layer.GetSetting("ClickfinderOverlayMovieSort", SortMethode.startTime.ToString).Value)
+                Select Case (CPGsettings.OverlayMovieSort)
                     Case Is = SortMethode.startTime.ToString
                         _LogLocalSortedBy = SortMethode.startTime.ToString
                         _SQLstring = _SQLstring & Helper.ORDERBYstartTime
@@ -375,7 +357,7 @@ Namespace ClickfinderProgramGuide
                         _SQLstring = _SQLstring & Helper.ORDERBYstarRating
                 End Select
 
-                _SQLstring = AppendSqlLimit(_SQLstring, _layer.GetSetting("ClickfinderOverlayMovieLimit", "10").Value)
+                _SQLstring = AppendSqlLimit(_SQLstring, CPGsettings.OverlayMovieLimit)
 
                 Log.Debug("[PreInit] [BasicHomeOverlay]: sorted by {0}, show TvMovie TagesTipp = {1}, SQLString: {2}", _LogLocalSortedBy, _logShowTagesTipp, _SQLstring)
 
@@ -393,7 +375,7 @@ Namespace ClickfinderProgramGuide
 
                             '[Option] Falls Datei lokal existiert, dann nicht anzeigen (-> Continue For)
                             'Wenn TagesTipp aktiviert, dann nicht ausführen
-                            If CBool(_layer.GetSetting("ClickfinderOverlayShowLocalMovies", "false").Value) = True And Not _TvMovieProgram.idProgram = _idProgramTagesTipp Then
+                            If CPGsettings.OverlayShowLocalMovies = True And Not _TvMovieProgram.idProgram = _idProgramTagesTipp Then
                                 If _TvMovieProgram.local = True Then
                                     _LogLocalMovies = _LogLocalMovies & _TvMovieProgram.ReferencedProgram.Title & ", "
                                     Continue For
@@ -407,7 +389,7 @@ Namespace ClickfinderProgramGuide
 
                             'Prüfen ob in Standard Tv Gruppe, nur wenn nicht Tagestipp
                             If Not _TvMovieProgram.idProgram = _idProgramTagesTipp Then
-                                Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _layer.GetSetting("ClickfinderOverlayTvGroup", "All Channels").Value)
+                                Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", CPGsettings.OverlayTvGroup)
                                 Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
 
                                 'Alle Gruppen des _program laden
@@ -454,7 +436,7 @@ Namespace ClickfinderProgramGuide
                     Next
                 End If
 
-                If CBool(_layer.GetSetting("ClickfinderOverlayShowLocalMovies", "false").Value) = True Then
+                If CPGsettings.OverlayShowLocalMovies = True Then
                     Log.Debug("[StartGuiWindow] [ClickfinderProgramGuideOverlayMovies]: Movies exist local and will not be displayed ({0})", _LogLocalMovies)
                 End If
 
@@ -471,7 +453,7 @@ Namespace ClickfinderProgramGuide
                     Translator.SetProperty("#ClickfinderPG.Series" & i & ".Title", "")
                 Next
 
-                If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True Then
+                If CPGsettings.TvMovieImportTvSeriesInfos = True Then
                     Dim _SeriesResult As New ArrayList
                     Dim _SQLstring As String = String.Empty
 
@@ -653,7 +635,7 @@ Namespace ClickfinderProgramGuide
                 If _stateTimer Is Nothing Then
                     _stateTimer = New System.Timers.Timer()
                     AddHandler _stateTimer.Elapsed, New ElapsedEventHandler(AddressOf RefreshOverlays)
-                    _stateTimer.Interval = CLng(_layer.GetSetting("ClickfinderOverlayUpdateTimer", "20").Value * 60 * 1000)
+                    _stateTimer.Interval = CLng(CPGsettings.OverlayUpdateTimer * 60 * 1000)
                     _stateTimer.AutoReset = True
 
                     GC.KeepAlive(_stateTimer)

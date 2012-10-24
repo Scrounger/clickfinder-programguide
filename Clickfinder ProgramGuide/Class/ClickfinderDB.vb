@@ -6,6 +6,7 @@ Imports MediaPortal.Common
 Imports Gentle.Common
 Imports Gentle.Framework
 Imports TvDatabase
+Imports ClickfinderProgramGuide.ClickfinderProgramGuide
 
 
 Public Class ClickfinderDB
@@ -15,22 +16,19 @@ Public Class ClickfinderDB
     Private Shared _Index As Integer
     Private Shared _IndexColumn As Integer
     Private Shared _ClickfinderDataBaseFolder As String
-    Private Shared _layer As New TvBusinessLayer
 #End Region
 
 #Region "Properties"
 
     Public Shared ReadOnly Property DatabasePath() As String
         Get
-
-
-            Return _layer.GetSetting("ClickfinderDatabasePath").Value
+            Return CPGsettings.ClickfinderDatabasePath
         End Get
     End Property
     Public Shared ReadOnly Property ImagePath() As String
         Get
 
-            Return _layer.GetSetting("ClickfinderImagePath").Value
+            Return CPGsettings.ClickfinderImagePath
         End Get
     End Property
     Public ReadOnly Property Count() As Integer

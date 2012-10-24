@@ -7,10 +7,6 @@ Namespace ClickfinderProgramGuide
 
     Public Class GuiLayout
 
-#Region "Members"
-        Private Shared _layer As New TvBusinessLayer
-#End Region
-
         Friend Shared ReadOnly Property ratingStar(ByVal Program As Program) As Integer
             Get
                 If Program.StarRating > 0 Then
@@ -188,7 +184,7 @@ Namespace ClickfinderProgramGuide
         Friend Shared ReadOnly Property LastUpdateLabel() As String
             Get
 
-                Dim LastUpdate As Date = _layer.GetSetting("TvMovieLastUpdate").Value
+                Dim LastUpdate As Date = CPGsettings.TvMovieLastUpdate
 
                 Select Case (DateDiff(DateInterval.Day, Date.Now, LastUpdate))
                     Case Is = 0
@@ -229,7 +225,7 @@ Namespace ClickfinderProgramGuide
         Friend Shared Sub SetSettingLastUpdateProperty()
             If Helper._DbAbgleichRuning = True Then
                 Translator.SetProperty("#SettingLastUpdate", Translation.DBRefreshRunning)
-            ElseIf _layer.GetSetting("TvMovieImportIsRunning", "false").Value = "true" Then
+            ElseIf CPGsettings.TvMovieImportIsRunning = True Then
                 Translator.SetProperty("#SettingLastUpdate", Translation.ImportIsRunning)
             Else
                 Translator.SetProperty("#SettingLastUpdate", GuiLayout.LastUpdateLabel)
@@ -251,7 +247,6 @@ Namespace ClickfinderProgramGuide
                 End If
             End Get
         End Property
-
         Friend Shared ReadOnly Property DetailFSK(ByVal TvMovieProgram As TVMovieProgram) As String
             Get
                 If TvMovieProgram.TVMovieBewertung > 0 And TvMovieProgram.TVMovieBewertung < 6 Then

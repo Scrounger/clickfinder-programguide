@@ -94,6 +94,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -145,10 +148,10 @@
   <ItemGroup>
     <Compile Include="Class\ClickfinderCategories.vb" />
     <Compile Include="Class\ClickfinderDB.vb" />
+    <Compile Include="Class\CPGsettings.vb" />
     <Compile Include="Class\GuiButtons.vb" />
     <Compile Include="Class\Helper.vb" />
     <Compile Include="Class\GuiLayout.vb" />
-    <Compile Include="Class\MyLogImporter.vb" />
     <Compile Include="Class\MyLog.vb" />
     <Compile Include="Class\GUIDialogSelect2Custom.vb" />
     <Compile Include="Class\Translation.vb" />
@@ -168,7 +171,6 @@
     <Compile Include="GuiEpisodePreview.vb" />
     <Compile Include="GuiHighlights.vb" />
     <Compile Include="GuiItems.vb" />
-    <Compile Include="GUISetting.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -232,9 +234,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MediaPortal\Skin\DefaultWide\ClickfinderProgramGuide.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MediaPortal\Skin\DefaultWide\ClickfinderProgramGuideSetting.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MediaPortal\Skin\DefaultWide\ClickfinderProgramGuideDetail.xml">
@@ -343,9 +342,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideEpisodePreview.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideSetting.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideHighlights.xml">

@@ -23,6 +23,7 @@ Imports System.Collections.Generic
 Imports Gentle.Framework
 Imports TvLibrary.Log
 Imports TvDatabase
+Imports System.Reflection
 
 Namespace TvDatabase
     ''' <summary>
@@ -627,6 +628,57 @@ Namespace TvDatabase
             End If
         End Function
     End Class
+    Public Class TVMovieProgram_SortByTitle
+        'Sortieren nach Genre ASC & StarRating DESC
+        Implements IComparer(Of TVMovieProgram)
+        Public Function Compare(ByVal x As TVMovieProgram, ByVal y As TVMovieProgram) As Integer Implements System.Collections.Generic.IComparer(Of TVMovieProgram).Compare
+            If x.ReferencedProgram.Title = y.ReferencedProgram.Title AndAlso y.ReferencedProgram.StarRating = x.ReferencedProgram.StarRating Then
+                Return 0
+            ElseIf x.ReferencedProgram.Title > y.ReferencedProgram.Title Then
+                Return 1
+            ElseIf x.ReferencedProgram.Title = y.ReferencedProgram.Title AndAlso y.ReferencedProgram.StarRating > x.ReferencedProgram.StarRating Then
+                Return 1
+            Else
+                Return -1
+            End If
+        End Function
+    End Class
+
+
+
+    Public Class TVMovieProgram_GroupByIdSeries
+        Implements IEqualityComparer(Of TVMovieProgram)
+        Private _PropertyInfo As PropertyInfo
+        Public Function Equals1(ByVal x As TVMovieProgram, ByVal y As TVMovieProgram) As Boolean Implements System.Collections.Generic.IEqualityComparer(Of TVMovieProgram).Equals
+            If x.idSeries = y.idSeries Then
+                Return True
+            Else
+                Return False
+            End If
+        End Function
+
+        Public Function GetHashCode1(ByVal obj As TVMovieProgram) As Integer Implements System.Collections.Generic.IEqualityComparer(Of TVMovieProgram).GetHashCode
+            Return obj.idSeries.GetHashCode()
+        End Function
+    End Class
+    Public Class TVMovieProgram_GroupByEpisodeName
+        Implements IEqualityComparer(Of TVMovieProgram)
+        Private _PropertyInfo As PropertyInfo
+        Public Function Equals1(ByVal x As TVMovieProgram, ByVal y As TVMovieProgram) As Boolean Implements System.Collections.Generic.IEqualityComparer(Of TVMovieProgram).Equals
+            If x.ReferencedProgram.EpisodeName = y.ReferencedProgram.EpisodeName Then
+                Return True
+            Else
+                Return False
+            End If
+        End Function
+
+        Public Function GetHashCode1(ByVal obj As TVMovieProgram) As Integer Implements System.Collections.Generic.IEqualityComparer(Of TVMovieProgram).GetHashCode
+            Return obj.ReferencedProgram.EpisodeName.GetHashCode()
+        End Function
+    End Class
+
+
+
 #End Region
 
 End Namespace

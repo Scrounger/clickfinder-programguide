@@ -28,6 +28,7 @@ Imports MediaPortal.Database
 Imports SQLite.NET
 Imports TvDatabase
 Imports MediaPortal.Configuration
+Imports ClickfinderProgramGuide.ClickfinderProgramGuide
 
 Public Class TVSeriesDB
 
@@ -77,7 +78,7 @@ Public Class TVSeriesDB
 
                 DatabaseUtility.SetPragmas(m_db)
             Else
-                MyLog.Error("[OpenTvSeriesDB]: TvSeries Database not found: {0}", layer.GetSetting("TvMovieMPDatabase", "%ProgramData%\Team MediaPortal\MediaPortal\database").Value & "\TVSeriesDatabase4.db3")
+                MyLog.Error("[OpenTvSeriesDB]: TvSeries Database not found: {0}", CPGsettings.TvMovieMPDatabase & "\TVSeriesDatabase4.db3")
             End If
 
         Catch ex As Exception
@@ -152,7 +153,7 @@ Public Class TVSeriesDB
                                 seriesID))
 
             _EpisodeInfos = m_db.Execute( _
-                                [String].Format("Select * FROM online_episodes WHERE CompositeID LIKE '{0}'", _
+                                [String].Format("Select * FROM online_episodes WHERE CompositeID = '{0}'", _
                                                 episodeID))
 
         Catch ex As Exception
@@ -216,6 +217,7 @@ Public Class TVSeriesDB
         End Get
     End Property
     Public Class SeriesItem
+
         Public ReadOnly Property SeriesID() As Integer
             Get
                 If _SeriesInfos IsNot Nothing AndAlso _SeriesInfos.Rows.Count > 0 Then
@@ -318,6 +320,103 @@ Public Class TVSeriesDB
 
     End Class
 
+
+    Public Class EpisodePreview_SeriesItem
+        Private _mSeriesID As Integer
+        Private _mSeriesName As String
+        Private _mSeriesPosterImage As String
+        Private _mFanArt As String
+        Private _mSummary As String
+        Private _mRating As Integer
+        Private _mNetwork As String
+        Private _mStatus As String
+        Private _mTvWish As Boolean
+        Public Sub New(ByVal idSeries As Integer, ByVal SeriesName As String, ByVal Cover As String, ByVal FanArt As String, ByVal Summary As String, ByVal Rating As Integer, _
+                       ByVal Network As String, ByVal Status As String, ByVal TvWishFound As Boolean)
+            _mSeriesID = idSeries
+            _mSeriesName = SeriesName
+            _mSeriesPosterImage = Cover
+            _mFanArt = FanArt
+            _mSummary = Summary
+            _mRating = Rating
+            _mNetwork = Network
+            _mStatus = Status
+            _mTvWish = TvWishFound
+        End Sub
+
+        Public Property idSeries() As Integer
+            Get
+                Return _mSeriesID
+            End Get
+            Set(ByVal value As Integer)
+                _mSeriesID = value
+            End Set
+        End Property
+        Public Property SeriesName() As String
+            Get
+                Return _mSeriesName
+            End Get
+            Set(ByVal value As String)
+                _mSeriesName = value
+            End Set
+        End Property
+        Public Property SeriesPosterImage() As String
+            Get
+                Return _mSeriesPosterImage
+            End Get
+            Set(ByVal value As String)
+                _mSeriesPosterImage = value
+            End Set
+        End Property
+        Public Property FanArt() As String
+            Get
+                Return _mFanArt
+            End Get
+            Set(ByVal value As String)
+                _mFanArt = value
+            End Set
+        End Property
+        Public Property Summary() As String
+            Get
+                Return _mSummary
+            End Get
+            Set(ByVal value As String)
+                _mSummary = value
+            End Set
+        End Property
+        Public Property Rating() As Integer
+            Get
+                Return _mRating
+            End Get
+            Set(ByVal value As Integer)
+                _mRating = value
+            End Set
+        End Property
+        Public Property Network() As String
+            Get
+                Return _mNetwork
+            End Get
+            Set(ByVal value As String)
+                _mNetwork = value
+            End Set
+        End Property
+        Public Property Status() As String
+            Get
+                Return _mStatus
+            End Get
+            Set(ByVal value As String)
+                _mStatus = value
+            End Set
+        End Property
+        Public Property TvWishFound() As Boolean
+            Get
+                Return _mTvWish
+            End Get
+            Set(ByVal value As Boolean)
+                _mTvWish = value
+            End Set
+        End Property
+    End Class
 
     Public ReadOnly Property SeasonIndex() As Integer
         Get

@@ -13,17 +13,16 @@ Imports System.Threading
 Imports System.Windows.Forms
 Imports TvDatabase
 Imports ClickfinderProgramGuide.TvDatabase
+Imports ClickfinderProgramGuide.ClickfinderProgramGuide
 
 
 
 Public Class Setup
-#Region "Members"
-    Private Shared _layer As New TvBusinessLayer
-#End Region
 
     Private Sub Setup_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Dim _logErrorSetting As String = String.Empty
+        CPGsettings.Load()
 
         Try
 
@@ -36,40 +35,42 @@ Public Class Setup
             MyLog.Info("")
             MyLog.Info("[Setup] load")
 
-            CheckBoxDebugMode.Checked = _layer.GetSetting("ClickfinderDebugMode", "false").Value
-            tbPluginName.Text = _layer.GetSetting("ClickfinderPluginName", "Clickfinder ProgramGuide").Value
-            tbClickfinderDatabase.Text = _layer.GetSetting("ClickfinderDatabasePath", "").Value
-            tbClickfinderImagePath.Text = _layer.GetSetting("ClickfinderImagePath", "").Value
-            tbEpisodenScanner.Text = _layer.GetSetting("ClickfinderEpisodenScanner", "").Value
-            CheckBoxShowLocalMovies.Checked = CBool(_layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false").Value)
-            CheckBoxShowTagesTipp.Checked = CBool(_layer.GetSetting("ClickfinderOverviewShowTagesTipp", "false").Value)
-            NumShowMoviesAfter.Value = _layer.GetSetting("ClickfinderOverviewShowMoviesAfter", "12").Value
-            NumShowHighlightsAfter.Value = _layer.GetSetting("ClickfinderOverviewShowHighlightsAfter", "15").Value
-            NumHighlightsMinRuntime.Value = _layer.GetSetting("ClickfinderOverviewHighlightsMinRuntime", "16").Value
-            NumMaxDays.Value = _layer.GetSetting("ClickfinderOverviewMaxDays", "10").Value
-            tbPrimeTime.Text = _layer.GetSetting("ClickfinderPrimeTime", "20:15").Value
-            tbLateTime.Text = _layer.GetSetting("ClickfinderLateTime", "22:00").Value
-            CheckBoxFilterShowLocalMovies.Checked = CBool(_layer.GetSetting("ClickfinderItemsShowLocalMovies", "false").Value)
-            CheckBoxFilterShowLocalSeries.Checked = CBool(_layer.GetSetting("ClickfinderItemsShowLocalSeries", "false").Value)
-            CheckBoxUseSportLogos.Checked = _layer.GetSetting("ClickfinderUseSportLogos", "false").Value
-            CheckBoxRemberSortedBy.Checked = _layer.GetSetting("ClickfinderRemberSortedBy", "true").Value
-            CheckBoxShowCategorieLocalMovies.Checked = CBool(_layer.GetSetting("ClickfinderCategorieShowLocalMovies", "false").Value)
-            CheckBoxShowCategorieLocalSeries.Checked = CBool(_layer.GetSetting("ClickfinderCategorieShowLocalSeries", "false").Value)
-            CheckBoxTvSeries.Checked = CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value)
-            CheckBoxMovingPictures.Checked = CBool(_layer.GetSetting("TvMovieImportMovingPicturesInfos", "false").Value)
-            CheckBoxVideoDB.Checked = CBool(_layer.GetSetting("TvMovieImportVideoDatabaseInfos", "false").Value)
-            CheckBoxUseTheTvDb.Checked = CBool(_layer.GetSetting("TvMovieUseTheTvDb", "false").Value)
-            CheckBoxClickfinderPG.Checked = CBool(_layer.GetSetting("ClickfinderDataAvailable", "false").Value)
-            CheckBoxUseSeriesDescribtion.Checked = CBool(_layer.GetSetting("ClickfinderDetailUseSeriesDescribtion", "false").Value)
+            Dim plugin As String = CPGsettings.pluginClickfinderProgramGuide
+
+            CheckBoxDebugMode.Checked = CPGsettings.ClickfinderDebugMode
+            tbPluginName.Text = CPGsettings.ClickfinderPluginName
+            tbClickfinderDatabase.Text = CPGsettings.ClickfinderDatabasePath
+            tbClickfinderImagePath.Text = CPGsettings.ClickfinderImagePath
+            tbEpisodenScanner.Text = CPGsettings.EpisodenScanner
+            CheckBoxShowLocalMovies.Checked = CPGsettings.OverviewShowLocalMovies
+            CheckBoxShowTagesTipp.Checked = CPGsettings.OverviewShowTagesTipp
+            NumShowMoviesAfter.Value = CPGsettings.OverviewShowMoviesAfter
+            NumShowHighlightsAfter.Value = CPGsettings.OverviewShowHighlightsAfter
+            NumHighlightsMinRuntime.Value = CPGsettings.OverviewHighlightsMinRuntime
+            NumMaxDays.Value = CPGsettings.OverviewMaxDays
+            tbPrimeTime.Text = CPGsettings.PrimeTime
+            tbLateTime.Text = CPGsettings.LateTime
+            CheckBoxFilterShowLocalMovies.Checked = CPGsettings.ItemsShowLocalMovies
+            CheckBoxFilterShowLocalSeries.Checked = CPGsettings.ItemsShowLocalSeries
+            CheckBoxUseSportLogos.Checked = CPGsettings.UseSportLogos
+            CheckBoxRemberSortedBy.Checked = CPGsettings.RemberSortedBy
+            CheckBoxShowCategorieLocalMovies.Checked = CPGsettings.CategorieShowLocalMovies
+            CheckBoxShowCategorieLocalSeries.Checked = CPGsettings.CategorieShowLocalSeries
+            CheckBoxTvSeries.Checked = CPGsettings.TvMovieImportTvSeriesInfos
+            CheckBoxMovingPictures.Checked = CPGsettings.TvMovieImportMovingPicturesInfos
+            CheckBoxVideoDB.Checked = CPGsettings.TvMovieImportVideoDatabaseInfos
+            CheckBoxUseTheTvDb.Checked = CPGsettings.TvMovieUseTheTvDb
+            CheckBoxClickfinderPG.Checked = CPGsettings.ClickfinderDataAvailable
+            CheckBoxUseSeriesDescribtion.Checked = CPGsettings.DetailUseSeriesDescribtion
             tbMPDatabasePath.Text = Config.GetFile(Config.Dir.Database, "")
-            CheckBoxOverlayShowTagesTipp.Checked = CBool(_layer.GetSetting("ClickfinderOverlayShowTagesTipp", "false").Value)
-            CheckBoxOverlayShowLocalMovies.Checked = CBool(_layer.GetSetting("ClickfinderOverlayShowLocalMovies", "false").Value)
-            NumOverlayLimit.Value = _layer.GetSetting("ClickfinderOverlayMovieLimit", "10").Value
-            CheckBoxEnableMovieOverlay.Checked = CBool(_layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false").Value)
-            CheckBoxEnableSeriesOverlay.Checked = CBool(_layer.GetSetting("ClickfinderOverlaySeriesEnabled", "false").Value)
-            NumPreviewDays.Value = _layer.GetSetting("ClickfinderPreviewMaxDays", "7").Value
-            NumPreviewMinTvMovieRating.Value = _layer.GetSetting("ClickfinderPreviewMinTvMovieRating", "1").Value
-            NumUpdateOverlay.Value = _layer.GetSetting("ClickfinderOverlayUpdateTimer", "20").Value
+            CheckBoxOverlayShowTagesTipp.Checked = CPGsettings.OverlayShowTagesTipp
+            CheckBoxOverlayShowLocalMovies.Checked = CPGsettings.OverlayShowLocalMovies
+            NumOverlayLimit.Value = CPGsettings.OverlayMovieLimit
+            CheckBoxEnableMovieOverlay.Checked = CPGsettings.OverlayMoviesEnabled
+            CheckBoxEnableSeriesOverlay.Checked = CPGsettings.OverlaySeriesEnabled
+            NumPreviewDays.Value = CPGsettings.PreviewMaxDays
+            NumPreviewMinTvMovieRating.Value = CPGsettings.PreviewMinTvMovieRating
+            NumUpdateOverlay.Value = CPGsettings.OverlayUpdateTimer
 
 
             If CheckBoxEnableMovieOverlay.Checked = True Then
@@ -78,7 +79,7 @@ Public Class Setup
                 GroupBoxMovieOverlay.Enabled = False
             End If
 
-            Select Case _layer.GetSetting("ClickfinderDetailsSeriesImage", "Cover").Value
+            Select Case CPGsettings.DetailSeriesImage
                 Case Is = "Cover"
                     RBSeriesCover.Checked = True
                 Case Is = "FanArt"
@@ -89,17 +90,17 @@ Public Class Setup
                     RBTvMovieImage.Checked = True
             End Select
 
-            If CBool(_layer.GetSetting("TvMovieEnabled", "false").Value) = False Or CBool(_layer.GetSetting("ClickfinderEnabled", "true").Value) = False Then
+            If CPGsettings.TvMovieEnabled = False Or CPGsettings.ClickfinderEnabled = False Then
                 Dim message As New TvMoviePluginError
                 message.ShowDialog()
                 Me.Close()
             End If
 
-            If Not _layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value = "true" Then
+            If Not CPGsettings.TvMovieImportTvSeriesInfos = True Then
                 GroupDetailSeriesImage.Enabled = False
             End If
 
-            Select Case (_layer.GetSetting("ClickfinderOverviewMovieSort", "startTime").Value)
+            Select Case CPGsettings.OverviewMovieSort
                 Case Is = Helper.SortMethode.startTime.ToString
                     RBstartTime.Checked = True
                 Case Is = Helper.SortMethode.TvMovieStar.ToString
@@ -108,7 +109,7 @@ Public Class Setup
                     RBRatingStar.Checked = True
             End Select
 
-            Select Case (_layer.GetSetting("ClickfinderOverlayMovieSort", Helper.SortMethode.RatingStar.ToString).Value)
+            Select Case CPGsettings.OverlayMovieSort
                 Case Is = Helper.SortMethode.startTime.ToString
                     RBOverlayStartTime.Checked = True
                 Case Is = Helper.SortMethode.TvMovieStar.ToString
@@ -117,7 +118,7 @@ Public Class Setup
                     RBOverlayRatingStar.Checked = True
             End Select
 
-            Select Case (_layer.GetSetting("ClickfinderOverlayTime", "PrimeTime").Value)
+            Select Case CPGsettings.OverlayTime
                 Case Is = "Today"
                     RBOverlayHeute.Checked = True
                 Case Is = "Now"
@@ -168,19 +169,19 @@ Public Class Setup
                 CbQuick2.Items.Add(_groups(i).GroupName)
                 CBOverlayGroup.Items.Add(_groups(i).GroupName)
 
-                If _groups(i).GroupName = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value Then
+                If _groups(i).GroupName = CPGsettings.StandardTvGroup Then
                     cbStandardGroup.Text = _groups(i).GroupName
                 End If
 
-                If _groups(i).GroupName = _layer.GetSetting("ClickfinderQuickTvGroup1", "All Channels").Value Then
+                If _groups(i).GroupName = CPGsettings.QuickTvGroup1 Then
                     CbQuick1.Text = _groups(i).GroupName
                 End If
 
-                If _groups(i).GroupName = _layer.GetSetting("ClickfinderQuickTvGroup2", "All Channels").Value Then
+                If _groups(i).GroupName = CPGsettings.QuickTvGroup2 Then
                     CbQuick2.Text = _groups(i).GroupName
                 End If
 
-                If _groups(i).GroupName = _layer.GetSetting("ClickfinderOverlayTvGroup", "All Channels").Value Then
+                If _groups(i).GroupName = CPGsettings.OverlayTvGroup Then
                     CBOverlayGroup.Text = _groups(i).GroupName
                 End If
 
@@ -198,7 +199,7 @@ Public Class Setup
 
             For i = 0 To _StartGuiList.Count - 1
                 CBStartGui.Items.Add(_StartGuiList(i))
-                If _StartGuiList(i) = _layer.GetSetting("ClickfinderStartGui", "Highlights").Value Then
+                If _StartGuiList(i) = CPGsettings.ClickfinderStartGui Then
                     CBStartGui.Text = _StartGuiList(i)
                 End If
             Next
@@ -216,91 +217,36 @@ Public Class Setup
     Private Sub ButtonSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonSave.Click
         Try
 
-            Dim setting As Setting = _layer.GetSetting("ClickfinderDatabasePath", "")
-            setting.Value = tbClickfinderDatabase.Text
-            setting.Persist()
+            CPGsettings.ClickfinderDatabasePath = tbClickfinderDatabase.Text
+            CPGsettings.ClickfinderImagePath = tbClickfinderImagePath.Text
+            CPGsettings.EpisodenScanner = tbEpisodenScanner.Text
 
-            setting = _layer.GetSetting("ClickfinderImagePath", "false")
-            setting.Value = tbClickfinderImagePath.Text
-            setting.Persist()
+            CPGsettings.OverviewShowMoviesAfter = CDbl(NumShowMoviesAfter.Value)
+            CPGsettings.OverviewShowHighlightsAfter = CDbl(NumShowHighlightsAfter.Value)
+            CPGsettings.OverviewHighlightsMinRuntime = CLng(NumHighlightsMinRuntime.Value)
+            CPGsettings.OverviewMaxDays = CDbl(NumMaxDays.Value)
 
-            setting = _layer.GetSetting("ClickfinderEpisodenScanner", "")
-            setting.Value = tbEpisodenScanner.Text
-            setting.Persist()
+            CPGsettings.PrimeTime = CDate(tbPrimeTime.Text)
+            CPGsettings.LateTime = CDate(tbLateTime.Text)
 
-            setting = _layer.GetSetting("ClickfinderOverviewShowMoviesAfter", "12")
-            setting.Value = CStr(NumShowMoviesAfter.Value)
-            setting.Persist()
+            CPGsettings.StandardTvGroup = cbStandardGroup.Text
+            CPGsettings.QuickTvGroup1 = CbQuick1.Text
+            CPGsettings.QuickTvGroup2 = CbQuick2.Text
 
-            setting = _layer.GetSetting("ClickfinderOverviewShowHighlightsAfter", "15")
-            setting.Value = CStr(NumShowHighlightsAfter.Value)
-            setting.Persist()
+            CPGsettings.pluginClickfinderProgramGuide = True
+            CPGsettings.ClickfinderPluginName = tbPluginName.Text
+            CPGsettings.ClickfinderStartGui = CBStartGui.Text
 
-            setting = _layer.GetSetting("ClickfinderOverviewHighlightsMinRuntime", "16")
-            setting.Value = CStr(NumHighlightsMinRuntime.Value)
-            setting.Persist()
+            CPGsettings.OverlayMovieLimit = CInt(NumOverlayLimit.Value)
+            CPGsettings.OverlayTvGroup = CBOverlayGroup.Text
+            CPGsettings.OverlayUpdateTimer = CInt(NumUpdateOverlay.Value)
 
+            CPGsettings.PreviewMaxDays = CInt(NumPreviewDays.Value)
+            CPGsettings.PreviewMinTvMovieRating = CInt(NumPreviewMinTvMovieRating.Value)        
 
-            setting = _layer.GetSetting("ClickfinderOverviewMaxDays", "10")
-            setting.Value = CStr(NumMaxDays.Value)
-            setting.Persist()
-
-            'setting = _layer.GetSetting("ClickfinderNowOffset", "-20")
-            'setting.Value = CStr(NumNowOffset.Value)
-            'setting.Persist()
-
-            setting = _layer.GetSetting("ClickfinderPrimeTime", "20:15")
-            setting.Value = tbPrimeTime.Text
-            setting.Persist()
-
-            setting = _layer.GetSetting("ClickfinderLateTime", "22:00")
-            setting.Value = tbLateTime.Text
-            setting.Persist()
-
-            setting = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels")
-            setting.Value = cbStandardGroup.Text
-            setting.Persist()
-
-            setting = _layer.GetSetting("ClickfinderQuickTvGroup1", "All Channels")
-            setting.Value = CbQuick1.Text
-            setting.Persist()
-
-            setting = _layer.GetSetting("ClickfinderQuickTvGroup2", "All Channels")
-            setting.Value = CbQuick2.Text
-            setting.Persist()
-
-            setting = _layer.GetSetting("ClickfinderPluginName", "Clickfinder ProgramGuide")
-            setting.Value = tbPluginName.Text
-            setting.Persist()
-
-            setting = _layer.GetSetting("ClickfinderOverlayMovieLimit", "10")
-            setting.Value = NumOverlayLimit.Value
-            setting.Persist()
-
-            setting = _layer.GetSetting("ClickfinderOverlayTvGroup", "All Channels")
-            setting.Value = CBOverlayGroup.Text
-            setting.Persist()
-
-            setting = _layer.GetSetting("ClickfinderStartGui", "Highlights")
-            setting.Value = CBStartGui.Text
-            setting.Persist()
-
-            setting = _layer.GetSetting("ClickfinderPreviewMaxDays", "7")
-            setting.Value = CStr(NumPreviewDays.Value)
-            setting.Persist()
-
-            setting = _layer.GetSetting("ClickfinderPreviewMinTvMovieRating", "1")
-            setting.Value = CStr(NumPreviewMinTvMovieRating.Value)
-            setting.Persist()
-
-
-            setting = _layer.GetSetting("ClickfinderOverlayUpdateTimer", "20")
-            setting.Value = NumUpdateOverlay.Value
-            setting.Persist()
+            CPGsettings.save()
 
             SaveCategories()
-
-
 
             MyLog.Info("[Setup] close")
             MyLog.Info("")
@@ -346,26 +292,16 @@ Public Class Setup
         End If
     End Sub
 
-
     Private Sub CheckBoxShowLocalMovies_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxShowLocalMovies.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false")
-        setting.Value = CStr(CheckBoxShowLocalMovies.Checked)
-        setting.Persist()
+        CPGsettings.OverviewShowLocalMovies = CheckBoxShowLocalMovies.Checked
     End Sub
 
     Private Sub CheckBoxShowTagesTipp_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxShowTagesTipp.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderOverviewShowTagesTipp", "false")
-        setting.Value = CStr(CheckBoxShowTagesTipp.Checked)
-        setting.Persist()
+        CPGsettings.OverviewShowTagesTipp = CheckBoxShowTagesTipp.Checked
     End Sub
 
     Private Sub CheckBoxUseSportLogos_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxUseSportLogos.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderUseSportLogos", "false")
-        setting.Value = CStr(CheckBoxUseSportLogos.Checked)
-        setting.Persist()
+        CPGsettings.UseSportLogos = CheckBoxUseSportLogos.Checked
     End Sub
 
 
@@ -637,172 +573,100 @@ Public Class Setup
     End Sub
 
     Private Sub CheckBoxFilterShowLocalMovies_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxFilterShowLocalMovies.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderItemsShowLocalMovies", "false")
-        setting.Value = CStr(CheckBoxFilterShowLocalMovies.Checked)
-        setting.Persist()
+        CPGsettings.ItemsShowLocalMovies = CheckBoxFilterShowLocalMovies.Checked
     End Sub
 
     Private Sub CheckBoxFilterShowLocalSeries_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxFilterShowLocalSeries.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderItemsShowLocalSeries", "false")
-        setting.Value = CStr(CheckBoxFilterShowLocalSeries.Checked)
-        setting.Persist()
+        CPGsettings.ItemsShowLocalSeries = CheckBoxFilterShowLocalSeries.Checked
     End Sub
 
     Private Sub RBstartTime_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBstartTime.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderOverviewMovieSort", "startTime")
-        setting.Value = Helper.SortMethode.startTime.ToString
-        setting.Persist()
+        CPGsettings.OverviewMovieSort = Helper.SortMethode.startTime.ToString
     End Sub
 
     Private Sub RBTvMovieStar_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBTvMovieStar.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderOverviewMovieSort", "startTime")
-        setting.Value = Helper.SortMethode.TvMovieStar.ToString
-        setting.Persist()
+        CPGsettings.OverviewMovieSort = Helper.SortMethode.TvMovieStar.ToString
     End Sub
 
     Private Sub RBRatingStar_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBRatingStar.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderOverviewMovieSort", "startTime")
-        setting.Value = Helper.SortMethode.RatingStar.ToString
-        setting.Persist()
+        CPGsettings.OverviewMovieSort = Helper.SortMethode.RatingStar.ToString
     End Sub
 
     Private Sub CheckBoxRemberSortedBy_CheckedChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxRemberSortedBy.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderRemberSortedBy", "true")
-        setting.Value = CStr(CheckBoxRemberSortedBy.Checked)
-        setting.Persist()
+        CPGsettings.RemberSortedBy = CheckBoxRemberSortedBy.Checked
     End Sub
 
     Private Sub CheckBoxDebugMode_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxDebugMode.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderDebugMode", "false")
-        setting.Value = CStr(CheckBoxDebugMode.Checked)
-        setting.Persist()
+        CPGsettings.ClickfinderDebugMode = CheckBoxDebugMode.Checked
     End Sub
 
-
     Private Sub CheckBoxShowCategorieLocalMovies_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxShowCategorieLocalMovies.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderCategorieShowLocalMovies", "false")
-        setting.Value = CStr(CheckBoxShowCategorieLocalMovies.Checked)
-        setting.Persist()
+        CPGsettings.CategorieShowLocalMovies = CheckBoxShowCategorieLocalMovies.Checked
     End Sub
 
     Private Sub CheckBoxShowCategorieLocalSeries_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxShowCategorieLocalSeries.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderCategorieShowLocalSeries", "false")
-        setting.Value = CStr(CheckBoxShowCategorieLocalSeries.Checked)
-        setting.Persist()
+        CPGsettings.CategorieShowLocalSeries = CheckBoxShowCategorieLocalSeries.Checked
     End Sub
 
     Private Sub CheckBoxUseSeriesDescribtion_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxUseSeriesDescribtion.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderDetailUseSeriesDescribtion", "false")
-        setting.Value = CStr(CheckBoxUseSeriesDescribtion.Checked)
-        setting.Persist()
+        CPGsettings.DetailUseSeriesDescribtion = CheckBoxUseSeriesDescribtion.Checked
     End Sub
 
     Private Sub RBSeriesCover_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBSeriesCover.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderDetailsSeriesImage", "Cover")
-        setting.Value = "Cover"
-        setting.Persist()
+        CPGsettings.DetailSeriesImage = "Cover"
     End Sub
 
     Private Sub RBSeriesFanArt_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBSeriesFanArt.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderDetailsSeriesImage", "Cover")
-        setting.Value = "FanArt"
-        setting.Persist()
+        CPGsettings.DetailSeriesImage = "FanArt"
     End Sub
 
     Private Sub RBEpisodeImage_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBEpisodeImage.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderDetailsSeriesImage", "Cover")
-        setting.Value = "Episode"
-        setting.Persist()
+        CPGsettings.DetailSeriesImage = "Episode"
     End Sub
 
     Private Sub RBTvMovieImage_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBTvMovieImage.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderDetailsSeriesImage", "Cover")
-        setting.Value = "TvMovie"
-        setting.Persist()
+        CPGsettings.DetailSeriesImage = "TvMovie"
     End Sub
 
     Private Sub CheckBoxOverlayShowTagesTipp_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxOverlayShowTagesTipp.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayShowTagesTipp", "false")
-        setting.Value = CStr(CheckBoxOverlayShowTagesTipp.Checked)
-        setting.Persist()
+        CPGsettings.OverlayShowTagesTipp = CheckBoxOverlayShowTagesTipp.Checked
     End Sub
 
     Private Sub CheckBoxOverlayShowLocalMovies_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxOverlayShowLocalMovies.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayShowLocalMovies", "false")
-        setting.Value = CStr(CheckBoxOverlayShowLocalMovies.Checked)
-        setting.Persist()
+        CPGsettings.OverlayShowLocalMovies = CheckBoxOverlayShowLocalMovies.Checked
     End Sub
 
     Private Sub RBOverlayHeute_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBOverlayHeute.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayTime", "PrimeTime")
-        setting.Value = "Today"
-        setting.Persist()
+        CPGsettings.OverlayTime = "Today"
     End Sub
 
     Private Sub RBOverlayNow_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBOverlayNow.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayTime", "PrimeTime")
-        setting.Value = "Now"
-        setting.Persist()
+        CPGsettings.OverlayTime = "Now"
     End Sub
 
     Private Sub RBOverlayPrimeTime_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBOverlayPrimeTime.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayTime", "PrimeTime")
-        setting.Value = "PrimeTime"
-        setting.Persist()
+        CPGsettings.OverlayTime = "PrimeTime"
     End Sub
 
     Private Sub RBOverlayLateTime_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBOverlayLateTime.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayTime", "PrimeTime")
-        setting.Value = "LateTime"
-        setting.Persist()
+        CPGsettings.OverlayTime = "LateTime"
     End Sub
 
     Private Sub RBOverlayStartTime_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBOverlayStartTime.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayMovieSort", Helper.SortMethode.RatingStar.ToString)
-        setting.Value = Helper.SortMethode.startTime.ToString
-        setting.Persist()
+        CPGsettings.OverlayMovieSort = Helper.SortMethode.startTime.ToString
     End Sub
 
     Private Sub RBOverlayTvMovieStar_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBOverlayTvMovieStar.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayMovieSort", Helper.SortMethode.RatingStar.ToString)
-        setting.Value = Helper.SortMethode.TvMovieStar.ToString
-        setting.Persist()
+        CPGsettings.OverlayMovieSort = Helper.SortMethode.TvMovieStar.ToString
     End Sub
 
     Private Sub RBOverlayRatingStar_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RBOverlayRatingStar.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayMovieSort", Helper.SortMethode.RatingStar.ToString)
-        setting.Value = Helper.SortMethode.RatingStar.ToString
-        setting.Persist()
+        CPGsettings.OverlayMovieSort = Helper.SortMethode.RatingStar.ToString
     End Sub
 
     Private Sub CheckBoxEnableMovieOverlay_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxEnableMovieOverlay.CheckedChanged
 
-        Dim setting As Setting = _layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false")
-        setting.Value = CStr(CheckBoxEnableMovieOverlay.Checked)
-        setting.Persist()
+        CPGsettings.OverlayMoviesEnabled = CheckBoxEnableMovieOverlay.Checked
 
         If CheckBoxEnableMovieOverlay.Checked = True Then
             GroupBoxMovieOverlay.Enabled = True
@@ -813,10 +677,7 @@ Public Class Setup
     End Sub
 
     Private Sub CheckBoxEnableSeriesOverlay_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBoxEnableSeriesOverlay.CheckedChanged
-
-        Dim setting As Setting = _layer.GetSetting("ClickfinderOverlaySeriesEnabled", "false")
-        setting.Value = CStr(CheckBoxEnableSeriesOverlay.Checked)
-        setting.Persist()
+        CPGsettings.OverlaySeriesEnabled = CheckBoxEnableSeriesOverlay.Checked
     End Sub
 
     Private Sub PictureBox2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PictureBox2.Click

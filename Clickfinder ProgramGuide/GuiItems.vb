@@ -45,7 +45,6 @@ Namespace ClickfinderProgramGuide
         Private _ThreadLeftList As Threading.Thread
         Private _ThreadRightList As Threading.Thread
         Private _isAbortException As Boolean = False
-        Private _layer As New TvBusinessLayer
         Friend Shared _CategorieMinRuntime As Integer
         Friend Shared _idCategorie As Integer = 0
         Friend Shared _sortedBy As String = String.Empty
@@ -54,6 +53,7 @@ Namespace ClickfinderProgramGuide
         Private _LastFocusedControlID As Integer
 
         Friend Shared _ItemsSqlString As String = String.Empty
+
 #End Region
 
 #Region "Constructors"
@@ -111,7 +111,7 @@ Namespace ClickfinderProgramGuide
 
             GuiLayout.SetSettingLastUpdateProperty()
 
-            _FilterByGroup = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value
+            _FilterByGroup = CPGsettings.StandardTvGroup
 
             If _ItemsCache.Count = 0 Then
                 Dim _FillLists As New Threading.Thread(AddressOf GetItemsOnLoad)
@@ -297,12 +297,12 @@ Namespace ClickfinderProgramGuide
                                 Dim key As New Gentle.Framework.Key(GetType(ClickfinderCategories), True, "idClickfinderCategories", _idCategorie)
                                 Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(key)
 
-                                ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime.AddMinutes(CDbl(_layer.GetSetting("ClickfinderNowOffset", "-20").Value)))), "#endTime", MySqlDate(PeriodeEndTime))), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
+                                ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime.AddMinutes(CPGsettings.NowOffset))), "#endTime", MySqlDate(PeriodeEndTime))), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
                                 Translator.SetProperty("#ItemsLeftListLabel", _Categorie.Name & " " & Translation.von & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00") & " - " & Format(PeriodeEndTime.Hour, "00") & ":" & Format(PeriodeEndTime.Minute, "00"))
                                 GUIWindowManager.ActivateWindow(1656544653)
                             Else
-                                If Not _FilterByGroup = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value Then
-                                    _FilterByGroup = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value
+                                If Not _FilterByGroup = CPGsettings.StandardTvGroup Then
+                                    _FilterByGroup = CPGsettings.StandardTvGroup
                                     SortFilterList()
                                 Else
 
@@ -319,8 +319,8 @@ Namespace ClickfinderProgramGuide
                                 End If
                             End If
                         Else
-                            If Not _FilterByGroup = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value Then
-                                _FilterByGroup = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value
+                            If Not _FilterByGroup = CPGsettings.StandardTvGroup Then
+                                _FilterByGroup = CPGsettings.StandardTvGroup
                                 SortFilterList()
                             Else
 
@@ -345,7 +345,7 @@ Namespace ClickfinderProgramGuide
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_7 Then
                     MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
 
-                    _FilterByGroup = _layer.GetSetting("ClickfinderQuickTvGroup1", "All Channels").Value
+                    _FilterByGroup = CPGsettings.QuickTvGroup1
 
                     SortFilterList()
                 End If
@@ -354,7 +354,7 @@ Namespace ClickfinderProgramGuide
                 If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_9 Then
                     MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
 
-                    _FilterByGroup = _layer.GetSetting("ClickfinderQuickTvGroup2", "All Channels").Value
+                    _FilterByGroup = CPGsettings.QuickTvGroup2
 
                     SortFilterList()
                 End If
@@ -454,7 +454,13 @@ Namespace ClickfinderProgramGuide
                     _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
                         "ORDER BY title ASC, seriesNum ASC, episodeNum ASC, startTime ASC"
                     Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.Episode)
+                Case Is = SortMethode.Title.ToString
+                    _LogLocalSortedBy = SortMethode.Series.ToString
+                    _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
+                        "ORDER BY title ASC, starRating DESC, startTime ASC"
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.Title)
             End Select
+
             _ItemsSqlString = Replace(_ItemsSqlString, " * ", " Program.IdProgram, Program.Classification, Program.Description, Program.EndTime, Program.EpisodeName, Program.EpisodeNum, Program.EpisodePart, Program.Genre, Program.IdChannel, Program.OriginalAirDate, Program.ParentalRating, Program.SeriesNum, Program.StarRating, Program.StartTime, Program.state, Program.Title ")
             Dim _SQLstate As SqlStatement = Broker.GetStatement(_ItemsSqlString)
             _ProgramList = ObjectFactory.GetCollection(GetType(Program), _SQLstate.Execute())
@@ -494,7 +500,7 @@ Namespace ClickfinderProgramGuide
                         If String.Equals(_lastTitle, _program.Title & _program.EpisodeName) = False Then
 
                             'Falls lokale Movies/Videos nicht angezeigt werden sollen -> aus Array entfernen
-                            If CBool(_layer.GetSetting("ClickfinderItemsShowLocalMovies", "false").Value) = True Then
+                            If CPGsettings.ItemsShowLocalMovies = True Then
                                 Try
                                     Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_program.IdProgram)
                                     If _TvMovieProgram.local = True And _TvMovieProgram.idSeries = 0 Then
@@ -506,7 +512,7 @@ Namespace ClickfinderProgramGuide
                             End If
 
                             'Falls lokale Serien nicht angezeigt werden sollen -> aus Array entfernen
-                            If CBool(_layer.GetSetting("ClickfinderItemsShowLocalSeries", "false").Value) = True Then
+                            If CPGsettings.ItemsShowLocalSeries = True Then
                                 Try
                                     Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_program.IdProgram)
                                     If _TvMovieProgram.local = True And _TvMovieProgram.idSeries > 0 Then
@@ -535,10 +541,10 @@ Namespace ClickfinderProgramGuide
             MyLog.[Debug]("[ItemsGuiWindow] [GetItemsOnLoad]: _ItemsCache= {0}", _ItemsCache.Count)
 
 
-            If CBool(_layer.GetSetting("ClickfinderItemsShowLocalSeries", "false").Value) = True Then
+            If CPGsettings.ItemsShowLocalSeries = True Then
                 MyLog.Debug("[ItemsGuiWindow] [GetItemsOnLoad]: Series Episodes exist local and will not be displayed ({0})", _LogLocalSeries)
             End If
-            If CBool(_layer.GetSetting("ClickfinderItemsShowLocalMovies", "false").Value) = True Then
+            If CPGsettings.ItemsShowLocalMovies = True Then
                 MyLog.Debug("[ItemsGuiWindow] [GetItemsOnLoad]: Movies exist local and will not be displayed ({0})", _LogLocalMovies)
             End If
 
@@ -831,7 +837,7 @@ Namespace ClickfinderProgramGuide
                 Case Is = Translation.Refresh
                     Dim key As New Gentle.Framework.Key(GetType(ClickfinderCategories), True, "idClickfinderCategories", _idCategorie)
                     Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(key)
-                    ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime.AddMinutes(CDbl(_layer.GetSetting("ClickfinderNowOffset", "-20").Value)))), "#endTime", MySqlDate(PeriodeEndTime))), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
+                    ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime.AddMinutes(CPGsettings.NowOffset))), "#endTime", MySqlDate(PeriodeEndTime))), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
                     Translator.SetProperty("#ItemsLeftListLabel", _Categorie.Name & " " & Translation.von & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00") & " - " & Format(PeriodeEndTime.Hour, "00") & ":" & Format(PeriodeEndTime.Minute, "00"))
                     GUIWindowManager.ActivateWindow(1656544653)
                 Case Is = Translation.Filterby
@@ -871,6 +877,11 @@ Namespace ClickfinderProgramGuide
             dlgContext.Add(lItemGenre)
             lItemGenre.Dispose()
 
+            Dim lItemparentalTitle As New GUIListItem
+            lItemparentalTitle.Label = Translation.SortTitle
+            dlgContext.Add(lItemparentalTitle)
+            lItemparentalTitle.Dispose()
+
             Dim lItemparentalRating As New GUIListItem
             lItemparentalRating.Label = Translation.SortparentalRating
             dlgContext.Add(lItemparentalRating)
@@ -896,6 +907,10 @@ Namespace ClickfinderProgramGuide
 
                     SortFilterList()
                 Case Is = 4
+                    _sortedBy = SortMethode.Title.ToString
+
+                    SortFilterList()
+                Case Is = 5
                     _sortedBy = SortMethode.parentalRating.ToString
 
                     SortFilterList()
@@ -928,7 +943,7 @@ Namespace ClickfinderProgramGuide
 
         End Sub
         Private Sub SaveSortedByToClickfinderCategories()
-            If Not _idCategorie = 0 And CBool(_layer.GetSetting("ClickfinderRemberSortedBy", "true").Value) = True Then
+            If Not _idCategorie = 0 And CPGsettings.RemberSortedBy = True Then
                 Dim key As New Gentle.Framework.Key(GetType(ClickfinderCategories), True, "idClickfinderCategories", _idCategorie)
                 Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(key)
                 _Categorie.sortedBy = _sortedBy
@@ -1025,6 +1040,12 @@ Namespace ClickfinderProgramGuide
                     _ItemsCache.Sort(_ParentalRating)
 
                     '_ItemsCache.Sort(Function(p1 As TVMovieProgram, p2 As TVMovieProgram) p2.ReferencedProgram.ParentalRating.CompareTo(p1.ReferencedProgram.ParentalRating))
+                Case Is = SortMethode.Title.ToString
+                    'Titel
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortTitle)
+                    Dim _Title As TVMovieProgram_SortByTitle = New TVMovieProgram_SortByTitle
+                    _ItemsCache.Sort(_Title)
+
             End Select
 
             _CurrentCounter = 0

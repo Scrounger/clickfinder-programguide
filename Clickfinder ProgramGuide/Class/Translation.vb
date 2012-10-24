@@ -48,6 +48,7 @@ Public NotInheritable Class Translation
     Public Shared SortRatingStar As String = "Rating"
     Public Shared SortGenre As String = "Genre"
     Public Shared SortparentalRating As String = "Altersfreigabe"
+    Public Shared SortTitle As String = "Titel"
     Public Shared Sortby As String = "Sortieren nach ..."
     Public Shared SortbyGuiItems As String = "Sortiert nach"
     Public Shared von As String = "von"
@@ -120,6 +121,7 @@ Public NotInheritable Class Translation
     Public Shared DBRefreshRunning As String = "Datenbank Abgleich läuft..."
     Public Shared DBRefreshFinished As String = "Datenbank Abgleich erfolgreich!"
     Public Shared RefreshOverlays As String = "Overlays werden aktualisiert..."
+    Public Shared Title As String = "Titel"
 
 
 End Class

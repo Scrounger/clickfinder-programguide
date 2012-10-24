@@ -46,7 +46,6 @@ Namespace ClickfinderProgramGuide
         Private _SelectedCategorieMinRunTime As Integer
         Private Shared _SelectedCategorieItemId As Integer
         Private ThreadPreviewListFill As Threading.Thread
-        Private Shared _layer As New TvBusinessLayer
         Private _CategorieFilterByGroup As String
         Private _LastFocusedIndex As Integer
         Private _LastFocusedControlID As Integer
@@ -83,8 +82,8 @@ Namespace ClickfinderProgramGuide
 
         Friend Shared ReadOnly Property PeriodeStartTime() As Date
             Get
-                Dim _PrimeTime As Date = CDate(_layer.GetSetting("ClickfinderPrimeTime", "20:15").Value)
-                Dim _LateTime As Date = CDate(_layer.GetSetting("ClickfinderLateTime", "22:00").Value)
+                Dim _PrimeTime As Date = CPGsettings.PrimeTime
+                Dim _LateTime As Date = CPGsettings.LateTime
 
                 Select Case _ClickfinderCategorieView
                     Case CategorieView.Now
@@ -108,7 +107,7 @@ Namespace ClickfinderProgramGuide
                     Case CategorieView.Day
                         Return PeriodeStartTime.AddHours(24)
                     Case CategorieView.Preview
-                        Return PeriodeStartTime.AddDays(CDbl(_layer.GetSetting("ClickfinderPreviewMaxDays", "7").Value))
+                        Return PeriodeStartTime.AddDays(CPGsettings.PreviewMaxDays)
                     Case Else
                         Return PeriodeStartTime.AddHours(4)
                 End Select
@@ -333,7 +332,7 @@ Namespace ClickfinderProgramGuide
                     End Try
 
                     Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(_CategorieList.SelectedListItem.ItemId)
-                    _Categorie.groupName = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value
+                    _Categorie.groupName = CPGsettings.StandardTvGroup
                     _Categorie.Persist()
 
                     ThreadPreviewListFill = New Threading.Thread(AddressOf FillPreviewList)
@@ -354,7 +353,7 @@ Namespace ClickfinderProgramGuide
                     End Try
 
                     Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(_CategorieList.SelectedListItem.ItemId)
-                    _Categorie.groupName = _layer.GetSetting("ClickfinderQuickTvGroup1", "All Channels").Value
+                    _Categorie.groupName = CPGsettings.QuickTvGroup1
                     _Categorie.Persist()
 
                     ThreadPreviewListFill = New Threading.Thread(AddressOf FillPreviewList)
@@ -375,7 +374,7 @@ Namespace ClickfinderProgramGuide
                     End Try
 
                     Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(_CategorieList.SelectedListItem.ItemId)
-                    _Categorie.groupName = _layer.GetSetting("ClickfinderQuickTvGroup2", "All Channels").Value
+                    _Categorie.groupName = CPGsettings.QuickTvGroup2
                     _Categorie.Persist()
 
                     ThreadPreviewListFill = New Threading.Thread(AddressOf FillPreviewList)
@@ -486,7 +485,7 @@ Namespace ClickfinderProgramGuide
                 If _ClickfinderCategorieView = CategorieView.Now Then
                     ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime.AddMinutes(CDbl((-1) * _Categorie.NowOffset)))), "#endTime", MySqlDate(PeriodeEndTime))), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
                 ElseIf _ClickfinderCategorieView = CategorieView.Preview Then
-                    ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime)), "#endTime", MySqlDate(PeriodeEndTime)), "WHERE", "WHERE TVMovieBewertung >= " & CInt(_layer.GetSetting("ClickfinderPreviewMinTvMovieRating", "1").Value) & " AND ")), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
+                    ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime)), "#endTime", MySqlDate(PeriodeEndTime)), "WHERE", "WHERE TVMovieBewertung >= " & CPGsettings.PreviewMinTvMovieRating & " AND ")), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
                 Else
                     ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime)), "#endTime", MySqlDate(PeriodeEndTime))), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
                 End If
@@ -620,104 +619,91 @@ Namespace ClickfinderProgramGuide
                     _SqlString = CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime)), "#endTime", MySqlDate(PeriodeStartTime.AddHours(2))))
                 End If
 
-                _SqlString = AppendSqlLimit(_SqlString, 25)
+                _SqlString = AppendSqlLimit(_SqlString, 20)
 
                 _SqlString = Replace(_SqlString, " * ", " Program.IdProgram, Program.Classification, Program.Description, Program.EndTime, Program.EpisodeName, Program.EpisodeNum, Program.EpisodePart, Program.Genre, Program.IdChannel, Program.OriginalAirDate, Program.ParentalRating, Program.SeriesNum, Program.StarRating, Program.StartTime, Program.state, Program.Title ")
                 Dim _SQLstate As SqlStatement = Broker.GetStatement(_SqlString)
                 _ResultList = ObjectFactory.GetCollection(GetType(Program), _SQLstate.Execute())
 
 
+                ' Dim _result As New ArrayList
+                '_result.AddRange(Broker.Execute(_SqlString).TransposeToFieldList("idProgram", False))
 
-                Dim _result As New ArrayList
-                _result.AddRange(Broker.Execute(_SqlString).TransposeToFieldList("idProgram", False))
+                MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: {0} program found, Categorie = {1}, group = {2}, SQLString: {3}", _ResultList.Count, _Categorie.Name, _Categorie.groupName, _SqlString)
 
-                MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: {0} program found, Categorie = {1}, group = {2}, SQLString: {3}", _result.Count, _Categorie.Name, _Categorie.groupName, _SqlString)
+                If _ResultList.Count > 0 Then
+                    _ResultList = _ResultList.FindAll(Function(p As Program) p.ReferencedChannel.IsTv = True _
+                                                        And p.ReferencedChannel.GroupNames.Contains(CPGsettings.StandardTvGroup) _
+                                                        And DateDiff(DateInterval.Minute, p.StartTime, p.EndTime) > _SelectedCategorieMinRunTime)
 
+                    For Each _program As Program In _ResultList
+                        Try
+                            Dim SaveChanges As Boolean = False
 
-                For i = 0 To _result.Count - 1
-                    Try
-                        Dim SaveChanges As Boolean = False
+                            Dim _TvMovieProgram As TVMovieProgram = getTvMovieProgram(_program)
 
-                        'ProgramDaten über idProgram laden
-                        Dim _Program As Program = Program.Retrieve(_result.Item(i))
-
-                        If Not _Categorie.groupName = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value Then
-                            'Alle Gruppen des _resultprogram laden
-                            Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
-                            sb.AddConstraint([Operator].Equals, "idgroup", _Categorie.Referencedgroup.IdGroup)
-                            sb.AddConstraint([Operator].Equals, "idChannel", _Program.IdChannel)
-                            Dim stmt As SqlStatement = sb.GetStatement(True)
-                            Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
-
-                            If _isInFavGroup.Count = 0 Then
-                                Continue For
+                            If _TvMovieProgram.idSeries > 0 Then
+                                Helper.CheckSeriesLocalStatus(_TvMovieProgram)
                             End If
-                        End If
 
-                        Dim _TvMovieProgram As TVMovieProgram = getTvMovieProgram(_Program)
+                            If String.Equals(_lastTitle, _program.Title & _program.EpisodeName) = False Then
 
-                        If _TvMovieProgram.idSeries > 0 Then
-                            Helper.CheckSeriesLocalStatus(_TvMovieProgram)
-                        End If
+                                'Falls lokale Movies/Videos nicht angezeigt werden sollen -> aus Array entfernen
+                                If CPGsettings.CategorieShowLocalMovies = True Then
+                                    If _TvMovieProgram.local = True And _TvMovieProgram.idSeries = 0 Then
+                                        _LogLocalMovies = _LogLocalMovies & _TvMovieProgram.ReferencedProgram.Title & ", "
+                                        Continue For
+                                    End If
+                                End If
 
-                        'Falls lokale Movies/Videos nicht angezeigt werden sollen -> aus Array entfernen
-                        If CBool(_layer.GetSetting("ClickfinderCategorieShowLocalMovies", "false").Value) = True Then
-                            If _TvMovieProgram.local = True And _TvMovieProgram.idSeries = 0 Then
-                                _LogLocalMovies = _LogLocalMovies & _TvMovieProgram.ReferencedProgram.Title & ", "
-                                Continue For
-                            End If
-                        End If
+                                'Falls lokale Serien nicht angezeigt werden sollen -> aus Array entfernen
+                                If CPGsettings.CategorieShowLocalSeries = True Then
+                                    If _TvMovieProgram.local = True And _TvMovieProgram.idSeries > 0 Then
+                                        _LogLocalSeries = _LogLocalSeries & _TvMovieProgram.ReferencedProgram.Title & " - S" & _TvMovieProgram.ReferencedProgram.SeriesNum & "E" & _TvMovieProgram.ReferencedProgram.EpisodeNum & ", "
+                                        Continue For
+                                    End If
+                                End If
 
-                        'Falls lokale Serien nicht angezeigt werden sollen -> aus Array entfernen
-                        If CBool(_layer.GetSetting("ClickfinderCategorieShowLocalSeries", "false").Value) = True Then
-                            If _TvMovieProgram.local = True And _TvMovieProgram.idSeries > 0 Then
-                                _LogLocalSeries = _LogLocalSeries & _TvMovieProgram.ReferencedProgram.Title & " - S" & _TvMovieProgram.ReferencedProgram.SeriesNum & "E" & _TvMovieProgram.ReferencedProgram.EpisodeNum & ", "
-                                Continue For
-                            End If
-                        End If
+                                'If DateDiff(DateInterval.Minute, _program.StartTime, _program.EndTime) > _SelectedCategorieMinRunTime Then
 
-                        If DateDiff(DateInterval.Minute, _Program.StartTime, _Program.EndTime) > _SelectedCategorieMinRunTime Then
-
-                            If String.Equals(_lastTitle, _Program.Title & _Program.EpisodeName) = False And _Program.ReferencedChannel.IsTv = True Then
-
-
-                                Translator.SetProperty("#PreviewListRatingStar" & _ItemCounter, GuiLayout.ratingStar(_Program))
+                                Translator.SetProperty("#PreviewListRatingStar" & _ItemCounter, GuiLayout.ratingStar(_program))
                                 Translator.SetProperty("#PreviewListTvMovieStar" & _ItemCounter, GuiLayout.TvMovieStar(_TvMovieProgram))
                                 Translator.SetProperty("#PreviewListImage" & _ItemCounter, GuiLayout.Image(_TvMovieProgram))
 
-                                AddListControlItem(_PreviewList, _Program.IdProgram, _Program.ReferencedChannel.DisplayName, _Program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_Program))
+                                AddListControlItem(_PreviewList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_program))
 
                                 MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: Add ListItem {0} (Title: {1}, Channel: {2}, startTime: {3}, idprogram: {4}, ratingStar: {5}, TvMovieStar: {6}, image: {7})", _
-                                            _ItemCounter, _Program.Title, _Program.ReferencedChannel.DisplayName, _
-                                            _Program.StartTime, _Program.IdProgram, _
+                                            _ItemCounter, _program.Title, _program.ReferencedChannel.DisplayName, _
+                                            _program.StartTime, _program.IdProgram, _
                                             GuiLayout.ratingStar(_TvMovieProgram.ReferencedProgram), _
                                             _TvMovieProgram.TVMovieBewertung, GuiLayout.Image(_TvMovieProgram))
 
                                 _ItemCounter = _ItemCounter + 1
-                                _lastTitle = _Program.Title & _Program.EpisodeName
+                                _lastTitle = _program.Title & _program.EpisodeName
                             End If
-                        End If
+                            'End If
 
-                        If _ItemCounter > 6 Then Exit For
+                            If _ItemCounter > 6 Then Exit For
 
-                        'log Ausgabe abfangen, falls der Thread abgebrochen wird
-                    Catch ex As ThreadAbortException ' Ignore this exception
-                        MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: --- THREAD ABORTED ---")
-                        MyLog.Debug("")
-                    Catch ex As GentleException
-                    Catch ex As Exception
-                        MyLog.Error("[CategoriesGuiWindow] [FillPreviewList]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
-                    End Try
+                            'log Ausgabe abfangen, falls der Thread abgebrochen wird
+                        Catch ex As ThreadAbortException ' Ignore this exception
+                            MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: --- THREAD ABORTED ---")
+                            MyLog.Debug("")
+                        Catch ex As GentleException
+                        Catch ex As Exception
+                            MyLog.Error("[CategoriesGuiWindow] [FillPreviewList]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
+                        End Try
 
-                Next
+                    Next
+                End If
 
                 ctlProgressBar.Visible = False
                 _PreviewList.Visible = True
 
-                If CBool(_layer.GetSetting("ClickfinderCategorieShowLocalSeries", "false").Value) = True Then
+                If CPGsettings.CategorieShowLocalSeries = True Then
                     MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: Series Episodes exist local and will not be displayed ({0})", _LogLocalSeries)
                 End If
-                If CBool(_layer.GetSetting("ClickfinderCategorieShowLocalMovies", "false").Value) = True Then
+                If CPGsettings.CategorieShowLocalMovies = True Then
                     MyLog.Debug("[CategoriesGuiWindow] [FillPreviewList]: Movies exist local and will not be displayed ({0})", _LogLocalMovies)
                 End If
 

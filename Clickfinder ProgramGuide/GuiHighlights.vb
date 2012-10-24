@@ -47,6 +47,14 @@ Namespace ClickfinderProgramGuide
         Private _LastFocusedItemIndex As Integer
         Private _LastFocusedControlID As Integer
 
+        Private _MovieHighlightsLoadList As New List(Of TVMovieProgram)
+        Private _HighlightsLoadList As New List(Of TVMovieProgram)
+        Private _TagesTippsList As New List(Of TVMovieProgram)
+        Private _NewEpisodesList As New List(Of TVMovieProgram)
+
+        Private _logMovieTime As String
+        Private _logHighlights As String
+
 #End Region
 
 #Region "Constructors"
@@ -95,25 +103,19 @@ Namespace ClickfinderProgramGuide
                 _DaysProgress.Percentage = _ProgressPercentagValue
                 If _ClickfinderCurrentDate = Nothing Then
                     _ClickfinderCurrentDate = Today
-                    If Not _DaysProgress.Percentage = 1 * 100 / (CDbl(_layer.GetSetting("ClickfinderOverviewMaxDays", "10").Value) + 1) Then
-                        _DaysProgress.Percentage = 1 * 100 / (CDbl(_layer.GetSetting("ClickfinderOverviewMaxDays", "10").Value) + 1)
+                    If Not _DaysProgress.Percentage = 1 * 100 / (CPGsettings.OverviewMaxDays + 1) Then
+                        _DaysProgress.Percentage = 1 * 100 / (CPGsettings.OverviewMaxDays + 1)
                     End If
                 End If
 
                 Translator.SetProperty("#CurrentDate", getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
                 MyLog.Debug("[HighlightsGuiWindow] [OnPageLoad]: _ClickfinderCurrentDate = {0}", getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
 
-                Try
-                    If _ThreadFillMovieList.IsAlive = True Or _ThreadFillHighlightsList.IsAlive = True Then
-                        MyLog.Debug("")
-                        _ThreadFillMovieList.Abort()
-                        _ThreadFillHighlightsList.Abort()
-                    End If
+                AbortRunningThreads
 
-                Catch ex3 As Exception ' Ignore this exception
-                    'Eventuell auftretende Exception abfangen
-                    ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
-                End Try
+
+
+                test()
 
                 _ThreadFillMovieList = New Thread(AddressOf FillMovieList)
                 _ThreadFillHighlightsList = New Thread(AddressOf FillHighlightsList)
@@ -159,10 +161,10 @@ Namespace ClickfinderProgramGuide
 
                     AbortRunningThreads()
 
-                    If Not Date.Equals(_ClickfinderCurrentDate, Today.AddDays(CDbl(_layer.GetSetting("ClickfinderOverviewMaxDays", "10").Value))) Then
+                    If Not Date.Equals(_ClickfinderCurrentDate, Today.AddDays(CPGsettings.OverviewMaxDays)) Then
                         _ClickfinderCurrentDate = _ClickfinderCurrentDate.AddDays(1)
-                        _DaysProgress.Percentage = _DaysProgress.Percentage + 1 * 100 / (CDbl(_layer.GetSetting("ClickfinderOverviewMaxDays", "10").Value) + 1)
-                    ElseIf _ClickfinderCurrentDate = Today.AddDays(CDbl(_layer.GetSetting("ClickfinderOverviewMaxDays", "10").Value)) Then
+                        _DaysProgress.Percentage = _DaysProgress.Percentage + 1 * 100 / (CPGsettings.OverviewMaxDays + 1)
+                    ElseIf _ClickfinderCurrentDate = Today.AddDays(CPGsettings.OverviewMaxDays) Then
                         _ClickfinderCurrentDate = Today.AddDays(-1)
                         _DaysProgress.Percentage = 0
                     End If
@@ -196,9 +198,9 @@ Namespace ClickfinderProgramGuide
 
                     If Not Date.Equals(_ClickfinderCurrentDate, Today.AddDays(-1)) Then
                         _ClickfinderCurrentDate = _ClickfinderCurrentDate.AddDays(-1)
-                        _DaysProgress.Percentage = _DaysProgress.Percentage - 1 * 100 / (CDbl(_layer.GetSetting("ClickfinderOverviewMaxDays", "10").Value) + 1)
+                        _DaysProgress.Percentage = _DaysProgress.Percentage - 1 * 100 / (CPGsettings.OverviewMaxDays + 1)
                     ElseIf _ClickfinderCurrentDate = Today.AddDays(-1) Then
-                        _ClickfinderCurrentDate = Today.AddDays(CDbl(_layer.GetSetting("ClickfinderOverviewMaxDays", "10").Value))
+                        _ClickfinderCurrentDate = Today.AddDays(CPGsettings.OverviewMaxDays)
                         _DaysProgress.Percentage = 100
                     End If
 
@@ -283,8 +285,8 @@ Namespace ClickfinderProgramGuide
                     MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", Action.m_key.KeyChar, Action.m_key.KeyCode, Action.wID.ToString)
 
                     _ClickfinderCurrentDate = Today
-                    If Not _DaysProgress.Percentage = 1 * 100 / (CDbl(_layer.GetSetting("ClickfinderOverviewMaxDays", "10").Value) + 1) Then
-                        _DaysProgress.Percentage = 1 * 100 / (CDbl(_layer.GetSetting("ClickfinderOverviewMaxDays", "10").Value) + 1)
+                    If Not _DaysProgress.Percentage = 1 * 100 / (CPGsettings.OverviewMaxDays + 1) Then
+                        _DaysProgress.Percentage = 1 * 100 / (CPGsettings.OverviewMaxDays + 1)
                     End If
                     Translator.SetProperty("#CurrentDate", getTranslatedDayOfWeek(_ClickfinderCurrentDate) & " " & Format(_ClickfinderCurrentDate, "dd.MM.yyyy"))
 
@@ -345,9 +347,6 @@ Namespace ClickfinderProgramGuide
                 GuiButtons.AllMovies()
             End If
 
-        
-
-
             If control Is _MovieList Or control Is _HighlightsList Then
                 If actionType = MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM Then
                     Action_SelectItem()
@@ -376,6 +375,133 @@ Namespace ClickfinderProgramGuide
 #End Region
 
 #Region "Functions"
+
+        Private Sub test()
+
+            Dim _now As Date = Now
+
+            Dim _ThreadLoadHighlightsMovieList As Thread = New Thread(AddressOf LoadHighlightsMovieListThread)
+            Dim _ThreadLoadHighlightsList As Thread = New Thread(AddressOf LoadHighlightsListThread)
+
+            _ThreadLoadHighlightsMovieList.Start()
+            _ThreadLoadHighlightsList.Start()
+
+            _ThreadLoadHighlightsMovieList.Join()
+
+            If _ThreadLoadHighlightsList.IsAlive = True Then
+                _ThreadLoadHighlightsList.Join()
+            End If
+
+            'Dim tmp As List(Of TVMovieProgram) = _MovieHighlightsLoadList.FindAll(Function(x As TVMovieProgram) x.ReferencedProgram.StartTime.Date = _ClickfinderCurrentDate)
+            'tmp = tmp.GetRange(0, 5)
+
+            MsgBox(_MovieHighlightsLoadList.Count & vbNewLine & _HighlightsLoadList.Count & vbNewLine & _TagesTippsList.Count & vbNewLine & _NewEpisodesList.Count & vbNewLine & DateDiff(DateInterval.Second, _now, Now) & vbNewLine & _logMovieTime & vbNewLine & _logHighlights)
+            'MsgBox(tmp.Count)
+
+
+        End Sub
+
+        Private Sub LoadHighlightsMovieListThread()
+
+            _MovieHighlightsLoadList.Clear()
+
+            Dim _SQLstring As String = String.Empty
+            Dim _now As Date = Now
+
+            For i = 0 To CPGsettings.OverviewMaxDays
+                'Alle Movies (2 > TvMovieBewertung < 6), inkl. TagesTipps
+                If CPGsettings.OverviewShowLocalMovies = True Then
+                    'lokale Movies nicht anzeigen
+                    _SQLstring = _
+                        "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
+                        "WHERE TvMovieBewertung > 2 AND TvMovieBewertung < 6 " & _
+                        "AND local = 0 " & _
+                        "AND startTime > " & MySqlDate(Date.Today.AddDays(CDbl(i)).AddHours(CPGsettings.OverviewShowMoviesAfter)) & " " & _
+                        "AND startTime < " & MySqlDate(Date.Today.AddDays(CDbl(i + 1)).AddHours(0).AddMinutes(0)) & " " & _
+                        "AND genre NOT LIKE '%Serie%' " & _
+                        "AND genre NOT LIKE '%Sitcom%' " & _
+                        "AND genre NOT LIKE '%Zeichentrick%'"
+                Else
+                    'lokale Movies anzeigen
+                    _SQLstring = _
+                        "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
+                        "WHERE TvMovieBewertung > 2 AND TvMovieBewertung < 6 " & _
+                        "AND startTime > " & MySqlDate(Date.Today.AddDays(CDbl(i)).AddHours(CPGsettings.OverviewShowMoviesAfter)) & " " & _
+                        "AND startTime < " & MySqlDate(Date.Today.AddDays(CDbl(i + 1)).AddHours(0).AddMinutes(0)) & " " & _
+                        "AND genre NOT LIKE '%Serie%' " & _
+                        "AND genre NOT LIKE '%Sitcom%' " & _
+                        "AND genre NOT LIKE '%Zeichentrick%'"
+                End If
+
+                _SQLstring = AppendSqlLimit(_SQLstring & Helper.ORDERBYstartTime, 25)
+
+                _SQLstring = Replace(_SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idTVMovieProgram, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.needsUpdate, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung, TVMovieProgram.Year ")
+                Dim _SQLstate1 As SqlStatement = Broker.GetStatement(_SQLstring)
+                _MovieHighlightsLoadList.AddRange(ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate1.Execute()))
+
+            Next
+
+            'standard Tv Grupper Filtern
+            _MovieHighlightsLoadList = _MovieHighlightsLoadList.FindAll(Function(p As TVMovieProgram) _
+                                          p.ReferencedProgram.ReferencedChannel.GroupNames.Contains(CPGsettings.StandardTvGroup))
+
+            
+            'TagesTipps in neue liste
+            _TagesTippsList = _MovieHighlightsLoadList.FindAll(Function(p As TVMovieProgram) _
+                                          p.TVMovieBewertung = 4)
+
+            'TagesTipps entfernen
+            _MovieHighlightsLoadList = _MovieHighlightsLoadList.FindAll(Function(p As TVMovieProgram) _
+                                          p.TVMovieBewertung <> 4)
+
+            _logMovieTime = "MovieThread: " & DateDiff(DateInterval.Second, _now, Now)
+        End Sub
+
+        Private Sub LoadHighlightsListThread()
+
+            _HighlightsLoadList.Clear()
+
+            Dim _SQLstring As String = String.Empty
+            Dim _now As Date = Now
+
+            For i = 0 To CPGsettings.OverviewMaxDays
+
+                _SQLstring = _
+                    "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
+                    "WHERE TvMovieBewertung = 6 " & _
+                    "AND genre NOT LIKE '%Zeichentrick%' " & _
+                    "AND genre NOT LIKE '%Serie%' " & _
+                    "AND genre NOT LIKE '%Sitcom%' " & _
+                    "AND genre NOT LIKE '%Zeichentrick%' " & _
+                    "AND startTime > " & MySqlDate(Date.Today.AddDays(CDbl(i)).AddHours(CPGsettings.OverviewShowHighlightsAfter)) & " " & _
+                    "AND startTime < " & MySqlDate(Date.Today.AddDays(CDbl(i + 1)).AddHours(0).AddMinutes(0)) & " " & _
+                    Helper.ORDERBYstartTime
+
+                _SQLstring = Replace(_SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idTVMovieProgram, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.needsUpdate, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung, TVMovieProgram.Year ")
+                Dim _SQLstate As SqlStatement = Broker.GetStatement(_SQLstring)
+                _HighlightsLoadList.AddRange(ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate.Execute()))
+
+            Next
+
+            _HighlightsLoadList = _HighlightsLoadList.FindAll(Function(p As TVMovieProgram) _
+                                              DateDiff(DateInterval.Minute, p.ReferencedProgram.StartTime, p.ReferencedProgram.EndTime) > CLng(CPGsettings.OverviewHighlightsMinRuntime) Or p.idSeries > 0 _
+                                              And p.ReferencedProgram.ReferencedChannel.GroupNames.Contains(CPGsettings.StandardTvGroup))
+
+            If CPGsettings.TvMovieImportTvSeriesInfos = True Then
+                _SQLstring = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
+                                            "WHERE idSeries > 0 " & _
+                                            "AND local = 0 " & _
+                                            "ORDER BY idSeries ASC"
+
+                _SQLstring = Replace(_SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idTVMovieProgram, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.needsUpdate, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung, TVMovieProgram.Year ")
+                Dim _SQLstate As SqlStatement = Broker.GetStatement(_SQLstring)
+                _NewEpisodesList.AddRange(ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate.Execute()))
+            End If
+
+            _logHighlights = "HighlightsThread: " & DateDiff(DateInterval.Second, _now, Now)
+        End Sub
+
+
         Private Sub FillMovieList()
             Dim _lastTitle As String = String.Empty
             Dim _ItemCounter As Integer = 0
@@ -410,7 +536,7 @@ Namespace ClickfinderProgramGuide
                 'Dim _Result As New ArrayList
 
                 '[Optional] TvMovie Tages Tipp immer als erstes anzeigen
-                If CBool(_layer.GetSetting("ClickfinderOverviewShowTagesTipp").Value) = True Then
+                If CPGsettings.OverviewShowTagesTipp = True Then
                     _SQLstring = _
                     "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
                     "WHERE TvMovieBewertung = 4 " & _
@@ -426,7 +552,7 @@ Namespace ClickfinderProgramGuide
 
                         'Alle aus standrad tv gruppe laden
                         _TvMovieTagesTippList = _TvMovieTagesTippList.FindAll(Function(x As TVMovieProgram) _
-                                                                                 x.ReferencedProgram.ReferencedChannel.GroupNames.Contains(_layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value))
+                                                                                 x.ReferencedProgram.ReferencedChannel.GroupNames.Contains(CPGsettings.StandardTvGroup))
                         'Falls Tipp gefunden -> übergeben an ResultList
                         If _TvMovieTagesTippList.Count > 0 Then
                             _ResultList.Add(_TvMovieTagesTippList(0))
@@ -444,15 +570,15 @@ Namespace ClickfinderProgramGuide
                 'Manuelle Sqlabfrage starten (wegen InnerJoin) -> idprogram 
                 _SQLstring = _
                     "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
-                    "WHERE starRating > 1 AND TvMovieBewertung < 6 " & _
-                    "AND startTime > " & MySqlDate(_ClickfinderCurrentDate.AddHours(CDbl(_layer.GetSetting("ClickfinderOverviewShowMoviesAfter", "12").Value))) & " " & _
-                    "AND startTime < " & MySqlDate(_ClickfinderCurrentDate.AddHours(24)) & " " & _
+                    "WHERE starRating > 2 AND TvMovieBewertung < 6 " & _
+                    "AND startTime > " & MySqlDate(_ClickfinderCurrentDate.AddHours(CPGsettings.OverviewShowMoviesAfter)) & " " & _
+                    "AND startTime < " & MySqlDate(_ClickfinderCurrentDate.AddDays(1).AddHours(0).AddMinutes(0)) & " " & _
                     "AND genre NOT LIKE '%Serie%' " & _
                     "AND genre NOT LIKE '%Sitcom%' " & _
                     "AND genre NOT LIKE '%Zeichentrick%' "
 
                 'SQlstring Sort Methode laden
-                Select Case (_layer.GetSetting("ClickfinderOverviewMovieSort", SortMethode.startTime.ToString).Value)
+                Select Case (CPGsettings.OverviewMovieSort)
                     Case Is = SortMethode.startTime.ToString
                         _LogLocalSortedBy = SortMethode.startTime.ToString
                         _SQLstring = AppendSqlLimit(_SQLstring & Helper.ORDERBYstartTime, 25)
@@ -470,13 +596,13 @@ Namespace ClickfinderProgramGuide
                 Dim _SQLstate2 As SqlStatement = Broker.GetStatement(_SQLstring)
                 _MovieHighlightsList = ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate2.Execute())
 
-                'TvGruppe filtern
+                'standard TvGruppe filtern
                 _MovieHighlightsList = _MovieHighlightsList.FindAll(Function(p As TVMovieProgram) _
-                                              p.ReferencedProgram.ReferencedChannel.GroupNames.Contains(_layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value))
+                                              p.ReferencedProgram.ReferencedChannel.GroupNames.Contains(CPGsettings.StandardTvGroup))
 
                 '[Option] Falls Datei lokal existiert, dann nicht anzeigen (-> Continue For)
                 'Wenn TagesTipp aktiviert, dann nicht ausführen
-                If CBool(_layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false").Value) = True Then
+                If CPGsettings.OverviewShowLocalMovies = True Then
                     _MovieHighlightsList = _MovieHighlightsList.FindAll(Function(p As TVMovieProgram) _
                                                                             p.local = False And Not p.TVMovieBewertung = 4)
                 End If
@@ -538,7 +664,7 @@ Namespace ClickfinderProgramGuide
                 _MovieList.Visible = True
 
 
-                If CBool(_layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false").Value) = True Then
+                If CPGsettings.OverviewShowLocalMovies = True Then
                     MyLog.Debug("[HighlightsGUIWindow] [FillMovieList]: Movies exist local and will not be displayed ({0})", _LogLocalMovies)
                 End If
 
@@ -570,6 +696,7 @@ Namespace ClickfinderProgramGuide
             Dim _logNewShowSeries As String = "false"
             Dim _logNewSeriesCount As Integer = 0
 
+            Dim _ReslutList As New List(Of TVMovieProgram)
 
             MyLog.Debug("")
             MyLog.Debug("[HighlightsGUIWindow] [FillHighlightsList]: Thread started")
@@ -580,18 +707,14 @@ Namespace ClickfinderProgramGuide
                 _HighlightsList.Clear()
                 _HighlightsList.AllocResources()
 
-
-                Dim _Result As New ArrayList
-
                 Dim _lastRecordingStatus As String = String.Empty
 
                 'Wenn TvSeries Import aktiviert, dann neue Episoden des Tages anzeigen
-                If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True Then
+                If CPGsettings.TvMovieImportTvSeriesInfos = True Then
                     Try
 
-
                         Dim _SeriesResult As New ArrayList
-                        Dim _ListTvMovieProgram As New List(Of TVMovieProgram)
+                        'Dim _ListTvMovieProgram As New List(Of TVMovieProgram)
 
                         'Alle neuen Episoden (idSeries > 0 & local = false) laden mit Group By
                         SQLstring = "Select program.idprogram from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
@@ -702,77 +825,53 @@ Namespace ClickfinderProgramGuide
                     "AND genre NOT LIKE '%Serie%' " & _
                     "AND genre NOT LIKE '%Sitcom%' " & _
                     "AND genre NOT LIKE '%Zeichentrick%' " & _
-                    "AND startTime > " & MySqlDate(_ClickfinderCurrentDate.AddHours(CDbl(_layer.GetSetting("ClickfinderOverviewShowHighlightsAfter", "15").Value))) & " " & _
-                    "AND startTime < " & MySqlDate(_ClickfinderCurrentDate.AddHours(24)) & " " & _
+                    "AND startTime > " & MySqlDate(_ClickfinderCurrentDate.AddHours(CPGsettings.OverviewShowHighlightsAfter)) & " " & _
+                    "AND startTime < " & MySqlDate(_ClickfinderCurrentDate.AddDays(1).AddHours(0).AddMinutes(0)) & " " & _
                     Helper.ORDERBYstartTime
 
-                _Result.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", False))
+                SQLstring = Replace(SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idTVMovieProgram, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.needsUpdate, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung, TVMovieProgram.Year ")
+                Dim _SQLstate As SqlStatement = Broker.GetStatement(SQLstring)
+                _ReslutList = ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate.Execute())
 
-                MyLog.Debug("[HighlightsGUIWindow] [FillHighlightsList]: {0} program found, Show Series = {1} ({2} new series found), SqlString: {3}", _Result.Count, _logNewShowSeries, _logNewSeriesCount, SQLstring)
 
-                If _Result.Count > 0 Then
 
-                    For i = 0 To _Result.Count - 1
+                MyLog.Debug("[HighlightsGUIWindow] [FillHighlightsList]: {0} program found, Show Series = {1} ({2} new series found), SqlString: {3}", _ReslutList.Count, _logNewShowSeries, _logNewSeriesCount, SQLstring)
+
+                If _ReslutList.Count > 0 Then
+                    _ReslutList = _ReslutList.FindAll(Function(p As TVMovieProgram) p.ReferencedProgram.ReferencedChannel.IsTv = True _
+                                              And DateDiff(DateInterval.Minute, p.ReferencedProgram.StartTime, p.ReferencedProgram.EndTime) > CPGsettings.OverviewHighlightsMinRuntime Or p.idSeries > 0 _
+                                              And p.ReferencedProgram.ReferencedChannel.GroupNames.Contains(CPGsettings.StandardTvGroup))
+
+
+                    For Each _TvMovieProgram As TVMovieProgram In _ReslutList
                         Try
 
-                            'ProgramDaten über TvMovieProgram laden
-                            Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_Result.Item(i))
+                            'Prüfen ob schon in der Liste vorhanden
+                            If String.Equals(_lastTitle, _TvMovieProgram.ReferencedProgram.Title & _TvMovieProgram.ReferencedProgram.EpisodeName) = False Then
+                                _ItemCounter = _ItemCounter + 1
 
-                            Dim _Dauer As DateTime = _TvMovieProgram.ReferencedProgram.EndTime.Subtract(New System.TimeSpan(_TvMovieProgram.ReferencedProgram.StartTime.Hour, _TvMovieProgram.ReferencedProgram.StartTime.Minute, 0))
+                                _timeLabel = Format(_TvMovieProgram.ReferencedProgram.StartTime.Hour, "00") & _
+                                                    ":" & Format(_TvMovieProgram.ReferencedProgram.StartTime.Minute, "00")
 
-                            'If _Dauer.Minute > CInt(_layer.GetSetting("ClickfinderOverviewHighlightsMinRuntime", "16").Value) Or _TvMovieProgram.idSeries > 0 Then
-                            If DateDiff(DateInterval.Minute, _TvMovieProgram.ReferencedProgram.StartTime, _TvMovieProgram.ReferencedProgram.EndTime) > _layer.GetSetting("ClickfinderOverviewHighlightsMinRuntime", "16").Value Or _TvMovieProgram.idSeries > 0 Then
-
-                                'Prüfen ob schon in der Liste vorhanden
-                                If String.Equals(_lastTitle, _TvMovieProgram.ReferencedProgram.Title & _TvMovieProgram.ReferencedProgram.EpisodeName) = False Then
-                                    _ItemCounter = _ItemCounter + 1
-
-                                    _timeLabel = Format(_TvMovieProgram.ReferencedProgram.StartTime.Hour, "00") & _
-                                                        ":" & Format(_TvMovieProgram.ReferencedProgram.StartTime.Minute, "00")
-
-                                    If String.IsNullOrEmpty(_TvMovieProgram.ReferencedProgram.EpisodeName) Then
-                                        _infoLabel = _TvMovieProgram.ReferencedProgram.Genre
-                                    Else
-                                        _infoLabel = _TvMovieProgram.ReferencedProgram.EpisodeName
-                                    End If
-
-
-                                    'Image zunächst auf SenderLogo festlegen
-                                    _imagepath = Config.GetFile(Config.Dir.Thumbs, "tv\logos\") & Replace(_TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, "/", "_") & ".png"
-
-                                    'Falls TvSeries Import an & ist TvSeries, poster Image anzeigen
-                                    'If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True And _TvMovieProgram.idSeries > 0 Then
-                                    '    _timeLabel = Translation.NewLabel
-                                    '    _infoLabel = Translation.NewEpisodeFound
-                                    '    _imagepath = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieProgram.SeriesPosterImage
-                                    'Else
-                                    'Prüfen ob in Standard Tv Gruppe
-                                    Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value)
-                                    Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
-
-                                    'Alle Gruppen des _program laden
-                                    Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
-                                    sb.AddConstraint([Operator].Equals, "idgroup", _Group.IdGroup)
-                                    sb.AddConstraint([Operator].Equals, "idChannel", _TvMovieProgram.ReferencedProgram.IdChannel)
-                                    Dim stmt As SqlStatement = sb.GetStatement(True)
-                                    Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
-
-                                    If _isInFavGroup.Count = 0 Then
-                                        Continue For
-                                    End If
-                                    'End If
-
-                                    If CBool(_layer.GetSetting("ClickfinderUseSportLogos", "false").Value) = True Then
-                                        _imagepath = UseSportLogos(_TvMovieProgram.ReferencedProgram.Title, _imagepath)
-                                    End If
-
-                                    AddListControlItem(_HighlightsList, _TvMovieProgram.ReferencedProgram.IdProgram, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieProgram.ReferencedProgram.Title, _timeLabel, _infoLabel, _imagepath, , GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram))
-
-                                    _lastTitle = _TvMovieProgram.ReferencedProgram.Title & _TvMovieProgram.ReferencedProgram.EpisodeName
-
-
+                                If String.IsNullOrEmpty(_TvMovieProgram.ReferencedProgram.EpisodeName) Then
+                                    _infoLabel = _TvMovieProgram.ReferencedProgram.Genre
+                                Else
+                                    _infoLabel = _TvMovieProgram.ReferencedProgram.EpisodeName
                                 End If
+
+                                'Image zunächst auf SenderLogo festlegen
+                                _imagepath = Config.GetFile(Config.Dir.Thumbs, "tv\logos\") & Replace(_TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, "/", "_") & ".png"
+
+                                If CPGsettings.UseSportLogos = True Then
+                                    _imagepath = UseSportLogos(_TvMovieProgram.ReferencedProgram.Title, _imagepath)
+                                End If
+
+                                AddListControlItem(_HighlightsList, _TvMovieProgram.ReferencedProgram.IdProgram, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieProgram.ReferencedProgram.Title, _timeLabel, _infoLabel, _imagepath, , GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram))
+
+                                _lastTitle = _TvMovieProgram.ReferencedProgram.Title & _TvMovieProgram.ReferencedProgram.EpisodeName
+
                             End If
+                            'End If
 
                             'log Ausgabe abfangen, falls der Thread abgebrochen wird
                         Catch ex As ThreadAbortException ' Ignore this exception
@@ -866,7 +965,7 @@ Namespace ClickfinderProgramGuide
 
                 MyLog.Debug("[HighlightsGuiWindow] [ShowSeriesContextMenu]: idprogram = {0}, title = {1}", _SeriesProgram.ReferencedProgram.IdProgram, _SeriesProgram.ReferencedProgram.Title)
 
-                If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True Then
+                If CPGsettings.TvMovieImportTvSeriesInfos = True Then
 
                     Dim SQLstring As String = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
                                         "WHERE idSeries = " & _SeriesProgram.idSeries & " " & _
@@ -899,7 +998,7 @@ Namespace ClickfinderProgramGuide
                                     Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_Result.Item(i))
 
                                     'Prüfen ob in Standard Tv Gruppe
-                                    Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels").Value)
+                                    Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", CPGsettings.StandardTvGroup)
                                     Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
 
                                     'Alle Gruppen des _program laden
@@ -1319,4 +1418,5 @@ Namespace ClickfinderProgramGuide
 
 
     End Class
+
 End Namespace

@@ -32,7 +32,6 @@ Namespace ClickfinderProgramGuide
 
 #Region "Members"
         Friend Shared _DetailTvMovieProgram As TVMovieProgram
-        Private _layer As New TvBusinessLayer
 
 #End Region
 
@@ -262,7 +261,7 @@ Namespace ClickfinderProgramGuide
                 If _DetailTvMovieProgram.idSeries > 0 Then
                     Helper.CheckSeriesLocalStatus(_DetailTvMovieProgram)
 
-                    Select Case _layer.GetSetting("ClickfinderDetailsSeriesImage", "Cover").Value
+                    Select Case CPGsettings.DetailSeriesImage
                         Case Is = "Cover"
                             Translator.SetProperty("#DetailImage", Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _DetailTvMovieProgram.SeriesPosterImage)
                         Case Is = "FanArt"

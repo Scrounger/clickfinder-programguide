@@ -12,17 +12,15 @@ Imports System.Drawing
 Imports System.Threading
 Imports System.Windows.Forms
 Imports TvDatabase
+Imports ClickfinderProgramGuide.ClickfinderProgramGuide
 
 
 Public Class TvMoviePluginError
-#Region "Members"
-    Private Shared _layer As New TvBusinessLayer
-#End Region
 
     Private Sub TvMoviePluginError_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
 
-        If CBool(_layer.GetSetting("TvMovieEnabled", "false").Value) = False Then
+        If CPGsettings.TvMovieEnabled = False Then
             Label1.Visible = True
             LinkClickfinderPG.Visible = True
             LinkLabel1.Visible = True

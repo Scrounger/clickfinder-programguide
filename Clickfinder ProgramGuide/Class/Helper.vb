@@ -23,7 +23,6 @@ Imports enrichEPG
 
 Public Class Helper
 #Region "Members"
-    Private Shared _layer As New TvBusinessLayer
     Private Shared _PlayedFile As TVMovieProgram
     Friend Shared _DbAbgleichRuning As Boolean = False
 
@@ -67,13 +66,14 @@ Public Class Helper
         Genre
         parentalRating
         Series
+        Title
     End Enum
 
     Public Shared Function Deduplicate(Of T)(ByVal listToDeduplicate As List(Of T)) As List(Of T)
         Return listToDeduplicate.Distinct().ToList()
     End Function
 
-    Friend Shared Sub AddListControlItem(ByVal Listcontrol As GUIListControl, ByVal idProgram As Integer, ByVal ChannelName As String, ByVal titelLabel As String, Optional ByVal timeLabel As String = "", Optional ByVal infoLabel As String = "", Optional ByVal ImagePath As String = "", Optional ByVal MinRunTime As Integer = 0, Optional ByVal isRecording As String = "", Optional ByVal tmpInfo As String = "")
+    Friend Shared Sub AddListControlItem(ByVal Listcontrol As GUIListControl, ByVal idProgram As Integer, ByVal ChannelName As String, ByVal titelLabel As String, Optional ByVal timeLabel As String = "", Optional ByVal infoLabel As String = "", Optional ByVal ImagePath As String = "", Optional ByVal MinRunTime As Integer = 0, Optional ByVal isRecording As String = "", Optional ByVal tmpInfo As String = "", Optional ByVal tmpInfo2 As String = "")
         Try
 
             Dim lItem As New GUIListItem
@@ -87,8 +87,10 @@ Public Class Helper
             lItem.Duration = MinRunTime
             lItem.PinImage = isRecording
             lItem.TVTag = tmpInfo
+            lItem.ThumbnailImage = tmpInfo2
 
             GUIControl.AddListItemControl(GUIWindowManager.ActiveWindow, Listcontrol.GetID, lItem)
+
 
             lItem.Dispose()
 
@@ -349,17 +351,18 @@ Public Class Helper
 
             Dim _EpisodenScannerPath As String = String.Empty
 
-            If Not String.IsNullOrEmpty(_layer.GetSetting("ClickfinderEpisodenScanner", "").Value) Then
-                _EpisodenScannerPath = IO.Path.GetDirectoryName(_layer.GetSetting("ClickfinderEpisodenScanner", "").Value)
+            If Not String.IsNullOrEmpty(CPGsettings.EpisodenScanner) Then
+                _EpisodenScannerPath = IO.Path.GetDirectoryName(CPGsettings.EpisodenScanner)
             End If
 
             Dim enrichEPG As New enrichEPG.EnrichEPG(Config.GetFile(Config.Dir.Database, ""), _
-                                                     _layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value, _
-                                                     _layer.GetSetting("TvMovieImportVideoDatabaseInfos", "false").Value, _
-                                                     _layer.GetSetting("TvMovieImportMovingPicturesInfos", "false").Value, _
+                                                     CPGsettings.TvMovieImportTvSeriesInfos, _
+                                                     CPGsettings.TvMovieImportVideoDatabaseInfos, _
+                                                     CPGsettings.TvMovieImportMovingPicturesInfos, _
                                                      Date.Now, Global.enrichEPG.EnrichEPG.LogPath.Client, _EpisodenScannerPath, , , _
-                                                     "ClickfinderProgramGuide_enrichEPG.log", CBool(_layer.GetSetting("TvMovieUseTheTvDb", "false").Value), , _
+                                                     "ClickfinderProgramGuide_enrichEPG.log", CPGsettings.TvMovieUseTheTvDb, , _
                                                      Config.GetFile(Config.Dir.Thumbs, ""))
+
 
             Dim _enrichEPGThread As New Thread(AddressOf enrichEPG.start)
 
@@ -386,7 +389,7 @@ Public Class Helper
 
             Dim _idSeriesContainer As Dictionary(Of Integer, Integer) = New Dictionary(Of Integer, Integer)
 
-            If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True Then
+            If CPGsettings.TvMovieImportTvSeriesInfos = True Then
                 'ContextMenu Layout
                 dlgContext.SetHeading(program.Title)
 
@@ -562,13 +565,13 @@ Public Class Helper
             End If
 
             'TvMovie EGP IMport++ plugin nicht aktiviert / installiert
-            If CBool(_layer.GetSetting("TvMovieEnabled", "false").Value) = False Then
+            If CPGsettings.TvMovieEnabled = False Then
                 ShowNotify(Translation.TvMovieEPGImportNotEnabled)
                 Return
             End If
 
             'Clickfinder ProgramGuide import nicht aktiviert in TvMovie EGP IMport++ plugin
-            If CBool(_layer.GetSetting("ClickfinderEnabled", "true").Value) = False Then
+            If CPGsettings.ClickfinderEnabled = False Then
                 ShowNotify(Translation.ClickfinderImportNotEnabled)
                 Return
             End If
@@ -598,7 +601,7 @@ Public Class Helper
 
     Friend Shared Sub CheckSeriesLocalStatus(ByVal TvMovieProgram As TVMovieProgram)
         Try
-            If CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True Then
+            If CPGsettings.TvMovieImportTvSeriesInfos = True Then
                 If TvMovieProgram.idSeries > 0 And TvMovieProgram.local = False Then
                     If String.IsNullOrEmpty(TvMovieProgram.ReferencedProgram.SeriesNum) = False And String.IsNullOrEmpty(TvMovieProgram.ReferencedProgram.EpisodeNum) = False Then
                         Try
@@ -747,7 +750,6 @@ Public Class Helper
     Friend Shared Sub UpdateProgramData(ByVal TvMovieProgram As TVMovieProgram)
 
         Try
-
             MyLog.Debug("[Helper]: [UpdateProgramData]: program needs update")
 
             Dim _ClickfinderDB As New ClickfinderDB(TvMovieProgram.ReferencedProgram, True)
@@ -780,7 +782,7 @@ Public Class Helper
             End If
 
             'Describtion
-            If TvMovieProgram.idSeries > 0 And CBool(_layer.GetSetting("TvMovieImportTvSeriesInfos", "false").Value) = True And CBool(_layer.GetSetting("ClickfinderDetailUseSeriesDescribtion", "false").Value) = True Then
+            If TvMovieProgram.idSeries > 0 And CPGsettings.TvMovieImportTvSeriesInfos = True And CPGsettings.DetailUseSeriesDescribtion = True Then
                 'Wenn Serie erkannt dann -> Episoden Beschreibung aus TvSeriesDB laden (sofern aktiviert & vorhanden)
                 Dim _Series As New TVSeriesDB
                 _Series.LoadEpisodebyEpsiodeID(TvMovieProgram.idSeries, TvMovieProgram.idEpisode)
