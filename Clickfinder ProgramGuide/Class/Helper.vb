@@ -69,10 +69,6 @@ Public Class Helper
         Title
     End Enum
 
-    Public Shared Function Deduplicate(Of T)(ByVal listToDeduplicate As List(Of T)) As List(Of T)
-        Return listToDeduplicate.Distinct().ToList()
-    End Function
-
     Friend Shared Sub AddListControlItem(ByVal Listcontrol As GUIListControl, ByVal idProgram As Integer, ByVal ChannelName As String, ByVal titelLabel As String, Optional ByVal timeLabel As String = "", Optional ByVal infoLabel As String = "", Optional ByVal ImagePath As String = "", Optional ByVal MinRunTime As Integer = 0, Optional ByVal isRecording As String = "", Optional ByVal tmpInfo As String = "", Optional ByVal tmpInfo2 As String = "")
         Try
 
@@ -571,7 +567,7 @@ Public Class Helper
             End If
 
             'Clickfinder ProgramGuide import nicht aktiviert in TvMovie EGP IMport++ plugin
-            If CPGsettings.ClickfinderEnabled = False Then
+            If CPGsettings.ClickfinderDataAvailable = False Then
                 ShowNotify(Translation.ClickfinderImportNotEnabled)
                 Return
             End If
@@ -602,97 +598,73 @@ Public Class Helper
     Friend Shared Sub CheckSeriesLocalStatus(ByVal TvMovieProgram As TVMovieProgram)
         Try
             If CPGsettings.TvMovieImportTvSeriesInfos = True Then
-                If TvMovieProgram.idSeries > 0 And TvMovieProgram.local = False Then
-                    If String.IsNullOrEmpty(TvMovieProgram.ReferencedProgram.SeriesNum) = False And String.IsNullOrEmpty(TvMovieProgram.ReferencedProgram.EpisodeNum) = False Then
-                        Try
+                If String.IsNullOrEmpty(TvMovieProgram.ReferencedProgram.SeriesNum) = False And String.IsNullOrEmpty(TvMovieProgram.ReferencedProgram.EpisodeNum) = False Then
 
-                            'prüfen ob inzwischen aufgenommen -> Tv Server table recording
-                            Dim sbRecording As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(Recording))
-                            sbRecording.AddConstraint([Operator].Equals, "title", TvMovieProgram.ReferencedProgram.Title)
-                            sbRecording.AddConstraint([Operator].Equals, "episodeName", TvMovieProgram.ReferencedProgram.EpisodeName)
-                            sbRecording.AddConstraint([Operator].Equals, "seriesNum", TvMovieProgram.ReferencedProgram.SeriesNum)
-                            sbRecording.AddConstraint([Operator].Equals, "episodeNum", TvMovieProgram.ReferencedProgram.EpisodeNum)
-                            Dim stmtRecording As SqlStatement = sbRecording.GetStatement(True)
-                            Dim _Recording_found As IList(Of Recording) = ObjectFactory.GetCollection(GetType(Recording), stmtRecording.Execute())
+                    Dim _RecList As List(Of Recording)
+                    Dim _SQLstring As String = "SELECT * FROM Recording " & _
+                                                "WHERE title = '" & TVSeriesDB.allowedSigns(TvMovieProgram.ReferencedProgram.Title) & "' " & _
+                                                "AND episodeName = '" & TVSeriesDB.allowedSigns(TvMovieProgram.ReferencedProgram.EpisodeName) & "' " & _
+                                                "AND seriesNum = '" & TvMovieProgram.ReferencedProgram.SeriesNum & "' " & _
+                                                "AND episodeNum = '" & TvMovieProgram.ReferencedProgram.EpisodeNum & "'"
 
-                            If _Recording_found.Count > 0 Then
-                                'wenn gefunden -> TvMovieProgram update
-                                TvMovieProgram.local = True
-                                TvMovieProgram.ReferencedProgram.Description = Replace(TvMovieProgram.ReferencedProgram.Description, "Neue Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName, "Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName)
-                                TvMovieProgram.ReferencedProgram.Persist()
-                                TvMovieProgram.Persist()
-                                MyLog.Info("[Helper]: [CheckSeriesLocalStatus]: Episode found in records: {0} - S{1}E{2}", TvMovieProgram.ReferencedProgram.Title, TvMovieProgram.ReferencedProgram.SeriesNum, TvMovieProgram.ReferencedProgram.EpisodeNum)
-                            Else
+                    Dim _SQLstate1 As SqlStatement = Broker.GetStatement(_SQLstring)
+                    _RecList = ObjectFactory.GetCollection(GetType(Recording), _SQLstate1.Execute())
 
-                                Dim _logSeriesIsLinked As String = String.Empty
-                                Dim _SeriesIsLinked As Boolean = False
-                                Dim _SeriesName As String = String.Empty
+                    If _RecList.Count > 0 Then
+                        'wenn gefunden -> TvMovieProgram update
+                        TvMovieProgram.local = True
+                        TvMovieProgram.ReferencedProgram.Description = Replace(TvMovieProgram.ReferencedProgram.Description, "Neue Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName, "Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName)
+                        TvMovieProgram.ReferencedProgram.Persist()
+                        TvMovieProgram.Persist()
 
-                                _SeriesName = TvMovieProgram.ReferencedProgram.Title
+                        _SQLstring = "SELECT * FROM TVMovieProgram " & _
+                                        "WHERE idEpisode = '" & TvMovieProgram.idEpisode & "'"
 
-                                ''Prüfen ob EPG-SerienName in TvSeries DB gefunden wird, wenn nicht, schauen ob Verlinkung existiert
-                                'Dim _checkSeriesName As New TVSeriesDB
-                                'Dim _checkSeriesNameCounter As Boolean = _checkSeriesName.SeriesFound(TvMovieProgram.ReferencedProgram.Title)
-                                '_checkSeriesName.Dispose()
+                        Dim _SQLstate2 As SqlStatement = Broker.GetStatement(_SQLstring)
+                        Dim _RepeatsNewEpisodes As List(Of TVMovieProgram) = ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate2.Execute())
 
-                                'If _checkSeriesNameCounter = True Then
-                                '    _SeriesName = TvMovieProgram.ReferencedProgram.Title
-                                'Else
-                                '    'Prüfen ob Serie verlinkt ist
-                                '    Dim _SqlString As String = String.Empty
-                                '    Dim _SeriesMappingResult As New ArrayList
+                        Dim tmp As String = String.Empty
+                        For Each _episode In _RepeatsNewEpisodes
+                            _episode.local = True
+                            _episode.ReferencedProgram.Description = Replace(TvMovieProgram.ReferencedProgram.Description, "Neue Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName, "Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName)
+                            _episode.ReferencedProgram.Persist()
+                            _episode.Persist()
+                        Next
 
-                                '    _SqlString = "Select * from TvMovieSeriesMapping " & _
-                                '                        "WHERE EpgTitle LIKE '%" & TVSeriesDB.allowedSigns(TvMovieProgram.ReferencedProgram.Title) & "%'"
+                        MyLog.Info("[Helper]: [CheckSeriesLocalStatus]: Episode found in records: {0} - S{1}E{2}", TvMovieProgram.ReferencedProgram.Title, TvMovieProgram.ReferencedProgram.SeriesNum, TvMovieProgram.ReferencedProgram.EpisodeNum)
+                    Else
 
-                                '    _SeriesMappingResult.AddRange(Broker.Execute(_SqlString).TransposeToFieldList("idSeries", False))
+                        Dim _logSeriesIsLinked As String = String.Empty
+                        Dim _SeriesIsLinked As Boolean = False
+                        Dim _SeriesName As String = String.Empty
 
-                                '    'Serie ist verlinkt -> org. SerienName anstatt EPG Name verwenden
-                                '    If _SeriesMappingResult.Count > 0 Then
+                        _SeriesName = TvMovieProgram.ReferencedProgram.Title
 
-                                '        Dim _TvSeriesName As New TVSeriesDB
+                        Dim _TvSeriesDB As New TVSeriesDB
+                        _TvSeriesDB.LoadEpisode(_SeriesName, CInt(TvMovieProgram.ReferencedProgram.SeriesNum), CInt(TvMovieProgram.ReferencedProgram.EpisodeNum))
 
-                                '        _TvSeriesName.LoadSeriesName(CInt(_SeriesMappingResult.Item(0)))
-                                '        _SeriesName = _TvSeriesName(0).SeriesName
+                        If _TvSeriesDB.EpisodeExistLocal = True Then
 
-                                '        _logSeriesIsLinked = "[Helper]: [CheckSeriesLocalStatus]: manuel mapping found: " & _TvSeriesName(0).SeriesName & " -> " & TvMovieSeriesMapping.Retrieve(_SeriesMappingResult.Item(0)).EpgTitle
+                            TvMovieProgram.local = True
+                            TvMovieProgram.FileName = _TvSeriesDB.EpisodeFilename
+                            TvMovieProgram.ReferencedProgram.Description = Replace(TvMovieProgram.ReferencedProgram.Description, "Neue Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName, "Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName)
+                            TvMovieProgram.ReferencedProgram.Persist()
+                            TvMovieProgram.Persist()
 
-                                '        _TvSeriesName.Dispose()
-
-                                '    Else
-                                '        'Nicht verlinkt -> EPG Name verwenden
-                                '        _SeriesName = TvMovieProgram.ReferencedProgram.Title
-                                '    End If
-                                'End If
-
-                                Dim _TvSeriesDB As New TVSeriesDB
-                                _TvSeriesDB.LoadEpisode(_SeriesName, CInt(TvMovieProgram.ReferencedProgram.SeriesNum), CInt(TvMovieProgram.ReferencedProgram.EpisodeNum))
-
-                                If _TvSeriesDB.EpisodeExistLocal = True Then
-
-                                    TvMovieProgram.local = True
-                                    TvMovieProgram.FileName = _TvSeriesDB.EpisodeFilename
-                                    TvMovieProgram.ReferencedProgram.Description = Replace(TvMovieProgram.ReferencedProgram.Description, "Neue Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName, "Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName)
-                                    TvMovieProgram.ReferencedProgram.Persist()
-                                    TvMovieProgram.Persist()
-
-                                    If _SeriesIsLinked = True Then
-                                        MyLog.[Info](_logSeriesIsLinked)
-                                    End If
-
-                                    MyLog.Info("[Helper]: [CheckSeriesLocalStatus]: Episode found in TvSeries database: {0} - S{1}E{2}", TvMovieProgram.ReferencedProgram.Title, TvMovieProgram.ReferencedProgram.SeriesNum, TvMovieProgram.ReferencedProgram.EpisodeNum)
-                                End If
-                                _TvSeriesDB.Dispose()
-
+                            If _SeriesIsLinked = True Then
+                                MyLog.[Info](_logSeriesIsLinked)
                             End If
-                        Catch ex As Exception
-                            MyLog.Error("[Helper]: [CheckSeriesLocalStatus]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
-                        End Try
+
+                            MyLog.Info("[Helper]: [CheckSeriesLocalStatus]: Episode found in TvSeries database: {0} - S{1}E{2}", TvMovieProgram.ReferencedProgram.Title, TvMovieProgram.ReferencedProgram.SeriesNum, TvMovieProgram.ReferencedProgram.EpisodeNum)
+                        End If
+                        _TvSeriesDB.Dispose()
+
                     End If
                 End If
             End If
 
         Catch ex As Exception
+            MsgBox("CheckLocalSeriesStatus: " & vbNewLine & ex.Message)
             MyLog.Error("[Helper]: [CheckSeriesLocalStatus]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
         End Try
     End Sub
@@ -712,14 +684,12 @@ Public Class Helper
     Friend Shared Sub LogSettings()
         Dim _tvbLayer As New TvBusinessLayer
 
-        MyLog.Debug("******* Settings TvMovie EPG Import++ plugin (TvServer) *******")
         Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(Setting))
         sb.AddConstraint([Operator].Like, "tag", "Clickfinder%")
         sb.AddOrderByField(True, "tag")
         Dim stmt As SqlStatement = sb.GetStatement(True)
         Dim _Result As IList(Of Setting) = ObjectFactory.GetCollection(GetType(Setting), stmt.Execute())
 
-        MyLog.Debug("")
         MyLog.Debug("******* Settings ClickfinderProgramGuide *******")
         If _Result.Count > 0 Then
             For i = 0 To _Result.Count - 1
@@ -857,13 +827,18 @@ Public Class Helper
 
     End Sub
 
-    Private Shared Sub Notify(ByVal message As String)
+    Friend Shared Sub Notify(ByVal message As String, Optional ByVal image As String = "")
         Try
             Dim dlgContext As GUIDialogNotify = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_NOTIFY, Integer)), GUIDialogNotify)
             dlgContext.Reset()
 
             dlgContext.SetHeading("Clickfinder ProgramGuide")
-            dlgContext.SetImage(Config.GetFile(Config.Dir.Thumbs, "Clickfinder ProgramGuide\ClickfinderPG_logo.png"))
+            If String.IsNullOrEmpty(image) Then
+                dlgContext.SetImage(Config.GetFile(Config.Dir.Thumbs, "Clickfinder ProgramGuide\ClickfinderPG_logo.png"))
+            Else
+                dlgContext.SetImage(image)
+            End If
+
             dlgContext.SetText(message)
             dlgContext.TimeOut = 5
 

@@ -71,6 +71,7 @@
       <align>right</align>
       <font>font10</font>
       <textcolor>ffa9d0f7</textcolor>
+
     </control>
 
     <!-- Tv Movie++ Last UpdateLabel-->
@@ -98,6 +99,8 @@
       <label>#CurrentDate</label>
       <font>font10</font>
       <textcolor>FFdddddd</textcolor>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -112,6 +115,8 @@
       <action>14</action>
       <textureFocus>arrow_round_right_focus.png</textureFocus>
       <textureNoFocus>arrow_round_right_nofocus.png</textureNoFocus>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>   
     
     <control>
@@ -126,6 +131,8 @@
       <action>15</action>
       <textureFocus>arrow_round_left_focus.png</textureFocus>
       <textureNoFocus>arrow_round_left_nofocus.png</textureNoFocus>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <!-- MovieList & Controls-->
@@ -138,6 +145,8 @@
       <width>610</width>
       <height>630</height>
       <texture>ClickfinderPG_ListBG.png</texture>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <description>label</description>
@@ -148,6 +157,8 @@
       <label>#ClickfinderPG.Translation.MovieListTitle</label>
       <font>font12</font>
       <textcolor>FFdddddd</textcolor>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <id>1</id>
@@ -158,6 +169,8 @@
       <width>630</width>
       <height>2</height>
       <texture>ClickfinderPG_Sep.png</texture>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <type>listcontrol</type>
@@ -205,6 +218,8 @@
       <scrollbarXOff>0</scrollbarXOff>
       <scrollbarwidth>15</scrollbarwidth>
       <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -221,7 +236,7 @@
       <keepaspectratio>yes</keepaspectratio>
       <visible>control.isvisible(10)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -244,7 +259,9 @@
       <percentage>#MovieListRatingStar1</percentage>
       <visible>!string.starts(#MovieListRatingStar1,0)+control.isvisible(10)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -261,7 +278,7 @@
       <keepaspectratio>yes</keepaspectratio>
       <visible>control.isvisible(10)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -284,7 +301,7 @@
       <percentage>#MovieListRatingStar2</percentage>
       <visible>!string.starts(#MovieListRatingStar2,0)+control.isvisible(10)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -301,7 +318,7 @@
       <keepaspectratio>yes</keepaspectratio>
       <visible>control.isvisible(10)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -324,7 +341,7 @@
       <percentage>#MovieListRatingStar3</percentage>
       <visible>!string.starts(#MovieListRatingStar3,0)+control.isvisible(10)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -341,7 +358,7 @@
       <keepaspectratio>yes</keepaspectratio>
       <visible>control.isvisible(10)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <description>MovieListRatingStar Image 4</description>
@@ -363,7 +380,7 @@
       <percentage>#MovieListRatingStar4</percentage>
       <visible>!string.starts(#MovieListRatingStar4,0)+control.isvisible(10)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -380,7 +397,7 @@
       <keepaspectratio>yes</keepaspectratio>
       <visible>control.isvisible(10)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <description>MovieListRatingStar Image 5</description>
@@ -402,7 +419,7 @@
       <percentage>#MovieListRatingStar5</percentage>
       <visible>!string.starts(#MovieListRatingStar5,0)+control.isvisible(10)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <description>MovieListImage 6</description>
@@ -418,7 +435,7 @@
       <keepaspectratio>yes</keepaspectratio>
       <visible>control.isvisible(10)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <description>MovieListRatingStar Image 6</description>
@@ -440,7 +457,7 @@
       <percentage>#MovieListRatingStar6</percentage>
       <visible>!string.starts(#MovieListRatingStar6,0)+control.isvisible(10)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
 
@@ -458,7 +475,7 @@
       <keepaspectratio>no</keepaspectratio>
       <visible>control.isvisible(10)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <description>MovieListTvMovieStar2</description>
@@ -473,7 +490,7 @@
       <keepaspectratio>no</keepaspectratio>
       <visible>control.isvisible(10)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <description>MovieListTvMovieStar3</description>
@@ -488,7 +505,7 @@
       <keepaspectratio>no</keepaspectratio>
       <visible>control.isvisible(10)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <description>MovieListTvMovieStar4</description>
@@ -503,7 +520,7 @@
       <keepaspectratio>no</keepaspectratio>
       <visible>control.isvisible(10)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <description>MovieListTvMovieStar5</description>
@@ -518,7 +535,7 @@
       <keepaspectratio>no</keepaspectratio>
       <visible>control.isvisible(10)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <description>MovieListTvMovieStar6</description>
@@ -533,7 +550,7 @@
       <keepaspectratio>no</keepaspectratio>
       <visible>control.isvisible(10)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <!-- HighlightsList & Controls-->
     <control>
@@ -545,6 +562,8 @@
       <width>610</width>
       <height>630</height>
       <texture>ClickfinderPG_ListBG.png</texture>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <description>label</description>
@@ -555,6 +574,8 @@
       <label>#ClickfinderPG.Translation.HighlightsListTitle</label>
       <font>font12</font>
       <textcolor>FFdddddd</textcolor>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <id>1</id>
@@ -565,6 +586,8 @@
       <width>630</width>
       <height>2</height>
       <texture>ClickfinderPG_Sep.png</texture>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <type>listcontrol</type>
@@ -613,6 +636,8 @@
       <scrollbarXOff>630</scrollbarXOff>
       <scrollbarwidth>15</scrollbarwidth>
       <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <!-- ActionGroup -->
@@ -627,6 +652,8 @@
       <width>360</width>
       <height>12</height>
       <texture>background.png</texture>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <id>11</id>
@@ -638,6 +665,8 @@
       <height>12</height>
       <innerheight>12</innerheight>
       <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>

@@ -29,6 +29,9 @@ Partial Class Setup
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel
         Me.TabControl1 = New System.Windows.Forms.TabControl
         Me.TabAllgemeines = New System.Windows.Forms.TabPage
+        Me.Panel31 = New System.Windows.Forms.Panel
+        Me.BT_loadfromServer = New System.Windows.Forms.Button
+        Me.ButtonDefaultSettings = New System.Windows.Forms.Button
         Me.CheckBoxDebugMode = New System.Windows.Forms.CheckBox
         Me.Panel13 = New System.Windows.Forms.Panel
         Me.GroupBox4 = New System.Windows.Forms.GroupBox
@@ -179,10 +182,11 @@ Partial Class Setup
         Me.PictureBox2 = New System.Windows.Forms.PictureBox
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
         Me.Panel1 = New System.Windows.Forms.Panel
-        Me.ButtonDefaultSettings = New System.Windows.Forms.Button
+        Me.CheckSaveSettingsLocal = New System.Windows.Forms.CheckBox
         Me.Panel2 = New System.Windows.Forms.Panel
         Me.TabControl1.SuspendLayout()
         Me.TabAllgemeines.SuspendLayout()
+        Me.Panel31.SuspendLayout()
         Me.Panel13.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.Panel12.SuspendLayout()
@@ -248,7 +252,7 @@ Partial Class Setup
         '
         Me.ButtonSave.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.ButtonSave.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonSave.Location = New System.Drawing.Point(0, 837)
+        Me.ButtonSave.Location = New System.Drawing.Point(0, 829)
         Me.ButtonSave.Margin = New System.Windows.Forms.Padding(4)
         Me.ButtonSave.Name = "ButtonSave"
         Me.ButtonSave.Size = New System.Drawing.Size(813, 39)
@@ -296,13 +300,13 @@ Partial Class Setup
         Me.TabControl1.Location = New System.Drawing.Point(10, 10)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(793, 713)
+        Me.TabControl1.Size = New System.Drawing.Size(793, 715)
         Me.TabControl1.TabIndex = 39
         '
         'TabAllgemeines
         '
         Me.TabAllgemeines.AutoScroll = True
-        Me.TabAllgemeines.Controls.Add(Me.CheckBoxDebugMode)
+        Me.TabAllgemeines.Controls.Add(Me.Panel31)
         Me.TabAllgemeines.Controls.Add(Me.Panel13)
         Me.TabAllgemeines.Controls.Add(Me.Panel12)
         Me.TabAllgemeines.Controls.Add(Me.Panel11)
@@ -313,19 +317,53 @@ Partial Class Setup
         Me.TabAllgemeines.Location = New System.Drawing.Point(4, 25)
         Me.TabAllgemeines.Name = "TabAllgemeines"
         Me.TabAllgemeines.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabAllgemeines.Size = New System.Drawing.Size(785, 684)
+        Me.TabAllgemeines.Size = New System.Drawing.Size(785, 686)
         Me.TabAllgemeines.TabIndex = 0
         Me.TabAllgemeines.Text = "Allgemeines"
         Me.TabAllgemeines.UseVisualStyleBackColor = True
+        '
+        'Panel31
+        '
+        Me.Panel31.Controls.Add(Me.BT_loadfromServer)
+        Me.Panel31.Controls.Add(Me.ButtonDefaultSettings)
+        Me.Panel31.Controls.Add(Me.CheckBoxDebugMode)
+        Me.Panel31.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel31.Location = New System.Drawing.Point(3, 655)
+        Me.Panel31.Name = "Panel31"
+        Me.Panel31.Size = New System.Drawing.Size(779, 23)
+        Me.Panel31.TabIndex = 81
+        '
+        'BT_loadfromServer
+        '
+        Me.BT_loadfromServer.Dock = System.Windows.Forms.DockStyle.Right
+        Me.BT_loadfromServer.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BT_loadfromServer.Location = New System.Drawing.Point(318, 0)
+        Me.BT_loadfromServer.Name = "BT_loadfromServer"
+        Me.BT_loadfromServer.Size = New System.Drawing.Size(263, 23)
+        Me.BT_loadfromServer.TabIndex = 45
+        Me.BT_loadfromServer.Text = "Einstellung von TvServer laden"
+        Me.BT_loadfromServer.UseVisualStyleBackColor = True
+        '
+        'ButtonDefaultSettings
+        '
+        Me.ButtonDefaultSettings.Dock = System.Windows.Forms.DockStyle.Left
+        Me.ButtonDefaultSettings.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonDefaultSettings.Location = New System.Drawing.Point(0, 0)
+        Me.ButtonDefaultSettings.Name = "ButtonDefaultSettings"
+        Me.ButtonDefaultSettings.Size = New System.Drawing.Size(211, 23)
+        Me.ButtonDefaultSettings.TabIndex = 44
+        Me.ButtonDefaultSettings.Text = "alle Einstellungen zurücksetzen"
+        Me.ButtonDefaultSettings.UseVisualStyleBackColor = True
         '
         'CheckBoxDebugMode
         '
         Me.CheckBoxDebugMode.AutoSize = True
         Me.CheckBoxDebugMode.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.CheckBoxDebugMode.Dock = System.Windows.Forms.DockStyle.Top
-        Me.CheckBoxDebugMode.Location = New System.Drawing.Point(3, 655)
+        Me.CheckBoxDebugMode.Dock = System.Windows.Forms.DockStyle.Right
+        Me.CheckBoxDebugMode.Location = New System.Drawing.Point(581, 0)
         Me.CheckBoxDebugMode.Name = "CheckBoxDebugMode"
-        Me.CheckBoxDebugMode.Size = New System.Drawing.Size(779, 20)
+        Me.CheckBoxDebugMode.Padding = New System.Windows.Forms.Padding(95, 0, 0, 0)
+        Me.CheckBoxDebugMode.Size = New System.Drawing.Size(198, 23)
         Me.CheckBoxDebugMode.TabIndex = 7
         Me.CheckBoxDebugMode.Text = "DebugMode"
         Me.CheckBoxDebugMode.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -968,7 +1006,7 @@ Partial Class Setup
         Me.TabItems.Location = New System.Drawing.Point(4, 25)
         Me.TabItems.Name = "TabItems"
         Me.TabItems.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabItems.Size = New System.Drawing.Size(785, 684)
+        Me.TabItems.Size = New System.Drawing.Size(785, 686)
         Me.TabItems.TabIndex = 3
         Me.TabItems.Text = "GUI Items"
         Me.TabItems.UseVisualStyleBackColor = True
@@ -1031,7 +1069,7 @@ Partial Class Setup
         Me.TabÜbersicht.Location = New System.Drawing.Point(4, 25)
         Me.TabÜbersicht.Name = "TabÜbersicht"
         Me.TabÜbersicht.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabÜbersicht.Size = New System.Drawing.Size(785, 684)
+        Me.TabÜbersicht.Size = New System.Drawing.Size(785, 686)
         Me.TabÜbersicht.TabIndex = 1
         Me.TabÜbersicht.Text = "GUI Highlights"
         Me.TabÜbersicht.UseVisualStyleBackColor = True
@@ -1374,7 +1412,7 @@ Partial Class Setup
         Me.TabCategories.Controls.Add(Me.SplitContainer1)
         Me.TabCategories.Location = New System.Drawing.Point(4, 25)
         Me.TabCategories.Name = "TabCategories"
-        Me.TabCategories.Size = New System.Drawing.Size(785, 684)
+        Me.TabCategories.Size = New System.Drawing.Size(785, 686)
         Me.TabCategories.TabIndex = 2
         Me.TabCategories.Text = "GUI Kategorien"
         Me.TabCategories.UseVisualStyleBackColor = True
@@ -1587,7 +1625,7 @@ Partial Class Setup
         Me.TabDetail.Location = New System.Drawing.Point(4, 25)
         Me.TabDetail.Name = "TabDetail"
         Me.TabDetail.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabDetail.Size = New System.Drawing.Size(785, 684)
+        Me.TabDetail.Size = New System.Drawing.Size(785, 686)
         Me.TabDetail.TabIndex = 4
         Me.TabDetail.Text = "GUI Details"
         Me.TabDetail.UseVisualStyleBackColor = True
@@ -1694,7 +1732,7 @@ Partial Class Setup
         Me.TabOverlay.Location = New System.Drawing.Point(4, 25)
         Me.TabOverlay.Name = "TabOverlay"
         Me.TabOverlay.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabOverlay.Size = New System.Drawing.Size(785, 684)
+        Me.TabOverlay.Size = New System.Drawing.Size(785, 686)
         Me.TabOverlay.TabIndex = 5
         Me.TabOverlay.Text = "Overlay"
         Me.TabOverlay.UseVisualStyleBackColor = True
@@ -2058,26 +2096,27 @@ Partial Class Setup
         '
         'Panel1
         '
-        Me.Panel1.Controls.Add(Me.ButtonDefaultSettings)
+        Me.Panel1.Controls.Add(Me.CheckSaveSettingsLocal)
         Me.Panel1.Controls.Add(Me.LinkLabel1)
         Me.Panel1.Controls.Add(Me.PictureBox2)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel1.Location = New System.Drawing.Point(0, 808)
+        Me.Panel1.Location = New System.Drawing.Point(0, 800)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Padding = New System.Windows.Forms.Padding(2)
         Me.Panel1.Size = New System.Drawing.Size(813, 29)
         Me.Panel1.TabIndex = 41
         '
-        'ButtonDefaultSettings
+        'CheckSaveSettingsLocal
         '
-        Me.ButtonDefaultSettings.Dock = System.Windows.Forms.DockStyle.Right
-        Me.ButtonDefaultSettings.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonDefaultSettings.Location = New System.Drawing.Point(600, 2)
-        Me.ButtonDefaultSettings.Name = "ButtonDefaultSettings"
-        Me.ButtonDefaultSettings.Size = New System.Drawing.Size(211, 25)
-        Me.ButtonDefaultSettings.TabIndex = 43
-        Me.ButtonDefaultSettings.Text = "alle Einstellungen zurücksetzen"
-        Me.ButtonDefaultSettings.UseVisualStyleBackColor = True
+        Me.CheckSaveSettingsLocal.AutoSize = True
+        Me.CheckSaveSettingsLocal.Dock = System.Windows.Forms.DockStyle.Right
+        Me.CheckSaveSettingsLocal.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckSaveSettingsLocal.Location = New System.Drawing.Point(562, 2)
+        Me.CheckSaveSettingsLocal.Name = "CheckSaveSettingsLocal"
+        Me.CheckSaveSettingsLocal.Size = New System.Drawing.Size(249, 25)
+        Me.CheckSaveSettingsLocal.TabIndex = 79
+        Me.CheckSaveSettingsLocal.Text = "Einstellungen auf Client speichern"
+        Me.CheckSaveSettingsLocal.UseVisualStyleBackColor = True
         '
         'Panel2
         '
@@ -2086,8 +2125,8 @@ Partial Class Setup
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(0, 65)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Padding = New System.Windows.Forms.Padding(10, 10, 10, 20)
-        Me.Panel2.Size = New System.Drawing.Size(813, 743)
+        Me.Panel2.Padding = New System.Windows.Forms.Padding(10)
+        Me.Panel2.Size = New System.Drawing.Size(813, 735)
         Me.Panel2.TabIndex = 42
         '
         'Setup
@@ -2095,7 +2134,7 @@ Partial Class Setup
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(813, 876)
+        Me.ClientSize = New System.Drawing.Size(813, 868)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.PictureBox1)
@@ -2109,7 +2148,8 @@ Partial Class Setup
         Me.Text = "Clickfinder Program Guide Configuration"
         Me.TabControl1.ResumeLayout(False)
         Me.TabAllgemeines.ResumeLayout(False)
-        Me.TabAllgemeines.PerformLayout()
+        Me.Panel31.ResumeLayout(False)
+        Me.Panel31.PerformLayout()
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
@@ -2199,6 +2239,7 @@ Partial Class Setup
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -2355,10 +2396,13 @@ Partial Class Setup
     Friend WithEvents Label30 As System.Windows.Forms.Label
     Friend WithEvents Label31 As System.Windows.Forms.Label
     Friend WithEvents ButtonOpenDlgEpisodenScanner As System.Windows.Forms.Button
-    Friend WithEvents ButtonDefaultSettings As System.Windows.Forms.Button
     Friend WithEvents Panel30 As System.Windows.Forms.Panel
     Friend WithEvents Label33 As System.Windows.Forms.Label
     Friend WithEvents NumUpdateOverlay As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label32 As System.Windows.Forms.Label
     Private WithEvents CheckBoxUseTheTvDb As MediaPortal.UserInterface.Controls.MPCheckBox
+    Friend WithEvents Panel31 As System.Windows.Forms.Panel
+    Friend WithEvents ButtonDefaultSettings As System.Windows.Forms.Button
+    Friend WithEvents CheckSaveSettingsLocal As System.Windows.Forms.CheckBox
+    Friend WithEvents BT_loadfromServer As System.Windows.Forms.Button
 End Class

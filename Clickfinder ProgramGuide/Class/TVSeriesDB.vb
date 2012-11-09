@@ -65,7 +65,6 @@ Public Class TVSeriesDB
                 End Try
             End If
 
-
             ' Open database
             Dim layer As New TvBusinessLayer
             If File.Exists(Config.GetFile(Config.Dir.Database, "TVSeriesDatabase4.db3")) = True Then

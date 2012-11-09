@@ -21,19 +21,26 @@ Public Class Setup
 
     Private Sub Setup_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-        Dim _logErrorSetting As String = String.Empty
-        CPGsettings.Load()
+        
 
         Try
+            MyLog.Info("")
+            MyLog.Info("")
+            MyLog.Info("[Setup] load")
+
+            CBOverlayGroup.Items.Clear()
+            CbQuick1.Items.Clear()
+            CbQuick2.Items.Clear()
+            cbStandardGroup.Items.Clear()
+            CBStartGui.Items.Clear()
 
             Dim _StartGuiList As New ArrayList
 
             MyLog.LogFileName = "ClickfinderProgramGuide_Config.log"
             MyLog.DebugModeOn = True
 
-            MyLog.Info("")
-            MyLog.Info("")
-            MyLog.Info("[Setup] load")
+            Dim _logErrorSetting As String = String.Empty
+            CPGsettings.Load()
 
             Dim plugin As String = CPGsettings.pluginClickfinderProgramGuide
 
@@ -62,6 +69,7 @@ Public Class Setup
             CheckBoxUseTheTvDb.Checked = CPGsettings.TvMovieUseTheTvDb
             CheckBoxClickfinderPG.Checked = CPGsettings.ClickfinderDataAvailable
             CheckBoxUseSeriesDescribtion.Checked = CPGsettings.DetailUseSeriesDescribtion
+            CheckSaveSettingsLocal.Checked = CPGsettings.ClickfinderSaveSettingsOnClients
             tbMPDatabasePath.Text = Config.GetFile(Config.Dir.Database, "")
             CheckBoxOverlayShowTagesTipp.Checked = CPGsettings.OverlayShowTagesTipp
             CheckBoxOverlayShowLocalMovies.Checked = CPGsettings.OverlayShowLocalMovies
@@ -90,7 +98,7 @@ Public Class Setup
                     RBTvMovieImage.Checked = True
             End Select
 
-            If CPGsettings.TvMovieEnabled = False Or CPGsettings.ClickfinderEnabled = False Then
+            If CPGsettings.TvMovieEnabled = False Or CPGsettings.ClickfinderDataAvailable = False Then
                 Dim message As New TvMoviePluginError
                 message.ShowDialog()
                 Me.Close()
@@ -216,7 +224,6 @@ Public Class Setup
 
     Private Sub ButtonSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonSave.Click
         Try
-
             CPGsettings.ClickfinderDatabasePath = tbClickfinderDatabase.Text
             CPGsettings.ClickfinderImagePath = tbClickfinderImagePath.Text
             CPGsettings.EpisodenScanner = tbEpisodenScanner.Text
@@ -492,10 +499,6 @@ Public Class Setup
     End Sub
 
 
-
-
-
-
     Private Sub ButtonUp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonUp.Click
         Dim setfocus As Integer
 
@@ -701,7 +704,7 @@ Public Class Setup
 
     End Sub
 
-    Private Sub ButtonDefaultSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonDefaultSettings.Click
+    Private Sub ButtonDefaultSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
         MyLog.Debug("[ButtonDefaultSettings_Click]: pressed")
 
@@ -736,6 +739,29 @@ Public Class Setup
             End Try
 
         End If
+
+    End Sub
+
+    Private Sub CheckSaveSettingsLocal_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckSaveSettingsLocal.CheckedChanged
+        Dim _layer As New TvBusinessLayer
+        Dim _setting As Setting = _layer.GetSetting("ClickfinderSaveSettingsOnClients", "false")
+        _setting.Value = CStr(CheckSaveSettingsLocal.Checked)
+        _setting.Persist()
+    End Sub
+
+    Private Sub BT_loadfromServer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BT_loadfromServer.Click
+        Dim merker As Boolean = CheckSaveSettingsLocal.Checked
+
+        Dim _layer As New TvBusinessLayer
+        Dim _setting As Setting = _layer.GetSetting("ClickfinderSaveSettingsOnClients", "false")
+        _setting.Value = False
+        _setting.Persist()
+
+        Setup_Load(Me, New System.EventArgs)
+
+        _setting.Value = merker
+        CheckSaveSettingsLocal.Checked = merker
+        _setting.Persist()
 
     End Sub
 End Class

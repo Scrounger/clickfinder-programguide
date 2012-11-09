@@ -106,20 +106,22 @@ Namespace ClickfinderProgramGuide
 
 #Region "GUI Events"
         Public Overrides Sub PreInit()
-            MyBase.PreInit()
 
             CPGsettings.Load()
-
             Try
                 MyLog.DebugModeOn = CPGsettings.ClickfinderDebugMode
                 MyLog.LogFileName = "ClickfinderProgramGuide.log"
-
-                Translator.TranslateSkin()
 
                 If Helper.TvServerConnected = True Then
 
                     'nötig weil sonst doppel ausgeführt wird bei MP Start
                     If _OverlayStartupLoaded = False Then
+                        MyLog.Info("[PreInit] [BasicHomeOverlay]: ****************** MediaPortal Startup ******************")
+                        MyLog.Debug("")
+                        MyLog.BackupLogFiles()
+                        Helper.LogSettings()
+
+                        Translator.TranslateSkin()
 
                         RefreshOverlays()
                         _OverlayStartupLoaded = True
@@ -138,14 +140,17 @@ Namespace ClickfinderProgramGuide
                         Translator.SetProperty("#ClickfinderPG.Series" & i & ".Title", "")
                     Next
 
-                    Log.Warn("[PreInit] [BasicHomeOverlay]: TvServer not online")
+                    MyLog.Warn("[PreInit] [BasicHomeOverlay]: TvServer not online")
 
                 End If
+
+                MyLog.Info("")
 
             Catch ex As Exception
                 MyLog.Error("[StartGuiWindow] [PreInit]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
             End Try
 
+            MyBase.PreInit()
         End Sub
         Protected Overrides Sub OnPageLoad()
             MyBase.OnPageLoad()
@@ -153,10 +158,6 @@ Namespace ClickfinderProgramGuide
 
             Try
                 'CPGsettings.Load()
-                
-
-                Helper.LogSettings()
-
                 'Start GUI
                 Select Case CPGsettings.ClickfinderStartGui
                     Case Is = "Highlights"
@@ -263,366 +264,245 @@ Namespace ClickfinderProgramGuide
         End Sub
 
         Friend Shared Sub ClickfinderProgramGuideOverlayMovies()
-            Dim _lastTitle As String = String.Empty
-            Dim _ItemCounter As Integer = 0
-            Dim _timeLabel As String = String.Empty
-            Dim _infoLabel As String = String.Empty
-            Dim _imagepath As String = String.Empty
-            Dim _SQLstring As String = String.Empty
-            Dim _idProgramTagesTipp As Integer = 0
-            Dim _LogLocalMovies As String = String.Empty
-            Dim _LogLocalSortedBy As String = String.Empty
-            Dim _logShowTagesTipp As String = "false"
-            Dim _startTime As Date = Nothing
-            Dim _endTime As Date = Nothing
-
 
             Dim _PrimeTime As Date = CPGsettings.PrimeTime
             Dim _LateTime As Date = CPGsettings.LateTime
 
-            Log.Debug("")
-            Log.Debug("[PreInit] [BasicHomeOverlay]: Thread started")
-
+            MyLog.Info("")
+            MyLog.Info("[BasicHomeOverlay]: [ClickfinderProgramGuideOverlayMovies]: started ({0},{1})", CPGsettings.OverlayTime, CPGsettings.OverlayTvGroup)
 
             Try
+                Dim _time As Date = Now
+                Dim _startTime As Date = Nothing
+                Dim _endTime As Date = Nothing
+
+                Dim _OverLayMoviesList As New List(Of TVMovieProgram)
+                Dim _ShowTagesTipp As Boolean = False
+                Dim _ItemCounter As Integer = 0
 
                 For i = 1 To 4
                     Translator.SetProperty("#ClickfinderPG.Movie" & i & ".Title", "")
                 Next
 
-                Dim _Result As New ArrayList
-
-                '[Optional] TvMovie Tages Tipp immer als erstes anzeigen
-                If CPGsettings.OverlayShowTagesTipp = True Then
-                    _SQLstring = _
-                    "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
-                    "WHERE TvMovieBewertung = 4 " & _
-                    "AND program.startTime > " & MySqlDate(Date.Today) & " " & _
-                    "AND program.startTime < " & MySqlDate(Date.Today.AddHours(24))
-
-                    Dim _TvMovieTagesTipps As New ArrayList(Broker.Execute(_SQLstring).TransposeToFieldList("idProgram", False))
-
-                    If _TvMovieTagesTipps.Count > 0 Then
-
-                        For i = 0 To _TvMovieTagesTipps.Count - 1
-                            Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_TvMovieTagesTipps.Item(i))
-
-                            _Result.Add(_TvMovieTagesTipps.Item(i))
-
-                            _idProgramTagesTipp = _TvMovieTagesTipps.Item(i)
-
-                        Next
-                        _logShowTagesTipp = "true"
-                    Else
-                        _logShowTagesTipp = "not found"
-                    End If
-
-                End If
-
                 Select Case (CPGsettings.OverlayTime)
                     Case Is = "Today"
                         _startTime = Date.Today
-                        _endTime = _startTime.AddHours(24)
+                        _endTime = _startTime.AddDays(1).AddHours(0).AddMinutes(0)
                     Case Is = "Now"
                         _startTime = Date.Now
-                        _endTime = _startTime.AddHours(4)
+                        _endTime = _startTime.AddDays(1).AddHours(0).AddMinutes(0)
                     Case Is = "PrimeTime"
-                        _startTime = Date.Today.AddHours(_PrimeTime.Hour).AddMinutes(_PrimeTime.Minute)
+                        _startTime = Date.Today.AddHours(_PrimeTime.Hour).AddMinutes(_PrimeTime.Minute).AddMinutes(-1)
                         _endTime = _startTime.AddHours(4)
                     Case Is = "LateTime"
-                        _startTime = Date.Today.AddHours(_LateTime.Hour).AddMinutes(_LateTime.Minute)
+                        _startTime = Date.Today.AddHours(_LateTime.Hour).AddMinutes(_LateTime.Minute).AddMinutes(-1)
                         _endTime = _startTime.AddHours(4)
                 End Select
 
-                _SQLstring = _
-                   "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
-                   "WHERE starRating > 1 AND TvMovieBewertung < 6 " & _
-                   "AND startTime >= " & MySqlDate(_startTime) & " " & _
-                   "AND startTime <= " & MySqlDate(_endTime) & " " & _
-                   "AND genre NOT LIKE '%Serie%' " & _
-                   "AND genre NOT LIKE '%Sitcom%' " & _
-                   "AND genre NOT LIKE '%Zeichentrick%' "
+                'SQLstring: Alle Movies (2 > TvMovieBewertung < 6), inkl. TagesTipps des Tages laden
+                Dim _SQLstring As String = _
+                    "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
+                    "WHERE TvMovieBewertung > 2 AND TvMovieBewertung < 6 " & _
+                    "AND startTime > " & MySqlDate(_startTime) & " " & _
+                    "AND startTime < " & MySqlDate(_endTime) & " " & _
+                    "AND genre NOT LIKE '%Serie%' " & _
+                    "AND genre NOT LIKE '%Sitcom%' " & _
+                    "AND genre NOT LIKE '%Zeichentrick%'"
 
+                'SqlString: Orderby TvMovieBewertung & Limit
+                _SQLstring = Helper.AppendSqlLimit(_SQLstring & Helper.ORDERBYtvMovieBewertung, 25)
+
+                'List: Daten laden
+                _SQLstring = Replace(_SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idTVMovieProgram, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.needsUpdate, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung, TVMovieProgram.Year ")
+                Dim _SQLstate1 As SqlStatement = Broker.GetStatement(_SQLstring)
+                _OverLayMoviesList = ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate1.Execute())
+
+                MyLog.Debug("[BasicHomeOverlay] [ClickfinderProgramGuideOverlayMovies]: {0} Movies loaded from Database (setting = {1})", _OverLayMoviesList.Count, CPGsettings.OverlayTime)
+
+                'List: TvGruppe filter
+                _OverLayMoviesList = _OverLayMoviesList.FindAll(Function(x As TVMovieProgram) x.ReferencedProgram.ReferencedChannel.GroupNames.Contains(CPGsettings.OverlayTvGroup))
+
+                'List: nicht local = 0 -> sofern in Settings
+                If CPGsettings.OverlayShowLocalMovies = True Then
+                    _OverLayMoviesList = _OverLayMoviesList.FindAll(Function(p As TVMovieProgram) p.local = False)
+                End If
+
+                MyLog.Debug("[BasicHomeOverlay] [ClickfinderProgramGuideOverlayMovies]: {0} Movies filtered by '{1}' TvGroup and not local = {2}", _OverLayMoviesList.Count, CPGsettings.OverlayTvGroup, CInt(CPGsettings.OverlayShowLocalMovies) * -1)
+
+                'List: sortieren
                 Select Case (CPGsettings.OverlayMovieSort)
                     Case Is = SortMethode.startTime.ToString
-                        _LogLocalSortedBy = SortMethode.startTime.ToString
-                        _SQLstring = _SQLstring & Helper.ORDERBYstartTime
-
+                        _OverLayMoviesList.Sort(New TVMovieProgram_SortByStartTime)
                     Case Is = SortMethode.TvMovieStar.ToString
-                        _LogLocalSortedBy = SortMethode.TvMovieStar.ToString
-                        _SQLstring = _SQLstring & Helper.ORDERBYtvMovieBewertung
-
+                        _OverLayMoviesList.Sort(New TVMovieProgram_SortByTvMovieBewertung)
                     Case Is = SortMethode.RatingStar.ToString
-                        _LogLocalSortedBy = SortMethode.RatingStar.ToString
-                        _SQLstring = _SQLstring & Helper.ORDERBYstarRating
+                        _OverLayMoviesList.Sort(New TVMovieProgram_SortByRating)
                 End Select
 
-                _SQLstring = AppendSqlLimit(_SQLstring, CPGsettings.OverlayMovieLimit)
+                MyLog.Debug("[BasicHomeOverlay] [ClickfinderProgramGuideOverlayMovies]: {0} Movies sorted by {1}", _OverLayMoviesList.Count, CPGsettings.OverlayMovieSort)
 
-                Log.Debug("[PreInit] [BasicHomeOverlay]: sorted by {0}, show TvMovie TagesTipp = {1}, SQLString: {2}", _LogLocalSortedBy, _logShowTagesTipp, _SQLstring)
-
-                _Result.AddRange(Broker.Execute(_SQLstring).TransposeToFieldList("idProgram", False))
-
-                Log.Debug("[PreInit] [BasicHomeOverlay]: {0} program found", _Result.Count)
-
-                If _Result.Count > 0 Then
-
-                    For i = 0 To _Result.Count - 1
-                        Try
-
-                            'ProgramDaten über TvMovieProgram laden
-                            Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_Result.Item(i))
-
-                            '[Option] Falls Datei lokal existiert, dann nicht anzeigen (-> Continue For)
-                            'Wenn TagesTipp aktiviert, dann nicht ausführen
-                            If CPGsettings.OverlayShowLocalMovies = True And Not _TvMovieProgram.idProgram = _idProgramTagesTipp Then
-                                If _TvMovieProgram.local = True Then
-                                    _LogLocalMovies = _LogLocalMovies & _TvMovieProgram.ReferencedProgram.Title & ", "
-                                    Continue For
-                                End If
-                            End If
-
-                            'Wenn TagesTipp immer anzeigen aktiviert, prüfen ob TagesTipp, dann weiter
-                            If _TvMovieProgram.idProgram = _idProgramTagesTipp And _ItemCounter > 1 Then
-                                Continue For
-                            End If
-
-                            'Prüfen ob in Standard Tv Gruppe, nur wenn nicht Tagestipp
-                            If Not _TvMovieProgram.idProgram = _idProgramTagesTipp Then
-                                Dim key As New Gentle.Framework.Key(GetType(ChannelGroup), True, "groupName", CPGsettings.OverlayTvGroup)
-                                Dim _Group As ChannelGroup = Gentle.Framework.Broker.RetrieveInstance(Of ChannelGroup)(key)
-
-                                'Alle Gruppen des _program laden
-                                Dim sb As New SqlBuilder(Gentle.Framework.StatementType.Select, GetType(GroupMap))
-                                sb.AddConstraint([Operator].Equals, "idgroup", _Group.IdGroup)
-                                sb.AddConstraint([Operator].Equals, "idChannel", _TvMovieProgram.ReferencedProgram.IdChannel)
-                                Dim stmt As SqlStatement = sb.GetStatement(True)
-                                Dim _isInFavGroup As IList(Of GroupMap) = ObjectFactory.GetCollection(GetType(GroupMap), stmt.Execute())
-
-                                If _isInFavGroup.Count = 0 Then
-                                    Continue For
-                                End If
-                            End If
+                'GroupBy: Title And EpisodeName (doppelte Einträge raus)
+                _OverLayMoviesList = _OverLayMoviesList.Distinct(New TVMovieProgram_GroupByTitleAndEpisodeName()).ToList
 
 
-                            'Prüfen ob schon in der Liste vorhanden
-                            If String.Equals(_lastTitle, _TvMovieProgram.ReferencedProgram.Title & _TvMovieProgram.ReferencedProgram.EpisodeName) = False Then
+                'List: TagesTipp laden
+                Dim _TagesTippList As New List(Of TVMovieProgram)
+                If CPGsettings.OverlayShowTagesTipp = True Then
+                    _SQLstring = _
+                        "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
+                        "WHERE TvMovieBewertung = 4 " & _
+                        "AND startTime > " & MySqlDate(Today) & " " & _
+                        "AND startTime < " & MySqlDate(Today.AddDays(1)) & " " & _
+                        "AND genre NOT LIKE '%Serie%' " & _
+                        "AND genre NOT LIKE '%Sitcom%' " & _
+                        "AND genre NOT LIKE '%Zeichentrick%'"
 
-                                _ItemCounter = _ItemCounter + 1
+                    _SQLstring = Replace(_SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idTVMovieProgram, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.needsUpdate, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung, TVMovieProgram.Year ")
+                    Dim _SQLstate2 As SqlStatement = Broker.GetStatement(_SQLstring)
+                    _TagesTippList = ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate2.Execute())
+                    _TagesTippList = _TagesTippList.GetRange(0, 1)
 
-                                Translator.SetProperty("#ClickfinderPG.Movie" & _ItemCounter & ".Title", _TvMovieProgram.ReferencedProgram.Title)
-                                Translator.SetProperty("#ClickfinderPG.Movie" & _ItemCounter & ".RatingStar", _TvMovieProgram.ReferencedProgram.StarRating)
-                                Translator.SetProperty("#ClickfinderPG.Movie" & _ItemCounter & ".Time", GuiLayout.TimeLabel(_TvMovieProgram))
-                                Translator.SetProperty("#ClickfinderPG.Movie" & _ItemCounter & ".Channel", _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName)
-                                Translator.SetProperty("#ClickfinderPG.Movie" & _ItemCounter & ".Image", GuiLayout.Image(_TvMovieProgram))
-                                Translator.SetProperty("#ClickfinderPG.Movie" & _ItemCounter & ".TvMovieStar", GuiLayout.TvMovieStar(_TvMovieProgram))
-                                Translator.SetProperty("#ClickfinderPG.Movie" & _ItemCounter & ".Genre", _TvMovieProgram.ReferencedProgram.Genre)
+                    'TagesTipp vorhanden -> Listcontrol
+                    If _TagesTippList.Count > 0 Then
+                        _ShowTagesTipp = True
 
-                                Log.Debug("[StartGuiWindow] [ClickfinderProgramGuideOverlayMovies]: Load global SkinProperties {0} (Title: {1}, Channel: {2}, startTime: {3}, idprogram: {4}, ratingStar: {5}, TvMovieStar: {6}, image: {7})", _
-                                            _ItemCounter, _TvMovieProgram.ReferencedProgram.Title, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _
-                                            _TvMovieProgram.ReferencedProgram.StartTime, _TvMovieProgram.ReferencedProgram.IdProgram, _
-                                            GuiLayout.ratingStar(_TvMovieProgram.ReferencedProgram), _
-                                            _TvMovieProgram.TVMovieBewertung, GuiLayout.Image(_TvMovieProgram))
+                        _OverLayMoviesList.RemoveAll(Function(x As TVMovieProgram) x.TVMovieBewertung = 4)
 
-                                _lastTitle = _TvMovieProgram.ReferencedProgram.Title & _TvMovieProgram.ReferencedProgram.EpisodeName
-
-                            End If
-
-                            If _ItemCounter = 4 Then Exit For
-
-                        Catch ex As Exception
-                            Log.Error("[StartGuiWindow] [ClickfinderProgramGuideOverlayMovies]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
-                        End Try
-                    Next
+                        MyLog.Debug("[BasicHomeOverlay] [ClickfinderProgramGuideOverlayMovies]: TagesTipp added to cache ({0} ,{1} ,{2})", _TagesTippList(0).ReferencedProgram.Title, _TagesTippList(0).ReferencedProgram.ReferencedChannel.DisplayName, _TagesTippList(0).ReferencedProgram.StartTime)
+                    Else
+                        MyLog.Warn("[BasicHomeOverlay] [ClickfinderProgramGuideOverlayMovies]: No TagesTipp - {0}", Today)
+                    End If
                 End If
 
-                If CPGsettings.OverlayShowLocalMovies = True Then
-                    Log.Debug("[StartGuiWindow] [ClickfinderProgramGuideOverlayMovies]: Movies exist local and will not be displayed ({0})", _LogLocalMovies)
+                'TagesTip evtl. hinzufügen
+                If _ShowTagesTipp = True Then
+                    _OverLayMoviesList = _OverLayMoviesList.GetRange(0, 3)
+                    _OverLayMoviesList.Insert(0, _TagesTippList(0))
+                Else
+                    _OverLayMoviesList = _OverLayMoviesList.GetRange(0, 4)
                 End If
+
+                'Overlay properties übergeben
+                For Each _TvMovieProgram In _OverLayMoviesList
+                    _ItemCounter = _ItemCounter + 1
+
+                    Translator.SetProperty("#ClickfinderPG.Movie" & _ItemCounter & ".Title", _TvMovieProgram.ReferencedProgram.Title)
+                    Translator.SetProperty("#ClickfinderPG.Movie" & _ItemCounter & ".RatingStar", _TvMovieProgram.ReferencedProgram.StarRating)
+                    Translator.SetProperty("#ClickfinderPG.Movie" & _ItemCounter & ".Time", GuiLayout.TimeLabel(_TvMovieProgram))
+                    Translator.SetProperty("#ClickfinderPG.Movie" & _ItemCounter & ".Channel", _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName)
+                    Translator.SetProperty("#ClickfinderPG.Movie" & _ItemCounter & ".Image", GuiLayout.Image(_TvMovieProgram))
+                    Translator.SetProperty("#ClickfinderPG.Movie" & _ItemCounter & ".TvMovieStar", GuiLayout.TvMovieStar(_TvMovieProgram))
+                    Translator.SetProperty("#ClickfinderPG.Movie" & _ItemCounter & ".Genre", _TvMovieProgram.ReferencedProgram.Genre)
+                Next
+
+                MyLog.Info("[BasicHomeOverlay]: [ClickfinderProgramGuideOverlayMovies]: finished in {0} s", DateDiff(DateInterval.Second, _time, Now))
 
             Catch ex2 As Exception
-                Log.Error("[StartGuiWindow] [ClickfinderProgramGuideOverlayMovies]: exception err:" & ex2.Message & " stack:" & ex2.StackTrace)
+                Log.Error("[BasicHomeOverlay] [ClickfinderProgramGuideOverlayMovies]: exception err:" & ex2.Message & " stack:" & ex2.StackTrace)
             End Try
         End Sub
         Friend Shared Sub ClickfinderProgramGuideOverlaySeries()
-            Dim _ItemCounter As Integer = 1
-
             Try
+                Dim _ItemCounter As Integer = 1
+                Dim _time As Date = Now
 
                 For i = 1 To 4
                     Translator.SetProperty("#ClickfinderPG.Series" & i & ".Title", "")
                 Next
 
-                If CPGsettings.TvMovieImportTvSeriesInfos = True Then
-                    Dim _SeriesResult As New ArrayList
-                    Dim _SQLstring As String = String.Empty
+                MyLog.Info("")
+                MyLog.Info("[BasicHomeOverlay]: [ClickfinderProgramGuideOverlaySeries]: started")
 
-                    _SQLstring = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
-                                        "WHERE idSeries > 0 " & _
-                                        "AND local = 0 " & _
-                                        "AND startTime > " & MySqlDate(Date.Today.AddHours(0)) & " " & _
-                                        "AND startTime < " & MySqlDate(Date.Today.AddHours(24)) & " " & _
-                                        "GROUP BY title Order BY startTime"
+                Dim _NewEpisodesList As New List(Of TVMovieProgram)
+                Dim _AllNewEpisodesList As New List(Of TVMovieProgram)
+                Dim _RepeatsScheduledRecordings As New List(Of Program)
 
-                    _SeriesResult.AddRange(Broker.Execute(_SQLstring).TransposeToFieldList("idProgram", True))
-                    '_logNewSeriesCount = _Result.Count
-
-                    If _SeriesResult.Count > 0 Then
-                        For i = 0 To _SeriesResult.Count - 1
-                            Dim _NewEpisodeList As New ArrayList
-                            Dim _RecordingStatus As String = String.Empty
-
-                            'ProgramDaten über TvMovieProgram laden
-                            Dim _TvMovieSeriesProgram As TVMovieProgram = TVMovieProgram.Retrieve(_SeriesResult.Item(i))
-
-                            'Alle neuen Episoden der Serie zählen die aufgenommen werden sollen
-                            _SQLstring = "Select program.idprogram from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
-                                            "WHERE idSeries = " & _TvMovieSeriesProgram.idSeries & " " & _
+                'Alle neuen Episoden des Tages laden, sortiert nach State
+                Dim _SQLstring As String = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
+                                            "WHERE idSeries > 0 " & _
                                             "AND local = 0 " & _
                                             "AND startTime > " & MySqlDate(Date.Today.AddHours(0)) & " " & _
-                                            "AND startTime < " & MySqlDate(Date.Today.AddHours(24)) & " " & _
-                                            "Group By episodeName Order BY state DESC"
+                                            "AND startTime < " & MySqlDate(Date.Today.AddHours(24).AddHours(0).AddMinutes(0)) & " " & _
+                                            "Order BY state DESC"
 
-                            _NewEpisodeList.AddRange(Broker.Execute(_SQLstring).TransposeToFieldList("idProgram", True))
+                _SQLstring = Replace(_SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idTVMovieProgram, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.needsUpdate, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung, TVMovieProgram.Year ")
+                Dim _SQLstate As SqlStatement = Broker.GetStatement(_SQLstring)
+                _AllNewEpisodesList = ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate.Execute())
 
-                            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".Image", Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieSeriesProgram.SeriesPosterImage)
-                            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".Title", _TvMovieSeriesProgram.ReferencedProgram.Title)
-                            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".RatingStar", _TvMovieSeriesProgram.ReferencedProgram.StarRating)
-                            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".CountNewEpisodes", _NewEpisodeList.Count & " " & Translation.NewEpisodeFound)
-                            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".Time", _TvMovieSeriesProgram.ReferencedProgram.ReferencedChannel.DisplayName & " - " & CStr(Format(_TvMovieSeriesProgram.ReferencedProgram.StartTime.Hour, "00") & ":" & Format(_TvMovieSeriesProgram.ReferencedProgram.StartTime.Minute, "00")))
+                'Alle doppelten Episoden raus
+                _AllNewEpisodesList = _AllNewEpisodesList.Distinct(New TVMovieProgram_GroupByTitleAndEpisodeName).ToList
 
-                            _RecordingStatus = GuiLayout.RecordingStatus(_TvMovieSeriesProgram.ReferencedProgram)
+                MyLog.Debug("[BasicHomeOverlay] [ClickfinderProgramGuideOverlaySeries]: {0} new Episodes today found", _AllNewEpisodesList.Count)
 
-                            'Prüfen ob eine Episode als Aufnahme geplant ist
-                            If _RecordingStatus = String.Empty Then
-                                If _NewEpisodeList.Count > 0 Then
-                                    Dim _Episode As Program = Program.Retrieve(_NewEpisodeList.Item(0))
-                                    _RecordingStatus = GuiLayout.RecordingStatus(_Episode)
+                'prüfen ob inzwischen local vorhanden
+                For Each _NewEpisode In _AllNewEpisodesList
+                    CheckSeriesLocalStatus(_NewEpisode)
 
-                                    'Prüfen ob Episode an anderem Tag aufgenommen wird
-                                    If _RecordingStatus = String.Empty Then
-                                        Dim _RecordingList As New ArrayList
+                    If _NewEpisode.local = False Then
+                        _NewEpisodesList.Add(_NewEpisode)
+                    End If
+                Next
 
-                                        _SQLstring = "Select program.idprogram from program " & _
-                                                "WHERE title = '" & TVSeriesDB.allowedSigns(_Episode.Title) & "' " & _
-                                                "AND episodeName = '" & TVSeriesDB.allowedSigns(_Episode.EpisodeName) & "' " & _
-                                                "Order BY state DESC"
+                MyLog.Debug("[BasicHomeOverlay] [ClickfinderProgramGuideOverlaySeries]: {0} new Episodes today found, after checking local status", _NewEpisodesList.Count)
 
-                                        Helper.AppendSqlLimit(_SQLstring, 1)
+                Dim tmp As List(Of TVMovieProgram) = _NewEpisodesList.Distinct(New TVMovieProgram_GroupByIdSeries).ToList
+                tmp.Sort(New TVMovieProgram_SortByStartTime)
 
-                                        _RecordingList.AddRange(Broker.Execute(_SQLstring).TransposeToFieldList("idProgram", True))
+                'Nur vier Serien anzeigen, sofern mehr vorhanden
+                If tmp.Count > 4 Then
+                    tmp = tmp.GetRange(0, 4)
+                End If
 
-                                        If _RecordingList.Count > 0 Then
-                                            Dim _Record As Program = Program.Retrieve(_RecordingList.Item(0))
-                                            _RecordingStatus = GuiLayout.RecordingStatus(_Record)
+                For Each _NewEpisode In tmp
 
-                                            If Not _Record.StartTime.Date = Today Then
-                                                Select Case (_RecordingStatus)
-                                                    Case Is = "tvguide_record_button.png"
-                                                        _RecordingStatus = "ClickfinderPG_recOnce.png"
-                                                    Case Is = "tvguide_recordserie_button.png"
-                                                        _RecordingStatus = "ClickfinderPG_recSeries.png"
-                                                End Select
-                                            End If
+                    Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".Image", Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _NewEpisode.SeriesPosterImage)
+                    Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".Title", _NewEpisode.ReferencedProgram.Title)
+                    Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".RatingStar", _NewEpisode.ReferencedProgram.StarRating)
+                    Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".CountNewEpisodes", _NewEpisodesList.FindAll(Function(x As TVMovieProgram) x.idSeries = _NewEpisode.idSeries).Count & " " & Translation.NewEpisodeFound)
+                    Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".Time", _NewEpisode.ReferencedProgram.ReferencedChannel.DisplayName & " - " & CStr(Format(_NewEpisode.ReferencedProgram.StartTime.Hour, "00") & ":" & Format(_NewEpisode.ReferencedProgram.StartTime.Minute, "00")))
 
-                                        End If
+                    Dim _RecordingStatus As String = GuiLayout.RecordingStatus(_NewEpisode.ReferencedProgram)
 
-                                    End If
-                                End If
-                            End If
+                    'Falls nicht als Aufnahme geplant, prüfen ob an anderem Tag / Uhrzeit
+                    If _RecordingStatus = String.Empty Then
+                        _SQLstring = _
+                                "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
+                                "WHERE idSeries = " & _NewEpisode.idSeries & " " & _
+                                "AND local = 0 " & _
+                                "AND episodeName = '" & TVSeriesDB.allowedSigns(_NewEpisode.ReferencedProgram.EpisodeName) & "' " & _
+                                "ORDER BY state DESC"
 
+                        _SQLstring = Helper.AppendSqlLimit(_SQLstring, 1)
 
-                            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".RecordingState", _RecordingStatus)
+                        _SQLstring = Replace(_SQLstring, " * ", " Program.IdProgram, Program.Classification, Program.Description, Program.EndTime, Program.EpisodeName, Program.EpisodeNum, Program.EpisodePart, Program.Genre, Program.IdChannel, Program.OriginalAirDate, Program.ParentalRating, Program.SeriesNum, Program.StarRating, Program.StartTime, Program.state, Program.Title ")
+                        Dim _SQLstate4 As SqlStatement = Broker.GetStatement(_SQLstring)
+                        _RepeatsScheduledRecordings = ObjectFactory.GetCollection(GetType(Program), _SQLstate4.Execute())
 
-                            Log.Debug("[StartGuiWindow] [ClickfinderProgramGuideOverlaySeries]: Load global Series SkinProperties {0} (Title: {1}, Channel: {2}, startTime: {3}, idprogram: {4}, ratingStar: {5}, TvMovieStar: {6}, image: {7})", _
-                                            _ItemCounter, _TvMovieSeriesProgram.ReferencedProgram.Title, _TvMovieSeriesProgram.ReferencedProgram.ReferencedChannel.DisplayName, _
-                                                    _TvMovieSeriesProgram.ReferencedProgram.StartTime, _TvMovieSeriesProgram.ReferencedProgram.IdProgram, _
-                                                    GuiLayout.ratingStar(_TvMovieSeriesProgram.ReferencedProgram), _
-                                                    _TvMovieSeriesProgram.TVMovieBewertung, GuiLayout.Image(_TvMovieSeriesProgram))
+                        If _RepeatsScheduledRecordings.Count > 0 Then
+                            _RecordingStatus = GuiLayout.RecordingStatus(_RepeatsScheduledRecordings.Item(0))
 
-                            _ItemCounter = _ItemCounter + 1
-                        Next
+                            'MsgBox("episode: " & _Episode.ReferencedProgram.Title & " - " & _Episode.ReferencedProgram.EpisodeName & vbNewLine & _
+                            '       "recState: " & _RecordingStatus)
+
+                            Select Case (_RecordingStatus)
+                                Case Is = "tvguide_record_button.png"
+                                    _RecordingStatus = "ClickfinderPG_recOnce.png"
+                                Case Is = "tvguide_recordserie_button.png"
+                                    _RecordingStatus = "ClickfinderPG_recSeries.png"
+                                Case Else
+                                    _RecordingStatus = String.Empty
+                            End Select
+                        End If
                     End If
 
+                    Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".RecordingState", _RecordingStatus)
 
-                    'Dim _SeriesResult As New ArrayList
-                    'Dim _SQLstring As String = String.Empty
-                    'Dim _SeriesName As String = String.Empty
-                    'Dim _EpisodeName As String = String.Empty
-                    'Dim _NewEpisodeCounter As Integer = 1
-                    'Dim _ItemCounter As Integer = 1
-                    'Dim _NewEpisodesNumbers As String = String.Empty
+                    _ItemCounter = _ItemCounter + 1
+                Next
 
 
-                    '_SQLstring = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
-                    '                    "WHERE idSeries > 0 " & _
-                    '                    "AND local = 0 " & _
-                    '                    "AND startTime > " & MySqlDate(Date.Today.AddHours(0)) & " " & _
-                    '                    "AND startTime < " & MySqlDate(Date.Today.AddHours(24)) & " " & _
-                    '                    "ORDER BY title ASC, seriesNum ASC, episodeNum ASC, startTime ASC"
+                MyLog.Info("[BasicHomeOverlay]: [ClickfinderProgramGuideOverlayMovies]: finished in {0} s", DateDiff(DateInterval.Second, _time, Now))
 
-
-                    '_SeriesResult.AddRange(Broker.Execute(_SQLstring).TransposeToFieldList("idProgram", True))
-                    ''_logNewSeriesCount = _Result.Count
-
-                    'For i = 0 To _SeriesResult.Count - 1
-                    '    Try
-
-                    '        'ProgramDaten über TvMovieProgram laden
-                    '        Dim _TvMovieSeriesProgram As TVMovieProgram = TVMovieProgram.Retrieve(_SeriesResult.Item(i))
-
-                    '        'Prüfen ob noch immer lokal nicht vorhanden
-                    '        CheckSeriesLocalStatus(_TvMovieSeriesProgram)
-                    '        If _TvMovieSeriesProgram.local = False Then
-
-                    '            'Sofern andere Serie, Werte zurücksetzen
-                    '            If Not _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title Then
-                    '                _NewEpisodeCounter = 1
-                    '                _NewEpisodesNumbers = ""
-                    '            End If
-
-                    '            'Sofern gleiche Episode dann weiter
-                    '            If _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title And _EpisodeName = _TvMovieSeriesProgram.ReferencedProgram.EpisodeName Then
-                    '                Continue For
-                    '            End If
-
-                    '            'Sofern nicht gleiche Episode -> Zähler hoch und weiter
-                    '            If _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title And Not _EpisodeName = _TvMovieSeriesProgram.ReferencedProgram.EpisodeName Then
-                    '                _NewEpisodeCounter = _NewEpisodeCounter + 1
-                    '                Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter - 1 & ".CountNewEpisodes", _NewEpisodeCounter & " " & Translation.NewEpisodeFound)
-
-                    '                _NewEpisodesNumbers = _NewEpisodesNumbers & ", S" & Format(CInt(_TvMovieSeriesProgram.ReferencedProgram.SeriesNum), "00") & "E" & Format(CInt(_TvMovieSeriesProgram.ReferencedProgram.EpisodeNum), "00")
-                    '                Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter - 1 & ".NewEpisodesNumbers", _NewEpisodesNumbers)
-
-                    '                Continue For
-                    '            End If
-
-                    '            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".Image", Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvMovieSeriesProgram.SeriesPosterImage)
-                    '            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".Title", _TvMovieSeriesProgram.ReferencedProgram.Title)
-                    '            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".RatingStar", _TvMovieSeriesProgram.ReferencedProgram.StarRating)
-                    '            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".CountNewEpisodes", _NewEpisodeCounter & " " & Translation.NewEpisodeFound)
-
-                    '            _NewEpisodesNumbers = "S" & Format(CInt(_TvMovieSeriesProgram.ReferencedProgram.SeriesNum), "00") & "E" & Format(CInt(_TvMovieSeriesProgram.ReferencedProgram.EpisodeNum), "00")
-                    '            Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".NewEpisodesNumbers", _NewEpisodesNumbers)
-
-                    '            Log.Debug("[StartGuiWindow] [ClickfinderProgramGuideOverlaySeries]: Load global Series SkinProperties {0} (Title: {1}, Channel: {2}, startTime: {3}, idprogram: {4}, ratingStar: {5}, TvMovieStar: {6}, image: {7})", _
-                    '                        _ItemCounter, _TvMovieSeriesProgram.ReferencedProgram.Title, _TvMovieSeriesProgram.ReferencedProgram.ReferencedChannel.DisplayName, _
-                    '                        _TvMovieSeriesProgram.ReferencedProgram.StartTime, _TvMovieSeriesProgram.ReferencedProgram.IdProgram, _
-                    '                        GuiLayout.ratingStar(_TvMovieSeriesProgram.ReferencedProgram), _
-                    '                        _TvMovieSeriesProgram.TVMovieBewertung, GuiLayout.Image(_TvMovieSeriesProgram))
-
-                    '            _SeriesName = _TvMovieSeriesProgram.ReferencedProgram.Title
-                    '            _EpisodeName = _TvMovieSeriesProgram.ReferencedProgram.EpisodeName
-                    '            _ItemCounter = _ItemCounter + 1
-
-                    '        End If
-
-                    '    Catch ex As Exception
-                    '        Log.Error("[StartGuiWindow] [ClickfinderProgramGuideOverlaySeries]: Loop exception err:" & ex.Message & " stack:" & ex.StackTrace)
-                    '    End Try
-                    'Next
-
-                End If
             Catch ex2 As Exception
                 Log.Error("[StartGuiWindow] [ClickfinderProgramGuideOverlaySeries]: exception err:" & ex2.Message & " stack:" & ex2.StackTrace)
             End Try

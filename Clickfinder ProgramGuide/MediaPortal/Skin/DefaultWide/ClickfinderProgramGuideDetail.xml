@@ -93,8 +93,9 @@
       <posY>90</posY>
       <width>1080</width>
       <height>590</height>
-
       <texture>ClickfinderPG_DetailBG.png</texture>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <!--rechts vom Separator-->
@@ -113,7 +114,7 @@
       <texture>ClickfinderPG_SepHor.png</texture>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <description>Detail Titel</description>
@@ -129,7 +130,7 @@
       <wrapString> | </wrapString>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <description>Detail org. Titel</description>
@@ -145,7 +146,7 @@
       <wrapString> | </wrapString>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -167,6 +168,8 @@
       <imagesToDraw>10</imagesToDraw>
       <percentage>#DetailRatingStar</percentage>
       <visible>!string.starts(#DetailRatingStar,0)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
 
@@ -186,7 +189,7 @@
       <texture>#DetailFSK</texture>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
 
@@ -203,7 +206,7 @@
       <textcolor>ffffffff</textcolor>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -220,7 +223,7 @@
       <wrapString> | </wrapString>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -236,7 +239,7 @@
       <textcolor>ffffffff</textcolor>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -253,7 +256,7 @@
       <wrapString> | </wrapString>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -269,7 +272,7 @@
       <textcolor>ffffffff</textcolor>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -286,7 +289,7 @@
       <wrapString> | </wrapString>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -302,7 +305,7 @@
       <textcolor>ffffffff</textcolor>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -319,7 +322,7 @@
       <wrapString> | </wrapString>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -335,7 +338,7 @@
       <textcolor>ffffffff</textcolor>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -352,7 +355,7 @@
       <wrapString> | </wrapString>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -368,7 +371,7 @@
       <font>font12</font>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <!--links vom Separator-->
@@ -387,7 +390,7 @@
       <keepaspectratio>yes</keepaspectratio>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -406,7 +409,7 @@
       <texture>#DetailTvMovieStar</texture>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -425,7 +428,7 @@
       <texture>#DetailRecordingState</texture>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -441,7 +444,7 @@
       <textcolor>ffffffff</textcolor>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <description>Detail time</description>
@@ -457,7 +460,7 @@
       <wrapString> | </wrapString>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <description>Label Dauer</description>
@@ -472,7 +475,7 @@
       <textcolor>ffffffff</textcolor>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -489,7 +492,7 @@
       <wrapString> | </wrapString>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
 
@@ -505,7 +508,7 @@
       <font>font10</font>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -522,7 +525,7 @@
       <wrapString> | </wrapString>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <!-- Program Infos / Einzelbewertung-->
@@ -542,7 +545,7 @@
       <texture>ClickfinderPG_Sep.png</texture>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -560,7 +563,7 @@
       <keepaspectratio>yes</keepaspectratio>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -578,7 +581,7 @@
       <keepaspectratio>yes</keepaspectratio>
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
 
@@ -593,6 +596,8 @@
       <font>font10</font>
       <align>center</align>
       <textcolor>FFdddddd</textcolor>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <description>FunStars</description>
@@ -613,6 +618,8 @@
       <imagesToDraw>3</imagesToDraw>
       <percentage>#DetailRatingFun</percentage>
       <visible>!string.starts(#DetailRatingFun,0)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -626,6 +633,8 @@
       <font>font10</font>
       <align>center</align>
       <textcolor>FFdddddd</textcolor>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <description>ActionStars</description>
@@ -646,6 +655,8 @@
       <imagesToDraw>3</imagesToDraw>
       <percentage>#DetailRatingAction</percentage>
       <visible>!string.starts(#DetailRatingAction,0)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -659,6 +670,8 @@
       <font>font10</font>
       <align>center</align>
       <textcolor>FFdddddd</textcolor>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <description>GefühlStars</description>
@@ -679,6 +692,8 @@
       <imagesToDraw>3</imagesToDraw>
       <percentage>#DetailRatingEmotions</percentage>
       <visible>!string.starts(#DetailRatingEmotions,0)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -692,6 +707,8 @@
       <font>font10</font>
       <align>center</align>
       <textcolor>FFdddddd</textcolor>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <description>ErotikStars</description>
@@ -712,6 +729,8 @@
       <imagesToDraw>3</imagesToDraw>
       <percentage>#DetailRatingErotic</percentage>
       <visible>!string.starts(#DetailRatingErotic,0)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -725,6 +744,8 @@
       <font>font10</font>
       <align>center</align>
       <textcolor>FFdddddd</textcolor>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <description>SpannungStars</description>
@@ -745,6 +766,8 @@
       <imagesToDraw>3</imagesToDraw>
       <percentage>#DetailRatingSuspense</percentage>
       <visible>!string.starts(#DetailRatingSuspense,0)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <control>
@@ -758,6 +781,8 @@
       <font>font10</font>
       <align>center</align>
       <textcolor>FFdddddd</textcolor>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
     <control>
       <description>AnspruchStars</description>
@@ -778,6 +803,8 @@
       <imagesToDraw>3</imagesToDraw>
       <percentage>#DetailRatingLevel</percentage>
       <visible>!string.starts(#DetailRatingLevel,0)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
     <!-- ActionGroup -->
@@ -792,7 +819,7 @@
       <!--Button Height 30-->
       <layout>StackLayout</layout>
       <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="500">WindowClose</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
       <control>
         <description>Gui Episode Preview aufrufen sofern Serie</description>
         <type>button</type>

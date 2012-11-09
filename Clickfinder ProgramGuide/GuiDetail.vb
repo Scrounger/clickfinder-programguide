@@ -316,7 +316,7 @@ Namespace ClickfinderProgramGuide
                                 "AND episodeName = '" & TVSeriesDB.allowedSigns(_DetailTvMovieProgram.ReferencedProgram.EpisodeName) & "' " & _
                                 "Order BY state DESC"
 
-                        Helper.AppendSqlLimit(SQLstring, 1)
+                        SQLstring = Helper.AppendSqlLimit(SQLstring, 1)
 
                         _RecordingList.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", True))
 

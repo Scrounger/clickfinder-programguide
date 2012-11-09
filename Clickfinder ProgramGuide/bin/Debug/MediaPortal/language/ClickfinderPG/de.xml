@@ -112,5 +112,7 @@
   <string Field="DBRefreshRunning">Datenbank Abgleich läuft...</string>
   <string Field="DBRefreshFinished">Datenbank Abgleich erfolgreich!</string>
   <string Field="RefreshOverlays">Overlays werden aktualisiert...</string>
+  <string Field="Title">Titel</string>
+  <string Field="SortTitle">Titel</string>
   
 </strings>
