@@ -67,6 +67,12 @@ Public Class Helper
         parentalRating
         Series
         Title
+        Action
+        Fun
+        Feelings
+        Tension
+        Erotic
+        Requirement
     End Enum
 
     Friend Shared Sub AddListControlItem(ByVal Listcontrol As GUIListControl, ByVal idProgram As Integer, ByVal ChannelName As String, ByVal titelLabel As String, Optional ByVal timeLabel As String = "", Optional ByVal infoLabel As String = "", Optional ByVal ImagePath As String = "", Optional ByVal MinRunTime As Integer = 0, Optional ByVal isRecording As String = "", Optional ByVal tmpInfo As String = "", Optional ByVal tmpInfo2 As String = "")
@@ -126,7 +132,7 @@ Public Class Helper
 
     Friend Shared Sub ListControlClick(ByVal idProgram As Integer)
         Try
-            Dim TvMovieProgram As TVMovieProgram = getTvMovieProgram(Program.Retrieve(idProgram))
+            Dim TvMovieProgram As TVMovieProgram = TvMovieProgram.Retrieve(idProgram)
             DetailGuiWindow.SetGuiProperties(TvMovieProgram)
             GUIWindowManager.ActivateWindow(1656544652)
         Catch ex As Exception
@@ -162,7 +168,7 @@ Public Class Helper
     'MP Tv Kanal einschalten
     Friend Shared Sub StartTv(ByVal program As Program)
         Try
-            Dim _TvMovieprogram As TVMovieProgram = getTvMovieProgram(program)
+            Dim _TvMovieprogram As TVMovieProgram = TVMovieProgram.Retrieve(program.IdProgram)
 
             If Not String.IsNullOrEmpty(_TvMovieprogram.FileName) Then
                 _PlayedFile = _TvMovieprogram
@@ -204,44 +210,44 @@ Public Class Helper
     ''' Holt / erstellt TvMovieProgram
     ''' </summary>
     ''' <returns>TvMovieProgram</returns>
-    Friend Shared Function getTvMovieProgram(ByVal Program As Program) As TVMovieProgram
-        Try
-            Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(Program.IdProgram)
-            Return _TvMovieProgram
-        Catch ex As Exception
-            Dim _ClickfinderDB As New ClickfinderDB(Program)
-            Dim _TvMovieProgram As New TVMovieProgram(Program.IdProgram)
-            If _ClickfinderDB.Count > 0 Then
+    'Friend Shared Function getTvMovieProgram(ByVal Program As Program) As TVMovieProgram
+    '    Try
+    '        Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(Program.IdProgram)
+    '        Return _TvMovieProgram
+    '    Catch ex As Exception
+    '        Dim _ClickfinderDB As New ClickfinderDB(Program)
+    '        Dim _TvMovieProgram As New TVMovieProgram(Program.IdProgram)
+    '        If _ClickfinderDB.Count > 0 Then
 
-                'nur Informationen die zwigend benötigt werden, anzeige in GuiItems, GuiCategories & GuiHighlights
-                '+ zusätzlich Infos zum sortieren & suchen (z.B. TvMovieBewretung, Fun, Action, etc.)
+    '            'nur Informationen die zwigend benötigt werden, anzeige in GuiItems, GuiCategories & GuiHighlights
+    '            '+ zusätzlich Infos zum sortieren & suchen (z.B. TvMovieBewretung, Fun, Action, etc.)
 
-                'BildDateiname aus Clickfinder DB holen, sofern vorhanden
-                If CBool(_ClickfinderDB(0).KzBilddateiHeruntergeladen) = True And Not String.IsNullOrEmpty(_ClickfinderDB(0).Bilddateiname) Then
-                    _TvMovieProgram.BildDateiname = _ClickfinderDB(0).Bilddateiname
-                End If
+    '            'BildDateiname aus Clickfinder DB holen, sofern vorhanden
+    '            If CBool(_ClickfinderDB(0).KzBilddateiHeruntergeladen) = True And Not String.IsNullOrEmpty(_ClickfinderDB(0).Bilddateiname) Then
+    '                _TvMovieProgram.BildDateiname = _ClickfinderDB(0).Bilddateiname
+    '            End If
 
-                'TvMovie Bewertung aus Clickfinder DB holen, sofern vorhanden
-                If Not _ClickfinderDB(0).Bewertung = 0 Then
-                    _TvMovieProgram.TVMovieBewertung = _ClickfinderDB(0).Bewertung
-                End If
+    '            'TvMovie Bewertung aus Clickfinder DB holen, sofern vorhanden
+    '            If Not _ClickfinderDB(0).Bewertung = 0 Then
+    '                _TvMovieProgram.TVMovieBewertung = _ClickfinderDB(0).Bewertung
+    '            End If
 
-                'KurzKritik aus Clickfinder DB holen, sofern vorhanden
-                If Not String.IsNullOrEmpty(_ClickfinderDB(0).Kurzkritik) Then
-                    _TvMovieProgram.KurzKritik = _ClickfinderDB(0).Kurzkritik
-                End If
-                _TvMovieProgram.needsUpdate = True
-                _TvMovieProgram.Persist()
-                Return _TvMovieProgram
-            Else
-                _TvMovieProgram.Persist()
-                MyLog.[Warn]("[getTvMovieProgram]: Program {0} not found in ClickfinderDB (Title: {1}, Channel: {2}, startTime: {3}, starRating: {4})", _
-                                        _TvMovieProgram.ReferencedProgram.IdProgram, _TvMovieProgram.ReferencedProgram.Title, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieProgram.ReferencedProgram.StartTime, _TvMovieProgram.ReferencedProgram.StarRating)
-                Return _TvMovieProgram
-            End If
+    '            'KurzKritik aus Clickfinder DB holen, sofern vorhanden
+    '            If Not String.IsNullOrEmpty(_ClickfinderDB(0).Kurzkritik) Then
+    '                _TvMovieProgram.KurzKritik = _ClickfinderDB(0).Kurzkritik
+    '            End If
+    '            _TvMovieProgram.needsUpdate = True
+    '            _TvMovieProgram.Persist()
+    '            Return _TvMovieProgram
+    '        Else
+    '            _TvMovieProgram.Persist()
+    '            MyLog.[Warn]("[getTvMovieProgram]: Program {0} not found in ClickfinderDB (Title: {1}, Channel: {2}, startTime: {3}, starRating: {4})", _
+    '                                    _TvMovieProgram.ReferencedProgram.IdProgram, _TvMovieProgram.ReferencedProgram.Title, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieProgram.ReferencedProgram.StartTime, _TvMovieProgram.ReferencedProgram.StarRating)
+    '            Return _TvMovieProgram
+    '        End If
 
-        End Try
-    End Function
+    '    End Try
+    'End Function
 
     Friend Shared Sub ShowActionMenu(ByVal Program As Program)
 

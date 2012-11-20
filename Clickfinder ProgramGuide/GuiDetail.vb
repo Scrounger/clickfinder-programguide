@@ -5,8 +5,6 @@ Imports MediaPortal.Configuration
 Imports MediaPortal.Util
 Imports Gentle.Framework
 
-
-
 Namespace ClickfinderProgramGuide
     Public Class DetailGuiWindow
         Inherits GUIWindow
@@ -79,11 +77,7 @@ Namespace ClickfinderProgramGuide
             If String.IsNullOrEmpty(_loadParameter) = False Then
                 Try
 
-
-
-
                     MyLog.Debug("[DetailGuiWindow]: [HyperlinkParameter]: {0}", _loadParameter)
-
 
                     If InStr(_loadParameter, "TITLE: ") > 0 Then
                         'Hyperlink Parameter: Title, Channel, Start, Stop
@@ -117,12 +111,12 @@ Namespace ClickfinderProgramGuide
                         _Result.AddRange(Broker.Execute(SQLstring).TransposeToFieldList("idProgram", False))
 
 
-                        _DetailTvMovieProgram = Helper.getTvMovieProgram(Program.Retrieve(_Result.Item(0)))
+                        _DetailTvMovieProgram = TVMovieProgram.Retrieve(_Result.Item(0))
 
                     ElseIf InStr(_loadParameter, "idProgram: ") > 0 Then
                         'Hyperlink Parameter: idProgram
                         MsgBox(CInt(Replace(_loadParameter, "idProgram: ", "")))
-                        _DetailTvMovieProgram = Helper.getTvMovieProgram(Program.Retrieve(CInt(Replace(_loadParameter, "idProgram: ", ""))))
+                        _DetailTvMovieProgram = TVMovieProgram.Retrieve(CInt(Replace(_loadParameter, "idProgram: ", "")))
                     End If
 
                 Catch ex As Exception
@@ -153,7 +147,6 @@ Namespace ClickfinderProgramGuide
 
             Dispose()
             AllocResources()
-
 
             MyBase.OnPageDestroy(new_windowId)
         End Sub
@@ -197,8 +190,6 @@ Namespace ClickfinderProgramGuide
             If control Is _btnAllMovies Then
                 GuiButtons.AllMovies()
             End If
-
-
 
             If control Is _btnRecord Then
                 Helper.LoadTVProgramInfo(_DetailTvMovieProgram.ReferencedProgram)

@@ -82,8 +82,27 @@ Namespace ClickfinderProgramGuide
                 Dim _TvSeriesPoster As String = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & TvMovieProgram.SeriesPosterImage
                 Dim _Cover As String = Config.GetFile(Config.Dir.Thumbs, "") & TvMovieProgram.Cover
                 Dim _ChannelLogo As String = Config.GetFile(Config.Dir.Thumbs, "tv\logos\") & Replace(TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, "/", "_") & ".png"
+
+                'Sofern kein ClickfinderImage vorhanden, nachladen + KurzKritik
+                If String.IsNullOrEmpty(TvMovieProgram.BildDateiname) Then
+                    Dim _ClickfinderDB As New ClickfinderDB(TvMovieProgram.ReferencedProgram)
+                    If _ClickfinderDB.Count > 0 Then
+                        If CBool(_ClickfinderDB(0).KzBilddateiHeruntergeladen) = True And Not String.IsNullOrEmpty(_ClickfinderDB(0).Bilddateiname) Then
+                            TvMovieProgram.BildDateiname = _ClickfinderDB(0).Bilddateiname
+
+                            'KurzKritik aus Clickfinder DB holen, sofern vorhanden
+                            If String.IsNullOrEmpty(TvMovieProgram.KurzKritik) = True Then
+                                If Not String.IsNullOrEmpty(_ClickfinderDB(0).Kurzkritik) Then
+                                    TvMovieProgram.KurzKritik = _ClickfinderDB(0).Kurzkritik
+                                End If
+                            End If
+
+                            TvMovieProgram.Persist()
+                        End If
+                    End If
+                End If
+
                 Dim _ClickfinderImage As String = ClickfinderDB.ImagePath & "\" & TvMovieProgram.BildDateiname
-                'Dim _ClickfinderImage As String = _ChannelLogo
 
                 'Image zunächst auf SenderLogo festlegen
                 Select Case TvMovieProgram.idSeries

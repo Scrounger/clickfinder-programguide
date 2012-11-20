@@ -552,7 +552,7 @@ Namespace TvDatabase
 
     End Class
 
-#Region "ComparerMethods"
+#Region "Sort Methods"
     Public Class TVMovieProgram_SortByStartTime
         'Sortieren nach Genre ASC & StarRating DESC
         Implements IComparer(Of TVMovieProgram)
@@ -670,6 +670,100 @@ Namespace TvDatabase
         End Function
     End Class
 
+
+    Public Class TVMovieProgram_SortByAction
+        'Sortieren nach TvMovieBewertung DESC & StarRating DESC
+        Implements IComparer(Of TVMovieProgram)
+        Public Function Compare(ByVal x As TVMovieProgram, ByVal y As TVMovieProgram) As Integer Implements System.Collections.Generic.IComparer(Of TVMovieProgram).Compare
+            If y.Action = x.Action AndAlso y.ReferencedProgram.StarRating = x.ReferencedProgram.StarRating Then
+                Return 0
+            ElseIf y.Action > x.Action Then
+                Return 1
+            ElseIf y.Action = x.Action AndAlso y.ReferencedProgram.StarRating > x.ReferencedProgram.StarRating Then
+                Return 1
+            Else
+                Return -1
+            End If
+        End Function
+    End Class
+    Public Class TVMovieProgram_SortByTension
+        'Sortieren nach TvMovieBewertung DESC & StarRating DESC
+        Implements IComparer(Of TVMovieProgram)
+        Public Function Compare(ByVal x As TVMovieProgram, ByVal y As TVMovieProgram) As Integer Implements System.Collections.Generic.IComparer(Of TVMovieProgram).Compare
+            If y.Tension = x.Tension AndAlso y.ReferencedProgram.StarRating = x.ReferencedProgram.StarRating Then
+                Return 0
+            ElseIf y.Tension > x.Tension Then
+                Return 1
+            ElseIf y.Tension = x.Tension AndAlso y.ReferencedProgram.StarRating > x.ReferencedProgram.StarRating Then
+                Return 1
+            Else
+                Return -1
+            End If
+        End Function
+    End Class
+    Public Class TVMovieProgram_SortByFun
+        'Sortieren nach TvMovieBewertung DESC & StarRating DESC
+        Implements IComparer(Of TVMovieProgram)
+        Public Function Compare(ByVal x As TVMovieProgram, ByVal y As TVMovieProgram) As Integer Implements System.Collections.Generic.IComparer(Of TVMovieProgram).Compare
+            If y.Fun = x.Fun AndAlso y.ReferencedProgram.StarRating = x.ReferencedProgram.StarRating Then
+                Return 0
+            ElseIf y.Fun > x.Fun Then
+                Return 1
+            ElseIf y.Fun = x.Fun AndAlso y.ReferencedProgram.StarRating > x.ReferencedProgram.StarRating Then
+                Return 1
+            Else
+                Return -1
+            End If
+        End Function
+    End Class
+    Public Class TVMovieProgram_SortByErotic
+        'Sortieren nach TvMovieBewertung DESC & StarRating DESC
+        Implements IComparer(Of TVMovieProgram)
+        Public Function Compare(ByVal x As TVMovieProgram, ByVal y As TVMovieProgram) As Integer Implements System.Collections.Generic.IComparer(Of TVMovieProgram).Compare
+            If y.Erotic = x.Erotic AndAlso y.ReferencedProgram.StarRating = x.ReferencedProgram.StarRating Then
+                Return 0
+            ElseIf y.Erotic > x.Erotic Then
+                Return 1
+            ElseIf y.Erotic = x.Erotic AndAlso y.ReferencedProgram.StarRating > x.ReferencedProgram.StarRating Then
+                Return 1
+            Else
+                Return -1
+            End If
+        End Function
+    End Class
+    Public Class TVMovieProgram_SortByFeelings
+        'Sortieren nach TvMovieBewertung DESC & StarRating DESC
+        Implements IComparer(Of TVMovieProgram)
+        Public Function Compare(ByVal x As TVMovieProgram, ByVal y As TVMovieProgram) As Integer Implements System.Collections.Generic.IComparer(Of TVMovieProgram).Compare
+            If y.Feelings = x.Feelings AndAlso y.ReferencedProgram.StarRating = x.ReferencedProgram.StarRating Then
+                Return 0
+            ElseIf y.Feelings > x.Feelings Then
+                Return 1
+            ElseIf y.Feelings = x.Feelings AndAlso y.ReferencedProgram.StarRating > x.ReferencedProgram.StarRating Then
+                Return 1
+            Else
+                Return -1
+            End If
+        End Function
+    End Class
+    Public Class TVMovieProgram_SortByRequirement
+        'Sortieren nach TvMovieBewertung DESC & StarRating DESC
+        Implements IComparer(Of TVMovieProgram)
+        Public Function Compare(ByVal x As TVMovieProgram, ByVal y As TVMovieProgram) As Integer Implements System.Collections.Generic.IComparer(Of TVMovieProgram).Compare
+            If y.Requirement = x.Requirement AndAlso y.ReferencedProgram.StarRating = x.ReferencedProgram.StarRating Then
+                Return 0
+            ElseIf y.Requirement > x.Requirement Then
+                Return 1
+            ElseIf y.Requirement = x.Requirement AndAlso y.ReferencedProgram.StarRating > x.ReferencedProgram.StarRating Then
+                Return 1
+            Else
+                Return -1
+            End If
+        End Function
+    End Class
+#End Region
+
+#Region "GroupBy Methods"
     Public Class TVMovieProgram_GroupByIdSeries
         Implements IEqualityComparer(Of TVMovieProgram)
         Private _PropertyInfo As PropertyInfo
@@ -716,7 +810,7 @@ Namespace TvDatabase
         End Function
     End Class
 
-    Class TVMovieProgram_GroupByTitleAndEpisodeName
+    Public Class TVMovieProgram_GroupByTitleAndEpisodeName
         Implements IEqualityComparer(Of TVMovieProgram)
 
         Public Function Equals2(ByVal x As TVMovieProgram, ByVal y As TVMovieProgram) As Boolean Implements System.Collections.Generic.IEqualityComparer(Of TVMovieProgram).Equals
@@ -748,6 +842,45 @@ Namespace TvDatabase
 
             ' Calculate the hash code for the product.
             Return hashTitle Xor hashEpisodeName
+        End Function
+    End Class
+
+    Public Class TVMovieProgram_GroupByTitleEpisodeNameIdChannelStarTime
+        Implements IEqualityComparer(Of TVMovieProgram)
+
+        Public Function Equals1(ByVal x As TVMovieProgram, ByVal y As TVMovieProgram) As Boolean Implements System.Collections.Generic.IEqualityComparer(Of TVMovieProgram).Equals
+            ' Check whether the compared objects reference the same data.
+            If [Object].ReferenceEquals(x, y) Then
+                Return True
+            End If
+
+            ' Check whether any of the compared objects is null.
+            If [Object].ReferenceEquals(x, Nothing) OrElse [Object].ReferenceEquals(y, Nothing) Then
+                Return False
+            End If
+
+            ' Check whether the cars' properties are equal.
+            Return x.ReferencedProgram.Title = y.ReferencedProgram.Title AndAlso x.ReferencedProgram.EpisodeName = y.ReferencedProgram.EpisodeName AndAlso x.ReferencedProgram.IdChannel = y.ReferencedProgram.IdChannel AndAlso x.ReferencedProgram.StartTime = y.ReferencedProgram.StartTime
+        End Function
+
+        Public Function GetHashCode1(ByVal obj As TVMovieProgram) As Integer Implements System.Collections.Generic.IEqualityComparer(Of TVMovieProgram).GetHashCode
+            ' Check whether the object is null.
+            If [Object].ReferenceEquals(obj, Nothing) Then
+                Return 0
+            End If
+
+            ' Get the hash code for the ModelName field if it is not null.
+            Dim hashTitle As Integer = If(obj.ReferencedProgram.Title Is Nothing, 0, obj.ReferencedProgram.Title.GetHashCode())
+
+            ' Get the hash code for the price field.
+            Dim hashEpisodeName As Integer = obj.ReferencedProgram.EpisodeName.GetHashCode()
+
+            Dim hashIdChannel As Integer = obj.ReferencedProgram.IdChannel.GetHashCode
+
+            Dim hashStartTime As Integer = obj.ReferencedProgram.StartTime.GetHashCode
+
+            ' Calculate the hash code for the product.
+            Return hashTitle Xor hashEpisodeName Xor hashIdChannel Xor hashStartTime
         End Function
     End Class
 #End Region

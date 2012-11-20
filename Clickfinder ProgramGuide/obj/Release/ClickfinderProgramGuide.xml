@@ -195,11 +195,6 @@ ClickfinderProgramGuide
  </summary>
 	<param name="input">a string containing ${named} variables that represent the translation keys</param>
 	<returns>translated input string</returns>
-</member><member name="M:ClickfinderProgramGuide.Helper.getTvMovieProgram(TvDatabase.Program)">
-	<summary>
- Holt / erstellt TvMovieProgram
- </summary>
-	<returns>TvMovieProgram</returns>
 </member><member name="M:ClickfinderProgramGuide.TvDatabase.ClickfinderCategories.#ctor(System.String)">
 	<summary> 
  Create an object from an existing row of data. This will be used by Gentle to 

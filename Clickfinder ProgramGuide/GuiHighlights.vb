@@ -170,6 +170,7 @@ Namespace ClickfinderProgramGuide
                     _ThreadFillMovieList.Start()
                     _ThreadFillHighlightsList.Start()
                     '_Thread1.Join()
+                    Return
                 End If
 
                 'Prev. Item (F7) -> einen Tag zurück
@@ -204,6 +205,7 @@ Namespace ClickfinderProgramGuide
                     _ThreadFillHighlightsList.IsBackground = True
                     _ThreadFillMovieList.Start()
                     _ThreadFillHighlightsList.Start()
+                    Return
                 End If
 
                 'Menu Button (F9) -> Context Menu open
