@@ -19,12 +19,30 @@ Public Class Setup
 
     Private Sub Setup_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-
-
         Try
             MyLog.Info("")
             MyLog.Info("")
             MyLog.Info("[Setup] load")
+
+            Dim _layer As New TvBusinessLayer
+
+            If Not _layer.GetSetting("ClickfinderProgramGuideVersion", String.Empty).Value = Helper.Version Then
+                Dim setting As Setting = _layer.GetSetting("ClickfinderProgramGuideVersion", String.Empty)
+                setting.Value = Helper.Version
+                setting.Persist()
+
+
+                'Hier Änderungen zur Vorgängerversion
+                MsgBox("Version: " & Helper.Version & vbNewLine & vbNewLine & _
+                       "Neue Version !" & vbNewLine & _
+                       "Einstellungen müssen zurück gesetzt werden!", MsgBoxStyle.Information)
+
+
+                ButtonDefaultSettings_Click(sender, e)
+
+            End If
+
+            LabelVersion.Text = _layer.GetSetting("ClickfinderProgramGuideVersion", String.Empty).Value
 
             CBOverlayGroup.Items.Clear()
             CbQuick1.Items.Clear()
@@ -36,9 +54,11 @@ Public Class Setup
 
             MyLog.LogFileName = "ClickfinderProgramGuide_Config.log"
             MyLog.DebugModeOn = True
+            MyLog.BackupLogFiles()
 
             Dim _logErrorSetting As String = String.Empty
             CPGsettings.Load()
+            enrichEPG.MySettings.SetSettings(Config.GetFile(Config.Dir.Database, ""), CPGsettings.TvMovieImportTvSeriesInfos, CPGsettings.TvMovieImportVideoDatabaseInfos, CPGsettings.TvMovieImportMovingPicturesInfos, enrichEPG.MySettings.LogPath.Client, "ClickfinderProgramGuide_Config.log", , , , True, , )
 
             Dim plugin As String = CPGsettings.pluginClickfinderProgramGuide
 
@@ -193,6 +213,36 @@ Public Class Setup
 
             Next
 
+            'Remote Control:
+            For Each c As Control In TableItemsPanel.Controls
+                Dim cellPos As TableLayoutPanelCellPosition = TableItemsPanel.GetCellPosition(c)
+                'CBsort füllen
+                If InStr(c.Name, "CBsort") Then
+                    Dim CBsort__ As ComboBox = TableItemsPanel.GetControlFromPosition(cellPos.Column, cellPos.Row)
+                    CBsort__.Items.Clear()
+                    CBsort__.Items.Add("")
+                    CBsort__.Items.AddRange([Enum].GetNames(GetType(Helper.SortMethode)))
+                    'Wert laden
+                    Dim _index As Integer = CInt(Replace(c.Name, "CBSort", ""))
+                    CBsort__.Text = CPGsettings.ItemsRemoteSortAll(_index)
+                End If
+                'CBTvGroup(füllen)
+                If InStr(c.Name, "CBTvGroup") Then
+                    Try
+                        Dim _AllTvGroups As Array = _groups.ConvertAll(Of String)(Function(x As ChannelGroup) x.GroupName.ToString).ToArray
+                        Dim CBTvGroup__ As ComboBox = TableItemsPanel.GetControlFromPosition(cellPos.Column, cellPos.Row)
+                        CBTvGroup__.Items.Clear()
+                        CBTvGroup__.Items.Add("")
+                        CBTvGroup__.Items.AddRange(_AllTvGroups)
+                        Dim _index As Integer = CInt(Replace(c.Name, "CBTvGroup", ""))
+                        CBTvGroup__.Text = CPGsettings.ItemsRemoteTvGroupAll(_index)
+                    Catch ex1 As Exception
+                        MyLog.Error("[Setup_Load]: RemoteTvGroup fill cbox error!")
+                        MyLog.Error("[Setup_Load]: exception err:" & ex1.Message & " stack:" & ex1.StackTrace)
+                    End Try
+                End If
+            Next
+
             _StartGuiList.Clear()
             CBStartGui.Items.Clear()
 
@@ -210,7 +260,7 @@ Public Class Setup
                 End If
             Next
 
-            Helper.LogSettings()
+            'Helper.LogSettings()
 
         Catch ex As Exception
             MsgBox("Ein Fehler beim Laden der Einstellungen ist aufgetreten!", MsgBoxStyle.Critical, "Warnung!")
@@ -249,6 +299,23 @@ Public Class Setup
             CPGsettings.PreviewMaxDays = CInt(NumPreviewDays.Value)
             CPGsettings.PreviewMinTvMovieRating = CInt(NumPreviewMinTvMovieRating.Value)
 
+            For Each c As Control In TableItemsPanel.Controls
+                Dim cellPos As TableLayoutPanelCellPosition = TableItemsPanel.GetCellPosition(c)
+                'CBsort füllen
+                If InStr(c.Name, "CBsort") Then
+                    Dim _CBsort__ As ComboBox = TableItemsPanel.GetControlFromPosition(cellPos.Column, cellPos.Row)
+                    Dim _index As Integer = CInt(Replace(c.Name, "CBSort", ""))
+                    CPGsettings.ItemsRemoteSortAll(_index) = _CBsort__.Text
+                End If
+                If InStr(c.Name, "CBTvGroup") Then
+                    Dim _CBTvGroup__ As ComboBox = TableItemsPanel.GetControlFromPosition(cellPos.Column, cellPos.Row)
+                    Dim _index As Integer = CInt(Replace(c.Name, "CBTvGroup", ""))
+                    CPGsettings.ItemsRemoteTvGroupAll(_index) = _CBTvGroup__.Text
+                End If
+            Next
+
+            CPGsettings.pluginClickfinderProgramGuide = True
+
             CPGsettings.save()
 
             SaveCategories()
@@ -257,6 +324,7 @@ Public Class Setup
             MyLog.Info("")
             MyLog.Info("")
 
+            Me.Dispose()
             Me.Close()
         Catch ex As Exception
             MyLog.Error("[ButtonSave_Click]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
@@ -359,47 +427,47 @@ Public Class Setup
         Try
 
             Dim _Categorie As New ClickfinderCategories("Movies", "Alle Filme nach Uhrzeit, Rating, TvMovieRating sortiert", True, 0, 80, 30)
-            _Categorie.SqlString = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE startTime >= #StartTime AND startTime <= #EndTime AND starRating >= 1 AND TvMovieBewertung < 6 AND (genre NOT LIKE '%Serie' OR genre NOT LIKE '%Reihe' OR genre NOT LIKE '%Sitcom%' OR genre NOT LIKE '%Zeichentrick%') " & Helper.ORDERBYstartTime
+            _Categorie.SqlString = "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE #CPGFilter AND startTime >= #StartTime AND startTime <= #EndTime AND starRating >= 1 AND TvMovieBewertung < 6 AND (genre NOT LIKE '%Serie' OR genre NOT LIKE '%Reihe' OR genre NOT LIKE '%Sitcom%' OR genre NOT LIKE '%Zeichentrick%') #CPGgroupBy #CPGorderBy"
             _Categorie.Image = _Categorie.Name & ".png"
             _Categorie.Persist()
 
             _Categorie = New ClickfinderCategories("Serien", "Alle Serien nach Uhrzeit, Rating und TvMovieRating sortiert", True, 1, 10, 15)
-            _Categorie.SqlString = "Select * FROM program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE startTime >= #StartTime AND startTime <= #EndTime AND (Genre LIKE '%Serie' OR genre LIKE '%Reihe' OR genre LIKE '%Sitcom%') " & Helper.ORDERBYstartTime
+            _Categorie.SqlString = "Select * FROM program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE #CPGFilter AND startTime >= #StartTime AND startTime <= #EndTime AND (Genre LIKE '%Serie' OR genre LIKE '%Reihe' OR genre LIKE '%Sitcom%') #CPGgroupBy #CPGorderBy"
             _Categorie.Image = _Categorie.Name & ".png"
             _Categorie.Persist()
 
             _Categorie = New ClickfinderCategories("Dokumentationen", "Alle Dokumentationen nach Uhrzeit und TvMovieRating sortiert", True, 2, 30, 40)
-            _Categorie.SqlString = "Select * FROM program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE startTime >= #StartTime AND startTime <= #EndTime AND genre LIKE '%Doku%' " & Helper.ORDERBYstartTime
+            _Categorie.SqlString = "Select * FROM program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE #CPGFilter AND startTime >= #StartTime AND startTime <= #EndTime AND genre LIKE '%Doku%' AND #CPGFilter #CPGgroupBy #CPGorderBy"
             _Categorie.Image = _Categorie.Name & ".png"
             _Categorie.Persist()
 
             _Categorie = New ClickfinderCategories("Sport", "Alle Sport Sendungen nach Uhrzeit und TvMovieRating sortiert", True, 3, 10, 30)
-            _Categorie.SqlString = "Select * FROM program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE startTime >= #StartTime AND startTime <= #EndTime AND (title LIKE '%Sport%' OR title LIKE '%Fußball%' OR episodeName LIKE '%Sport%' OR genre LIKE '%Sport%' OR genre LIKE '%football%soccer%' OR genre LIKE '%ball%' OR genre LIKE '%Automagazin%' OR genre LIKE '%Biathlon%' OR genre LIKE '%Billard%' OR genre LIKE '%Bobsport%' OR genre LIKE '%Bowling%' OR genre LIKE '%Boxen%' OR genre LIKE '%Darts%' OR genre LIKE '%Eishockey%' OR genre LIKE '%E-Sport%' OR genre LIKE '%Formel 1%' OR genre LIKE '%Fun- u. Extremsport%' OR genre LIKE '%Golf%' OR genre LIKE '%Leichtathletik%' OR genre LIKE '%Motorrad%' OR genre LIKE '%Nordische Kombination%' OR genre LIKE '%Poker%' OR genre LIKE '%Rennrodeln%' OR genre LIKE '%Segeln%' OR genre LIKE '%Ski%' or genre LIKE '%Snowboard%' OR genre LIKE '%Tennis%' OR genre LIKE '%Wrestling%' OR genre LIKE '%sports (general)%') " & Helper.ORDERBYstartTime
+            _Categorie.SqlString = "Select * FROM program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE #CPGFilter AND startTime >= #StartTime AND startTime <= #EndTime AND (title LIKE '%Sport%' OR title LIKE '%Fußball%' OR episodeName LIKE '%Sport%' OR genre LIKE '%Sport%' OR genre LIKE '%football%soccer%' OR genre LIKE '%ball%' OR genre LIKE '%Automagazin%' OR genre LIKE '%Biathlon%' OR genre LIKE '%Billard%' OR genre LIKE '%Bobsport%' OR genre LIKE '%Bowling%' OR genre LIKE '%Boxen%' OR genre LIKE '%Darts%' OR genre LIKE '%Eishockey%' OR genre LIKE '%E-Sport%' OR genre LIKE '%Formel 1%' OR genre LIKE '%Fun- u. Extremsport%' OR genre LIKE '%Golf%' OR genre LIKE '%Leichtathletik%' OR genre LIKE '%Motorrad%' OR genre LIKE '%Nordische Kombination%' OR genre LIKE '%Poker%' OR genre LIKE '%Rennrodeln%' OR genre LIKE '%Segeln%' OR genre LIKE '%Ski%' or genre LIKE '%Snowboard%' OR genre LIKE '%Tennis%' OR genre LIKE '%Wrestling%' OR genre LIKE '%sports (general)%') #CPGgroupBy #CPGorderBy"
             _Categorie.Image = _Categorie.Name & ".png"
             _Categorie.Persist()
 
             _Categorie = New ClickfinderCategories("Reportagen", "Alle Reportagen nach Uhrzeit und TvMovieRating sortiert", True, 4, 20, 20)
-            _Categorie.SqlString = "Select * FROM program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE startTime >= #StartTime AND startTime <= #EndTime AND genre LIKE '%Report%' " & Helper.ORDERBYstartTime
+            _Categorie.SqlString = "Select * FROM program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE #CPGFilter AND startTime >= #StartTime AND startTime <= #EndTime AND genre LIKE '%Report%' #CPGgroupBy #CPGorderBy"
             _Categorie.Image = _Categorie.Name & ".png"
             _Categorie.Persist()
 
             _Categorie = New ClickfinderCategories("Magazine", "Alle Magazine nach Uhrzeit und TvMovieRating sortiert", True, 5, 15, 15)
-            _Categorie.SqlString = "Select * FROM program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE startTime >= #StartTime AND startTime <= #EndTime AND genre LIKE '%Magazin%' " & Helper.ORDERBYstartTime
+            _Categorie.SqlString = "Select * FROM program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram WHERE #CPGFilter AND startTime >= #StartTime AND startTime <= #EndTime AND genre LIKE '%Magazin%' #CPGgroupBy #CPGorderBy"
             _Categorie.Image = _Categorie.Name & ".png"
             _Categorie.Persist()
 
             _Categorie = New ClickfinderCategories("HDTV", "Alle HDTV Sendungen nach Uhrzeit und TvMovieRating sortiert", True, 6, 25, 30)
-            _Categorie.SqlString = "Select * FROM (program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram) INNER JOIN channel ON program.idChannel = channel.idChannel WHERE startTime >= #StartTime AND startTime <= #EndTime AND displayName LIKE '%HD%' " & Helper.ORDERBYstartTime
+            _Categorie.SqlString = "Select * FROM (program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram) INNER JOIN channel ON program.idChannel = channel.idChannel WHERE #CPGFilter AND startTime >= #StartTime AND startTime <= #EndTime AND displayName LIKE '%HD%' #CPGgroupBy #CPGorderBy"
             _Categorie.Image = _Categorie.Name & ".png"
             _Categorie.Persist()
 
             _Categorie = New ClickfinderCategories("Sky Cinema", "Alle Sendungen des Packets Film von Sky nach Uhrzeit und TvMovieRating sortiert", True, 7, 80, 30)
-            _Categorie.SqlString = "Select * FROM (program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram) INNER JOIN channel ON program.idChannel = channel.idChannel WHERE startTime >= #StartTime AND startTime <= #EndTime AND (displayName LIKE '%SKY Cinema%' OR displayName LIKE '%SKY Cinema HD%' OR displayName LIKE '%SKY Action%' OR displayName LIKE '%SKY Action HD%' OR displayName LIKE '%MGM%' OR displayName LIKE '%Disney Cinemagic%' OR displayName LIKE '%Disney Cinemagic HD%' OR displayName LIKE '%SKY Comedy%' OR displayName LIKE '%SKY Emotion%' OR displayName LIKE '%SKY Nostalgie%') " & Helper.ORDERBYstartTime
+            _Categorie.SqlString = "Select * FROM (program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram) INNER JOIN channel ON program.idChannel = channel.idChannel WHERE #CPGFilter AND startTime >= #StartTime AND startTime <= #EndTime AND (displayName LIKE '%SKY Cinema%' OR displayName LIKE '%SKY Cinema HD%' OR displayName LIKE '%SKY Action%' OR displayName LIKE '%SKY Action HD%' OR displayName LIKE '%MGM%' OR displayName LIKE '%Disney Cinemagic%' OR displayName LIKE '%Disney Cinemagic HD%' OR displayName LIKE '%SKY Comedy%' OR displayName LIKE '%SKY Emotion%' OR displayName LIKE '%SKY Nostalgie%') #CPGgroupBy #CPGorderBy"
             _Categorie.Image = _Categorie.Name & ".png"
             _Categorie.Persist()
 
             _Categorie = New ClickfinderCategories("Sky Dokumentationen", "Alle Dokumentationen von Sky nach Uhrzeit und TvMovieRating sortiert", True, 8, 30, 40)
-            _Categorie.SqlString = "Select * FROM (program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram) INNER JOIN channel ON program.idChannel = channel.idChannel WHERE startTime >= #StartTime AND startTime <= #EndTime AND (displayName LIKE '%Discovery%' OR displayName LIKE '%History%' OR displayName LIKE '%National Geographic%' OR displayName LIKE '%Spiegel Geschichte%' OR displayName LIKE '%MOTORVISION TV%' OR displayName LIKE '%The Biography Channel%') " & Helper.ORDERBYstartTime
+            _Categorie.SqlString = "Select * FROM (program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram) INNER JOIN channel ON program.idChannel = channel.idChannel WHERE #CPGFilter AND startTime >= #StartTime AND startTime <= #EndTime AND (displayName LIKE '%Discovery%' OR displayName LIKE '%History%' OR displayName LIKE '%National Geographic%' OR displayName LIKE '%Spiegel Geschichte%' OR displayName LIKE '%MOTORVISION TV%' OR displayName LIKE '%The Biography Channel%') AND #CPGFilter #CPGgroupBy #CPGorderBy"
             _Categorie.Image = _Categorie.Name & ".png"
             _Categorie.Persist()
 
@@ -771,6 +839,46 @@ Public Class Setup
 
     End Sub
 
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        'Try
 
+
+        '    MsgBox(CPGsettings.ItemsRemoteSortAll(1))
+
+        '    CPGsettings.ItemsRemoteSortAll(1) = "test"
+        '    CPGsettings.ItemsRemoteSortAll(6) = "test"
+        'Catch ex As Exception
+        '    MsgBox(ex.Message)
+        'End Try
+
+    End Sub
+
+    Private Sub BTsetToStandardTvGroup_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BTsetToStandardTvGroup.Click
+        'Remote Control:
+        For Each c As Control In TableItemsPanel.Controls
+            Dim cellPos As TableLayoutPanelCellPosition = TableItemsPanel.GetCellPosition(c)
+            If InStr(c.Name, "CBTvGroup") Then
+                Dim CBTvGroup__ As ComboBox = TableItemsPanel.GetControlFromPosition(cellPos.Column, cellPos.Row)
+                CBTvGroup__.Text = ""
+            End If
+        Next
+    End Sub
+
+    Private Sub BTClearSorting_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BTClearSorting.Click
+        'Remote Control:
+        For Each c As Control In TableItemsPanel.Controls
+            Dim cellPos As TableLayoutPanelCellPosition = TableItemsPanel.GetCellPosition(c)
+            If InStr(c.Name, "CBsort") Then
+                Dim CBsort__ As ComboBox = TableItemsPanel.GetControlFromPosition(cellPos.Column, cellPos.Row)
+                CBsort__.Text = String.Empty
+            End If
+        Next
+    End Sub
+
+    Private Sub Button1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+
+        Dim _MappingMgt As New enrichEPG.seriesManagement
+        _MappingMgt.ShowDialog()
+
+    End Sub
 End Class
-

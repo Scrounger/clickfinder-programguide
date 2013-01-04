@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <PackageClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Version>2.0</Version>
   <Groups>
@@ -219,13 +219,6 @@
               <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuideItems.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{9596c4b6-eb30-4218-8fe2-8509093581f6}-ClickfinderProgramGuideItems.xml</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\ClickfinderProgramGuideItems.xml</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuideSetting.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{98d55991-a0bf-462e-a98d-4ebcb3f4138f}-ClickfinderProgramGuideSetting.xml</ZipFileName>
-              <DestinationFilename>%Skin%\DefaultWide\ClickfinderProgramGuideSetting.xml</DestinationFilename>
             </FileItem>
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
@@ -460,13 +453,6 @@
               <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideItems.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{e84ead07-e4c1-4010-a0fd-82e82453d93f}-ClickfinderProgramGuideItems.xml</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\ClickfinderProgramGuideItems.xml</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideSetting.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{2bda5d54-1371-452b-88c1-8e1eca4267f5}-ClickfinderProgramGuideSetting.xml</ZipFileName>
-              <DestinationFilename>%Skin%\StreamedMP\ClickfinderProgramGuideSetting.xml</DestinationFilename>
             </FileItem>
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
@@ -1019,9 +1005,9 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
         </MinVersion>
         <MaxVersion>
           <Major>1</Major>
-          <Minor>3</Minor>
-          <Build>0</Build>
-          <Revision>0</Revision>
+          <Minor>1</Minor>
+          <Build>6</Build>
+          <Revision>27644</Revision>
         </MaxVersion>
         <WarnOnly>false</WarnOnly>
         <Message>requires MediaPortal version 1.1.6.27644 to 1.1.6.27644.</Message>
@@ -1030,24 +1016,7 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
     </Items>
   </Dependencies>
   <PluginDependencies>
-    <Items>
-      <PluginDependencyItem AssemblyName="ClickfinderProgramGuide.dll">
-        <CompatibleVersion>
-          <Items>
-            <CompatibleVersionItem>
-              <MinRequiredVersion>1.1.6.27644</MinRequiredVersion>
-              <DesignedForVersion>1.2.100.0</DesignedForVersion>
-            </CompatibleVersionItem>
-          </Items>
-        </CompatibleVersion>
-        <SubSystemsUsed>
-          <Items>
-            <SubSystemItem Name="MP.SkinEngine" />
-            <SubSystemItem Name="MP.Config" />
-          </Items>
-        </SubSystemsUsed>
-      </PluginDependencyItem>
-    </Items>
+    <Items />
   </PluginDependencies>
   <GeneralInfo>
     <Name>Clickfinder ProgramGuide</Name>
@@ -1058,8 +1027,8 @@ mehr informationen könnt ihr im Wiki des Plugins nachlesen !</Value>
     <UpdateUrl>https://clickfinder-programguide.googlecode.com/git/Clickfinder%20ProgramGuide/MPE1/Source/update.xml</UpdateUrl>
     <Version>
       <Major>1</Major>
-      <Minor>0</Minor>
-      <Build>6</Build>
+      <Minor>3</Minor>
+      <Build>0</Build>
       <Revision>0</Revision>
     </Version>
     <ExtensionDescription>This Plugin is a ProgramGuide based on the german EPG Data from the Tv Movie Clickfinder Provider (Software). It shows you information for different categories (e.g. Movies, Series, Doku,...), which television program is broadcasting now, at PrimeTime or at LateTime. There is also a Preview for the whole EPG timespan. The Data are sorted by the Rating of the TV Movie Clickfinder Plugin. This Plugin has a lot of configuration options, that gives the user the possibility to personalize the different views.
@@ -1447,25 +1416,24 @@ Requirements:
 
 
 - Tv Movie EPG Import++ plugin (newest version)</ExtensionDescription>
-    <VersionDescription>=== Version: 1.0.6.0 ===
+    <VersionDescription>=== Version: 1.3.0.0 beta ===
 
-a lot of changes, please read the Wiki or the forum post !!!
+to apply changes, open your Confiduration  after update !!!
 
-  * New Gui: Episode Preview
-  * hyperlink parameters supported (Gui Detail, Gui Categories &amp; Gui Episode Preview)
-  * show diffrent recording icon if is scheduled recordings on an other day (Gui Highlights, Gui Episode Preview and Overlay)
-  * start from Gui: Compare EPG with your MP databases MP-!TvSeries, Mov.Pic, etc.
-  * !TvWishList integrated
-  * Configuration: restore default settings button added
-  * Configuration: Overlay update timer added 
-  * Overlay code has been revised -&gt; better preformance
-  * Gui Highlights !ShowNewEpisodes code has been revised -&gt; better preformance  
-  * and a lot of bug fixes
-
-</VersionDescription>
-    <DevelopmentStatus>Stable</DevelopmentStatus>
-    <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_1.0.6.0.mpe1</OnlineLocation>
-    <ReleaseDate>2012-10-18T15:57:29</ReleaseDate>
+  * better preformance (all datas imported by TvMovie++)
+  * Titan Skin Files 
+  * removed: EPG grabbing support
+  * added: user defined GuiItems Remote Control
+  * added: ContextMenu EpisodeMapping (GuiEpisodePreview only)
+  * added: ContextMenu disable series, set min seasonNum (GuiEpisodePreview only)
+  * added: addiotnal sort methods
+  * added: Configuration series management
+  * changed: sqlstrings Categories
+  * enrichEPG.dll Version 1.3.0.0 
+  * a lot bug fixes</VersionDescription>
+    <DevelopmentStatus>Beta</DevelopmentStatus>
+    <OnlineLocation>https://clickfinder-programguide.googlecode.com/files/Clickfinder%20ProgramGuide_1.3.0.0.beta.mpe1</OnlineLocation>
+    <ReleaseDate>2013-01-04T15:57:29</ReleaseDate>
     <Tags>programguide, tv movie, clickfinder, epg, tv</Tags>
     <Location>D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\MPE1\Clickfinder ProgramGuide_[Version].mpe1</Location>
     <Params>
@@ -1683,13 +1651,6 @@ a lot of changes, please read the Wiki or the forum post !!!
         <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuideItems.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{9596c4b6-eb30-4218-8fe2-8509093581f6}-ClickfinderProgramGuideItems.xml</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\ClickfinderProgramGuideItems.xml</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\DefaultWide\ClickfinderProgramGuideSetting.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{98d55991-a0bf-462e-a98d-4ebcb3f4138f}-ClickfinderProgramGuideSetting.xml</ZipFileName>
-        <DestinationFilename>%Skin%\DefaultWide\ClickfinderProgramGuideSetting.xml</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
@@ -1914,13 +1875,6 @@ a lot of changes, please read the Wiki or the forum post !!!
         <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideItems.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{e84ead07-e4c1-4010-a0fd-82e82453d93f}-ClickfinderProgramGuideItems.xml</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\ClickfinderProgramGuideItems.xml</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\..\bin\Release\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideSetting.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{2bda5d54-1371-452b-88c1-8e1eca4267f5}-ClickfinderProgramGuideSetting.xml</ZipFileName>
-        <DestinationFilename>%Skin%\StreamedMP\ClickfinderProgramGuideSetting.xml</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />

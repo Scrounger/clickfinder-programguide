@@ -22,8 +22,8 @@ Partial Class Setup
     'Das Bearbeiten mit dem Code-Editor ist nicht möglich.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Setup))
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.ButtonSave = New System.Windows.Forms.Button
         Me.Label2 = New System.Windows.Forms.Label
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel
@@ -90,10 +90,49 @@ Partial Class Setup
         Me.Label29 = New System.Windows.Forms.Label
         Me.Label20 = New System.Windows.Forms.Label
         Me.TabItems = New System.Windows.Forms.TabPage
+        Me.Panel33 = New System.Windows.Forms.Panel
+        Me.Panel32 = New System.Windows.Forms.Panel
+        Me.GroupBox9 = New System.Windows.Forms.GroupBox
+        Me.Panel34 = New System.Windows.Forms.Panel
+        Me.TableItemsPanel = New System.Windows.Forms.TableLayoutPanel
+        Me.PictureBox12 = New System.Windows.Forms.PictureBox
+        Me.CBTvGroup0 = New System.Windows.Forms.ComboBox
+        Me.CBsort0 = New System.Windows.Forms.ComboBox
+        Me.Label36 = New System.Windows.Forms.Label
+        Me.Label35 = New System.Windows.Forms.Label
+        Me.Label34 = New System.Windows.Forms.Label
+        Me.CBTvGroup9 = New System.Windows.Forms.ComboBox
+        Me.CBsort9 = New System.Windows.Forms.ComboBox
+        Me.CBTvGroup8 = New System.Windows.Forms.ComboBox
+        Me.CBsort8 = New System.Windows.Forms.ComboBox
+        Me.CBsort7 = New System.Windows.Forms.ComboBox
+        Me.CBTvGroup7 = New System.Windows.Forms.ComboBox
+        Me.CBsort6 = New System.Windows.Forms.ComboBox
+        Me.CBTvGroup6 = New System.Windows.Forms.ComboBox
+        Me.CBsort5 = New System.Windows.Forms.ComboBox
+        Me.CBTvGroup5 = New System.Windows.Forms.ComboBox
+        Me.CBsort4 = New System.Windows.Forms.ComboBox
+        Me.CBTvGroup4 = New System.Windows.Forms.ComboBox
+        Me.CBsort3 = New System.Windows.Forms.ComboBox
+        Me.CBTvGroup3 = New System.Windows.Forms.ComboBox
+        Me.CBsort2 = New System.Windows.Forms.ComboBox
+        Me.CBTvGroup2 = New System.Windows.Forms.ComboBox
+        Me.CBsort1 = New System.Windows.Forms.ComboBox
+        Me.CBTvGroup1 = New System.Windows.Forms.ComboBox
+        Me.PictureBox11 = New System.Windows.Forms.PictureBox
+        Me.PictureBox10 = New System.Windows.Forms.PictureBox
+        Me.PictureBox4 = New System.Windows.Forms.PictureBox
+        Me.PictureBox5 = New System.Windows.Forms.PictureBox
+        Me.PictureBox6 = New System.Windows.Forms.PictureBox
+        Me.PictureBox7 = New System.Windows.Forms.PictureBox
+        Me.PictureBox8 = New System.Windows.Forms.PictureBox
+        Me.PictureBox9 = New System.Windows.Forms.PictureBox
+        Me.PictureBox3 = New System.Windows.Forms.PictureBox
+        Me.BTClearSorting = New System.Windows.Forms.Button
+        Me.BTsetToStandardTvGroup = New System.Windows.Forms.Button
         Me.CheckBoxRemberSortedBy = New System.Windows.Forms.CheckBox
         Me.CheckBoxFilterShowLocalSeries = New System.Windows.Forms.CheckBox
         Me.CheckBoxFilterShowLocalMovies = New System.Windows.Forms.CheckBox
-        Me.Label14 = New System.Windows.Forms.Label
         Me.TabÜbersicht = New System.Windows.Forms.TabPage
         Me.Panel18 = New System.Windows.Forms.Panel
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
@@ -184,6 +223,11 @@ Partial Class Setup
         Me.Panel1 = New System.Windows.Forms.Panel
         Me.CheckSaveSettingsLocal = New System.Windows.Forms.CheckBox
         Me.Panel2 = New System.Windows.Forms.Panel
+        Me.Button1 = New System.Windows.Forms.Button
+        Me.LabelVersion = New System.Windows.Forms.Label
+        Me.Panel35 = New System.Windows.Forms.Panel
+        Me.Panel36 = New System.Windows.Forms.Panel
+        Me.Panel37 = New System.Windows.Forms.Panel
         Me.TabControl1.SuspendLayout()
         Me.TabAllgemeines.SuspendLayout()
         Me.Panel31.SuspendLayout()
@@ -205,6 +249,21 @@ Partial Class Setup
         Me.Panel4.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.TabItems.SuspendLayout()
+        Me.Panel33.SuspendLayout()
+        Me.Panel32.SuspendLayout()
+        Me.GroupBox9.SuspendLayout()
+        Me.Panel34.SuspendLayout()
+        Me.TableItemsPanel.SuspendLayout()
+        CType(Me.PictureBox12, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox11, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox10, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox8, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox9, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabÜbersicht.SuspendLayout()
         Me.Panel18.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -246,6 +305,9 @@ Partial Class Setup
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        Me.Panel35.SuspendLayout()
+        Me.Panel36.SuspendLayout()
+        Me.Panel37.SuspendLayout()
         Me.SuspendLayout()
         '
         'ButtonSave
@@ -263,13 +325,13 @@ Partial Class Setup
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Label2.Dock = System.Windows.Forms.DockStyle.Left
         Me.Label2.Font = New System.Drawing.Font("Verdana", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(0, 0)
+        Me.Label2.Location = New System.Drawing.Point(75, 0)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Padding = New System.Windows.Forms.Padding(80, 20, 20, 20)
-        Me.Label2.Size = New System.Drawing.Size(586, 65)
+        Me.Label2.Padding = New System.Windows.Forms.Padding(10, 10, 0, 0)
+        Me.Label2.Size = New System.Drawing.Size(496, 35)
         Me.Label2.TabIndex = 10
         Me.Label2.Text = "Clickfinder Program Guide Configuration"
         '
@@ -300,7 +362,7 @@ Partial Class Setup
         Me.TabControl1.Location = New System.Drawing.Point(10, 10)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(793, 715)
+        Me.TabControl1.Size = New System.Drawing.Size(793, 731)
         Me.TabControl1.TabIndex = 39
         '
         'TabAllgemeines
@@ -317,7 +379,7 @@ Partial Class Setup
         Me.TabAllgemeines.Location = New System.Drawing.Point(4, 25)
         Me.TabAllgemeines.Name = "TabAllgemeines"
         Me.TabAllgemeines.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabAllgemeines.Size = New System.Drawing.Size(785, 686)
+        Me.TabAllgemeines.Size = New System.Drawing.Size(785, 702)
         Me.TabAllgemeines.TabIndex = 0
         Me.TabAllgemeines.Text = "Allgemeines"
         Me.TabAllgemeines.UseVisualStyleBackColor = True
@@ -328,7 +390,7 @@ Partial Class Setup
         Me.Panel31.Controls.Add(Me.ButtonDefaultSettings)
         Me.Panel31.Controls.Add(Me.CheckBoxDebugMode)
         Me.Panel31.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel31.Location = New System.Drawing.Point(3, 655)
+        Me.Panel31.Location = New System.Drawing.Point(3, 669)
         Me.Panel31.Name = "Panel31"
         Me.Panel31.Size = New System.Drawing.Size(779, 23)
         Me.Panel31.TabIndex = 81
@@ -336,6 +398,7 @@ Partial Class Setup
         'BT_loadfromServer
         '
         Me.BT_loadfromServer.Dock = System.Windows.Forms.DockStyle.Right
+        Me.BT_loadfromServer.Enabled = False
         Me.BT_loadfromServer.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BT_loadfromServer.Location = New System.Drawing.Point(318, 0)
         Me.BT_loadfromServer.Name = "BT_loadfromServer"
@@ -343,6 +406,7 @@ Partial Class Setup
         Me.BT_loadfromServer.TabIndex = 45
         Me.BT_loadfromServer.Text = "Einstellung von TvServer laden"
         Me.BT_loadfromServer.UseVisualStyleBackColor = True
+        Me.BT_loadfromServer.Visible = False
         '
         'ButtonDefaultSettings
         '
@@ -376,24 +440,22 @@ Partial Class Setup
         Me.Panel13.Location = New System.Drawing.Point(3, 527)
         Me.Panel13.Name = "Panel13"
         Me.Panel13.Padding = New System.Windows.Forms.Padding(10, 5, 10, 10)
-        Me.Panel13.Size = New System.Drawing.Size(779, 128)
+        Me.Panel13.Size = New System.Drawing.Size(779, 142)
         Me.Panel13.TabIndex = 79
         '
         'GroupBox4
         '
         Me.GroupBox4.AutoSize = True
         Me.GroupBox4.BackColor = System.Drawing.Color.Transparent
-        Me.GroupBox4.Controls.Add(Me.CheckBoxUseTheTvDb)
-        Me.GroupBox4.Controls.Add(Me.CheckBoxVideoDB)
-        Me.GroupBox4.Controls.Add(Me.CheckBoxMovingPictures)
-        Me.GroupBox4.Controls.Add(Me.CheckBoxTvSeries)
+        Me.GroupBox4.Controls.Add(Me.Panel37)
+        Me.GroupBox4.Controls.Add(Me.Panel36)
         Me.GroupBox4.Controls.Add(Me.CheckBoxClickfinderPG)
         Me.GroupBox4.Controls.Add(Me.Label9)
         Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox4.Location = New System.Drawing.Point(10, 5)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Padding = New System.Windows.Forms.Padding(10)
-        Me.GroupBox4.Size = New System.Drawing.Size(759, 113)
+        Me.GroupBox4.Size = New System.Drawing.Size(759, 127)
         Me.GroupBox4.TabIndex = 12
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Tv Movie EPG Import++ settings (zur Info)"
@@ -404,10 +466,10 @@ Partial Class Setup
         Me.CheckBoxUseTheTvDb.Dock = System.Windows.Forms.DockStyle.Left
         Me.CheckBoxUseTheTvDb.Enabled = False
         Me.CheckBoxUseTheTvDb.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.CheckBoxUseTheTvDb.Location = New System.Drawing.Point(542, 74)
+        Me.CheckBoxUseTheTvDb.Location = New System.Drawing.Point(532, 0)
         Me.CheckBoxUseTheTvDb.Name = "CheckBoxUseTheTvDb"
         Me.CheckBoxUseTheTvDb.Padding = New System.Windows.Forms.Padding(10, 3, 3, 3)
-        Me.CheckBoxUseTheTvDb.Size = New System.Drawing.Size(120, 29)
+        Me.CheckBoxUseTheTvDb.Size = New System.Drawing.Size(120, 24)
         Me.CheckBoxUseTheTvDb.TabIndex = 78
         Me.CheckBoxUseTheTvDb.Text = "useTheTvDb"
         Me.CheckBoxUseTheTvDb.UseVisualStyleBackColor = True
@@ -418,10 +480,10 @@ Partial Class Setup
         Me.CheckBoxVideoDB.Dock = System.Windows.Forms.DockStyle.Left
         Me.CheckBoxVideoDB.Enabled = False
         Me.CheckBoxVideoDB.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.CheckBoxVideoDB.Location = New System.Drawing.Point(360, 74)
+        Me.CheckBoxVideoDB.Location = New System.Drawing.Point(350, 0)
         Me.CheckBoxVideoDB.Name = "CheckBoxVideoDB"
         Me.CheckBoxVideoDB.Padding = New System.Windows.Forms.Padding(10, 3, 3, 3)
-        Me.CheckBoxVideoDB.Size = New System.Drawing.Size(182, 29)
+        Me.CheckBoxVideoDB.Size = New System.Drawing.Size(182, 24)
         Me.CheckBoxVideoDB.TabIndex = 75
         Me.CheckBoxVideoDB.Text = "VideoDatabase import"
         Me.CheckBoxVideoDB.UseVisualStyleBackColor = True
@@ -432,10 +494,10 @@ Partial Class Setup
         Me.CheckBoxMovingPictures.Dock = System.Windows.Forms.DockStyle.Left
         Me.CheckBoxMovingPictures.Enabled = False
         Me.CheckBoxMovingPictures.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.CheckBoxMovingPictures.Location = New System.Drawing.Point(177, 74)
+        Me.CheckBoxMovingPictures.Location = New System.Drawing.Point(167, 0)
         Me.CheckBoxMovingPictures.Name = "CheckBoxMovingPictures"
         Me.CheckBoxMovingPictures.Padding = New System.Windows.Forms.Padding(10, 3, 3, 3)
-        Me.CheckBoxMovingPictures.Size = New System.Drawing.Size(183, 29)
+        Me.CheckBoxMovingPictures.Size = New System.Drawing.Size(183, 24)
         Me.CheckBoxMovingPictures.TabIndex = 74
         Me.CheckBoxMovingPictures.Text = "MovingPictures import"
         Me.CheckBoxMovingPictures.UseVisualStyleBackColor = True
@@ -446,10 +508,10 @@ Partial Class Setup
         Me.CheckBoxTvSeries.Dock = System.Windows.Forms.DockStyle.Left
         Me.CheckBoxTvSeries.Enabled = False
         Me.CheckBoxTvSeries.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.CheckBoxTvSeries.Location = New System.Drawing.Point(10, 74)
+        Me.CheckBoxTvSeries.Location = New System.Drawing.Point(0, 0)
         Me.CheckBoxTvSeries.Name = "CheckBoxTvSeries"
         Me.CheckBoxTvSeries.Padding = New System.Windows.Forms.Padding(10, 3, 3, 3)
-        Me.CheckBoxTvSeries.Size = New System.Drawing.Size(167, 29)
+        Me.CheckBoxTvSeries.Size = New System.Drawing.Size(167, 24)
         Me.CheckBoxTvSeries.TabIndex = 73
         Me.CheckBoxTvSeries.Text = "MP-TvSeries import"
         Me.CheckBoxTvSeries.UseVisualStyleBackColor = True
@@ -999,10 +1061,7 @@ Partial Class Setup
         'TabItems
         '
         Me.TabItems.AutoScroll = True
-        Me.TabItems.Controls.Add(Me.CheckBoxRemberSortedBy)
-        Me.TabItems.Controls.Add(Me.CheckBoxFilterShowLocalSeries)
-        Me.TabItems.Controls.Add(Me.CheckBoxFilterShowLocalMovies)
-        Me.TabItems.Controls.Add(Me.Label14)
+        Me.TabItems.Controls.Add(Me.Panel33)
         Me.TabItems.Location = New System.Drawing.Point(4, 25)
         Me.TabItems.Name = "TabItems"
         Me.TabItems.Padding = New System.Windows.Forms.Padding(3)
@@ -1011,11 +1070,488 @@ Partial Class Setup
         Me.TabItems.Text = "GUI Items"
         Me.TabItems.UseVisualStyleBackColor = True
         '
+        'Panel33
+        '
+        Me.Panel33.AutoScroll = True
+        Me.Panel33.Controls.Add(Me.Panel32)
+        Me.Panel33.Controls.Add(Me.CheckBoxRemberSortedBy)
+        Me.Panel33.Controls.Add(Me.CheckBoxFilterShowLocalSeries)
+        Me.Panel33.Controls.Add(Me.CheckBoxFilterShowLocalMovies)
+        Me.Panel33.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel33.Location = New System.Drawing.Point(3, 3)
+        Me.Panel33.Name = "Panel33"
+        Me.Panel33.Size = New System.Drawing.Size(779, 680)
+        Me.Panel33.TabIndex = 25
+        '
+        'Panel32
+        '
+        Me.Panel32.Controls.Add(Me.GroupBox9)
+        Me.Panel32.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel32.Location = New System.Drawing.Point(0, 110)
+        Me.Panel32.Name = "Panel32"
+        Me.Panel32.Padding = New System.Windows.Forms.Padding(26, 10, 26, 10)
+        Me.Panel32.Size = New System.Drawing.Size(779, 543)
+        Me.Panel32.TabIndex = 24
+        '
+        'GroupBox9
+        '
+        Me.GroupBox9.AutoSize = True
+        Me.GroupBox9.Controls.Add(Me.Panel34)
+        Me.GroupBox9.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox9.Location = New System.Drawing.Point(26, 10)
+        Me.GroupBox9.Name = "GroupBox9"
+        Me.GroupBox9.Padding = New System.Windows.Forms.Padding(10)
+        Me.GroupBox9.Size = New System.Drawing.Size(727, 523)
+        Me.GroupBox9.TabIndex = 23
+        Me.GroupBox9.TabStop = False
+        Me.GroupBox9.Text = "Remote control"
+        '
+        'Panel34
+        '
+        Me.Panel34.AutoScroll = True
+        Me.Panel34.AutoSize = True
+        Me.Panel34.Controls.Add(Me.TableItemsPanel)
+        Me.Panel34.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Panel34.Location = New System.Drawing.Point(10, 26)
+        Me.Panel34.Name = "Panel34"
+        Me.Panel34.Size = New System.Drawing.Size(456, 487)
+        Me.Panel34.TabIndex = 23
+        '
+        'TableItemsPanel
+        '
+        Me.TableItemsPanel.AutoSize = True
+        Me.TableItemsPanel.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.[Single]
+        Me.TableItemsPanel.ColumnCount = 3
+        Me.TableItemsPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableItemsPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200.0!))
+        Me.TableItemsPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 212.0!))
+        Me.TableItemsPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableItemsPanel.Controls.Add(Me.PictureBox12, 0, 10)
+        Me.TableItemsPanel.Controls.Add(Me.CBTvGroup0, 1, 10)
+        Me.TableItemsPanel.Controls.Add(Me.CBsort0, 2, 10)
+        Me.TableItemsPanel.Controls.Add(Me.Label36, 0, 0)
+        Me.TableItemsPanel.Controls.Add(Me.Label35, 2, 0)
+        Me.TableItemsPanel.Controls.Add(Me.Label34, 1, 0)
+        Me.TableItemsPanel.Controls.Add(Me.CBTvGroup9, 1, 9)
+        Me.TableItemsPanel.Controls.Add(Me.CBsort9, 2, 9)
+        Me.TableItemsPanel.Controls.Add(Me.CBTvGroup8, 1, 8)
+        Me.TableItemsPanel.Controls.Add(Me.CBsort8, 2, 8)
+        Me.TableItemsPanel.Controls.Add(Me.CBsort7, 2, 7)
+        Me.TableItemsPanel.Controls.Add(Me.CBTvGroup7, 1, 7)
+        Me.TableItemsPanel.Controls.Add(Me.CBsort6, 2, 6)
+        Me.TableItemsPanel.Controls.Add(Me.CBTvGroup6, 1, 6)
+        Me.TableItemsPanel.Controls.Add(Me.CBsort5, 2, 5)
+        Me.TableItemsPanel.Controls.Add(Me.CBTvGroup5, 1, 5)
+        Me.TableItemsPanel.Controls.Add(Me.CBsort4, 2, 4)
+        Me.TableItemsPanel.Controls.Add(Me.CBTvGroup4, 1, 4)
+        Me.TableItemsPanel.Controls.Add(Me.CBsort3, 2, 3)
+        Me.TableItemsPanel.Controls.Add(Me.CBTvGroup3, 1, 3)
+        Me.TableItemsPanel.Controls.Add(Me.CBsort2, 2, 2)
+        Me.TableItemsPanel.Controls.Add(Me.CBTvGroup2, 1, 2)
+        Me.TableItemsPanel.Controls.Add(Me.CBsort1, 2, 1)
+        Me.TableItemsPanel.Controls.Add(Me.CBTvGroup1, 1, 1)
+        Me.TableItemsPanel.Controls.Add(Me.PictureBox11, 0, 9)
+        Me.TableItemsPanel.Controls.Add(Me.PictureBox10, 0, 8)
+        Me.TableItemsPanel.Controls.Add(Me.PictureBox4, 0, 7)
+        Me.TableItemsPanel.Controls.Add(Me.PictureBox5, 0, 6)
+        Me.TableItemsPanel.Controls.Add(Me.PictureBox6, 0, 5)
+        Me.TableItemsPanel.Controls.Add(Me.PictureBox7, 0, 4)
+        Me.TableItemsPanel.Controls.Add(Me.PictureBox8, 0, 3)
+        Me.TableItemsPanel.Controls.Add(Me.PictureBox9, 0, 2)
+        Me.TableItemsPanel.Controls.Add(Me.PictureBox3, 0, 1)
+        Me.TableItemsPanel.Controls.Add(Me.BTClearSorting, 2, 11)
+        Me.TableItemsPanel.Controls.Add(Me.BTsetToStandardTvGroup, 1, 11)
+        Me.TableItemsPanel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableItemsPanel.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize
+        Me.TableItemsPanel.Location = New System.Drawing.Point(0, 0)
+        Me.TableItemsPanel.Name = "TableItemsPanel"
+        Me.TableItemsPanel.RowCount = 12
+        Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle)
+        Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableItemsPanel.Size = New System.Drawing.Size(456, 487)
+        Me.TableItemsPanel.TabIndex = 22
+        '
+        'PictureBox12
+        '
+        Me.PictureBox12.BackgroundImage = CType(resources.GetObject("PictureBox12.BackgroundImage"), System.Drawing.Image)
+        Me.PictureBox12.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox12.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PictureBox12.Location = New System.Drawing.Point(4, 390)
+        Me.PictureBox12.Name = "PictureBox12"
+        Me.PictureBox12.Size = New System.Drawing.Size(34, 34)
+        Me.PictureBox12.TabIndex = 52
+        Me.PictureBox12.TabStop = False
+        '
+        'CBTvGroup0
+        '
+        Me.CBTvGroup0.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CBTvGroup0.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBTvGroup0.FormattingEnabled = True
+        Me.CBTvGroup0.Location = New System.Drawing.Point(45, 395)
+        Me.CBTvGroup0.Name = "CBTvGroup0"
+        Me.CBTvGroup0.Size = New System.Drawing.Size(194, 24)
+        Me.CBTvGroup0.TabIndex = 51
+        '
+        'CBsort0
+        '
+        Me.CBsort0.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CBsort0.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBsort0.FormattingEnabled = True
+        Me.CBsort0.Location = New System.Drawing.Point(246, 395)
+        Me.CBsort0.Name = "CBsort0"
+        Me.CBsort0.Size = New System.Drawing.Size(206, 24)
+        Me.CBsort0.TabIndex = 52
+        '
+        'Label36
+        '
+        Me.Label36.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label36.AutoSize = True
+        Me.Label36.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label36.Location = New System.Drawing.Point(4, 1)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(34, 16)
+        Me.Label36.TabIndex = 24
+        Me.Label36.Text = "key"
+        Me.Label36.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label35
+        '
+        Me.Label35.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label35.AutoSize = True
+        Me.Label35.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label35.Location = New System.Drawing.Point(246, 1)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(206, 16)
+        Me.Label35.TabIndex = 24
+        Me.Label35.Text = "sortiert nach"
+        Me.Label35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label34
+        '
+        Me.Label34.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label34.AutoSize = True
+        Me.Label34.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label34.Location = New System.Drawing.Point(45, 1)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(194, 16)
+        Me.Label34.TabIndex = 23
+        Me.Label34.Text = "Tv Gruppe"
+        Me.Label34.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'CBTvGroup9
+        '
+        Me.CBTvGroup9.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CBTvGroup9.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBTvGroup9.FormattingEnabled = True
+        Me.CBTvGroup9.Location = New System.Drawing.Point(45, 354)
+        Me.CBTvGroup9.Name = "CBTvGroup9"
+        Me.CBTvGroup9.Size = New System.Drawing.Size(194, 24)
+        Me.CBTvGroup9.TabIndex = 37
+        '
+        'CBsort9
+        '
+        Me.CBsort9.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CBsort9.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBsort9.FormattingEnabled = True
+        Me.CBsort9.Location = New System.Drawing.Point(246, 354)
+        Me.CBsort9.Name = "CBsort9"
+        Me.CBsort9.Size = New System.Drawing.Size(206, 24)
+        Me.CBsort9.TabIndex = 38
+        '
+        'CBTvGroup8
+        '
+        Me.CBTvGroup8.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CBTvGroup8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBTvGroup8.FormattingEnabled = True
+        Me.CBTvGroup8.Location = New System.Drawing.Point(45, 313)
+        Me.CBTvGroup8.Name = "CBTvGroup8"
+        Me.CBTvGroup8.Size = New System.Drawing.Size(194, 24)
+        Me.CBTvGroup8.TabIndex = 35
+        '
+        'CBsort8
+        '
+        Me.CBsort8.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CBsort8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBsort8.FormattingEnabled = True
+        Me.CBsort8.Location = New System.Drawing.Point(246, 313)
+        Me.CBsort8.Name = "CBsort8"
+        Me.CBsort8.Size = New System.Drawing.Size(206, 24)
+        Me.CBsort8.TabIndex = 36
+        '
+        'CBsort7
+        '
+        Me.CBsort7.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CBsort7.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBsort7.FormattingEnabled = True
+        Me.CBsort7.Location = New System.Drawing.Point(246, 272)
+        Me.CBsort7.Name = "CBsort7"
+        Me.CBsort7.Size = New System.Drawing.Size(206, 24)
+        Me.CBsort7.TabIndex = 34
+        '
+        'CBTvGroup7
+        '
+        Me.CBTvGroup7.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CBTvGroup7.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBTvGroup7.FormattingEnabled = True
+        Me.CBTvGroup7.Location = New System.Drawing.Point(45, 272)
+        Me.CBTvGroup7.Name = "CBTvGroup7"
+        Me.CBTvGroup7.Size = New System.Drawing.Size(194, 24)
+        Me.CBTvGroup7.TabIndex = 33
+        '
+        'CBsort6
+        '
+        Me.CBsort6.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CBsort6.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBsort6.FormattingEnabled = True
+        Me.CBsort6.Location = New System.Drawing.Point(246, 231)
+        Me.CBsort6.Name = "CBsort6"
+        Me.CBsort6.Size = New System.Drawing.Size(206, 24)
+        Me.CBsort6.TabIndex = 32
+        '
+        'CBTvGroup6
+        '
+        Me.CBTvGroup6.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CBTvGroup6.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBTvGroup6.FormattingEnabled = True
+        Me.CBTvGroup6.Location = New System.Drawing.Point(45, 231)
+        Me.CBTvGroup6.Name = "CBTvGroup6"
+        Me.CBTvGroup6.Size = New System.Drawing.Size(194, 24)
+        Me.CBTvGroup6.TabIndex = 31
+        '
+        'CBsort5
+        '
+        Me.CBsort5.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CBsort5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBsort5.FormattingEnabled = True
+        Me.CBsort5.Location = New System.Drawing.Point(246, 190)
+        Me.CBsort5.Name = "CBsort5"
+        Me.CBsort5.Size = New System.Drawing.Size(206, 24)
+        Me.CBsort5.TabIndex = 30
+        '
+        'CBTvGroup5
+        '
+        Me.CBTvGroup5.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CBTvGroup5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBTvGroup5.FormattingEnabled = True
+        Me.CBTvGroup5.Location = New System.Drawing.Point(45, 190)
+        Me.CBTvGroup5.Name = "CBTvGroup5"
+        Me.CBTvGroup5.Size = New System.Drawing.Size(194, 24)
+        Me.CBTvGroup5.TabIndex = 29
+        '
+        'CBsort4
+        '
+        Me.CBsort4.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CBsort4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBsort4.FormattingEnabled = True
+        Me.CBsort4.Location = New System.Drawing.Point(246, 149)
+        Me.CBsort4.Name = "CBsort4"
+        Me.CBsort4.Size = New System.Drawing.Size(206, 24)
+        Me.CBsort4.TabIndex = 28
+        '
+        'CBTvGroup4
+        '
+        Me.CBTvGroup4.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CBTvGroup4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBTvGroup4.FormattingEnabled = True
+        Me.CBTvGroup4.Location = New System.Drawing.Point(45, 149)
+        Me.CBTvGroup4.Name = "CBTvGroup4"
+        Me.CBTvGroup4.Size = New System.Drawing.Size(194, 24)
+        Me.CBTvGroup4.TabIndex = 27
+        '
+        'CBsort3
+        '
+        Me.CBsort3.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CBsort3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBsort3.FormattingEnabled = True
+        Me.CBsort3.Location = New System.Drawing.Point(246, 108)
+        Me.CBsort3.Name = "CBsort3"
+        Me.CBsort3.Size = New System.Drawing.Size(206, 24)
+        Me.CBsort3.TabIndex = 26
+        '
+        'CBTvGroup3
+        '
+        Me.CBTvGroup3.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CBTvGroup3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBTvGroup3.FormattingEnabled = True
+        Me.CBTvGroup3.Location = New System.Drawing.Point(45, 108)
+        Me.CBTvGroup3.Name = "CBTvGroup3"
+        Me.CBTvGroup3.Size = New System.Drawing.Size(194, 24)
+        Me.CBTvGroup3.TabIndex = 25
+        '
+        'CBsort2
+        '
+        Me.CBsort2.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CBsort2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBsort2.FormattingEnabled = True
+        Me.CBsort2.Location = New System.Drawing.Point(246, 67)
+        Me.CBsort2.Name = "CBsort2"
+        Me.CBsort2.Size = New System.Drawing.Size(206, 24)
+        Me.CBsort2.TabIndex = 24
+        '
+        'CBTvGroup2
+        '
+        Me.CBTvGroup2.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CBTvGroup2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBTvGroup2.FormattingEnabled = True
+        Me.CBTvGroup2.Location = New System.Drawing.Point(45, 67)
+        Me.CBTvGroup2.Name = "CBTvGroup2"
+        Me.CBTvGroup2.Size = New System.Drawing.Size(194, 24)
+        Me.CBTvGroup2.TabIndex = 23
+        '
+        'CBsort1
+        '
+        Me.CBsort1.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CBsort1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBsort1.FormattingEnabled = True
+        Me.CBsort1.Location = New System.Drawing.Point(246, 26)
+        Me.CBsort1.Name = "CBsort1"
+        Me.CBsort1.Size = New System.Drawing.Size(206, 24)
+        Me.CBsort1.TabIndex = 22
+        '
+        'CBTvGroup1
+        '
+        Me.CBTvGroup1.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CBTvGroup1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CBTvGroup1.FormattingEnabled = True
+        Me.CBTvGroup1.Location = New System.Drawing.Point(45, 26)
+        Me.CBTvGroup1.Name = "CBTvGroup1"
+        Me.CBTvGroup1.Size = New System.Drawing.Size(194, 24)
+        Me.CBTvGroup1.TabIndex = 21
+        '
+        'PictureBox11
+        '
+        Me.PictureBox11.BackgroundImage = CType(resources.GetObject("PictureBox11.BackgroundImage"), System.Drawing.Image)
+        Me.PictureBox11.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox11.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PictureBox11.Location = New System.Drawing.Point(4, 349)
+        Me.PictureBox11.Name = "PictureBox11"
+        Me.PictureBox11.Size = New System.Drawing.Size(34, 34)
+        Me.PictureBox11.TabIndex = 20
+        Me.PictureBox11.TabStop = False
+        '
+        'PictureBox10
+        '
+        Me.PictureBox10.BackgroundImage = CType(resources.GetObject("PictureBox10.BackgroundImage"), System.Drawing.Image)
+        Me.PictureBox10.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox10.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PictureBox10.Location = New System.Drawing.Point(4, 308)
+        Me.PictureBox10.Name = "PictureBox10"
+        Me.PictureBox10.Size = New System.Drawing.Size(34, 34)
+        Me.PictureBox10.TabIndex = 19
+        Me.PictureBox10.TabStop = False
+        '
+        'PictureBox4
+        '
+        Me.PictureBox4.BackgroundImage = CType(resources.GetObject("PictureBox4.BackgroundImage"), System.Drawing.Image)
+        Me.PictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PictureBox4.Location = New System.Drawing.Point(4, 267)
+        Me.PictureBox4.Name = "PictureBox4"
+        Me.PictureBox4.Size = New System.Drawing.Size(34, 34)
+        Me.PictureBox4.TabIndex = 13
+        Me.PictureBox4.TabStop = False
+        '
+        'PictureBox5
+        '
+        Me.PictureBox5.BackgroundImage = CType(resources.GetObject("PictureBox5.BackgroundImage"), System.Drawing.Image)
+        Me.PictureBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PictureBox5.Location = New System.Drawing.Point(4, 226)
+        Me.PictureBox5.Name = "PictureBox5"
+        Me.PictureBox5.Size = New System.Drawing.Size(34, 34)
+        Me.PictureBox5.TabIndex = 14
+        Me.PictureBox5.TabStop = False
+        '
+        'PictureBox6
+        '
+        Me.PictureBox6.BackgroundImage = CType(resources.GetObject("PictureBox6.BackgroundImage"), System.Drawing.Image)
+        Me.PictureBox6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox6.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PictureBox6.Location = New System.Drawing.Point(4, 185)
+        Me.PictureBox6.Name = "PictureBox6"
+        Me.PictureBox6.Size = New System.Drawing.Size(34, 34)
+        Me.PictureBox6.TabIndex = 15
+        Me.PictureBox6.TabStop = False
+        '
+        'PictureBox7
+        '
+        Me.PictureBox7.BackgroundImage = CType(resources.GetObject("PictureBox7.BackgroundImage"), System.Drawing.Image)
+        Me.PictureBox7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox7.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PictureBox7.Location = New System.Drawing.Point(4, 144)
+        Me.PictureBox7.Name = "PictureBox7"
+        Me.PictureBox7.Size = New System.Drawing.Size(34, 34)
+        Me.PictureBox7.TabIndex = 16
+        Me.PictureBox7.TabStop = False
+        '
+        'PictureBox8
+        '
+        Me.PictureBox8.BackgroundImage = CType(resources.GetObject("PictureBox8.BackgroundImage"), System.Drawing.Image)
+        Me.PictureBox8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox8.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PictureBox8.Location = New System.Drawing.Point(4, 103)
+        Me.PictureBox8.Name = "PictureBox8"
+        Me.PictureBox8.Size = New System.Drawing.Size(34, 34)
+        Me.PictureBox8.TabIndex = 17
+        Me.PictureBox8.TabStop = False
+        '
+        'PictureBox9
+        '
+        Me.PictureBox9.BackgroundImage = CType(resources.GetObject("PictureBox9.BackgroundImage"), System.Drawing.Image)
+        Me.PictureBox9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox9.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PictureBox9.Location = New System.Drawing.Point(4, 62)
+        Me.PictureBox9.Name = "PictureBox9"
+        Me.PictureBox9.Size = New System.Drawing.Size(34, 34)
+        Me.PictureBox9.TabIndex = 18
+        Me.PictureBox9.TabStop = False
+        '
+        'PictureBox3
+        '
+        Me.PictureBox3.BackgroundImage = CType(resources.GetObject("PictureBox3.BackgroundImage"), System.Drawing.Image)
+        Me.PictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PictureBox3.Location = New System.Drawing.Point(4, 21)
+        Me.PictureBox3.Name = "PictureBox3"
+        Me.PictureBox3.Size = New System.Drawing.Size(34, 34)
+        Me.PictureBox3.TabIndex = 12
+        Me.PictureBox3.TabStop = False
+        '
+        'BTClearSorting
+        '
+        Me.BTClearSorting.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BTClearSorting.Location = New System.Drawing.Point(246, 445)
+        Me.BTClearSorting.Name = "BTClearSorting"
+        Me.BTClearSorting.Size = New System.Drawing.Size(206, 24)
+        Me.BTClearSorting.TabIndex = 40
+        Me.BTClearSorting.Text = "alle löschen"
+        Me.BTClearSorting.UseVisualStyleBackColor = True
+        '
+        'BTsetToStandardTvGroup
+        '
+        Me.BTsetToStandardTvGroup.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BTsetToStandardTvGroup.Location = New System.Drawing.Point(45, 445)
+        Me.BTsetToStandardTvGroup.Name = "BTsetToStandardTvGroup"
+        Me.BTsetToStandardTvGroup.Size = New System.Drawing.Size(194, 24)
+        Me.BTsetToStandardTvGroup.TabIndex = 39
+        Me.BTsetToStandardTvGroup.Text = "alle löschen"
+        Me.BTsetToStandardTvGroup.UseVisualStyleBackColor = True
+        '
         'CheckBoxRemberSortedBy
         '
         Me.CheckBoxRemberSortedBy.AutoSize = True
         Me.CheckBoxRemberSortedBy.Dock = System.Windows.Forms.DockStyle.Top
-        Me.CheckBoxRemberSortedBy.Location = New System.Drawing.Point(3, 145)
+        Me.CheckBoxRemberSortedBy.Location = New System.Drawing.Point(0, 70)
         Me.CheckBoxRemberSortedBy.Name = "CheckBoxRemberSortedBy"
         Me.CheckBoxRemberSortedBy.Padding = New System.Windows.Forms.Padding(30, 10, 30, 10)
         Me.CheckBoxRemberSortedBy.Size = New System.Drawing.Size(779, 40)
@@ -1028,7 +1564,7 @@ Partial Class Setup
         Me.CheckBoxFilterShowLocalSeries.AutoSize = True
         Me.CheckBoxFilterShowLocalSeries.Dock = System.Windows.Forms.DockStyle.Top
         Me.CheckBoxFilterShowLocalSeries.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBoxFilterShowLocalSeries.Location = New System.Drawing.Point(3, 110)
+        Me.CheckBoxFilterShowLocalSeries.Location = New System.Drawing.Point(0, 35)
         Me.CheckBoxFilterShowLocalSeries.Name = "CheckBoxFilterShowLocalSeries"
         Me.CheckBoxFilterShowLocalSeries.Padding = New System.Windows.Forms.Padding(30, 10, 30, 5)
         Me.CheckBoxFilterShowLocalSeries.Size = New System.Drawing.Size(779, 35)
@@ -1041,24 +1577,13 @@ Partial Class Setup
         Me.CheckBoxFilterShowLocalMovies.AutoSize = True
         Me.CheckBoxFilterShowLocalMovies.Dock = System.Windows.Forms.DockStyle.Top
         Me.CheckBoxFilterShowLocalMovies.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBoxFilterShowLocalMovies.Location = New System.Drawing.Point(3, 75)
+        Me.CheckBoxFilterShowLocalMovies.Location = New System.Drawing.Point(0, 0)
         Me.CheckBoxFilterShowLocalMovies.Name = "CheckBoxFilterShowLocalMovies"
         Me.CheckBoxFilterShowLocalMovies.Padding = New System.Windows.Forms.Padding(30, 10, 30, 5)
         Me.CheckBoxFilterShowLocalMovies.Size = New System.Drawing.Size(779, 35)
         Me.CheckBoxFilterShowLocalMovies.TabIndex = 9
         Me.CheckBoxFilterShowLocalMovies.Text = "Keine Filme zeigen, die lokal existieren"
         Me.CheckBoxFilterShowLocalMovies.UseVisualStyleBackColor = True
-        '
-        'Label14
-        '
-        Me.Label14.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Label14.Location = New System.Drawing.Point(3, 3)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Padding = New System.Windows.Forms.Padding(20)
-        Me.Label14.Size = New System.Drawing.Size(779, 72)
-        Me.Label14.TabIndex = 3
-        Me.Label14.Text = "Mit den verschiedenen Filtereinstellungen könnt ihr die Suchergebnisse eingrenzen" & _
-            " und die Zugrifsgeschwindigkeit steigern"
         '
         'TabÜbersicht
         '
@@ -1508,8 +2033,8 @@ Partial Class Setup
         Me.dgvCategories.Location = New System.Drawing.Point(10, 10)
         Me.dgvCategories.Name = "dgvCategories"
         Me.dgvCategories.RowHeadersVisible = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
-        Me.dgvCategories.RowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.White
+        Me.dgvCategories.RowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvCategories.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvCategories.Size = New System.Drawing.Size(737, 363)
         Me.dgvCategories.TabIndex = 0
@@ -2087,10 +2612,11 @@ Partial Class Setup
         '
         Me.PictureBox1.BackgroundImage = Global.ClickfinderProgramGuide.My.Resources.Resources.SetupIcon
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.PictureBox1.Location = New System.Drawing.Point(5, 4)
+        Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Left
+        Me.PictureBox1.Location = New System.Drawing.Point(0, 0)
         Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(75, 62)
+        Me.PictureBox1.Size = New System.Drawing.Size(75, 49)
         Me.PictureBox1.TabIndex = 9
         Me.PictureBox1.TabStop = False
         '
@@ -2110,6 +2636,7 @@ Partial Class Setup
         '
         Me.CheckSaveSettingsLocal.AutoSize = True
         Me.CheckSaveSettingsLocal.Dock = System.Windows.Forms.DockStyle.Right
+        Me.CheckSaveSettingsLocal.Enabled = False
         Me.CheckSaveSettingsLocal.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckSaveSettingsLocal.Location = New System.Drawing.Point(562, 2)
         Me.CheckSaveSettingsLocal.Name = "CheckSaveSettingsLocal"
@@ -2117,17 +2644,74 @@ Partial Class Setup
         Me.CheckSaveSettingsLocal.TabIndex = 79
         Me.CheckSaveSettingsLocal.Text = "Einstellungen auf Client speichern"
         Me.CheckSaveSettingsLocal.UseVisualStyleBackColor = True
+        Me.CheckSaveSettingsLocal.Visible = False
         '
         'Panel2
         '
         Me.Panel2.AutoScroll = True
         Me.Panel2.Controls.Add(Me.TabControl1)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel2.Location = New System.Drawing.Point(0, 65)
+        Me.Panel2.Location = New System.Drawing.Point(0, 49)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(10)
-        Me.Panel2.Size = New System.Drawing.Size(813, 735)
+        Me.Panel2.Size = New System.Drawing.Size(813, 751)
         Me.Panel2.TabIndex = 42
+        '
+        'Button1
+        '
+        Me.Button1.Dock = System.Windows.Forms.DockStyle.Right
+        Me.Button1.Font = New System.Drawing.Font("Verdana", 8.25!)
+        Me.Button1.Location = New System.Drawing.Point(521, 2)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(218, 21)
+        Me.Button1.TabIndex = 43
+        Me.Button1.Text = "Mapping Management"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'LabelVersion
+        '
+        Me.LabelVersion.AutoSize = True
+        Me.LabelVersion.Dock = System.Windows.Forms.DockStyle.Left
+        Me.LabelVersion.Location = New System.Drawing.Point(571, 0)
+        Me.LabelVersion.Name = "LabelVersion"
+        Me.LabelVersion.Padding = New System.Windows.Forms.Padding(0, 18, 0, 0)
+        Me.LabelVersion.Size = New System.Drawing.Size(74, 34)
+        Me.LabelVersion.TabIndex = 44
+        Me.LabelVersion.Text = "#Version"
+        Me.LabelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Panel35
+        '
+        Me.Panel35.Controls.Add(Me.LabelVersion)
+        Me.Panel35.Controls.Add(Me.Label2)
+        Me.Panel35.Controls.Add(Me.PictureBox1)
+        Me.Panel35.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel35.Location = New System.Drawing.Point(0, 0)
+        Me.Panel35.Name = "Panel35"
+        Me.Panel35.Size = New System.Drawing.Size(813, 49)
+        Me.Panel35.TabIndex = 45
+        '
+        'Panel36
+        '
+        Me.Panel36.Controls.Add(Me.CheckBoxUseTheTvDb)
+        Me.Panel36.Controls.Add(Me.CheckBoxVideoDB)
+        Me.Panel36.Controls.Add(Me.CheckBoxMovingPictures)
+        Me.Panel36.Controls.Add(Me.CheckBoxTvSeries)
+        Me.Panel36.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel36.Location = New System.Drawing.Point(10, 74)
+        Me.Panel36.Name = "Panel36"
+        Me.Panel36.Size = New System.Drawing.Size(739, 24)
+        Me.Panel36.TabIndex = 79
+        '
+        'Panel37
+        '
+        Me.Panel37.Controls.Add(Me.Button1)
+        Me.Panel37.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel37.Location = New System.Drawing.Point(10, 98)
+        Me.Panel37.Name = "Panel37"
+        Me.Panel37.Padding = New System.Windows.Forms.Padding(0, 2, 0, 0)
+        Me.Panel37.Size = New System.Drawing.Size(739, 23)
+        Me.Panel37.TabIndex = 80
         '
         'Setup
         '
@@ -2137,9 +2721,8 @@ Partial Class Setup
         Me.ClientSize = New System.Drawing.Size(813, 868)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.PictureBox1)
-        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.ButtonSave)
+        Me.Controls.Add(Me.Panel35)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
@@ -2181,7 +2764,26 @@ Partial Class Setup
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
         Me.TabItems.ResumeLayout(False)
-        Me.TabItems.PerformLayout()
+        Me.Panel33.ResumeLayout(False)
+        Me.Panel33.PerformLayout()
+        Me.Panel32.ResumeLayout(False)
+        Me.Panel32.PerformLayout()
+        Me.GroupBox9.ResumeLayout(False)
+        Me.GroupBox9.PerformLayout()
+        Me.Panel34.ResumeLayout(False)
+        Me.Panel34.PerformLayout()
+        Me.TableItemsPanel.ResumeLayout(False)
+        Me.TableItemsPanel.PerformLayout()
+        CType(Me.PictureBox12, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox11, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox10, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox8, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox9, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabÜbersicht.ResumeLayout(False)
         Me.Panel18.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
@@ -2241,8 +2843,12 @@ Partial Class Setup
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.Panel2.ResumeLayout(False)
+        Me.Panel35.ResumeLayout(False)
+        Me.Panel35.PerformLayout()
+        Me.Panel36.ResumeLayout(False)
+        Me.Panel36.PerformLayout()
+        Me.Panel37.ResumeLayout(False)
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
     Friend WithEvents ButtonSave As System.Windows.Forms.Button
@@ -2283,7 +2889,6 @@ Partial Class Setup
     Friend WithEvents ButtonUp As System.Windows.Forms.Button
     Friend WithEvents CheckBoxSelect As System.Windows.Forms.CheckBox
     Friend WithEvents TabItems As System.Windows.Forms.TabPage
-    Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents CheckBoxFilterShowLocalMovies As System.Windows.Forms.CheckBox
     Friend WithEvents CheckBoxFilterShowLocalSeries As System.Windows.Forms.CheckBox
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
@@ -2405,4 +3010,49 @@ Partial Class Setup
     Friend WithEvents ButtonDefaultSettings As System.Windows.Forms.Button
     Friend WithEvents CheckSaveSettingsLocal As System.Windows.Forms.CheckBox
     Friend WithEvents BT_loadfromServer As System.Windows.Forms.Button
+    Friend WithEvents PictureBox3 As System.Windows.Forms.PictureBox
+    Friend WithEvents PictureBox11 As System.Windows.Forms.PictureBox
+    Friend WithEvents PictureBox10 As System.Windows.Forms.PictureBox
+    Friend WithEvents PictureBox9 As System.Windows.Forms.PictureBox
+    Friend WithEvents PictureBox8 As System.Windows.Forms.PictureBox
+    Friend WithEvents PictureBox7 As System.Windows.Forms.PictureBox
+    Friend WithEvents PictureBox6 As System.Windows.Forms.PictureBox
+    Friend WithEvents PictureBox5 As System.Windows.Forms.PictureBox
+    Friend WithEvents PictureBox4 As System.Windows.Forms.PictureBox
+    Friend WithEvents TableItemsPanel As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents Panel32 As System.Windows.Forms.Panel
+    Friend WithEvents GroupBox9 As System.Windows.Forms.GroupBox
+    Friend WithEvents CBsort9 As System.Windows.Forms.ComboBox
+    Friend WithEvents CBTvGroup9 As System.Windows.Forms.ComboBox
+    Friend WithEvents CBsort8 As System.Windows.Forms.ComboBox
+    Friend WithEvents CBTvGroup8 As System.Windows.Forms.ComboBox
+    Friend WithEvents CBsort7 As System.Windows.Forms.ComboBox
+    Friend WithEvents CBTvGroup7 As System.Windows.Forms.ComboBox
+    Friend WithEvents CBsort6 As System.Windows.Forms.ComboBox
+    Friend WithEvents CBTvGroup6 As System.Windows.Forms.ComboBox
+    Friend WithEvents CBsort5 As System.Windows.Forms.ComboBox
+    Friend WithEvents CBTvGroup5 As System.Windows.Forms.ComboBox
+    Friend WithEvents CBsort4 As System.Windows.Forms.ComboBox
+    Friend WithEvents CBTvGroup4 As System.Windows.Forms.ComboBox
+    Friend WithEvents CBsort3 As System.Windows.Forms.ComboBox
+    Friend WithEvents CBTvGroup3 As System.Windows.Forms.ComboBox
+    Friend WithEvents CBsort2 As System.Windows.Forms.ComboBox
+    Friend WithEvents CBTvGroup2 As System.Windows.Forms.ComboBox
+    Friend WithEvents CBsort1 As System.Windows.Forms.ComboBox
+    Friend WithEvents CBTvGroup1 As System.Windows.Forms.ComboBox
+    Friend WithEvents Panel33 As System.Windows.Forms.Panel
+    Friend WithEvents Label35 As System.Windows.Forms.Label
+    Friend WithEvents Label34 As System.Windows.Forms.Label
+    Friend WithEvents BTsetToStandardTvGroup As System.Windows.Forms.Button
+    Friend WithEvents BTClearSorting As System.Windows.Forms.Button
+    Friend WithEvents Label36 As System.Windows.Forms.Label
+    Friend WithEvents Panel34 As System.Windows.Forms.Panel
+    Friend WithEvents PictureBox12 As System.Windows.Forms.PictureBox
+    Friend WithEvents CBTvGroup0 As System.Windows.Forms.ComboBox
+    Friend WithEvents CBsort0 As System.Windows.Forms.ComboBox
+    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents LabelVersion As System.Windows.Forms.Label
+    Friend WithEvents Panel35 As System.Windows.Forms.Panel
+    Friend WithEvents Panel37 As System.Windows.Forms.Panel
+    Friend WithEvents Panel36 As System.Windows.Forms.Panel
 End Class

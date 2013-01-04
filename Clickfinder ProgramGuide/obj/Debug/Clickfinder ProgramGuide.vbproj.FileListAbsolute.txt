@@ -76,35 +76,6 @@ D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPor
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\ClickfinderProgramGuide.dll
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\ClickfinderProgramGuide.pdb
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\ClickfinderProgramGuide.xml
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Common.Utils.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Configuration.exe
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Core.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Databases.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Dialogs.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Gentle.Common.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Gentle.Framework.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\TvBusinessLayer.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\TvControl.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\TVDatabase.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\TvLibrary.Interfaces.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\TvPlugin.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Utils.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\WindowPlugins.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\edtftpnet-1.2.2.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\log4net.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\BassRegistration.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\RemotePlugins.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Ionic.Zip.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Interop.WMPLib.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal.Support.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\DirectShowLib.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Bass.Net.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Interop.X10.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\CSScriptLibrary.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\AxInterop.WMPLib.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\taglib-sharp.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\BassVisAPI.Net.dll
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MySql.Data.dll
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Debug\ResolveAssemblyReference.cache
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Debug\ClickfinderProgramGuide.Resources.resources
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Debug\ClickfinderProgramGuide.Setup.resources
@@ -120,7 +91,6 @@ D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPor
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\Media\ClickfinderPG_recSeries.png
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\StreamedMP\ClickfinderProgramGuideEpisodePreview.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Skin Mods\StreamedMP\TVOSD.xml
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Interop.SHDocVw.dll
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Skin Mods\StreamedMP\TVSeries.Common.HiddenMenu.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\Skin Mods\Default Wide\BasicHomeExtraInfos.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Debug\MediaPortal\Skin\DefaultWide\Media\ClickfinderPGTvWish.png

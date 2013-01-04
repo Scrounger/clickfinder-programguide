@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<window>
+  <controls>
+    <control>
+      <animation effect="slide" start="-60,0" end="0,0" tween="quadratic" easing="in" time="250" delay="400">WindowOpen</animation>
+      <animation effect="slide" start="0,0" end="-60,0" tween="quadratic" easing="in" time="250" delay="100">WindowClose</animation>
+      <id>1</id>
+      <type>image</type>
+      <posY>440</posY>
+      <width>64</width>
+      <height>199</height>
+      <texture>hiddenmenu_tab.png</texture>
+    </control>
+       
+    <control>
+      <type>actiongroup</type>
+      <description>action menu</description>
+      <defaultcontrol>2</defaultcontrol>
+      <onexit>10</onexit>
+      <dimColor>00ffffff</dimColor>
+      <buttonX>-460</buttonX>
+      <buttonY>155</buttonY>
+      <buttonwidth>499</buttonwidth>
+      <buttonheight>1080</buttonheight>
+
+      <control>
+        <type>image</type>
+        <id>0</id>
+        <width>1920</width>
+        <height>1080</height>
+        <texture>semi_trans_back_hidden_menu.png</texture>
+        <visible>!control.hasfocus(10)|!control.hasfocus(30)</visible>
+        <animation effect="fade" time="450">visible</animation>
+        <animation effect="fade" time="400">hidden</animation>
+      </control>
+
+      <control>
+        <type>image</type>
+        <id>0</id>
+        <posY>0</posY>
+        <posX>0</posX>
+        <width>612</width>
+        <height>1074</height>
+        <texture>menu_bg.png</texture>
+        <visible>!control.hasfocus(10)|!control.hasfocus(30)</visible>
+        <animation effect="fade" time="0">WindowClose</animation>
+        <animation effect="slide" start="-150,0" time="100">visible</animation>
+        <animation effect="fade" time="50">visible</animation>
+        <animation effect="fade" time="0">hidden</animation>
+      </control>
+
+      <control>
+        <type>image</type>
+        <id>0</id>
+        <posY>443</posY>
+        <posX>116</posX>
+        <width>369</width>
+        <height>1</height>
+        <texture>hiddenmenu_separator.png</texture>
+        <visible>!control.hasfocus(10)|!control.hasfocus(30)</visible>
+        <animation effect="fade" time="0">WindowClose</animation>
+        <animation effect="slide" start="-150,0" time="100">visible</animation>
+        <animation effect="fade" time="50">visible</animation>
+        <animation effect="fade" time="0">hidden</animation>
+      </control>
+  
+      <control>
+        <type>image</type>
+        <id>0</id>
+        <posY>722</posY>
+        <posX>116</posX>
+        <width>369</width>
+        <height>1</height>
+        <texture>hiddenmenu_separator.png</texture>
+        <visible>!control.hasfocus(10)|!control.hasfocus(30)</visible>
+        <animation effect="fade" time="0">WindowClose</animation>
+        <animation effect="slide" start="-150,0" time="100">visible</animation>
+        <animation effect="fade" time="50">visible</animation>
+        <animation effect="fade" time="0">hidden</animation>
+      </control>
+
+      <control>
+        <description>Menu label</description>
+        <type>label</type>
+        <id>1</id>
+        <posX>116</posX>
+        <posY>100</posY>
+        <label>924</label>
+        <font>fontB16</font>
+        <textcolor>393939</textcolor>
+        <visible>!control.hasfocus(10)|!control.hasfocus(30)</visible>
+        <animation effect="fade" time="0">WindowClose</animation>
+        <animation effect="slide" start="-150,0" time="100">visible</animation>
+        <animation effect="fade" time="50">visible</animation>
+        <animation effect="fade" time="0">hidden</animation>
+      </control>
+
+
+      <control>
+        <description>Settings label</description>
+        <type>label</type>
+        <id>1</id>
+        <posX>116</posX>
+        <posY>456</posY>
+        <label>#ClickfinderPG.Translation.Preview</label>
+        <font>fontB12</font>
+        <textcolor>393939</textcolor>
+        <visible>!control.hasfocus(10)|!control.hasfocus(30)</visible>
+        <animation effect="fade" time="0">WindowClose</animation>
+        <animation effect="slide" start="-150,0" time="100">visible</animation>
+        <animation effect="fade" time="50">visible</animation>
+        <animation effect="fade" time="0">hidden</animation>
+      </control>
+
+      <control>
+        <description>Jump to label</description>
+        <type>label</type>
+        <id>1</id>
+        <posX>116</posX>
+        <posY>732</posY>
+        <label>1065</label>
+        <font>fontB12</font>
+        <textcolor>393939</textcolor>
+        <visible>!control.hasfocus(10)|!control.hasfocus(30)</visible>
+        <animation effect="fade" time="0">WindowClose</animation>
+        <animation effect="slide" start="-150,0" time="100">visible</animation>
+        <animation effect="fade" time="50">visible</animation>
+        <animation effect="fade" time="0">hidden</animation>
+      </control>
+              
+      
+      <control>
+        <description>button group</description>
+        <type>group</type>
+        <animation effect="fade" time="0">WindowClose</animation>
+        <animation effect="slide" start="-150,0" time="100">visible</animation>
+        <animation effect="fade" time="50">visible</animation>
+        <animation effect="fade" time="0">hidden</animation>
+        <posX>53</posX>
+        <posY>155</posY>
+        <layout>StackLayout(0, Vertical, true)</layout>
+        <visible>!control.hasfocus(10)|!control.hasfocus(30)</visible>
+        
+        <control>
+          <description>Now</description>
+          <type>button</type>
+          <id>2</id>
+          <hyperlink>1656544654</hyperlink>
+          <hyperlinkParameter>CPG.Now</hyperlinkParameter>
+          <label>#ClickfinderPG.Translation.Now</label>
+          <textureFocus>hiddenmenu_item_selected.png</textureFocus>
+          <textureNoFocus>-</textureNoFocus>
+          <width>499</width>
+          <height>69</height>
+          <textXOff>62</textXOff>
+          <textYOff>16</textYOff>
+          <onup>99000</onup>
+          <ondown>3</ondown>
+          <onright>10</onright>
+        </control>
+        <control>
+          <description>20:15</description>
+          <type>button</type>
+          <id>3</id>
+          <hyperlink>1656544654</hyperlink>
+          <hyperlinkParameter>CPG.PrimeTime</hyperlinkParameter>
+          <label>#ClickfinderPG.Translation.PrimeTime</label>
+          <textureFocus>hiddenmenu_item_selected.png</textureFocus>
+          <textureNoFocus>-</textureNoFocus>
+          <width>499</width>
+          <height>69</height>
+          <textXOff>62</textXOff>
+          <textYOff>16</textYOff>
+          <onup>2</onup>
+          <ondown>4</ondown>
+          <onright>10</onright>
+        </control>
+        <control>
+          <description>22:00 Movies</description>
+          <type>button</type>
+          <id>4</id>
+          <hyperlink>1656544654</hyperlink>
+          <hyperlinkParameter>CPG.LateTime</hyperlinkParameter>
+          <label>#ClickfinderPG.Translation.LateTime</label>
+          <textureFocus>hiddenmenu_item_selected.png</textureFocus>
+          <textureNoFocus>-</textureNoFocus>
+          <width>499</width>
+          <height>69</height>
+          <textXOff>62</textXOff>
+          <textYOff>16</textYOff>
+          <onup>3</onup>
+          <ondown>5</ondown>
+          <onright>10</onright>
+        </control>
+        <control>
+          <description>AllMovies</description>
+          <type>button</type>
+          <id>5</id>
+          <label>#ClickfinderPG.Translation.allMoviesNow</label>
+          <textureFocus>hiddenmenu_item_selected.png</textureFocus>
+          <textureNoFocus>-</textureNoFocus>
+          <width>499</width>
+          <height>69</height>
+          <textXOff>62</textXOff>
+          <textYOff>16</textYOff>
+          <onup>4</onup>
+          <ondown>6</ondown>
+          <onright>10</onright>
+        </control>
+        <control>
+          <description>Empty button</description>
+          <type>button</type>
+          <id>0</id>
+          <textureFocus>-</textureFocus>
+          <textureNoFocus>-</textureNoFocus>
+          <width>499</width>
+          <height>69</height>
+          <label>-</label>
+          <visible>true</visible>
+        </control>
+        <control>
+          <description>Highlights</description>
+          <type>button</type>
+          <id>6</id>
+          <hyperlink>1656544656</hyperlink>
+          <label>#ClickfinderPG.Translation.Highlights</label>
+          <textureFocus>hiddenmenu_item_selected.png</textureFocus>
+          <textureNoFocus>-</textureNoFocus>
+          <width>499</width>
+          <height>69</height>
+          <textXOff>62</textXOff>
+          <textYOff>16</textYOff>
+          <onup>5</onup>
+          <ondown>7</ondown>
+          <onright>10</onright>
+        </control>
+        <control>
+          <description>Preview</description>
+          <type>button</type>
+          <id>7</id>
+          <hyperlink>1656544654</hyperlink>
+          <hyperlinkParameter>CPG.Preview</hyperlinkParameter>
+          <label>#ClickfinderPG.Translation.Preview</label>
+          <textureFocus>hiddenmenu_item_selected.png</textureFocus>
+          <textureNoFocus>-</textureNoFocus>
+          <width>499</width>
+          <height>69</height>
+          <textXOff>62</textXOff>
+          <textYOff>16</textYOff>
+          <onup>6</onup>
+          <ondown>200</ondown>
+          <onright>10</onright>
+        </control>
+        <control>
+          <description>EpisodesPreview</description>
+          <type>button</type>
+          <id>200</id>
+          <hyperlink>1656544657</hyperlink>
+          <label>#ClickfinderPG.Translation.NewEpisodes</label>
+          <textureFocus>hiddenmenu_item_selected.png</textureFocus>
+          <textureNoFocus>-</textureNoFocus>
+          <width>499</width>
+          <height>69</height>
+          <textXOff>62</textXOff>
+          <textYOff>16</textYOff>
+          <onup>7</onup>
+          <ondown>50</ondown>
+          <onright>10</onright>
+          <visible>plugin.isenabled(MP-TV Series)</visible>
+        </control>
+        <control>
+          <description>Empty button</description>
+          <type>button</type>
+          <id>0</id>
+          <textureFocus>-</textureFocus>
+          <textureNoFocus>-</textureNoFocus>
+          <width>499</width>
+          <height>69</height>
+          <label>-</label>
+          <visible>true</visible>
+        </control>
+        <control>
+          <description>TVGuide</description>
+          <type>button</type>
+          <id>50</id>
+          <label>600</label>
+          <hyperlink>600</hyperlink>
+          <textureFocus>hiddenmenu_item_selected.png</textureFocus>
+          <textureNoFocus>-</textureNoFocus>
+          <width>499</width>
+          <height>69</height>
+          <textXOff>62</textXOff>
+          <textYOff>16</textYOff>
+          <onup>200</onup>
+          <ondown>51</ondown>
+          <onleft>10</onleft>
+          <onright>10</onright>
+          <onleft>30</onleft>
+        </control>
+        <control>
+          <description>Scheduler</description>
+          <type>button</type>
+          <id>51</id>
+          <label>603</label>
+          <hyperlink>601</hyperlink>
+          <textureFocus>hiddenmenu_item_selected.png</textureFocus>
+          <textureNoFocus>-</textureNoFocus>
+          <width>499</width>
+          <height>69</height>
+          <textXOff>62</textXOff>
+          <textYOff>16</textYOff>
+          <onup>50</onup>
+          <ondown>52</ondown>
+          <onright>10</onright>
+          <onleft>30</onleft>
+        </control>
+        <control>
+          <description>TvWishList</description>
+          <type>button</type>
+          <id>52</id>
+          <hyperlink>70943675</hyperlink>
+          <label>TvWishList</label>
+          <textureFocus>hiddenmenu_item_selected.png</textureFocus>
+          <textureNoFocus>-</textureNoFocus>
+          <width>499</width>
+          <height>69</height>
+          <textXOff>62</textXOff>
+          <textYOff>16</textYOff>
+          <onup>51</onup>
+          <ondown>99000</ondown>
+          <onright>10</onright>
+          <visible>plugin.isenabled(TvWishListMP)</visible>
+        </control>
+        <control>
+          <description>MPEIUPDATE:304bc464_97b0_49e5_a6b7_fc9a1b95fa5d</description>
+          <type>button</type>
+          <id>99000</id>
+          <textureFocus>hiddenmenu_item_selected.png</textureFocus>
+          <textureNoFocus>-</textureNoFocus>
+          <width>499</width>
+          <height>69</height>
+          <textXOff>62</textXOff>
+          <textYOff>16</textYOff>
+          <label>#MPEI.Translation.UpdateAvailable.Label</label>
+          <onup>52</onup>
+          <ondown>2</ondown>
+          <onright>10</onright>
+          <onleft>30</onleft>
+          <visible>string.equals(#mpei.304bc464_97b0_49e5_a6b7_fc9a1b95fa5d.haveupdate, true)</visible>
+        </control>
+        
+      </control>
+    </control>
+  </controls>
+</window>

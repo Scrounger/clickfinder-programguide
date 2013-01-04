@@ -1,6 +1,7 @@
 ﻿Imports ClickfinderProgramGuide.TvDatabase
 Imports TvDatabase
 Imports MediaPortal.Configuration
+Imports enrichEPG.TvDatabase
 
 
 Namespace ClickfinderProgramGuide
@@ -82,27 +83,28 @@ Namespace ClickfinderProgramGuide
                 Dim _TvSeriesPoster As String = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & TvMovieProgram.SeriesPosterImage
                 Dim _Cover As String = Config.GetFile(Config.Dir.Thumbs, "") & TvMovieProgram.Cover
                 Dim _ChannelLogo As String = Config.GetFile(Config.Dir.Thumbs, "tv\logos\") & Replace(TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, "/", "_") & ".png"
+                Dim _ClickfinderImage As String = CPGsettings.ClickfinderImagePath & "\" & TvMovieProgram.BildDateiname
 
                 'Sofern kein ClickfinderImage vorhanden, nachladen + KurzKritik
-                If String.IsNullOrEmpty(TvMovieProgram.BildDateiname) Then
-                    Dim _ClickfinderDB As New ClickfinderDB(TvMovieProgram.ReferencedProgram)
-                    If _ClickfinderDB.Count > 0 Then
-                        If CBool(_ClickfinderDB(0).KzBilddateiHeruntergeladen) = True And Not String.IsNullOrEmpty(_ClickfinderDB(0).Bilddateiname) Then
-                            TvMovieProgram.BildDateiname = _ClickfinderDB(0).Bilddateiname
+                'If String.IsNullOrEmpty(TvMovieProgram.BildDateiname) Then
+                '    Dim _ClickfinderDB As New ClickfinderDB(TvMovieProgram.ReferencedProgram)
+                '    If _ClickfinderDB.Count > 0 Then
+                '        If CBool(_ClickfinderDB(0).KzBilddateiHeruntergeladen) = True And Not String.IsNullOrEmpty(_ClickfinderDB(0).Bilddateiname) Then
+                '            TvMovieProgram.BildDateiname = _ClickfinderDB(0).Bilddateiname
 
-                            'KurzKritik aus Clickfinder DB holen, sofern vorhanden
-                            If String.IsNullOrEmpty(TvMovieProgram.KurzKritik) = True Then
-                                If Not String.IsNullOrEmpty(_ClickfinderDB(0).Kurzkritik) Then
-                                    TvMovieProgram.KurzKritik = _ClickfinderDB(0).Kurzkritik
-                                End If
-                            End If
+                '            'KurzKritik aus Clickfinder DB holen, sofern vorhanden
+                '            If String.IsNullOrEmpty(TvMovieProgram.KurzKritik) = True Then
+                '                If Not String.IsNullOrEmpty(_ClickfinderDB(0).Kurzkritik) Then
+                '                    TvMovieProgram.KurzKritik = _ClickfinderDB(0).Kurzkritik
+                '                End If
+                '            End If
 
-                            TvMovieProgram.Persist()
-                        End If
-                    End If
-                End If
+                '            TvMovieProgram.Persist()
+                '        End If
+                '    End If
+                'End If
 
-                Dim _ClickfinderImage As String = ClickfinderDB.ImagePath & "\" & TvMovieProgram.BildDateiname
+                'Dim _ClickfinderImage As String = ClickfinderDB.ImagePath & "\" & TvMovieProgram.BildDateiname
 
                 'Image zunächst auf SenderLogo festlegen
                 Select Case TvMovieProgram.idSeries
@@ -165,11 +167,11 @@ Namespace ClickfinderProgramGuide
                     Case Is = 0
                         'infoLabel format
                         If String.IsNullOrEmpty(TvMovieProgram.ReferencedProgram.EpisodeName) Then
-                            _infoLabel = TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName & vbNewLine & TvMovieProgram.ReferencedProgram.Genre
+                            _infoLabel = TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName & vbNewLine & TvMovieProgram.ReferencedProgram.Genre & " (" & TvMovieProgram.ReferencedProgram.OriginalAirDate.Year & ")"
                         Else
 
                             'If TvMovieProgram.ReferencedProgram.EpisodeName = TvMovieProgram.ReferencedProgram.Title Then
-                            _infoLabel = TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName & vbNewLine & TvMovieProgram.ReferencedProgram.Genre
+                            _infoLabel = TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName & vbNewLine & TvMovieProgram.ReferencedProgram.Genre & " (" & TvMovieProgram.ReferencedProgram.OriginalAirDate.Year & ")"
                             'Else
                             '_infoLabel = TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName & vbNewLine & TvMovieProgram.ReferencedProgram.EpisodeName
                             'End If

@@ -221,6 +221,19 @@
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
+    <control>
+      <description>label</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>30</posX>
+      <posY>344</posY>
+      <width>590</width>
+      <label>#ClickfinderPG.Translation.MovieListNothingFound</label>
+      <font>font10</font>
+      <textcolor>FFdddddd</textcolor>
+      <align>center</align>
+      <visible>!control.isvisible(10)+!control.isvisible(8)</visible>
+    </control>
 
     <control>
       <description>MovieListImage 1</description>
@@ -638,6 +651,19 @@
       <visible></visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
+    </control>
+    <control>
+      <description>label</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>660</posX>
+      <posY>344</posY>
+      <width>590</width>
+      <label>#ClickfinderPG.Translation.HighlightsListNothingFound</label>
+      <font>font10</font>
+      <textcolor>FFdddddd</textcolor>
+      <align>center</align>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
     </control>
 
     <!-- ActionGroup -->

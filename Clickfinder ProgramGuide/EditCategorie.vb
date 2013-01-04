@@ -27,21 +27,9 @@ Public Class EditCategorie
                 MyLog.Debug("[EditCategorie_Load] Image not found")
             End Try
 
-            Dim _sortedBy As String = String.Empty
-            Select Case _Categorie.sortedBy
-                Case Is = Helper.SortMethode.startTime.ToString
-                    _sortedBy = "Startzeit"
-                Case Is = Helper.SortMethode.TvMovieStar.ToString
-                    _sortedBy = "TvMovie Bewertung"
-                Case Is = Helper.SortMethode.RatingStar.ToString
-                    _sortedBy = "Rating Star"
-            End Select
-
-            For i = 0 To CBsortedBy.Items.Count - 1
-                If CBsortedBy.Items.Item(i) = _sortedBy Then
-                    CBsortedBy.Text = CBsortedBy.Items.Item(i)
-                End If
-            Next
+            CBsortedBy.Items.Clear()
+            CBsortedBy.Items.AddRange([Enum].GetNames(GetType(Helper.SortMethode)))
+            CBsortedBy.Text = _Categorie.sortedBy
 
             Dim _groups As List(Of ChannelGroup) = ChannelGroup.ListAll
 

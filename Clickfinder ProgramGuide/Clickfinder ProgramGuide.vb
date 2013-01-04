@@ -28,8 +28,11 @@ Imports Gentle.Framework
 Imports System.Drawing
 Imports MediaPortal.Playlists
 
-Imports ClickfinderProgramGuide.TvDatabase
 Imports System.Timers
+
+Imports enrichEPG.TvDatabase
+Imports System.Text
+Imports enrichEPG.Database
 
 Namespace ClickfinderProgramGuide
     <PluginIcons("ClickfinderProgramGuide.Config.png", "ClickfinderProgramGuide.Config_disable.png")> _
@@ -104,10 +107,12 @@ Namespace ClickfinderProgramGuide
 
 #End Region
 
+
 #Region "GUI Events"
         Public Overrides Sub PreInit()
 
             CPGsettings.Load()
+            enrichEPG.MySettings.SetSettings(Config.GetFile(Config.Dir.Database, ""), CPGsettings.TvMovieImportTvSeriesInfos, CPGsettings.TvMovieImportVideoDatabaseInfos, CPGsettings.TvMovieImportMovingPicturesInfos, enrichEPG.MySettings.LogPath.Client, "ClickfinderProgramGuide.log", , , , True, , )
             Try
                 MyLog.DebugModeOn = CPGsettings.ClickfinderDebugMode
                 MyLog.LogFileName = "ClickfinderProgramGuide.log"
@@ -170,40 +175,40 @@ Namespace ClickfinderProgramGuide
                         GUIWindowManager.ActivateWindow(1656544654, "CPG.LateTime", True)
                     Case Is = "PrimeTimeMovies"
 
-                        Dim _PrimeTime As Date = CPGsettings.PrimeTime
-                        Dim _startTime As Date = Today.AddHours(_PrimeTime.Hour).AddMinutes(_PrimeTime.Minute)
+                        Dim _SqlStringBuilder As New StringBuilder("Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram ")
+                        _SqlStringBuilder.Append("WHERE #CPGFilter AND startTime >= #StartTime AND startTime <= #EndTime ")
+                        _SqlStringBuilder.Append("AND starRating >= 1 AND TvMovieBewertung < 6 ")
+                        _SqlStringBuilder.Append("AND (genre NOT LIKE '%Serie' OR genre NOT LIKE '%Reihe' OR genre NOT LIKE '%Sitcom%' OR genre NOT LIKE '%Zeichentrick%') ")
+                        _SqlStringBuilder.Append("#CPGgroupBy ")
+                        _SqlStringBuilder.Append("#CPGorderBy")
 
-                        ItemsGuiWindow.SetGuiProperties("Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
-                                                        "WHERE startTime >= " & Helper.MySqlDate(_startTime) & " " & _
-                                                        "AND startTime <= " & Helper.MySqlDate(_startTime.AddHours(4)) & " " & _
-                                                        "AND TVMovieBewertung > 1 " & _
-                                                        "AND NOT TVMovieBewertung = 6 " & _
-                                                        "AND starRating > 1 " & _
-                                                        "AND genre NOT LIKE '%Serie%' " & _
-                                                        "AND genre NOT LIKE '%Sitcom%' " & _
-                                                        "AND genre NOT LIKE '%Zeichentrick%' " & _
-                                                        Helper.ORDERBYstartTime, 85)
+                        ItemsGuiWindow.SetGuiProperties(_SqlStringBuilder.ToString, _
+                                                                    CPGsettings.PrimeTime, _
+                                                                    CPGsettings.PrimeTime.AddHours(4), _
+                                                                    SortMethode.startTime.ToString, _
+                                                                    CPGsettings.StandardTvGroup, _
+                                                                    85, CPGsettings.ItemsShowLocalMovies)
 
-                        Translator.SetProperty("#ItemsLeftListLabel", Translation.allMoviesAt & " " & Format(_startTime.Hour, "00") & ":" & Format(_startTime.Minute, "00") & " - " & Format(_startTime.AddHours(4).Hour, "00") & ":" & Format(_startTime.AddHours(4).Minute, "00"))
+                        Translator.SetProperty("#ItemsLeftListLabel", Translation.allMoviesAt & " " & Format(CPGsettings.PrimeTime.Hour, "00") & ":" & Format(CPGsettings.PrimeTime.Minute, "00") & " - " & Format(CPGsettings.PrimeTime.AddHours(4).Hour, "00") & ":" & Format(CPGsettings.PrimeTime.AddHours(4).Minute, "00"))
                         GUIWindowManager.ActivateWindow(1656544653, True)
 
                     Case Is = "LateTimeMovies"
 
-                        Dim _LateTime As Date = CPGsettings.LateTime
-                        Dim _startTime As Date = Today.AddHours(_LateTime.Hour).AddMinutes(_LateTime.Minute)
+                        Dim _SqlStringBuilder As New StringBuilder("Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram ")
+                        _SqlStringBuilder.Append("WHERE #CPGFilter AND startTime >= #StartTime AND startTime <= #EndTime ")
+                        _SqlStringBuilder.Append("AND starRating >= 1 AND TvMovieBewertung < 6 ")
+                        _SqlStringBuilder.Append("AND (genre NOT LIKE '%Serie' OR genre NOT LIKE '%Reihe' OR genre NOT LIKE '%Sitcom%' OR genre NOT LIKE '%Zeichentrick%') ")
+                        _SqlStringBuilder.Append("#CPGgroupBy ")
+                        _SqlStringBuilder.Append("#CPGorderBy")
 
-                        ItemsGuiWindow.SetGuiProperties("Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
-                                                        "WHERE startTime >= " & Helper.MySqlDate(_startTime) & " " & _
-                                                        "AND startTime <= " & Helper.MySqlDate(_startTime.AddHours(4)) & " " & _
-                                                        "AND TVMovieBewertung > 1 " & _
-                                                        "AND NOT TVMovieBewertung = 6 " & _
-                                                        "AND starRating > 1 " & _
-                                                        "AND genre NOT LIKE '%Serie%' " & _
-                                                        "AND genre NOT LIKE '%Sitcom%' " & _
-                                                        "AND genre NOT LIKE '%Zeichentrick%' " & _
-                                                        Helper.ORDERBYstartTime, 85)
+                        ItemsGuiWindow.SetGuiProperties(_SqlStringBuilder.ToString, _
+                                                                    CPGsettings.LateTime, _
+                                                                    CPGsettings.LateTime.AddHours(4), _
+                                                                    SortMethode.startTime.ToString, _
+                                                                    CPGsettings.StandardTvGroup, _
+                                                                    85, CPGsettings.ItemsShowLocalMovies)
 
-                        Translator.SetProperty("#ItemsLeftListLabel", Translation.allMoviesAt & " " & Format(_startTime.Hour, "00") & ":" & Format(_startTime.Minute, "00") & " - " & Format(_startTime.AddHours(4).Hour, "00") & ":" & Format(_startTime.AddHours(4).Minute, "00"))
+                        Translator.SetProperty("#ItemsLeftListLabel", Translation.allMoviesAt & " " & Format(CPGsettings.LateTime.Hour, "00") & ":" & Format(CPGsettings.LateTime.Minute, "00") & " - " & Format(CPGsettings.LateTime.AddHours(4).Hour, "00") & ":" & Format(CPGsettings.LateTime.AddHours(4).Minute, "00"))
                         GUIWindowManager.ActivateWindow(1656544653, True)
                 End Select
 
@@ -310,10 +315,10 @@ Namespace ClickfinderProgramGuide
                     "AND genre NOT LIKE '%Zeichentrick%'"
 
                 'SqlString: Orderby TvMovieBewertung & Limit
-                _SQLstring = Helper.AppendSqlLimit(_SQLstring & Helper.ORDERBYtvMovieBewertung, 25)
+                _SQLstring = Helper.AppendSqlLimit(_SQLstring & Helper.ORDERBYTvMovieStar, 25)
 
                 'List: Daten laden
-                _SQLstring = Replace(_SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idTVMovieProgram, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.needsUpdate, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung, TVMovieProgram.Year ")
+                _SQLstring = Replace(_SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung ")
                 Dim _SQLstate1 As SqlStatement = Broker.GetStatement(_SQLstring)
                 _OverLayMoviesList = ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate1.Execute())
 
@@ -357,7 +362,7 @@ Namespace ClickfinderProgramGuide
                         "AND genre NOT LIKE '%Sitcom%' " & _
                         "AND genre NOT LIKE '%Zeichentrick%'"
 
-                    _SQLstring = Replace(_SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idTVMovieProgram, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.needsUpdate, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung, TVMovieProgram.Year ")
+                    _SQLstring = Replace(_SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung ")
                     Dim _SQLstate2 As SqlStatement = Broker.GetStatement(_SQLstring)
                     _TagesTippList = ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate2.Execute())
                     _TagesTippList = _TagesTippList.GetRange(0, 1)
@@ -425,7 +430,7 @@ Namespace ClickfinderProgramGuide
                                             "AND startTime < " & MySqlDate(Date.Today.AddHours(24).AddHours(0).AddMinutes(0)) & " " & _
                                             "Order BY state DESC"
 
-                _SQLstring = Replace(_SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idTVMovieProgram, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.needsUpdate, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung, TVMovieProgram.Year ")
+                _SQLstring = Replace(_SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung ")
                 Dim _SQLstate As SqlStatement = Broker.GetStatement(_SQLstring)
                 _AllNewEpisodesList = ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate.Execute())
 
@@ -455,10 +460,12 @@ Namespace ClickfinderProgramGuide
 
                 For Each _NewEpisode In tmp
 
+                    Dim _idSeries As Integer = _NewEpisode.idSeries
+
                     Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".Image", Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _NewEpisode.SeriesPosterImage)
                     Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".Title", _NewEpisode.ReferencedProgram.Title)
                     Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".RatingStar", _NewEpisode.ReferencedProgram.StarRating)
-                    Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".CountNewEpisodes", _NewEpisodesList.FindAll(Function(x As TVMovieProgram) x.idSeries = _NewEpisode.idSeries).Count & " " & Translation.NewEpisodeFound)
+                    Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".CountNewEpisodes", _NewEpisodesList.FindAll(Function(x As TVMovieProgram) x.idSeries = _idSeries).Count & " " & Translation.NewEpisodeFound)
                     Translator.SetProperty("#ClickfinderPG.Series" & _ItemCounter & ".Time", _NewEpisode.ReferencedProgram.ReferencedChannel.DisplayName & " - " & CStr(Format(_NewEpisode.ReferencedProgram.StartTime.Hour, "00") & ":" & Format(_NewEpisode.ReferencedProgram.StartTime.Minute, "00")))
 
                     Dim _RecordingStatus As String = GuiLayout.RecordingStatus(_NewEpisode.ReferencedProgram)
@@ -469,7 +476,7 @@ Namespace ClickfinderProgramGuide
                                 "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
                                 "WHERE idSeries = " & _NewEpisode.idSeries & " " & _
                                 "AND local = 0 " & _
-                                "AND episodeName = '" & TVSeriesDB.allowedSigns(_NewEpisode.ReferencedProgram.EpisodeName) & "' " & _
+                                "AND episodeName = '" & MyTvSeries.Helper.allowedSigns(_NewEpisode.ReferencedProgram.EpisodeName) & "' " & _
                                 "ORDER BY state DESC"
 
                         _SQLstring = Helper.AppendSqlLimit(_SQLstring, 1)

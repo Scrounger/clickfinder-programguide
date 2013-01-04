@@ -1,0 +1,601 @@
+﻿<window>
+  <id>1656544656</id>
+  <defaultcontrol>10</defaultcontrol>
+  <allowoverlay>yes</allowoverlay>
+  <define>#header.label:Clickfinder ProgramGuide</define>
+  <controls>
+
+    <import>ClickfinderProgramGuide.window.xml</import>
+    <import>common.time.xml</import>
+    
+    <!-- Tv Movie++ Last UpdateLabel-->
+    <control>
+      <description>TvMovie++ LastUpdate</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>80</posX>
+      <posY>1000</posY>
+      <label>#SettingLastUpdate</label>
+      <font>font10</font>
+      <align>left</align>
+      <textcolor>000000</textcolor>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    
+    <!-- Next / previous Page-->
+    <control>
+      <description>CurrentDate Label</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>770</posX>
+      <posY>1008</posY>
+      <width>380</width>
+      <align>center</align>
+      <label>#CurrentDate</label>
+      <font>fontB11</font>
+      <textcolor>000000</textcolor>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>next Page</description>
+      <type>button</type>
+      <id>132</id>
+      <posX>1100</posX>
+      <posY>998</posY>
+      <label></label>
+      <width>24</width>
+      <height>24</height>
+      <action>14</action>
+      <textureFocus>arrow_round_right_focus.png</textureFocus>
+      <textureNoFocus>arrow_round_right_nofocus.png</textureNoFocus>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>   
+    
+    <control>
+      <description>previous Page</description>
+      <type>button</type>
+      <id>133</id>
+      <posX>796</posX>
+      <posY>998</posY>
+      <label></label>
+      <width>24</width>
+      <height>24</height>
+      <action>15</action>
+      <textureFocus>arrow_round_left_focus.png</textureFocus>
+      <textureNoFocus>arrow_round_left_nofocus.png</textureNoFocus>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+    <!-- MovieList & Controls-->
+    <control>
+      <description>label</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>80</posX>
+      <posY>198</posY>
+      <font>fontB11</font>
+      <label>#ClickfinderPG.Translation.MovieListTitle</label>
+      <textcolor>000000</textcolor>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control>
+      <type>listcontrol</type>
+      <id>10</id>
+      <posX>58</posX>
+      <posY>270</posY>
+      <height>800</height>
+      <width>899</width>
+      <onleft>2</onleft>
+      <onright>30</onright>
+      <scrollOffset>1</scrollOffset>
+      <PinIconHeight>45</PinIconHeight>
+      <PinIconWidth>75</PinIconWidth>
+      <PinIconXOff>810</PinIconXOff>
+      <PinIconYOff>5</PinIconYOff>
+      <itemWidth>40</itemWidth>
+      <itemHeight>30</itemHeight>
+      <textureFocus>listcontrol_item_selected_tv.png</textureFocus>
+      <textureNoFocus>-</textureNoFocus>
+      <textureHeight>116</textureHeight>
+      <IconXOff>20</IconXOff>
+      <IconYOff>13</IconYOff>
+      <textXOff>90</textXOff>
+      <textYOff>0</textYOff>
+      <textXOff2>850</textXOff2>
+      <textYOff2>56</textYOff2>
+      <textXOff3>150</textXOff3>
+      <textYOff3>32</textYOff3>
+      <font3>font10</font3>
+      <textcolor3>ff909090</textcolor3>
+      <keepaspectratio>no</keepaspectratio>
+      <spinCanFocus>no</spinCanFocus>
+      <dimColor>ffffffff</dimColor>
+      <spinPosX>1832</spinPosX>
+      <spinPosY>950</spinPosY>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control>
+      <description>label</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>30</posX>
+      <posY>344</posY>
+      <width>590</width>
+      <label>#ClickfinderPG.Translation.MovieListNothingFound</label>
+      <font>font10</font>
+      <textcolor>FFdddddd</textcolor>
+      <align>center</align>
+      <visible>!control.isvisible(10)+!control.isvisible(8)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>MovieListImage 1</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>80</posX>
+      <posY>278</posY>
+      <width>100</width>
+      <height>100</height>
+      <texture>#MovieListImage1</texture>
+      <filtered>yes</filtered>
+      <centered>yes</centered>
+      <keepaspectratio>yes</keepaspectratio>
+      <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>MovieListRatingStar Image 1</description>
+      <type>imagelist</type>
+      <id>1</id>
+      <posX>800</posX>
+      <posY>310</posY>
+      <width>120</width>
+      <height>10</height>
+      <textureWidth>12</textureWidth>
+      <textureHeight>12</textureHeight>
+      <subitems>
+        <subitem>starblack.png</subitem>
+        <subitem>starblue.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>10</imagesToDraw>
+      <percentage>#MovieListRatingStar1</percentage>
+      <visible>!string.starts(#MovieListRatingStar1,0)+control.isvisible(10)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>MovieListImage 2</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>80</posX>
+      <posY>396</posY>
+      <width>100</width>
+      <height>100</height>
+      <texture>#MovieListImage2</texture>
+      <filtered>yes</filtered>
+      <centered>yes</centered>
+      <keepaspectratio>yes</keepaspectratio>
+      <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>MovieListRatingStar Image 2</description>
+      <type>imagelist</type>
+      <id>1</id>
+      <posX>800</posX>
+      <posY>426</posY>
+      <width>120</width>
+      <height>10</height>
+      <textureWidth>12</textureWidth>
+      <textureHeight>12</textureHeight>
+      <subitems>
+        <subitem>starblack.png</subitem>
+        <subitem>starblue.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>10</imagesToDraw>
+      <percentage>#MovieListRatingStar2</percentage>
+      <visible>!string.starts(#MovieListRatingStar2,0)+control.isvisible(10)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>MovieListImage 3</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>80</posX>
+      <posY>516</posY>
+      <width>100</width>
+      <height>100</height>
+      <texture>#MovieListImage3</texture>
+      <filtered>yes</filtered>
+      <centered>yes</centered>
+      <keepaspectratio>yes</keepaspectratio>
+      <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>MovieListRatingStar Image 3</description>
+      <type>imagelist</type>
+      <id>1</id>
+      <posX>800</posX>
+      <posY>540</posY>
+      <width>120</width>
+      <height>10</height>
+      <textureWidth>12</textureWidth>
+      <textureHeight>12</textureHeight>
+      <subitems>
+        <subitem>starblack.png</subitem>
+        <subitem>starblue.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>10</imagesToDraw>
+      <percentage>#MovieListRatingStar3</percentage>
+      <visible>!string.starts(#MovieListRatingStar3,0)+control.isvisible(10)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>MovieListImage 4</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>80</posX>
+      <posY>634</posY>
+      <width>100</width>
+      <height>100</height>
+      <texture>#MovieListImage4</texture>
+      <filtered>yes</filtered>
+      <centered>yes</centered>
+      <keepaspectratio>yes</keepaspectratio>
+      <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control>
+      <description>MovieListRatingStar Image 4</description>
+      <type>imagelist</type>
+      <id>1</id>
+      <posX>800</posX>
+      <posY>660</posY>
+      <width>120</width>
+      <height>10</height>
+      <textureWidth>12</textureWidth>
+      <textureHeight>12</textureHeight>
+      <subitems>
+        <subitem>starblack.png</subitem>
+        <subitem>starblue.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>10</imagesToDraw>
+      <percentage>#MovieListRatingStar4</percentage>
+      <visible>!string.starts(#MovieListRatingStar4,0)+control.isvisible(10)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>MovieListImage 5</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>80</posX>
+      <posY>750</posY>
+      <width>100</width>
+      <height>100</height>
+      <texture>#MovieListImage5</texture>
+      <filtered>yes</filtered>
+      <centered>yes</centered>
+      <keepaspectratio>yes</keepaspectratio>
+      <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control>
+      <description>MovieListRatingStar Image 5</description>
+      <type>imagelist</type>
+      <id>1</id>
+      <posX>800</posX>
+      <posY>780</posY>
+      <width>120</width>
+      <height>10</height>
+      <textureWidth>12</textureWidth>
+      <textureHeight>12</textureHeight>
+      <subitems>
+        <subitem>starblack.png</subitem>
+        <subitem>starblue.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>10</imagesToDraw>
+      <percentage>#MovieListRatingStar5</percentage>
+      <visible>!string.starts(#MovieListRatingStar5,0)+control.isvisible(10)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control>
+      <description>MovieListImage 6</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>80</posX>
+      <posY>870</posY>
+      <width>100</width>
+      <height>100</height>
+      <texture>#MovieListImage6</texture>
+      <filtered>yes</filtered>
+      <centered>yes</centered>
+      <keepaspectratio>yes</keepaspectratio>
+      <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control>
+      <description>MovieListRatingStar Image 6</description>
+      <type>imagelist</type>
+      <id>1</id>
+      <posX>800</posX>
+      <posY>900</posY>
+      <width>120</width>
+      <height>10</height>
+      <textureWidth>12</textureWidth>
+      <textureHeight>12</textureHeight>
+      <subitems>
+        <subitem>starblack.png</subitem>
+        <subitem>starblue.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>10</imagesToDraw>
+      <percentage>#MovieListRatingStar6</percentage>
+      <visible>!string.starts(#MovieListRatingStar6,0)+control.isvisible(10)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+
+    <!--Tv Movie ListStars-->
+    <control>
+      <description>MovieListTvMovieStar1</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>60</posX>
+      <posY>340</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture>#MovieListTvMovieStar1</texture>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control>
+      <description>MovieListTvMovieStar2</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>60</posX>
+      <posY>460</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture>#MovieListTvMovieStar2</texture>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control>
+      <description>MovieListTvMovieStar3</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>60</posX>
+      <posY>580</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture>#MovieListTvMovieStar3</texture>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control>
+      <description>MovieListTvMovieStar4</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>60</posX>
+      <posY>696</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture>#MovieListTvMovieStar4</texture>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control>
+      <description>MovieListTvMovieStar5</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>60</posX>
+      <posY>810</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture>#MovieListTvMovieStar5</texture>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control>
+      <description>MovieListTvMovieStar6</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>60</posX>
+      <posY>930</posY>
+      <width>48</width>
+      <height>48</height>
+      <texture>#MovieListTvMovieStar6</texture>
+      <centered>no</centered>
+      <keepaspectratio>no</keepaspectratio>
+      <visible>control.isvisible(10)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <!-- HighlightsList & Controls-->
+    <control>
+      <description>label</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>990</posX>
+      <posY>198</posY>
+      <font>fontB11</font>
+      <label>#ClickfinderPG.Translation.HighlightsListTitle</label>
+      <textcolor>000000</textcolor>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+    <control>
+      <type>listcontrol</type>
+      <id>30</id>
+      <onright>2</onright>
+      <onleft>10</onleft>
+      <onup>30</onup>
+      <posX>962</posX>
+      <posY>270</posY>
+      <height>749</height>
+      <width>899</width>
+      <onleft>10</onleft>
+      <onright>2</onright>
+      <scrollOffset>1</scrollOffset>
+      <PinIconHeight>45</PinIconHeight>
+      <PinIconWidth>75</PinIconWidth>
+      <PinIconXOff>810</PinIconXOff>
+      <PinIconYOff>5</PinIconYOff>
+      <itemWidth>74</itemWidth>
+      <itemHeight>74</itemHeight>
+      <textureFocus>listcontrol_item_selected_tv.png</textureFocus>
+      <textureNoFocus>-</textureNoFocus>
+      <textureHeight>86</textureHeight>
+      <IconXOff>20</IconXOff>
+      <IconYOff>6</IconYOff>
+      <textXOff>30</textXOff>
+      <textXOff2>870</textXOff2>
+      <textYOff2>48</textYOff2>
+      <textXOff3>134</textXOff3>
+      <textYOff3>48</textYOff3>
+      <textcolor3>ff909090</textcolor3>
+      <keepaspectratio>yes</keepaspectratio>
+      <spinCanFocus>no</spinCanFocus>
+      <dimColor>ffffffff</dimColor>
+      <spinWidth>30</spinWidth>
+      <spinHeight>30</spinHeight>
+      <spinPosX>1840</spinPosX>
+      <spinPosY>202</spinPosY>
+      <spinAlign>Right</spinAlign>
+      <spinCanFocus>no</spinCanFocus>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+
+    
+    <control>
+      <description>label</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>660</posX>
+      <posY>344</posY>
+      <width>590</width>
+      <label>#ClickfinderPG.Translation.HighlightsListNothingFound</label>
+      <font>mediastream10</font>
+      <textcolor>FFdddddd</textcolor>
+      <align>center</align>
+      <visible>!control.isvisible(30)+!control.isvisible(9)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+    <!-- ActionGroup -->
+    <import>ClickfinderProgramGuide.HiddenMenu.xml</import>
+   
+    <control>
+      <id>1</id>
+      <description>Time Progressbar Background Image</description>
+      <type>image</type>
+      <posX>780</posX>
+      <posY>1026</posY>
+      <width>360</width>
+      <height>12</height>
+      <texture>tvhome_progress_bg.png</texture>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control>
+      <id>11</id>
+      <description>Time Progressbar</description>
+      <type>progress</type>
+      <posX>770</posX>
+      <posY>1027</posY>
+      <width>380</width>
+      <height>10</height>
+      <innerheight>10</innerheight>
+      <visible></visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+    <control>
+      <id>9</id>
+      <type>animation</type>
+      <posX>1376</posX>
+      <posY>570</posY>
+      <width>70</width>
+      <height>70</height>
+      <textures>
+        common.waiting.1.png;common.waiting.2.png;common.waiting.3.png;common.waiting.4.png;common.waiting.5.png;
+        common.waiting.6.png;common.waiting.7.png;common.waiting.8.png
+      </textures>
+      <Duration>0:0:01.5</Duration>
+    </control>
+    <control>
+      <id>8</id>
+      <type>animation</type>
+      <posX>472</posX>
+      <posY>570</posY>
+      <width>70</width>
+      <height>70</height>
+      <textures>
+        common.waiting.1.png;common.waiting.2.png;common.waiting.3.png;common.waiting.4.png;common.waiting.5.png;
+        common.waiting.6.png;common.waiting.7.png;common.waiting.8.png
+      </textures>
+      <Duration>0:0:01.5</Duration>
+          </control>
+    
+    <import>common.overlay.xml</import>
+  </controls>
+</window>

@@ -1,8 +1,8 @@
 ﻿Imports MediaPortal.GUI.Library
 Imports TvDatabase
-Imports ClickfinderProgramGuide.ClickfinderProgramGuide.HighlightsGUIWindow
+Imports ClickfinderProgramGuide.ClickfinderProgramGuide.HighlightsGuiWindow
 Imports Gentle.Framework
-Imports ClickfinderProgramGuide.TvDatabase.TVMovieProgram
+Imports enrichEPG.TvDatabase
 Imports ClickfinderProgramGuide.Helper
 Imports MediaPortal.Configuration
 Imports ClickfinderProgramGuide.TvDatabase
@@ -10,6 +10,7 @@ Imports MediaPortal.Dialogs
 Imports System.Threading
 Imports ClickfinderProgramGuide.ClickfinderProgramGuide.CategoriesGuiWindow
 Imports Gentle.Common
+Imports System.Text
 
 Namespace ClickfinderProgramGuide
     Public Class ItemsGuiWindow
@@ -40,20 +41,32 @@ Namespace ClickfinderProgramGuide
 
 #Region "Members"
         Friend Shared _ItemsCache As New List(Of TVMovieProgram)
-        Friend Shared _ItemsOnLoad As New List(Of TVMovieProgram)
         Friend Shared _CurrentCounter As Integer = 0
+        Private _ThreadLoadItemsFromDatabase As Threading.Thread
         Private _ThreadLeftList As Threading.Thread
         Private _ThreadRightList As Threading.Thread
-        Private _ThreadSortFilterItems As Threading.Thread
-        Private _isAbortException As Boolean = False
-        Friend Shared _CategorieMinRuntime As Integer
-        Friend Shared _idCategorie As Integer = 0
-        Friend Shared _sortedBy As String = String.Empty
-        Private _FilterByGroup As String = String.Empty
+
+        'Friend Shared _idCategorie As Integer = 0
+        'Friend Shared _sortedBy As String = String.Empty
+        'Private _FilterByGroup As String = String.Empty
         Private _LastFocusedIndex As Integer
         Private _LastFocusedControlID As Integer
 
-        Friend Shared _ItemsSqlString As String = String.Empty
+        'Friend Shared _SqlStringOnLoad As String = String.Empty
+
+
+
+        Private Shared m_SqlString As String = String.Empty
+        Private Shared m_StartTime As Date = Nothing
+        Private Shared m_EndTime As Date = Nothing
+        Private Shared m_MinRuntime As Integer = 0
+        Private Shared m_sortedBy As String = String.Empty
+        Private Shared m_TvGroupFilter As String = String.Empty
+        Private Shared m_RemoveLocalMovies As Boolean
+        Private Shared m_RemoveLocalSeries As Boolean
+        Private Shared m_LogCategoryName As String = String.Empty
+        Private Shared m_idCategorie As Integer = 0
+        Private Shared m_CategorieView As CategorieView = CategorieView.none
 
 #End Region
 
@@ -63,12 +76,18 @@ Namespace ClickfinderProgramGuide
         End Sub
         'Public Shared Sub SetGuiProperties(ByVal idprogram As Integer, ByVal PeriodeStartTime As Date, ByVal PeriodeEndTime As Date, Optional ByVal Genre As String = "%")
 
-        Friend Shared Sub SetGuiProperties(ByVal SqlString As String, Optional ByVal CategorieMinRuntime As Integer = 0, Optional ByVal sortedby As String = "startTime", Optional ByVal idCategorie As Integer = 0)
+        Friend Shared Sub SetGuiProperties(ByVal SqlString As String, ByVal startTime As Date, ByVal endTime As Date, Optional ByVal sortedBy As String = "startTime", Optional ByVal TvGroupFilter As String = "All Channels", Optional ByVal MinRunTime As Integer = 0, Optional ByVal RemoveLocalMovies As Boolean = False, Optional ByVal RemoveLocalSeries As Boolean = False, Optional ByVal LogCategoryName As String = "none", Optional ByVal CategoryID As Integer = 0, Optional ByVal CategorieView As CategorieView = CategorieView.none)
+            m_SqlString = SqlString
+            m_LogCategoryName = LogCategoryName
+            m_TvGroupFilter = TvGroupFilter
+            m_sortedBy = sortedBy
+            m_RemoveLocalMovies = RemoveLocalMovies
+            m_RemoveLocalSeries = RemoveLocalSeries
+            m_idCategorie = CategoryID
+            m_StartTime = startTime
+            m_EndTime = endTime
+            m_MinRuntime = MinRunTime
 
-            _CategorieMinRuntime = CategorieMinRuntime
-            _ItemsSqlString = SqlString
-            _sortedBy = sortedby
-            _idCategorie = idCategorie
             _ItemsCache.Clear()
 
         End Sub
@@ -107,25 +126,24 @@ Namespace ClickfinderProgramGuide
 
             MyLog.Info("")
             MyLog.Info("[ItemsGuiWindow] -------------[OPEN]-------------")
+            MyLog.Info("[ItemsGuiWindow] Category: {0} (TvGroup: {1}, sorted by: {2}, ShowLocalMovies: {3}, ShowLocalSeries: {4})", m_LogCategoryName, m_TvGroupFilter, m_sortedBy, Not (m_RemoveLocalMovies), Not (m_RemoveLocalSeries))
 
             GuiLayoutLoading()
 
             GuiLayout.SetSettingLastUpdateProperty()
 
-            _FilterByGroup = CPGsettings.StandardTvGroup
-
             If _ItemsCache.Count = 0 Then
-                Dim _FillLists As New Threading.Thread(AddressOf GetItemsOnLoad)
-                _FillLists.Start()
+                _ThreadLoadItemsFromDatabase = New Threading.Thread(AddressOf LoadItemsFromDatabase)
+                _ThreadLoadItemsFromDatabase.IsBackground = True
+                _ThreadLoadItemsFromDatabase.Start()
             Else
-                Dim _Thread1 As New Thread(AddressOf FillLeftList)
-                Dim _Thread2 As New Thread(AddressOf FillRightList)
-                _Thread1.Start()
-                _Thread2.Start()
+                _ThreadLeftList = New Thread(AddressOf FillLeftList)
+                _ThreadRightList = New Thread(AddressOf FillRightList)
+                _ThreadLeftList.IsBackground = True
+                _ThreadRightList.IsBackground = True
+                _ThreadLeftList.Start()
+                _ThreadRightList.Start()
             End If
-
-            '_Thread1.Join()
-
 
         End Sub
 
@@ -140,14 +158,10 @@ Namespace ClickfinderProgramGuide
 
             AbortRunningThreads()
 
-            If _ThreadSortFilterItems.IsAlive = True Then
-                _ThreadSortFilterItems.Abort()
-            End If
+            MyBase.OnPageDestroy(new_windowId)
 
             Dispose()
             AllocResources()
-
-            MyBase.OnPageDestroy(new_windowId)
         End Sub
 
         Public Overrides Sub OnAction(ByVal action As MediaPortal.GUI.Library.Action)
@@ -191,13 +205,14 @@ Namespace ClickfinderProgramGuide
 
                     Translator.SetProperty("#CurrentPageLabel", Translation.PageLabel & " " & CShort((_CurrentCounter + 12) / 12) & " / " & CShort((_ItemsCache.Count) / 12 + 0.5))
 
-                    MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - Actiontype={0}: page = {1}", action.wID.ToString, CShort((_CurrentCounter + 12) / 12) & " / " & CShort((_ItemsCache.Count) / 12 + 0.5))
+                    MyLog.Info("")
+                    MyLog.Info("[ItemsGuiWindow] [OnAction]: Keypress - Actiontype={0}: page = {1}", action.wID.ToString, CShort((_CurrentCounter + 12) / 12) & " / " & CShort((_ItemsCache.Count) / 12 + 0.5))
+                    MyLog.Info("")
 
                     _ThreadLeftList = New Thread(AddressOf FillLeftList)
                     _ThreadRightList = New Thread(AddressOf FillRightList)
                     _ThreadLeftList.IsBackground = True
                     _ThreadRightList.IsBackground = True
-
                     _ThreadLeftList.Start()
                     _ThreadRightList.Start()
 
@@ -228,13 +243,14 @@ Namespace ClickfinderProgramGuide
 
                     Translator.SetProperty("#CurrentPageLabel", Translation.PageLabel & " " & CShort((_CurrentCounter + 12) / 12) & " / " & CShort((_ItemsCache.Count) / 12 + 0.5))
 
-                    MyLog.[Debug]("[HighlightsGUIWindow] [OnAction]: Keypress - Actiontype={0}: page = {1}", action.wID.ToString, CShort((_CurrentCounter + 12) / 12) & " / " & CShort((_ItemsCache.Count) / 12 + 0.5))
+                    MyLog.Info("")
+                    MyLog.Info("[ItemsGuiWindow] [OnAction]: Keypress - Actiontype={0}: page = {1}", action.wID.ToString, CShort((_CurrentCounter + 12) / 12) & " / " & CShort((_ItemsCache.Count) / 12 + 0.5))
+                    MyLog.Info("")
 
                     _ThreadLeftList = New Thread(AddressOf FillLeftList)
                     _ThreadRightList = New Thread(AddressOf FillRightList)
                     _ThreadLeftList.IsBackground = True
                     _ThreadRightList.IsBackground = True
-
                     _ThreadLeftList.Start()
                     _ThreadRightList.Start()
 
@@ -280,92 +296,67 @@ Namespace ClickfinderProgramGuide
                     End If
                 End If
 
-                'Remote 5 Button (5) -> zu Heute springen
-                If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_5 Then
-                    MyLog.[Debug]("[ItemsGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
 
-                    _CurrentCounter = 0
-                    _PageProgress.Percentage = 0
-
-                    Translator.SetProperty("#CurrentPageLabel", Translation.PageLabel & " " & CShort((_CurrentCounter + 12) / 12) & " / " & CShort((_ItemsCache.Count) / 12 + 0.5))
-                    Try
-
-                 
-                        If _ClickfinderCategorieView = CategorieView.Now And _idCategorie > 0 Then
-
-                            'Translator.SetProperty("#ItemsLeftListLabel", _Categorie.Name & " " & Translation.von & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00") & " - " & Format(PeriodeEndTime.Hour, "00") & ":" & Format(PeriodeEndTime.Minute, "00"))
-                            Dim _string As String = GUIPropertyManager.GetProperty("#ItemsLeftListLabel")
-                            Dim _StringList As New ArrayList(Split(_string, " "))
-                            Dim _lastUpdate As Date = CDate(_StringList(2))
-
-                            If DateDiff(DateInterval.Minute, Now, _lastUpdate) > 5 Then
-                                MsgBox("Refresh: 5min rum")
-
-                                Dim key As New Gentle.Framework.Key(GetType(ClickfinderCategories), True, "idClickfinderCategories", _idCategorie)
-                                Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(key)
-
-                                ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime.AddMinutes(CPGsettings.NowOffset))), "#endTime", MySqlDate(PeriodeEndTime))), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
-                                Translator.SetProperty("#ItemsLeftListLabel", _Categorie.Name & " " & Translation.von & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00") & " - " & Format(PeriodeEndTime.Hour, "00") & ":" & Format(PeriodeEndTime.Minute, "00"))
-                                GUIWindowManager.ActivateWindow(1656544653)
-                            Else
-                                If Not _FilterByGroup = CPGsettings.StandardTvGroup Then
-                                    _FilterByGroup = CPGsettings.StandardTvGroup
-                                    StartSortFilterListThread()
-                                Else
-
-                                    AbortRunningThreads()
-
-                                    _ThreadLeftList = New Thread(AddressOf FillLeftList)
-                                    _ThreadRightList = New Thread(AddressOf FillRightList)
-                                    _ThreadLeftList.IsBackground = True
-                                    _ThreadRightList.IsBackground = True
-
-                                    _ThreadLeftList.Start()
-                                    _ThreadRightList.Start()
-
-                                End If
-                            End If
-                        Else
-                            If Not _FilterByGroup = CPGsettings.StandardTvGroup Then
-                                _FilterByGroup = CPGsettings.StandardTvGroup
-                                StartSortFilterListThread()
-                            Else
-
-                                AbortRunningThreads()
-
-                                _ThreadLeftList = New Thread(AddressOf FillLeftList)
-                                _ThreadRightList = New Thread(AddressOf FillRightList)
-                                _ThreadLeftList.IsBackground = True
-                                _ThreadRightList.IsBackground = True
-
-                                _ThreadLeftList.Start()
-                                _ThreadRightList.Start()
-
-                            End If
-                        End If
-                    Catch ex As Exception
-                        MsgBox(ex.Message)
-                    End Try
-                End If
-
-                'Remote 7 Button (7) -> Quick Filter 1
-                If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_7 Then
-                    MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
-
-                    _FilterByGroup = CPGsettings.QuickTvGroup1
-
-                    StartSortFilterListThread()
-                End If
-
-                'Remote 9 Button (9) -> Quick Filter 2
-                If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_9 Then
-                    MyLog.[Debug]("[CategoriesGuiWindow] [OnAction]: Keypress - KeyChar={0} ; KeyCode={1} ; Actiontype={2}", action.m_key.KeyChar, action.m_key.KeyCode, action.wID.ToString)
-
-                    _FilterByGroup = CPGsettings.QuickTvGroup2
-
-                    StartSortFilterListThread()
+                'Remote 1
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_1 Then
+                    RemoteKeyPressed(1)
                     Return
                 End If
+
+                'Remote 2
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_2 Then
+                    RemoteKeyPressed(2)
+                    Return
+                End If
+
+                'Remote 3
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_3 Then
+                    RemoteKeyPressed(3)
+                    Return
+                End If
+
+                'Remote 4
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_4 Then
+                    RemoteKeyPressed(4)
+                    Return
+                End If
+
+                'Remote 5 Button (5) -> zu Heute springen
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_5 Then
+                    RemoteKeyPressed(5)
+                    Return
+                End If
+
+                'Remote 6
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_6 Then
+                    RemoteKeyPressed(6)
+                    Return
+                End If
+
+                'Remote 7
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_7 Then
+                    RemoteKeyPressed(7)
+                    Return
+                End If
+
+                'Remote 8
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_8 Then
+                    RemoteKeyPressed(8)
+                    Return
+                End If
+
+                'Remote 9
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_9 Then
+                    RemoteKeyPressed(9)
+                    Return
+                End If
+
+                'Remote 0 - complet refresh
+                If action.wID = MediaPortal.GUI.Library.Action.ActionType.REMOTE_0 Then
+                    RemoteKeyPressed(0)
+                    Return
+                End If
+
             End If
 
             MyBase.OnAction(action)
@@ -404,136 +395,224 @@ Namespace ClickfinderProgramGuide
             _LastFocusedControlID = _leftList.GetID
         End Sub
 
+        Private Sub RemoteKeyPressed(ByVal RemoteKey As Integer)
+
+            AbortRunningThreads()
+
+            If Not CPGsettings.ItemsRemoteSortAll(RemoteKey) = String.Empty Then
+                m_sortedBy = CPGsettings.ItemsRemoteSortAll(RemoteKey)
+            End If
+            If Not CPGsettings.ItemsRemoteTvGroupAll(RemoteKey) = String.Empty Then
+                m_TvGroupFilter = CPGsettings.ItemsRemoteTvGroupAll(RemoteKey)
+            End If
+
+            MyLog.Info("")
+
+            _ThreadLoadItemsFromDatabase = New Threading.Thread(AddressOf LoadItemsFromDatabase)
+            _ThreadLoadItemsFromDatabase.IsBackground = True
+            _ThreadLoadItemsFromDatabase.Start()
+        End Sub
 
 #End Region
 
 #Region "Functions"
 
-        Private Sub GetItemsOnLoad()
+        Friend Shared Function GetSqlCPGFilterString(ByVal TvGroupFilter As String, ByVal ShowLocalMovies As Boolean, ByVal ShowLocalSeries As Boolean, ByVal MinRuntime As Integer) As String
+            '#CPGFilter vorbereiten
+            Dim _CPGFilter As New StringBuilder("(SELECT groupmap.idgroup FROM mptvdb.groupmap Inner join mptvdb.channelgroup ON groupmap.idgroup = channelgroup.idGroup WHERE groupmap.idchannel = program.idchannel and channelgroup.groupName = '#FilterTvGroup')")
 
-            Dim _LogLocalSortedBy As String = String.Empty
-            Dim _LogCategorie As String = String.Empty
+            'TvGroup Filter setzen
+            _CPGFilter.Replace("#FilterTvGroup", TvGroupFilter)
 
-            Dim _timer As Date = Date.Now
-
-            MyLog.Debug("")
-            MyLog.Debug("[ItemsGuiWindow] [GetItemsOnLoad]: Thread started")
-
-            _ItemsCache.Clear()
-            _ItemsOnLoad.Clear()
-
-            _CurrentCounter = 0
-
-            Translator.SetProperty("#ItemsGroup", _FilterByGroup)
-
-            Select Case _sortedBy
-                Case Is = SortMethode.startTime.ToString
-                    _LogLocalSortedBy = SortMethode.startTime.ToString
-                    _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
-                        Helper.ORDERBYstartTime
-                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortStartTime)
-                Case Is = SortMethode.TvMovieStar.ToString
-                    _LogLocalSortedBy = SortMethode.TvMovieStar.ToString
-                    _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
-                        Helper.ORDERBYtvMovieBewertung
-                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortTvMovieStar)
-                Case Is = SortMethode.RatingStar.ToString
-                    _LogLocalSortedBy = SortMethode.RatingStar.ToString
-                    _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
-                        Helper.ORDERBYstarRating
-                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortRatingStar)
-                Case Is = SortMethode.Genre.ToString
-                    _LogLocalSortedBy = SortMethode.Genre.ToString
-                    _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
-                        Helper.ORDERBYgerne
-                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortGenre)
-                Case Is = SortMethode.parentalRating.ToString
-                    _LogLocalSortedBy = SortMethode.parentalRating.ToString
-                    _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
-                        Helper.ORDERBYparentalRating
-                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortparentalRating)
-                Case Is = SortMethode.Series.ToString
-                    _LogLocalSortedBy = SortMethode.Series.ToString
-                    _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
-                        "ORDER BY title ASC, seriesNum ASC, episodeNum ASC, startTime ASC"
-                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.Episode)
-                Case Is = SortMethode.Title.ToString
-                    _LogLocalSortedBy = SortMethode.Series.ToString
-                    _ItemsSqlString = Left(_ItemsSqlString, InStr(_ItemsSqlString, "ORDER BY") - 1) & _
-                        "ORDER BY title ASC, starRating DESC, startTime ASC"
-                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.Title)
-            End Select
-
-            _ItemsSqlString = Replace(_ItemsSqlString, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idTVMovieProgram, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.needsUpdate, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung, TVMovieProgram.Year ")
-            Dim _SQLstate As SqlStatement = Broker.GetStatement(_ItemsSqlString)
-            _ItemsOnLoad = ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate.Execute())
-
-            If _idCategorie = 0 Then
-                _LogCategorie = "none"
-            Else
-                Dim key As New Gentle.Framework.Key(GetType(ClickfinderCategories), True, "idClickfinderCategories", _idCategorie)
-                _LogCategorie = Gentle.Framework.Broker.RetrieveInstance(Of ClickfinderCategories)(key).Name
-            End If
-
-            If _ItemsOnLoad.Count > 0 Then
-
-                'Prüfen ob tvChannel, _CategorieMinRuntime 
-                _ItemsOnLoad = _ItemsOnLoad.FindAll(Function(p As TVMovieProgram) p.ReferencedProgram.ReferencedChannel.IsTv = True _
-                                              And DateDiff(DateInterval.Minute, p.ReferencedProgram.StartTime, p.ReferencedProgram.EndTime) > _CategorieMinRuntime)
-
-                'Wenn Now, beendete programe raus
-                If _ClickfinderCategorieView = CategorieView.Now Then
-                    _ItemsOnLoad = _ItemsOnLoad.FindAll(Function(p As TVMovieProgram) p.ReferencedProgram.EndTime > Date.Now)
-                End If
-
-            End If
-
-            MyLog.Debug("[ItemsGuiWindow] [GetItemsOnLoad]: _ItemsOnLoad.Count = {0}, sorted by {1}, group = {2}, Categorie = {3}", _
-                        _ItemsOnLoad.Count, _LogLocalSortedBy, _FilterByGroup, _LogCategorie)
+            'Categorie MinRuntime
+            If MinRuntime > 0 Then _CPGFilter.Append(String.Format(" AND TIMESTAMPDIFF(MINUTE,program.starttime, program.endtime) > {0}", _
+                                                              MinRuntime))
 
             'Falls lokale Movies/Videos nicht angezeigt werden sollen -> aus Array entfernen
-            If CPGsettings.ItemsShowLocalMovies = True Then
-                _ItemsOnLoad.RemoveAll(Function(p As TVMovieProgram) p.local = True And p.idSeries = 0)
-            End If
+            If ShowLocalMovies = True Then _CPGFilter.Append(" AND NOT (TvMovieProgram.local = 1 And TvMovieProgram.idSeries = 0)")
 
             'Falls lokale Serien nicht angezeigt werden sollen -> aus Array entfernen
-            If CPGsettings.ItemsShowLocalSeries = True Then
-                _ItemsOnLoad.RemoveAll(Function(p As TVMovieProgram) p.local = True And p.idSeries > 0)
-            End If
+            If ShowLocalSeries = True Then _CPGFilter.Append(" AND NOT (TvMovieProgram.local = 1 And TvMovieProgram.idSeries > 0)")
 
-            'Duplicate raus: Title,EpisodeName, Channel, StartZeit gleich
-            _ItemsOnLoad = _ItemsOnLoad.Distinct(New TVMovieProgram_GroupByTitleEpisodeNameIdChannelStarTime).ToList
+            'Wenn Now, beendete programe raus
+            If m_CategorieView = CategorieView.Now Then _CPGFilter.Append(" AND program.endTime > NOW()")
 
-            'Standard TvGruppe
-            _ItemsCache = _ItemsOnLoad.FindAll(Function(p As TVMovieProgram) p.ReferencedProgram.ReferencedChannel.GroupNames.Contains(_FilterByGroup))
+            Return _CPGFilter.ToString
 
-            MyLog.[Debug]("[ItemsGuiWindow] [GetItemsOnLoad]: _ItemsCache.Count = {0}, time: {1}s", _ItemsCache.Count, DateDiff(DateInterval.Second, _timer, Date.Now))
-            MyLog.Debug("[ItemsGuiWindow] [GetItemsOnLoad]: Thread finished")
-            MyLog.Debug("")
+        End Function
 
-            Dim _Thread1 As New Thread(AddressOf FillLeftList)
-            Dim _Thread2 As New Thread(AddressOf FillRightList)
-            _Thread1.Start()
-            _Thread2.Start()
+        Private Shared Function GetSqlCPGOrderByString(ByVal sort As String)
+
+            Select Case sort
+
+                Case Is = SortMethode.startTime.ToString
+                    'StartZeit
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortStartTime)
+                    Return Helper.ORDERBYstartTime
+
+                Case Is = SortMethode.TvMovieStar.ToString()
+                    'TvMovieStar
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortTvMovieStar)
+                    Return Helper.ORDERBYTvMovieStar
+
+                Case Is = SortMethode.RatingStar.ToString
+                    'RatingStar
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortRatingStar)
+                    Return Helper.ORDERBYstarRating
+
+                Case Is = SortMethode.Genre.ToString
+                    'Genre
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortGenre)
+                    Return Helper.ORDERBYgerne
+
+                Case Is = SortMethode.Year.ToString
+                    'Jahr
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.Year)
+                    Return Helper.ORDERBYYear
+
+                Case Is = SortMethode.parentalRating.ToString
+                    'FSK
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortparentalRating)
+                    Return Helper.ORDERBYparentalRating
+
+                Case Is = SortMethode.Title.ToString
+                    'Titel
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortTitle)
+                    Return Helper.ORDERBYTitle
+
+                Case Is = SortMethode.Action.ToString
+                    'Action
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.ActionLabel)
+                    Return Helper.ORDERBYAction
+
+                Case Is = SortMethode.Fun.ToString
+                    'Spaß
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.FunLabel)
+                    Return Helper.ORDERBYFun
+
+                Case Is = SortMethode.Erotic.ToString
+                    'Erotik
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.EroticLabel)
+                    Return Helper.ORDERBYErotic
+
+                Case Is = SortMethode.Feelings.ToString
+                    'Gefühl
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.EmotionsLabel)
+                    Return Helper.ORDERBYFeelings
+
+                Case Is = SortMethode.Tension.ToString
+                    'Spannung
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SuspenseLabel)
+                    Return Helper.ORDERBYTension
+
+                Case Is = SortMethode.Requirement.ToString
+                    'Anspruch
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.LevelLabel)
+                    Return Helper.ORDERBYRequirement
+
+                Case Is = SortMethode.Series
+                    'Serien
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " Series")
+                    Return Helper.ORDERBYSeries
+
+                Case Is = SortMethode.Episode
+                    'Episoden
+                    Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.Episode)
+                    Return Helper.ORDERBYEpisode
+                Case Else
+                    Return Helper.ORDERBYstartTime
+            End Select
+        End Function
+
+        Private Sub LoadItemsFromDatabase()
+            Try
+
+                MyLog.Info("")
+                MyLog.Info("[ItemsGuiWindow] [LoadItemsFromDatabase]: Thread started...")
+                Dim _timer As Date = Date.Now
+                Dim _totaltimer As Date = Date.Now
+
+                GuiLayoutLoading()
+
+                _ItemsCache.Clear()
+
+                _CurrentCounter = 0
+
+                Translator.SetProperty("#ItemsGroup", m_TvGroupFilter)
+
+
+                'SQL String bauen
+                Dim _SqlStringBuilder As New StringBuilder(m_SqlString)
+                _SqlStringBuilder.Replace("#StartTime", MySqlDate(m_startTime))
+                _SqlStringBuilder.Replace("#EndTime", MySqlDate(m_endTime))
+                _SqlStringBuilder.Replace("#CPGFilter", GetSqlCPGFilterString(m_TvGroupFilter, m_RemoveLocalMovies, m_RemoveLocalSeries, m_MinRunTime))
+
+                Select Case m_CategorieView
+                    Case Is = CategorieView.Preview
+                        _SqlStringBuilder.Replace("#CPGgroupBy", "GROUP BY program.title, program.episodeName")
+                    Case Is = CategorieView.none
+                        _SqlStringBuilder.Replace("#CPGgroupBy", "GROUP BY program.title, program.episodeName")
+                    Case Is = CategorieView.Day
+                        _SqlStringBuilder.Replace("#CPGgroupBy", "GROUP BY program.title, program.episodeName")
+                    Case Else
+                        'Now, PrimeTime, LateTime
+                        If m_sortedBy = SortMethode.startTime.ToString Then
+                            _SqlStringBuilder.Replace("#CPGgroupBy", "GROUP BY program.title, program.episodeName, program.idChannel, program.startTime")
+                        Else
+                            _SqlStringBuilder.Replace("#CPGgroupBy", "GROUP BY program.title, program.episodeName, program.idChannel")
+                        End If
+                End Select
+
+                'If m_sortedBy = SortMethode.startTime.ToString And Not m_CategorieView = CategorieView.Preview Then
+                '    _SqlStringBuilder.Replace("#CPGgroupBy", "GROUP BY program.title, program.episodeName, program.idChannel, program.startTime")
+                'ElseIf m_CategorieView = CategorieView.Preview Then
+                '    _SqlStringBuilder.Replace("#CPGgroupBy", "GROUP BY program.title, program.episodeName")
+                'Else
+                '    _SqlStringBuilder.Replace("#CPGgroupBy", "GROUP BY program.title, program.episodeName, program.idChannel")
+                'End If
+
+                _SqlStringBuilder.Replace("#CPGorderBy", GetSqlCPGOrderByString(m_sortedBy))
+                _SqlStringBuilder.Replace(" * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung ")
+
+                MyLog.Debug("")
+                MyLog.Debug("[ItemsGuiWindow] [SetGuiProperties]: startTime = {0}, endTime = {1}", m_StartTime, m_EndTime)
+                MyLog.Debug("[ItemsGuiWindow] [SetGuiProperties]: SQLstring = {0}", _SqlStringBuilder.ToString)
+                MyLog.Debug("")
+
+                Dim _SQLstate As SqlStatement = Broker.GetStatement(_SqlStringBuilder.ToString)
+                Dim _ItemsOnLoad As List(Of TVMovieProgram) = ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate.Execute())
+
+                MyLog.Info("[ItemsGuiWindow] [LoadItemsFromDatabase]: {0} entries readed from database in {1}s", _ItemsOnLoad.Count, (DateTime.Now - _timer).TotalSeconds)
+
+                If _ItemsOnLoad.Count > 0 Then
+
+                    _ItemsCache = _ItemsOnLoad
+
+                    _ThreadLeftList = New Thread(AddressOf FillLeftList)
+                    _ThreadRightList = New Thread(AddressOf FillRightList)
+                    _ThreadLeftList.IsBackground = True
+                    _ThreadRightList.IsBackground = True
+                    _ThreadLeftList.Start()
+                    _ThreadRightList.Start()
+                Else
+                    Helper.Notify("Nichts gefunden !")
+                End If
+
+                MyLog.Info("[ItemsGuiWindow] [LoadItemsFromDatabase]: Thread finished in {0}s", (DateTime.Now - _totaltimer).TotalSeconds)
+
+            Catch ex As ThreadAbortException
+                MyLog.Info("[ItemsGuiWindow] [LoadItemsFromDatabase]: --- THREAD ABORTED ---")
+            Catch ex As GentleException
+            Catch ex As Exception
+                MyLog.Error("[ItemsGuiWindow] [LoadItemsFromDatabase]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+            End Try
         End Sub
 
         Private Sub FillLeftList()
 
-            Dim _lastTitle As String = String.Empty
+            Dim _timer As Date = Date.Now
             Dim _ItemCounter As Integer = 0
-            Dim _timeLabel As String = String.Empty
-            Dim _infoLabel As String = String.Empty
-            Dim _startTime As String = String.Empty
-            Dim _imagepath As String = String.Empty
             Dim _ForEndCondition As Integer = 0
-            Dim _program As Program = Nothing
-
-
-            MyLog.Debug("")
-            MyLog.Debug("[ItemsGuiWindow] [FillLeftList]: Thread started")
-
-            _isAbortException = False
-
 
             _leftList.Visible = False
             _leftList.AllocResources()
@@ -556,10 +635,6 @@ Namespace ClickfinderProgramGuide
 
                 For i = _CurrentCounter To _ForEndCondition - 1
                     Try
-
-                        'ProgramDaten über idProgram laden
-                        _program = _ItemsCache.Item(i).ReferencedProgram
-
                         'If String.Equals(_lastTitle, _program.Title & _program.EpisodeName) = False Then
                         _ItemCounter = _ItemCounter + 1
 
@@ -570,21 +645,14 @@ Namespace ClickfinderProgramGuide
                             Helper.CheckSeriesLocalStatus(_TvMovieProgram)
                         End If
 
-                        Translator.SetProperty("#ItemsListRatingStar" & _ItemCounter, GuiLayout.ratingStar(_program))
+                        Translator.SetProperty("#ItemsListRatingStar" & _ItemCounter, GuiLayout.ratingStar(_TvMovieProgram.ReferencedProgram))
                         Translator.SetProperty("#ItemsListTvMovieStar" & _ItemCounter, GuiLayout.TvMovieStar(_TvMovieProgram))
                         Translator.SetProperty("#ItemsListImage" & _ItemCounter, GuiLayout.Image(_TvMovieProgram))
 
-                        AddListControlItem(_leftList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_program))
-
-                        MyLog.Debug("[ItemsGuiWindow] [FillLeftList]: Add ListItem {0} (Title: {1}, Channel: {2}, startTime: {3}, idprogram: {4}, ratingStar: {5}, TvMovieStar: {6}, image: {7})", _
-                                            _ItemCounter, _program.Title, _program.ReferencedChannel.DisplayName, _
-                                            _program.StartTime, _program.IdProgram, _
-                                            GuiLayout.ratingStar(_TvMovieProgram.ReferencedProgram), _
-                                            _TvMovieProgram.TVMovieBewertung, GuiLayout.Image(_TvMovieProgram))
+                        AddListControlItem(_leftList, _TvMovieProgram.idProgram, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieProgram.ReferencedProgram.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram))
 
                     Catch ex2 As ThreadAbortException
-                        MyLog.Debug("[ItemsGuiWindow] [FillLeftList]: --- THREAD ABORTED ---")
-                        MyLog.Debug("")
+                        MyLog.Info("[ItemsGuiWindow] [FillLeftList]: --- THREAD ABORTED ---")
                     Catch ex2 As GentleException
                     Catch ex2 As Exception
                         MyLog.Error("[ItemsGuiWindow] [FillLeftList]: Loop: exception err: {0} stack: {1}", ex2.Message, ex2.StackTrace)
@@ -594,17 +662,14 @@ Namespace ClickfinderProgramGuide
                 _LeftProgressBar.Visible = False
                 _leftList.Visible = True
 
-                MyLog.Debug("[ItemsGuiWindow] [FillLeftList]: Thread finished")
-                MyLog.Debug("")
-
+                MyLog.Info("[ItemsGuiWindow] [FillLeftList]: Thread finished in {0}s", (DateTime.Now - _timer).TotalSeconds)
 
                 GUIListControl.SelectItemControl(GetID, _LastFocusedControlID, _LastFocusedIndex)
                 GUIListControl.FocusControl(GetID, _LastFocusedControlID)
 
 
             Catch ex As ThreadAbortException
-                MyLog.Debug("[ItemsGuiWindow] [FillLeftList]: --- THREAD ABORTED ---")
-                MyLog.Debug("")
+                MyLog.Info("[ItemsGuiWindow] [FillLeftList]: --- THREAD ABORTED ---")
             Catch ex As GentleException
             Catch ex As Exception
                 MyLog.Error("[ItemsGuiWindow] [FillLeftList]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
@@ -612,23 +677,12 @@ Namespace ClickfinderProgramGuide
         End Sub
         Private Sub FillRightList()
 
-            Dim _lastTitle As String = String.Empty
+            Dim _timer As Date = Date.Now
             Dim _ItemCounter As Integer = 6
-            Dim _timeLabel As String = String.Empty
-            Dim _infoLabel As String = String.Empty
-            Dim _startTime As String = String.Empty
-            Dim _imagepath As String = String.Empty
             Dim _ForEndCondition As Integer = 0
-            Dim _program As Program = Nothing
-
-            MyLog.Debug("")
-            MyLog.Debug("[ItemsGuiWindow] [FillRightList]: Thread started")
 
             Translator.SetProperty("#CurrentPageLabel", Translation.PageLabel & " " & CShort((_CurrentCounter + 12) / 12) & " / " & CShort((_ItemsCache.Count) / 12 + 0.5))
             _PageProgress.Percentage = (CShort((_CurrentCounter + 12) / 12)) * 100 / (CShort((_ItemsCache.Count) / 12 + 0.5))
-
-            _isAbortException = False
-
 
             _rightList.Visible = False
             _rightList.AllocResources()
@@ -653,9 +707,6 @@ Namespace ClickfinderProgramGuide
                 For i = _CurrentCounter + 6 To _ForEndCondition - 1
                     Try
 
-                        'ProgramDaten über idProgram laden
-                        _program = _ItemsCache.Item(i).ReferencedProgram
-
                         'If String.Equals(_lastTitle, _program.Title & _program.EpisodeName) = False Then
                         _ItemCounter = _ItemCounter + 1
 
@@ -666,21 +717,14 @@ Namespace ClickfinderProgramGuide
                             Helper.CheckSeriesLocalStatus(_TvMovieProgram)
                         End If
 
-                        Translator.SetProperty("#ItemsListRatingStar" & _ItemCounter, GuiLayout.ratingStar(_program))
+                        Translator.SetProperty("#ItemsListRatingStar" & _ItemCounter, GuiLayout.ratingStar(_TvMovieProgram.ReferencedProgram))
                         Translator.SetProperty("#ItemsListTvMovieStar" & _ItemCounter, GuiLayout.TvMovieStar(_TvMovieProgram))
                         Translator.SetProperty("#ItemsListImage" & _ItemCounter, GuiLayout.Image(_TvMovieProgram))
 
-                        AddListControlItem(_rightList, _program.IdProgram, _program.ReferencedChannel.DisplayName, _program.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_program))
-
-                        MyLog.Debug("[ItemsGuiWindow] [FillRightList]: Add ListItem {0} (Title: {1}, Channel: {2}, startTime: {3}, idprogram: {4}, ratingStar: {5}, TvMovieStar: {6}, image: {7})", _
-                                            _ItemCounter, _program.Title, _program.ReferencedChannel.DisplayName, _
-                                            _program.StartTime, _program.IdProgram, _
-                                            GuiLayout.ratingStar(_TvMovieProgram.ReferencedProgram), _
-                                            _TvMovieProgram.TVMovieBewertung, GuiLayout.Image(_TvMovieProgram))
+                        AddListControlItem(_rightList, _TvMovieProgram.idProgram, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieProgram.ReferencedProgram.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram))
 
                     Catch ex2 As ThreadAbortException
-                        MyLog.Debug("[ItemsGuiWindow] [FillRightList]: --- THREAD ABORTED ---")
-                        MyLog.Debug("")
+                        MyLog.Info("[ItemsGuiWindow] [FillRightList]: --- THREAD ABORTED ---")
                     Catch ex2 As GentleException
                     Catch ex2 As Exception
                         MyLog.Error("[ItemsGuiWindow] [FillRightList]: Loop: exception err: {0} stack: {1}", ex2.Message, ex2.StackTrace)
@@ -690,16 +734,13 @@ Namespace ClickfinderProgramGuide
                 _RightProgressBar.Visible = False
                 _rightList.Visible = True
 
-                MyLog.Debug("[ItemsGuiWindow] [FillRightList]: Thread finished")
-                MyLog.Debug("")
+                MyLog.Info("[ItemsGuiWindow] [FillRightList]: Thread finished in {0}s", (DateTime.Now - _timer).TotalSeconds)
 
                 GUIListControl.SelectItemControl(GetID, _LastFocusedControlID, _LastFocusedIndex)
                 GUIListControl.FocusControl(GetID, _LastFocusedControlID)
 
-
             Catch ex As ThreadAbortException
-                MyLog.Debug("[ItemsGuiWindow] [FillRightList]: --- THREAD ABORTED ---")
-                MyLog.Debug("")
+                MyLog.Info("[ItemsGuiWindow] [FillRightList]: --- THREAD ABORTED ---")
             Catch ex As GentleException
             Catch ex As Exception
                 MyLog.Error("[ItemsGuiWindow] [FillRightList]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
@@ -719,18 +760,22 @@ Namespace ClickfinderProgramGuide
             Try
                 If _ThreadLeftList.IsAlive = True Then
                     _ThreadLeftList.Abort()
-                    _ThreadRightList.Abort()
-                ElseIf _ThreadRightList.IsAlive = True Then
-                    _ThreadRightList.Abort()
-                    _ThreadLeftList.Abort()
-                ElseIf _ThreadLeftList.IsAlive = True And _ThreadRightList.IsAlive = True Then
-                    _ThreadLeftList.Abort()
+                End If
+            Catch ex As Exception
+            End Try
+
+            Try
+                If _ThreadRightList.IsAlive = True Then
                     _ThreadRightList.Abort()
                 End If
+            Catch ex As Exception
+            End Try
 
-            Catch ex3 As Exception ' Ignore this exception
-                'Eventuell auftretende Exception abfangen
-                ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
+            Try
+                If _ThreadLoadItemsFromDatabase.IsAlive = True Then
+                    _ThreadLoadItemsFromDatabase.Abort()
+                End If
+            Catch ex As Exception
             End Try
         End Sub
 
@@ -748,10 +793,237 @@ Namespace ClickfinderProgramGuide
             End If
         End Sub
 
+        'Private Sub StartSortFilterListThread()
+        '    Try
+
+        '        GuiLayoutLoading()
+
+        '        _ThreadSortFilterItems = New Threading.Thread(AddressOf SortFilterListThread)
+        '        _ThreadSortFilterItems.Start()
+
+        '    Catch ex As ThreadAbortException
+        '        MyLog.Debug("[ItemsGuiWindow] [StartSortFilterListThread]: --- THREAD ABORTED ---")
+        '    Catch ex As GentleException
+        '    Catch ex As Exception
+        '        MyLog.Error("")
+        '        MyLog.Error("[ItemsGuiWindow] [StartSortFilterListThread]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+        '    End Try
+
+        'End Sub
+
+        'Private Sub SortFilterListThread()
+        '    Try
+        '        Dim _timer As Date = Date.Now
+
+        '        MyLog.Info("")
+
+        '        Translator.SetProperty("#ItemsGroup", _FilterByGroup)
+
+        '        'TvFilter: inkl. sortieren da aus _ItemsOnLoad
+        '        If Not _LastFilteredBy = _FilterByGroup Then
+        '            _CurrentCounter = 0
+        '            MyLog.Info("[ItemsGuiWindow] [SortFilterListThread]: Thread started... (Filter by TvGroup: {0}, sorted by: {1}, ItemsOnLoad.Count = {2})", _FilterByGroup, _sortedBy, _ItemsOnLoad.Count)
+        '            _ItemsCache.Clear()
+        '            _LastFilteredBy = _FilterByGroup
+        '            _ItemsCache = _ItemsOnLoad.Where(Function(x) x.ReferencedProgram.ReferencedChannel.GroupNames.Contains(_FilterByGroup)).ToList
+
+
+        '            '_ItemsCache = _ItemsOnLoad.FindAll(Function(p As TVMovieProgram) p.ReferencedProgram.ReferencedChannel.GroupNames.Contains(_FilterByGroup))
+        '            MyLog.Info("[ItemsGuiWindow] [SortFilterListThread]: {0} entries filtered by TvGroup: {1} ({2}s)", _ItemsCache.Count, _FilterByGroup, (DateTime.Now - _timer).TotalSeconds)
+
+        '            SortList()
+        '            MyLog.Info("[ItemsGuiWindow] [SortFilterListThread]: Thread finished in {0}s (_ItemsCache.Count = {1})", (DateTime.Now - _timer).TotalSeconds, _ItemsCache.Count)
+        '        ElseIf Not _LastSortedBy = _sortedBy Then
+        '            'Sort: nur sortieren
+        '            _CurrentCounter = 0
+        '            MyLog.Info("[ItemsGuiWindow] [SortFilterListThread]: Thread started... (sorted by: {0}, ItemsCache.Count = {1})", _sortedBy, _ItemsCache.Count)
+        '            _LastSortedBy = _sortedBy
+        '            SortList()
+        '            MyLog.Info("[ItemsGuiWindow] [SortFilterListThread]: Thread finished in {0}s (_ItemsCache.Count = {1})", (DateTime.Now - _timer).TotalSeconds, _ItemsCache.Count)
+        '        Else
+        '            MyLog.Info("[ItemsGuiWindow] [SortFilterListThread]: Nothing to do...")
+        '        End If
+
+        '        SaveSortedByToClickfinderCategories()
+
+        '        _ThreadLeftList = New Thread(AddressOf FillLeftList)
+        '        _ThreadRightList = New Thread(AddressOf FillRightList)
+        '        _ThreadLeftList.IsBackground = True
+        '        _ThreadRightList.IsBackground = True
+        '        _ThreadLeftList.Start()
+        '        _ThreadRightList.Start()
+
+        '    Catch ex As ThreadAbortException
+        '        MyLog.Debug("[ItemsGuiWindow] [SortFilterListThread]: --- THREAD ABORTED ---")
+        '    Catch ex As GentleException
+        '    Catch ex As Exception
+        '        MyLog.Error("")
+        '        MyLog.Error("[ItemsGuiWindow] [SortFilterListThread]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+        '    End Try
+
+        'End Sub
+
+        'Private Sub SortList()
+        '    Dim _timer As Date = Now
+
+        '    Select Case _sortedBy
+        '        Case Is = SortMethode.startTime.ToString
+        '            'StartZeit
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortStartTime)
+        '            _ItemsCache = _ItemsCache.OrderBy(Function(x) x.ReferencedProgram.StartTime).ThenByDescending(Function(x) x.ReferencedProgram.StarRating).ToList
+
+        '        Case Is = SortMethode.TvMovieStar.ToString()
+        '            'TvMovieStar
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortTvMovieStar)
+        '            _ItemsCache = _ItemsCache.OrderByDescending(Function(x) x.TVMovieBewertung).ThenByDescending(Function(x) x.ReferencedProgram.StarRating).ToList
+
+        '        Case Is = SortMethode.RatingStar.ToString
+        '            'RatingStar
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortRatingStar)
+        '            _ItemsCache = _ItemsCache.OrderByDescending(Function(x) x.ReferencedProgram.StarRating).ThenBy(Function(x) x.ReferencedProgram.StartTime.Date).ToList
+
+        '        Case Is = SortMethode.Genre.ToString
+        '            'Genre
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortGenre)
+        '            _ItemsCache = _ItemsCache.OrderBy(Function(x) x.ReferencedProgram.Genre).ThenByDescending(Function(x) x.ReferencedProgram.StarRating).ToList
+
+        '        Case Is = SortMethode.Year.ToString
+        '            'Year
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.Year)
+        '            _ItemsCache = _ItemsCache.OrderByDescending(Function(x) x.ReferencedProgram.OriginalAirDate).ThenByDescending(Function(x) x.ReferencedProgram.StarRating).ToList
+
+        '        Case Is = SortMethode.parentalRating.ToString
+        '            'FSK
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortparentalRating)
+        '            _ItemsCache = _ItemsCache.OrderByDescending(Function(x) x.ReferencedProgram.ParentalRating).ThenByDescending(Function(x) x.ReferencedProgram.StarRating).ToList
+
+        '        Case Is = SortMethode.Title.ToString
+        '            'Titel
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortTitle)
+        '            _ItemsCache = _ItemsCache.OrderBy(Function(x) x.ReferencedProgram.Title).ThenByDescending(Function(x) x.ReferencedProgram.StarRating).ToList
+
+        '        Case Is = SortMethode.Action.ToString
+        '            'Action
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.ActionLabel)
+        '            _ItemsCache = _ItemsCache.OrderByDescending(Function(x) x.Action).ThenByDescending(Function(x) x.ReferencedProgram.StarRating).ToList
+
+        '        Case Is = SortMethode.Fun.ToString
+        '            'Spaß
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.FunLabel)
+        '            _ItemsCache = _ItemsCache.OrderByDescending(Function(x) x.Fun).ThenByDescending(Function(x) x.ReferencedProgram.StarRating).ToList
+
+        '        Case Is = SortMethode.Erotic.ToString
+        '            'Erotik
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.EroticLabel)
+        '            _ItemsCache = _ItemsCache.OrderByDescending(Function(x) x.Erotic).ThenByDescending(Function(x) x.ReferencedProgram.StarRating).ToList
+
+        '        Case Is = SortMethode.Feelings.ToString
+        '            'Gefühl
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.EmotionsLabel)
+        '            _ItemsCache = _ItemsCache.OrderByDescending(Function(x) x.Feelings).ThenByDescending(Function(x) x.ReferencedProgram.StarRating).ToList
+
+        '        Case Is = SortMethode.Tension.ToString
+        '            'Spannung
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SuspenseLabel)
+        '            _ItemsCache = _ItemsCache.OrderByDescending(Function(x) x.Tension).ThenByDescending(Function(x) x.ReferencedProgram.StarRating).ToList
+
+        '        Case Is = SortMethode.Requirement.ToString
+        '            'Anspruch
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.LevelLabel)
+        '            _ItemsCache = _ItemsCache.OrderByDescending(Function(x) x.Requirement).ThenByDescending(Function(x) x.ReferencedProgram.StarRating).ToList
+        '    End Select
+        '    MyLog.Info("[ItemsGuiWindow] [SortFilterListThread]: {0} entries sorted by: {1} ({2}s)", _ItemsCache.Count, _sortedBy, (DateTime.Now - _timer).TotalSeconds)
+        'End Sub
+
+        'Private Function GetSqlOrderBySortClause(ByVal SQLstring As String) As String
+
+        '    'Vorhandene OrderByClause entfernen, sofern vorhanden
+        '    SQLstring = Left(SQLstring, InStr(SQLstring, "ORDER BY") - 1)
+
+        '    Select Case _sortedBy
+        '        Case Is = SortMethode.startTime.ToString
+        '            'StartZeit
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortStartTime)
+        '            SQLstring = SQLstring & Helper.ORDERBYstartTime
+
+        '        Case Is = SortMethode.TvMovieStar.ToString()
+        '            'TvMovieStar
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortTvMovieStar)
+        '            SQLstring = SQLstring & Helper.ORDERBYTvMovieStar
+
+        '        Case Is = SortMethode.RatingStar.ToString
+        '            'RatingStar
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortRatingStar)
+        '            SQLstring = SQLstring & Helper.ORDERBYstarRating
+
+        '        Case Is = SortMethode.Genre.ToString
+        '            'Genre
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortGenre)
+        '            SQLstring = SQLstring & Helper.ORDERBYgerne
+
+        '        Case Is = SortMethode.Year.ToString
+        '            'Jahr
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.Year)
+        '            SQLstring = SQLstring & Helper.ORDERBYYear
+
+        '        Case Is = SortMethode.parentalRating.ToString
+        '            'FSK
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortparentalRating)
+        '            SQLstring = SQLstring & Helper.ORDERBYparentalRating
+
+        '        Case Is = SortMethode.Title.ToString
+        '            'Titel
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortTitle)
+        '            SQLstring = SQLstring & Helper.ORDERBYTitle
+
+        '        Case Is = SortMethode.Action.ToString
+        '            'Action
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.ActionLabel)
+        '            SQLstring = SQLstring & Helper.ORDERBYAction
+
+        '        Case Is = SortMethode.Fun.ToString
+        '            'Spaß
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.FunLabel)
+        '            SQLstring = SQLstring & Helper.ORDERBYFun
+
+        '        Case Is = SortMethode.Erotic.ToString
+        '            'Erotik
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.EroticLabel)
+        '            SQLstring = SQLstring & Helper.ORDERBYErotic
+
+        '        Case Is = SortMethode.Feelings.ToString
+        '            'Gefühl
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.EmotionsLabel)
+        '            SQLstring = SQLstring & Helper.ORDERBYFeelings
+
+        '        Case Is = SortMethode.Tension.ToString
+        '            'Spannung
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SuspenseLabel)
+        '            SQLstring = SQLstring & Helper.ORDERBYTension
+
+        '        Case Is = SortMethode.Requirement.ToString
+        '            'Anspruch
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.LevelLabel)
+        '            SQLstring = SQLstring & Helper.ORDERBYRequirement
+
+        '        Case Is = SortMethode.Series
+        '            'Serien
+        '            Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.Episode)
+        '            SQLstring = SQLstring & Helper.ORDERBYSeries
+        '    End Select
+
+
+        '    Return SQLstring
+
+        'End Function
+
 #End Region
 
 #Region "MediaPortal Funktionen / Dialogs"
         Private Sub ShowItemsContextMenu(ByVal idProgram As Integer)
+            MyLog.Info("")
+            MyLog.Info("[ItemsGuiWindow] [ShowItemsContextMenu]: open")
+            MyLog.Info("")
             Dim dlgContext As GUIDialogMenu = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_MENU, Integer)), GUIDialogMenu)
             dlgContext.Reset()
 
@@ -760,14 +1032,6 @@ Namespace ClickfinderProgramGuide
             'ContextMenu Layout
             dlgContext.SetHeading(_Program.Title)
             dlgContext.ShowQuickNumbers = True
-
-            'Refresh
-            If _ClickfinderCategorieView = CategorieView.Now And _idCategorie > 0 Then
-                Dim lItemRefresh As New GUIListItem
-                lItemRefresh.Label = Translation.Refresh
-                dlgContext.Add(lItemRefresh)
-                lItemRefresh.Dispose()
-            End If
 
             'Sort SubMenu
             Dim lItemSort As New GUIListItem
@@ -794,12 +1058,6 @@ Namespace ClickfinderProgramGuide
                     ShowSortMenu()
                 Case Is = Translation.action
                     ShowActionMenu(_Program)
-                Case Is = Translation.Refresh
-                    Dim key As New Gentle.Framework.Key(GetType(ClickfinderCategories), True, "idClickfinderCategories", _idCategorie)
-                    Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(key)
-                    ItemsGuiWindow.SetGuiProperties(CStr(Replace(Replace(_Categorie.SqlString, "#startTime", MySqlDate(PeriodeStartTime.AddMinutes(CPGsettings.NowOffset))), "#endTime", MySqlDate(PeriodeEndTime))), _Categorie.MinRunTime, _Categorie.sortedBy, _Categorie.idClickfinderCategories)
-                    Translator.SetProperty("#ItemsLeftListLabel", _Categorie.Name & " " & Translation.von & " " & Format(PeriodeStartTime.Hour, "00") & ":" & Format(PeriodeStartTime.Minute, "00") & " - " & Format(PeriodeEndTime.Hour, "00") & ":" & Format(PeriodeEndTime.Minute, "00"))
-                    GUIWindowManager.ActivateWindow(1656544653)
                 Case Is = Translation.Filterby
                     ShowFilterMenu()
             End Select
@@ -808,41 +1066,12 @@ Namespace ClickfinderProgramGuide
             dlgContext.AllocResources()
 
         End Sub
-        
-
-        Private Sub GuiLayoutLoading()
-
-            _leftList.Visible = False
-            _rightList.Visible = False
-
-
-            Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowLeftProgressBar)
-            _ProgressBarThread.Start()
-
-            Dim _ProgressBarThread2 As New Threading.Thread(AddressOf ShowRightProgressBar)
-            _ProgressBarThread2.Start()
-
-            Translator.SetProperty("#CurrentPageLabel", Translation.Loading)
-
-            For i = 1 To 12
-                Translator.SetProperty("#ItemsListTvMovieStar" & i, "")
-                Translator.SetProperty("#ItemsListImage" & i, "")
-                Translator.SetProperty("#ItemsListRatingStar" & i, 0)
-            Next
-
-        End Sub
-        Private Sub SaveSortedByToClickfinderCategories()
-            If Not _idCategorie = 0 And CPGsettings.RemberSortedBy = True Then
-                Dim key As New Gentle.Framework.Key(GetType(ClickfinderCategories), True, "idClickfinderCategories", _idCategorie)
-                Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(key)
-                _Categorie.sortedBy = _sortedBy
-                _Categorie.Persist()
-            End If
-
-        End Sub
-
 
         Private Sub ShowSortMenu()
+            MyLog.Info("")
+            MyLog.Info("[ItemsGuiWindow] [ShowSortMenu]: open")
+            MyLog.Info("")
+
             Dim dlgContext As GUIDialogMenu = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_MENU, Integer)), GUIDialogMenu)
             dlgContext.Reset()
 
@@ -870,6 +1099,11 @@ Namespace ClickfinderProgramGuide
             lItemGenre.Label = Translation.SortGenre
             dlgContext.Add(lItemGenre)
             lItemGenre.Dispose()
+
+            Dim lItemYear As New GUIListItem
+            lItemYear.Label = Translation.Year
+            dlgContext.Add(lItemYear)
+            lItemYear.Dispose()
 
             Dim lItemparentalTitle As New GUIListItem
             lItemparentalTitle.Label = Translation.SortTitle
@@ -915,51 +1149,60 @@ Namespace ClickfinderProgramGuide
 
             Select Case dlgContext.SelectedLabel
                 Case Is = 0
-                    _sortedBy = SortMethode.startTime.ToString
+                    m_sortedBy = SortMethode.startTime.ToString
 
                 Case Is = 1
-                    _sortedBy = SortMethode.TvMovieStar.ToString
+                    m_sortedBy = SortMethode.TvMovieStar.ToString
 
                 Case Is = 2
-                    _sortedBy = SortMethode.RatingStar.ToString
+                    m_sortedBy = SortMethode.RatingStar.ToString
 
                 Case Is = 3
-                    _sortedBy = SortMethode.Genre.ToString
+                    m_sortedBy = SortMethode.Genre.ToString
 
                 Case Is = 4
-                    _sortedBy = SortMethode.Title.ToString
+                    m_sortedBy = SortMethode.Year.ToString
 
                 Case Is = 5
-                    _sortedBy = SortMethode.parentalRating.ToString
+                    m_sortedBy = SortMethode.Title.ToString
 
                 Case Is = 6
-                    _sortedBy = SortMethode.Action.ToString
+                    m_sortedBy = SortMethode.parentalRating.ToString
 
                 Case Is = 7
-                    _sortedBy = SortMethode.Fun.ToString
+                    m_sortedBy = SortMethode.Action.ToString
 
                 Case Is = 8
-                    _sortedBy = SortMethode.Erotic.ToString
+                    m_sortedBy = SortMethode.Fun.ToString
 
                 Case Is = 9
-                    _sortedBy = SortMethode.Tension.ToString
+                    m_sortedBy = SortMethode.Erotic.ToString
 
                 Case Is = 10
-                    _sortedBy = SortMethode.Feelings.ToString
+                    m_sortedBy = SortMethode.Tension.ToString
 
                 Case Is = 11
-                    _sortedBy = SortMethode.Requirement.ToString
+                    m_sortedBy = SortMethode.Feelings.ToString
 
+                Case Is = 12
+                    m_sortedBy = SortMethode.Requirement.ToString
 
             End Select
 
-            StartSortFilterListThread()
+            _ThreadLoadItemsFromDatabase = New Threading.Thread(AddressOf LoadItemsFromDatabase)
+            _ThreadLoadItemsFromDatabase.IsBackground = True
+            _ThreadLoadItemsFromDatabase.Start()
 
             dlgContext.Dispose()
             dlgContext.AllocResources()
 
         End Sub
         Private Sub ShowFilterMenu()
+
+            MyLog.Info("")
+            MyLog.Info("[ItemsGuiWindow] [ShowFilterMenu]: open")
+            MyLog.Info("")
+
             Dim dlgContext As GUIDialogMenu = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_MENU, Integer)), GUIDialogMenu)
             dlgContext.Reset()
 
@@ -980,141 +1223,50 @@ Namespace ClickfinderProgramGuide
 
             If Not String.IsNullOrEmpty(dlgContext.SelectedLabelText) Then
 
-                Dim _Thread1 As New Thread(AddressOf FillLeftList)
-                Dim _Thread2 As New Thread(AddressOf FillRightList)
+                m_TvGroupFilter = dlgContext.SelectedLabelText
 
-                _FilterByGroup = dlgContext.SelectedLabelText
-
-                StartSortFilterListThread()
+                _ThreadLoadItemsFromDatabase = New Threading.Thread(AddressOf LoadItemsFromDatabase)
+                _ThreadLoadItemsFromDatabase.IsBackground = True
+                _ThreadLoadItemsFromDatabase.Start()
 
             End If
-
 
             dlgContext.Dispose()
             dlgContext.AllocResources()
 
         End Sub
 
-        Private Sub StartSortFilterListThread()
-            Try
+        Private Sub GuiLayoutLoading()
 
-                GuiLayoutLoading()
+            _leftList.Visible = False
+            _rightList.Visible = False
 
-                MyLog.Debug("[ItemsGuiWindow] [StartSortFilterListThread]: Filter by TvGroup: {0}, sorted by: {1}", _FilterByGroup, _sortedBy)
 
-                _ThreadSortFilterItems = New Threading.Thread(AddressOf SortFilterListThread)
-                _ThreadSortFilterItems.Start()
+            Dim _ProgressBarThread As New Threading.Thread(AddressOf ShowLeftProgressBar)
+            _ProgressBarThread.Start()
 
-            Catch ex As ThreadAbortException
-                MyLog.Debug("[ItemsGuiWindow] [StartSortFilterListThread]: --- THREAD ABORTED ---")
-                MyLog.Debug("")
-            Catch ex As GentleException
-            Catch ex As Exception
-                MyLog.Error("[ItemsGuiWindow] [StartSortFilterListThread]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
-            End Try
+            Dim _ProgressBarThread2 As New Threading.Thread(AddressOf ShowRightProgressBar)
+            _ProgressBarThread2.Start()
+
+            Translator.SetProperty("#CurrentPageLabel", Translation.Loading)
+
+            For i = 1 To 12
+                Translator.SetProperty("#ItemsListTvMovieStar" & i, "")
+                Translator.SetProperty("#ItemsListImage" & i, "")
+                Translator.SetProperty("#ItemsListRatingStar" & i, 0)
+            Next
+
+        End Sub
+        Private Sub SaveSortedByToClickfinderCategories()
+            If Not m_idCategorie = 0 And CPGsettings.RemberSortedBy = True Then
+                Dim key As New Gentle.Framework.Key(GetType(ClickfinderCategories), True, "idClickfinderCategories", m_idCategorie)
+                Dim _Categorie As ClickfinderCategories = ClickfinderCategories.Retrieve(key)
+                _Categorie.sortedBy = m_sortedBy
+                _Categorie.Persist()
+            End If
 
         End Sub
 
-        Private Sub SortFilterListThread()
-            Try
-
-       
-                'Dim _GuiLayoutLoading As New Threading.Thread(AddressOf GuiLayoutLoading)
-                '_GuiLayoutLoading.Start()
-
-                Translator.SetProperty("#ItemsGroup", _FilterByGroup)
-
-                _ItemsCache.Clear()
-
-                'TvFilter
-                _ItemsCache = _ItemsOnLoad.FindAll(Function(p As TVMovieProgram) p.ReferencedProgram.ReferencedChannel.GroupNames.Contains(_FilterByGroup))
-
-                'Duplicate raus: Title,EpisodeName, Channel, StartZeit
-                _ItemsCache = _ItemsCache.Distinct(New TVMovieProgram_GroupByTitleEpisodeNameIdChannelStarTime).ToList
-
-                Select Case _sortedBy
-                    Case Is = SortMethode.startTime.ToString
-                        'StartZeit
-                        Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortStartTime)
-                        _ItemsCache.Sort(New TVMovieProgram_SortByStartTime)
-
-                    Case Is = SortMethode.TvMovieStar.ToString()
-                        'TvMovieStar
-                        Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortTvMovieStar)
-                        _ItemsCache.Sort(New TVMovieProgram_SortByTvMovieBewertung)
-
-                    Case Is = SortMethode.RatingStar.ToString
-                        'RatingStar
-                        Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortRatingStar)
-                        _ItemsCache.Sort(New TVMovieProgram_SortByRating)
-
-                    Case Is = SortMethode.Genre.ToString
-                        'Genre
-                        Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortGenre)
-                        _ItemsCache.Sort(New TVMovieProgram_SortByGenre)
-
-                    Case Is = SortMethode.parentalRating.ToString
-                        'FSK
-                        Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortparentalRating)
-                        _ItemsCache.Sort(New TVMovieProgram_SortByParentalRating)
-
-                    Case Is = SortMethode.Title.ToString
-                        'Titel
-                        Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SortTitle)
-                        _ItemsCache.Sort(New TVMovieProgram_SortByTitle)
-
-                    Case Is = SortMethode.Action.ToString
-                        'Action
-                        Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.ActionLabel)
-                        _ItemsCache.Sort(New TVMovieProgram_SortByAction)
-
-                    Case Is = SortMethode.Fun.ToString
-                        'Spaß
-                        Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.FunLabel)
-                        _ItemsCache.Sort(New TVMovieProgram_SortByFun)
-
-                    Case Is = SortMethode.Erotic.ToString
-                        'Erotik
-                        Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.EroticLabel)
-                        _ItemsCache.Sort(New TVMovieProgram_SortByErotic)
-
-                    Case Is = SortMethode.Feelings.ToString
-                        'Gefühl
-                        Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.EmotionsLabel)
-                        _ItemsCache.Sort(New TVMovieProgram_SortByFeelings)
-
-                    Case Is = SortMethode.Tension.ToString
-                        'Spannung
-                        Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.SuspenseLabel)
-                        _ItemsCache.Sort(New TVMovieProgram_SortByTension)
-
-                    Case Is = SortMethode.Requirement.ToString
-                        'Anspruch
-                        Translator.SetProperty("#ItemsRightListLabel", Translation.SortbyGuiItems & " " & Translation.LevelLabel)
-                        _ItemsCache.Sort(New TVMovieProgram_SortByRequirement)
-
-                End Select
-
-                _CurrentCounter = 0
-
-                SaveSortedByToClickfinderCategories()
-
-                _ThreadLeftList = New Thread(AddressOf FillLeftList)
-                _ThreadRightList = New Thread(AddressOf FillRightList)
-
-                _ThreadLeftList.Start()
-                _ThreadRightList.Start()
-
-
-            Catch ex As ThreadAbortException
-                MyLog.Debug("[ItemsGuiWindow] [SortFilterListThread]: --- THREAD ABORTED ---")
-                MyLog.Debug("")
-            Catch ex As GentleException
-            Catch ex As Exception
-                MyLog.Error("[ItemsGuiWindow] [SortFilterListThread]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
-            End Try
-
-        End Sub
 
 #End Region
 

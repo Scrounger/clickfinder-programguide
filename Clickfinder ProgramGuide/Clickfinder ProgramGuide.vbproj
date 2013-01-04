@@ -63,34 +63,41 @@
     <Reference Include="Common.Utils, Version=1.2.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\Common.Utils.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Configuration, Version=1.2.2.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\Configuration.exe</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Core, Version=1.2.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\Core.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Databases, Version=1.2.2.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\Databases.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Dialogs, Version=1.2.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\plugins\Windows\Dialogs.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="enrichEPG, Version=1.2.5.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="enrichEPG, Version=1.2.9.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\enrichEPG.dll</HintPath>
     </Reference>
     <Reference Include="Gentle.Common, Version=1.5.0.29111, Culture=neutral, PublicKeyToken=80b5de62e27be49b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\Gentle.Common.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Gentle.Framework, Version=1.5.0.29111, Culture=neutral, PublicKeyToken=80b5de62e27be49b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\Gentle.Framework.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -109,30 +116,37 @@
     <Reference Include="TvBusinessLayer, Version=1.2.2.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\TvBusinessLayer.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="TvControl, Version=1.2.3.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\TvControl.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="TVDatabase, Version=1.2.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\TVDatabase.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="TvLibrary.Interfaces, Version=1.2.3.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\TvLibrary.Interfaces.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="TvPlugin, Version=1.2.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\plugins\Windows\TvPlugin.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Utils, Version=1.2.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\Utils.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="WindowPlugins, Version=1.2.2.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\plugins\Windows\WindowPlugins.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -156,8 +170,6 @@
     <Compile Include="Class\GUIDialogSelect2Custom.vb" />
     <Compile Include="Class\Translation.vb" />
     <Compile Include="Class\Translator.vb" />
-    <Compile Include="Class\TVMovieProgram.vb" />
-    <Compile Include="Class\TvMovieSeriesMapping.vb" />
     <Compile Include="Class\TVSeriesDB.vb" />
     <Compile Include="Clickfinder ProgramGuide.vb" />
     <Compile Include="EditCategorie.Designer.vb">
@@ -225,6 +237,96 @@
     <None Include="Grafiken\arrow Down 48.png" />
     <None Include="Grafiken\arrow UP 48.png" />
     <Content Include="MediaPortal\language\ClickfinderPG\de.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\ClickfinderProgramGuide.HiddenMenu.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\ClickfinderProgramGuide.window.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\ClickfinderProgramGuide.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\ClickfinderProgramGuideCategories.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\ClickfinderProgramGuideDetail.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\ClickfinderProgramGuideDialogSelect2.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\ClickfinderProgramGuideEpisodePreview.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\ClickfinderProgramGuideHighlights.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\ClickfinderProgramGuideItems.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\ClickfinderProgramGuideSetting.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\Media\ClickfinderPGTvWish.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\Media\ClickfinderPG_R1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\Media\ClickfinderPG_R2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\Media\ClickfinderPG_R3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\Media\ClickfinderPG_R4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\Media\ClickfinderPG_R5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\Media\ClickfinderPG_R6.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\Media\ClickfinderPG_recOnce.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\Media\ClickfinderPG_recSeries.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\Media\hover_ClickfinderProgramGuide.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\Media\icon_ClickfinderProgramGuide.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\Media\Logos\ClickfinderPG\dolby.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\Media\Logos\ClickfinderPG\FSK0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\Media\Logos\ClickfinderPG\FSK12.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\Media\Logos\ClickfinderPG\FSK18.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\Media\Logos\ClickfinderPG\FSK6.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\Media\Logos\ClickfinderPG\hd.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\Media\Logos\ClickfinderPG\sd.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\Media\Logos\ClickfinderPG\stereo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MediaPortal\Skin\Titan\Media\panel_Clickfinder ProgramGuide.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Skin Mods\Default Wide\BasicHomeExtraInfos.xml">

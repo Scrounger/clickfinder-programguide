@@ -276,7 +276,7 @@
       <type>button</type>
       <id>548</id>
       <hyperlink>70943675</hyperlink>
-      <hyperlinkParameter>eq(#currentmoduleid,'1656544652'), 'NEWTVWISH//EXPRESSION=(title like \'#EpisodesPreviewTitle\' ) AND (description like \'%Neue Folge: %\')//NAME=CPG: #EpisodesPreviewTitle: #ClickfinderPG.Translation.NewEpisodes</hyperlinkParameter>
+      <hyperlinkParameter>eq(#currentmoduleid,'1656544652'), 'NEWTVWISH//EXPRESSION=(title like '#EpisodesPreviewTitle' ) AND (description like '%Neue Folge: %')//NAME=CPG: #EpisodesPreviewTitle: #ClickfinderPG.Translation.NewEpisodes</hyperlinkParameter>
       <posX>1150</posX>
       <posY>74</posY>
       <width>104</width>

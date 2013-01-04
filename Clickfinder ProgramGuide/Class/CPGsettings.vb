@@ -49,7 +49,6 @@ Namespace ClickfinderProgramGuide
         Private Shared m_PreviewMaxDays As Setting
         Private Shared m_PreviewMinTvMovieRating As Setting
 
-        Private Shared m_NowOffset As Setting
 
         Private Shared m_ItemsShowLocalMovies As Setting
         Private Shared m_ItemsShowLocalSeries As Setting
@@ -71,8 +70,6 @@ Namespace ClickfinderProgramGuide
         Private Shared m_CategorieShowLocalMovies As Setting
         Private Shared m_CategorieShowLocalSeries As Setting
 
-
-
         Private Shared m_DetailUseSeriesDescribtion As Setting
         Private Shared m_DetailSeriesImage As Setting
 
@@ -86,7 +83,34 @@ Namespace ClickfinderProgramGuide
         Private Shared m_OverlayTvGroup As Setting
         Private Shared m_OverlayUpdateTimer As Setting
 
-        Public Shared Property OverviewShowMoviesAfter() As Double
+
+        'Remote Control Items Sort:
+        Private Shared m_ItemsRemoteSortAll As New Dictionary(Of Integer, Setting)
+        Private Shared m_ItemsRemoteSort1 As Setting
+        Private Shared m_ItemsRemoteSort2 As Setting
+        Private Shared m_ItemsRemoteSort3 As Setting
+        Private Shared m_ItemsRemoteSort4 As Setting
+        Private Shared m_ItemsRemoteSort5 As Setting
+        Private Shared m_ItemsRemoteSort6 As Setting
+        Private Shared m_ItemsRemoteSort7 As Setting
+        Private Shared m_ItemsRemoteSort8 As Setting
+        Private Shared m_ItemsRemoteSort9 As Setting
+        Private Shared m_ItemsRemoteSort0 As Setting
+
+        'Remote Control Items FilterbyGroup:
+        Private Shared m_ItemsRemoteTvGroupAll As New Dictionary(Of Integer, Setting)
+        Private Shared m_ItemsRemoteTvGroup1 As Setting
+        Private Shared m_ItemsRemoteTvGroup2 As Setting
+        Private Shared m_ItemsRemoteTvGroup3 As Setting
+        Private Shared m_ItemsRemoteTvGroup4 As Setting
+        Private Shared m_ItemsRemoteTvGroup5 As Setting
+        Private Shared m_ItemsRemoteTvGroup6 As Setting
+        Private Shared m_ItemsRemoteTvGroup7 As Setting
+        Private Shared m_ItemsRemoteTvGroup8 As Setting
+        Private Shared m_ItemsRemoteTvGroup9 As Setting
+        Private Shared m_ItemsRemoteTvGroup0 As Setting
+
+        Friend Shared Property OverviewShowMoviesAfter() As Double
             Get
                 Return m_OverviewShowMoviesAfter.Value
             End Get
@@ -94,7 +118,7 @@ Namespace ClickfinderProgramGuide
                 m_OverviewShowMoviesAfter.Value = value
             End Set
         End Property
-        Public Shared Property OverviewShowHighlightsAfter() As Double
+        Friend Shared Property OverviewShowHighlightsAfter() As Double
             Get
                 Return m_OverviewShowHighlightsAfter.Value
             End Get
@@ -102,7 +126,7 @@ Namespace ClickfinderProgramGuide
                 m_OverviewShowHighlightsAfter.Value = value
             End Set
         End Property
-        Public Shared Property OverviewHighlightsMinRuntime() As Long
+        Friend Shared Property OverviewHighlightsMinRuntime() As Long
             Get
                 Return m_OverviewHighlightsMinRuntime.Value
             End Get
@@ -110,7 +134,7 @@ Namespace ClickfinderProgramGuide
                 m_OverviewHighlightsMinRuntime.Value = value
             End Set
         End Property
-        Public Shared Property OverviewShowLocalMovies() As Boolean
+        Friend Shared Property OverviewShowLocalMovies() As Boolean
             Get
                 Return m_OverviewShowLocalMovies.Value
             End Get
@@ -118,7 +142,7 @@ Namespace ClickfinderProgramGuide
                 m_OverviewShowLocalMovies.Value = value
             End Set
         End Property
-        Public Shared Property OverviewMaxDays() As Double
+        Friend Shared Property OverviewMaxDays() As Double
             Get
                 Return m_OverviewMaxDays.Value
             End Get
@@ -126,7 +150,7 @@ Namespace ClickfinderProgramGuide
                 m_OverviewMaxDays.Value = value
             End Set
         End Property
-        Public Shared Property OverviewShowTagesTipp() As Boolean
+        Friend Shared Property OverviewShowTagesTipp() As Boolean
             Get
                 Return m_OverviewShowTagesTipp.Value
             End Get
@@ -134,7 +158,7 @@ Namespace ClickfinderProgramGuide
                 m_OverviewShowTagesTipp.Value = value
             End Set
         End Property
-        Public Shared Property OverviewMovieSort() As String
+        Friend Shared Property OverviewMovieSort() As String
             Get
                 Return m_OverviewMovieSort.Value
             End Get
@@ -143,7 +167,7 @@ Namespace ClickfinderProgramGuide
             End Set
         End Property
 
-        Public Shared Property StandardTvGroup() As String
+        Friend Shared Property StandardTvGroup() As String
             Get
                 Return m_StandardTvGroup.Value
             End Get
@@ -151,7 +175,7 @@ Namespace ClickfinderProgramGuide
                 m_StandardTvGroup.Value = value
             End Set
         End Property
-        Public Shared Property QuickTvGroup1() As String
+        Friend Shared Property QuickTvGroup1() As String
             Get
                 Return m_QuickTvGroup1.Value
             End Get
@@ -159,7 +183,7 @@ Namespace ClickfinderProgramGuide
                 m_QuickTvGroup1.Value = value
             End Set
         End Property
-        Public Shared Property QuickTvGroup2() As String
+        Friend Shared Property QuickTvGroup2() As String
             Get
                 Return m_QuickTvGroup2.Value
             End Get
@@ -168,15 +192,8 @@ Namespace ClickfinderProgramGuide
             End Set
         End Property
 
-        Public Shared Property pluginTvWishList() As Boolean
-            Get
-                Return m_pluginTvWishList.Value
-            End Get
-            Set(ByVal value As Boolean)
-                m_pluginTvWishList.Value = value
-            End Set
-        End Property
-        Public Shared Property pluginClickfinderProgramGuide() As Boolean
+        
+        Friend Shared Property pluginClickfinderProgramGuide() As Boolean
             Get
                 Return m_pluginClickfinderProgramGuide.Value
             End Get
@@ -185,7 +202,7 @@ Namespace ClickfinderProgramGuide
             End Set
         End Property
 
-        Public Shared Property PreviewMaxDays() As Integer
+        Friend Shared Property PreviewMaxDays() As Integer
             Get
                 Return m_PreviewMaxDays.Value
             End Get
@@ -193,7 +210,7 @@ Namespace ClickfinderProgramGuide
                 m_PreviewMaxDays.Value = value
             End Set
         End Property
-        Public Shared Property PreviewMinTvMovieRating() As Integer
+        Friend Shared Property PreviewMinTvMovieRating() As Integer
             Get
                 Return m_PreviewMinTvMovieRating.Value
             End Get
@@ -202,17 +219,10 @@ Namespace ClickfinderProgramGuide
             End Set
         End Property
 
-        Public Shared Property NowOffset() As Double
-            Get
-                Return m_NowOffset.Value
-            End Get
-            Set(ByVal value As Double)
-                m_NowOffset.Value = value
-            End Set
-        End Property
+        
 
 
-        Public Shared Property ItemsShowLocalMovies() As Boolean
+        Friend Shared Property ItemsShowLocalMovies() As Boolean
             Get
                 Return m_ItemsShowLocalMovies.Value
             End Get
@@ -220,7 +230,7 @@ Namespace ClickfinderProgramGuide
                 m_ItemsShowLocalMovies.Value = value
             End Set
         End Property
-        Public Shared Property ItemsShowLocalSeries() As Boolean
+        Friend Shared Property ItemsShowLocalSeries() As Boolean
             Get
                 Return m_ItemsShowLocalSeries.Value
             End Get
@@ -229,7 +239,7 @@ Namespace ClickfinderProgramGuide
             End Set
         End Property
 
-        Public Shared Property RemberSortedBy() As Boolean
+        Friend Shared Property RemberSortedBy() As Boolean
             Get
                 Return m_RemberSortedBy.Value
             End Get
@@ -238,7 +248,7 @@ Namespace ClickfinderProgramGuide
             End Set
         End Property
 
-        Public Shared Property PrimeTime() As Date
+        Friend Shared Property PrimeTime() As Date
             Get
                 Return m_PrimeTime.Value
             End Get
@@ -246,7 +256,7 @@ Namespace ClickfinderProgramGuide
                 m_PrimeTime.Value = value
             End Set
         End Property
-        Public Shared Property LateTime() As Date
+        Friend Shared Property LateTime() As Date
             Get
                 Return m_LateTime.Value
             End Get
@@ -254,7 +264,7 @@ Namespace ClickfinderProgramGuide
                 m_LateTime.Value = value
             End Set
         End Property
-        Public Shared Property UseSportLogos() As Boolean
+        Friend Shared Property UseSportLogos() As Boolean
             Get
                 Return m_UseSportLogos.Value
             End Get
@@ -262,7 +272,7 @@ Namespace ClickfinderProgramGuide
                 m_UseSportLogos.Value = value
             End Set
         End Property
-        Public Shared Property EpisodenScanner() As String
+        Friend Shared Property EpisodenScanner() As String
             Get
                 Return m_EpisodenScanner.Value
             End Get
@@ -271,7 +281,7 @@ Namespace ClickfinderProgramGuide
             End Set
         End Property
 
-        Public Shared Property ClickfinderDatabasePath() As String
+        Friend Shared Property ClickfinderDatabasePath() As String
             Get
                 Return m_ClickfinderDatabasePath.Value
             End Get
@@ -279,7 +289,7 @@ Namespace ClickfinderProgramGuide
                 m_ClickfinderDatabasePath.Value = value
             End Set
         End Property
-        Public Shared Property ClickfinderImagePath() As String
+        Friend Shared Property ClickfinderImagePath() As String
             Get
                 Return m_ClickfinderImagePath.Value
             End Get
@@ -287,7 +297,7 @@ Namespace ClickfinderProgramGuide
                 m_ClickfinderImagePath.Value = value
             End Set
         End Property
-        Public Shared Property ClickfinderPluginName() As String
+        Friend Shared Property ClickfinderPluginName() As String
             Get
                 Return m_ClickfinderPluginName.Value
             End Get
@@ -295,7 +305,7 @@ Namespace ClickfinderProgramGuide
                 m_ClickfinderPluginName.Value = value
             End Set
         End Property
-        Public Shared Property ClickfinderDebugMode() As Boolean
+        Friend Shared Property ClickfinderDebugMode() As Boolean
             Get
                 Return m_ClickfinderDebugMode.Value
             End Get
@@ -303,7 +313,7 @@ Namespace ClickfinderProgramGuide
                 m_ClickfinderDebugMode.Value = value
             End Set
         End Property
-        Public Shared Property ClickfinderStartGui() As String
+        Friend Shared Property ClickfinderStartGui() As String
             Get
                 Return m_ClickfinderStartGui.Value
             End Get
@@ -311,10 +321,10 @@ Namespace ClickfinderProgramGuide
                 m_ClickfinderStartGui.Value = value
             End Set
         End Property
-        
 
 
-        Public Shared Property CategorieShowLocalMovies() As Boolean
+
+        Friend Shared Property CategorieShowLocalMovies() As Boolean
             Get
                 Return m_CategorieShowLocalMovies.Value
             End Get
@@ -322,7 +332,7 @@ Namespace ClickfinderProgramGuide
                 m_CategorieShowLocalMovies.Value = value
             End Set
         End Property
-        Public Shared Property CategorieShowLocalSeries() As Boolean
+        Friend Shared Property CategorieShowLocalSeries() As Boolean
             Get
                 Return m_CategorieShowLocalSeries.Value
             End Get
@@ -331,7 +341,7 @@ Namespace ClickfinderProgramGuide
             End Set
         End Property
 
-        Public Shared Property DetailUseSeriesDescribtion() As Boolean
+        Friend Shared Property DetailUseSeriesDescribtion() As Boolean
             Get
                 Return m_DetailUseSeriesDescribtion.Value
             End Get
@@ -339,7 +349,7 @@ Namespace ClickfinderProgramGuide
                 m_DetailUseSeriesDescribtion.Value = value
             End Set
         End Property
-        Public Shared Property DetailSeriesImage() As String
+        Friend Shared Property DetailSeriesImage() As String
             Get
                 Return m_DetailSeriesImage.Value
             End Get
@@ -348,7 +358,7 @@ Namespace ClickfinderProgramGuide
             End Set
         End Property
 
-        Public Shared Property OverlayMoviesEnabled() As Boolean
+        Friend Shared Property OverlayMoviesEnabled() As Boolean
             Get
                 Return m_OverlayMoviesEnabled.Value
             End Get
@@ -356,7 +366,7 @@ Namespace ClickfinderProgramGuide
                 m_OverlayMoviesEnabled.Value = value
             End Set
         End Property
-        Public Shared Property OverlayTime() As String
+        Friend Shared Property OverlayTime() As String
             Get
                 Return m_OverlayTime.Value
             End Get
@@ -364,7 +374,7 @@ Namespace ClickfinderProgramGuide
                 m_OverlayTime.Value = value
             End Set
         End Property
-        Public Shared Property OverlaySeriesEnabled() As Boolean
+        Friend Shared Property OverlaySeriesEnabled() As Boolean
             Get
                 Return m_OverlaySeriesEnabled.Value
             End Get
@@ -372,7 +382,7 @@ Namespace ClickfinderProgramGuide
                 m_OverlaySeriesEnabled.Value = value
             End Set
         End Property
-        Public Shared Property OverlayShowTagesTipp() As Boolean
+        Friend Shared Property OverlayShowTagesTipp() As Boolean
             Get
                 Return m_OverlayShowTagesTipp.Value
             End Get
@@ -380,7 +390,7 @@ Namespace ClickfinderProgramGuide
                 m_OverlayShowTagesTipp.Value = value
             End Set
         End Property
-        Public Shared Property OverlayMovieSort() As String
+        Friend Shared Property OverlayMovieSort() As String
             Get
                 Return m_OverlayMovieSort.Value
             End Get
@@ -388,7 +398,7 @@ Namespace ClickfinderProgramGuide
                 m_OverlayMovieSort.Value = value
             End Set
         End Property
-        Public Shared Property OverlayMovieLimit() As Integer
+        Friend Shared Property OverlayMovieLimit() As Integer
             Get
                 Return m_OverlayMovieLimit.Value
             End Get
@@ -396,7 +406,7 @@ Namespace ClickfinderProgramGuide
                 m_OverlayMovieLimit.Value = value
             End Set
         End Property
-        Public Shared Property OverlayShowLocalMovies() As Boolean
+        Friend Shared Property OverlayShowLocalMovies() As Boolean
             Get
                 Return m_OverlayShowLocalMovies.Value
             End Get
@@ -404,7 +414,7 @@ Namespace ClickfinderProgramGuide
                 m_OverlayShowLocalMovies.Value = value
             End Set
         End Property
-        Public Shared Property OverlayTvGroup() As String
+        Friend Shared Property OverlayTvGroup() As String
             Get
                 Return m_OverlayTvGroup.Value
             End Get
@@ -412,12 +422,30 @@ Namespace ClickfinderProgramGuide
                 m_OverlayTvGroup.Value = value
             End Set
         End Property
-        Public Shared Property OverlayUpdateTimer() As Integer
+        Friend Shared Property OverlayUpdateTimer() As Integer
             Get
                 Return m_OverlayUpdateTimer.Value
             End Get
             Set(ByVal value As Integer)
                 m_OverlayUpdateTimer.Value = value
+            End Set
+        End Property
+
+        'Items RemoteControl
+        Friend Shared Property ItemsRemoteSortAll(ByVal index As Integer) As String
+            Get
+                Return m_ItemsRemoteSortAll(index).Value
+            End Get
+            Set(ByVal value As String)
+                m_ItemsRemoteSortAll(index).Value = value
+            End Set
+        End Property
+        Friend Shared Property ItemsRemoteTvGroupAll(ByVal index As Integer) As String
+            Get
+                Return m_ItemsRemoteTvGroupAll(index).Value
+            End Get
+            Set(ByVal value As String)
+                m_ItemsRemoteTvGroupAll(index).Value = value
             End Set
         End Property
 #End Region
@@ -434,60 +462,67 @@ Namespace ClickfinderProgramGuide
 
         Private Shared m_ClickfinderDataAvailable As Setting
 
-        Public Shared ReadOnly Property TvMovieImportTvSeriesInfos() As Boolean
+        Friend Shared ReadOnly Property TvMovieImportTvSeriesInfos() As Boolean
             Get
                 Return m_TvMovieImportTvSeriesInfos.Value
             End Get
         End Property
-        Public Shared ReadOnly Property TvMovieImportVideoDatabaseInfos() As Boolean
+        Friend Shared ReadOnly Property TvMovieImportVideoDatabaseInfos() As Boolean
             Get
                 Return m_TvMovieImportVideoDatabaseInfos.Value
             End Get
 
         End Property
-        Public Shared ReadOnly Property TvMovieImportMovingPicturesInfos() As Boolean
+        Friend Shared ReadOnly Property TvMovieImportMovingPicturesInfos() As Boolean
             Get
                 Return m_TvMovieImportMovingPicturesInfos.Value
             End Get
 
         End Property
-        Public Shared ReadOnly Property TvMovieUseTheTvDb() As Boolean
+        Friend Shared ReadOnly Property TvMovieUseTheTvDb() As Boolean
             Get
                 Return m_TvMovieUseTheTvDb.Value
             End Get
 
         End Property
-        Public Shared ReadOnly Property TvMovieEnabled() As Boolean
+        Friend Shared ReadOnly Property TvMovieEnabled() As Boolean
             Get
                 Return m_TvMovieEnabled.Value
             End Get
 
         End Property
-        Public Shared ReadOnly Property TvMovieLastUpdate() As Date
+        Friend Shared ReadOnly Property TvMovieLastUpdate() As Date
             Get
                 Return m_TvMovieLastUpdate.Value
             End Get
 
         End Property
-        Public Shared ReadOnly Property TvMovieImportIsRunning() As Boolean
+        Friend Shared ReadOnly Property TvMovieImportIsRunning() As Boolean
             Get
                 Return m_TvMovieImportIsRunning.Value
             End Get
 
         End Property
-        Public Shared ReadOnly Property TvMovieMPDatabase() As String
+        Friend Shared ReadOnly Property TvMovieMPDatabase() As String
             Get
                 Return m_TvMovieMPDatabase.Value
             End Get
         End Property
-
-        Public Shared ReadOnly Property ClickfinderDataAvailable() As Boolean
+        Friend Shared Property ClickfinderDataAvailable() As Boolean
             Get
-                Return m_ClickfinderDataAvailable.Value
+                Return CBool(m_ClickfinderDataAvailable.Value)
+            End Get
+            Set(ByVal value As Boolean)
+                m_ClickfinderDataAvailable.Value = value
+            End Set
+        End Property
+        Friend Shared ReadOnly Property pluginTvWishList() As Boolean
+            Get
+                Return m_pluginTvWishList.Value
             End Get
         End Property
 
-        Public Shared ReadOnly Property ClickfinderSaveSettingsOnClients() As Boolean
+        Friend Shared ReadOnly Property ClickfinderSaveSettingsOnClients() As Boolean
             Get
                 Return CBool(_layer.GetSetting("ClickfinderSaveSettingsOnClients", "false").Value)
             End Get
@@ -497,9 +532,9 @@ Namespace ClickfinderProgramGuide
 #End Region
 
 #Region "Functions"
-        Public Shared Sub Load()
+        Friend Shared Sub Load()
             Try
-                'TvMovie++ Settings und settings die auf dem TvServer gespeichert werden müssen (ob auf Clients gespeichert werden soll)
+                'ReadOnly vom tvServer (TvMovie++, TvWishList, CPG Data available)
                 m_TvMovieImportTvSeriesInfos = _layer.GetSetting("TvMovieImportTvSeriesInfos", "false")
                 m_TvMovieImportVideoDatabaseInfos = _layer.GetSetting("TvMovieImportVideoDatabaseInfos", "false")
                 m_TvMovieImportMovingPicturesInfos = _layer.GetSetting("TvMovieImportMovingPicturesInfos", "false")
@@ -508,22 +543,38 @@ Namespace ClickfinderProgramGuide
                 m_TvMovieLastUpdate = _layer.GetSetting("TvMovieLastUpdate")
                 m_TvMovieImportIsRunning = _layer.GetSetting("TvMovieImportIsRunning", "false")
                 m_TvMovieMPDatabase = _layer.GetSetting("TvMovieMPDatabase", "%ProgramData%\Team MediaPortal\MediaPortal\database")
+                m_pluginTvWishList = _layer.GetSetting("pluginTvWishList", "false")
 
                 m_ClickfinderDataAvailable = _layer.GetSetting("ClickfinderDataAvailable", "false")
+
+                m_pluginClickfinderProgramGuide = _layer.GetSetting("pluginClickfinderProgramGuide", "false")
+
+
+
+                MyLog.Info("[CPGsettings]: [Load]: nessacary TvServer settings loaded")
+                MyLog.Info("[CPGsettings]: [Load]: CPG Data Available: {0}, TvMovie++: {1}, TvWishList: {2}", m_ClickfinderDataAvailable.Value, m_TvMovieEnabled.Value, m_pluginTvWishList.Value)
+                MyLog.Info("")
             Catch ex As Exception
                 MyLog.Error("[CPGsettings]: [Load]: nessacary TvServer settings: exception err:" & ex.Message & " stack:" & ex.StackTrace)
             End Try
 
-            If ClickfinderSaveSettingsOnClients = False Then
-                MyLog.Debug("[CPGsettings]: [Load]: load settings from TvServer")
-                LoadFromTvServer()
-            Else
-                MyLog.Debug("[CPGsettings]: [Load]: load settings from Client")
-                LoadFromClient()
-            End If
+            'Remote Control Dictionaries clear, sofern gefüllt
+            Try
+                m_ItemsRemoteSortAll.Clear()
+                m_ItemsRemoteTvGroupAll.Clear()
+            Catch ex As Exception
+            End Try
+
+            'If ClickfinderSaveSettingsOnClients = False Then
+
+            LoadFromTvServer()
+            'Else
+            '    MyLog.Debug("[CPGsettings]: [Load]: load settings from Client")
+            '    LoadFromClient()
+            'End If
 
         End Sub
-        Public Shared Sub save()
+        Friend Shared Sub save()
             If ClickfinderSaveSettingsOnClients = False Then
                 MyLog.Debug("[CPGsettings]: [Save]: save settings on TvServer")
                 SaveToTvServer()
@@ -538,58 +589,172 @@ Namespace ClickfinderProgramGuide
 #Region "TvServer"
         Private Shared Sub LoadFromTvServer()
             Try
-                m_OverviewShowMoviesAfter = _layer.GetSetting("ClickfinderOverviewShowMoviesAfter", "12")
+                MyLog.Info("[CPGsettings]: [LoadFromTvServer]: load settings from TvServer...")
+
+                'Tab HighLights Settings
+                m_OverviewShowMoviesAfter = _layer.GetSetting("ClickfinderOverviewShowMoviesAfter", "20")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_OverviewShowMoviesAfter.Tag, m_OverviewShowMoviesAfter.Value)
                 m_OverviewShowHighlightsAfter = _layer.GetSetting("ClickfinderOverviewShowHighlightsAfter", "15")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_OverviewShowHighlightsAfter.Tag, m_OverviewShowHighlightsAfter.Value)
                 m_OverviewHighlightsMinRuntime = _layer.GetSetting("ClickfinderOverviewHighlightsMinRuntime", "16")
-                m_OverviewShowLocalMovies = _layer.GetSetting("ClickfinderOverviewShowLocalMovies", "false")
-                m_OverviewMaxDays = _layer.GetSetting("ClickfinderOverviewMaxDays", "10")
-                m_OverviewShowTagesTipp = _layer.GetSetting("ClickfinderOverviewShowTagesTipp", "false")
-                m_OverviewMovieSort = _layer.GetSetting("ClickfinderOverviewMovieSort", SortMethode.startTime.ToString)
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_OverviewHighlightsMinRuntime.Tag, m_OverviewHighlightsMinRuntime.Value)
+                m_OverviewShowLocalMovies = _layer.GetSetting("ClickfinderOverviewShowLocalMovies", "true")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_OverviewShowLocalMovies.Tag, m_OverviewShowLocalMovies.Value)
+                m_OverviewMaxDays = _layer.GetSetting("ClickfinderOverviewMaxDays", "14")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_OverviewMaxDays.Tag, m_OverviewMaxDays.Value)
+                m_OverviewShowTagesTipp = _layer.GetSetting("ClickfinderOverviewShowTagesTipp", "true")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_OverviewShowTagesTipp.Tag, m_OverviewShowTagesTipp.Value)
+                m_OverviewMovieSort = _layer.GetSetting("ClickfinderOverviewMovieSort", SortMethode.RatingStar.ToString)
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_OverviewMovieSort.Tag, m_OverviewMovieSort.Value)
 
+
+                'Tab Allgemeines
                 m_StandardTvGroup = _layer.GetSetting("ClickfinderStandardTvGroup", "All Channels")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_StandardTvGroup.Tag, m_StandardTvGroup.Value)
                 m_QuickTvGroup1 = _layer.GetSetting("ClickfinderQuickTvGroup1", "All Channels")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_QuickTvGroup1.Tag, m_QuickTvGroup1.Value)
                 m_QuickTvGroup2 = _layer.GetSetting("ClickfinderQuickTvGroup2", "All Channels")
-
-
-                m_pluginTvWishList = _layer.GetSetting("pluginTvWishList", "false")
-                m_pluginClickfinderProgramGuide = _layer.GetSetting("pluginClickfinder ProgramGuide", "false")
-
-                m_PreviewMaxDays = _layer.GetSetting("ClickfinderPreviewMaxDays", "7")
-                m_PreviewMinTvMovieRating = _layer.GetSetting("ClickfinderPreviewMinTvMovieRating", "1")
-
-                m_NowOffset = _layer.GetSetting("ClickfinderNowOffset", "-20")
-
-                m_ItemsShowLocalMovies = _layer.GetSetting("ClickfinderItemsShowLocalMovies", "false")
-                m_ItemsShowLocalSeries = _layer.GetSetting("ClickfinderItemsShowLocalSeries", "false")
-
-                m_RemberSortedBy = _layer.GetSetting("ClickfinderRemberSortedBy", "true")
-
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_QuickTvGroup2.Tag, m_QuickTvGroup2.Value)
                 m_PrimeTime = _layer.GetSetting("ClickfinderPrimeTime", "20:15")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_PrimeTime.Tag, m_PrimeTime.Value)
                 m_LateTime = _layer.GetSetting("ClickfinderLateTime", "22:00")
-                m_UseSportLogos = _layer.GetSetting("ClickfinderUseSportLogos", "false")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_LateTime.Tag, m_LateTime.Value)
+                m_UseSportLogos = _layer.GetSetting("ClickfinderUseSportLogos", "true")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_UseSportLogos.Tag, m_UseSportLogos.Value)
                 m_EpisodenScanner = _layer.GetSetting("ClickfinderEpisodenScanner", "")
-
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_EpisodenScanner.Tag, m_EpisodenScanner.Value)
                 m_ClickfinderDatabasePath = _layer.GetSetting("ClickfinderDatabasePath", "")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_ClickfinderDatabasePath.Tag, m_ClickfinderDatabasePath.Value)
                 m_ClickfinderImagePath = _layer.GetSetting("ClickfinderImagePath", "")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_ClickfinderImagePath.Tag, m_ClickfinderImagePath.Value)
                 m_ClickfinderPluginName = _layer.GetSetting("ClickfinderPluginName", "Clickfinder ProgramGuide")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_ClickfinderPluginName.Tag, m_ClickfinderPluginName.Value)
                 m_ClickfinderDebugMode = _layer.GetSetting("ClickfinderDebugMode", "True")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_ClickfinderDebugMode.Tag, m_ClickfinderDebugMode.Value)
                 m_ClickfinderStartGui = _layer.GetSetting("ClickfinderStartGui", "Highlights")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_ClickfinderStartGui.Tag, m_ClickfinderStartGui.Value)
+                
+                'Tab Allgemeines: Vorschau
+                m_PreviewMaxDays = _layer.GetSetting("ClickfinderPreviewMaxDays", "14")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_PreviewMaxDays.Tag, m_PreviewMaxDays.Value)
+                m_PreviewMinTvMovieRating = _layer.GetSetting("ClickfinderPreviewMinTvMovieRating", "1")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_PreviewMinTvMovieRating.Tag, m_PreviewMinTvMovieRating.Value)
 
-                m_CategorieShowLocalMovies = _layer.GetSetting("ClickfinderCategorieShowLocalMovies", "false")
-                m_CategorieShowLocalSeries = _layer.GetSetting("ClickfinderCategorieShowLocalSeries", "false")
 
+                'Tab Items
+                m_ItemsShowLocalMovies = _layer.GetSetting("ClickfinderItemsShowLocalMovies", "false")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_ItemsShowLocalMovies.Tag, m_ItemsShowLocalMovies.Value)
+
+                m_ItemsShowLocalSeries = _layer.GetSetting("ClickfinderItemsShowLocalSeries", "true")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_ItemsShowLocalSeries.Tag, m_ItemsShowLocalSeries.Value)
+
+                m_RemberSortedBy = _layer.GetSetting("ClickfinderRemberSortedBy", "false")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_RemberSortedBy.Tag, m_RemberSortedBy.Value)
+
+
+             
+                'Tab Categories
+                m_CategorieShowLocalMovies = _layer.GetSetting("ClickfinderCategorieShowLocalMovies", "true")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_CategorieShowLocalMovies.Tag, m_CategorieShowLocalMovies.Value)
+                m_CategorieShowLocalSeries = _layer.GetSetting("ClickfinderCategorieShowLocalSeries", "true")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_CategorieShowLocalSeries.Tag, m_CategorieShowLocalSeries.Value)
+
+
+                'Tab Detail
                 m_DetailUseSeriesDescribtion = _layer.GetSetting("ClickfinderDetailUseSeriesDescribtion", "false")
-                m_DetailSeriesImage = _layer.GetSetting("ClickfinderDetailsSeriesImage", "Cover")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_DetailUseSeriesDescribtion.Tag, m_DetailUseSeriesDescribtion.Value)
 
-                m_OverlayMoviesEnabled = _layer.GetSetting("ClickfinderOverlayMoviesEnabled", "false")
+                m_DetailSeriesImage = _layer.GetSetting("ClickfinderDetailsSeriesImage", "Cover")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_DetailSeriesImage.Tag, m_DetailSeriesImage.Value)
+
+                'Tab Overlay
+                m_OverlayMoviesEnabled = _layer.GetSetting("ClickfinderOverlayMoviesEnabled", "true")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_OverlayMoviesEnabled.Tag, m_OverlayMoviesEnabled.Value)
+
                 m_OverlayTime = _layer.GetSetting("ClickfinderOverlayTime", "PrimeTime")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_OverlayTime.Tag, m_OverlayTime.Value)
+
                 m_OverlaySeriesEnabled = _layer.GetSetting("ClickfinderOverlaySeriesEnabled", "false")
-                m_OverlayShowTagesTipp = _layer.GetSetting("ClickfinderOverlayShowTagesTipp", "false")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_OverlaySeriesEnabled.Tag, m_OverlaySeriesEnabled.Value)
+
+                m_OverlayShowTagesTipp = _layer.GetSetting("ClickfinderOverlayShowTagesTipp", "true")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_OverlayShowTagesTipp.Tag, m_OverlayShowTagesTipp.Value)
+
                 m_OverlayMovieSort = _layer.GetSetting("ClickfinderOverlayMovieSort", SortMethode.startTime.ToString)
-                m_OverlayMovieLimit = _layer.GetSetting("ClickfinderOverlayMovieLimit", "10")
-                m_OverlayShowLocalMovies = _layer.GetSetting("ClickfinderOverlayShowLocalMovies", "false")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_OverlayMovieSort.Tag, m_OverlayMovieSort.Value)
+
+
+                m_OverlayMovieLimit = _layer.GetSetting("ClickfinderOverlayMovieLimit", "25")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_OverlayMovieLimit.Tag, m_OverlayMovieLimit.Value)
+
+                m_OverlayShowLocalMovies = _layer.GetSetting("ClickfinderOverlayShowLocalMovies", "true")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_OverlayShowLocalMovies.Tag, m_OverlayShowLocalMovies.Value)
+
                 m_OverlayTvGroup = _layer.GetSetting("ClickfinderOverlayTvGroup", "All Channels")
-                m_OverlayUpdateTimer = _layer.GetSetting("ClickfinderOverlayUpdateTimer", "20")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_OverlayTvGroup.Tag, m_OverlayTvGroup.Value)
+
+                m_OverlayUpdateTimer = _layer.GetSetting("ClickfinderOverlayUpdateTimer", "5")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_OverlayUpdateTimer.Tag, m_OverlayUpdateTimer.Value)
+
+
+                m_pluginClickfinderProgramGuide = _layer.GetSetting("pluginClickfinder ProgramGuide", "false")
+                MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", m_pluginClickfinderProgramGuide.Tag, m_pluginClickfinderProgramGuide.Value)
+
+
+                'Remote Control Sort + Dictionary füllen
+                m_ItemsRemoteSort1 = _layer.GetSetting("ClickfinderItemsRemoteSort1", "")
+                m_ItemsRemoteSort2 = _layer.GetSetting("ClickfinderItemsRemoteSort2", "")
+                m_ItemsRemoteSort3 = _layer.GetSetting("ClickfinderItemsRemoteSort3", "")
+                m_ItemsRemoteSort4 = _layer.GetSetting("ClickfinderItemsRemoteSort4", "")
+                m_ItemsRemoteSort5 = _layer.GetSetting("ClickfinderItemsRemoteSort5", "")
+                m_ItemsRemoteSort6 = _layer.GetSetting("ClickfinderItemsRemoteSort6", "")
+                m_ItemsRemoteSort7 = _layer.GetSetting("ClickfinderItemsRemoteSort7", "")
+                m_ItemsRemoteSort8 = _layer.GetSetting("ClickfinderItemsRemoteSort8", "")
+                m_ItemsRemoteSort9 = _layer.GetSetting("ClickfinderItemsRemoteSort9", "")
+                m_ItemsRemoteSort0 = _layer.GetSetting("ClickfinderItemsRemoteSort0", "")
+
+                m_ItemsRemoteSortAll.Add(1, m_ItemsRemoteSort1)
+                m_ItemsRemoteSortAll.Add(2, m_ItemsRemoteSort2)
+                m_ItemsRemoteSortAll.Add(3, m_ItemsRemoteSort3)
+                m_ItemsRemoteSortAll.Add(4, m_ItemsRemoteSort4)
+                m_ItemsRemoteSortAll.Add(5, m_ItemsRemoteSort5)
+                m_ItemsRemoteSortAll.Add(6, m_ItemsRemoteSort6)
+                m_ItemsRemoteSortAll.Add(7, m_ItemsRemoteSort7)
+                m_ItemsRemoteSortAll.Add(8, m_ItemsRemoteSort8)
+                m_ItemsRemoteSortAll.Add(9, m_ItemsRemoteSort9)
+                m_ItemsRemoteSortAll.Add(0, m_ItemsRemoteSort0)
+
+                For Each _setting In m_ItemsRemoteSortAll
+                    MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", _setting.Value.Tag, _setting.Value.Value)
+                Next
+
+                'Remote Control TvGroup + Dictionary füllen
+                m_ItemsRemoteTvGroup1 = _layer.GetSetting("ClickfinderItemsRemoteTvGroup1", "")
+                m_ItemsRemoteTvGroup2 = _layer.GetSetting("ClickfinderItemsRemoteTvGroup2", "")
+                m_ItemsRemoteTvGroup3 = _layer.GetSetting("ClickfinderItemsRemoteTvGroup3", "")
+                m_ItemsRemoteTvGroup4 = _layer.GetSetting("ClickfinderItemsRemoteTvGroup4", "")
+                m_ItemsRemoteTvGroup5 = _layer.GetSetting("ClickfinderItemsRemoteTvGroup5", "")
+                m_ItemsRemoteTvGroup6 = _layer.GetSetting("ClickfinderItemsRemoteTvGroup6", "")
+                m_ItemsRemoteTvGroup7 = _layer.GetSetting("ClickfinderItemsRemoteTvGroup7", "")
+                m_ItemsRemoteTvGroup8 = _layer.GetSetting("ClickfinderItemsRemoteTvGroup8", "")
+                m_ItemsRemoteTvGroup9 = _layer.GetSetting("ClickfinderItemsRemoteTvGroup9", "")
+                m_ItemsRemoteTvGroup0 = _layer.GetSetting("ClickfinderItemsRemoteTvGroup0", "")
+
+                m_ItemsRemoteTvGroupAll.Add(1, m_ItemsRemoteTvGroup1)
+                m_ItemsRemoteTvGroupAll.Add(2, m_ItemsRemoteTvGroup2)
+                m_ItemsRemoteTvGroupAll.Add(3, m_ItemsRemoteTvGroup3)
+                m_ItemsRemoteTvGroupAll.Add(4, m_ItemsRemoteTvGroup4)
+                m_ItemsRemoteTvGroupAll.Add(5, m_ItemsRemoteTvGroup5)
+                m_ItemsRemoteTvGroupAll.Add(6, m_ItemsRemoteTvGroup6)
+                m_ItemsRemoteTvGroupAll.Add(7, m_ItemsRemoteTvGroup7)
+                m_ItemsRemoteTvGroupAll.Add(8, m_ItemsRemoteTvGroup8)
+                m_ItemsRemoteTvGroupAll.Add(9, m_ItemsRemoteTvGroup9)
+                m_ItemsRemoteTvGroupAll.Add(0, m_ItemsRemoteTvGroup0)
+
+                For Each _setting In m_ItemsRemoteTvGroupAll
+                    MyLog.Debug("[CPGsettings]: [LoadFromTvServer]: {0} = {1}", _setting.Value.Tag, _setting.Value.Value)
+                Next
+
             Catch ex As Exception
                 MyLog.Error("[CPGsettings]: [LoadFromTvServer]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
             End Try
@@ -614,7 +779,6 @@ Namespace ClickfinderProgramGuide
                 m_PreviewMaxDays.Persist()
                 m_PreviewMinTvMovieRating.Persist()
 
-                m_NowOffset.Persist()
 
                 m_ItemsShowLocalMovies.Persist()
                 m_ItemsShowLocalSeries.Persist()
@@ -647,6 +811,16 @@ Namespace ClickfinderProgramGuide
                 m_OverlayShowLocalMovies.Persist()
                 m_OverlayTvGroup.Persist()
                 m_OverlayUpdateTimer.Persist()
+
+                For Each Setting In m_ItemsRemoteSortAll
+                    Setting.Value.Persist()
+                Next
+
+                For Each Setting In m_ItemsRemoteTvGroupAll
+                    Setting.Value.Persist()
+                Next
+
+
             Catch ex As Exception
                 MyLog.Error("[CPGsettings]: [SaveToTvServer]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
             End Try
@@ -677,7 +851,6 @@ Namespace ClickfinderProgramGuide
                 m_PreviewMaxDays = loadFromXml("ClickfinderPreviewMaxDays", "7")
                 m_PreviewMinTvMovieRating = loadFromXml("ClickfinderPreviewMinTvMovieRating", "1")
 
-                m_NowOffset = loadFromXml("ClickfinderNowOffset", "-20")
 
                 m_ItemsShowLocalMovies = loadFromXml("ClickfinderItemsShowLocalMovies", "false")
                 m_ItemsShowLocalSeries = loadFromXml("ClickfinderItemsShowLocalSeries", "false")
@@ -719,7 +892,7 @@ Namespace ClickfinderProgramGuide
         Private Shared Sub SaveToClient()
             Try
 
-           
+
                 saveToXml(m_OverviewShowMoviesAfter)
                 saveToXml(m_OverviewShowHighlightsAfter)
                 saveToXml(m_OverviewShowLocalMovies)
@@ -739,8 +912,6 @@ Namespace ClickfinderProgramGuide
 
                 saveToXml(m_PreviewMaxDays)
                 saveToXml(m_PreviewMinTvMovieRating)
-
-                saveToXml(m_NowOffset)
 
                 saveToXml(m_ItemsShowLocalMovies)
                 saveToXml(m_ItemsShowLocalSeries)
@@ -787,10 +958,10 @@ Namespace ClickfinderProgramGuide
 
 #Region "XML handler"
         Private Shared Function loadFromXml(ByVal Tag As String, ByVal Value As String) As Setting
+            Dim sReturn As Setting = New Setting(Tag, Value)
             Try
 
                 Dim _path As String = Config.GetFile(Config.Dir.Config, "ClickfinderProgramGuide.xml")
-                Dim sReturn As Setting = New Setting(Tag, Value)
                 Dim dsSettings As New DataSet
                 If System.IO.File.Exists(_path) Then
                     dsSettings.ReadXml(_path)
@@ -808,10 +979,11 @@ Namespace ClickfinderProgramGuide
                     saveToXml(sReturn)
                 End If
 
-                Return sReturn
+
             Catch ex As Exception
                 MyLog.Error("[CPGsettings]: [loadFromXml]: exception err:" & ex.Message & " stack:" & ex.StackTrace)
             End Try
+            Return sReturn
         End Function
         Private Shared Sub saveToXml(ByVal CPGSetting As Setting)
             Try

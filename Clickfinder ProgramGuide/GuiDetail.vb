@@ -4,6 +4,8 @@ Imports ClickfinderProgramGuide.TvDatabase
 Imports MediaPortal.Configuration
 Imports MediaPortal.Util
 Imports Gentle.Framework
+Imports enrichEPG.TvDatabase
+Imports enrichEPG.Database
 
 Namespace ClickfinderProgramGuide
     Public Class DetailGuiWindow
@@ -102,7 +104,7 @@ Namespace ClickfinderProgramGuide
 
                         'program laden
                         SQLstring = "Select * from program INNER JOIN channel ON program.idChannel = channel.idChannel " & _
-                                                    "WHERE title = '" & TVSeriesDB.allowedSigns(_title) & "' " & _
+                                                    "WHERE title = '" & MyTvSeries.Helper.allowedSigns(_title) & "' " & _
                                                     "AND displayName = '" & _channel & "' " & _
                                                     "AND startTime > " & Helper.MySqlDate(_start.AddMinutes(-1)) & " " & _
                                                     "AND startTime < " & Helper.MySqlDate(_end) & " " & _
@@ -130,7 +132,7 @@ Namespace ClickfinderProgramGuide
                 MyLog.Info("")
                 MyLog.Info("")
                 MyLog.Info("[DetailGuiWindow] -------------[OPEN]-------------")
-                MyLog.Debug("[DetailGuiWindow] [OnPageLoad]: {0}, idProgram = {1}, needsUpdate = {2}", _DetailTvMovieProgram.ReferencedProgram.Title, _DetailTvMovieProgram.idProgram, _DetailTvMovieProgram.needsUpdate)
+                MyLog.Debug("[DetailGuiWindow] [OnPageLoad]: {0}, idProgram = {1}", _DetailTvMovieProgram.ReferencedProgram.Title, _DetailTvMovieProgram.idProgram)
 
 
                 ShowDetails()
@@ -241,12 +243,12 @@ Namespace ClickfinderProgramGuide
 #Region "Functions"
         Private Sub ShowDetails()
 
+
+            Translator.SetProperty("#DetailImage", String.Empty)
+            Translator.SetProperty("#DetailChannelLogo", String.Empty)
+
             Try
                 Dim _recordingStatus As String = String.Empty
-
-                If _DetailTvMovieProgram.needsUpdate = True Then
-                    Helper.UpdateProgramData(_DetailTvMovieProgram)
-                End If
 
 
                 If _DetailTvMovieProgram.idSeries > 0 Then
@@ -261,15 +263,18 @@ Namespace ClickfinderProgramGuide
                             Translator.SetProperty("#DetailImage", Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _DetailTvMovieProgram.EpisodeImage)
                         Case Is = "TvMovie"
                             If Not String.IsNullOrEmpty(_DetailTvMovieProgram.BildDateiname) Then
-                                Translator.SetProperty("#DetailImage", ClickfinderDB.ImagePath & "\" & _DetailTvMovieProgram.BildDateiname)
+                                Translator.SetProperty("#DetailImage", CPGsettings.ClickfinderImagePath & "\" & _DetailTvMovieProgram.BildDateiname)
                             Else
                                 Translator.SetProperty("#DetailImage", Config.GetFile(Config.Dir.Thumbs, "tv\logos\") & Replace(_DetailTvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, "/", "_") & ".png")
                             End If
-
                     End Select
 
                 Else
                     Translator.SetProperty("#DetailImage", GuiLayout.Image(_DetailTvMovieProgram))
+                End If
+
+                If Not GUIPropertyManager.GetProperty("#DetailImage") = Config.GetFile(Config.Dir.Thumbs, "tv\logos\") & Replace(_DetailTvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, "/", "_") & ".png" Then
+                    Translator.SetProperty("#DetailChannelLogo", Config.GetFile(Config.Dir.Thumbs, "tv\logos\") & Replace(_DetailTvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, "/", "_") & ".png")
                 End If
 
                 Translator.SetProperty("#DetailTitle", _DetailTvMovieProgram.ReferencedProgram.Title)
@@ -303,8 +308,8 @@ Namespace ClickfinderProgramGuide
                         Dim SQLstring As String = String.Empty
 
                         SQLstring = "Select program.idprogram from program " & _
-                                "WHERE title = '" & TVSeriesDB.allowedSigns(_DetailTvMovieProgram.ReferencedProgram.Title) & "' " & _
-                                "AND episodeName = '" & TVSeriesDB.allowedSigns(_DetailTvMovieProgram.ReferencedProgram.EpisodeName) & "' " & _
+                                "WHERE title = '" & MyTvSeries.Helper.allowedSigns(_DetailTvMovieProgram.ReferencedProgram.Title) & "' " & _
+                                "AND episodeName = '" & MyTvSeries.Helper.allowedSigns(_DetailTvMovieProgram.ReferencedProgram.EpisodeName) & "' " & _
                                 "Order BY state DESC"
 
                         SQLstring = Helper.AppendSqlLimit(SQLstring, 1)
@@ -338,8 +343,8 @@ Namespace ClickfinderProgramGuide
 
                 Translator.SetProperty("#DetailRecordingState", _recordingStatus)
 
-                If Not _DetailTvMovieProgram.Year < New Date(1900, 1, 1) Then
-                    Translator.SetProperty("#DetailYear", _DetailTvMovieProgram.Year.Year & " ")
+                If Not _DetailTvMovieProgram.ReferencedProgram.OriginalAirDate < New Date(1900, 1, 1) Then
+                    Translator.SetProperty("#DetailYear", _DetailTvMovieProgram.ReferencedProgram.OriginalAirDate.Year & " ")
                 Else
                     Translator.SetProperty("#DetailYear", "")
                 End If

@@ -162,6 +162,32 @@ Public Class TVSeriesDB
 
     End Sub
 
+    Public Function GetAllEpisodes(ByVal seriesID As Integer) As SQLiteResultSet
+        Try
+            _EpisodeInfos = m_db.Execute( _
+                                [String].Format("Select * FROM online_episodes WHERE SeriesID = '{0}' AND SeasonIndex > 0 ORDER BY SeasonIndex ASC, EpisodeIndex ASC", _
+                                                seriesID))
+
+            'For i = 0 to _EpisodeInfos.Rows.ConvertAll(
+
+            '    Dim _SeriesListItems As List(Of TVSeriesDB) = _EpisodeInfos.Rows.ConvertAll(Of TVSeriesDB)(New Converter(Of SQLiteResultSet, TVSeriesDB)(Function(c As SQLiteResultSet) New TVSeriesDB() With { _
+            '                        d = c.idSeries, _
+            '                        .Path = c.ReferencedProgram.ReferencedChannel.DisplayName, _
+            '                        .Label = c.ReferencedProgram.Title, _
+            '                        .Label2 = Helper.getTranslatedDayOfWeek(c.ReferencedProgram.StartTime) & " " & Format(c.ReferencedProgram.StartTime.Day, "00") & "." & Format(c.ReferencedProgram.StartTime.Month, "00") & " - " & Format(c.ReferencedProgram.StartTime.Hour, "00") & ":" & Format(c.ReferencedProgram.StartTime.Minute, "00"), _
+            '                        .IconImage = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & c.SeriesPosterImage, _
+            '                        .TVTag = c.idProgram, _
+            '                        .MusicTag = Config.GetFile(Config.Dir.Thumbs, "") & c.FanArt _
+            '                        }))
+            Return _EpisodeInfos
+
+        Catch ex As Exception
+            MyLog.Error("TVMovie: [LoadAllEpisodes]: exception err:{0} stack:{1}", ex.Message, ex.StackTrace)
+            OpenTvSeriesDB()
+        End Try
+
+    End Function
+
     Public Function EpisodeFound(ByVal SeriesID As Integer, ByVal EpisodeName As String) As Boolean
 
         Try
@@ -187,6 +213,8 @@ Public Class TVSeriesDB
             _SeriesInfos = m_db.Execute( _
                                 [String].Format("Select * FROM online_series WHERE ID = {0}", _
                                 seriesID))
+
+
 
         Catch ex As Exception
             MyLog.[Error]("TVMovie: [LoadSeriesName]: exception err:{0} stack:{1}", ex.Message, ex.StackTrace)

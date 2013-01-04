@@ -8,8 +8,10 @@ Imports System.Threading
 Imports Gentle.Common
 Imports MediaPortal.Dialogs
 Imports System.Linq
-
-
+Imports enrichEPG.TvDatabase
+Imports enrichEPG.Database
+Imports enrichEPG
+Imports System.Text
 
 Namespace ClickfinderProgramGuide
     Public Class EpisodePreviewGuiWindow
@@ -59,11 +61,6 @@ Namespace ClickfinderProgramGuide
 #Region "Constructors"
         Public Sub New()
         End Sub
-#End Region
-
-#Region "Properties"
-
-
 #End Region
 
 #Region "GUI Properties"
@@ -136,7 +133,7 @@ Namespace ClickfinderProgramGuide
 
                     _EpisodesListItems.Clear()
 
-                    AbortRunningThreads
+                    AbortRunningThreads()
 
                     ThreadSeriesFill = New Threading.Thread(AddressOf FillSeriesList)
                     ThreadSeriesFill.IsBackground = True
@@ -196,7 +193,7 @@ Namespace ClickfinderProgramGuide
                             Dim _TvSeriesDB As New TVSeriesDB
                             _TvSeriesDB.LoadSeriesName(CInt(Replace(_loadParameter, "idSeries: ", "")))
 
-                            'prüfen ob schon in TvWishList !!!! noch auf alles Einträge prüfen !!!
+                            'prüfen ob schon in TvWishList !!!! noch auf alle Einträge prüfen !!!
                             If _TvSeriesDB.CountSeries = 1 Then
                                 If InStr(_layer.GetSetting("TvWishList_ListView").Value, "(title like '" & _TvSeriesDB(0).SeriesName & "' ) AND (description like '%Neue Folge: %')") > 0 Then
                                     Helper.ShowNotify("Keine neuen Episoden im EPG gefunden! TvWish für " & _TvSeriesDB(0).SeriesName & " wurde bereits angelegt")
@@ -214,7 +211,7 @@ Namespace ClickfinderProgramGuide
 
                                     ' ja anlegen
                                     If dlgContext.IsConfirmed = True Then
-                                        GUIWindowManager.ActivateWindow(70943675, "eq(#currentmoduleid,'1656544652'), 'NEWTVWISH//EXPRESSION=(title like \'" & _TvSeriesDB(0).SeriesName & "\' ) AND (description like \'%Neue Folge: %\')//NAME=CPG: " & _TvSeriesDB(0).SeriesName & ": " & Translation.NewEpisodes, True)
+                                        GUIWindowManager.ActivateWindow(70943675, "eq(#currentmoduleid,'1656544652'), 'NEWTVWISH//EXPRESSION=(title like '" & _TvSeriesDB(0).SeriesName & "' ) AND (description like '%Neue Folge: %')//NAME=CPG: " & _TvSeriesDB(0).SeriesName & ": " & Translation.NewEpisodes, True)
                                     Else
                                         GUIWindowManager.ShowPreviousWindow()
                                     End If
@@ -271,9 +268,11 @@ Namespace ClickfinderProgramGuide
 
                             If _SeriesList.SelectedListItem.ItemId = _SeriesList.Item(0).ItemId Then
                                 _selectedListItemIndex = _SeriesList.Count - 1
+                                _selectedSeries = TVMovieProgram.Retrieve(_SeriesList.Item(_selectedListItemIndex).TVTag)
                                 _LastFocusedEpisodeIndex = _selectedListItemIndex
                             Else
                                 _selectedListItemIndex = _SeriesList.SelectedListItemIndex - 1
+                                _selectedSeries = TVMovieProgram.Retrieve(_SeriesList.Item(_selectedListItemIndex).TVTag)
                                 _LastFocusedEpisodeIndex = _selectedListItemIndex
                             End If
 
@@ -323,9 +322,11 @@ Namespace ClickfinderProgramGuide
 
                             If _SeriesList.SelectedListItem.ItemId = _SeriesList.Item(_SeriesList.Count - 1).ItemId Then
                                 _selectedListItemIndex = 0
+                                _selectedSeries = TVMovieProgram.Retrieve(_SeriesList.Item(_selectedListItemIndex).TVTag)
                                 _LastFocusedEpisodeIndex = _selectedListItemIndex
                             Else
                                 _selectedListItemIndex = _SeriesList.SelectedListItemIndex + 1
+                                _selectedSeries = TVMovieProgram.Retrieve(_SeriesList.Item(_selectedListItemIndex).TVTag)
                                 _LastFocusedEpisodeIndex = _selectedListItemIndex
                             End If
 
@@ -401,8 +402,8 @@ Namespace ClickfinderProgramGuide
                 'Menu Button (F9) -> Context Menu open
                 If Action.wID = MediaPortal.GUI.Library.Action.ActionType.ACTION_CONTEXT_MENU Then
 
-                    If _SeriesList.IsFocused = True Then Helper.ShowActionMenu(_selectedSeries.ReferencedProgram)
-                    If _RepeatsList.IsFocused = True Then Helper.ShowActionMenu(Program.Retrieve(_RepeatsList.SelectedListItem.TVTag))
+                    If _SeriesList.IsFocused = True Then DialogMenu(_selectedSeries)
+                    If _RepeatsList.IsFocused = True Then DialogMenu(TVMovieProgram.Retrieve(_RepeatsList.SelectedListItem.TVTag))
 
                 End If
 
@@ -530,7 +531,7 @@ Namespace ClickfinderProgramGuide
                                                     "AND startTime > " & MySqlDate(Now.AddMinutes(-1)) & _
                                                     "ORDER BY startTime ASC"
 
-                _SQLstring = Replace(_SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idTVMovieProgram, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.needsUpdate, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung, TVMovieProgram.Year ")
+                _SQLstring = Replace(_SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung ")
                 Dim _SQLstate As SqlStatement = Broker.GetStatement(_SQLstring)
                 _allEpisodesList = ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate.Execute())
 
@@ -558,8 +559,9 @@ Namespace ClickfinderProgramGuide
                         Dim _EpisodesCounter As Integer = 0
                         Dim _EpisodesOfSeries As New List(Of TVMovieProgram)
 
-                        _EpisodesOfSeries = _allEpisodesList.FindAll(Function(x As TVMovieProgram) x.idSeries = _ListItem.ItemId)
+                        Dim _itemID As Integer = _ListItem.ItemId
 
+                        _EpisodesOfSeries = _allEpisodesList.FindAll(Function(x As TVMovieProgram) x.idSeries = _itemID)
                         Dim _episodeName As TVMovieProgram_GroupByEpisodeName = New TVMovieProgram_GroupByEpisodeName
                         _ListItem.Label3 = _EpisodesOfSeries.Distinct(_episodeName).Count & " " & Translation.NewEpisodeFound
 
@@ -573,6 +575,7 @@ Namespace ClickfinderProgramGuide
                             sb.SetRowLimit(1)
                             Dim stmt As SqlStatement = sb.GetStatement(True)
                             Dim _TvWishFound As IList(Of Setting) = ObjectFactory.GetCollection(GetType(Setting), stmt.Execute())
+
 
                             If _TvWishFound.Count > 0 Then
                                 _EntryFoundinTvWishList = True
@@ -685,7 +688,7 @@ Namespace ClickfinderProgramGuide
                 Else
 
                     'zurück in Listcontrol einfügen
-                    AddListControlItem(_SeriesList, 0, "channel", "..", , , Config.GetFile(Config.Dir.Thumbs, "Clickfinder ProgramGuide\Arrow back.png"))
+                    AddListControlItem(_SeriesList, 0, "channel", "..", , , Config.GetFile(Config.Dir.Thumbs, "Clickfinder ProgramGuide\Arrow back.png"), , , _selectedSeries.idProgram)
 
                     'alle Episoden der Serie laden (startTime ASC) und an list(of t) _EpisodeReapeatsList übergeben
                     _EpisodeReapeatsList = _allEpisodesList.FindAll(Function(x As TVMovieProgram) x.idSeries = _selectedSeries.idSeries)
@@ -731,8 +734,9 @@ Namespace ClickfinderProgramGuide
 
                                     Try
                                         'Alle Wiederholungen dieser Episode laden, die als Aufnahme geplant sind (starTime ASC)
+                                        Dim _episodeName As String = _Episode.ReferencedProgram.EpisodeName
                                         _RepeatsScheduledRecordings = _EpisodeReapeatsList.FindAll(Function(x As TVMovieProgram) _
-                                                                               x.ReferencedProgram.EpisodeName = _Episode.ReferencedProgram.EpisodeName AndAlso (x.ReferencedProgram.IsRecording = True Or x.ReferencedProgram.IsRecordingManual = True Or x.ReferencedProgram.IsRecordingOnce = True Or x.ReferencedProgram.IsRecordingOncePending = True Or x.ReferencedProgram.IsRecordingSeries = True Or x.ReferencedProgram.IsRecordingSeriesPending = True))
+                                                                               x.ReferencedProgram.EpisodeName = _episodeName AndAlso (x.ReferencedProgram.IsRecording = True Or x.ReferencedProgram.IsRecordingManual = True Or x.ReferencedProgram.IsRecordingOnce = True Or x.ReferencedProgram.IsRecordingOncePending = True Or x.ReferencedProgram.IsRecordingSeries = True Or x.ReferencedProgram.IsRecordingSeriesPending = True))
 
                                         If _RepeatsScheduledRecordings.Count > 0 Then
                                             _RecordingStatus = GuiLayout.RecordingStatus(_RepeatsScheduledRecordings(0).ReferencedProgram)
@@ -876,22 +880,16 @@ Namespace ClickfinderProgramGuide
             Try
                 If ThreadSeriesFill.IsAlive = True Then ThreadSeriesFill.Abort()
             Catch ex As Exception
-                'Eventuell auftretende Exception abfangen
-                ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
             End Try
 
             Try
                 If ThreadSeriesInfoFill.IsAlive = True Then ThreadSeriesInfoFill.Abort()
             Catch ex As Exception
-                'Eventuell auftretende Exception abfangen
-                ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
             End Try
 
             Try
                 If ThreadRepeatsFill.IsAlive = True Then ThreadRepeatsFill.Abort()
             Catch ex As Exception
-                'Eventuell auftretende Exception abfangen
-                ' http://www.vbarchiv.net/faq/faq_vbnet_threads.html
             End Try
         End Sub
 
@@ -917,6 +915,380 @@ Namespace ClickfinderProgramGuide
 
 #End Region
 
+#Region "MP Diaglogs"
+
+        Private Sub DialogMenu(ByVal TvMovieProgram As TVMovieProgram)
+            Try
+
+                Dim dlgContext As GUIDialogMenu = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_MENU, Integer)), GUIDialogMenu)
+                dlgContext.Reset()
+
+                Dim _disabled As Boolean = False
+                Dim _minSeriesNum As Integer = 0
+
+                Try
+                    _disabled = TvMovieProgram.ReferencedSeries.disabled
+                Catch ex As Exception
+                    'wenn kein mapping vorhanden
+                End Try
+
+                Try
+                    _minSeriesNum = TvMovieProgram.ReferencedSeries.minSeasonNum
+                Catch ex As Exception
+                    'wenn kein mapping vorhanden
+                End Try
+
+
+                If _ShowEpisodes = False Then
+                    'Series ContextMenu
+
+                    'ContextMenu Layout
+                    dlgContext.SetHeading(TvMovieProgram.ReferencedProgram.Title)
+                    dlgContext.ShowQuickNumbers = True
+
+                    'Disable -> Datenbank abgleich erforderlich
+                    Dim lItemDisable As New GUIListItem
+                    lItemDisable.Label = Translation.NewEpisodes & " ignorieren"
+                    lItemDisable.Label2 = _disabled
+                    dlgContext.Add(lItemDisable)
+                    lItemDisable.Dispose()
+
+                    'min SeriesNum -> gleich ausführen
+                    Dim lItemMinSeriesNumber As New GUIListItem
+                    lItemMinSeriesNumber.Label = "Seriennummer"
+                    lItemMinSeriesNumber.Label2 = ">= " & _minSeriesNum
+                    dlgContext.Add(lItemMinSeriesNumber)
+                    lItemMinSeriesNumber.Dispose()
+
+                    'Action SubMenu
+                    Dim lItemActionOn As New GUIListItem
+                    lItemActionOn.Label = Translation.action
+                    dlgContext.Add(lItemActionOn)
+                    lItemActionOn.Dispose()
+
+
+                    dlgContext.DoModal(GUIWindowManager.ActiveWindow)
+
+                    Select Case dlgContext.SelectedLabel
+                        Case Is = 1
+                            ShowMinNumbersMenu(TvMovieProgram)
+                    End Select
+
+                Else
+
+                    'ContextMenu Layout
+                    dlgContext.SetHeading(TvMovieProgram.ReferencedProgram.EpisodeName)
+                    dlgContext.ShowQuickNumbers = True
+
+                    'mit Episode verlinken
+                    Dim lItemEpisodeLink As New GUIListItem
+                    lItemEpisodeLink.Label = "mit Episode verlinken ..."
+                    dlgContext.Add(lItemEpisodeLink)
+                    lItemEpisodeLink.Dispose()
+
+                    'alle Episoden im EPG
+                    Dim lItemAllEpisode As New GUIListItem
+                    lItemAllEpisode.Label = "alle Episoden im EPG"
+                    dlgContext.Add(lItemAllEpisode)
+                    lItemAllEpisode.Dispose()
+
+                    'Action SubMenu
+                    Dim lItemActionOn As New GUIListItem
+                    lItemActionOn.Label = Translation.action
+                    dlgContext.Add(lItemActionOn)
+                    lItemActionOn.Dispose()
+
+                    dlgContext.DoModal(GUIWindowManager.ActiveWindow)
+
+                    Select Case dlgContext.SelectedLabel
+                        Case Is = 0
+                            If String.IsNullOrEmpty(TvMovieProgram.idEpisode) Then
+                                ShowEpisodeLinkContextMenu(TvMovieProgram)
+                            Else
+                                MPDialogOK("Warnung", TvMovieProgram.ReferencedProgram.Title, TvMovieProgram.ReferencedProgram.EpisodeName & " - S" & TvMovieProgram.ReferencedProgram.SeriesNum & "E" & TvMovieProgram.ReferencedProgram.EpisodeNum, "wurde bereist identifiziert !")
+                            End If
+                        Case Is = 1
+                            Dim _SqlStringBuilder As New StringBuilder("Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram ")
+                            _SqlStringBuilder.Append("WHERE #CPGFilter AND startTime >= #StartTime AND startTime <= #EndTime ")
+                            _SqlStringBuilder.Append("AND idseries = " & TvMovieProgram.idSeries & " ")
+                            _SqlStringBuilder.Append("#CPGgroupBy ")
+                            _SqlStringBuilder.Append("#CPGorderBy")
+
+                            ItemsGuiWindow.SetGuiProperties(_SqlStringBuilder.ToString, _
+                                                        Today, _
+                                                        Today.AddDays(15), _
+                                                        SortMethode.Episode.ToString, _
+                                                        CPGsettings.StandardTvGroup)
+
+                            Translator.SetProperty("#ItemsLeftListLabel", "alle Episoden im EPG")
+                            GUIWindowManager.ActivateWindow(1656544653)
+
+                    End Select
+                End If
+
+                dlgContext.Dispose()
+                dlgContext.AllocResources()
+            Catch ex As Exception
+                MyLog.Error("[EpisodePreviewGuiWindow]: error: {0}, stack: {1}", ex.Message, ex.StackTrace)
+            End Try
+        End Sub
+
+        Private Shared Sub ShowEpisodeLinkContextMenu(ByVal TvMovieProgram As TVMovieProgram)
+            MyLog.Info("")
+            MyLog.Info("[ShowEpisodeLinkContextMenu]: open")
+
+            Try
+                Dim dlgContext As GUIDialogSelect2Custom = CType(GUIWindowManager.GetWindow(CType(1656544655, Integer)), GUIDialogSelect2Custom)
+                dlgContext.Reset()
+
+                'ContextMenu Layout
+                dlgContext.SetHeading(TvMovieProgram.ReferencedProgram.EpisodeName)
+
+                'Alle Episoden der Serie aus DB laden
+                Dim _EpisodeContainer As Dictionary(Of Integer, MyTvSeries.MyEpisode) = New Dictionary(Of Integer, MyTvSeries.MyEpisode)
+                Dim _Image As String = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & TvMovieProgram.SeriesPosterImage
+                Dim _EpisodeList As IList(Of MyTvSeries.MyEpisode) = MyTvSeries.MyEpisode.ListAll(TvMovieProgram.idSeries)
+
+                _EpisodeList = _EpisodeList.Where(Function(x) x.SeriesNum > 0) _
+                                .OrderBy(Function(x) x.SeriesNum).ThenBy(Function(x) x.EpisodeNum).ToList
+
+                Dim i As Integer = 0
+                For Each _Episode In _EpisodeList
+                    Dim _lItemEpisode As New GUIListItem
+                    _lItemEpisode.Label = _Episode.EpisodeName
+                    _lItemEpisode.Label2 = "S" & Format(_Episode.SeriesNum, "00") & "E" & Format(_Episode.EpisodeNum, "00")
+                    _lItemEpisode.IconImage = _Image
+
+                    Try
+                        'Sofern verlinkung vorhanden
+                        Dim _EpisodeMapping As TVMovieEpisodeMapping = TVMovieEpisodeMapping.Retrieve(_Episode.idEpisode)
+                        _lItemEpisode.Label3 = Translation.LinkTo & " " & _EpisodeMapping.EPGEpisodeName
+                    Catch ex As Exception
+                        'sonst abfangen
+                    End Try
+
+                    _EpisodeContainer.Add(i, _Episode)
+
+                    dlgContext.Add(_lItemEpisode)
+                    _lItemEpisode.Dispose()
+
+                    i = i + 1
+                Next
+
+                dlgContext.DoModal(GUIWindowManager.ActiveWindow)
+
+                Select Case dlgContext.SelectedLabel
+                    Case Is = _EpisodeContainer.Keys(dlgContext.SelectedLabel)
+
+                        Dim _Episode As MyTvSeries.MyEpisode = _EpisodeContainer.Item(dlgContext.SelectedLabel)
+                        Dim _Series As MyTvSeries = MyTvSeries.Retrieve(_Episode.SeriesID)
+
+                        'EposdeMapping übergeben
+                        Dim _EpisodeMapping As TVMovieEpisodeMapping
+
+
+                        Try
+                            _EpisodeMapping = TVMovieEpisodeMapping.Retrieve(_Episode.idEpisode)
+
+                            If String.IsNullOrEmpty(_EpisodeMapping.EPGEpisodeName) = True Then
+                                _EpisodeMapping.EPGEpisodeName = TvMovieProgram.ReferencedProgram.EpisodeName
+                            Else
+                                'Verlinkung schon vorhanden -> neuer Dlg überschreiben oder hinzufügen
+                                ShowepisodeLinkManagementContextMenu(_EpisodeMapping, TvMovieProgram.ReferencedProgram.EpisodeName)
+                            End If
+                        Catch ex As Exception
+                            _EpisodeMapping = New TVMovieEpisodeMapping(_Episode.idEpisode, _
+                                                                             TvMovieProgram.idSeries)
+                            _EpisodeMapping.EPGEpisodeName = TvMovieProgram.ReferencedProgram.EpisodeName
+                        End Try
+
+                        _EpisodeMapping.idSeries = _Episode.SeriesID
+                        _EpisodeMapping.seriesNum = _Episode.SeriesNum
+                        _EpisodeMapping.episodeNum = _Episode.EpisodeNum
+                        _EpisodeMapping.Persist()
+
+                        MyLog.Info("[ShowEpisodeLinkContextMenu]: {0} - {1} mapped with {2}", _
+                             TvMovieProgram.ReferencedProgram.Title, dlgContext.SelectedLabelText, _
+                             TVMovieEpisodeMapping.Retrieve(_Episode.idEpisode).EPGEpisodeName)
+
+                        'Alle Episoden (program & tvmovieprogram) updaten
+                        Dim _SQLstring As String = _
+                        "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
+                        "WHERE idSeries = " & _Episode.SeriesID & " " & _
+                        "AND episodeName = '" & MyTvSeries.Helper.allowedSigns(TvMovieProgram.ReferencedProgram.EpisodeName) & "'"
+
+                        _SQLstring = Replace(_SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung ")
+                        Dim _SQLstate4 As SqlStatement = Broker.GetStatement(_SQLstring)
+                        Dim _EpisodeRepeatsList As IList(Of TVMovieProgram) = ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate4.Execute())
+
+                        If _EpisodeRepeatsList.Count > 0 Then
+                            Dim _logNewEpisode As Boolean = False
+                            For Each _TvMovieProgram In _EpisodeRepeatsList
+                                _logNewEpisode = Not IdentifySeries.UpdateProgramAndTvMovieProgram(_TvMovieProgram.ReferencedProgram, _Series, _Episode, _Episode.ExistLocal, True)
+                            Next
+                            MyLog.Info("[ShowEpisodeLinkContextMenu]: S{0}E{1} - {2} updated (programList.count = {3}, newEpisode: {4})", _
+                                      _Episode.SeriesNum, _Episode.EpisodeNum, TvMovieProgram.ReferencedProgram.EpisodeName, _EpisodeRepeatsList.Count, _logNewEpisode)
+                        End If
+
+                    Case Else
+                        'Exit dlgcontext
+                End Select
+
+                dlgContext.Dispose()
+                dlgContext.AllocResources()
+
+                MyLog.Info("")
+            Catch ex As Exception
+                MyLog.Error("[ShowEpisodeLinkContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+            End Try
+
+        End Sub
+        Private Shared Sub ShowepisodeLinkManagementContextMenu(ByVal Mapping As TVMovieEpisodeMapping, ByVal NewEpisodeMapping As String)
+            Try
+                Dim dlgContext As GUIDialogMenu = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_MENU, Integer)), GUIDialogMenu)
+                dlgContext.Reset()
+
+                'ContextMenu Layout
+                dlgContext.SetHeading(NewEpisodeMapping)
+                dlgContext.ShowQuickNumbers = True
+
+                'Verlinkung hinzufügen
+                Dim lItemAdd As New GUIListItem
+                lItemAdd.Label = Translation.MappingAppend
+                dlgContext.Add(lItemAdd)
+                lItemAdd.Dispose()
+
+                'Verlinkung überschreiben
+                Dim lItemOverwrite As New GUIListItem
+                lItemOverwrite.Label = Translation.MappingOverwrite
+                dlgContext.Add(lItemOverwrite)
+                lItemOverwrite.Dispose()
+
+                dlgContext.DoModal(GUIWindowManager.ActiveWindow)
+
+                Select Case dlgContext.SelectedLabel
+                    Case Is = 0
+                        Mapping.EPGEpisodeName = Mapping.EPGEpisodeName & "|" & NewEpisodeMapping
+                    Case Is = 1
+                        Mapping.EPGEpisodeName = NewEpisodeMapping
+                End Select
+
+                dlgContext.Dispose()
+                dlgContext.AllocResources()
+
+            Catch ex As Exception
+                MyLog.Error("[ShowepisodeLinkManagementContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+            End Try
+        End Sub
+
+        Private Shared Sub ShowMinNumbersMenu(ByVal TvMovieProgram As TVMovieProgram)
+            MyLog.Info("")
+            MyLog.Info("[ShowMinNumbersMenu]: open")
+
+            Try
+                Dim dlgContext As GUIDialogSelect2Custom = CType(GUIWindowManager.GetWindow(CType(1656544655, Integer)), GUIDialogSelect2Custom)
+                dlgContext.Reset()
+
+                'ContextMenu Layout
+                dlgContext.SetHeading(String.Format("{0}: Neue Episoden anzeigen ab Staffel", TvMovieProgram.ReferencedProgram.Title))
+
+
+                'Alle Staffeln der Serie aus DB laden
+                Dim _Series As MyTvSeries = MyTvSeries.Retrieve(TvMovieProgram.idSeries)
+
+                Dim _activeNum As Integer = 0
+                Try
+                    Dim _SeriesMapping As TvMovieSeriesMapping = TvMovieProgram.ReferencedSeries
+                    _activeNum = _SeriesMapping.minSeasonNum
+                Catch ex As Exception
+
+                End Try
+
+                For i = 0 To _Series.SeasonCount
+                    Dim _lItemNum As New GUIListItem
+
+                    If i = 0 Then
+                        _lItemNum.Label = "deaktivieren"
+                    Else
+                        _lItemNum.Label = Translation.Season & " " & i
+                    End If
+
+                    If _activeNum = i Then
+                        _lItemNum.Label2 = "aktiv"
+                    End If
+
+                    '_lItemEpisode.Label2 = "S" & Format(_Episode.SeriesNum, "00") & "E" & Format(_Episode.EpisodeNum, "00")
+                    _lItemNum.IconImage = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & TvMovieProgram.SeriesPosterImage
+
+                    dlgContext.Add(_lItemNum)
+
+                    _lItemNum.Dispose()
+                Next
+
+
+                dlgContext.DoModal(GUIWindowManager.ActiveWindow)
+
+
+                Select Case dlgContext.SelectedLabel
+                    Case Is >= 0
+                        'minSeasonNum speichern
+                        MyLog.Info("[ShowEpisodeLinkContextMenu]: {0}, only mark as new if season >= {1}", _Series.Title, dlgContext.SelectedLabel)
+                        Dim _SeriesMapping As TvMovieSeriesMapping
+                        Try
+                            _SeriesMapping = TvMovieProgram.ReferencedSeries
+                        Catch ex As Exception
+                            _SeriesMapping = New TvMovieSeriesMapping(TvMovieProgram.idSeries)
+                        End Try
+
+                        _SeriesMapping.TvSeriesTitle = _Series.Title
+
+                        If String.IsNullOrEmpty(_SeriesMapping.EpgTitle) Then _SeriesMapping.EpgTitle = String.Empty
+
+                        _SeriesMapping.minSeasonNum = dlgContext.SelectedLabel
+                        _SeriesMapping.Persist()
+
+                        'Alle Episoden der Serie (program & tvmovieprogram) updaten
+                        'minSeason prüfen
+                        Dim _SQLstring As String = _
+                        "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
+                        "WHERE idSeries = " & _Series.idSeries & " " & _
+                        "ORDER BY episodeName"
+
+                        _SQLstring = Replace(_SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung ")
+                        Dim _SQLstate4 As SqlStatement = Broker.GetStatement(_SQLstring)
+                        Dim _EpisodeList As IList(Of TVMovieProgram) = ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate4.Execute())
+
+                        If _EpisodeList.Count > 0 Then
+                            Dim _logNewEpisode As Boolean = False
+
+                            For Each _Program In _EpisodeList
+                                If Not String.IsNullOrEmpty(TvMovieProgram.idEpisode) Then
+                                    Dim _Episode As MyTvSeries.MyEpisode = MyTvSeries.MyEpisode.Retrieve(_Program.idEpisode)
+                                    _logNewEpisode = Not IdentifySeries.UpdateProgramAndTvMovieProgram(_Program.ReferencedProgram, _Series, _Episode, _Episode.ExistLocal, True)
+
+                                    MyLog.Info("[ShowEpisodeLinkContextMenu]: S{0}E{1} - {2} updated (programList.count = {3}, newEpisode: {4})", _
+                                    _Episode.SeriesNum, _Episode.EpisodeNum, _Program.ReferencedProgram.EpisodeName, _EpisodeList.Count, _logNewEpisode)
+                                Else
+                                    'nicht identifizierte Episoden
+                                End If
+                            Next
+                        End If
+
+                    Case Else
+                        'exit
+                End Select
+
+
+                dlgContext.Dispose()
+                dlgContext.AllocResources()
+
+                MyLog.Info("")
+            Catch ex As Exception
+                MyLog.Error("[ShowEpisodeLinkContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
+            End Try
+
+        End Sub
+#End Region
 
     End Class
 End Namespace

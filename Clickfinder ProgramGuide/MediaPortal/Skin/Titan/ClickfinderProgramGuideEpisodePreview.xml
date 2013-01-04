@@ -1,0 +1,377 @@
+﻿<window>
+  <id>1656544657</id>
+  <defaultcontrol>10</defaultcontrol>
+  <allowoverlay>yes</allowoverlay>
+  <define>#header.label:Clickfinder ProgramGuide</define>
+  <controls>
+
+    <!-- Background & Layout -->
+    <control>
+      <description>BG</description>
+      <type>image</type>
+      <id>1</id>
+      <width>1920</width>
+      <height>1080</height>
+      <texture>hover_ClickfinderProgramGuide.png</texture>
+    </control>
+    <control>
+      <id>1</id>
+      <description>Background FanArt Image</description>
+      <type>image</type>
+      <posX>0</posX>
+      <posY>0</posY>
+      <width>1920</width>
+      <height>1080</height>
+      <texture>#EpisodesPreviewFanArt</texture>
+    </control>
+    <control>
+      <description>BG</description>
+      <type>image</type>
+      <id>1</id>
+      <width>1920</width>
+      <height>1080</height>
+      <texture>fanart_overlay.png</texture>
+    </control>
+    <control>
+      <description>background listview</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>0</posX>
+      <posY>0</posY>
+      <width>1920</width>
+      <height>1080</height>
+      <texture>fanart_overlay.png</texture>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control>
+      <description>VIEWPORT</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>10</posX>
+      <posY>145</posY>
+      <width>1903</width>
+      <height>897</height>
+      <texture>panel_tv.png</texture>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control>
+      <id>0</id>
+      <type>image</type>
+      <posX>60</posX>
+      <posY>34</posY>
+      <width>68</width>
+      <height>60</height>
+      <texture>icon_ClickfinderProgramGuide.png</texture>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+    <import>common.time.xml</import>
+
+    <!-- Tv Movie++ Last UpdateLabel-->
+    <control>
+      <description>TvMovie++ LastUpdate</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>80</posX>
+      <posY>1000</posY>
+      <label>#SettingLastUpdate</label>
+      <font>font10</font>
+      <align>left</align>
+      <textcolor>000000</textcolor>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+
+    <!-- SeriesList & Controls-->
+    <control>
+      <type>listcontrol</type>
+      <id>10</id>
+      <posX>922</posX>
+      <posY>200</posY>
+      <height>900</height>
+      <width>978</width>
+      <onleft>548</onleft>
+      <onright>2</onright>
+      <scrollOffset>1</scrollOffset>
+      <PinIconHeight>45</PinIconHeight>
+      <PinIconWidth>75</PinIconWidth>
+      <PinIconXOff>880</PinIconXOff>
+      <PinIconYOff>5</PinIconYOff>
+      <itemWidth>116</itemWidth>
+      <itemHeight>116</itemHeight>
+      <textureFocus>listcontrol_item_selected_tv.png</textureFocus>
+      <textureNoFocus>-</textureNoFocus>
+      <textureHeight>128</textureHeight>
+      <IconXOff>20</IconXOff>
+      <IconYOff>6</IconYOff>
+      <textXOff>30</textXOff>
+      <textYOff>20</textYOff>
+      <textXOff2>920</textXOff2>
+      <textYOff2>56</textYOff2>
+      <textXOff3>170</textXOff3>
+      <textYOff3>60</textYOff3>
+      <font3>font10</font3>
+      <textcolor3>ff909090</textcolor3>
+      <keepaspectratio>yes</keepaspectratio>
+      <spinCanFocus>no</spinCanFocus>
+      <dimColor>ffffffff</dimColor>
+      <spinPosX>1832</spinPosX>
+      <spinPosY>950</spinPosY>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+
+    <!-- RepeatsList & Controls-->
+   <control>
+      <type>listcontrol</type>
+      <id>30</id>
+      <posX>58</posX>
+      <posY>580</posY>
+      <height>400</height>
+      <width>899</width>
+      <onleft>2</onleft>
+      <onright>10</onright>
+      <scrollOffset>1</scrollOffset>
+      <PinIconHeight>45</PinIconHeight>
+      <PinIconWidth>75</PinIconWidth>
+      <PinIconXOff>790</PinIconXOff>
+      <PinIconYOff>5</PinIconYOff>
+      <itemWidth>90</itemWidth>
+      <itemHeight>90</itemHeight>
+      <textureFocus>listcontrol_item_selected_tv.png</textureFocus>
+      <textureNoFocus>-</textureNoFocus>
+      <textureHeight>116</textureHeight>
+      <IconXOff>20</IconXOff>
+      <IconYOff>13</IconYOff>
+      <textXOff>30</textXOff>
+      <textYOff>20</textYOff>
+      <textXOff2>50</textXOff2>
+      <textYOff2>6</textYOff2>
+      <textXOff3>160</textXOff3>
+      <textYOff3>52</textYOff3>
+      <font3>font10</font3>
+      <textcolor3>ff909090</textcolor3>
+      <keepaspectratio>no</keepaspectratio>
+      <spinCanFocus>no</spinCanFocus>
+      <dimColor>ffffffff</dimColor>
+      <spinPosX>1832</spinPosX>
+      <spinPosY>950</spinPosY>
+     <animation effect="fade" time="250">WindowOpen</animation>
+     <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+    <!-- Infos -->
+
+    <control>
+      <description>Series Poster Image</description>
+      <type>image</type>
+      <id>40</id>
+      <posX>90</posX>
+      <posY>220</posY>
+      <width>400</width>
+      <height>344</height>
+      <filtered>yes</filtered>
+      <centered>no</centered>
+      <keepaspectratio>yes</keepaspectratio>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+    <control Style="wideTitle">
+      <description>Series Titel Label</description>
+      <type>fadelabel</type>
+      <id>1</id>
+      <posX>360</posX>
+      <posY>220</posY>
+      <width>540</width>
+      <align>left</align>
+      <label>#EpisodesPreviewTitle</label>
+      <textcolor>FF00b7ff</textcolor>
+      <wrapString> | </wrapString>
+      <visible></visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Series RatingStars</description>
+      <type>imagelist</type>
+      <id>1</id>
+      <posX>360</posX>
+      <posY>270</posY>
+      <width>120</width>
+      <height>40</height>
+      <textureWidth>28</textureWidth>
+      <textureHeight>28</textureHeight>
+      <subitems>
+        <subitem>starblack.png</subitem>
+        <subitem>starblue.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>10</imagesToDraw>
+      <percentage>#EpisodesPreviewSeriesRatingStar</percentage>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Series Label1</description>
+      <type>fadelabel</type>
+      <id>1</id>
+      <posX>370</posX>
+      <posY>310</posY>
+      <width>440</width>
+      <align>left</align>
+      <font>font12</font>
+      <textcolor>ff909090</textcolor>
+      <label>#EpisodesPreviewLabel1</label>
+      <wrapString> | </wrapString>
+      <visible></visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Series Label2</description>
+      <type>fadelabel</type>
+      <id>1</id>
+      <posX>370</posX>
+      <posY>340</posY>
+      <width>440</width>
+      <align>left</align>
+      <font>font12</font>
+      <textcolor>ff909090</textcolor>
+      <label>#EpisodesPreviewLabel2</label>
+      <wrapString> | </wrapString>
+      <visible></visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Series Label3</description>
+      <type>fadelabel</type>
+      <id>1</id>
+      <posX>370</posX>
+      <posY>370</posY>
+      <width>440</width>
+      <align>left</align>
+      <font>font10</font>
+      <textcolor>ff909090</textcolor>
+      <label>#EpisodesPreviewLabel3</label>
+      <wrapString> | </wrapString>
+      <visible></visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Series Summary</description>
+      <type>textboxscrollup</type>
+      <id>1</id>
+      <posX>90</posX>
+      <posY>590</posY>
+      <width>800</width>
+      <height>400</height>
+      <label>#EpisodesPreviewSeriesSummary</label>
+      <seperator>-------------------------------------------------------------------------------------------------------------------------------------------</seperator>
+      <font>font12</font>
+      <visible></visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Episode Description</description>
+      <type>textboxscrollup</type>
+      <id>1</id>
+      <posX>370</posX>
+      <posY>410</posY>
+      <width>550</width>
+      <height>160</height>
+      <label>#EpisodesPreviewEpisodeDescription</label>
+      <seperator>-------------------------------------------------------------------------------------------------------------------------------------------</seperator>
+      <font>font10</font>
+      <visible></visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    
+    <control>
+      <id>1</id>
+      <description>TvWish Entry Image</description>
+      <type>image</type>
+      <posX>70</posX>
+      <posY>190</posY>
+      <!--<width>300</width>-->
+      <height>46</height>
+      <texture>ClickfinderPGTvWish.png</texture>
+      <keepaspectratio>yes</keepaspectratio>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+      <visible>string.equals(#EpisodesPreviewTvWishEntryFounded,true)+plugin.isenabled(TvWishListMP)</visible>
+    </control>
+
+    <control>
+      <description>TvWish create</description>
+      <type>button</type>
+      <id>548</id>
+      <hyperlink>70943675</hyperlink>
+      <hyperlinkParameter>eq(#currentmoduleid,'1656544652'), 'NEWTVWISH//EXPRESSION=(title like '#EpisodesPreviewTitle' ) AND (description like '%Neue Folge: %')//NAME=CPG: #EpisodesPreviewTitle: #ClickfinderPG.Translation.NewEpisodes</hyperlinkParameter>
+      <posX>740</posX>
+      <posY>320</posY>
+      <label>TvWish</label>
+      <width>160</width>
+      <height>40</height>
+      <textalign>center</textalign>
+      <font>TitanLight10</font>
+      <textcolor>FF000000</textcolor>
+      <textcolorNoFocus>ffffffff</textcolorNoFocus>
+      <textYOff>2</textYOff>
+      <onleft>30</onleft>
+      <onright>10</onright>
+      <onup>2</onup>
+      <ondown>30</ondown>
+      <visible>string.equals(#EpisodesPreviewTvWishEntryFounded,false)+plugin.isenabled(TvWishListMP)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    
+ <!-- ActionGroup -->
+    <import>ClickfinderProgramGuide.HiddenMenu.xml</import>
+
+
+    <control>
+      <id>9</id>
+      <type>animation</type>
+      <posX>472</posX>
+      <posY>570</posY>
+      <width>70</width>
+      <height>70</height>
+      <textures>
+        common.waiting.1.png;common.waiting.2.png;common.waiting.3.png;common.waiting.4.png;common.waiting.5.png;
+        common.waiting.6.png;common.waiting.7.png;common.waiting.8.png
+      </textures>
+      <Duration>0:0:01.5</Duration>
+    </control>
+    <control>
+      <id>8</id>
+      <type>animation</type>
+      <posX>1376</posX>
+      <posY>570</posY>
+      <width>70</width>
+      <height>70</height>
+      <textures>
+        common.waiting.1.png;common.waiting.2.png;common.waiting.3.png;common.waiting.4.png;common.waiting.5.png;
+        common.waiting.6.png;common.waiting.7.png;common.waiting.8.png
+      </textures>
+      <Duration>0:0:01.5</Duration>
+    </control>
+  </controls>
+</window>

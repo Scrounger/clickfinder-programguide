@@ -19,6 +19,10 @@ Imports System.Globalization
 
 
 Imports enrichEPG
+Imports SQLite.NET
+Imports MediaPortal.Database
+Imports enrichEPG.TvDatabase
+Imports enrichEPG.Database
 
 
 Public Class Helper
@@ -29,12 +33,19 @@ Public Class Helper
 #End Region
 
 #Region "Properties"
+    Public Shared ReadOnly Property Version() As String
+        Get
+            Return "1.3.0.0 beta"
+        End Get
+    End Property
+
+
     Friend Shared ReadOnly Property ORDERBYstartTime() As String
         Get
             Return "ORDER BY startTime ASC, starRating DESC, title ASC"
         End Get
     End Property
-    Friend Shared ReadOnly Property ORDERBYtvMovieBewertung() As String
+    Friend Shared ReadOnly Property ORDERBYTvMovieStar() As String
         Get
             Return "ORDER BY TVMovieBewertung DESC, starRating DESC, startTime ASC, title ASC"
         End Get
@@ -56,7 +67,63 @@ Public Class Helper
         End Get
     End Property
 
-  
+    Friend Shared ReadOnly Property ORDERBYTitle() As String
+        Get
+            Return "ORDER BY title ASC, starRating DESC, startTime ASC"
+        End Get
+    End Property
+    Friend Shared ReadOnly Property ORDERBYFun() As String
+        Get
+            Return "ORDER BY fun DESC, starRating DESC, startTime ASC"
+        End Get
+    End Property
+
+    Friend Shared ReadOnly Property ORDERBYAction() As String
+        Get
+            Return "ORDER BY Action DESC, starRating DESC, startTime ASC"
+        End Get
+    End Property
+
+    Friend Shared ReadOnly Property ORDERBYFeelings() As String
+        Get
+            Return "ORDER BY Feelings DESC, starRating DESC, startTime ASC"
+        End Get
+    End Property
+
+    Friend Shared ReadOnly Property ORDERBYErotic() As String
+        Get
+            Return "ORDER BY Erotic DESC, starRating DESC, startTime ASC"
+        End Get
+    End Property
+
+    Friend Shared ReadOnly Property ORDERBYTension() As String
+        Get
+            Return "ORDER BY Tension DESC, starRating DESC, startTime ASC"
+        End Get
+    End Property
+    Friend Shared ReadOnly Property ORDERBYRequirement() As String
+        Get
+            Return "ORDER BY Requirement DESC, starRating DESC, startTime ASC"
+        End Get
+    End Property
+    Friend Shared ReadOnly Property ORDERBYSeries() As String
+        Get
+            Return "ORDER BY idSeries DESC, starRating DESC, startTime ASC"
+        End Get
+    End Property
+
+    Friend Shared ReadOnly Property ORDERBYEpisode() As String
+        Get
+            Return "ORDER BY seriesNum, episodeNum"
+        End Get
+    End Property
+
+    Friend Shared ReadOnly Property ORDERBYYear() As String
+        Get
+            Return "ORDER BY OriginalAirDate DESC, starRating DESC, startTime ASC"
+        End Get
+    End Property
+
 #End Region
 
     Friend Enum SortMethode
@@ -64,8 +131,10 @@ Public Class Helper
         TvMovieStar
         RatingStar
         Genre
+        Year
         parentalRating
         Series
+        Episode
         Title
         Action
         Fun
@@ -206,53 +275,9 @@ Public Class Helper
 
     End Sub
 
-    ''' <summary>
-    ''' Holt / erstellt TvMovieProgram
-    ''' </summary>
-    ''' <returns>TvMovieProgram</returns>
-    'Friend Shared Function getTvMovieProgram(ByVal Program As Program) As TVMovieProgram
-    '    Try
-    '        Dim _TvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(Program.IdProgram)
-    '        Return _TvMovieProgram
-    '    Catch ex As Exception
-    '        Dim _ClickfinderDB As New ClickfinderDB(Program)
-    '        Dim _TvMovieProgram As New TVMovieProgram(Program.IdProgram)
-    '        If _ClickfinderDB.Count > 0 Then
-
-    '            'nur Informationen die zwigend benötigt werden, anzeige in GuiItems, GuiCategories & GuiHighlights
-    '            '+ zusätzlich Infos zum sortieren & suchen (z.B. TvMovieBewretung, Fun, Action, etc.)
-
-    '            'BildDateiname aus Clickfinder DB holen, sofern vorhanden
-    '            If CBool(_ClickfinderDB(0).KzBilddateiHeruntergeladen) = True And Not String.IsNullOrEmpty(_ClickfinderDB(0).Bilddateiname) Then
-    '                _TvMovieProgram.BildDateiname = _ClickfinderDB(0).Bilddateiname
-    '            End If
-
-    '            'TvMovie Bewertung aus Clickfinder DB holen, sofern vorhanden
-    '            If Not _ClickfinderDB(0).Bewertung = 0 Then
-    '                _TvMovieProgram.TVMovieBewertung = _ClickfinderDB(0).Bewertung
-    '            End If
-
-    '            'KurzKritik aus Clickfinder DB holen, sofern vorhanden
-    '            If Not String.IsNullOrEmpty(_ClickfinderDB(0).Kurzkritik) Then
-    '                _TvMovieProgram.KurzKritik = _ClickfinderDB(0).Kurzkritik
-    '            End If
-    '            _TvMovieProgram.needsUpdate = True
-    '            _TvMovieProgram.Persist()
-    '            Return _TvMovieProgram
-    '        Else
-    '            _TvMovieProgram.Persist()
-    '            MyLog.[Warn]("[getTvMovieProgram]: Program {0} not found in ClickfinderDB (Title: {1}, Channel: {2}, startTime: {3}, starRating: {4})", _
-    '                                    _TvMovieProgram.ReferencedProgram.IdProgram, _TvMovieProgram.ReferencedProgram.Title, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieProgram.ReferencedProgram.StartTime, _TvMovieProgram.ReferencedProgram.StarRating)
-    '            Return _TvMovieProgram
-    '        End If
-
-    '    End Try
-    'End Function
-
     Friend Shared Sub ShowActionMenu(ByVal Program As Program)
 
         Try
-
 
             Dim dlgContext As GUIDialogMenu = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_MENU, Integer)), GUIDialogMenu)
             dlgContext.Reset()
@@ -291,11 +316,11 @@ Public Class Helper
             dlgContext.Add(lItemSerieLink)
             lItemSerieLink.Dispose()
 
-            'mit Serien aktualisieren
-            Dim lItemSeriesUpdate As New GUIListItem
-            lItemSeriesUpdate.Label = Translation.DBRefresh
-            dlgContext.Add(lItemSeriesUpdate)
-            lItemSeriesUpdate.Dispose()
+            'mit DB aktualisieren
+            Dim lItemDBUpdate As New GUIListItem
+            lItemDBUpdate.Label = Translation.DBRefresh
+            dlgContext.Add(lItemDBUpdate)
+            lItemDBUpdate.Dispose()
 
             dlgContext.DoModal(GUIWindowManager.ActiveWindow)
 
@@ -346,6 +371,8 @@ Public Class Helper
 
     Private Shared Sub startEnrichEPG()
         Try
+            MyLog.Debug("[ShowActionMenu]: enrichEPG started")
+
             Notify(Translation.DBRefreshStarted)
 
             _DbAbgleichRuning = True
@@ -361,7 +388,7 @@ Public Class Helper
                                                      CPGsettings.TvMovieImportTvSeriesInfos, _
                                                      CPGsettings.TvMovieImportVideoDatabaseInfos, _
                                                      CPGsettings.TvMovieImportMovingPicturesInfos, _
-                                                     Date.Now, Global.enrichEPG.EnrichEPG.LogPath.Client, _EpisodenScannerPath, , , _
+                                                     Date.Now, MySettings.LogPath.Client, _EpisodenScannerPath, , , _
                                                      "ClickfinderProgramGuide_enrichEPG.log", CPGsettings.TvMovieUseTheTvDb, , _
                                                      Config.GetFile(Config.Dir.Thumbs, ""))
 
@@ -379,11 +406,16 @@ Public Class Helper
             GuiLayout.SetSettingLastUpdateProperty()
 
         Catch ex As Exception
+            Notify("Error by starting enrichEPG !!!")
             MyLog.Error("[Helper]: [startEnrichEPG]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
         End Try
     End Sub
 
     Private Shared Sub ShowSerieLinkContextMenu(ByVal program As Program)
+
+        MyLog.Info("")
+        MyLog.Info("[Helper] [ShowSerieLinkContextMenu]: open")
+        MyLog.Info("")
 
         Try
             Dim dlgContext As GUIDialogSelect2Custom = CType(GUIWindowManager.GetWindow(CType(1656544655, Integer)), GUIDialogSelect2Custom)
@@ -424,25 +456,32 @@ Public Class Helper
 
             dlgContext.DoModal(GUIWindowManager.ActiveWindow)
 
-            Try
-                Dim _SeriesMapping As TvMovieSeriesMapping = TvMovieSeriesMapping.Retrieve(_idSeriesContainer.Item(dlgContext.SelectedLabel))
 
-                If String.IsNullOrEmpty(_SeriesMapping.EpgTitle) = True Then
-                    _SeriesMapping.EpgTitle = program.Title
-                    _SeriesMapping.Persist()
-                Else
-                    'Verlinkung schon vorhanden -> neuer Dlg überschreiben oder hinzufügen
-                    ShowSeriesLinkManagementContextMenu(_SeriesMapping, program.Title)
-                End If
+            Select Case dlgContext.SelectedLabel
+                Case Is = _idSeriesContainer.Keys(dlgContext.SelectedLabel)
 
-            Catch ex As Exception
-                Dim _SeriesMapping As New TvMovieSeriesMapping(_idSeriesContainer.Item(dlgContext.SelectedLabel))
-                _SeriesMapping.EpgTitle = program.Title
-                _SeriesMapping.Persist()
-            End Try
+                    Try
+                        Dim _SeriesMapping As TvMovieSeriesMapping = TvMovieSeriesMapping.Retrieve(_idSeriesContainer.Item(dlgContext.SelectedLabel))
 
-            dlgContext.Dispose()
-            dlgContext.AllocResources()
+                        If String.IsNullOrEmpty(_SeriesMapping.EpgTitle) = True Then
+                            _SeriesMapping.EpgTitle = program.Title
+                            _SeriesMapping.Persist()
+                        Else
+                            'Verlinkung schon vorhanden -> neuer Dlg überschreiben oder hinzufügen
+                            ShowSeriesLinkManagementContextMenu(_SeriesMapping, program.Title)
+                        End If
+
+                    Catch ex As Exception
+                        Dim _SeriesMapping As New TvMovieSeriesMapping(_idSeriesContainer.Item(dlgContext.SelectedLabel))
+                        _SeriesMapping.EpgTitle = program.Title
+                        _SeriesMapping.Persist()
+                    End Try
+
+                    dlgContext.Dispose()
+                    dlgContext.AllocResources()
+                Case Else
+                    'Exit dlgcontext
+            End Select
 
         Catch ex As Exception
             MyLog.Error("[Helper] [ShowSerieLinkContextMenu]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
@@ -455,21 +494,19 @@ Public Class Helper
             Dim dlgContext As GUIDialogMenu = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_MENU, Integer)), GUIDialogMenu)
             dlgContext.Reset()
 
-
-
             'ContextMenu Layout
             dlgContext.SetHeading(NewSeriesMapping)
             dlgContext.ShowQuickNumbers = True
 
             'Verlinkung hinzufügen
             Dim lItemAdd As New GUIListItem
-            lItemAdd.Label = Translation.SeriesMappingAppend
+            lItemAdd.Label = Translation.MappingAppend
             dlgContext.Add(lItemAdd)
             lItemAdd.Dispose()
 
             'Verlinkung überschreiben
             Dim lItemOverwrite As New GUIListItem
-            lItemOverwrite.Label = Translation.SeriesMappingOverwrite
+            lItemOverwrite.Label = Translation.MappingOverwrite
             dlgContext.Add(lItemOverwrite)
             lItemOverwrite.Dispose()
 
@@ -561,7 +598,7 @@ Public Class Helper
             End If
 
             'Clickfinder DB nicht gefunden
-            If IO.File.Exists(ClickfinderDB.DatabasePath) = False Then
+            If IO.File.Exists(CPGsettings.ClickfinderDatabasePath) = False Then
                 ShowNotify(Translation.ClickfinderDBOffline)
                 Return
             End If
@@ -606,71 +643,52 @@ Public Class Helper
             If CPGsettings.TvMovieImportTvSeriesInfos = True Then
                 If String.IsNullOrEmpty(TvMovieProgram.ReferencedProgram.SeriesNum) = False And String.IsNullOrEmpty(TvMovieProgram.ReferencedProgram.EpisodeNum) = False Then
 
+                    'prüfen ob in Records vorhanden
                     Dim _RecList As List(Of Recording)
                     Dim _SQLstring As String = "SELECT * FROM Recording " & _
-                                                "WHERE title = '" & TVSeriesDB.allowedSigns(TvMovieProgram.ReferencedProgram.Title) & "' " & _
-                                                "AND episodeName = '" & TVSeriesDB.allowedSigns(TvMovieProgram.ReferencedProgram.EpisodeName) & "' " & _
+                                                "WHERE title = '" & MyTvSeries.Helper.allowedSigns(TvMovieProgram.ReferencedProgram.Title) & "' " & _
+                                                "AND episodeName = '" & MyTvSeries.Helper.allowedSigns(TvMovieProgram.ReferencedProgram.EpisodeName) & "' " & _
                                                 "AND seriesNum = '" & TvMovieProgram.ReferencedProgram.SeriesNum & "' " & _
                                                 "AND episodeNum = '" & TvMovieProgram.ReferencedProgram.EpisodeNum & "'"
 
+                    _SQLstring = Helper.AppendSqlLimit(_SQLstring, 1)
                     Dim _SQLstate1 As SqlStatement = Broker.GetStatement(_SQLstring)
                     _RecList = ObjectFactory.GetCollection(GetType(Recording), _SQLstate1.Execute())
 
+                    'Serien laden und nach update schauen
+                    Dim _Series As MyTvSeries = MyTvSeries.Retrieve(TvMovieProgram.idSeries)
+                    Dim _Episode As MyTvSeries.MyEpisode = MyTvSeries.MyEpisode.Retrieve(_Series.idSeries, TvMovieProgram.ReferencedProgram.SeriesNum, TvMovieProgram.ReferencedProgram.EpisodeNum)
+
                     If _RecList.Count > 0 Then
-                        'wenn gefunden -> TvMovieProgram update
-                        TvMovieProgram.local = True
-                        TvMovieProgram.ReferencedProgram.Description = Replace(TvMovieProgram.ReferencedProgram.Description, "Neue Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName, "Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName)
-                        TvMovieProgram.ReferencedProgram.Persist()
-                        TvMovieProgram.Persist()
+                        _Episode.ExistLocal = True
+                    End If
 
-                        _SQLstring = "SELECT * FROM TVMovieProgram " & _
-                                        "WHERE idEpisode = '" & TvMovieProgram.idEpisode & "'"
+                    'Falls local dann Datensätz updaten
+                    If _Episode.ExistLocal = True Then
 
-                        Dim _SQLstate2 As SqlStatement = Broker.GetStatement(_SQLstring)
-                        Dim _RepeatsNewEpisodes As List(Of TVMovieProgram) = ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate2.Execute())
+                        'Alle Episoden (program & tvmovieprogram) updaten
+                        _SQLstring = _
+                        "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
+                        "WHERE idSeries = " & _Episode.SeriesID & " " & _
+                        "AND episodeName = '" & MyTvSeries.Helper.allowedSigns(TvMovieProgram.ReferencedProgram.EpisodeName) & "'"
 
-                        Dim tmp As String = String.Empty
-                        For Each _episode In _RepeatsNewEpisodes
-                            _episode.local = True
-                            _episode.ReferencedProgram.Description = Replace(TvMovieProgram.ReferencedProgram.Description, "Neue Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName, "Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName)
-                            _episode.ReferencedProgram.Persist()
-                            _episode.Persist()
-                        Next
+                        _SQLstring = Replace(_SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung ")
+                        Dim _SQLstate4 As SqlStatement = Broker.GetStatement(_SQLstring)
+                        Dim _EpisodeRepeatsList As IList(Of TVMovieProgram) = ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate4.Execute())
 
-                        MyLog.Info("[Helper]: [CheckSeriesLocalStatus]: Episode found in records: {0} - S{1}E{2}", TvMovieProgram.ReferencedProgram.Title, TvMovieProgram.ReferencedProgram.SeriesNum, TvMovieProgram.ReferencedProgram.EpisodeNum)
-                    Else
-
-                        Dim _logSeriesIsLinked As String = String.Empty
-                        Dim _SeriesIsLinked As Boolean = False
-                        Dim _SeriesName As String = String.Empty
-
-                        _SeriesName = TvMovieProgram.ReferencedProgram.Title
-
-                        Dim _TvSeriesDB As New TVSeriesDB
-                        _TvSeriesDB.LoadEpisode(_SeriesName, CInt(TvMovieProgram.ReferencedProgram.SeriesNum), CInt(TvMovieProgram.ReferencedProgram.EpisodeNum))
-
-                        If _TvSeriesDB.EpisodeExistLocal = True Then
-
-                            TvMovieProgram.local = True
-                            TvMovieProgram.FileName = _TvSeriesDB.EpisodeFilename
-                            TvMovieProgram.ReferencedProgram.Description = Replace(TvMovieProgram.ReferencedProgram.Description, "Neue Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName, "Folge: " & TvMovieProgram.ReferencedProgram.EpisodeName)
-                            TvMovieProgram.ReferencedProgram.Persist()
-                            TvMovieProgram.Persist()
-
-                            If _SeriesIsLinked = True Then
-                                MyLog.[Info](_logSeriesIsLinked)
-                            End If
-
-                            MyLog.Info("[Helper]: [CheckSeriesLocalStatus]: Episode found in TvSeries database: {0} - S{1}E{2}", TvMovieProgram.ReferencedProgram.Title, TvMovieProgram.ReferencedProgram.SeriesNum, TvMovieProgram.ReferencedProgram.EpisodeNum)
+                        If _EpisodeRepeatsList.Count > 0 Then
+                            Dim _logNewEpisode As Boolean = False
+                            For Each _TvMovieProgram In _EpisodeRepeatsList
+                                _logNewEpisode = Not IdentifySeries.UpdateProgramAndTvMovieProgram(_TvMovieProgram.ReferencedProgram, _Series, _Episode, _Episode.ExistLocal, True)
+                            Next
+                            MyLog.Info("[CheckSeriesLocalStatus]: S{0}E{1} - {2} updated (programList.count = {3}, newEpisode: {4})", _
+                                      _Episode.SeriesNum, _Episode.EpisodeNum, TvMovieProgram.ReferencedProgram.EpisodeName, _EpisodeRepeatsList.Count, _logNewEpisode)
                         End If
-                        _TvSeriesDB.Dispose()
-
                     End If
                 End If
             End If
 
         Catch ex As Exception
-            MsgBox("CheckLocalSeriesStatus: " & vbNewLine & ex.Message)
             MyLog.Error("[Helper]: [CheckSeriesLocalStatus]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
         End Try
     End Sub
@@ -723,115 +741,7 @@ Public Class Helper
         End If
     End Sub
 
-    Friend Shared Sub UpdateProgramData(ByVal TvMovieProgram As TVMovieProgram)
 
-        Try
-            MyLog.Debug("[Helper]: [UpdateProgramData]: program needs update")
-
-            Dim _ClickfinderDB As New ClickfinderDB(TvMovieProgram.ReferencedProgram, True)
-
-            'Wenn HD Sender -> Dolby = true, Hd = true
-            If InStr(TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, " HD") > 0 Then
-                TvMovieProgram.Dolby = True
-                TvMovieProgram.HDTV = True
-            Else
-                'Daten aus ClickfinderDB 
-                If _ClickfinderDB.Count > 0 Then
-                    TvMovieProgram.Dolby = _ClickfinderDB(0).Dolby
-                    TvMovieProgram.HDTV = _ClickfinderDB(0).KzHDTV
-                End If
-            End If
-
-            'Jahr
-            If Not String.IsNullOrEmpty(_ClickfinderDB(0).Herstellungsjahr) Then
-                TvMovieProgram.Year = CDate("01.01." & _ClickfinderDB(0).Herstellungsjahr)
-            End If
-
-            'Country
-            If Not String.IsNullOrEmpty(_ClickfinderDB(0).Herstellungsland) Then
-                TvMovieProgram.Country = _ClickfinderDB(0).Herstellungsland
-            End If
-
-            'Regie
-            If Not String.IsNullOrEmpty(_ClickfinderDB(0).Regie) Then
-                TvMovieProgram.Regie = _ClickfinderDB(0).Regie
-            End If
-
-            'Describtion
-            If TvMovieProgram.idSeries > 0 And CPGsettings.TvMovieImportTvSeriesInfos = True And CPGsettings.DetailUseSeriesDescribtion = True Then
-                'Wenn Serie erkannt dann -> Episoden Beschreibung aus TvSeriesDB laden (sofern aktiviert & vorhanden)
-                Dim _Series As New TVSeriesDB
-                _Series.LoadEpisodebyEpsiodeID(TvMovieProgram.idSeries, TvMovieProgram.idEpisode)
-                If Not String.IsNullOrEmpty(_Series.EpisodeSummary) Then
-                    TvMovieProgram.Describtion = _Series.EpisodeSummary & vbNewLine & "(Beschreibung von MP-TvSeries)"
-                Else
-                    If Not String.IsNullOrEmpty(_ClickfinderDB(0).Beschreibung) Then
-                        TvMovieProgram.Describtion = Replace(_ClickfinderDB(0).Beschreibung, "<br>", vbNewLine) & vbNewLine & "(Beschreibung von TvMovie)"
-                    ElseIf Not String.IsNullOrEmpty(TvMovieProgram.ReferencedProgram.Description) Then
-                        TvMovieProgram.Describtion = TvMovieProgram.ReferencedProgram.Description & vbNewLine & "(Beschreibung aus EPG)"
-                    End If
-                End If
-
-            Else
-                If Not String.IsNullOrEmpty(_ClickfinderDB(0).Beschreibung) Then
-                    TvMovieProgram.Describtion = Replace(_ClickfinderDB(0).Beschreibung, "<br>", vbNewLine) & vbNewLine & "(Beschreibung von TvMovie)"
-                ElseIf Not String.IsNullOrEmpty(TvMovieProgram.ReferencedProgram.Description) Then
-                    TvMovieProgram.Describtion = TvMovieProgram.ReferencedProgram.Description & vbNewLine & "(Beschreibung aus EPG)"
-                End If
-            End If
-
-            'Short Describtion
-            If Not String.IsNullOrEmpty(_ClickfinderDB(0).KurzBeschreibung) Then
-                TvMovieProgram.ShortDescribtion = _ClickfinderDB(0).KurzBeschreibung
-            End If
-
-
-            'Bewertungen String aus Clickfinder DB holen, zerlegen, einzel Bewertungen extrahieren
-            If Not String.IsNullOrEmpty(_ClickfinderDB(0).Bewertungen) Then
-                ' We want to split this input string
-                Dim s As String = _ClickfinderDB(0).Bewertungen
-
-                ' Split string based on spaces
-                Dim words As String() = s.Split(New Char() {";"c})
-
-                ' Use For Each loop over words and display them
-                Dim word As String
-                For Each word In words
-                    'MsgBox(Left(word, InStr(word, "=") - 1))
-
-                    'MsgBox(CInt(Right(word, word.Length - InStr(word, "="))))
-
-                    Select Case Left(word, InStr(word, "=") - 1)
-                        Case Is = "Spaß"
-                            TvMovieProgram.Fun = CInt(Right(word, word.Length - InStr(word, "=")))
-                        Case Is = "Action"
-                            TvMovieProgram.Action = CInt(Right(word, word.Length - InStr(word, "=")))
-                        Case Is = "Erotik"
-                            TvMovieProgram.Erotic = CInt(Right(word, word.Length - InStr(word, "=")))
-                        Case Is = "Spannung"
-                            TvMovieProgram.Tension = CInt(Right(word, word.Length - InStr(word, "=")))
-                        Case Is = "Anspruch"
-                            TvMovieProgram.Requirement = CInt(Right(word, word.Length - InStr(word, "=")))
-                        Case Is = "Gefühl"
-                            TvMovieProgram.Feelings = CInt(Right(word, word.Length - InStr(word, "=")))
-                    End Select
-                Next
-            End If
-
-            'Actors aus Clickfinder DB holen, sofern vorhanden
-            If Not String.IsNullOrEmpty(_ClickfinderDB(0).Darsteller) Then
-                TvMovieProgram.Actors = _ClickfinderDB(0).Darsteller
-            End If
-
-            TvMovieProgram.needsUpdate = False
-            TvMovieProgram.Persist()
-
-
-        Catch ex As Exception
-            MyLog.Error("[Helper]: [UpdateProgramData]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
-        End Try
-
-    End Sub
 
     Friend Shared Sub Notify(ByVal message As String, Optional ByVal image As String = "")
         Try

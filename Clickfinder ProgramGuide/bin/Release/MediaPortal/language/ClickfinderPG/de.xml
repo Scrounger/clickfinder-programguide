@@ -114,5 +114,6 @@
   <string Field="RefreshOverlays">Overlays werden aktualisiert...</string>
   <string Field="Title">Titel</string>
   <string Field="SortTitle">Titel</string>
-  
+  <string Field="MovieListNothingFound">Keine Movie Highlights gefunden!</string>
+  <string Field="HighlightsListNothingFound">Keine Highlights gefunden!</string>
 </strings>
