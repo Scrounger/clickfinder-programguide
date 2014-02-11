@@ -522,11 +522,6 @@ Namespace ClickfinderProgramGuide
             End Get
         End Property
 
-        Friend Shared ReadOnly Property ClickfinderSaveSettingsOnClients() As Boolean
-            Get
-                Return CBool(_layer.GetSetting("ClickfinderSaveSettingsOnClients", "false").Value)
-            End Get
-        End Property
 
 #End Region
 #End Region
@@ -575,15 +570,9 @@ Namespace ClickfinderProgramGuide
 
         End Sub
         Friend Shared Sub save()
-            If ClickfinderSaveSettingsOnClients = False Then
-                MyLog.Debug("[CPGsettings]: [Save]: save settings on TvServer")
-                SaveToTvServer()
-                MsgBox("Save to Server")
-            Else
-                MyLog.Debug("[CPGsettings]: [Save]: save settings on Clients")
-                SaveToClient()
-                MsgBox("Save to Client")
-            End If
+
+            MyLog.Debug("[CPGsettings]: [Save]: save settings on TvServer")
+            SaveToTvServer()
         End Sub
 
 #Region "TvServer"

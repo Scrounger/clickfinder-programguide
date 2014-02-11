@@ -23,216 +23,216 @@ Partial Class Setup
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Setup))
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Me.ButtonSave = New System.Windows.Forms.Button
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel
-        Me.TabControl1 = New System.Windows.Forms.TabControl
-        Me.TabAllgemeines = New System.Windows.Forms.TabPage
-        Me.Panel31 = New System.Windows.Forms.Panel
-        Me.BT_loadfromServer = New System.Windows.Forms.Button
-        Me.ButtonDefaultSettings = New System.Windows.Forms.Button
-        Me.CheckBoxDebugMode = New System.Windows.Forms.CheckBox
-        Me.Panel13 = New System.Windows.Forms.Panel
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox
-        Me.CheckBoxUseTheTvDb = New MediaPortal.UserInterface.Controls.MPCheckBox
-        Me.CheckBoxVideoDB = New MediaPortal.UserInterface.Controls.MPCheckBox
-        Me.CheckBoxMovingPictures = New MediaPortal.UserInterface.Controls.MPCheckBox
-        Me.CheckBoxTvSeries = New MediaPortal.UserInterface.Controls.MPCheckBox
-        Me.CheckBoxClickfinderPG = New MediaPortal.UserInterface.Controls.MPCheckBox
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.Panel12 = New System.Windows.Forms.Panel
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox
-        Me.tbMPDatabasePath = New System.Windows.Forms.TextBox
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.Panel11 = New System.Windows.Forms.Panel
-        Me.Panel6 = New System.Windows.Forms.Panel
-        Me.CbQuick2 = New System.Windows.Forms.ComboBox
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.CbQuick1 = New System.Windows.Forms.ComboBox
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.cbStandardGroup = New System.Windows.Forms.ComboBox
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.CheckBoxUseSportLogos = New System.Windows.Forms.CheckBox
-        Me.Panel7 = New System.Windows.Forms.Panel
-        Me.GroupBox8 = New System.Windows.Forms.GroupBox
-        Me.NumPreviewMinTvMovieRating = New System.Windows.Forms.NumericUpDown
-        Me.NumPreviewDays = New System.Windows.Forms.NumericUpDown
-        Me.Label24 = New System.Windows.Forms.Label
-        Me.Label26 = New System.Windows.Forms.Label
-        Me.Label25 = New System.Windows.Forms.Label
-        Me.Panel10 = New System.Windows.Forms.Panel
-        Me.tbLateTime = New System.Windows.Forms.MaskedTextBox
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.Panel8 = New System.Windows.Forms.Panel
-        Me.tbPrimeTime = New System.Windows.Forms.MaskedTextBox
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.Panel9 = New System.Windows.Forms.Panel
-        Me.CBStartGui = New System.Windows.Forms.ComboBox
-        Me.Label23 = New System.Windows.Forms.Label
-        Me.Panel29 = New System.Windows.Forms.Panel
-        Me.tbEpisodenScanner = New System.Windows.Forms.TextBox
-        Me.Label30 = New System.Windows.Forms.Label
-        Me.Label31 = New System.Windows.Forms.Label
-        Me.ButtonOpenDlgEpisodenScanner = New System.Windows.Forms.Button
-        Me.Panel5 = New System.Windows.Forms.Panel
-        Me.tbClickfinderImagePath = New System.Windows.Forms.TextBox
-        Me.Label27 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.ButtonOpenDlgImageFolder = New System.Windows.Forms.Button
-        Me.Panel4 = New System.Windows.Forms.Panel
-        Me.tbClickfinderDatabase = New System.Windows.Forms.TextBox
-        Me.Label28 = New System.Windows.Forms.Label
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.ButtonOpenDlgDatabase = New System.Windows.Forms.Button
-        Me.Panel3 = New System.Windows.Forms.Panel
-        Me.tbPluginName = New System.Windows.Forms.TextBox
-        Me.Label29 = New System.Windows.Forms.Label
-        Me.Label20 = New System.Windows.Forms.Label
-        Me.TabItems = New System.Windows.Forms.TabPage
-        Me.Panel33 = New System.Windows.Forms.Panel
-        Me.Panel32 = New System.Windows.Forms.Panel
-        Me.GroupBox9 = New System.Windows.Forms.GroupBox
-        Me.Panel34 = New System.Windows.Forms.Panel
-        Me.TableItemsPanel = New System.Windows.Forms.TableLayoutPanel
-        Me.PictureBox12 = New System.Windows.Forms.PictureBox
-        Me.CBTvGroup0 = New System.Windows.Forms.ComboBox
-        Me.CBsort0 = New System.Windows.Forms.ComboBox
-        Me.Label36 = New System.Windows.Forms.Label
-        Me.Label35 = New System.Windows.Forms.Label
-        Me.Label34 = New System.Windows.Forms.Label
-        Me.CBTvGroup9 = New System.Windows.Forms.ComboBox
-        Me.CBsort9 = New System.Windows.Forms.ComboBox
-        Me.CBTvGroup8 = New System.Windows.Forms.ComboBox
-        Me.CBsort8 = New System.Windows.Forms.ComboBox
-        Me.CBsort7 = New System.Windows.Forms.ComboBox
-        Me.CBTvGroup7 = New System.Windows.Forms.ComboBox
-        Me.CBsort6 = New System.Windows.Forms.ComboBox
-        Me.CBTvGroup6 = New System.Windows.Forms.ComboBox
-        Me.CBsort5 = New System.Windows.Forms.ComboBox
-        Me.CBTvGroup5 = New System.Windows.Forms.ComboBox
-        Me.CBsort4 = New System.Windows.Forms.ComboBox
-        Me.CBTvGroup4 = New System.Windows.Forms.ComboBox
-        Me.CBsort3 = New System.Windows.Forms.ComboBox
-        Me.CBTvGroup3 = New System.Windows.Forms.ComboBox
-        Me.CBsort2 = New System.Windows.Forms.ComboBox
-        Me.CBTvGroup2 = New System.Windows.Forms.ComboBox
-        Me.CBsort1 = New System.Windows.Forms.ComboBox
-        Me.CBTvGroup1 = New System.Windows.Forms.ComboBox
-        Me.PictureBox11 = New System.Windows.Forms.PictureBox
-        Me.PictureBox10 = New System.Windows.Forms.PictureBox
-        Me.PictureBox4 = New System.Windows.Forms.PictureBox
-        Me.PictureBox5 = New System.Windows.Forms.PictureBox
-        Me.PictureBox6 = New System.Windows.Forms.PictureBox
-        Me.PictureBox7 = New System.Windows.Forms.PictureBox
-        Me.PictureBox8 = New System.Windows.Forms.PictureBox
-        Me.PictureBox9 = New System.Windows.Forms.PictureBox
-        Me.PictureBox3 = New System.Windows.Forms.PictureBox
-        Me.BTClearSorting = New System.Windows.Forms.Button
-        Me.BTsetToStandardTvGroup = New System.Windows.Forms.Button
-        Me.CheckBoxRemberSortedBy = New System.Windows.Forms.CheckBox
-        Me.CheckBoxFilterShowLocalSeries = New System.Windows.Forms.CheckBox
-        Me.CheckBoxFilterShowLocalMovies = New System.Windows.Forms.CheckBox
-        Me.TabÜbersicht = New System.Windows.Forms.TabPage
-        Me.Panel18 = New System.Windows.Forms.Panel
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.Panel20 = New System.Windows.Forms.Panel
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.NumHighlightsMinRuntime = New System.Windows.Forms.NumericUpDown
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.Panel19 = New System.Windows.Forms.Panel
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.NumShowHighlightsAfter = New System.Windows.Forms.NumericUpDown
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.Panel15 = New System.Windows.Forms.Panel
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.Panel17 = New System.Windows.Forms.Panel
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox
-        Me.RBstartTime = New System.Windows.Forms.RadioButton
-        Me.RBTvMovieStar = New System.Windows.Forms.RadioButton
-        Me.RBRatingStar = New System.Windows.Forms.RadioButton
-        Me.Panel16 = New System.Windows.Forms.Panel
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.NumShowMoviesAfter = New System.Windows.Forms.NumericUpDown
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.CheckBoxShowTagesTipp = New System.Windows.Forms.CheckBox
-        Me.CheckBoxShowLocalMovies = New System.Windows.Forms.CheckBox
-        Me.Panel14 = New System.Windows.Forms.Panel
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.NumMaxDays = New System.Windows.Forms.NumericUpDown
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.TabCategories = New System.Windows.Forms.TabPage
-        Me.CheckBoxShowCategorieLocalSeries = New System.Windows.Forms.CheckBox
-        Me.CheckBoxShowCategorieLocalMovies = New System.Windows.Forms.CheckBox
-        Me.Panel27 = New System.Windows.Forms.Panel
-        Me.ButtonNewCategorie = New System.Windows.Forms.Button
-        Me.CheckBoxSelect = New System.Windows.Forms.CheckBox
-        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
-        Me.dgvCategories = New System.Windows.Forms.DataGridView
-        Me.C_id = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.C_Image = New System.Windows.Forms.DataGridViewImageColumn
-        Me.C_visible = New System.Windows.Forms.DataGridViewCheckBoxColumn
-        Me.C_Name = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.C_Beschreibung = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.C_sortOrder = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.C_SqlString = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.C_MinRuntime = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.C_NowOffset = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Panel28 = New System.Windows.Forms.Panel
-        Me.ButtonDown = New System.Windows.Forms.Button
-        Me.ButtonUp = New System.Windows.Forms.Button
-        Me.TabDetail = New System.Windows.Forms.TabPage
-        Me.Panel21 = New System.Windows.Forms.Panel
-        Me.GroupDetailSeriesImage = New System.Windows.Forms.GroupBox
-        Me.RBTvMovieImage = New System.Windows.Forms.RadioButton
-        Me.RBEpisodeImage = New System.Windows.Forms.RadioButton
-        Me.RBSeriesFanArt = New System.Windows.Forms.RadioButton
-        Me.RBSeriesCover = New System.Windows.Forms.RadioButton
-        Me.CheckBoxUseSeriesDescribtion = New System.Windows.Forms.CheckBox
-        Me.TabOverlay = New System.Windows.Forms.TabPage
-        Me.Panel22 = New System.Windows.Forms.Panel
-        Me.GroupBoxMovieOverlay = New System.Windows.Forms.GroupBox
-        Me.Panel26 = New System.Windows.Forms.Panel
-        Me.GroupBox7 = New System.Windows.Forms.GroupBox
-        Me.RBOverlayStartTime = New System.Windows.Forms.RadioButton
-        Me.RBOverlayTvMovieStar = New System.Windows.Forms.RadioButton
-        Me.RBOverlayRatingStar = New System.Windows.Forms.RadioButton
-        Me.Panel25 = New System.Windows.Forms.Panel
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox
-        Me.RBOverlayLateTime = New System.Windows.Forms.RadioButton
-        Me.RBOverlayPrimeTime = New System.Windows.Forms.RadioButton
-        Me.RBOverlayNow = New System.Windows.Forms.RadioButton
-        Me.RBOverlayHeute = New System.Windows.Forms.RadioButton
-        Me.Panel24 = New System.Windows.Forms.Panel
-        Me.CBOverlayGroup = New System.Windows.Forms.ComboBox
-        Me.Label22 = New System.Windows.Forms.Label
-        Me.Panel23 = New System.Windows.Forms.Panel
-        Me.NumOverlayLimit = New System.Windows.Forms.NumericUpDown
-        Me.Label21 = New System.Windows.Forms.Label
-        Me.CheckBoxOverlayShowLocalMovies = New System.Windows.Forms.CheckBox
-        Me.CheckBoxOverlayShowTagesTipp = New System.Windows.Forms.CheckBox
-        Me.Panel30 = New System.Windows.Forms.Panel
-        Me.Label33 = New System.Windows.Forms.Label
-        Me.NumUpdateOverlay = New System.Windows.Forms.NumericUpDown
-        Me.Label32 = New System.Windows.Forms.Label
-        Me.CheckBoxEnableSeriesOverlay = New System.Windows.Forms.CheckBox
-        Me.CheckBoxEnableMovieOverlay = New System.Windows.Forms.CheckBox
-        Me.openFileDialog = New System.Windows.Forms.OpenFileDialog
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox
-        Me.Panel1 = New System.Windows.Forms.Panel
-        Me.CheckSaveSettingsLocal = New System.Windows.Forms.CheckBox
-        Me.Panel2 = New System.Windows.Forms.Panel
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.LabelVersion = New System.Windows.Forms.Label
-        Me.Panel35 = New System.Windows.Forms.Panel
-        Me.Panel36 = New System.Windows.Forms.Panel
-        Me.Panel37 = New System.Windows.Forms.Panel
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.ButtonSave = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
+        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.TabAllgemeines = New System.Windows.Forms.TabPage()
+        Me.Panel31 = New System.Windows.Forms.Panel()
+        Me.ButtonDefaultSettings = New System.Windows.Forms.Button()
+        Me.CheckBoxDebugMode = New System.Windows.Forms.CheckBox()
+        Me.Panel13 = New System.Windows.Forms.Panel()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.Panel37 = New System.Windows.Forms.Panel()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Panel36 = New System.Windows.Forms.Panel()
+        Me.CheckBoxUseTheTvDb = New MediaPortal.UserInterface.Controls.MPCheckBox()
+        Me.CheckBoxVideoDB = New MediaPortal.UserInterface.Controls.MPCheckBox()
+        Me.CheckBoxMovingPictures = New MediaPortal.UserInterface.Controls.MPCheckBox()
+        Me.CheckBoxTvSeries = New MediaPortal.UserInterface.Controls.MPCheckBox()
+        Me.CheckBoxClickfinderPG = New MediaPortal.UserInterface.Controls.MPCheckBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Panel12 = New System.Windows.Forms.Panel()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.tbMPDatabasePath = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Panel11 = New System.Windows.Forms.Panel()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.CbQuick2 = New System.Windows.Forms.ComboBox()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.CbQuick1 = New System.Windows.Forms.ComboBox()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.cbStandardGroup = New System.Windows.Forms.ComboBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.CheckBoxUseSportLogos = New System.Windows.Forms.CheckBox()
+        Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.GroupBox8 = New System.Windows.Forms.GroupBox()
+        Me.NumPreviewMinTvMovieRating = New System.Windows.Forms.NumericUpDown()
+        Me.NumPreviewDays = New System.Windows.Forms.NumericUpDown()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.Panel10 = New System.Windows.Forms.Panel()
+        Me.tbLateTime = New System.Windows.Forms.MaskedTextBox()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Panel8 = New System.Windows.Forms.Panel()
+        Me.tbPrimeTime = New System.Windows.Forms.MaskedTextBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Panel9 = New System.Windows.Forms.Panel()
+        Me.CBStartGui = New System.Windows.Forms.ComboBox()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Panel29 = New System.Windows.Forms.Panel()
+        Me.tbEpisodenScanner = New System.Windows.Forms.TextBox()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.ButtonOpenDlgEpisodenScanner = New System.Windows.Forms.Button()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.tbClickfinderImagePath = New System.Windows.Forms.TextBox()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.ButtonOpenDlgImageFolder = New System.Windows.Forms.Button()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.tbClickfinderDatabase = New System.Windows.Forms.TextBox()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.ButtonOpenDlgDatabase = New System.Windows.Forms.Button()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.tbPluginName = New System.Windows.Forms.TextBox()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.TabItems = New System.Windows.Forms.TabPage()
+        Me.Panel33 = New System.Windows.Forms.Panel()
+        Me.Panel32 = New System.Windows.Forms.Panel()
+        Me.GroupBox9 = New System.Windows.Forms.GroupBox()
+        Me.Panel34 = New System.Windows.Forms.Panel()
+        Me.TableItemsPanel = New System.Windows.Forms.TableLayoutPanel()
+        Me.PictureBox12 = New System.Windows.Forms.PictureBox()
+        Me.CBTvGroup0 = New System.Windows.Forms.ComboBox()
+        Me.CBsort0 = New System.Windows.Forms.ComboBox()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.CBTvGroup9 = New System.Windows.Forms.ComboBox()
+        Me.CBsort9 = New System.Windows.Forms.ComboBox()
+        Me.CBTvGroup8 = New System.Windows.Forms.ComboBox()
+        Me.CBsort8 = New System.Windows.Forms.ComboBox()
+        Me.CBsort7 = New System.Windows.Forms.ComboBox()
+        Me.CBTvGroup7 = New System.Windows.Forms.ComboBox()
+        Me.CBsort6 = New System.Windows.Forms.ComboBox()
+        Me.CBTvGroup6 = New System.Windows.Forms.ComboBox()
+        Me.CBsort5 = New System.Windows.Forms.ComboBox()
+        Me.CBTvGroup5 = New System.Windows.Forms.ComboBox()
+        Me.CBsort4 = New System.Windows.Forms.ComboBox()
+        Me.CBTvGroup4 = New System.Windows.Forms.ComboBox()
+        Me.CBsort3 = New System.Windows.Forms.ComboBox()
+        Me.CBTvGroup3 = New System.Windows.Forms.ComboBox()
+        Me.CBsort2 = New System.Windows.Forms.ComboBox()
+        Me.CBTvGroup2 = New System.Windows.Forms.ComboBox()
+        Me.CBsort1 = New System.Windows.Forms.ComboBox()
+        Me.CBTvGroup1 = New System.Windows.Forms.ComboBox()
+        Me.PictureBox11 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox10 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox5 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox6 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox7 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox8 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox9 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
+        Me.BTClearSorting = New System.Windows.Forms.Button()
+        Me.BTsetToStandardTvGroup = New System.Windows.Forms.Button()
+        Me.CheckBoxRemberSortedBy = New System.Windows.Forms.CheckBox()
+        Me.CheckBoxFilterShowLocalSeries = New System.Windows.Forms.CheckBox()
+        Me.CheckBoxFilterShowLocalMovies = New System.Windows.Forms.CheckBox()
+        Me.TabÜbersicht = New System.Windows.Forms.TabPage()
+        Me.Panel18 = New System.Windows.Forms.Panel()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Panel20 = New System.Windows.Forms.Panel()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.NumHighlightsMinRuntime = New System.Windows.Forms.NumericUpDown()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Panel19 = New System.Windows.Forms.Panel()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.NumShowHighlightsAfter = New System.Windows.Forms.NumericUpDown()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Panel15 = New System.Windows.Forms.Panel()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Panel17 = New System.Windows.Forms.Panel()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.RBstartTime = New System.Windows.Forms.RadioButton()
+        Me.RBTvMovieStar = New System.Windows.Forms.RadioButton()
+        Me.RBRatingStar = New System.Windows.Forms.RadioButton()
+        Me.Panel16 = New System.Windows.Forms.Panel()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.NumShowMoviesAfter = New System.Windows.Forms.NumericUpDown()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.CheckBoxShowTagesTipp = New System.Windows.Forms.CheckBox()
+        Me.CheckBoxShowLocalMovies = New System.Windows.Forms.CheckBox()
+        Me.Panel14 = New System.Windows.Forms.Panel()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.NumMaxDays = New System.Windows.Forms.NumericUpDown()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.TabCategories = New System.Windows.Forms.TabPage()
+        Me.CheckBoxShowCategorieLocalSeries = New System.Windows.Forms.CheckBox()
+        Me.CheckBoxShowCategorieLocalMovies = New System.Windows.Forms.CheckBox()
+        Me.Panel27 = New System.Windows.Forms.Panel()
+        Me.ButtonNewCategorie = New System.Windows.Forms.Button()
+        Me.CheckBoxSelect = New System.Windows.Forms.CheckBox()
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.dgvCategories = New System.Windows.Forms.DataGridView()
+        Me.C_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.C_Image = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.C_visible = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.C_Name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.C_Beschreibung = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.C_sortOrder = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.C_SqlString = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.C_MinRuntime = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.C_NowOffset = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Panel28 = New System.Windows.Forms.Panel()
+        Me.ButtonDown = New System.Windows.Forms.Button()
+        Me.ButtonUp = New System.Windows.Forms.Button()
+        Me.TabDetail = New System.Windows.Forms.TabPage()
+        Me.Panel21 = New System.Windows.Forms.Panel()
+        Me.GroupDetailSeriesImage = New System.Windows.Forms.GroupBox()
+        Me.RBTvMovieImage = New System.Windows.Forms.RadioButton()
+        Me.RBEpisodeImage = New System.Windows.Forms.RadioButton()
+        Me.RBSeriesFanArt = New System.Windows.Forms.RadioButton()
+        Me.RBSeriesCover = New System.Windows.Forms.RadioButton()
+        Me.CheckBoxUseSeriesDescribtion = New System.Windows.Forms.CheckBox()
+        Me.TabOverlay = New System.Windows.Forms.TabPage()
+        Me.Panel22 = New System.Windows.Forms.Panel()
+        Me.GroupBoxMovieOverlay = New System.Windows.Forms.GroupBox()
+        Me.Panel26 = New System.Windows.Forms.Panel()
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.RBOverlayStartTime = New System.Windows.Forms.RadioButton()
+        Me.RBOverlayTvMovieStar = New System.Windows.Forms.RadioButton()
+        Me.RBOverlayRatingStar = New System.Windows.Forms.RadioButton()
+        Me.Panel25 = New System.Windows.Forms.Panel()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.RBOverlayLateTime = New System.Windows.Forms.RadioButton()
+        Me.RBOverlayPrimeTime = New System.Windows.Forms.RadioButton()
+        Me.RBOverlayNow = New System.Windows.Forms.RadioButton()
+        Me.RBOverlayHeute = New System.Windows.Forms.RadioButton()
+        Me.Panel24 = New System.Windows.Forms.Panel()
+        Me.CBOverlayGroup = New System.Windows.Forms.ComboBox()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.Panel23 = New System.Windows.Forms.Panel()
+        Me.NumOverlayLimit = New System.Windows.Forms.NumericUpDown()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.CheckBoxOverlayShowLocalMovies = New System.Windows.Forms.CheckBox()
+        Me.CheckBoxOverlayShowTagesTipp = New System.Windows.Forms.CheckBox()
+        Me.Panel30 = New System.Windows.Forms.Panel()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.NumUpdateOverlay = New System.Windows.Forms.NumericUpDown()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.CheckBoxEnableSeriesOverlay = New System.Windows.Forms.CheckBox()
+        Me.CheckBoxEnableMovieOverlay = New System.Windows.Forms.CheckBox()
+        Me.openFileDialog = New System.Windows.Forms.OpenFileDialog()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.LabelVersion = New System.Windows.Forms.Label()
+        Me.Panel35 = New System.Windows.Forms.Panel()
         Me.TabControl1.SuspendLayout()
         Me.TabAllgemeines.SuspendLayout()
         Me.Panel31.SuspendLayout()
         Me.Panel13.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
+        Me.Panel37.SuspendLayout()
+        Me.Panel36.SuspendLayout()
         Me.Panel12.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
         Me.Panel11.SuspendLayout()
@@ -281,6 +281,7 @@ Partial Class Setup
         CType(Me.NumMaxDays, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabCategories.SuspendLayout()
         Me.Panel27.SuspendLayout()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
@@ -306,8 +307,6 @@ Partial Class Setup
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel35.SuspendLayout()
-        Me.Panel36.SuspendLayout()
-        Me.Panel37.SuspendLayout()
         Me.SuspendLayout()
         '
         'ButtonSave
@@ -386,7 +385,6 @@ Partial Class Setup
         '
         'Panel31
         '
-        Me.Panel31.Controls.Add(Me.BT_loadfromServer)
         Me.Panel31.Controls.Add(Me.ButtonDefaultSettings)
         Me.Panel31.Controls.Add(Me.CheckBoxDebugMode)
         Me.Panel31.Dock = System.Windows.Forms.DockStyle.Top
@@ -394,19 +392,6 @@ Partial Class Setup
         Me.Panel31.Name = "Panel31"
         Me.Panel31.Size = New System.Drawing.Size(779, 23)
         Me.Panel31.TabIndex = 81
-        '
-        'BT_loadfromServer
-        '
-        Me.BT_loadfromServer.Dock = System.Windows.Forms.DockStyle.Right
-        Me.BT_loadfromServer.Enabled = False
-        Me.BT_loadfromServer.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BT_loadfromServer.Location = New System.Drawing.Point(318, 0)
-        Me.BT_loadfromServer.Name = "BT_loadfromServer"
-        Me.BT_loadfromServer.Size = New System.Drawing.Size(263, 23)
-        Me.BT_loadfromServer.TabIndex = 45
-        Me.BT_loadfromServer.Text = "Einstellung von TvServer laden"
-        Me.BT_loadfromServer.UseVisualStyleBackColor = True
-        Me.BT_loadfromServer.Visible = False
         '
         'ButtonDefaultSettings
         '
@@ -459,6 +444,39 @@ Partial Class Setup
         Me.GroupBox4.TabIndex = 12
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Tv Movie EPG Import++ settings (zur Info)"
+        '
+        'Panel37
+        '
+        Me.Panel37.Controls.Add(Me.Button1)
+        Me.Panel37.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel37.Location = New System.Drawing.Point(10, 98)
+        Me.Panel37.Name = "Panel37"
+        Me.Panel37.Padding = New System.Windows.Forms.Padding(0, 2, 0, 0)
+        Me.Panel37.Size = New System.Drawing.Size(739, 23)
+        Me.Panel37.TabIndex = 80
+        '
+        'Button1
+        '
+        Me.Button1.Dock = System.Windows.Forms.DockStyle.Right
+        Me.Button1.Font = New System.Drawing.Font("Verdana", 8.25!)
+        Me.Button1.Location = New System.Drawing.Point(521, 2)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(218, 21)
+        Me.Button1.TabIndex = 43
+        Me.Button1.Text = "Mapping Management"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Panel36
+        '
+        Me.Panel36.Controls.Add(Me.CheckBoxUseTheTvDb)
+        Me.Panel36.Controls.Add(Me.CheckBoxVideoDB)
+        Me.Panel36.Controls.Add(Me.CheckBoxMovingPictures)
+        Me.Panel36.Controls.Add(Me.CheckBoxTvSeries)
+        Me.Panel36.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel36.Location = New System.Drawing.Point(10, 74)
+        Me.Panel36.Name = "Panel36"
+        Me.Panel36.Size = New System.Drawing.Size(739, 24)
+        Me.Panel36.TabIndex = 79
         '
         'CheckBoxUseTheTvDb
         '
@@ -1065,7 +1083,7 @@ Partial Class Setup
         Me.TabItems.Location = New System.Drawing.Point(4, 25)
         Me.TabItems.Name = "TabItems"
         Me.TabItems.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabItems.Size = New System.Drawing.Size(785, 686)
+        Me.TabItems.Size = New System.Drawing.Size(785, 702)
         Me.TabItems.TabIndex = 3
         Me.TabItems.Text = "GUI Items"
         Me.TabItems.UseVisualStyleBackColor = True
@@ -1080,7 +1098,7 @@ Partial Class Setup
         Me.Panel33.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel33.Location = New System.Drawing.Point(3, 3)
         Me.Panel33.Name = "Panel33"
-        Me.Panel33.Size = New System.Drawing.Size(779, 680)
+        Me.Panel33.Size = New System.Drawing.Size(779, 696)
         Me.Panel33.TabIndex = 25
         '
         'Panel32
@@ -1114,7 +1132,7 @@ Partial Class Setup
         Me.Panel34.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel34.Location = New System.Drawing.Point(10, 26)
         Me.Panel34.Name = "Panel34"
-        Me.Panel34.Size = New System.Drawing.Size(456, 487)
+        Me.Panel34.Size = New System.Drawing.Size(474, 487)
         Me.Panel34.TabIndex = 23
         '
         'TableItemsPanel
@@ -1124,7 +1142,7 @@ Partial Class Setup
         Me.TableItemsPanel.ColumnCount = 3
         Me.TableItemsPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableItemsPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200.0!))
-        Me.TableItemsPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 212.0!))
+        Me.TableItemsPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 230.0!))
         Me.TableItemsPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableItemsPanel.Controls.Add(Me.PictureBox12, 0, 10)
         Me.TableItemsPanel.Controls.Add(Me.CBTvGroup0, 1, 10)
@@ -1166,7 +1184,7 @@ Partial Class Setup
         Me.TableItemsPanel.Location = New System.Drawing.Point(0, 0)
         Me.TableItemsPanel.Name = "TableItemsPanel"
         Me.TableItemsPanel.RowCount = 12
-        Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle)
+        Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
@@ -1178,7 +1196,7 @@ Partial Class Setup
         Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableItemsPanel.Size = New System.Drawing.Size(456, 487)
+        Me.TableItemsPanel.Size = New System.Drawing.Size(474, 487)
         Me.TableItemsPanel.TabIndex = 22
         '
         'PictureBox12
@@ -1209,7 +1227,7 @@ Partial Class Setup
         Me.CBsort0.FormattingEnabled = True
         Me.CBsort0.Location = New System.Drawing.Point(246, 395)
         Me.CBsort0.Name = "CBsort0"
-        Me.CBsort0.Size = New System.Drawing.Size(206, 24)
+        Me.CBsort0.Size = New System.Drawing.Size(224, 24)
         Me.CBsort0.TabIndex = 52
         '
         'Label36
@@ -1231,7 +1249,7 @@ Partial Class Setup
         Me.Label35.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label35.Location = New System.Drawing.Point(246, 1)
         Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(206, 16)
+        Me.Label35.Size = New System.Drawing.Size(224, 16)
         Me.Label35.TabIndex = 24
         Me.Label35.Text = "sortiert nach"
         Me.Label35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1265,7 +1283,7 @@ Partial Class Setup
         Me.CBsort9.FormattingEnabled = True
         Me.CBsort9.Location = New System.Drawing.Point(246, 354)
         Me.CBsort9.Name = "CBsort9"
-        Me.CBsort9.Size = New System.Drawing.Size(206, 24)
+        Me.CBsort9.Size = New System.Drawing.Size(224, 24)
         Me.CBsort9.TabIndex = 38
         '
         'CBTvGroup8
@@ -1285,7 +1303,7 @@ Partial Class Setup
         Me.CBsort8.FormattingEnabled = True
         Me.CBsort8.Location = New System.Drawing.Point(246, 313)
         Me.CBsort8.Name = "CBsort8"
-        Me.CBsort8.Size = New System.Drawing.Size(206, 24)
+        Me.CBsort8.Size = New System.Drawing.Size(224, 24)
         Me.CBsort8.TabIndex = 36
         '
         'CBsort7
@@ -1295,7 +1313,7 @@ Partial Class Setup
         Me.CBsort7.FormattingEnabled = True
         Me.CBsort7.Location = New System.Drawing.Point(246, 272)
         Me.CBsort7.Name = "CBsort7"
-        Me.CBsort7.Size = New System.Drawing.Size(206, 24)
+        Me.CBsort7.Size = New System.Drawing.Size(224, 24)
         Me.CBsort7.TabIndex = 34
         '
         'CBTvGroup7
@@ -1315,7 +1333,7 @@ Partial Class Setup
         Me.CBsort6.FormattingEnabled = True
         Me.CBsort6.Location = New System.Drawing.Point(246, 231)
         Me.CBsort6.Name = "CBsort6"
-        Me.CBsort6.Size = New System.Drawing.Size(206, 24)
+        Me.CBsort6.Size = New System.Drawing.Size(224, 24)
         Me.CBsort6.TabIndex = 32
         '
         'CBTvGroup6
@@ -1335,7 +1353,7 @@ Partial Class Setup
         Me.CBsort5.FormattingEnabled = True
         Me.CBsort5.Location = New System.Drawing.Point(246, 190)
         Me.CBsort5.Name = "CBsort5"
-        Me.CBsort5.Size = New System.Drawing.Size(206, 24)
+        Me.CBsort5.Size = New System.Drawing.Size(224, 24)
         Me.CBsort5.TabIndex = 30
         '
         'CBTvGroup5
@@ -1355,7 +1373,7 @@ Partial Class Setup
         Me.CBsort4.FormattingEnabled = True
         Me.CBsort4.Location = New System.Drawing.Point(246, 149)
         Me.CBsort4.Name = "CBsort4"
-        Me.CBsort4.Size = New System.Drawing.Size(206, 24)
+        Me.CBsort4.Size = New System.Drawing.Size(224, 24)
         Me.CBsort4.TabIndex = 28
         '
         'CBTvGroup4
@@ -1375,7 +1393,7 @@ Partial Class Setup
         Me.CBsort3.FormattingEnabled = True
         Me.CBsort3.Location = New System.Drawing.Point(246, 108)
         Me.CBsort3.Name = "CBsort3"
-        Me.CBsort3.Size = New System.Drawing.Size(206, 24)
+        Me.CBsort3.Size = New System.Drawing.Size(224, 24)
         Me.CBsort3.TabIndex = 26
         '
         'CBTvGroup3
@@ -1395,7 +1413,7 @@ Partial Class Setup
         Me.CBsort2.FormattingEnabled = True
         Me.CBsort2.Location = New System.Drawing.Point(246, 67)
         Me.CBsort2.Name = "CBsort2"
-        Me.CBsort2.Size = New System.Drawing.Size(206, 24)
+        Me.CBsort2.Size = New System.Drawing.Size(224, 24)
         Me.CBsort2.TabIndex = 24
         '
         'CBTvGroup2
@@ -1415,7 +1433,7 @@ Partial Class Setup
         Me.CBsort1.FormattingEnabled = True
         Me.CBsort1.Location = New System.Drawing.Point(246, 26)
         Me.CBsort1.Name = "CBsort1"
-        Me.CBsort1.Size = New System.Drawing.Size(206, 24)
+        Me.CBsort1.Size = New System.Drawing.Size(224, 24)
         Me.CBsort1.TabIndex = 22
         '
         'CBTvGroup1
@@ -1532,7 +1550,7 @@ Partial Class Setup
         Me.BTClearSorting.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BTClearSorting.Location = New System.Drawing.Point(246, 445)
         Me.BTClearSorting.Name = "BTClearSorting"
-        Me.BTClearSorting.Size = New System.Drawing.Size(206, 24)
+        Me.BTClearSorting.Size = New System.Drawing.Size(224, 24)
         Me.BTClearSorting.TabIndex = 40
         Me.BTClearSorting.Text = "alle löschen"
         Me.BTClearSorting.UseVisualStyleBackColor = True
@@ -1594,7 +1612,7 @@ Partial Class Setup
         Me.TabÜbersicht.Location = New System.Drawing.Point(4, 25)
         Me.TabÜbersicht.Name = "TabÜbersicht"
         Me.TabÜbersicht.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabÜbersicht.Size = New System.Drawing.Size(785, 686)
+        Me.TabÜbersicht.Size = New System.Drawing.Size(785, 702)
         Me.TabÜbersicht.TabIndex = 1
         Me.TabÜbersicht.Text = "GUI Highlights"
         Me.TabÜbersicht.UseVisualStyleBackColor = True
@@ -1937,7 +1955,7 @@ Partial Class Setup
         Me.TabCategories.Controls.Add(Me.SplitContainer1)
         Me.TabCategories.Location = New System.Drawing.Point(4, 25)
         Me.TabCategories.Name = "TabCategories"
-        Me.TabCategories.Size = New System.Drawing.Size(785, 686)
+        Me.TabCategories.Size = New System.Drawing.Size(785, 702)
         Me.TabCategories.TabIndex = 2
         Me.TabCategories.Text = "GUI Kategorien"
         Me.TabCategories.UseVisualStyleBackColor = True
@@ -2033,8 +2051,8 @@ Partial Class Setup
         Me.dgvCategories.Location = New System.Drawing.Point(10, 10)
         Me.dgvCategories.Name = "dgvCategories"
         Me.dgvCategories.RowHeadersVisible = False
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.White
-        Me.dgvCategories.RowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
+        Me.dgvCategories.RowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvCategories.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvCategories.Size = New System.Drawing.Size(737, 363)
         Me.dgvCategories.TabIndex = 0
@@ -2150,7 +2168,7 @@ Partial Class Setup
         Me.TabDetail.Location = New System.Drawing.Point(4, 25)
         Me.TabDetail.Name = "TabDetail"
         Me.TabDetail.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabDetail.Size = New System.Drawing.Size(785, 686)
+        Me.TabDetail.Size = New System.Drawing.Size(785, 702)
         Me.TabDetail.TabIndex = 4
         Me.TabDetail.Text = "GUI Details"
         Me.TabDetail.UseVisualStyleBackColor = True
@@ -2257,7 +2275,7 @@ Partial Class Setup
         Me.TabOverlay.Location = New System.Drawing.Point(4, 25)
         Me.TabOverlay.Name = "TabOverlay"
         Me.TabOverlay.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabOverlay.Size = New System.Drawing.Size(785, 686)
+        Me.TabOverlay.Size = New System.Drawing.Size(785, 702)
         Me.TabOverlay.TabIndex = 5
         Me.TabOverlay.Text = "Overlay"
         Me.TabOverlay.UseVisualStyleBackColor = True
@@ -2622,7 +2640,6 @@ Partial Class Setup
         '
         'Panel1
         '
-        Me.Panel1.Controls.Add(Me.CheckSaveSettingsLocal)
         Me.Panel1.Controls.Add(Me.LinkLabel1)
         Me.Panel1.Controls.Add(Me.PictureBox2)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
@@ -2631,20 +2648,6 @@ Partial Class Setup
         Me.Panel1.Padding = New System.Windows.Forms.Padding(2)
         Me.Panel1.Size = New System.Drawing.Size(813, 29)
         Me.Panel1.TabIndex = 41
-        '
-        'CheckSaveSettingsLocal
-        '
-        Me.CheckSaveSettingsLocal.AutoSize = True
-        Me.CheckSaveSettingsLocal.Dock = System.Windows.Forms.DockStyle.Right
-        Me.CheckSaveSettingsLocal.Enabled = False
-        Me.CheckSaveSettingsLocal.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckSaveSettingsLocal.Location = New System.Drawing.Point(562, 2)
-        Me.CheckSaveSettingsLocal.Name = "CheckSaveSettingsLocal"
-        Me.CheckSaveSettingsLocal.Size = New System.Drawing.Size(249, 25)
-        Me.CheckSaveSettingsLocal.TabIndex = 79
-        Me.CheckSaveSettingsLocal.Text = "Einstellungen auf Client speichern"
-        Me.CheckSaveSettingsLocal.UseVisualStyleBackColor = True
-        Me.CheckSaveSettingsLocal.Visible = False
         '
         'Panel2
         '
@@ -2656,17 +2659,6 @@ Partial Class Setup
         Me.Panel2.Padding = New System.Windows.Forms.Padding(10)
         Me.Panel2.Size = New System.Drawing.Size(813, 751)
         Me.Panel2.TabIndex = 42
-        '
-        'Button1
-        '
-        Me.Button1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Button1.Font = New System.Drawing.Font("Verdana", 8.25!)
-        Me.Button1.Location = New System.Drawing.Point(521, 2)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(218, 21)
-        Me.Button1.TabIndex = 43
-        Me.Button1.Text = "Mapping Management"
-        Me.Button1.UseVisualStyleBackColor = True
         '
         'LabelVersion
         '
@@ -2690,28 +2682,6 @@ Partial Class Setup
         Me.Panel35.Name = "Panel35"
         Me.Panel35.Size = New System.Drawing.Size(813, 49)
         Me.Panel35.TabIndex = 45
-        '
-        'Panel36
-        '
-        Me.Panel36.Controls.Add(Me.CheckBoxUseTheTvDb)
-        Me.Panel36.Controls.Add(Me.CheckBoxVideoDB)
-        Me.Panel36.Controls.Add(Me.CheckBoxMovingPictures)
-        Me.Panel36.Controls.Add(Me.CheckBoxTvSeries)
-        Me.Panel36.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel36.Location = New System.Drawing.Point(10, 74)
-        Me.Panel36.Name = "Panel36"
-        Me.Panel36.Size = New System.Drawing.Size(739, 24)
-        Me.Panel36.TabIndex = 79
-        '
-        'Panel37
-        '
-        Me.Panel37.Controls.Add(Me.Button1)
-        Me.Panel37.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel37.Location = New System.Drawing.Point(10, 98)
-        Me.Panel37.Name = "Panel37"
-        Me.Panel37.Padding = New System.Windows.Forms.Padding(0, 2, 0, 0)
-        Me.Panel37.Size = New System.Drawing.Size(739, 23)
-        Me.Panel37.TabIndex = 80
         '
         'Setup
         '
@@ -2737,6 +2707,9 @@ Partial Class Setup
         Me.Panel13.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
+        Me.Panel37.ResumeLayout(False)
+        Me.Panel36.ResumeLayout(False)
+        Me.Panel36.PerformLayout()
         Me.Panel12.ResumeLayout(False)
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
@@ -2811,6 +2784,7 @@ Partial Class Setup
         Me.Panel27.PerformLayout()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
         CType(Me.dgvCategories, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel28.ResumeLayout(False)
@@ -2841,13 +2815,9 @@ Partial Class Setup
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel35.ResumeLayout(False)
         Me.Panel35.PerformLayout()
-        Me.Panel36.ResumeLayout(False)
-        Me.Panel36.PerformLayout()
-        Me.Panel37.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -3008,8 +2978,6 @@ Partial Class Setup
     Private WithEvents CheckBoxUseTheTvDb As MediaPortal.UserInterface.Controls.MPCheckBox
     Friend WithEvents Panel31 As System.Windows.Forms.Panel
     Friend WithEvents ButtonDefaultSettings As System.Windows.Forms.Button
-    Friend WithEvents CheckSaveSettingsLocal As System.Windows.Forms.CheckBox
-    Friend WithEvents BT_loadfromServer As System.Windows.Forms.Button
     Friend WithEvents PictureBox3 As System.Windows.Forms.PictureBox
     Friend WithEvents PictureBox11 As System.Windows.Forms.PictureBox
     Friend WithEvents PictureBox10 As System.Windows.Forms.PictureBox

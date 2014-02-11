@@ -5,7 +5,9 @@ Imports System.Runtime.InteropServices
 
 Imports MediaPortal.Common.Utils
 
-<Assembly: CompatibleVersion("1.2.100.0", "1.1.6.27644")> 
+'MP 1.4
+<Assembly: CompatibleVersion("1.4.0.0", "1.1.6.27644")> 
+
 <Assembly: UsesSubsystem("MP.Config")> 
 <Assembly: UsesSubsystem("MP.SkinEngine")> 
 
@@ -38,5 +40,5 @@ Imports MediaPortal.Common.Utils
 ' übernehmen, indem Sie "*" eingeben:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.0.0.0")> 
-<Assembly: AssemblyFileVersion("1.0.0.0")> 
+<Assembly: AssemblyVersion("1.6.3.0")> 
+<Assembly: AssemblyFileVersion("1.6.3.0")> 

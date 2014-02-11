@@ -80,6 +80,7 @@ Namespace ClickfinderProgramGuide
 
             Return 165654465
 
+
         End Function
         Public Function DefaultEnabled() As Boolean Implements MediaPortal.GUI.Library.ISetupForm.DefaultEnabled
             Return True
@@ -106,6 +107,7 @@ Namespace ClickfinderProgramGuide
         End Function
 
 #End Region
+
 
 
 #Region "GUI Events"
@@ -476,7 +478,7 @@ Namespace ClickfinderProgramGuide
                                 "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
                                 "WHERE idSeries = " & _NewEpisode.idSeries & " " & _
                                 "AND local = 0 " & _
-                                "AND episodeName = '" & MyTvSeries.Helper.allowedSigns(_NewEpisode.ReferencedProgram.EpisodeName) & "' " & _
+                                "AND episodeName LIKE '" & MyTvSeries.Helper.allowedSigns(_NewEpisode.ReferencedProgram.EpisodeName) & "' " & _
                                 "ORDER BY state DESC"
 
                         _SQLstring = Helper.AppendSqlLimit(_SQLstring, 1)

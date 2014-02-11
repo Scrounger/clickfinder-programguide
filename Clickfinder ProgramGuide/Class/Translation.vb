@@ -125,6 +125,6 @@ Public NotInheritable Class Translation
     Public Shared MovieListNothingFound As String = "Keine Movie Highlights gefunden!"
     Public Shared HighlightsListNothingFound As String = "Keine Highlights gefunden!"
     Public Shared Year As String = "Jahr"
-
+    Public Shared TvWishListMP As String = "TvWish"
 End Class
 

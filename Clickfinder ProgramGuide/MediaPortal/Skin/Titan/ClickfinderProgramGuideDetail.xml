@@ -51,8 +51,8 @@
       <posX>10</posX>
       <posY>145</posY>
       <width>1903</width>
-      <height>897</height>
-      <texture>panel_large.png</texture>
+      <height>690</height>
+      <texture>panel_list_noinfo.png</texture>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
@@ -107,7 +107,7 @@
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
       <percentage>#DetailRatingStar</percentage>
-      <visible>!string.starts(#DetailRatingStar,0)</visible>
+      <visible>!string.equals(#DetailTitle,)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
@@ -133,10 +133,10 @@
       <description>Detail RecordingState</description>
       <type>image</type>
       <id>37</id>
-      <posX>300</posX>
-      <posY>244</posY>
-      <width>26</width>
-      <height>26</height>
+      <posX>450</posX>
+      <posY>460</posY>
+      <width>70</width>
+      <height>70</height>
       <texture></texture>
       <colorkey>0</colorkey>
       <filtered>yes</filtered>
@@ -148,13 +148,142 @@
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
 
-    <!--Buttons-->
     <control>
+      <description>Label Genre</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>140</posX>
+      <posY>560</posY>
+      <width>100</width>
+      <label>#ClickfinderPG.Translation.GenreLabel</label>
+      <align>left</align>
+      <font>font10</font>
+      <textcolor>ffffffff</textcolor>
+      <visible>!string.equals(#DetailTitle,)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
+    </control>
+    <control>
+      <description>Genre</description>
+      <type>fadelabel</type>
+      <id>1</id>
+      <posX>240</posX>
+      <posY>560</posY>
+      <width>460</width>
+      <label>#DetailGenre</label>
+      <align>left</align>
+      <font>TitanLight10</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Label Jahr/Country</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>140</posX>
+      <posY>590</posY>
+      <width>150</width>
+      <label>#ClickfinderPG.Translation.YearLabel</label>
+      <align>left</align>
+      <font>font10</font>
+      <textcolor>ffffffff</textcolor>
+      <visible>!string.equals(#DetailTitle,)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
+    </control>
+    <control>
+      <description>Detail Year/Countryr</description>
+      <type>fadelabel</type>
+      <id>1</id>
+      <posX>240</posX>
+      <posY>590</posY>
+      <width>680</width>
+      <label>#DetailCountry #DetailYear</label>
+      <align>left</align>
+      <font>TitanLight10</font>
+      <textcolor>ff909090</textcolor>
+      <wrapString> | </wrapString>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Label Dauer</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>140</posX>
+      <posY>620</posY>
+      <width>100</width>
+      <label>#ClickfinderPG.Translation.DurationLabel</label>
+      <align>left</align>
+      <font>font10</font>
+      <textcolor>ffffffff</textcolor>
+      <visible>!string.equals(#DetailTitle,)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
+    </control>
+    <control>
+      <description>Detail Duration</description>
+      <type>fadelabel</type>
+      <id>1</id>
+      <posX>240</posX>
+      <posY>620</posY>
+      <width>120</width>
+      <align>left</align>
+      <font>font10</font>
+      <textcolor>ff909090</textcolor>
+      <label>#DetailDuration</label>
+      <wrapString> | </wrapString>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
+    </control>
+    <control>
+      <description>Label Kanal</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>140</posX>
+      <posY>650</posY>
+      <width>100</width>
+      <label>#ClickfinderPG.Translation.ChannelLabel</label>
+      <align>left</align>
+      <font>font10</font>
+      <visible></visible>
+      <visible>!string.equals(#DetailTitle,)</visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
+    </control>
+    <control>
+      <description>ListItem Kanal</description>
+      <type>fadelabel</type>
+      <id>33</id>
+      <posX>240</posX>
+      <posY>650</posY>
+      <width>300</width>
+      <align>left</align>
+      <font>font10</font>
+      <textcolor>ff909090</textcolor>
+      <label>#DetailChannel</label>
+      <wrapString> | </wrapString>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
+    </control>
+
+    <!--Buttons-->
+    <!--<control>
       <description>button group</description>
       <type>group</type>
-      <posX>110</posX>
+      <posX>1000</posX>
       <posY>550</posY>
-      <!--Button Height 30-->
+      -->
+    <!--Button Height 30-->
+    <!--
       <layout>StackLayout(4, Vertical, false)</layout>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
@@ -173,7 +302,7 @@
         <textcolorNoFocus>ffffffff</textcolorNoFocus>
         <textYOff>2</textYOff>
         <onleft>2</onleft>
-        <onright>2</onright>
+        <onright>30</onright>
         <onup>10</onup>
         <ondown>14</ondown>
         <visible>!string.equals(#DetailSeriesID,0)+plugin.isenabled(MP-TV Series)</visible>
@@ -191,7 +320,7 @@
         <textcolorNoFocus>ffffffff</textcolorNoFocus>
         <textYOff>2</textYOff>
         <onleft>2</onleft>
-        <onright>2</onright>
+        <onright>30</onright>
         <onup>120</onup>
         <ondown>150</ondown>
         <visible>!string.equals(#DetailSeriesID,0)+plugin.isenabled(MP-TV Series)|!string.equals(#DetailMovPicID,0)+plugin.isenabled(Moving Pictures)</visible>
@@ -211,10 +340,10 @@
         <textcolorNoFocus>ffffffff</textcolorNoFocus>
         <textYOff>2</textYOff>
         <onleft>2</onleft>
-        <onright>2</onright>
+        <onright>30</onright>
         <onup>14</onup>
         <ondown>130</ondown>
-        <visible>plugin.isenabled(TvWishListMP)</visible>
+        <visible>plugin.isenabled(TvWishListMP)+!string.equals(#DetailTitle,)</visible>
       </control>
       <control>
         <description>IMDB</description>
@@ -226,14 +355,15 @@
         <width>380</width>
         <height>50</height>
         <textalign>center</textalign>
-        <font>TitanLight12</font>
+        <font>TitanLight10</font>
         <textcolor>FF000000</textcolor>
         <textcolorNoFocus>ffffffff</textcolorNoFocus>
         <textYOff>2</textYOff>
         <onleft>2</onleft>
-        <onright>2</onright>
+        <onright>30</onright>
         <onup>150</onup>
         <ondown>13</ondown>
+        <visible>plugin.isenabled(OnlineVideos)+!string.equals(#DetailTitle,)</visible>
       </control>
       <control>
         <description>Remember</description>
@@ -248,10 +378,10 @@
         <textcolorNoFocus>ffffffff</textcolorNoFocus>
         <textYOff>2</textYOff>
         <onleft>2</onleft>
-        <onright>2</onright>
+        <onright>30</onright>
         <onup>130</onup>
         <ondown>12</ondown>
-
+        <visible>!string.equals(#DetailTitle,)</visible>
       </control>
       <control>
         <description>Record</description>
@@ -266,9 +396,10 @@
         <textcolorNoFocus>ffffffff</textcolorNoFocus>
         <textYOff>2</textYOff>
         <onleft>2</onleft>
-        <onright>2</onright>
+        <onright>30</onright>
         <onup>13</onup>
         <ondown>11</ondown>
+        <visible>!string.equals(#DetailTitle,)</visible>
       </control>
       <control>
         <description>Play / View Channel</description>
@@ -283,9 +414,10 @@
         <textcolorNoFocus>ffffffff</textcolorNoFocus>
         <textYOff>2</textYOff>
         <onleft>2</onleft>
-        <onright>2</onright>
+        <onright>30</onright>
         <onup>12</onup>
         <ondown>10</ondown>
+        <visible>!string.equals(#DetailTitle,)</visible>
       </control>
       <control>
         <description>Back</description>
@@ -300,11 +432,11 @@
         <textcolorNoFocus>ffffffff</textcolorNoFocus>
         <textYOff>2</textYOff>
         <onleft>2</onleft>
-        <onright>2</onright>
+        <onright>30</onright>
         <onup>11</onup>
         <ondown>120</ondown>
       </control>
-    </control>
+    </control>-->
 
 
 
@@ -339,6 +471,7 @@
       <font>font10</font>
       <textcolor>ffffffff</textcolor>
       <visible></visible>
+      <visible>!string.equals(#DetailTitle,)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
@@ -357,80 +490,20 @@
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
-    <control>
-      <description>Label Genre</description>
-      <type>label</type>
-      <id>1</id>
-      <posX>610</posX>
-      <posY>290</posY>
-      <width>100</width>
-      <label>#ClickfinderPG.Translation.GenreLabel</label>
-      <align>left</align>
-      <font>font10</font>
-      <textcolor>ffffffff</textcolor>
-      <visible></visible>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="200">WindowClose</animation>
-    </control>
-    <control>
-      <description>Genre</description>
-      <type>fadelabel</type>
-      <id>1</id>
-      <posX>760</posX>
-      <posY>290</posY>
-      <width>460</width>
-      <label>#DetailGenre</label>
-      <align>left</align>
-      <font>TitanLight10</font>
-      <textcolor>ff909090</textcolor>
-      <wrapString> | </wrapString>
-      <visible></visible>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="200">WindowClose</animation>
-    </control>
-    <control>
-      <description>Label Jahr/Country</description>
-      <type>label</type>
-      <id>1</id>
-      <posX>610</posX>
-      <posY>320</posY>
-      <width>150</width>
-      <label>#ClickfinderPG.Translation.YearLabel</label>
-      <align>left</align>
-      <font>font10</font>
-      <textcolor>ffffffff</textcolor>
-      <visible></visible>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="200">WindowClose</animation>
-    </control>
-    <control>
-      <description>Detail Year/Countryr</description>
-      <type>fadelabel</type>
-      <id>1</id>
-      <posX>760</posX>
-      <posY>320</posY>
-      <width>680</width>
-      <label>#DetailCountry #DetailYear</label>
-      <align>left</align>
-      <font>TitanLight10</font>
-      <textcolor>ff909090</textcolor>
-      <wrapString> | </wrapString>
-      <visible></visible>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="200">WindowClose</animation>
-    </control>
+
+
     <control>
       <description>Label Regie</description>
       <type>label</type>
       <id>1</id>
       <posX>610</posX>
-      <posY>350</posY>
+      <posY>290</posY>
       <width>100</width>
       <label>#ClickfinderPG.Translation.RegieLabel</label>
       <align>left</align>
       <font>font10</font>
       <textcolor>ffffffff</textcolor>
-      <visible></visible>
+      <visible>!string.equals(#DetailTitle,)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
@@ -439,7 +512,7 @@
       <type>fadelabel</type>
       <id>1</id>
       <posX>760</posX>
-      <posY>350</posY>
+      <posY>290</posY>
       <width>460</width>
       <label>#DetailRegie</label>
       <align>left</align>
@@ -455,13 +528,13 @@
       <type>label</type>
       <id>1</id>
       <posX>610</posX>
-      <posY>380</posY>
+      <posY>320</posY>
       <width>100</width>
       <label>#ClickfinderPG.Translation.Critic</label>
       <align>left</align>
       <font>font10</font>
       <textcolor>ffffffff</textcolor>
-      <visible></visible>
+      <visible>!string.equals(#DetailTitle,)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
@@ -470,7 +543,7 @@
       <type>fadelabel</type>
       <id>42</id>
       <posX>760</posX>
-      <posY>380</posY>
+      <posY>320</posY>
       <width>680</width>
       <label>#DetailKritik</label>
       <align>left</align>
@@ -486,13 +559,13 @@
       <type>label</type>
       <id>1</id>
       <posX>610</posX>
-      <posY>410</posY>
+      <posY>350</posY>
       <width>160</width>
       <label>#ClickfinderPG.Translation.ActorsLabel</label>
       <align>left</align>
       <font>font10</font>
       <textcolor>ffffffff</textcolor>
-      <visible></visible>
+      <visible>!string.equals(#DetailTitle,)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
@@ -501,7 +574,7 @@
       <type>fadelabel</type>
       <id>1</id>
       <posX>760</posX>
-      <posY>410</posY>
+      <posY>350</posY>
       <width>1020</width>
       <label>#DetailActors</label>
       <align>left</align>
@@ -518,8 +591,8 @@
       <description>Channel Image</description>
       <type>image</type>
       <id>1</id>
-      <posX>1280</posX>
-      <posY>294</posY>
+      <posX>1740</posX>
+      <posY>200</posY>
       <width>110</width>
       <height>110</height>
       <texture>#DetailChannelLogo</texture>
@@ -527,102 +600,13 @@
       <filtered>yes</filtered>
       <centered>yes</centered>
       <keepaspectratio>yes</keepaspectratio>
-      <visible></visible>
+      <visible>!string.equals(#DetailImage,#DetailChannelLogo)|!string.equals(#DetailTitle,)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
-    <control>
-      <description>Label Zeit</description>
-      <type>label</type>
-      <id>1</id>
-      <posX>1400</posX>
-      <posY>300</posY>
-      <width>100</width>
-      <label>#ClickfinderPG.Translation.TimeLabel</label>
-      <align>left</align>
-      <font>font10</font>
-      <textcolor>ffffffff</textcolor>
-      <visible></visible>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="200">WindowClose</animation>
-    </control>
-    <control>
-      <description>Detail time</description>
-      <type>fadelabel</type>
-      <id>1</id>
-      <posX>1500</posX>
-      <posY>300</posY>
-      <width>150</width>
-      <align>left</align>
-      <font>TitanLight10</font>
-      <textcolor>ff909090</textcolor>
-      <label>#DetailTime</label>
-      <wrapString> | </wrapString>
-      <visible></visible>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="200">WindowClose</animation>
-    </control>
-    <control>
-      <description>Label Dauer</description>
-      <type>label</type>
-      <id>1</id>
-      <posX>1400</posX>
-      <posY>330</posY>
-      <width>100</width>
-      <label>#ClickfinderPG.Translation.DurationLabel</label>
-      <align>left</align>
-      <font>font10</font>
-      <textcolor>ffffffff</textcolor>
-      <visible></visible>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="200">WindowClose</animation>
-    </control>
-    <control>
-      <description>Detail Duration</description>
-      <type>fadelabel</type>
-      <id>1</id>
-      <posX>1500</posX>
-      <posY>330</posY>
-      <width>120</width>
-      <align>left</align>
-      <font>font10</font>
-      <textcolor>ff909090</textcolor>
-      <label>#DetailDuration</label>
-      <wrapString> | </wrapString>
-      <visible></visible>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="200">WindowClose</animation>
-    </control>
-    <control>
-      <description>Label Kanal</description>
-      <type>label</type>
-      <id>1</id>
-      <posX>1400</posX>
-      <posY>360</posY>
-      <width>100</width>
-      <label>#ClickfinderPG.Translation.ChannelLabel</label>
-      <align>left</align>
-      <font>font10</font>
-      <visible></visible>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="200">WindowClose</animation>
-    </control>
-    <control>
-      <description>ListItem Kanal</description>
-      <type>fadelabel</type>
-      <id>33</id>
-      <posX>1500</posX>
-      <posY>360</posY>
-      <width>300</width>
-      <align>left</align>
-      <font>font10</font>
-      <textcolor>ff909090</textcolor>
-      <label>#DetailChannel</label>
-      <wrapString> | </wrapString>
-      <visible></visible>
-      <animation effect="fade" time="500">WindowOpen</animation>
-      <animation effect="fade" time="200">WindowClose</animation>
-    </control>
+
+
+
 
     <!--Beschreibung-->
     <control>
@@ -630,9 +614,9 @@
       <type>textboxscrollup</type>
       <id>1</id>
       <posX>610</posX>
-      <posY>450</posY>
+      <posY>390</posY>
       <width>1200</width>
-      <height>458</height>
+      <height>328</height>
       <label>#DetailDescription</label>
       <seperator>-------------------------------------------------------------------------------------------------------------------------------------------</seperator>
       <font>font12</font>
@@ -647,10 +631,11 @@
       <type>image</type>
       <id>1</id>
       <posX>600</posX>
-      <posY>900</posY>
+      <posY>720</posY>
       <width>1240</width>
       <height>60</height>
       <texture>movie_detail_frame_small.png</texture>
+      <visible>!string.equals(#DetailTitle,)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
@@ -659,7 +644,7 @@
       <type>image</type>
       <id>37</id>
       <posX>610</posX>
-      <posY>905</posY>
+      <posY>725</posY>
       <width>50</width>
       <height>50</height>
       <texture></texture>
@@ -668,7 +653,7 @@
       <centered>no</centered>
       <keepaspectratio>yes</keepaspectratio>
       <texture>#DetailFSK</texture>
-      <visible></visible>
+      <visible>!string.equals(#DetailTitle,)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
@@ -677,7 +662,7 @@
       <type>image</type>
       <id>1</id>
       <posX>680</posX>
-      <posY>880</posY>
+      <posY>700</posY>
       <width>120</width>
       <height>95</height>
       <texture>#DetailAudioImage</texture>
@@ -685,7 +670,7 @@
       <filtered>yes</filtered>
       <centered>yes</centered>
       <keepaspectratio>yes</keepaspectratio>
-      <visible></visible>
+      <visible>!string.equals(#DetailTitle,)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
@@ -694,7 +679,7 @@
       <type>image</type>
       <id>1</id>
       <posX>820</posX>
-      <posY>880</posY>
+      <posY>700</posY>
       <width>110</width>
       <height>95</height>
       <texture>#DetailProgramFormat</texture>
@@ -702,7 +687,7 @@
       <filtered>yes</filtered>
       <centered>yes</centered>
       <keepaspectratio>yes</keepaspectratio>
-      <visible></visible>
+      <visible>!string.equals(#DetailTitle,)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
@@ -711,12 +696,13 @@
       <type>label</type>
       <id>1</id>
       <posX>960</posX>
-      <posY>920</posY>
+      <posY>740</posY>
       <width>120</width>
       <label>#ClickfinderPG.Translation.FunLabel</label>
       <font>font10</font>
       <align>center</align>
       <textcolor>FFdddddd</textcolor>
+      <visible>!string.equals(#DetailTitle,)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
@@ -725,7 +711,7 @@
       <type>imagelist</type>
       <id>1</id>
       <posX>1004</posX>
-      <posY>940</posY>
+      <posY>760</posY>
       <width>100</width>
       <height>10</height>
       <textureWidth>12</textureWidth>
@@ -738,7 +724,7 @@
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
       <percentage>#DetailRatingFun</percentage>
-      <visible>!string.starts(#DetailRatingFun,0)</visible>
+      <visible>!string.equals(#DetailTitle,)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
@@ -747,12 +733,13 @@
       <type>label</type>
       <id>1</id>
       <posX>1100</posX>
-      <posY>920</posY>
+      <posY>740</posY>
       <width>120</width>
       <label>#ClickfinderPG.Translation.ActionLabel</label>
       <font>font10</font>
       <align>center</align>
       <textcolor>FFdddddd</textcolor>
+      <visible>!string.equals(#DetailTitle,)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
@@ -761,7 +748,7 @@
       <type>imagelist</type>
       <id>1</id>
       <posX>1144</posX>
-      <posY>940</posY>
+      <posY>760</posY>
       <width>100</width>
       <height>10</height>
       <textureWidth>12</textureWidth>
@@ -774,7 +761,7 @@
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
       <percentage>#DetailRatingAction</percentage>
-      <visible>!string.starts(#DetailRatingAction,0)</visible>
+      <visible>!string.equals(#DetailTitle,)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
@@ -783,12 +770,13 @@
       <type>label</type>
       <id>1</id>
       <posX>1240</posX>
-      <posY>920</posY>
+      <posY>740</posY>
       <width>120</width>
       <label>#ClickfinderPG.Translation.EmotionsLabel</label>
       <font>font10</font>
       <align>center</align>
       <textcolor>FFdddddd</textcolor>
+      <visible>!string.equals(#DetailTitle,)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
@@ -797,7 +785,7 @@
       <type>imagelist</type>
       <id>1</id>
       <posX>1284</posX>
-      <posY>940</posY>
+      <posY>760</posY>
       <width>100</width>
       <height>10</height>
       <textureWidth>12</textureWidth>
@@ -810,7 +798,7 @@
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
       <percentage>#DetailRatingEmotions</percentage>
-      <visible>!string.starts(#DetailRatingEmotions,0)</visible>
+      <visible>!string.equals(#DetailTitle,)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
@@ -819,12 +807,13 @@
       <type>label</type>
       <id>1</id>
       <posX>1360</posX>
-      <posY>920</posY>
+      <posY>740</posY>
       <width>120</width>
       <label>#ClickfinderPG.Translation.EroticLabel</label>
       <font>font10</font>
       <align>center</align>
       <textcolor>FFdddddd</textcolor>
+      <visible>!string.equals(#DetailTitle,)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
@@ -833,7 +822,7 @@
       <type>imagelist</type>
       <id>1</id>
       <posX>1404</posX>
-      <posY>940</posY>
+      <posY>760</posY>
       <width>100</width>
       <height>10</height>
       <textureWidth>12</textureWidth>
@@ -846,7 +835,7 @@
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
       <percentage>#DetailRatingErotic</percentage>
-      <visible>!string.starts(#DetailRatingErotic,0)</visible>
+      <visible>!string.equals(#DetailTitle,)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
@@ -855,12 +844,13 @@
       <type>label</type>
       <id>1</id>
       <posX>1500</posX>
-      <posY>920</posY>
+      <posY>740</posY>
       <width>120</width>
       <label>#ClickfinderPG.Translation.SuspenseLabel</label>
       <font>font10</font>
       <align>center</align>
       <textcolor>FFdddddd</textcolor>
+      <visible>!string.equals(#DetailTitle,)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
@@ -869,7 +859,7 @@
       <type>imagelist</type>
       <id>1</id>
       <posX>1544</posX>
-      <posY>940</posY>
+      <posY>760</posY>
       <width>100</width>
       <height>10</height>
       <textureWidth>12</textureWidth>
@@ -882,7 +872,7 @@
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
       <percentage>#DetailRatingSuspense</percentage>
-      <visible>!string.starts(#DetailRatingSuspense,0)</visible>
+      <visible>!string.equals(#DetailTitle,)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
@@ -891,12 +881,13 @@
       <type>label</type>
       <id>1</id>
       <posX>1640</posX>
-      <posY>920</posY>
+      <posY>740</posY>
       <width>120</width>
       <label>#ClickfinderPG.Translation.LevelLabel</label>
       <font>font10</font>
       <align>center</align>
       <textcolor>FFdddddd</textcolor>
+      <visible>!string.equals(#DetailTitle,)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
@@ -905,20 +896,20 @@
       <type>imagelist</type>
       <id>1</id>
       <posX>1684</posX>
-      <posY>940</posY>
+      <posY>760</posY>
       <width>100</width>
       <height>10</height>
       <textureWidth>12</textureWidth>
       <textureHeight>12</textureHeight>
       <subitems>
-        <subitem>UserRatingStarOff.png</subitem>
-        <subitem>stargood.png</subitem>
+        <subitem>starblack.png</subitem>
+        <subitem>starblue.png</subitem>
       </subitems>
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>3</imagesToDraw>
       <percentage>#DetailRatingLevel</percentage>
-      <visible>!string.starts(#DetailRatingLevel,0)</visible>
+      <visible>!string.equals(#DetailTitle,)</visible>
       <animation effect="fade" time="500">WindowOpen</animation>
       <animation effect="fade" time="200">WindowClose</animation>
     </control>
@@ -928,25 +919,157 @@
 
     <!-- *** Buttom Bar ***-->
 
-    <!-- Tv Movie++ Last UpdateLabel-->
+
+
     <control>
-      <description>TvMovie++ LastUpdate</description>
+      <description>Detail time</description>
       <type>label</type>
       <id>1</id>
       <posX>80</posX>
-      <posY>1000</posY>
-      <label>#SettingLastUpdate</label>
-      <font>font10</font>
+      <posY>796</posY>
+      <width>400</width>
       <align>left</align>
+      <font>fontB12</font>
       <textcolor>000000</textcolor>
+      <label>#DetailTime</label>
+      <visible></visible>
+      <animation effect="fade" time="500">WindowOpen</animation>
+      <animation effect="fade" time="200">WindowClose</animation>
     </control>
-
 
 
     <!-- ActionGroup -->
     <import>ClickfinderProgramGuide.HiddenMenu.xml</import>
 
+    <!--<control>
+      <description>Filmstrip view</description>
+      <type>filmstrip</type>
+      <dimColor>90ffffff</dimColor>
+      <id>30</id>
+      <scrollOffset>3</scrollOffset>
+      <folderPrefix></folderPrefix>
+      <folderSuffix></folderSuffix>
+      <posX>130</posX>
+      <posY>595</posY>
+      <width>1700</width>
+      <height>340</height>
+      <onup>2</onup>
+      <ondown>50</ondown>
+      <onleft>50</onleft>
+      <onright>50</onright>
+      <thumbWidth>230</thumbWidth>
+      <thumbHeight>327</thumbHeight>
+      <thumbPosX>0</thumbPosX>
+      <thumbPosY>0</thumbPosY>
+      <itemWidth>240</itemWidth>
+      <itemHeight>327</itemHeight>
+      <textureWidth>230</textureWidth>
+      <textureHeight>327</textureHeight>
+      <textYOff>-2000</textYOff>
+      <imageFolderFocus>-</imageFolderFocus>
+      <frame>-</frame>
+      <frameFocus>-</frameFocus>
+      <background>-</background>
+      <thumbs flipY="true" diffuse="Thumb_Mask_test.png" mask="filmstrip_mask.png"></thumbs>
+      <showFrame>yes</showFrame>
+      <showFolder>no</showFolder>
+      <showBackGround>no</showBackGround>
+      <showInfoImage>no</showInfoImage>
+      <scrollbarBackground>scrollbar_bg_hor.png</scrollbarBackground>
+      <scrollbarLeft>scrollbar_left_hor.png</scrollbarLeft>
+      <scrollbarRight>scrollbar_right_hor.png</scrollbarRight>
+      <scrollbarWidth>717</scrollbarWidth>
+      <scrollbarHeight>8</scrollbarHeight>
+      <scrollbarYOff>375</scrollbarYOff>
+      <thumbAnimation effect="zoom" acceleration="-2" start="100,100" reversible="false" end="120,120" center="0,880" time="200">focus</thumbAnimation>
+      <thumbAnimation effect="zoom" start="120,120" reversible="false" end="100,100" center="0,880" time="100">unfocus</thumbAnimation>
+    </control>-->
 
+    <control>
+      <description>Cover Flow view</description>
+      <type>coverflow</type>
+      <colordiffuse>90ffffff</colordiffuse>
+      <dimColor>90ffffff</dimColor>
+      <id>10</id>
+      <onup>2</onup>
+      <ondown>10</ondown>
+      <onleft>10</onleft>
+      <onright>10</onright>
+      <posX>0</posX>
+      <posY>900</posY>
+      <width>1920</width>
+      <height>140</height>
+      <selectedCard>0</selectedCard>
+      <cardWidth>184</cardWidth>
+      <cardHeight>140</cardHeight>
+      <angle>55</angle>
+      <sideShift>150</sideShift>
+      <sideGap>120</sideGap>
+      <sideDepth>110</sideDepth>
+      <offsetY>0</offsetY>
+      <selectedOffsetY>0</selectedOffsetY>
+      <speed>10</speed>
+      <showFrame>yes</showFrame>
+      <frame>-</frame>
+      <frameFocus>-</frameFocus>
+      <frameWidth>184</frameWidth>
+      <frameHeight>140</frameHeight>
+      <spinSpeed>8</spinSpeed>
+      <unfocusedAlpha>FF</unfocusedAlpha>
+      <folderPrefix></folderPrefix>
+      <folderSuffix></folderSuffix>
+      <font1>font13</font1>
+      <font2>font11</font2>
+      <label1>#title</label1>
+      <label2>#genre</label2>
+      <textColor>FFFFFFFF</textColor>
+      <remoteColor>FFFF0000</remoteColor>
+      <playedColor>FFA0D0FF</playedColor>
+      <downloadColor>FF00FF00</downloadColor>
+      <selectedColor>FFFFFFFF</selectedColor>
+      <shadowAngle>45</shadowAngle>
+      <shadowDistance>1</shadowDistance>
+      <shadowColor>FF000000</shadowColor>
+      <label1YOff>1430</label1YOff>
+      <label2YOff>1390</label2YOff>
+      <pageSize>5</pageSize>
+      <scrollbarBackground>scrollbar_bg_hor.png</scrollbarBackground>
+      <scrollbarLeft>scrollbar_left_hor.png</scrollbarLeft>
+      <scrollbarRight>scrollbar_right_hor.png</scrollbarRight>
+      <scrollbarWidth>717</scrollbarWidth>
+      <scrollbarHeight>8</scrollbarHeight>
+      <scrollbarYOff>160</scrollbarYOff>
+      <keepaspectratio>yes</keepaspectratio>
+      <cards flipY="true" diffuse="Thumb_Mask_test.png" mask="filmstrip_mask.png"></cards>
+    </control>
+
+    <!--  bottom CoverFlow  Labels-->
+    <control>
+      <description>TvMovie++ LastUpdate</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>20</posX>
+      <posY>1060</posY>
+      <width>560</width>
+      <textcolor>ffffff</textcolor>
+      <label>#DetailCoverflowLabel</label>
+      <font>font10</font>
+      <align>center</align>
+    </control>
+
+    <control>
+      <description>TvMovie++ LastUpdate</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>1300</posX>
+      <posY>1060</posY>
+      <width>560</width>
+      <textcolor>ffffff</textcolor>
+      <label>#DetailCoverflowLabel2</label>
+      <font>font10</font>
+      <align>center</align>
+    </control>
     <import>common.overlay.xml</import>
+
   </controls>
 </window>

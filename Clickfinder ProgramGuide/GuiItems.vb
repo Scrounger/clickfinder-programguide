@@ -11,6 +11,7 @@ Imports System.Threading
 Imports ClickfinderProgramGuide.ClickfinderProgramGuide.CategoriesGuiWindow
 Imports Gentle.Common
 Imports System.Text
+Imports TvPlugin
 
 Namespace ClickfinderProgramGuide
     Public Class ItemsGuiWindow
@@ -41,6 +42,7 @@ Namespace ClickfinderProgramGuide
 
 #Region "Members"
         Friend Shared _ItemsCache As New List(Of TVMovieProgram)
+        Friend Shared _ItemsOnLoad As New List(Of TVMovieProgram)
         Friend Shared _CurrentCounter As Integer = 0
         Private _ThreadLoadItemsFromDatabase As Threading.Thread
         Private _ThreadLeftList As Threading.Thread
@@ -87,6 +89,7 @@ Namespace ClickfinderProgramGuide
             m_StartTime = startTime
             m_EndTime = endTime
             m_MinRuntime = MinRunTime
+            m_CategorieView = CategorieView
 
             _ItemsCache.Clear()
 
@@ -126,7 +129,7 @@ Namespace ClickfinderProgramGuide
 
             MyLog.Info("")
             MyLog.Info("[ItemsGuiWindow] -------------[OPEN]-------------")
-            MyLog.Info("[ItemsGuiWindow] Category: {0} (TvGroup: {1}, sorted by: {2}, ShowLocalMovies: {3}, ShowLocalSeries: {4})", m_LogCategoryName, m_TvGroupFilter, m_sortedBy, Not (m_RemoveLocalMovies), Not (m_RemoveLocalSeries))
+            MyLog.Info("[ItemsGuiWindow] Category: {0}, View: {1} (TvGroup: {2}, sorted by: {3}, ShowLocalMovies: {4}, ShowLocalSeries: {5})", m_LogCategoryName, m_CategorieView.ToString, m_TvGroupFilter, m_sortedBy, Not (m_RemoveLocalMovies), Not (m_RemoveLocalSeries))
 
             GuiLayoutLoading()
 
@@ -385,6 +388,16 @@ Namespace ClickfinderProgramGuide
         Private Sub Action_SelectItem()
             RememberLastFocusedItem()
 
+            DetailGuiWindow._DetailGuiWindowList.Clear()
+
+            DetailGuiWindow._DetailGuiWindowList.AddRange(_ItemsOnLoad.ConvertAll(Of GUIListItem)(New Converter(Of TVMovieProgram, GUIListItem)(Function(c As TVMovieProgram) New GUIListItem() With { _
+                                                .ItemId = c.idProgram, _
+                                                .ThumbnailImage = GuiLayout.Image(c) _
+                                               })))
+
+            Translator.SetProperty("#DetailCoverflowLabel", GUIPropertyManager.GetProperty("#ItemsLeftListLabel"))
+            Translator.SetProperty("#DetailCoverflowLabel2", GUIPropertyManager.GetProperty("#ItemsRightListLabel") & ", " & GUIPropertyManager.GetProperty("#ItemsGroup"))
+
             If _leftList.IsFocused = True Then ListControlClick(_leftList.SelectedListItem.ItemId)
             If _rightList.IsFocused = True Then ListControlClick(_rightList.SelectedListItem.ItemId)
         End Sub
@@ -543,9 +556,9 @@ Namespace ClickfinderProgramGuide
 
                 'SQL String bauen
                 Dim _SqlStringBuilder As New StringBuilder(m_SqlString)
-                _SqlStringBuilder.Replace("#StartTime", MySqlDate(m_startTime))
-                _SqlStringBuilder.Replace("#EndTime", MySqlDate(m_endTime))
-                _SqlStringBuilder.Replace("#CPGFilter", GetSqlCPGFilterString(m_TvGroupFilter, m_RemoveLocalMovies, m_RemoveLocalSeries, m_MinRunTime))
+                _SqlStringBuilder.Replace("#StartTime", MySqlDate(m_StartTime))
+                _SqlStringBuilder.Replace("#EndTime", MySqlDate(m_EndTime))
+                _SqlStringBuilder.Replace("#CPGFilter", GetSqlCPGFilterString(m_TvGroupFilter, m_RemoveLocalMovies, m_RemoveLocalSeries, m_MinRuntime))
 
                 Select Case m_CategorieView
                     Case Is = CategorieView.Preview
@@ -563,14 +576,6 @@ Namespace ClickfinderProgramGuide
                         End If
                 End Select
 
-                'If m_sortedBy = SortMethode.startTime.ToString And Not m_CategorieView = CategorieView.Preview Then
-                '    _SqlStringBuilder.Replace("#CPGgroupBy", "GROUP BY program.title, program.episodeName, program.idChannel, program.startTime")
-                'ElseIf m_CategorieView = CategorieView.Preview Then
-                '    _SqlStringBuilder.Replace("#CPGgroupBy", "GROUP BY program.title, program.episodeName")
-                'Else
-                '    _SqlStringBuilder.Replace("#CPGgroupBy", "GROUP BY program.title, program.episodeName, program.idChannel")
-                'End If
-
                 _SqlStringBuilder.Replace("#CPGorderBy", GetSqlCPGOrderByString(m_sortedBy))
                 _SqlStringBuilder.Replace(" * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung ")
 
@@ -580,7 +585,7 @@ Namespace ClickfinderProgramGuide
                 MyLog.Debug("")
 
                 Dim _SQLstate As SqlStatement = Broker.GetStatement(_SqlStringBuilder.ToString)
-                Dim _ItemsOnLoad As List(Of TVMovieProgram) = ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate.Execute())
+                _ItemsOnLoad = ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate.Execute())
 
                 MyLog.Info("[ItemsGuiWindow] [LoadItemsFromDatabase]: {0} entries readed from database in {1}s", _ItemsOnLoad.Count, (DateTime.Now - _timer).TotalSeconds)
 

@@ -325,6 +325,13 @@ Namespace ClickfinderProgramGuide
             RememberLastFocusedItem()
 
             If _MovieList.IsFocused = True Then
+                DetailGuiWindow._DetailGuiWindowList.Clear()
+                DetailGuiWindow._DetailGuiWindowList.AddRange(_MovieList.ListItems)
+
+
+                Translator.SetProperty("#DetailCoverflowLabel", GUIPropertyManager.GetProperty("#ClickfinderPG.Translation.MovieListTitle"))
+                Translator.SetProperty("#DetailCoverflowLabel2", String.Empty)
+
                 ListControlClick(_MovieList.SelectedListItem.ItemId)
             End If
 
@@ -333,6 +340,12 @@ Namespace ClickfinderProgramGuide
                 If _HighlightsList.SelectedListItem.Label2 = Translation.NewLabel Then
                     ShowSeriesContextMenu(_HighlightsList.SelectedListItem.TVTag, True)
                 Else
+                    DetailGuiWindow._DetailGuiWindowList.Clear()
+                    DetailGuiWindow._DetailGuiWindowList.AddRange(_HighlightsList.ListItems)
+
+                    Translator.SetProperty("#DetailCoverflowLabel", GUIPropertyManager.GetProperty("#ClickfinderPG.Translation.HighlightsListTitle"))
+                    Translator.SetProperty("#DetailCoverflowLabel2", String.Empty)
+
                     ListControlClick(_HighlightsList.SelectedListItem.ItemId)
                 End If
             End If
@@ -356,6 +369,7 @@ Namespace ClickfinderProgramGuide
                 ''MovieListe + Bilder löschen
                 _MovieList.Visible = False
                 _MovieList.Clear()
+
                 For i = 1 To 6
                     Translator.SetProperty("#MovieListTvMovieStar" & i, "")
                     Translator.SetProperty("#MovieListImage" & i, "")
@@ -409,8 +423,12 @@ Namespace ClickfinderProgramGuide
                                                 .Label = c.ReferencedProgram.Title, _
                                                 .Label2 = GuiLayout.TimeLabel(c), _
                                                 .Label3 = GuiLayout.InfoLabel(c), _
-                                                .PinImage = GuiLayout.RecordingStatus(c.ReferencedProgram) _
+                                                .PinImage = GuiLayout.RecordingStatus(c.ReferencedProgram), _
+                                                .TVTag = c.idProgram, _
+                                                .ThumbnailImage = GuiLayout.Image(c) _
                                                })))
+
+
 
                                 Translator.SetProperty("#MovieListTvMovieStar" & 1, GuiLayout.TvMovieStar(_TagesTippList(0)))
                                 Translator.SetProperty("#MovieListImage" & 1, GuiLayout.Image(_TagesTippList(0)))
@@ -427,7 +445,7 @@ Namespace ClickfinderProgramGuide
                         Catch ex2 As Exception
                             'Tipp für date existiert nicht
                             MyLog.Warn("[HighlightsGUIWindow] [FillMovieList]: No TagesTipp - {0}", _ClickfinderCurrentDate)
-                            MyLog.Error("[HighlightsGUIWindow] [FillMovieList]: exception err:" & ex2.Message & " stack:" & ex2.StackTrace)
+                            'MyLog.Error("[HighlightsGUIWindow] [FillMovieList]: exception err:" & ex2.Message & " stack:" & ex2.StackTrace)
                         End Try
                     End If
 
@@ -470,9 +488,10 @@ Namespace ClickfinderProgramGuide
                         Translator.SetProperty("#MovieListTvMovieStar" & _ItemCounter, GuiLayout.TvMovieStar(_TvMovieProgram))
                         Translator.SetProperty("#MovieListImage" & _ItemCounter, GuiLayout.Image(_TvMovieProgram))
 
-                        AddListControlItem(_MovieList, _TvMovieProgram.ReferencedProgram.IdProgram, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieProgram.ReferencedProgram.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram))
+                        AddListControlItem(_MovieList, _TvMovieProgram.ReferencedProgram.IdProgram, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieProgram.ReferencedProgram.Title, GuiLayout.TimeLabel(_TvMovieProgram), GuiLayout.InfoLabel(_TvMovieProgram), , , GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram), _TvMovieProgram.idProgram, GuiLayout.Image(_TvMovieProgram))
                         _ItemCounter = _ItemCounter + 1
                     Next
+
 
                     _MoviesProgressBar.Visible = False
                     _MovieList.Visible = True
@@ -577,7 +596,7 @@ Namespace ClickfinderProgramGuide
                                                 "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
                                                 "WHERE idSeries = " & _Episode.idSeries & " " & _
                                                 "AND local = 0 " & _
-                                                "AND episodeName = '" & MyTvSeries.Helper.allowedSigns(_Episode.ReferencedProgram.EpisodeName) & "' " & _
+                                                "AND episodeName LIKE '" & MyTvSeries.Helper.allowedSigns(_Episode.ReferencedProgram.EpisodeName) & "' " & _
                                                 "ORDER BY state DESC"
 
                                         _SQLstring = Helper.AppendSqlLimit(_SQLstring, 1)
@@ -604,7 +623,7 @@ Namespace ClickfinderProgramGuide
                                     End If
 
                                     Dim _idSeries As Integer = _Episode.idSeries
-                                    AddListControlItem(_HighlightsList, _Episode.idProgram, _Episode.ReferencedProgram.ReferencedChannel.DisplayName, _Episode.ReferencedProgram.Title, Translation.NewLabel, _NewEpisodesList.FindAll(Function(x As TVMovieProgram) x.idSeries = _idSeries).Count & " " & Translation.NewEpisodeFound, Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _Episode.SeriesPosterImage, , _RecordingStatus, _Episode.idSeries)
+                                    AddListControlItem(_HighlightsList, _Episode.idProgram, _Episode.ReferencedProgram.ReferencedChannel.DisplayName, _Episode.ReferencedProgram.Title, Translation.NewLabel, _NewEpisodesList.FindAll(Function(x As TVMovieProgram) x.idSeries = _idSeries).Count & " " & Translation.NewEpisodeFound, Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _Episode.SeriesPosterImage, , _RecordingStatus, _Episode.idSeries, GuiLayout.Image(_Episode))
                                 Next
                             End If
                             MyLog.Info("[HighlightsGUIWindow] [FillHighlightsList]: {0} Series with new Episodes identified ({1}s)", _tmpList.Count, (DateTime.Now - _timer).TotalSeconds)
@@ -649,7 +668,7 @@ Namespace ClickfinderProgramGuide
                                 _imagepath = UseSportLogos(_TvMovieProgram.ReferencedProgram.Title, _imagepath)
                             End If
 
-                            AddListControlItem(_HighlightsList, _TvMovieProgram.ReferencedProgram.IdProgram, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieProgram.ReferencedProgram.Title, _timeLabel, _infoLabel, _imagepath, , GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram))
+                            AddListControlItem(_HighlightsList, _TvMovieProgram.idProgram, _TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, _TvMovieProgram.ReferencedProgram.Title, _timeLabel, _infoLabel, _imagepath, , GuiLayout.RecordingStatus(_TvMovieProgram.ReferencedProgram), , _imagepath)
                         Next
                         MyLog.Info("[HighlightsGUIWindow] [FillHighlightsList]: {0} Highlights added to Listcontrol ({1})", _HighLightsItemsList.Count, (DateTime.Now - _timer).TotalSeconds)
                     End If
@@ -744,6 +763,8 @@ Namespace ClickfinderProgramGuide
                     If _MenuNotLocalEpisodesList.Count = 1 Then
 
                         If SelectItem = True Then
+                            DetailGuiWindow._DetailGuiWindowList.Clear()
+                            DetailGuiWindow._DetailGuiWindowList.AddRange(_HighlightsList.ListItems)
                             ListControlClick(_MenuNotLocalEpisodesList(0).idProgram)
                         Else
                             ShowHighlightsMenu(_MenuNotLocalEpisodesList(0).idProgram)
@@ -789,7 +810,7 @@ Namespace ClickfinderProgramGuide
                                         "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
                                         "WHERE idSeries = " & _TVMovieProgram.idSeries & " " & _
                                         "AND local = 0 " & _
-                                        "AND episodeName = '" & MyTvSeries.Helper.allowedSigns(_TVMovieProgram.ReferencedProgram.EpisodeName) & "' " & _
+                                        "AND episodeName LIKE '" & MyTvSeries.Helper.allowedSigns(_TVMovieProgram.ReferencedProgram.EpisodeName) & "' " & _
                                         "ORDER BY state DESC"
 
                                 _SQLstring = Helper.AppendSqlLimit(_SQLstring, 1)
@@ -822,6 +843,8 @@ Namespace ClickfinderProgramGuide
                         dlgContext.DoModal(GetID)
 
                         If SelectItem = True Then
+                            DetailGuiWindow._DetailGuiWindowList.Clear()
+                            DetailGuiWindow._DetailGuiWindowList.AddRange(_HighlightsList.ListItems)
                             ListControlClick(_idProgramContainer.Item(dlgContext.SelectedLabel))
                         ElseIf SelectItem = False Then
                             ShowHighlightsMenu(_idProgramContainer.Item(dlgContext.SelectedLabel))

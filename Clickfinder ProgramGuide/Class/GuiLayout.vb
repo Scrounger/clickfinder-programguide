@@ -270,22 +270,18 @@ Namespace ClickfinderProgramGuide
         End Property
         Friend Shared ReadOnly Property DetailFSK(ByVal TvMovieProgram As TVMovieProgram) As String
             Get
-                If TvMovieProgram.TVMovieBewertung > 0 And TvMovieProgram.TVMovieBewertung < 6 Then
-                    Select Case TvMovieProgram.ReferencedProgram.ParentalRating
-                        Case Is = 0
-                            Return "Logos\ClickfinderPG\fsk0.png"
-                        Case Is < 12
-                            Return "Logos\ClickfinderPG\fsk6.png"
-                        Case Is < 18
-                            Return "Logos\ClickfinderPG\fsk12.png"
-                        Case Is = 18
-                            Return "Logos\ClickfinderPG\fsk18.png"
-                        Case Else
-                            Return String.Empty
-                    End Select
-                Else
-                    Return String.Empty
-                End If
+                Select Case TvMovieProgram.ReferencedProgram.ParentalRating
+                    Case Is = 0
+                        Return "Logos\ClickfinderPG\fsk0.png"
+                    Case Is < 12
+                        Return "Logos\ClickfinderPG\fsk6.png"
+                    Case Is < 18
+                        Return "Logos\ClickfinderPG\fsk12.png"
+                    Case Is = 18
+                        Return "Logos\ClickfinderPG\fsk18.png"
+                    Case Else
+                        Return "Logos\ClickfinderPG\fsk0.png"
+                End Select
             End Get
 
         End Property

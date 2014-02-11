@@ -23,6 +23,7 @@ Imports SQLite.NET
 Imports MediaPortal.Database
 Imports enrichEPG.TvDatabase
 Imports enrichEPG.Database
+Imports System.Reflection
 
 
 Public Class Helper
@@ -35,7 +36,7 @@ Public Class Helper
 #Region "Properties"
     Public Shared ReadOnly Property Version() As String
         Get
-            Return "1.3.0.0 beta"
+            Return Assembly.GetExecutingAssembly().GetName().Version.ToString
         End Get
     End Property
 
@@ -144,7 +145,7 @@ Public Class Helper
         Requirement
     End Enum
 
-    Friend Shared Sub AddListControlItem(ByVal Listcontrol As GUIListControl, ByVal idProgram As Integer, ByVal ChannelName As String, ByVal titelLabel As String, Optional ByVal timeLabel As String = "", Optional ByVal infoLabel As String = "", Optional ByVal ImagePath As String = "", Optional ByVal MinRunTime As Integer = 0, Optional ByVal isRecording As String = "", Optional ByVal tmpInfo As String = "", Optional ByVal tmpInfo2 As String = "")
+    Friend Shared Sub AddListControlItem(ByVal Listcontrol As GUIListControl, ByVal idProgram As Integer, ByVal ChannelName As String, ByVal titelLabel As String, Optional ByVal timeLabel As String = "", Optional ByVal infoLabel As String = "", Optional ByVal ImagePath As String = "", Optional ByVal MinRunTime As Integer = 0, Optional ByVal isRecording As String = "", Optional ByVal tmpInfo As String = "", Optional ByVal Thumbnail As String = "")
         Try
 
             Dim lItem As New GUIListItem
@@ -155,10 +156,10 @@ Public Class Helper
             lItem.ItemId = idProgram
             lItem.Path = ChannelName
             lItem.IconImage = ImagePath
+            lItem.ThumbnailImage = Thumbnail
             lItem.Duration = MinRunTime
             lItem.PinImage = isRecording
             lItem.TVTag = tmpInfo
-            lItem.ThumbnailImage = tmpInfo2
 
             GUIControl.AddListItemControl(GUIWindowManager.ActiveWindow, Listcontrol.GetID, lItem)
 
@@ -198,12 +199,14 @@ Public Class Helper
         End Try
     End Function
 
+    'Friend Shared Function AllowedSignsSQL(ByVal expression As String)
+    '    Return Replace(System.Text.RegularExpressions.Regex.Replace(expression, "[\?,.!-*]", "_"), "'", "''")
+    'End Function
 
     Friend Shared Sub ListControlClick(ByVal idProgram As Integer)
         Try
             Dim TvMovieProgram As TVMovieProgram = TvMovieProgram.Retrieve(idProgram)
-            DetailGuiWindow.SetGuiProperties(TvMovieProgram)
-            GUIWindowManager.ActivateWindow(1656544652)
+            GUIWindowManager.ActivateWindow(1656544652, "list: " & TvMovieProgram.idProgram)
         Catch ex As Exception
             MyLog.Error("[Helper]: [ListControlClick]: exception err: {0} stack: {1}", ex.Message, ex.StackTrace)
         End Try
@@ -369,7 +372,7 @@ Public Class Helper
         End Try
     End Sub
 
-    Private Shared Sub startEnrichEPG()
+    Friend Shared Sub startEnrichEPG()
         Try
             MyLog.Debug("[ShowActionMenu]: enrichEPG started")
 
@@ -411,7 +414,7 @@ Public Class Helper
         End Try
     End Sub
 
-    Private Shared Sub ShowSerieLinkContextMenu(ByVal program As Program)
+    Friend Shared Sub ShowSerieLinkContextMenu(ByVal program As Program)
 
         MyLog.Info("")
         MyLog.Info("[Helper] [ShowSerieLinkContextMenu]: open")
@@ -427,26 +430,30 @@ Public Class Helper
                 'ContextMenu Layout
                 dlgContext.SetHeading(program.Title)
 
-                'Alle Serien aus DB laden
-                Dim _TvSeriesDB As New TVSeriesDB
-                _TvSeriesDB.LoadAllSeries()
+                Dim _SeriesList As List(Of MyTvSeries) = MyTvSeries.ListAll
+                Dim _counter As Integer = 0
+
+                ''Alle Serien aus DB laden
+                'Dim _TvSeriesDB As New TVSeriesDB
+                '_TvSeriesDB.LoadAllSeries()
 
                 'Alle Serien + idSeries in CB schreiben
-                For i As Integer = 0 To _TvSeriesDB.CountSeries - 1
+                For Each _Series In _SeriesList
                     Dim lItemSerie As New GUIListItem
-                    lItemSerie.Label = _TvSeriesDB(i).SeriesName
+                    lItemSerie.Label = _Series.Title
 
                     Try
                         'Sofern verlinkung vorhanden
-                        Dim SeriesMapping As TvMovieSeriesMapping = TvMovieSeriesMapping.Retrieve(_TvSeriesDB(i).SeriesID)
+                        Dim SeriesMapping As TvMovieSeriesMapping = TvMovieSeriesMapping.Retrieve(_Series.idSeries)
                         lItemSerie.Label3 = Translation.LinkTo & " " & SeriesMapping.EpgTitle
                     Catch ex As Exception
                         'sonst abfangen
                     End Try
 
-                    lItemSerie.IconImage = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _TvSeriesDB(i).SeriesPosterImage
+                    lItemSerie.IconImage = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _Series.PosterImage
 
-                    _idSeriesContainer.Add(i, _TvSeriesDB(i).SeriesID)
+                    _idSeriesContainer.Add(_counter, _Series.idSeries)
+                    _counter = _counter + 1
 
                     dlgContext.Add(lItemSerie)
                     lItemSerie.Dispose()
@@ -646,8 +653,8 @@ Public Class Helper
                     'prüfen ob in Records vorhanden
                     Dim _RecList As List(Of Recording)
                     Dim _SQLstring As String = "SELECT * FROM Recording " & _
-                                                "WHERE title = '" & MyTvSeries.Helper.allowedSigns(TvMovieProgram.ReferencedProgram.Title) & "' " & _
-                                                "AND episodeName = '" & MyTvSeries.Helper.allowedSigns(TvMovieProgram.ReferencedProgram.EpisodeName) & "' " & _
+                                                "WHERE title LIKE '" & MyTvSeries.Helper.allowedSigns(TvMovieProgram.ReferencedProgram.Title) & "' " & _
+                                                "AND episodeName LIKE '" & MyTvSeries.Helper.allowedSigns(TvMovieProgram.ReferencedProgram.EpisodeName) & "' " & _
                                                 "AND seriesNum = '" & TvMovieProgram.ReferencedProgram.SeriesNum & "' " & _
                                                 "AND episodeNum = '" & TvMovieProgram.ReferencedProgram.EpisodeNum & "'"
 
@@ -655,36 +662,39 @@ Public Class Helper
                     Dim _SQLstate1 As SqlStatement = Broker.GetStatement(_SQLstring)
                     _RecList = ObjectFactory.GetCollection(GetType(Recording), _SQLstate1.Execute())
 
-                    'Serien laden und nach update schauen
-                    Dim _Series As MyTvSeries = MyTvSeries.Retrieve(TvMovieProgram.idSeries)
-                    Dim _Episode As MyTvSeries.MyEpisode = MyTvSeries.MyEpisode.Retrieve(_Series.idSeries, TvMovieProgram.ReferencedProgram.SeriesNum, TvMovieProgram.ReferencedProgram.EpisodeNum)
+                    'Serien laden und nach update schauen, sofern in MP-TvSeries (neu serien aufnahme verurschat Ex)
+                    Try
+                        Dim _Series As MyTvSeries = MyTvSeries.Retrieve(TvMovieProgram.idSeries)
+                        Dim _Episode As MyTvSeries.MyEpisode = MyTvSeries.MyEpisode.Retrieve(_Series.idSeries, TvMovieProgram.ReferencedProgram.SeriesNum, TvMovieProgram.ReferencedProgram.EpisodeNum)
 
-                    If _RecList.Count > 0 Then
-                        _Episode.ExistLocal = True
-                    End If
-
-                    'Falls local dann Datensätz updaten
-                    If _Episode.ExistLocal = True Then
-
-                        'Alle Episoden (program & tvmovieprogram) updaten
-                        _SQLstring = _
-                        "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
-                        "WHERE idSeries = " & _Episode.SeriesID & " " & _
-                        "AND episodeName = '" & MyTvSeries.Helper.allowedSigns(TvMovieProgram.ReferencedProgram.EpisodeName) & "'"
-
-                        _SQLstring = Replace(_SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung ")
-                        Dim _SQLstate4 As SqlStatement = Broker.GetStatement(_SQLstring)
-                        Dim _EpisodeRepeatsList As IList(Of TVMovieProgram) = ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate4.Execute())
-
-                        If _EpisodeRepeatsList.Count > 0 Then
-                            Dim _logNewEpisode As Boolean = False
-                            For Each _TvMovieProgram In _EpisodeRepeatsList
-                                _logNewEpisode = Not IdentifySeries.UpdateProgramAndTvMovieProgram(_TvMovieProgram.ReferencedProgram, _Series, _Episode, _Episode.ExistLocal, True)
-                            Next
-                            MyLog.Info("[CheckSeriesLocalStatus]: S{0}E{1} - {2} updated (programList.count = {3}, newEpisode: {4})", _
-                                      _Episode.SeriesNum, _Episode.EpisodeNum, TvMovieProgram.ReferencedProgram.EpisodeName, _EpisodeRepeatsList.Count, _logNewEpisode)
+                        If _RecList.Count > 0 Then
+                            _Episode.ExistLocal = True
                         End If
-                    End If
+
+                        'Falls local dann Datensätz updaten
+                        If _Episode.ExistLocal = True Then
+
+                            'Alle Episoden (program & tvmovieprogram) updaten
+                            _SQLstring = _
+                            "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
+                            "WHERE idSeries = " & _Episode.SeriesID & " " & _
+                            "AND episodeName LIKE '" & MyTvSeries.Helper.allowedSigns(TvMovieProgram.ReferencedProgram.EpisodeName) & "'"
+
+                            _SQLstring = Replace(_SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung ")
+                            Dim _SQLstate4 As SqlStatement = Broker.GetStatement(_SQLstring)
+                            Dim _EpisodeRepeatsList As IList(Of TVMovieProgram) = ObjectFactory.GetCollection(GetType(TVMovieProgram), _SQLstate4.Execute())
+
+                            If _EpisodeRepeatsList.Count > 0 Then
+                                Dim _logNewEpisode As Boolean = False
+                                For Each _TvMovieProgram In _EpisodeRepeatsList
+                                    _logNewEpisode = Not IdentifySeries.UpdateProgramAndTvMovieProgram(_TvMovieProgram.ReferencedProgram, _Series, _Episode, _Episode.ExistLocal, True)
+                                Next
+                                MyLog.Info("[CheckSeriesLocalStatus]: S{0}E{1} - {2} updated (programList.count = {3}, newEpisode: {4})", _
+                                          _Episode.SeriesNum, _Episode.EpisodeNum, TvMovieProgram.ReferencedProgram.EpisodeName, _EpisodeRepeatsList.Count, _logNewEpisode)
+                            End If
+                        End If
+                    Catch ex As Exception
+                    End Try
                 End If
             End If
 

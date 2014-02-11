@@ -26,23 +26,24 @@ Public Class Setup
 
             Dim _layer As New TvBusinessLayer
 
-            If Not _layer.GetSetting("ClickfinderProgramGuideVersion", String.Empty).Value = Helper.Version Then
-                Dim setting As Setting = _layer.GetSetting("ClickfinderProgramGuideVersion", String.Empty)
-                setting.Value = Helper.Version
-                setting.Persist()
+            'Falls was an der datenbank sich ändert.
+            'If Not _layer.GetSetting("ClickfinderProgramGuideVersion", String.Empty).Value = Helper.Version Then
+            '    Dim setting As Setting = _layer.GetSetting("ClickfinderProgramGuideVersion", String.Empty)
+            '    setting.Value = Helper.Version
+            '    setting.Persist()
 
 
-                'Hier Änderungen zur Vorgängerversion
-                MsgBox("Version: " & Helper.Version & vbNewLine & vbNewLine & _
-                       "Neue Version !" & vbNewLine & _
-                       "Einstellungen müssen zurück gesetzt werden!", MsgBoxStyle.Information)
+            '    'Hier Änderungen zur Vorgängerversion
+            '    MsgBox("Version: " & Helper.Version & vbNewLine & vbNewLine & _
+            '           "Neue Version !" & vbNewLine & _
+            '           "Einstellungen müssen zurück gesetzt werden!", MsgBoxStyle.Information)
 
 
-                ButtonDefaultSettings_Click(sender, e)
+            '    ButtonDefaultSettings_Click(sender, e)
 
-            End If
+            'End If
 
-            LabelVersion.Text = _layer.GetSetting("ClickfinderProgramGuideVersion", String.Empty).Value
+            LabelVersion.Text = Helper.Version
 
             CBOverlayGroup.Items.Clear()
             CbQuick1.Items.Clear()
@@ -87,7 +88,6 @@ Public Class Setup
             CheckBoxUseTheTvDb.Checked = CPGsettings.TvMovieUseTheTvDb
             CheckBoxClickfinderPG.Checked = CPGsettings.ClickfinderDataAvailable
             CheckBoxUseSeriesDescribtion.Checked = CPGsettings.DetailUseSeriesDescribtion
-            CheckSaveSettingsLocal.Checked = CPGsettings.ClickfinderSaveSettingsOnClients
             tbMPDatabasePath.Text = Config.GetFile(Config.Dir.Database, "")
             CheckBoxOverlayShowTagesTipp.Checked = CPGsettings.OverlayShowTagesTipp
             CheckBoxOverlayShowLocalMovies.Checked = CPGsettings.OverlayShowLocalMovies
@@ -816,28 +816,6 @@ Public Class Setup
 
     End Sub
 
-    Private Sub CheckSaveSettingsLocal_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckSaveSettingsLocal.CheckedChanged
-        Dim _layer As New TvBusinessLayer
-        Dim _setting As Setting = _layer.GetSetting("ClickfinderSaveSettingsOnClients", "false")
-        _setting.Value = CStr(CheckSaveSettingsLocal.Checked)
-        _setting.Persist()
-    End Sub
-
-    Private Sub BT_loadfromServer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BT_loadfromServer.Click
-        Dim merker As Boolean = CheckSaveSettingsLocal.Checked
-
-        Dim _layer As New TvBusinessLayer
-        Dim _setting As Setting = _layer.GetSetting("ClickfinderSaveSettingsOnClients", "false")
-        _setting.Value = False
-        _setting.Persist()
-
-        Setup_Load(Me, New System.EventArgs)
-
-        _setting.Value = merker
-        CheckSaveSettingsLocal.Checked = merker
-        _setting.Persist()
-
-    End Sub
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         'Try

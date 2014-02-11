@@ -11,7 +11,7 @@
     <AssemblyName>ClickfinderProgramGuide</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <OptionExplicit>On</OptionExplicit>
     <OptionCompare>Text</OptionCompare>
     <OptionStrict>Off</OptionStrict>
@@ -38,6 +38,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -85,7 +86,7 @@
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\plugins\Windows\Dialogs.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="enrichEPG, Version=1.2.9.4, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="enrichEPG, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Team MediaPortal\MediaPortal\enrichEPG.dll</HintPath>
     </Reference>
@@ -170,7 +171,6 @@
     <Compile Include="Class\GUIDialogSelect2Custom.vb" />
     <Compile Include="Class\Translation.vb" />
     <Compile Include="Class\Translator.vb" />
-    <Compile Include="Class\TVSeriesDB.vb" />
     <Compile Include="Clickfinder ProgramGuide.vb" />
     <Compile Include="EditCategorie.Designer.vb">
       <DependentUpon>EditCategorie.vb</DependentUpon>
@@ -587,6 +587,18 @@
     <Content Include="Skin Mods\StreamedMP\TVSeries.Common.HiddenMenu.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Skin Mods\Titan\Media\osd_CPG_button_focus.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skin Mods\Titan\Media\osd_CPG_button_nofocus.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skin Mods\Titan\TVOSD.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skin Mods\Titan\TVSeries.hiddenmenu.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\btn_donate_LG1.gif" />
     <None Include="Resources\btn_donate_LG.gif" />
     <EmbeddedResource Include="ConfigIcons\Config.png">
@@ -622,6 +634,9 @@
     <Folder Include="Enums\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>start xcopy.exe "$(TargetDir)ClickfinderProgramGuide.dll" "C:\Program Files\Team MediaPortal\MediaPortal\plugins\Windows" /Y</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

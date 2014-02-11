@@ -55,7 +55,7 @@ Namespace ClickfinderProgramGuide
         Private _SeriesListItems As New List(Of GUIListItem)
         Private _EpisodesListItems As New List(Of GUIListItem)
         Private _EpisodeReapeatsList As New List(Of TVMovieProgram)
-        Private _SeriesInfosList As New List(Of TVSeriesDB.EpisodePreview_SeriesItem)
+        Private _SeriesInfosList As New List(Of EpisodePreview_SeriesItem)
 #End Region
 
 #Region "Constructors"
@@ -189,21 +189,19 @@ Namespace ClickfinderProgramGuide
                         'TvWish Server plugin aktiv
                         If CPGsettings.pluginTvWishList = True Then
 
-                            'Serie über id laden & 
-                            Dim _TvSeriesDB As New TVSeriesDB
-                            _TvSeriesDB.LoadSeriesName(CInt(Replace(_loadParameter, "idSeries: ", "")))
+                            Try
+                                'Serie über id laden
+                                Dim _Series As MyTvSeries = MyTvSeries.Retrieve(CInt(Replace(_loadParameter, "idSeries: ", "")))
 
-                            'prüfen ob schon in TvWishList !!!! noch auf alle Einträge prüfen !!!
-                            If _TvSeriesDB.CountSeries = 1 Then
-                                If InStr(_layer.GetSetting("TvWishList_ListView").Value, "(title like '" & _TvSeriesDB(0).SeriesName & "' ) AND (description like '%Neue Folge: %')") > 0 Then
-                                    Helper.ShowNotify("Keine neuen Episoden im EPG gefunden! TvWish für " & _TvSeriesDB(0).SeriesName & " wurde bereits angelegt")
+                                If InStr(_layer.GetSetting("TvWishList_ListView").Value, "(title like '" & _Series.Title & "' ) AND (description like '%Neue Folge: %')") > 0 Then
+                                    Helper.ShowNotify("Keine neuen Episoden im EPG gefunden! TvWish für " & _Series.Title & " wurde bereits angelegt")
                                     GUIWindowManager.ShowPreviousWindow()
                                 Else
                                     'tvWish anlegen - fragen
                                     Dim dlgContext As GUIDialogYesNo = CType(GUIWindowManager.GetWindow(CType(GUIWindow.Window.WINDOW_DIALOG_YES_NO, Integer)), GUIDialogYesNo)
                                     dlgContext.Reset()
 
-                                    dlgContext.SetHeading(_TvSeriesDB(0).SeriesName)
+                                    dlgContext.SetHeading(_Series.Title)
                                     dlgContext.SetLine(1, "TvWish für neue Episoden anlegen?")
                                     dlgContext.SetLine(2, "")
                                     dlgContext.SetLine(3, "")
@@ -211,16 +209,16 @@ Namespace ClickfinderProgramGuide
 
                                     ' ja anlegen
                                     If dlgContext.IsConfirmed = True Then
-                                        GUIWindowManager.ActivateWindow(70943675, "eq(#currentmoduleid,'1656544652'), 'NEWTVWISH//EXPRESSION=(title like '" & _TvSeriesDB(0).SeriesName & "' ) AND (description like '%Neue Folge: %')//NAME=CPG: " & _TvSeriesDB(0).SeriesName & ": " & Translation.NewEpisodes, True)
+                                        GUIWindowManager.ActivateWindow(70943675, "eq(#currentmoduleid,'1656544652'), 'NEWTVWISH//EXPRESSION=(title like '" & _Series.Title & "' ) AND (description like '%Neue Folge: %')//NAME=CPG: " & _Series.Title & ": " & Translation.NewEpisodes, True)
                                     Else
                                         GUIWindowManager.ShowPreviousWindow()
                                     End If
                                 End If
-                            End If
 
-                        Else
-                            Helper.ShowNotify("Keine neuen Episoden im EPG gefunden!")
-                            GUIWindowManager.ShowPreviousWindow()
+                            Catch ex As Exception
+                                Helper.ShowNotify("Keine neuen Episoden im EPG gefunden!")
+                                GUIWindowManager.ShowPreviousWindow()
+                            End Try
                         End If
                     End If
                 End If
@@ -486,6 +484,18 @@ Namespace ClickfinderProgramGuide
 
                     '_selectedSeries = TVMovieProgram.Retrieve(_SeriesList(_LastFocusedEpisodeIndex).TVTag)
 
+                    DetailGuiWindow._DetailGuiWindowList.Clear()
+                    DetailGuiWindow._DetailGuiWindowList.AddRange(_SeriesList.ListItems.ConvertAll(Of GUIListItem)(New Converter(Of GUIListItem, GUIListItem)(Function(c As GUIListItem) New GUIListItem() With { _
+                                                .ItemId = c.ItemId, _
+                                                .ThumbnailImage = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _selectedSeries.SeriesPosterImage _
+                                               })))
+                    DetailGuiWindow._DetailGuiWindowList.RemoveAt(0)
+
+                    Translator.SetProperty("#DetailCoverflowLabel", GUIPropertyManager.GetProperty("#EpisodesPreviewTitle"))
+                    Translator.SetProperty("#DetailCoverflowLabel2", Translation.allNewEpisodes)
+
+
+
                     ListControlClick(_SeriesList.Item(_LastFocusedEpisodeIndex).ItemId)
                 Else
                     'Epsidoen der Serie anzeigen
@@ -551,7 +561,6 @@ Namespace ClickfinderProgramGuide
                                     }))
 
                 'Neue Episoden zählen & an list(of GuiListItem) übergeben
-                Dim _TvSeries As New TVSeriesDB
                 If _SeriesListItems.Count > 0 Then
                     For Each _ListItem As GUIListItem In _SeriesListItems
 
@@ -583,33 +592,36 @@ Namespace ClickfinderProgramGuide
                         End If
 
                         Dim _tvMovieProgram As TVMovieProgram = TVMovieProgram.Retrieve(_ListItem.TVTag)
-                        Dim _TvSeriesItem As New TVSeriesDB.EpisodePreview_SeriesItem _
+                        Dim _TvSeriesItem As New EpisodePreview_SeriesItem _
                             (_ListItem.ItemId, CStr(_ListItem.Label), _ListItem.IconImage, _
                              _ListItem.MusicTag, _tvMovieProgram.ReferencedProgram.Description, _tvMovieProgram.ReferencedProgram.StarRating, "", "", _
                              _EntryFoundinTvWishList)
 
                         'SerieInfos für FillSeriesInfos laden
                         Dim _status As String = Translation.Continous
-                        _TvSeries.LoadSeriesName(_ListItem.ItemId)
-                        'Sofern Series in MPTvSeries gefunden
-                        If _TvSeries.CountSeries > 0 Then
 
-                            If _TvSeries(0).Status = "Ended" Then
+                        Try
+                            'Sofern Series in MPTvSeries gefunden
+                            Dim _Series As MyTvSeries = MyTvSeries.Retrieve(_ListItem.ItemId)
+
+                            If _Series.Status = "Ended" Then
                                 _status = Translation.Ended
                             Else
                                 _status = Translation.Continous
                             End If
 
-                            _TvSeriesItem = New TVSeriesDB.EpisodePreview_SeriesItem _
+                            _TvSeriesItem = New EpisodePreview_SeriesItem _
                             (_ListItem.ItemId, CStr(_ListItem.Label), _ListItem.IconImage, _
-                             _ListItem.MusicTag, _TvSeries(0).Summary, CInt(_TvSeries(0).Rating), _TvSeries(0).Network, _status, _
+                             _ListItem.MusicTag, _Series.Summary, CInt(_Series.Rating), _Series.Network, _status, _
                              _EntryFoundinTvWishList)
-                        End If
+
+                        Catch ex As Exception
+
+                        End Try
 
                         _SeriesInfosList.Add(_TvSeriesItem)
 
                     Next
-                    _TvSeries.Dispose()
 
                 End If
 
@@ -714,14 +726,13 @@ Namespace ClickfinderProgramGuide
                                 Else
                                     _infoLabel = Translation.Season & " " & Format(CInt(_Episode.ReferencedProgram.SeriesNum), "00") & ", " & Translation.Episode & Format(CInt(_Episode.ReferencedProgram.EpisodeNum), "00")
 
-                                    Dim _TvSeriesDB As New TVSeriesDB
-                                    _TvSeriesDB.LoadEpisode(_Episode.ReferencedProgram.Title, CInt(_Episode.ReferencedProgram.SeriesNum), CInt(_Episode.ReferencedProgram.EpisodeNum))
-                                    If _TvSeriesDB.CountSeries > 0 Then
-                                        If Not String.IsNullOrEmpty(_TvSeriesDB.EpisodeSummary) Then
-                                            _description = _TvSeriesDB.EpisodeSummary
+                                    Try
+                                        Dim _MyEpisode As MyTvSeries.MyEpisode = MyTvSeries.Search(_Episode.ReferencedProgram.Title).Episode(CInt(_Episode.ReferencedProgram.SeriesNum), CInt(_Episode.ReferencedProgram.EpisodeNum))
+                                        If Not String.IsNullOrEmpty(_MyEpisode.EpisodeSummary) Then
+                                            _description = _MyEpisode.EpisodeSummary
                                         End If
-                                    End If
-                                    _TvSeriesDB.Dispose()
+                                    Catch ex As Exception
+                                    End Try
                                 End If
 
 
@@ -756,6 +767,7 @@ Namespace ClickfinderProgramGuide
                                 End If
 
                                 AddListControlItem(_SeriesList, _Episode.ReferencedProgram.IdProgram, _Episode.ReferencedProgram.ReferencedChannel.DisplayName, _Episode.ReferencedProgram.EpisodeName, _timeLabel, _infoLabel, Config.GetFile(Config.Dir.Thumbs, "tv\logos\") & Replace(_Episode.ReferencedProgram.ReferencedChannel.DisplayName, "/", "_") & ".png", , _RecordingStatus, _Episode.idProgram, _description)
+
 
                             End If
                         Next
@@ -847,7 +859,7 @@ Namespace ClickfinderProgramGuide
             Try
 
                 'MsgBox(_SeriesInfosList(_selectedSeries.idSeries).SeriesName)
-                Dim _SeriesItem As TVSeriesDB.EpisodePreview_SeriesItem = _SeriesInfosList.Find(Function(x As TVSeriesDB.EpisodePreview_SeriesItem) x.idSeries = _selectedSeries.idSeries)
+                Dim _SeriesItem As EpisodePreview_SeriesItem = _SeriesInfosList.Find(Function(x As EpisodePreview_SeriesItem) x.idSeries = _selectedSeries.idSeries)
 
                 Translator.SetProperty("#EpisodesPreviewTvWishEntryFounded", CStr(_SeriesItem.TvWishFound))
 
@@ -1115,7 +1127,7 @@ Namespace ClickfinderProgramGuide
                         Dim _SQLstring As String = _
                         "Select * from program INNER JOIN TvMovieProgram ON program.idprogram = TvMovieProgram.idProgram " & _
                         "WHERE idSeries = " & _Episode.SeriesID & " " & _
-                        "AND episodeName = '" & MyTvSeries.Helper.allowedSigns(TvMovieProgram.ReferencedProgram.EpisodeName) & "'"
+                        "AND episodeName LIKE '" & MyTvSeries.Helper.allowedSigns(TvMovieProgram.ReferencedProgram.EpisodeName) & "'"
 
                         _SQLstring = Replace(_SQLstring, " * ", " TVMovieProgram.idProgram, TVMovieProgram.Action, TVMovieProgram.Actors, TVMovieProgram.BildDateiname, TVMovieProgram.Country, TVMovieProgram.Cover, TVMovieProgram.Describtion, TVMovieProgram.Dolby, TVMovieProgram.EpisodeImage, TVMovieProgram.Erotic, TVMovieProgram.FanArt, TVMovieProgram.Feelings, TVMovieProgram.FileName, TVMovieProgram.Fun, TVMovieProgram.HDTV, TVMovieProgram.idEpisode, TVMovieProgram.idMovingPictures, TVMovieProgram.idSeries, TVMovieProgram.idVideo, TVMovieProgram.KurzKritik, TVMovieProgram.local, TVMovieProgram.Regie, TVMovieProgram.Requirement, TVMovieProgram.SeriesPosterImage, TVMovieProgram.ShortDescribtion, TVMovieProgram.Tension, TVMovieProgram.TVMovieBewertung ")
                         Dim _SQLstate4 As SqlStatement = Broker.GetStatement(_SQLstring)
@@ -1289,6 +1301,103 @@ Namespace ClickfinderProgramGuide
 
         End Sub
 #End Region
+
+        Public Class EpisodePreview_SeriesItem
+            Private _mSeriesID As Integer
+            Private _mSeriesName As String
+            Private _mSeriesPosterImage As String
+            Private _mFanArt As String
+            Private _mSummary As String
+            Private _mRating As Integer
+            Private _mNetwork As String
+            Private _mStatus As String
+            Private _mTvWish As Boolean
+            Public Sub New(ByVal idSeries As Integer, ByVal SeriesName As String, ByVal Cover As String, ByVal FanArt As String, ByVal Summary As String, ByVal Rating As Integer, _
+                           ByVal Network As String, ByVal Status As String, ByVal TvWishFound As Boolean)
+                _mSeriesID = idSeries
+                _mSeriesName = SeriesName
+                _mSeriesPosterImage = Cover
+                _mFanArt = FanArt
+                _mSummary = Summary
+                _mRating = Rating
+                _mNetwork = Network
+                _mStatus = Status
+                _mTvWish = TvWishFound
+            End Sub
+
+            Public Property idSeries() As Integer
+                Get
+                    Return _mSeriesID
+                End Get
+                Set(ByVal value As Integer)
+                    _mSeriesID = value
+                End Set
+            End Property
+            Public Property SeriesName() As String
+                Get
+                    Return _mSeriesName
+                End Get
+                Set(ByVal value As String)
+                    _mSeriesName = value
+                End Set
+            End Property
+            Public Property SeriesPosterImage() As String
+                Get
+                    Return _mSeriesPosterImage
+                End Get
+                Set(ByVal value As String)
+                    _mSeriesPosterImage = value
+                End Set
+            End Property
+            Public Property FanArt() As String
+                Get
+                    Return _mFanArt
+                End Get
+                Set(ByVal value As String)
+                    _mFanArt = value
+                End Set
+            End Property
+            Public Property Summary() As String
+                Get
+                    Return _mSummary
+                End Get
+                Set(ByVal value As String)
+                    _mSummary = value
+                End Set
+            End Property
+            Public Property Rating() As Integer
+                Get
+                    Return _mRating
+                End Get
+                Set(ByVal value As Integer)
+                    _mRating = value
+                End Set
+            End Property
+            Public Property Network() As String
+                Get
+                    Return _mNetwork
+                End Get
+                Set(ByVal value As String)
+                    _mNetwork = value
+                End Set
+            End Property
+            Public Property Status() As String
+                Get
+                    Return _mStatus
+                End Get
+                Set(ByVal value As String)
+                    _mStatus = value
+                End Set
+            End Property
+            Public Property TvWishFound() As Boolean
+                Get
+                    Return _mTvWish
+                End Get
+                Set(ByVal value As Boolean)
+                    _mTvWish = value
+                End Set
+            End Property
+        End Class
 
     End Class
 End Namespace
