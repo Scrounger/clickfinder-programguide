@@ -623,7 +623,7 @@ Namespace ClickfinderProgramGuide
                                     End If
 
                                     Dim _idSeries As Integer = _Episode.idSeries
-                                    AddListControlItem(_HighlightsList, _Episode.idProgram, _Episode.ReferencedProgram.ReferencedChannel.DisplayName, _Episode.ReferencedProgram.Title, Translation.NewLabel, _NewEpisodesList.FindAll(Function(x As TVMovieProgram) x.idSeries = _idSeries).Count & " " & Translation.NewEpisodeFound, Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _Episode.SeriesPosterImage, , _RecordingStatus, _Episode.idSeries, GuiLayout.Image(_Episode))
+                                    AddListControlItem(_HighlightsList, _Episode.idProgram, _Episode.ReferencedProgram.ReferencedChannel.DisplayName, _Episode.ReferencedProgram.Title, Translation.NewLabel, _NewEpisodesList.FindAll(Function(x As TVMovieProgram) x.idSeries = _idSeries).Count & " " & Translation.NewEpisodeFound, Config.GetFile(Config.Dir.Thumbs, _Episode.SeriesPosterImage), , _RecordingStatus, _Episode.idSeries, GuiLayout.Image(_Episode))
                                 Next
                             End If
                             MyLog.Info("[HighlightsGUIWindow] [FillHighlightsList]: {0} Series with new Episodes identified ({1}s)", _tmpList.Count, (DateTime.Now - _timer).TotalSeconds)

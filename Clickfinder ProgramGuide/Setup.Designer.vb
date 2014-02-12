@@ -1132,7 +1132,7 @@ Partial Class Setup
         Me.Panel34.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel34.Location = New System.Drawing.Point(10, 26)
         Me.Panel34.Name = "Panel34"
-        Me.Panel34.Size = New System.Drawing.Size(474, 487)
+        Me.Panel34.Size = New System.Drawing.Size(476, 487)
         Me.Panel34.TabIndex = 23
         '
         'TableItemsPanel
@@ -1142,7 +1142,7 @@ Partial Class Setup
         Me.TableItemsPanel.ColumnCount = 3
         Me.TableItemsPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableItemsPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200.0!))
-        Me.TableItemsPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 230.0!))
+        Me.TableItemsPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 232.0!))
         Me.TableItemsPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableItemsPanel.Controls.Add(Me.PictureBox12, 0, 10)
         Me.TableItemsPanel.Controls.Add(Me.CBTvGroup0, 1, 10)
@@ -1196,7 +1196,7 @@ Partial Class Setup
         Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableItemsPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableItemsPanel.Size = New System.Drawing.Size(474, 487)
+        Me.TableItemsPanel.Size = New System.Drawing.Size(476, 487)
         Me.TableItemsPanel.TabIndex = 22
         '
         'PictureBox12
@@ -1227,7 +1227,7 @@ Partial Class Setup
         Me.CBsort0.FormattingEnabled = True
         Me.CBsort0.Location = New System.Drawing.Point(246, 395)
         Me.CBsort0.Name = "CBsort0"
-        Me.CBsort0.Size = New System.Drawing.Size(224, 24)
+        Me.CBsort0.Size = New System.Drawing.Size(226, 24)
         Me.CBsort0.TabIndex = 52
         '
         'Label36
@@ -1249,7 +1249,7 @@ Partial Class Setup
         Me.Label35.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label35.Location = New System.Drawing.Point(246, 1)
         Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(224, 16)
+        Me.Label35.Size = New System.Drawing.Size(226, 16)
         Me.Label35.TabIndex = 24
         Me.Label35.Text = "sortiert nach"
         Me.Label35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1283,7 +1283,7 @@ Partial Class Setup
         Me.CBsort9.FormattingEnabled = True
         Me.CBsort9.Location = New System.Drawing.Point(246, 354)
         Me.CBsort9.Name = "CBsort9"
-        Me.CBsort9.Size = New System.Drawing.Size(224, 24)
+        Me.CBsort9.Size = New System.Drawing.Size(226, 24)
         Me.CBsort9.TabIndex = 38
         '
         'CBTvGroup8
@@ -1303,7 +1303,7 @@ Partial Class Setup
         Me.CBsort8.FormattingEnabled = True
         Me.CBsort8.Location = New System.Drawing.Point(246, 313)
         Me.CBsort8.Name = "CBsort8"
-        Me.CBsort8.Size = New System.Drawing.Size(224, 24)
+        Me.CBsort8.Size = New System.Drawing.Size(226, 24)
         Me.CBsort8.TabIndex = 36
         '
         'CBsort7
@@ -1313,7 +1313,7 @@ Partial Class Setup
         Me.CBsort7.FormattingEnabled = True
         Me.CBsort7.Location = New System.Drawing.Point(246, 272)
         Me.CBsort7.Name = "CBsort7"
-        Me.CBsort7.Size = New System.Drawing.Size(224, 24)
+        Me.CBsort7.Size = New System.Drawing.Size(226, 24)
         Me.CBsort7.TabIndex = 34
         '
         'CBTvGroup7
@@ -1333,7 +1333,7 @@ Partial Class Setup
         Me.CBsort6.FormattingEnabled = True
         Me.CBsort6.Location = New System.Drawing.Point(246, 231)
         Me.CBsort6.Name = "CBsort6"
-        Me.CBsort6.Size = New System.Drawing.Size(224, 24)
+        Me.CBsort6.Size = New System.Drawing.Size(226, 24)
         Me.CBsort6.TabIndex = 32
         '
         'CBTvGroup6
@@ -1353,7 +1353,7 @@ Partial Class Setup
         Me.CBsort5.FormattingEnabled = True
         Me.CBsort5.Location = New System.Drawing.Point(246, 190)
         Me.CBsort5.Name = "CBsort5"
-        Me.CBsort5.Size = New System.Drawing.Size(224, 24)
+        Me.CBsort5.Size = New System.Drawing.Size(226, 24)
         Me.CBsort5.TabIndex = 30
         '
         'CBTvGroup5
@@ -1373,7 +1373,7 @@ Partial Class Setup
         Me.CBsort4.FormattingEnabled = True
         Me.CBsort4.Location = New System.Drawing.Point(246, 149)
         Me.CBsort4.Name = "CBsort4"
-        Me.CBsort4.Size = New System.Drawing.Size(224, 24)
+        Me.CBsort4.Size = New System.Drawing.Size(226, 24)
         Me.CBsort4.TabIndex = 28
         '
         'CBTvGroup4
@@ -1393,7 +1393,7 @@ Partial Class Setup
         Me.CBsort3.FormattingEnabled = True
         Me.CBsort3.Location = New System.Drawing.Point(246, 108)
         Me.CBsort3.Name = "CBsort3"
-        Me.CBsort3.Size = New System.Drawing.Size(224, 24)
+        Me.CBsort3.Size = New System.Drawing.Size(226, 24)
         Me.CBsort3.TabIndex = 26
         '
         'CBTvGroup3
@@ -1413,7 +1413,7 @@ Partial Class Setup
         Me.CBsort2.FormattingEnabled = True
         Me.CBsort2.Location = New System.Drawing.Point(246, 67)
         Me.CBsort2.Name = "CBsort2"
-        Me.CBsort2.Size = New System.Drawing.Size(224, 24)
+        Me.CBsort2.Size = New System.Drawing.Size(226, 24)
         Me.CBsort2.TabIndex = 24
         '
         'CBTvGroup2
@@ -1433,7 +1433,7 @@ Partial Class Setup
         Me.CBsort1.FormattingEnabled = True
         Me.CBsort1.Location = New System.Drawing.Point(246, 26)
         Me.CBsort1.Name = "CBsort1"
-        Me.CBsort1.Size = New System.Drawing.Size(224, 24)
+        Me.CBsort1.Size = New System.Drawing.Size(226, 24)
         Me.CBsort1.TabIndex = 22
         '
         'CBTvGroup1
@@ -1550,7 +1550,7 @@ Partial Class Setup
         Me.BTClearSorting.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BTClearSorting.Location = New System.Drawing.Point(246, 445)
         Me.BTClearSorting.Name = "BTClearSorting"
-        Me.BTClearSorting.Size = New System.Drawing.Size(224, 24)
+        Me.BTClearSorting.Size = New System.Drawing.Size(226, 24)
         Me.BTClearSorting.TabIndex = 40
         Me.BTClearSorting.Text = "alle löschen"
         Me.BTClearSorting.UseVisualStyleBackColor = True

@@ -487,7 +487,7 @@ Namespace ClickfinderProgramGuide
                     DetailGuiWindow._DetailGuiWindowList.Clear()
                     DetailGuiWindow._DetailGuiWindowList.AddRange(_SeriesList.ListItems.ConvertAll(Of GUIListItem)(New Converter(Of GUIListItem, GUIListItem)(Function(c As GUIListItem) New GUIListItem() With { _
                                                 .ItemId = c.ItemId, _
-                                                .ThumbnailImage = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _selectedSeries.SeriesPosterImage _
+                                                .ThumbnailImage = Config.GetFile(Config.Dir.Thumbs, _selectedSeries.SeriesPosterImage) _
                                                })))
                     DetailGuiWindow._DetailGuiWindowList.RemoveAt(0)
 
@@ -555,7 +555,7 @@ Namespace ClickfinderProgramGuide
                                     .Path = c.ReferencedProgram.ReferencedChannel.DisplayName, _
                                     .Label = c.ReferencedProgram.Title, _
                                     .Label2 = Helper.getTranslatedDayOfWeek(c.ReferencedProgram.StartTime) & " " & Format(c.ReferencedProgram.StartTime.Day, "00") & "." & Format(c.ReferencedProgram.StartTime.Month, "00") & " - " & Format(c.ReferencedProgram.StartTime.Hour, "00") & ":" & Format(c.ReferencedProgram.StartTime.Minute, "00"), _
-                                    .IconImage = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & c.SeriesPosterImage, _
+                                    .IconImage = Config.GetFile(Config.Dir.Thumbs, c.SeriesPosterImage), _
                                     .TVTag = c.idProgram, _
                                     .MusicTag = Config.GetFile(Config.Dir.Thumbs, "") & c.FanArt _
                                     }))
@@ -809,7 +809,7 @@ Namespace ClickfinderProgramGuide
 
                     Dim _EpisodeInfos As TVMovieProgram = TVMovieProgram.Retrieve(_SeriesList.Item(_selectedListItemIndex).TVTag)
 
-                    _SeriesPoster.SetFileName(Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _selectedSeries.SeriesPosterImage)
+                    _SeriesPoster.SetFileName(Config.GetFile(Config.Dir.Thumbs, _selectedSeries.SeriesPosterImage))
 
                     Translator.SetProperty("#EpisodesPreviewLabel1", Translation.EpisodeNewPrefixLabel & " " & _SeriesList.Item(_selectedListItemIndex).Label)
                     Translator.SetProperty("#EpisodesPreviewLabel2", _SeriesList.Item(_selectedListItemIndex).Label3)
@@ -1058,7 +1058,7 @@ Namespace ClickfinderProgramGuide
 
                 'Alle Episoden der Serie aus DB laden
                 Dim _EpisodeContainer As Dictionary(Of Integer, MyTvSeries.MyEpisode) = New Dictionary(Of Integer, MyTvSeries.MyEpisode)
-                Dim _Image As String = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & TvMovieProgram.SeriesPosterImage
+                Dim _Image As String = Config.GetFile(Config.Dir.Thumbs, TvMovieProgram.SeriesPosterImage)
                 Dim _EpisodeList As IList(Of MyTvSeries.MyEpisode) = MyTvSeries.MyEpisode.ListAll(TvMovieProgram.idSeries)
 
                 _EpisodeList = _EpisodeList.Where(Function(x) x.SeriesNum > 0) _
@@ -1230,7 +1230,7 @@ Namespace ClickfinderProgramGuide
                     End If
 
                     '_lItemEpisode.Label2 = "S" & Format(_Episode.SeriesNum, "00") & "E" & Format(_Episode.EpisodeNum, "00")
-                    _lItemNum.IconImage = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & TvMovieProgram.SeriesPosterImage
+                    _lItemNum.IconImage = Config.GetFile(Config.Dir.Thumbs, TvMovieProgram.SeriesPosterImage)
 
                     dlgContext.Add(_lItemNum)
 

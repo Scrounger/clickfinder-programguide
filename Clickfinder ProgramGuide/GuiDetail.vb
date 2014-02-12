@@ -508,7 +508,7 @@ Namespace ClickfinderProgramGuide
 
                     Select Case CPGsettings.DetailSeriesImage
                         Case Is = "Cover"
-                            Translator.SetProperty("#DetailImage", Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & _DetailTvMovieProgram.SeriesPosterImage)
+                            Translator.SetProperty("#DetailImage", Config.GetFile(Config.Dir.Thumbs, _DetailTvMovieProgram.SeriesPosterImage))
                         Case Is = "FanArt"
                             Translator.SetProperty("#DetailImage", Config.GetFile(Config.Dir.Thumbs, "") & _DetailTvMovieProgram.FanArt)
                         Case Is = "Episode"

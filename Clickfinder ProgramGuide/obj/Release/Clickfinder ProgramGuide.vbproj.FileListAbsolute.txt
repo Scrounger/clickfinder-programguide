@@ -131,5 +131,5 @@ D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\Skin M
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\Skin Mods\Titan\TVOSD.xml
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\Skin Mods\Titan\Media\osd_CPG_button_focus.png
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\bin\Release\Skin Mods\Titan\Media\osd_CPG_button_nofocus.png
-D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Release\Clickfinder ProgramGuide.vbprojResolveAssemblyReference.cache
 D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Release\Clickfinder ProgramGuide.vbproj.GenerateResource.Cache
+D:\Projekte\Clickfinder ProgramGuide\Clickfinder ProgramGuide\obj\Release\Clickfinder ProgramGuide.vbprojResolveAssemblyReference.cache

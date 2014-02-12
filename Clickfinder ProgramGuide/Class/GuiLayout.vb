@@ -80,7 +80,7 @@ Namespace ClickfinderProgramGuide
         Friend Shared ReadOnly Property Image(ByVal TvMovieProgram As TVMovieProgram) As String
             Get
 
-                Dim _TvSeriesPoster As String = Config.GetFile(Config.Dir.Thumbs, "MPTVSeriesBanners\") & TvMovieProgram.SeriesPosterImage
+                Dim _TvSeriesPoster As String = Config.GetFile(Config.Dir.Thumbs, String.Empty) & TvMovieProgram.SeriesPosterImage
                 Dim _Cover As String = Config.GetFile(Config.Dir.Thumbs, "") & TvMovieProgram.Cover
                 Dim _ChannelLogo As String = Config.GetFile(Config.Dir.Thumbs, "tv\logos\") & Replace(TvMovieProgram.ReferencedProgram.ReferencedChannel.DisplayName, "/", "_") & ".png"
                 Dim _ClickfinderImage As String = CPGsettings.ClickfinderImagePath & "\" & TvMovieProgram.BildDateiname
